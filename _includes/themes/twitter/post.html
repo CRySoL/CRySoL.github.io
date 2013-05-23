@@ -6,7 +6,11 @@
   <div class="span12">
     <div class="date">
       <span>{{ page.date | date_to_long_string }}</span>
+      <span>
+	<a href="https://github.com/CRySoL/CRySoL.github.io/edit/master/{{page.path}}">edit</a>
+      </span>
     </div>
+
     <div class="content">
       {{ content }}
     </div>
@@ -29,7 +33,7 @@
       {% assign categories_list = page.categories %}
       {% include JB/categories_list %}
     </ul>
-  {% endunless %}  
+  {% endunless %}
 
   {% unless page.tags == empty %}
     <ul class="tag_box inline">
@@ -37,7 +41,7 @@
       {% assign tags_list = page.tags %}
       {% include JB/tags_list %}
     </ul>
-  {% endunless %}  
+  {% endunless %}
 
     <hr>
     <div class="pagination">
