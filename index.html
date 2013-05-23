@@ -1,31 +1,24 @@
 ---
 layout: default
-title: CRySoL Site
 ---
+{% include JB/setup %}
 
-{% assign print_ad = false %}
+<ul class="posts">
+  {% for post in site.posts %}
+  <div class="node">
+    <h2><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></h2>
+    <div class="meta">tags</div>
+    <span class="submitted">
+      {{ post.date | date_to_string }} —  {{ post.author }}
+    </span>
 
-<div id="home">
-  <ul class="posts">
-    {% for post in paginator.posts %}
-      <li>
-	<div class="post">
-	  <div class="post-header">
-	    <span class="post-date">{{ post.date | date_to_string }}</span>
-	    <span class="post-title"><a href="{{ post.url }}" class="post-title">{{ post.title }}</a></span>
-	  </div>
-	  <span class="post-time">{{ post.content | number_of_words }} words /
-	    {{ post.content | number_of_words | wpm }} mins</span>
-	  <div class="summary">
-	    {{ post.content | html2text }}
-	  </div>
-	  <div class="post-link">
-	    <a href="{{ post.url }}" class="post-link">Read more &raquo;</a>
-	  </div>
-	</div>
-  
-      </li>
-    {% endfor %}
-  </ul>
-
-</div>
+    <div class="content">
+      {% if post.content contains '<!--more-->' %}
+        {{ post.content | split:'<!--more-->' | first }}
+      {% else %}
+         No teaser
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</ul>
