@@ -63,3 +63,23 @@
   background: #57A957;
   border: 1px solid #4c964d;
   color: #FFF; }
+
+
+/* crysol customization */
+
+h1 {
+ font-size: x-large;
+}
+
+.node {
+}
+
+.node h2 {
+  color: red;
+  font-size: 160%;
+  border-bottom: thin solid black;
+}
+
+.node .meta {
+  float: right;
+}
