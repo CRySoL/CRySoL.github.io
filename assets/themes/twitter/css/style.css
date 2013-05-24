@@ -78,6 +78,7 @@ h1 {
   color: red;
   font-size: 160%;
   border-bottom: thin solid black;
+  margin: 0;
 }
 
 .node .meta {
@@ -86,4 +87,9 @@ h1 {
 
 footer {
   text-align: center;
+}
+
+.node .submitted {
+  font-size: 90%;
+  color: #777;
 }

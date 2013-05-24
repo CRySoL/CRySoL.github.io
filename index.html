@@ -3,7 +3,7 @@ layout: default
 ---
 {% include JB/setup %}
 
-<div style="background:#fdd; font-size:large;padding:50px;text-align:center;border:solid thin red">
+<div style="background:#fdd; font-size:large;padding:20px;margin:40px;text-align:center;border:solid thin red">
   Este sitio web está actualmente en construcción. Quizá estés buscando:
 
   <p style="padding-top:20px">
@@ -11,22 +11,23 @@ layout: default
   </p>
 </div>
 
-<ul class="posts">
   {% for post in site.posts %}
   <div class="node">
     <h2><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></h2>
     <div class="meta">tags</div>
     <span class="submitted">
-      {{ post.date | date_to_string }} —  {{ post.author }}
+      {{ post.date | date: "%Y-%m-%d" }}
+      {% if post.author %}
+        —  {{ post.author }}
+      {% endif %}
     </span>
 
     <div class="content">
       {% if post.content contains '<!--more-->' %}
         {{ post.content | split:'<!--more-->' | first }}
       {% else %}
-         No teaser
+        {{ post.content }}
       {% endif %}
     </div>
   </div>
   {% endfor %}
-</ul>

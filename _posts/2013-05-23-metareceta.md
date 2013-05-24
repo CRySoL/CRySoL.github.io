@@ -8,7 +8,6 @@ author: david.villa
 ---
 {% include JB/setup %}
 
-
 teaser
 
 <!--more-->
