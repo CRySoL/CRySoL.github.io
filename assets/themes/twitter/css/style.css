@@ -93,3 +93,7 @@ footer {
   font-size: 90%;
   color: #777;
 }
+
+#disqus_thread {
+  display: none;
+}
