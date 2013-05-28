@@ -2,7 +2,7 @@
 layout: post
 title: "¿Cómo publicar en CRySoL?"
 description: ""
-category:
+category: recipe
 tags: []
 author: david.villa
 ---
