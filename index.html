@@ -14,7 +14,14 @@ layout: default
   {% for post in site.posts %}
   <div class="node">
     <h2><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></h2>
-    <div class="meta">tags</div>
+
+    <div class="meta">
+      <ul>
+	{% assign categories_list = page.categories %}
+	{% include JB/categories_list %}
+      </ul>
+    </div>
+
     <span class="submitted">
       {{ post.date | date: "%Y-%m-%d" }}
       {% if post.author %}
@@ -26,8 +33,15 @@ layout: default
       {% if post.content contains '<!--more-->' %}
         {{ post.content | split:'<!--more-->' | first }}
       {% else %}
-        {{ post.content }}
+        {{ post.content | strip }}
       {% endif %}
     </div>
+
+    <div class="footer">
+      {% if post.content contains '<!--more-->' and post.content | split:'<!--more-->' | second %}
+        <a href="{{ BASE_PATH }}{{ post.url }}">Leer más</a>
+      {% endif %}
+    </div>
+
   </div>
   {% endfor %}

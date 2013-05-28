@@ -67,31 +67,55 @@
 
 /* crysol customization */
 
+body {
+  Background: #f2f2ff;
+}
+
+a {
+  color: #336699;
+}
+
 h1 {
  font-size: x-large;
-}
-
-.node {
-}
-
-.node h2 {
-  color: red;
-  font-size: 160%;
-  border-bottom: thin solid black;
-  margin: 0;
-}
-
-.node .meta {
-  float: right;
 }
 
 footer {
   text-align: center;
 }
 
+.node {
+  background: white;
+  margin-bottom: 10px;
+  border: thin solid #ddd;
+}
+
+.node h2 {
+  padding: 0 8px;
+  margin: 0;
+  margin-bottom: -8px;
+  color: red;
+  font-size: 160%;
+}
+
+.node .meta, .node .submitted, .node .footer {
+  padding: 0 8px;
+  font-size: 85%;
+}
+
+.node .meta {
+  float: right;
+}
+
 .node .submitted {
-  font-size: 90%;
   color: #777;
+}
+
+.node .content {
+  padding: 0 8px;
+}
+
+.node .content p:last {
+  margin: 0;
 }
 
 #disqus_thread {
