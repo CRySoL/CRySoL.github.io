@@ -1,6 +1,6 @@
 {% if site.JB.comments.provider and page.comments != false %}
 
-<span id="show_comments"> [ <a onclick="show_comments();"> show comments </a> ] </span>
+<span style="cursor:pointer" id="show_comments"> [ <a onclick="show_comments();"> show comments </a> ] </span>
 
 {% case site.JB.comments.provider %}
 {% when "disqus" %}
