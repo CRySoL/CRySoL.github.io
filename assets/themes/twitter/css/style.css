@@ -147,3 +147,29 @@ footer {
 #show_comments {
   font-size: 85%;
 }
+
+pre {
+  color: black;
+
+  padding: 1.2em 1.5em 0.7em 2.5em;
+  margin: 10px 5px 20px 30px;
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  max-width: 98%;
+  max-height: 400px;
+  overflow: auto;
+
+  border: 1px inset #999;
+
+  background:#f9f9f9 url(http://crysol.org/sites/default/themes/crysol/images/file.gif) 4px 4px no-repeat;
+}
+
+pre.console {
+  background:#ccc url(http://crysol.org/sites/default/themes/crysol/images/shell.gif) 3px 3px no-repeat;
+}
+
+code {
+  color: black;
+}
