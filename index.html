@@ -39,7 +39,9 @@ layout: default
 
     <div class="footer">
       {% if post.content contains '<!--more-->' and post.content | split:'<!--more-->' | second %}
+      <div class="read-more">
         <a href="{{ BASE_PATH }}{{ post.url }}">Leer más</a>
+      </div>
       {% endif %}
     </div>
 

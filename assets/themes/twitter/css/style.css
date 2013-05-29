@@ -79,8 +79,18 @@ h1 {
  font-size: x-large;
 }
 
+h2 {
+ font-size: large;
+}
+
 footer {
   text-align: center;
+}
+
+.page-header {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 .node {
@@ -97,9 +107,20 @@ footer {
   font-size: 160%;
 }
 
-.node .meta, .node .submitted, .node .footer {
+.node .meta, .node .submitted {
   padding: 0 8px;
   font-size: 85%;
+}
+
+.node .footer {
+  border-top: solid thin #ccc;
+  margin: 0 4px;
+  padding: 0 4px;
+  font-size: 80%;
+}
+
+.node .footer .read-more {
+  text-align: right;
 }
 
 .node .meta {
@@ -120,4 +141,9 @@ footer {
 
 #disqus_thread {
   display: none;
+}
+
+
+#show_comments {
+  font-size: 85%;
 }
