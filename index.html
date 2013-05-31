@@ -11,39 +11,43 @@ layout: default
   </p>
 </div>
 
-  {% for post in site.posts %}
-  <div class="node">
-    <h2><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></h2>
+{% for post in site.posts %}
+<div class="node">
+  <h2><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></h2>
 
-    <div class="meta">
-      <ul>
-	{% assign categories_list = page.categories %}
-	{% include JB/categories_list %}
-      </ul>
-    </div>
+  <div class="meta">
+    <ul>
+      {% assign categories_list = post.categories %}
+      {% include custom/categories_list %}
 
-    <span class="submitted">
-      {{ post.date | date: "%Y-%m-%d" }}
-      {% if post.author %}
-        —  {{ post.author }}
-      {% endif %}
-    </span>
-
-    <div class="content">
-      {% if post.content contains '<!--more-->' %}
-        {{ post.content | split:'<!--more-->' | first }}
-      {% else %}
-        {{ post.content | strip }}
-      {% endif %}
-    </div>
-
-    <div class="footer">
-      {% if post.content contains '<!--more-->' and post.content | split:'<!--more-->' | second %}
-      <div class="read-more">
-        <a href="{{ BASE_PATH }}{{ post.url }}">Leer más</a>
-      </div>
-      {% endif %}
-    </div>
-
+      {% assign tags_list = post.tags %}
+      {% include custom/tags_list %}
+    </ul>
   </div>
-  {% endfor %}
+
+  <span class="submitted">
+    {{ post.date | date: "%Y-%m-%d" }}
+    {% if post.author %}
+    —  {{ post.author }}
+    {% endif %}
+  </span>
+
+  <div class="content">
+    {% if post.excerpt %}
+    {{ post.content | split:site.excerpt_separator | first }}
+    {% else %}
+    {{ post.content | strip }}
+    {% endif %}
+  </div>
+
+  <div class="footer">
+    {{ site.excerpt_separator }}
+    {% if post.content contains site.excerpt_separator %}
+    <div class="read-more">
+      <a href="{{ BASE_PATH }}{{ post.url }}">Leer más</a>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endfor %}
