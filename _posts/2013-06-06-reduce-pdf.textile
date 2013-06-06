@@ -7,5 +7,5 @@ tags: pdf
 ---
 
 <pre class="console">
- gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -r200x200 -sOutputFile=output.pdf input.pdf
+$ gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -r200x200 -sOutputFile=output.pdf input.pdf
 </pre>
