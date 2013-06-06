@@ -6,6 +6,8 @@ category: receta
 tags: pdf
 ---
 
+Este comando es relativamente fácil de encontrar, pero no está mal tenerlo a mano. Obviamente la gracia del asunto es el parámetro -r200x200:
+
 <pre class="console">
 $ gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -r200x200 -sOutputFile=output.pdf input.pdf
 </pre>
