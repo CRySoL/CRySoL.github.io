@@ -7,8 +7,6 @@ category: receta
 tags: jekyll
 permalink: node/1
 ---
-{% include JB/setup %}
-
 Esta receta explica cómo crear posts en tu propio blog de CRySoL o colaborar con el sitio.
 
 <!--more-->
