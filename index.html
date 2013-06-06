@@ -11,40 +11,24 @@ layout: default
   </p>
 </div>
 
-{% for post in site.posts %}
-<div class="node">
-  <h2><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></h2>
+{% for page in site.posts %}
+<div class="node teaser">
+  <h2><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></h2>
 
-  <div class="meta">
-    <ul>
-      {% assign categories_list = post.categories %}
-      {% include custom/categories_list %}
-
-      {% assign tags_list = post.tags %}
-      {% include custom/tags_list %}
-    </ul>
-  </div>
-
-  <span class="submitted">
-    {{ post.date | date: "%Y-%m-%d" }}
-    {% if post.author %}
-    —  {{ post.author }}
-    {% endif %}
-  </span>
+  {% include custom/post_header %}
 
   <div class="content">
-    {% if post.excerpt %}
-    {{ post.content | split:site.excerpt_separator | first }}
+    {% if page.excerpt %}
+    {{ page.content | split:site.excerpt_separator | first }}
     {% else %}
-    {{ post.content | strip }}
+    {{ page.content | strip }}
     {% endif %}
   </div>
 
   <div class="footer">
-    {{ site.excerpt_separator }}
-    {% if post.content contains site.excerpt_separator %}
+    {% if page.content contains site.excerpt_separator %}
     <div class="read-more">
-      <a href="{{ BASE_PATH }}{{ post.url }}">Leer más</a>
+      <a href="{{ BASE_PATH }}{{ page.url }}">Leer más</a>
     </div>
     {% endif %}
   </div>

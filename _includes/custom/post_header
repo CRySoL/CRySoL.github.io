@@ -1,0 +1,31 @@
+<div class="header">
+   <span class="submitted">
+    {{ page.date | date: "%Y-%m-%d" }}
+    {% if page.author %}
+    —  {{ page.author }}
+    {% endif %}
+  </span>
+
+   <span class="source">
+      [
+      <a href="https://github.com/CRySoL/CRySoL.github.io/edit/master/{{page.path}}">edit</a> |
+      <a href="https://github.com/CRySoL/CRySoL.github.io/raw/master/{{page.path}}">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       {% assign categories_list = page.categories %}
+       {% include custom/categories_list %}
+
+       {% assign tags_list = page.tags %}
+       {% include custom/tags_list %}
+     </ul>
+   </span>
+</div>
+
+<!--
+Local Variables:
+  mode: html
+End:
+-->

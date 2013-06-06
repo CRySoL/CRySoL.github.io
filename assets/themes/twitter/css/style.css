@@ -101,15 +101,22 @@ footer {
   border: thin solid #ddd;
 }
 
-.node h2 {
+.node h2, .node h1 {
   padding: 0 8px;
   margin: 0;
   margin-bottom: -8px;
-  color: red;
   font-size: 160%;
 }
 
-.node .meta, .node .submitted {
+.node .header {
+  margin-bottom: 8pt;
+}
+
+.teaser .source {
+  display: none;
+}
+
+.node .meta, .node .submitted, .node .source {
   padding: 0 8px;
   font-size: 85%;
 }
