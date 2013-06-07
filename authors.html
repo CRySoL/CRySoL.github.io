@@ -1,0 +1,21 @@
+---
+layout: page
+title: Authors
+header: Posts by author
+group: navigation
+---
+{% include JB/setup %}
+
+{{site.authors.david_villa.name}}
+
+<hr/>
+
+{% for a in site.authors %}
+<ul>
+{% for p in site.pages do %}
+  {% if p.author == a %}
+    <li><a href="{{ p.url }}">{{ p.title }}</a></li>
+  {% endif %}
+{% endfor %}
+</ul>
+{% endfor %}
