@@ -6,7 +6,6 @@ category:
 tags: []
 author: jorgen
 ---
-{% include JB/setup %}
 
 Comenzando a utilizar jekyll en esta nueva etapa...
 

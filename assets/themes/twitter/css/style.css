@@ -213,3 +213,17 @@ height: 120px;
 .navbar {
     margin-bottom: 80px;
 }
+
+
+table.highlight {
+  width: 100%;
+}
+
+.line-numbers {
+  display: none;
+}
+
+
+.gist-meta {
+  display: none;
+}
