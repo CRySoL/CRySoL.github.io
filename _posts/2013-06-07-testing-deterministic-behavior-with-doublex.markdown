@@ -17,6 +17,6 @@ Mock, the second time verify the same behaviour.
 
 <!--more-->
 
-An example of that:
+An example:
 
 {% gist 5728565 %}
