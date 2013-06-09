@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "¿Cómo publicar en CRySoL?"
-author: david.villa
+author: david_villa
 description: ""
 category: receta
 tags: jekyll
@@ -74,6 +74,11 @@ Ahora tienes una copia del repo de CRySoL en tu cuenta. A partir de ahí puedes 
 h2. Referencias
 
 * http://metajack.im/2009/01/23/blogging-with-git-emacs-and-jekyll
+
+refs:
+  - "Blogging with git, emacs and jekyll":http://metajack.im/2009/01/23/blogging-with-git-emacs-and-jekyll
+
+
 
 <!--
  Local Variables:

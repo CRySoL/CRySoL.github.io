@@ -78,11 +78,15 @@ a {
 }
 
 h1 {
- font-size: x-large;
+  font-size: 200%;
 }
 
 h2 {
- font-size: large;
+  font-size: 160%;
+}
+
+h3 {
+  font-size: 130%;
 }
 
 footer {
@@ -226,4 +230,8 @@ table.highlight {
 
 .gist-meta {
   display: none;
+}
+
+.author-details ul {
+  list-style: none;
 }

@@ -11,6 +11,12 @@
       {{ content }}
     </div>
 
+{% for link_hash in page.links %}
+  {% for link in link_hash %}
+    {{ link[0] }}
+  {% endfor %}
+{% endfor %}
+
 {% comment %}
     {% include custom/author_gravatar %}
 
