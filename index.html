@@ -28,7 +28,13 @@ layout: default
   <div class="footer">
     {% if page.content contains site.excerpt_separator %}
     <div class="read-more">
-      <a href="{{ BASE_PATH }}{{ page.url }}">Leer más</a>
+      <a href="{{ BASE_PATH }}{{ page.url }}">
+	{% if page.lang == "en" %}
+	Read more
+	{% else %}
+	Leer más
+	{% endif %}
+      </a>
     </div>
     {% endif %}
   </div>

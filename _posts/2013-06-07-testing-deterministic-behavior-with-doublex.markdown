@@ -4,6 +4,7 @@ title: "Testing deterministic behavior with doublex"
 category: receta
 tags: Python doublex
 author: david_villa
+lang: en
 ---
 
 Sometimes you need to test that some procedure is deterministic, that
