@@ -3,14 +3,10 @@ layout: default
 ---
 {% include JB/setup %}
 
-<div style="background:#fdd; font-size:large;padding:20px;margin:40px;text-align:center;border:solid thin red">
-  Este sitio web está actualmente en construcción. Quizá estés buscando:
+{% include custom/under_construction %}
 
-  <p style="padding-top:20px">
-    <a href="http://crysol.org">CRySoL.org</a>
-  </p>
-</div>
-
-{% for page in site.posts %}
+{% for page in paginator.posts %}
   {% include custom/post_teaser %}
 {% endfor %}
+
+{% include custom/pagination %}
