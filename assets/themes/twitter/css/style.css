@@ -173,6 +173,7 @@ footer {
   width: 100%;
   margin:auto;
   text-align:center;
+  Background: #fdd;
 }
 
 hr {
@@ -181,8 +182,9 @@ hr {
   background: red;
 }
 
-pre {
+pre, kbd {
   color: black;
+  display: block;
 
   padding: 1.2em 1.5em 0.7em 2.5em;
   margin: 10px 5px 20px 30px;
@@ -199,7 +201,7 @@ pre {
   background:#f9f9f9 url(http://crysol.org/sites/default/themes/crysol/images/file.gif) 4px 4px no-repeat;
 }
 
-pre.console {
+pre.console, kbd {
   background:#ccc url(http://crysol.org/sites/default/themes/crysol/images/shell.gif) 3px 3px no-repeat;
 }
 

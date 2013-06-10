@@ -1,55 +1,24 @@
 ---
 layout: page
-title: Blogs
-header: Blogs
+title:
 group: navigation
 js: [filter_by_url]
 ---
-
-<div class="author-list item">
-<h2>Authors</h2>
-<ul>
-{% for item in site.authors %}
-  <li><a href="/blogs.html#{{ item[0] }}">{{ item[1].name }}</a></li>
-{% endfor %}
-</ul>
-<hr/>
-</div>
 
 {% for item in site.authors %}
   {% assign author = item[1] %}
 <div class="item" id="{{ item[0] }}">
   <h2>
     {% if author.gravatar %}
-    <img src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=40">
+      <img src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=40">
     {% endif %}
-    <span class="author-name">{{ author.name }}</span>
+    <span class="author-name">{{ author.name }}'s blog</span>
   </h2>
 
-  <div class="row-fluid">
-    <div class="span4 author-details">
-      <ul>
-	{% if author.twitter %}
-	<li>twitter: <a href="https://twitter.com/{{author.twitter}}">@{{author.twitter}}</a></li>
-	{% endif %}
-	{% if author.github %}
-	<li>github: <a href="https://github.com/{{author.github}}">{{author.github}}</a></li>
-	{% endif %}
-	{% if author.bitbucket %}
-	<li>bitbucket: <a href="https://bitbucket.com/{{author.bitbucket}}">{{author.bitbucket}}</a></li>
-	{% endif %}
-      </ul>
-    </div>
-
-    <div class="span8">
-      <ul>
-        {% for p in site.posts do %}
-          {% if p.author == item[0] %}
-            <li><a href="{{ p.url }}">{{ p.title }}</a></li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
+  {% for page in site.posts do %}
+     {% if page.author == item[0] %}
+       {% include custom/post_teaser %}
+     {% endif %}
+  {% endfor %}
 </div>
 {% endfor %}

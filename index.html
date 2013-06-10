@@ -12,32 +12,5 @@ layout: default
 </div>
 
 {% for page in site.posts %}
-<div class="node teaser">
-  <h2><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></h2>
-
-  {% include custom/post_header %}
-
-  <div class="content">
-    {% if page.excerpt %}
-    {{ page.content | split:site.excerpt_separator | first }}
-    {% else %}
-    {{ page.content | strip }}
-    {% endif %}
-  </div>
-
-  <div class="footer">
-    {% if page.content contains site.excerpt_separator %}
-    <div class="read-more">
-      <a href="{{ BASE_PATH }}{{ page.url }}">
-	{% if page.lang == "en" %}
-	Read more
-	{% else %}
-	Leer más
-	{% endif %}
-      </a>
-    </div>
-    {% endif %}
-  </div>
-
-</div>
+  {% include custom/post_teaser %}
 {% endfor %}

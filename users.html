@@ -1,0 +1,35 @@
+---
+layout: page
+title: Users
+group: navigation
+js: [filter_by_url]
+---
+
+{% for item in site.authors %}
+  {% assign author = item[1] %}
+<div class="item" id="{{ item[0] }}">
+  <h2>
+    {% if author.gravatar %}
+    <img src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=40">
+    {% endif %}
+    <span class="author-name">{{ author.name }}</span>
+  </h2>
+
+  <div class="author-details">
+    <p>
+      See <a href="/blogs.html#{{item[0]}}">{{author.name}}'s blog.</a>
+    </p>
+    <ul>
+      	{% if author.twitter %}
+	<li>twitter.com/ <a href="https://twitter.com/{{author.twitter}}">{{author.twitter}}</a></li>
+	{% endif %}
+	{% if author.github %}
+	<li>github.com/ <a href="https://github.com/{{author.github}}">{{author.github}}</a></li>
+	{% endif %}
+	{% if author.bitbucket %}
+	<li>bitbucket.com/ <a href="https://bitbucket.com/{{author.bitbucket}}">{{author.bitbucket}}</a></li>
+	{% endif %}
+    </ul>
+  </div>
+</div>
+{% endfor %}
