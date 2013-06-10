@@ -2,9 +2,14 @@
    <span class="submitted">
     {{ page.date | date: "%Y-%m-%d" }}
     {% if page.author %}
-    —  <a href="/authors.html#{{ page.author}}">
-       {{ site.authors[page.author].nick }}
-       </a>
+    —
+      {% if site.authors[page.author] %}
+         <a href="/blogs.html#{{page.author}}">
+           {{ site.authors[page.author].nick }}
+         </a>
+      {% else %}
+         {{ page.author }} (unknown author)
+      {% endif %}
     {% endif %}
   </span>
 

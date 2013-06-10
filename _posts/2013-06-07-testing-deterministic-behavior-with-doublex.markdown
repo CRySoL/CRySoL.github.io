@@ -15,7 +15,7 @@ arguments. In these situations there is not a "right" behavior but the invocatio
 You may use a doublex Mock to test that. The first execution "trains" the
 Mock, the second time verify the same behaviour.
 
-<!--more-->
+<!--break-->
 
 An example:
 

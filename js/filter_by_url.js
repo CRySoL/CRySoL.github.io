@@ -1,7 +1,7 @@
       $(document).ready(function() {{
         selected = location.hash.slice(1);
         if (selected) {
-          $('div.author').hide();
+          $('div.item').hide();
           $('#' + selected).show();
         }
       }});

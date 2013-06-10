@@ -1,13 +1,24 @@
 ---
 layout: page
-title: Authors
-header: Posts by author
+title: Blogs
+header: Blogs
 group: navigation
-js: [filter_author]
+js: [filter_by_url]
 ---
+
+<div class="author-list item">
+<h2>Authors</h2>
+<ul>
+{% for item in site.authors %}
+  <li><a href="/blogs.html#{{ item[0] }}">{{ item[1].name }}</a></li>
+{% endfor %}
+</ul>
+<hr/>
+</div>
+
 {% for item in site.authors %}
   {% assign author = item[1] %}
-<div class="author" id="{{ item[0] }}">
+<div class="item" id="{{ item[0] }}">
   <h2>
     {% if author.gravatar %}
     <img src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=40">

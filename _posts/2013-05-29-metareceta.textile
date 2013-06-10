@@ -9,7 +9,7 @@ permalink: node/1
 ---
 Esta receta explica cómo crear posts en tu propio blog de CRySoL o colaborar con el sitio.
 
-<!--more-->
+<!--break-->
 
 La web de CRySoL es estática. Se genera a partir de un conjunto de ficheros markdown y textile y se compila a HTML/CCS usando el programa "jekyll":http://jekyllrb.com.
 
