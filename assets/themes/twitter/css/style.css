@@ -70,7 +70,6 @@
 /* crysol customization */
 
 body {
-  Background: #fffcf3;
 }
 
 a {
@@ -96,24 +95,32 @@ footer {
 .page-header {
   padding: 0;
   margin: 0;
-  margin-bottom: 10px;
+  border: none;
 }
 
 .node {
-  background: white;
+  padding: 10px 20px;
+  background: #f5f5f5;
   margin-bottom: 10px;
   border: thin solid #ddd;
 }
 
 .node h2, .node h1 {
-  padding: 0 8px;
-  margin: 0;
-  font-size: 130%;
+  font-size: 140%;
   line-height: 26px;
+  margin-bottom: 0;
+}
+
+.node h2 {
+  margin-top: 15px;
 }
 
 .node .header {
   margin-bottom: 8pt;
+}
+
+.teaser {
+  border-style: outset;
 }
 
 .teaser .source {
@@ -121,7 +128,7 @@ footer {
 }
 
 .node .meta, .node .submitted, .node .source {
-  padding: 0 8px;
+  padding: 0;
   font-size: 85%;
 }
 
@@ -134,14 +141,16 @@ footer {
   margin: 0 2px;
 }
 
+.node p {
+  margin-left: 10px;
+}
+
 .node .footer {
-  border-top: solid thin #ccc;
-  margin: 0 4px;
-  padding: 0 4px;
   font-size: 80%;
 }
 
 .node .footer .read-more {
+  border-top: solid thin #ccc;
   text-align: right;
 }
 
@@ -206,6 +215,7 @@ pre.console, kbd {
 }
 
 code {
+  background: white;
   color: black;
 }
 
@@ -239,5 +249,5 @@ table.highlight {
 }
 
 .sticky {
-  border-width: 4px;
+  background: transparent;
 }

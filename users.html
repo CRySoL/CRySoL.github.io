@@ -7,10 +7,10 @@ js: [filter_by_url]
 
 {% for item in site.authors %}
   {% assign author = item[1] %}
-<div class="item" id="{{ item[0] }}">
+<div class="node item" id="{{ item[0] }}">
   <h2>
     {% if author.gravatar %}
-    <img src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=40">
+    <img src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=30">
     {% endif %}
     <span class="author-name">{{ author.name }}</span>
   </h2>

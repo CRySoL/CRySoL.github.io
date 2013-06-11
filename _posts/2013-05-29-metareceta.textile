@@ -7,6 +7,9 @@ category: receta
 tags: jekyll
 permalink: node/1
 sticky: true
+refs:
+  - "Blogging with git, emacs and jekyll":http://metajack.im/2009/01/23/blogging-with-git-emacs-and-jekyll
+
 ---
 Esta receta explica cómo crear posts en tu propio blog de CRySoL o colaborar con el sitio.
 
@@ -75,17 +78,3 @@ Ahora tienes una copia del repo de CRySoL en tu cuenta. A partir de ahí puedes 
 h2. Referencias
 
 * http://metajack.im/2009/01/23/blogging-with-git-emacs-and-jekyll
-
-refs:
-  - "Blogging with git, emacs and jekyll":http://metajack.im/2009/01/23/blogging-with-git-emacs-and-jekyll
-
-
-
-<!--
- Local Variables:
- mode: visual-line
-  coding: utf-8
-  mode: flyspell
-  ispell-local-dictionary: "castellano8"
- End:
--->
