@@ -1,4 +1,5 @@
-<div class="node teaser">
+<div class="node teaser
+  {% if page.sticky %} sticky {% endif %}">
   <h2><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></h2>
 
   {% include custom/post_header %}

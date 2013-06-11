@@ -5,8 +5,16 @@ layout: default
 
 {% include custom/under_construction %}
 
+{% for page in site.posts %}
+  {% if page.sticky and paginator.previous_page == nil %}
+    {% include custom/post_teaser %}
+  {% endif %}
+{% endfor %}
+
 {% for page in paginator.posts %}
-  {% include custom/post_teaser %}
+  {% unless page.sticky %}
+    {% include custom/post_teaser %}
+  {% endunless %}
 {% endfor %}
 
 {% include custom/pagination %}

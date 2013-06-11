@@ -70,7 +70,7 @@
 /* crysol customization */
 
 body {
-  Background: #f2f2ff;
+  Background: #fffcf3;
 }
 
 a {
@@ -108,8 +108,8 @@ footer {
 .node h2, .node h1 {
   padding: 0 8px;
   margin: 0;
-  margin-bottom: -8px;
-  font-size: 160%;
+  font-size: 130%;
+  line-height: 26px;
 }
 
 .node .header {
@@ -198,11 +198,11 @@ pre, kbd {
 
   border: 1px inset #999;
 
-  background:#f9f9f9 url(http://crysol.org/sites/default/themes/crysol/images/file.gif) 4px 4px no-repeat;
+  background:#f9f9f9 url(/assets/images/file.gif) 4px 4px no-repeat;
 }
 
 pre.console, kbd {
-  background:#ccc url(http://crysol.org/sites/default/themes/crysol/images/shell.gif) 3px 3px no-repeat;
+  background:#ccc url(/assets/images/shell.gif) 3px 3px no-repeat;
 }
 
 code {
@@ -211,13 +211,13 @@ code {
 
 a.brand-image img {
 position:absolute;
-top: -110px;
-left: -90px;
-height: 120px;
+top: -115px;
+left: -80px;
+height: 140px;
 }
 
 .navbar {
-    margin-bottom: 80px;
+  margin-bottom: 80px;
 }
 
 
@@ -236,4 +236,8 @@ table.highlight {
 
 .author-details ul {
   list-style: none;
+}
+
+.sticky {
+  border-width: 4px;
 }

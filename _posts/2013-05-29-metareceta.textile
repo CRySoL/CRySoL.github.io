@@ -6,12 +6,13 @@ description: ""
 category: receta
 tags: jekyll
 permalink: node/1
+sticky: true
 ---
 Esta receta explica cómo crear posts en tu propio blog de CRySoL o colaborar con el sitio.
 
 <!--break-->
 
-La web de CRySoL es estática. Se genera a partir de un conjunto de ficheros markdown y textile y se compila a HTML/CCS usando el programa "jekyll":http://jekyllrb.com.
+La web de CRySoL es estática. Se genera a partir de un conjunto de ficheros markdown y textile y se compila a HTML/CCS usando el programa "jekyll":http://jekyllrb.com. Utiliza un conjunto de plantillas "Liquid":http://wiki.shopify.com/Liquid
 
 Los fuentes del sitio se encuentran en un repositorio git alojado en github. Cuando se hace push a dicho repositorio, github ejecuta jekyll automáticamente y deja el resultado accesible en http://crysol.github.io.
 

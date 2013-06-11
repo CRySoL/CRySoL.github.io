@@ -1,25 +1,33 @@
 <div class="pagination pagination-centered">
   <ul>
+
   {% if paginator.previous_page %}
-    <li class="prev">
+    <li class="prev"><a href="/" title="first page">&laquo;</a></li>
+    <li class="prev" title="previous page">
       {% if paginator.previous_page == 1 %}
-        <a href="/">&laquo;</a></li>
+        <a href="/">&lsaquo;</a>
       {% else %}
-        <a href="/page{{ paginator.previous_page }}">&laquo;</a></li>
+        <a href="/page{{ paginator.previous_page }}">&lsaquo;</a>
       {% endif %}
+    </li>
   {% else %}
     <li class="prev disabled"><a>&laquo;</a></li>
+    <li class="prev disabled"><a>&lsaquo;</a></li>
   {% endif %}
 
   <li><a>Page: {{ paginator.page }} of {{ paginator.total_pages }}</a></li>
 
   {% if paginator.next_page %}
-    <li class="next">
-      <a href="/page{{ paginator.next_page }}" class="next">&raquo;</a></li>
+    <li class="next" title="next page">
+      <a href="/page{{ paginator.next_page }}">&rsaquo;</a>
+    </li>
+    <li class="next"><a href="/page{{ paginator.total_pages }}" title="last page">&raquo;</a></li>
   {% else %}
+    <li class="next disabled"><a>&rsaquo;</a></li>
     <li class="next disabled"><a>&raquo;</a></li>
   {% endif %}
-    </ul>
+
+  </ul>
 </div>
 
 {% comment %}
