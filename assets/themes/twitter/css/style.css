@@ -142,7 +142,7 @@ footer {
 }
 
 .node p {
-  margin-left: 10px;
+  margin-left: 4px;
 }
 
 .node .footer {
@@ -192,31 +192,41 @@ hr {
 }
 
 pre, kbd {
-  color: black;
+  font-family: Consolas,"Liberation Mono",Courier,monospace;
   display: block;
 
-  padding: 1.2em 1.5em 0.7em 2.5em;
-  margin: 10px 5px 20px 30px;
+  padding: 1.2em 1.5em 0.7em 30px;
+  margin: 10px 0px 20px 20px;
 
-  font-size: 12px;
   line-height: 1.5;
 
   max-width: 98%;
   max-height: 400px;
   overflow: auto;
 
-  border: 1px inset #999;
+  border: solid thin #dedede;
 
   background:#f9f9f9 url(/assets/images/file.gif) 4px 4px no-repeat;
 }
 
 pre.console, kbd {
   background:#ccc url(/assets/images/shell.gif) 3px 3px no-repeat;
+  border: solid thin #999;
 }
 
 code {
   background: white;
   color: black;
+}
+
+.gist {
+  margin-left: 20px;
+}
+
+.gist-file {
+  padding-left: 22px;
+  padding-top: 10px;
+  background:#f9f9f9 url(/assets/images/file.gif) 4px 4px no-repeat;
 }
 
 a.brand-image img {
