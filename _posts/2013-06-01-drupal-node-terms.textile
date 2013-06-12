@@ -1,0 +1,27 @@
+---
+layout: post
+title: "Getting node terms from the drupal database"
+description: ""
+category: receta
+tags: drupal
+author: david_villa
+---
+
+Migrating a drupal-6 site to jekyll I need to get *term names* to add the @tags@ entry in the post YAML from-matter.
+
+I am using the jekyll-import ruby gem. The modification are easy:
+
+{% highlight ruby %}
+def self.get_tags_for_node(db, nid)
+  tags = []
+  terms = db[:term_node].where(:nid=>nid)
+  terms.each do |term|
+    tid = term[:tid]
+    row = db[:term_data].where(:tid=>tid).first
+    tags.push(row[:name])
+  end
+  return tags
+end
+{% endhighlight %}
+
+I apologize if this code smells. I am not a ruby programmer... yet.
