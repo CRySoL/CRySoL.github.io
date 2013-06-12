@@ -9,7 +9,7 @@ author: david_villa
 
 Migrating a drupal-6 site to jekyll I need to get *term names* to add the @tags@ entry in the post YAML from-matter.
 
-I am using the jekyll-import ruby gem. The modification are easy:
+I am using the jekyll-import ruby gem. The modification is easy and can be added directly to the "drupal6":https://github.com/jekyll/jekyll-import/blob/master/lib/jekyll/jekyll-import/drupal6.rb plugin.
 
 {% gist 5764837 %}
 
