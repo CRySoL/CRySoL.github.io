@@ -8,7 +8,7 @@
            {{ site.authors[page.author].nick }}
          </a>
       {% else %}
-         {{ page.author }} (unknown author)
+	 <span title="(unknown author)">{{ page.author }}?</span>
       {% endif %}
     {% endif %}
   </span>
