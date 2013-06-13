@@ -14,11 +14,14 @@
   </span>
 
    <span class="source">
-      [
+     —
+     [
       <a href="https://github.com/CRySoL/CRySoL.github.io/edit/master/{{page.path}}">edit</a> |
       <a href="https://github.com/CRySoL/CRySoL.github.io/raw/master/{{page.path}}">raw</a>
       ]
    </span>
+
+   <a href="http://crysol..org/{{page.migrated}}">legacy</a>
 
    <span class="meta">
      <ul>

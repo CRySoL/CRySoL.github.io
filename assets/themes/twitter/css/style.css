@@ -109,6 +109,7 @@ footer {
   font-size: 140%;
   line-height: 26px;
   margin-bottom: 0;
+  border-bottom: solid thin #ccc;
 }
 
 .node h2 {
@@ -195,7 +196,7 @@ pre, kbd {
   font-family: Consolas,"Liberation Mono",Courier,monospace;
   display: block;
 
-  padding: 1.2em 1.5em 0.7em 30px;
+  padding: 12px 10px 8px 30px;
   margin: 10px 0px 20px 20px;
 
   line-height: 1.5;
@@ -203,6 +204,9 @@ pre, kbd {
   max-width: 98%;
   max-height: 400px;
   overflow: auto;
+
+  word-wrap: normal;
+  white-space: pre;
 
   border: solid thin #dedede;
 
@@ -212,6 +216,10 @@ pre, kbd {
 pre.console, kbd {
   background:#ccc url(/assets/images/shell.gif) 3px 3px no-repeat;
   border: solid thin #999;
+}
+
+.gist pre {
+  overflow: hidden;
 }
 
 code {
@@ -227,6 +235,7 @@ code {
   padding-left: 22px;
   padding-top: 10px;
   background:#f9f9f9 url(/assets/images/file.gif) 4px 4px no-repeat;
+  overflow: hidden;
 }
 
 a.brand-image img {
