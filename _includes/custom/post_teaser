@@ -14,7 +14,7 @@
 
   <div class="footer">
     {% if page.content contains site.excerpt_separator %}
-    <div class="read-more">
+    <div class="more">
       <a href="{{ BASE_PATH }}{{ page.url }}">
 	{% if page.lang == "en" %}
           Read more

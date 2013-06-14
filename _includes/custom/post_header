@@ -21,8 +21,6 @@
       ]
    </span>
 
-   <a href="http://crysol..org/{{page.migrated}}">legacy</a>
-
    <span class="meta">
      <ul>
        {% assign categories_list = page.categories %}
@@ -32,6 +30,13 @@
        {% include custom/tags_list %}
      </ul>
    </span>
+
+   {% if page.migrated %}
+   <span class="migrated">
+     This post was migrated from <a href="http://crysol.org/{{page.migrated}}">{{page.migrated}}</a>
+   </span>
+   {% endif %}
+
 </div>
 
 {% comment %}
