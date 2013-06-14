@@ -192,14 +192,45 @@ hr {
   background: red;
 }
 
-pre, kbd {
+a.brand-image img {
+position:absolute;
+top: -115px;
+left: -80px;
+height: 140px;
+}
+
+.navbar {
+  margin-bottom: 80px;
+}
+
+.author-details ul {
+  list-style: none;
+}
+
+.sticky {
+  background: transparent;
+}
+
+.migrated {
+  font-size: 80%;
+	padding: 2px 4px;
+	Background: #fdd;
+}
+
+
+/** listados de código **/
+
+code, pre, kbd {
   font-family: Consolas,"Liberation Mono",Courier,monospace;
+}
+
+pre, kbd  {
   display: block;
 
   padding: 12px 10px 8px 30px;
   margin: 10px 0px 20px 20px;
 
-  line-height: 1.5;
+  line-height: 110%;
 
   max-width: 98%;
   max-height: 400px;
@@ -213,7 +244,7 @@ pre, kbd {
   background:#f9f9f9 url(/assets/images/file.gif) 4px 4px no-repeat;
 }
 
-pre.console, kbd {
+pre.console,  kbd, .console .highlight pre {
   background:#ccc url(/assets/images/shell.gif) 3px 3px no-repeat;
   border: solid thin #999;
 }
@@ -221,6 +252,10 @@ pre.console, kbd {
 code {
   background: white;
   color: black;
+}
+
+.highlight pre {
+  line-height: 110%;
 }
 
 .gist pre {
@@ -241,18 +276,6 @@ code {
   background:#f9f9f9 url(/assets/images/file.gif) 4px 4px no-repeat;
 }
 
-a.brand-image img {
-position:absolute;
-top: -115px;
-left: -80px;
-height: 140px;
-}
-
-.navbar {
-  margin-bottom: 80px;
-}
-
-
 table.highlight {
   width: 100%;
 }
@@ -261,6 +284,9 @@ table.highlight {
   display: none;
 }
 
+table.highlight {
+  background: transparent;
+}
 
 .gist-meta {
   display: none;
@@ -269,22 +295,6 @@ table.highlight {
 .gist:hover .gist-meta {
   display: block;
 }
-
-.author-details ul {
-  list-style: none;
-}
-
-.sticky {
-  background: transparent;
-}
-
-.migrated {
-  font-size: 80%;
-	padding: 2px 4px;
-	Background: #fdd;
-}
-
-
 
 /* Local Variables: */
 /* tab-width: 2 */

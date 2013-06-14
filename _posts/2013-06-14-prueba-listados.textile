@@ -1,0 +1,48 @@
+---
+layout: post
+title: pruebas listado de código
+author: david_villa
+---
+
+Probando el estilo de los listados de código, consola y gist.
+
+<!--break-->
+
+{% highlight python %}
+highlight python
+class Thing:
+    def method(args):
+        return None
+{% endhighlight %}
+
+{% highlight console %}
+highlight console
+$ ls
+{% endhighlight %}
+
+{% highlight html %}
+highlight html
+<div class="cls">
+</div>
+{% endhighlight %}
+
+
+{% highlight text %}
+highlight text
+<div class="cls">
+</div>
+{% endhighlight %}
+
+<pre class="console">
+$ pre class="console"
+</pre>
+
+
+<div class="console">
+{% highlight text %}
+$ div class="console" highlight console
+{% endhighlight %}
+</div>
+
+
+{% gist 5764837 %}
