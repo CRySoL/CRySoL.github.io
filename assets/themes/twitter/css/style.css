@@ -98,6 +98,8 @@ footer {
   border: none;
 }
 
+
+
 .node {
   padding: 10px 20px;
   background: #f5f5f5;
@@ -199,6 +201,12 @@ left: -80px;
 height: 140px;
 }
 
+@media screen and (max-width: 800px) {
+  .brand-image {
+    display: none;
+  }
+}
+
 .navbar {
   margin-bottom: 80px;
 }
@@ -295,6 +303,14 @@ table.highlight {
 .gist:hover .gist-meta {
   display: block;
 }
+
+/* pygments */
+
+code.console .go {
+  color: #444;
+}
+
+
 
 /* Local Variables: */
 /* tab-width: 2 */
