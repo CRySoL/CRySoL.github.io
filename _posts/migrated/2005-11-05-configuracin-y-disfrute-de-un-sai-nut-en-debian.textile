@@ -9,7 +9,11 @@ category: receta
 <blockquote>
 Esta receta explica cómo instalar y configurar la herramienta <acronym title="Network UPS Tools">NUT</acronym> para aprovechar al máximo las posibilidades de un <acronym title="Sistema de Alimentación Ininterrumpida">SAI</acronym> en un sistema Debian GNU/Linux. Concretamente, los pasos son para un MGE Pulsar Extreme 1500C
 </blockquote>
-<!--break-->
+
+
+
+
+
 h2. Introducción
 
 Instalar un software de control para un SAI sólo tiene sentido si podemos hablar con él para obtener datos de su estado y funcionamiento. Si el SAI no tiene ningún tipo de conexión de datos (tal como serie o USB) esta receta no te sirve. En cualquier caso, un SAI que no dice nada sobre su estado es de muy poca utilidad. Si estás pensado en comprar un SAI, elige uno con el que puedas hablar. En la <a href="http://www.networkupstools.org/">página de nut</a> hay una <a href="http://www.networkupstools.org/compat/">lista</a> de las marcas y modelos compatibles.

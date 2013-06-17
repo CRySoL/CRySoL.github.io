@@ -9,7 +9,11 @@ category: receta
 <blockquote>
 Esta receta explica cómo ejecutar comandos del sistema con los permisos de otro usuario.
 </blockquote>
-<!--break-->
+
+
+
+
+
 <h2> Introducción </h2>
 
 El principal objetivo de <tt>sudo</tt> es reemplazar al comando <tt>su</tt>. En algunas situaciones puede reemplazar al SUID. La principal ventaja de utilizar sudo es que no es necesario conocer la password de otro usuario para ejecutar comandos con permisos "especiales".

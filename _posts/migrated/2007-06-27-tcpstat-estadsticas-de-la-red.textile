@@ -11,7 +11,11 @@ tags:
 <blockquote class="head"> 
 Tcpstat es un programa que nos da distintas estadísticas sobre la red. Estas estadísticas las puede obtener monitorizando una interfaz de red, o leyéndolas de una captura previa desde un fichero.
 </blockquote>
-<!--break-->
+
+
+
+
+
 <h2>Introducción</h2>
 Tcpstat hace uso de la librería pcap, utilizada para capturar paquetes, al igual que otros programas como tcpdump, wireshark, dsniff o snort. Por lo tanto con Tcpstat podremos analizar ficheros de captura creados con cualquier otro programa compatible con el formato pcap.
 

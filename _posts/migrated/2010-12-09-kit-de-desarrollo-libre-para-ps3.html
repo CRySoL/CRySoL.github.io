@@ -9,7 +9,11 @@ tags:
 - embedded
 ---
 <blockquote>Hola amigüitos! si sois alegres poseedores de una PS3 con FW3.50 o anterior y tenéis a vuestra disposición algún dispositivo <em>jailbreaker</em> sabréis que la ejecución de programas caseros o <em>homebrew</em> está en vuestras manos. Pero claro, eso para está web no es nada... a nosotros nos gusta más <em>desarrollar</em> esos programas caseros. Existen por internet varios <em>SDK's</em> oficiales filtrados, pero que no debéis usar (ni, por tanto, publicar aplicaciones compiladas con esos kits). Es ilegal que los uséis porque no tenéis la licencia, así que si encontráis alguno, como material didáctico están muy bien, pero hasta ahí su utilidad práctica. En esta receta explicaremos cómo compilarnos nuestro propio kit de desarrollo legal para hacer nuestras aplicaciones caseras legales que correrán en cosolas <em>jailbreakadas</em>.</blockquote>
-<!--break-->
+
+
+
+
+
 <h2>Qué necesitamos</h2>
 Bueno, nuestra distro tiene que contar con los siguientes paquetes:
 
@@ -96,6 +100,10 @@ La línea:
 sustituirla por:
 <pre>wget --continue http://ftp.gnu.org/gnu/mpfr/mpfr-2.4.2.tar.bz2 || {exit 1; }</pre>
 </blockquote>
+
+
+
+
 
 Si todo ha salido bien podréis hacer algo como:
 
@@ -257,6 +265,10 @@ Al igual que antes, si no obtuvimos ningún error, ya tendremos la biblioteca li
 
 <h2>Guinda: la librería <em>SDL</em></h2>
 <blockquote>Antes de que alguien se lleve a equívocos, hace tiempo que <em>SDL</em> fue oficialmente portado a PS3, entonces: <em>¿para qué todo esto?</em>. Pues fácil, el <em>port</em> en realidad es para el <em>OtherOS</em>, es decir, algún <em>GNU/Linux</em> que tengáis corriendo en aquellas PS3 con un FW que disponga de esa opción. Y os permitiría crear aplicaciones para <em>esa</em> distribución. En cambio este <em>port</em> os permitirá crear aplicaciones que utilicen <em>SDL</em> de forma <em>nativa</em> en la PS3. Es decir, sin necesidad de <em>OtherOs</em> ni nada por el estilo: compiláis, obtenéis un <tt>PKG</tt> que podréis instalar y a funcionar... ;)</blockquote>
+
+
+
+
 
 <h3>Requisitos</h3>
 Los pasos para obtener la <em>toolchain</em>, el <em>PSL1GHT</em> y las <em>ps3libraries</em> (ya sabéis: <em>Algunas librerías útiles</em>).

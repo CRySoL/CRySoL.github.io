@@ -10,7 +10,11 @@ tags:
 - seguridad
 ---
 <blockquote>Bien, ya vimos en una receta anterior como <a href="/node/400">instalar y configurar un sistema bacula</a> pero se nos quedó en el tintero lo más importante: ¿cómo indicar a bacula qué ficheros respaldar? ¿cuándo? ¿cómo?. En esta receta explicaremos cómo terminar de configurar un sistema bacula para su operación normal, recomendamos la lectura de la receta anterior sobre bacula... esta es como un "segundo capítulo".</blockquote>
-<!--break-->
+
+
+
+
+
 <h2>Trabajos de backup</h2>
 
 A la hora de configurar un servicio de backup, antes de modificar a diestro y siniestro archivos de backup, debemos pensar un poco de qué queremos hacer backup y, según su importancia, cuándo y cómo. En el <em>cómo</em> tenemos dos alternativas: completo y diferencial. Un backup completo respaldará toda la lista completa de ficheros a guardar, en cambio, un backup diferencial sólo guarda los ficheros modificados y nuevos respecto a la copia anterior (lo cual permite ahorrar espacio en cintas). Una base de datos tipo MySQL no tiene mucho sentido hacer respaldo diferencial puesto que se almacena toda ella en un único archivo binario y las más mínima modificación implicará el almacenado del fichero completo. En cambio, para una lista de ficheros de texto (un proyecto software, por ejemplo) los incrementales vienen muy bien puesto que pocas veces cambiarán todos los ficheros a la vez sino que se modifican poco a poco.

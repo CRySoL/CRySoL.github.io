@@ -10,7 +10,11 @@ tags:
 - multimedia
 ---
 <blockquote>Para los que pasamos muchas horas delante del ordenador, puede ser interesante que éste se comporte como nuestro teléfono móvil sin necesidad de apartar nuestra atención del equipo. Para ello tenemos que hacer que nuestro dispositivo <em>bluetooth</em> implemente el <a href="http://en.wikipedia.org/wiki/Bluetooth_profile#Hands-Free_Profile_.28HFP.29">HFP Profile</a>. De eso va esta receta.</blockquote>
-<!--break-->
+
+
+
+
+
 <h2>Ingredientes</h2>
 Primero instalamos los paquetes necesarios para que nos funcione el invento (apt-get o aptitude al gusto):
 
@@ -57,6 +61,10 @@ Y habría que poner lo siguiente:
 
 Podéis cambiarlo y ya os compilará sin problemas... de todas formas es mejor usar <em>libbluetooth2-dev</em> (o lo que es lo mismo, <em>libbluetooth-dev</em>)</blockquote>
 
+
+
+
+
 <h2>Probando... 1, 2, 3...</h2>
 
 Algo que faltaría en <em>Ingredientes</em> es algo evidente: tarjeta de sonido funcionando y opcionalmente un micrófono y un altavoz. Conectamos todo eso al equipo, con la mezcladora ajustamos los valores de captura de micrófono y reproducción <em>PCM</em> y lanzamos el programa:
@@ -73,6 +81,10 @@ Nos aparecerá lo siguiente:
 <center>
 <img src="http://crysol.org/files/hfc-01.png"/>
 <blockquote><em>Imagen increíblemente realista de cómo se vería la aplicación recién instaladita.</em></blockquote>
+
+
+
+
 </center>
 
 Para buscar nuestro teléfono pulsamos en <em>"Search for Device..."</em>, entonces aparecerá lo siguiente:
@@ -80,6 +92,10 @@ Para buscar nuestro teléfono pulsamos en <em>"Search for Device..."</em>, enton
 <center>
 <img src="http://crysol.org/files/hfc-02.png"/>
 <blockquote><em>Otra imagen realmente impresionante de la aplicación buscando dispositivos bluetooth.</em></blockquote>
+
+
+
+
 </center>
 
 No os preocupéis si no sabéis la dirección <em>mac</em> de vuestro teléfono porque se irán resolviendo los nombres poco a poco. Cuando lo tengáis, lo marcáis y pulsáis <em>"Añadir"</em>. Si tenéis varios los podéis añadir también, pero recordad que una limitación de <em>Bluetooth</em> es que sólo se puede mantener una conexión <em>SCO</em> a la vez, esto quiere decir que aunque el programa atienda a varios móviles, únicamente uno podrá hacer <em>streaming</em> del audio a la vez. Cuando hayamos cerrado la ventana de búsqueda de dispositivos, el programa se conectará con el móvil y tomará este aspecto:
@@ -87,6 +103,10 @@ No os preocupéis si no sabéis la dirección <em>mac</em> de vuestro teléfono 
 <center>
 <img src="http://crysol.org/files/hfc-03.png"/>
 <blockquote><em>La última imagen, y no por ello menos impresionante, de la aplicación haciendo uso del móvil que hayamos elegido...</em></blockquote>
+
+
+
+
 </center>
 
 ...¡y ya tenéis control sobre el móvil!

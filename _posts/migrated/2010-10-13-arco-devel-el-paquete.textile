@@ -70,6 +70,10 @@ h3. Configuración modular para GNU Emacs
 <b>ATENCIÓN: Lo que se explica a continuación está ahora en el paquete @emacs-pills@ disponible en <a href="https://bitbucket.org/arco_group/emacs-pills">https://bitbucket.org/arco_group/emacs-pills</a></b>
 </blockquote>
 
+<!--break-->
+
+
+
 Una vez instalado el paquete puedes ver que en @/usr/share/arco/emacs@ hay unos cuantos ficheros @.elc@. Son ficheros «elisp» byte-compilados que contienen simplemente instrucciones de configuración para emacs (lo que normalmente pones en el @.emacs@) pero troceado:
 
 * *auto-insert*: Contenido por defecto que se inserta automáticamente al crear ficheros nuevos (ver "receta":/node/1437).

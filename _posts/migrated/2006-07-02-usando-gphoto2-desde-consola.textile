@@ -9,7 +9,11 @@ category: receta
 <blockquote>
 Esta receta recoge algunas <em>features</em> interesantes del <em>frontend</em> de consola de gphoto2
 </blockquote>
-<!--break-->
+
+
+
+
+
 <h2> Introducción </h2>
 
 gphoto2 es una librería que soporta un montón de modelos de cámaras fotográficas digitales. Además dispone de un pequeño _frontend_ que permite usar la mayor parte de sus posibilidades desde consola, algo que puede resultar muy útil para automatizar tareas.

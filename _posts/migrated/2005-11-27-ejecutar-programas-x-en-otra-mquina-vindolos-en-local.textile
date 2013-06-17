@@ -11,7 +11,11 @@ tags:
 <blockquote class="head">
 A veces se necesita ejecutar un programa con interfaz gráfica que reside en una máquina distinta y queremos verlo en la máquina que estamos. Esta receta explica cómo conseguirlo sin tener que abrir una sesión X ni tener que utilizar un "escritorio remoto" como <tt>vnc</tt>.
 </blockquote>
-<!--break-->
+
+
+
+
+
 
 <h2>Método 1: Exportar display</h2>
 

@@ -9,7 +9,11 @@ tags:
 - drivers
 ---
 <blockquote>Hola! Dado que en GNU tenemos estupendísimos programas como <em>Inkscape</em> o <em>The Gimp</em> es cada vez más común el querer disponer de una tableta digitalizadora chula para poder trabajar con gráficos de una forma más cómoda y fácil. Si habéis pensado en comprar alguna y tenéis miedo del soporte que linux os pueda brindar, os recomiendo las <em>Wacom</em>, tienen un soporte estupendo (parece ser que wacom colabora con el desarrollador de los drivers). </blockquote>
-<!--break-->
+
+
+
+
+
 <h2>Instalando software necesario</h2>
 Los drivers soportan tanto linux 2.4.x como 2.6.x, nosotros explicaremos como instalarlo y configurarlo en linux de la rama 2.6. En Debian (como no podía ser de otra forma):
 
@@ -42,6 +46,10 @@ Bien, ya tenemos todo listo para configurarlo, vamos a ello...
 
 <h2>Configurando X.Org</h2>
 <blockquote>Si todavía queda alguien que use Xfree86, esto es completamente compatible... ;)</blockquote>
+
+
+
+
 
 Las wacom disponen de varios dispositivos físicos apuntadores: el lápiz, un ratón, etc. Son capaces de detectar qué dispositivo estamos usando, es decir: si estamos utilizando el lápiz o el ratón (en mi caso). En el archivo de configuración de X.Org configuraremos los distintos tipos que soporta el driver y podremos tener configuraciones específicas para cada uno, así por ejemplo el puntero se comportará de una forma si usamos lápiz o de otra si estamos con el ratón (esto es genial!). Pues aquí va mi código para el archivo <tt>/etc/X11/xorg.conf</tt>:
 

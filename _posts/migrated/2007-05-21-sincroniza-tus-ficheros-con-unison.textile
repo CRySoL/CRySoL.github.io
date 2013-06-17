@@ -7,7 +7,11 @@ author: javieralso
 category: receta
 ---
 <blockquote>Cómo mantener sincronizados directorios en varios PCs de forma rápida y sencilla utilizando la herramienta libre <b>unison-gtk</b>.</blockquote>
-<!--break-->
+
+
+
+
+
 <h2>Introducción</h2>
 
 Si tienes varios PCs que usas frecuentemente (por ejemplo un portátil y el ordenador de casa o el del trabajo) tal vez te haya surgido la necesidad de tener ciertos directorios con información "sensible" sincronizados entre dichos PCs. Una forma muy sencilla de conseguir eso en <b>GNU/Linux</b> es utilizar la herramienta libre <a href="http://www.cis.upenn.edu/~bcpierce/unison/">unison</a>.

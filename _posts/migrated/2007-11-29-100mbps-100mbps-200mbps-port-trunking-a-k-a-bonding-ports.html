@@ -11,7 +11,11 @@ tags:
 ---
 <blockquote>Probablemente muchos de vosotros tengáis equipos con varias tarjetas de red, esto puede usarse para muchas cosas, una de ellas (a mi entender <em>muy</em> interesante) es el <em>port trunking</em> o también conocido como <em>port bonding</em>.
 </blockquote>
-<!--break-->
+
+
+
+
+
 
 <h2>¿Qué es el <em>port bonding</em>?</h2>
 Es una técnica que permite agregar varios interfaces de red físicos en uno único virtual. A cada interfaz físico se le denominará <em>slave</em> (esclavo). Con esto podemos realizar un balanceo de carga entre las dos interfaces y conseguir un ancho de banda final igual a la suma de los anchos de banda de cada <em>slave</em>. Además de una ventaja adicional inmediata: redundancia de la conexión. Tenemos varios enlaces físicos a la red, perder alguno de ellos implica una degradación de servicio pero no la pérdida completa de conexión.

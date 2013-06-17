@@ -10,6 +10,10 @@ tags:
 ---
 <blockquote>Supongo que muchos de vosotros conoceréis <em>libparted</em>, la librería que hay debajo de los programas de particionado típicos de <em>GNU</em>. Muchos de vosotros conocéis también <em>Python</em>, si juntamos estas dos cosas tenemos que hacer programitas que manejen el particionado del disco va a estar al alcance de cualquiera. Llegados a este punto, no sobra decir que: <b>NO me responsabilizo de los daños que pueda causar el uso de esta receta</b>, yo lo he probado con un disco flash y me ha funcionado sin problemas. Quien quiera garantías... que las pague :P.</blockquote>
 
+<!--break-->
+
+
+
 
 <h2>Instalación</h2>
 Pues lamentablemente hay que compilar e instalar... no es muy complicado, pero bueno... empecemos por descargarnos los fuentes del modulo de <em>python</em>, los encontramos en <a href="http://dcantrel.fedorapeople.org/pyparted/">http://dcantrel.fedorapeople.org/pyparted/</a>. Hay que tener en cuenta una cosa, a fecha de hoy (4 de diciembre de 2007) en <em>Debian Unstable</em> la versión de <em>libgparted-dev</em> empaquetada es la antiquísima <b>1.7</b>, lo cual nos obliga a usar una versión del módulo antigua: la <b>1.8.5</b>. Esto es un poco rollo, pero por lo menos no tenemos que instalar y configurar <em>libgparted</em> entera. No he probado versiones más nuevas del módulo de <em>python</em>, salvo la versión <em>1.8.9</em> que compilaba pero luego no funcionaba.
