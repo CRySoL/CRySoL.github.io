@@ -33,7 +33,7 @@
 
    {% if page.migrated %}
    <span class="migrated">
-     This post was migrated from <a href="http://crysol.org/{{page.migrated}}">{{page.migrated}}</a>
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/{{page.migrated}}">{{page.migrated}}</a>
    </span>
    {% endif %}
 
