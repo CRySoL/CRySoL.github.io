@@ -1,0 +1,724 @@
+---
+migrated: node/1491
+layout: post
+title: ! 'FUSE y python: crea tu propio sistema de ficheros fácilmente'
+created: 1302217448
+author: int-0
+category: receta
+tags:
+- drivers
+---
+<blockquote>Buenas!Hace un par de días, en uno de mis ratos libres se me ocurrió buscar información sobre cómo crear tu propio sistema de ficheros para Linux (si, el kernel). En los nomerosos foros comentaban que era algo muy díficil y que requería mucho tiempo y esfuerzo. Bien, esto es verdad... pero también es verdad que no tenemos porqué enfrentarnos al problema en todo su esplendor. Existe un modulito para los Linux 2.4 y 2.6 que permite montar sistemas de ficheros en espacio de usuario. Esta receta explicará como crearnos nuestro propio <em>filesystem</em> para montarse mediante <em>fuse</em> y para ello nada mejor que crearnos nuestro propio FS.</blockquote>
+<!--break-->
+<h2>Qué es <em>FUSE</em></h2>
+Inicialmente <em>FUSE</em> era un componente de <em>AFS</em>. Finalmente se desarrolló como componente independiente y <em>AFS</em> se convirtió en un módulo de <em>AFS</em>.
+
+<em>FUSE</em> se compone de un módulo que se carga en el kernel y una biblioteca que facilita el acceso al mismo. Además, para desarrollar módulos en un determinado lenguaje debe existir un <em>wrapper</em> para dicho lenguaje. Afortunadamente para nosotros existe uno para <em>python</em>, en Debian y similares:
+
+<div class="console">
+{% highlight console %}
+$ sudo aptitude install python-fuse
+{% endhighlight %}
+</div>
+
+A la hora de utilizar un FS determinado <em>FUSE</em> se encargará de realizar todas las tareas comunes y cuando haya que realizar algo específico de nuestro FS se invocará a alguno de los métodos escritos por nosotros.
+
+<em>FUSE</em> está diseñado para ofrecer soporte absoluto a FS's que cumplan <em>todas</em> las normas <em>Posix</em>. Evidentemente no es necesario para el funcionamiento de cualquier FS que se implementen <em>todas</em> esas funciones (como veremos más adelante), así que si alguna acción no la hemos implementado <em>FUSE</em> se las arreglará con lo que tenga. Si finalmente no se puede realizar la acción se eleva un error que nos mostrará el sistema operativo (por ejemplo: sistema de ficheros de sólo lectura).
+
+<h2>Nuestro sistema de ficheros</h2>
+Nosotros vamos a crear un sistema de ficheros con las siguientes características:
+<ul><li><b>NO</b> es persistente, es decir: cuando desmontemos volarán todos los datos.</li>
+<li><b>NO</b> soportará gestión de permisos.</b></li>
+<li><b>NO</b> soportará fechas (ni de creación, modificación, etc.)</b></li>
+<li><b>NO</b> permitirá enlaces simbólicos.</li></ul>
+
+Vaya guarrería de sistema de ficheros... ¡pues claro! la primera versión está escrita en unas horas de tiempo libre además pretende ser <em>muy</em> simple para que sirva de ejemplo. Nosotros implementaremos lo siguiente:
+<ul><li>Creación/eliminación de directorios</li>
+<li>Creación/eliminación de ficheros</li>
+<li>Modificación de ficheros</li>
+<li>Mover/renombrar ficheros y directorios</li>
+<li>Nivel de anidamiento ilimitado (teórico, claro)</li></ul>
+
+¿Cómo implementaremos nuestro FS? pues de una forma muy simple: un directorio será un diccionario en python, la clave será el nombre (del fichero o directorio) y el valor será:
+<ul><li>Una cadena si se trata de un fichero</li>
+<li>Otro diccionario si se trata de un subdirectorio</li></ul>
+
+<h2>Cómo escribir un módulo para <em>FUSE</em></h2>
+Bueno, nuestros módulos van a ser ejecutables que aceptarán opciones similares a <em>mount</em> y mediante los cuales podremos montar directamente nuestro FS en la estructura de directorios de nuestro sistema.
+
+A la hora de depurar nuestro FS debéis saber que los <em>print</em> no se van a mostrar por pantalla (se acabó la depuración por <em>chivatos</em>) y que las excepciones no capturadas se las comerá <em>FUSE</em> y como mucho obtendremos por consola un <em>"imposible hacer XXX: argumento no válido"</em>. Así que puede ser una buena tarea estudiar un poquito el módulo <em>logging</em> de <em>python</em> ;).
+
+A la hora de implementar los métodos a los que invocará <em>FUSE</em> tenemos tres opciones:
+<ul><li>No escribir el método: se elevará una excepción que capturará <em>FUSE</em> y obtendremos un mesaje similar a <em>"imposible hacer XXX: no implementado"</em>.</li>
+<li>Escribir un método hueco que devuelva <em>error</em>: obtendremos el mensaje de antes, sin embargo nos resultará útil para saber qué acciones en el FS ocasionan llamadas a unos métodos u otros (cosa que supongo podríamos ver estudiando código y documentación).</li>
+<li>Implementar el método y que devuelva un valor correcto o error en caso de fallo: cuantos más de estos tengamos, mejor será nuestro FS :D.</li></ul>
+
+La clase principal, la que utilizará <em>FUSE</em> deberá heredar de la clase <em>Fuse</em> y cuando creemos una instacia de nuestro FS le pasaremos unos parámetros que indicarán a <em>FUSE</em> la clase de FS que va a manejar, si el módulo permite acceso concurrente, cómo debe tratar el carácter de separación de directorios, etc.
+
+Así de buenas a primeras el esqueleto de aplicación <em>FUSE</em> podría ser como sigue:
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/env python
+
+import fuse
+from fuse import Fuse
+if not hasattr(fuse, '__version__'):
+    raise RuntimeError, \
+        "python-fuse doesn't know of fuse.__version__, probably it's too old."
+fuse.fuse_python_api = (0, 2)
+
+# My FS, only stored in memory :P
+#
+class DictFS(Fuse):
+    """
+    """
+    def __init__(self, *args, **kw):
+        Fuse.__init__(self, *args, **kw)
+
+        # Root dir
+        self.root = {}
+
+def main():
+    usage = """
+Userspace filesystem example
+
+""" + Fuse.fusage
+    
+    fs = DictFS(version = '%prog' + fuse.__version__,
+                usage = usage,
+                dash_s_do='setsingle')
+    fs.parse(errex = 1)
+    fs.main()
+
+if __name__ == '__main__':
+    main()
+{% endhighlight %}
+</div>
+
+Como véis en el constructor nos hemos creado el directorio raíz de nuestro FS. Si no hubiésemos necesitado nada, podríamos habernos ahorrado el método completo.
+
+<h2>Entradas de directorio y atributos</h2>
+Como ya sabéis, una entrada de directorio en nuestro FS será un fichero o un directorio. Cada vez que <em>FUSE</em> entre en un directorio o vaya a leer un fichero, preguntará primero por sus atributos. Para ello invocará al método <em>getstats(path)</em> de nuestra clase y le pasará la ruta <em>ruta completa</em> dentro de nuestro FS. El raíz de nuestro FS será '/' que no tiene porqué coincidir con el '/' de nuestro sistema. Este método es básico en nuestro FS y debe retornar un objeto de tipo <em>fuse.stats</em>.
+
+Podemos crearnos nosotros nuestra propia clase de atributos:
+
+<div>
+{% highlight python %}
+class MyStat(fuse.Stat):
+    def __init__(self):
+        self.st_mode = 0
+        self.st_ino = 0
+        self.st_dev = 0
+        self.st_nlink = 0
+        self.st_uid = 0
+        self.st_gid = 0
+        self.st_size = 0
+        self.st_atime = 0
+        self.st_mtime = 0
+        self.st_ctime = 0
+{% endhighlight %}
+</div>
+
+Vamos a hacer esto porque en nuestro ejemplo siempre vamos a devolver un objeto de estos, pero modificando algunos atributos según sea el caso.
+<h3>Atributos de directorio</h3>
+Cambiaremos los siguientes valores:
+<ul><li>st_mode  = stat.S_IFDIR | 0755 (recordad que deben ser ejecutables)</li>
+<li>st_nlink = 2 (numero de enlaces al fichero, debe ser distinto de 0, en directorios se usa 2)</li></ul>
+
+El resto de parámetros podemos dejarlos intactos, ya hemos dicho que no trataremos al dueño del fichero ni las fechas de modificacion, acceso, etc. Además, para los directorios se asumen que tienen tamaño 0.
+
+<h3>Atributos de archivo</h3>
+Ahora los valores serán:
+<ul><li>st_mode = stat.S_IFREG | 0666 (así impedimos ejecución de ficheros en nuestro FS)</li>
+<li>st_link = 1 (en nuestro FS siempre será 1, 0 indicaría archivo borrado)</li>
+<li>st_size = <em>longitud del fichero (de la cadena en nuestro caso)</em></li></ul>
+
+<h2>Nuestas funciones auxiliares</h2>
+Bueno, lo suyo es que si nos hacemos un FS nos hagamos una clase a parte que implemente nuestro FS y el modulito de <em>FUSE</em> sirva de <em>wrapper</em> entre nuestra clase y el <em>FUSE</em>. Pero bueno, voy a pasar y como queremos un ejemplo <em>simple</em> lo metemos todo en la misma clase. Un ejemplo de esto serán las funciones auxiliares que nos vamos a crear.
+
+La principal es <em>__get_dir(path)</em> que, siendo <em>path</em> una lista de elementos (nombres de directorio), <em>caminará</em> desde el diccionario <em>root</em> hasta llegar al último elemento de la lista (directorio hoja) y nos lo devolverá.
+
+Los métodos <em>__join_path(path)</em> y <em>__path_list(path)</em> convierten una lista de elementos en una cadena del tipo <em>"/elemento1/elemento2"</em> y viceversa (si, conozco <em>os.path.join()</em> y tal pero preferí escribirlos yo).
+
+Por último está <em>__navigate(path)</em>. Este método nos resultará muy útil porque cada vez que <em>FUSE</em> se refiere a un elemento de nuestro FS lo hace utilizando la ruta completa dentro de nuestro FS. Así, si nos indicase <em>"/dir1/dir2/elemento1"</em>, este método nos devolvería el directorio <em>dir2</em> y el nombre de <em>elemento1</em>. Como veréis más adelante, esto nos hará todo el trabajo.
+
+El código de las funciones es el siguiente, no hay mucho más que comentar sobre ellas:
+
+<div>
+{% highlight python %}
+# Return string path as list of path elements
+    def __path_list(self, path):
+        raw_path = path.split('/')
+        path = []
+        for entry in raw_path:
+            if entry != '':
+                path.append(entry)
+        return path
+
+    # Return list of path elements as string
+    def __join_path(self, path):
+        joined_path = '/'
+        for element in path:
+            joined_path += (element + '/')
+        return joined_path[:-1]
+
+    # Return dict of a given path
+    def __get_dir(self, path):
+        level = self.root
+        path = self.__path_list(path)
+        for entry in path:
+            if level.has_key(entry):
+                if type(level[entry]) is dict:
+                    level = level[entry]
+                else:
+                    # Walk over files?
+                    return {}
+            else:
+                # Walk over non-existent dirs?
+                return {}
+        return level
+
+    # Return dict of a given path plus last name of path
+    def __navigate(self, path):
+        path = self.__path_list(path)
+        entry = path.pop()
+        # Get level
+        level = self.__get_dir(self.__join_path(path))
+        return level, entry
+{% endhighlight %}
+</div>
+
+<h2>Los métodos propios de nuestro FS</h2>
+Bien, ya tenemos todos los ingredientes, pero si ahora intentásemos montar un directorio con nuestro módulo nos daría error porque <em>FUSE</em> no sería capaz de leer el directorio raíz de nuestro FS. La primera llamada que intenta <em>FUSE</em> es: <em>getattr('/')</em> así pues, lo primero que tenemos que implementar es ese método:
+
+<div>
+{% highlight python %}
+def getattr(self, path):
+        st = MyStat()
+
+        # Ask for root dir
+        if path == '/':
+            #return self.root.stats
+            st.st_mode = stat.S_IFDIR | 0755
+            st.st_nlink = 2
+            return st
+
+        level, entry = self.__navigate(path)
+
+        if level.has_key(entry):
+            # Entry found
+            # is a directory?
+            if type(level[entry]) is dict:
+                st.st_mode = stat.S_IFDIR | 0755
+                st.st_nlink = 2
+                return st
+            # is a file?
+            if type(level[entry]) is str:
+                st.st_mode = stat.S_IFREG | 0666
+                st.st_nlink = 1
+                st.st_size = len(level[entry])
+                return st
+
+        # File not found
+        return -errno.ENOENT
+{% endhighlight %}
+</div>
+Este método creo que es un poco <em>spaguetti</em> porque el caso especial del <em>root</em> realmente no existiría. A parte de esto el funcionamiento es simple: creamos un objeto <em>stats</em>. Cuando nos preguntan por un elemento, si existe y es un directorio (un diccionario) ponemos unos valores a los atributos y lo retornamos. Si era un archivo (una cadena) pues ponemos otros valores y lo retornamos. Si la función no retorna nada obtendremos un <em>parámetro inválido</em> y la operación sobre nuestro FS fallará. Si retornamos <em>-errno.ENOENT</em> obtendremos un <em>fichero no encontrado</em>.
+
+<h2>Operaciones con directorios</h2>
+Ahora mismo ya podríamos montar nuestro FS, pero un simple <em>ls</em> sobre él nos daría error. Ahora hay que implementar tres operaciones para poder listar, crear y borrar directorios: <em>readdir(path, offset)</em>, <em>mkdir(path, mode)</em> y <em>rmdir(path)</em> respectivamente.
+
+
+<div>
+{% highlight python %}
+def readdir(self, path, offset):
+        file_entries = ['.','..']
+
+        # Get filelist
+        level = self.__get_dir(path)
+        if len(level.keys()) > 0:
+            file_entries += level.keys()
+
+        file_entries = file_entries[offset:]
+        for filename in file_entries:
+            yield fuse.Direntry(filename)
+{% endhighlight %}
+</div>
+Este método recibe el <em>path</em> sobre el que obtener el contenido y un <em>offset</em> que indica cual es el primer elemento de la lista a devolver (en todas mis pruebas siempre valía 0). Como véis hay que añadir a pelo los directorios "," (por eso en directorios st_nlink = 2) y el enlace al padre (esto es: ".."). En vez de retornar una lista pasamos directamente el iterador. Usamos un método de <em>python-fuse</em> que construye una entrada de directorio a partir del nombre.
+
+Con este método podremos hacer ahora <em>ls</em> en nuestro FS que no dará error... pero claro, tampoco mostrará nada porque nuestro FS está vacío... Vamos a permitir la creación de directorios, para ello implementamos el siguiente método:
+
+
+<div>
+{% highlight python %}
+def mkdir ( self, path, mode ):
+        level, entry = self.__navigate(path)
+
+        # Make new dir
+        level[entry] = {}
+{% endhighlight %}
+</div>
+
+Es tan fácil que no hay nada que explicar... ;) Si ahora montamos nuestro FS (al final tenéis un ejemplo de cómo) veréis que podemos crear directorios, ir a ellos y listarlos... ¡todo un avance! Si intentamos borrarlos... ¡fail! así que añadimos esa posibilidad:
+
+<div>
+{% highlight python %}
+def rmdir ( self, path ):
+        level, entry = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(entry):
+            return -errno.ENOENT
+
+        # Delete entry
+        del(level[entry])
+{% endhighlight %}
+</div>
+Ahora también podremos hacer <em>rmdir</em> o <em>rm</em> sobre un directorio... pero cuidado que si un directorio no está vacío, se eliminará también (aquí no comprobamos que no lo esté). No es demasiado grave puesto que <em>python</em> tiene <em>garbage collector</em> y no se nos quedarán por ahí directorios sin enlazar ocupando memoria...
+
+<h2>Operaciones con ficheros</h2>
+Bien, ya podemos trabajar con directorios como con cualquier otro FS... pero... ¿y los ficheros? estos son bastante más chicha...
+
+Si montáis nuestro FS y hacéis un <em>touch</em> os dará un <em>unimplemented error</em>, nos hacen falta dos métodos (además del <em>getstat()</em>) para poder realizarlo: <em>mknod(path, mode, dev)</em> y <em>open(path, flags)</em>. El primero creará el enlace y el segundo intentará abrirlo (aunque luego no realice operaciones sobre él). Estas dos operaciones no deben devolver error (o elevar una excepción) para que <em>touch</em> funcione. La primera es bastante sencilla:
+
+<div>
+{% highlight python %}
+def mknod ( self, path, mode, dev ):
+        level, filename = self.__navigate(path)
+
+        # Make empty file
+        level[filename] = ''
+{% endhighlight %}
+</div>
+
+Nuestro método no retornará nada (ni elevará ninguna excepción) lo cual indicará a <em>FUSE</em> que todo ha ido bien. Del modo de creación pasamos completamente (ya que no mantenemos un objeto <em>stats</em> por cada elemento del FS). El parámetro <em>dev</em> es un identificador interno del kernel que representa al manejador de dispositivo asociado al FS... también pasaremos de él :).
+
+El segundo método tampoco es complicado:
+
+<div>
+{% highlight python %}
+def open ( self, path, flags ):
+        level, filename = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(filename):
+            return -errno.ENOENT
+{% endhighlight %}
+</div>
+Símplemente verificamos que exista o no el fichero. Daos cuenta que en un FS real esto es más complicado puesto que deberíamos comprobar los flags con los permisos del fichero. También mantendríamos una lista de ficheros abiertos si quisiéramos controlar la concurrencia, etc.
+
+En este momento el <em>touch</em> crearía ficheros vacíos... pero después daría un error extraño. ¡Pues claro! porque hemos implementado el <em>open()</em> pero no el <em>close()</em>... que en este caso se llama <em>release(path)</em>:
+
+<div>
+{% highlight python %}
+def release ( self, path, flags ):
+        level, filename = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(filename):
+            return -errno.ENOENT
+{% endhighlight %}
+</div>
+Todo lo dicho para el <em>open()</em> es válido ahora para <em>release()</em> así que poco más que comentar.
+
+En este punto ya podemos trabajar con directorios en nuestro FS y crear archivos vacíos con <em>touch</em>... pero si creamos un fichero con <em>emacs</em> por ejemplo y le damos a guardar... ¡error! pues claro... para leer y escribir de un fichero necesitamos dos métodos nuevos: <em>read(path, length, offset)</em> y <em>write(path, buf, offset)</em>.
+
+La función <em>read()</em> debe retornar un <em>buffer</em> (una cadena, <em>en python</em>) de <b>como mucho</b> <em>length</em> bytes, leídos del elemento <em>path</em> a partir del byte <em>offset</em>. O dicho en <em>pythonés</em>:
+
+<div>
+{% highlight python %}
+def read ( self, path, length, offset ):
+        level, filename = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(filename):
+            return -errno.ENOENT
+
+        # Check ranges
+        file_size = len(level[filename])
+        if offset < file_size:
+            # Fix size
+            if offset + length > file_size:
+                length = file_size - offset
+            buf = level[filename][offset:offset + length]
+        else:
+            # Invalid range returns no data, instead error!
+            buf = ''
+        return buf
+{% endhighlight %}
+</div>
+El método es bastante simple, pero hay que tener cuidado con los rangos y demás. Con el método <em>write()</em> tenemos menos problemas:
+
+<div>
+{% highlight python %}
+def write ( self, path, buf, offset ):
+        level, filename = self.__navigate(path)
+
+        # Write data into file
+        if offset > len(level[filename]):
+            offset = (offset % len(level[filename]))
+        # This operation could be truncate the file!!
+        level[filename] = level[filename][:offset] + str(buf)
+        
+        # Return written bytes
+        return len(buf)
+{% endhighlight %}
+</div>
+
+¡Y listo! ya podemos leer y escribir dentro de los ficheros de nuestro FS... ahora abrimos un fichero existente, le añadimos algunos bytes, le damos a aguardar y... ¡¡error!! ¿y esto? pues... ¿qué va a ser? esa operación también hay que implementarla y se llama <em>truncate(path, size)</em>: permite modificar el tamaño de un fichero existente. El método es sencillo: truncar la cadena o concatenarla según sea necesario...
+
+
+<div>
+{% highlight python %}
+def truncate ( self, path, size ):
+        level, filename = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(filename):
+            return -errno.ENOENT
+
+        if len(level[filename]) > size:
+            # Truncate file to specified size
+            level[filename] = level[filename][:size]
+        else:
+            # Add more bytes
+            level[filename] += ' ' * (size - len(level[filename]))
+{% endhighlight %}
+</div>
+
+Y ahora sí... montad el FS y perrear con él... veréis que <em>casi</em> todo funciona. ¿Todo? pues si intentáis mover/renombrar un fichero o directorio... ¡¡FAIL!!... aún nos queda un método más: <em>rename(oldPath, newPath)</em>. Implementar el movimiento/renombrado de ficheros en nuestro FS tampoco es muy difícil :P. A ver qué os parece:
+
+<div>
+{% highlight python %}
+def rename ( self, oldPath, newPath ):
+        oldLevel, oldFilename = self.__navigate(oldPath)
+
+        # Can't use __navigate() because newPath-filename not exists
+        newPath = self.__path_list(newPath)
+        newFilename = newPath.pop()
+        newLevel = self.__get_dir(self.__join_path(newPath))
+
+        # Make new link
+        newLevel[newFilename] = oldLevel[oldFilename]
+
+        # Remove old
+        self.unlink(oldPath)
+{% endhighlight %}
+</div>
+Tampoco hay mucho que comentar así que ya os dejo de dar la lata... ¡ahora a probarlo!
+
+<h2>Probando el invento</h2>
+Supongamos que habéis creado el archivo <em>dictfs.py</em> con permisos de ejecución y toda la pesca. Si estáis en el grupo de <em>FUSE</em> o sois <em>sudoers</em>:
+
+<div class="console">
+{% highlight console %}
+ $ mkdir mymnt
+$ sudo ./dictfs.py mymnt/
+{% endhighlight %}
+</div>
+
+Y ya está... ¡montadito! (hombres de poca fé, tecleen <em>mount</em> para verificarlo!). Para desmontar pues el <em>umount</em> de toda la vida ;)
+
+<h2>El código completo</h2>
+Bueno, tengo el ejemplo en <a href="https://github.com/int-0/sillygames">mi github</a> pero aquí os voy a copiar la versión inicial (supongo que si actualizo, también lo haré aquí):
+
+<div>
+{% highlight python %}
+#!/usr/bin/env python
+#
+# Released under GPLv3 license
+# Read full text at: gnu.org/licenses/gpl-3.0.html
+#
+
+import os
+import stat
+import errno
+
+import fuse
+from fuse import Fuse
+if not hasattr(fuse, '__version__'):
+    raise RuntimeError, \
+        "python-fuse doesn't know of fuse.__version__, probably it's too old."
+fuse.fuse_python_api = (0, 2)
+
+import logging
+LOG_FILENAME = 'dictfs.log'
+logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
+
+# Only make one of this whe getstat() is called. Real FS has one per entry (file
+# or directory).
+#
+class MyStat(fuse.Stat):
+    def __init__(self):
+        self.st_mode = 0
+        self.st_ino = 0
+        self.st_dev = 0
+        self.st_nlink = 0
+        self.st_uid = 0
+        self.st_gid = 0
+        self.st_size = 0
+        self.st_atime = 0
+        self.st_mtime = 0
+        self.st_ctime = 0
+
+# My FS, only stored in memory :P
+#
+class DictFS(Fuse):
+    """
+    """
+    def __init__(self, *args, **kw):
+        Fuse.__init__(self, *args, **kw)
+
+        # Root dir
+        self.root = {}
+
+    # Return string path as list of path elements
+    def __path_list(self, path):
+        raw_path = path.split('/')
+        path = []
+        for entry in raw_path:
+            if entry != '':
+                path.append(entry)
+        return path
+
+    # Return list of path elements as string
+    def __join_path(self, path):
+        joined_path = '/'
+        for element in path:
+            joined_path += (element + '/')
+        return joined_path[:-1]
+
+    # Return dict of a given path
+    def __get_dir(self, path):
+        level = self.root
+        path = self.__path_list(path)
+        for entry in path:
+            if level.has_key(entry):
+                if type(level[entry]) is dict:
+                    level = level[entry]
+                else:
+                    # Walk over files?
+                    return {}
+            else:
+                # Walk over non-existent dirs?
+                return {}
+        return level
+
+    # Return dict of a given path plus last name of path
+    def __navigate(self, path):
+        # Path analysis
+        path = self.__path_list(path)
+        entry = path.pop()
+        # Get level
+        level = self.__get_dir(self.__join_path(path))
+        return level, entry
+
+    ### FILESYSTEM FUNCTIONS ###
+
+    def getattr(self, path):
+        st = MyStat()
+        logging.debug('*** getattr(%s)', path)
+
+        # Ask for root dir
+        if path == '/':
+            #return self.root.stats
+            st.st_mode = stat.S_IFDIR | 0755
+            st.st_nlink = 2
+            return st
+
+        level, entry = self.__navigate(path)
+
+        if level.has_key(entry):
+            # Entry found
+            # is a directory?
+            if type(level[entry]) is dict:
+                st.st_mode = stat.S_IFDIR | 0755 # rwx r-x r-x
+                st.st_nlink = 2
+                logging.debug('*** getattr_dir_found: %s', entry)
+                return st
+            # is a file?
+            if type(level[entry]) is str:
+                st.st_mode = stat.S_IFREG | 0666 # rw- rw- rw-
+                st.st_nlink = 1
+                st.st_size = len(level[entry])
+                logging.debug('*** getattr_file_found: %s', entry)
+                return st
+
+        # File not found
+        logging.debug('*** getattr_entry_not_found')
+        return -errno.ENOENT
+
+    def readdir(self, path, offset):
+        logging.debug('*** readdir(%s, %d)', path, offset)       
+
+        file_entries = ['.','..']
+
+        # Get filelist
+        level = self.__get_dir(path)
+
+        # Get all directory entries
+        if len(level.keys()) > 0:
+            file_entries += level.keys()
+
+        file_entries = file_entries[offset:]
+        for filename in file_entries:
+            yield fuse.Direntry(filename)
+
+    def mkdir ( self, path, mode ):
+        logging.debug('*** mkdir(%s, %d)', path, mode)
+
+        level, entry = self.__navigate(path)
+
+        # Make new dir
+        level[entry] = {}
+
+    def mknod ( self, path, mode, dev ):
+        logging.debug('*** mknod(%s, %d, %d)', path, mode, dev)
+
+        level, filename = self.__navigate(path)
+
+        # Make empty file
+        level[filename] = ''
+
+    # This method could maintain opened (or locked) file list and,
+    # of course, it could check file permissions.
+    # For now, only check if file exists...
+    def open ( self, path, flags ):
+        logging.debug('*** open(%s, %d)', path, flags)
+
+        level, filename = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(filename):
+            return -errno.ENOENT
+
+        # No exception or no error means OK
+
+    # In this example this method is the same as open(). This method
+    # is called by close() syscall, it's means that if open() maintain
+    # an opened-file list, or lock files, or something... this method
+    # must do reverse operation (refresh opened-file list, unlock files...
+    def release ( self, path, flags ):
+        logging.debug('*** release(%s, %d)', path, flags)
+
+        level, filename = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(filename):
+            return -errno.ENOENT
+
+    def read ( self, path, length, offset ):
+        logging.debug('*** read(%s, %d, %d)', path, length, offset)
+
+        level, filename = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(filename):
+            return -errno.ENOENT
+
+        # Check ranges
+        file_size = len(level[filename])
+        if offset < file_size:
+            # Fix size
+            if offset + length > file_size:
+                length = file_size - offset
+            buf = level[filename][offset:offset + length]
+        else:
+            # Invalid range returns no data, instead error!
+            buf = ''
+        return buf
+
+    def rmdir ( self, path ):
+        logging.debug('*** rmdir(%s)', path)
+
+        level, entry = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(entry):
+            return -errno.ENOENT
+
+        # Delete entry
+        del(level[entry])
+
+    def truncate ( self, path, size ):
+        logging.debug('*** truncate(%s, %d)', path, size)
+
+        level, filename = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(filename):
+            return -errno.ENOENT
+
+        if len(level[filename]) > size:
+            # Truncate file to specified size
+            level[filename] = level[filename][:size]
+        else:
+            # Add more bytes
+            level[filename] += ' ' * (size - len(level[filename]))
+    
+    def unlink ( self, path ):
+        logging.debug('*** unlink(%s)', path)
+
+        level, entry = self.__navigate(path)
+
+        # File exists?
+        if not level.has_key(entry):
+            return -errno.ENOENT
+
+        # Remove entry
+        del(level[entry])
+
+    def write ( self, path, buf, offset ):
+        logging.debug('*** write(%s, %s, %d)', path, str(buf), offset)
+
+        level, filename = self.__navigate(path)
+
+        # Write data into file
+        if offset > len(level[filename]):
+            offset = (offset % len(level[filename]))
+        level[filename] = level[filename][:offset] + str(buf)
+        
+        # Return written bytes
+        return len(buf)
+
+    def rename ( self, oldPath, newPath ):
+        logging.debug('*** rename(%s, %s)', oldPath, newPath)
+
+        oldLevel, oldFilename = self.__navigate(oldPath)
+        # Can't use __navigate() because newPath-filename not exists
+        newPath = self.__path_list(newPath)
+        newFilename = newPath.pop()
+        newLevel = self.__get_dir(self.__join_path(newPath))
+
+        # Make new link
+        newLevel[newFilename] = oldLevel[oldFilename]
+
+        # Remove old
+        self.unlink(oldPath)
+
+def main():
+    usage = """
+Userspace filesystem example
+
+""" + Fuse.fusage
+    
+    fs = DictFS(version = '%prog' + fuse.__version__,
+                usage = usage,
+                dash_s_do='setsingle')
+    fs.parse(errex = 1)
+    fs.main()
+
+if __name__ == '__main__':
+    main()
+{% endhighlight %}
+</div>
+
+Va con comentarios del director y <em>logging</em>, muy útil... ;)
+
+<h2>Enlaces interesantes</h2>
+<ul><li><a href="http://fuse.sourceforge.net/">http://fuse.sourceforge.net/</a></li>
+<li><a href="http://www.ibm.com/developerworks/linux/library/l-fuse/">http://www.ibm.com/developerworks/linux/library/l-fuse/</a></li>
+<li><a href="http://sourceforge.net/apps/mediawiki/fuse/index.php?title=FUSE_Python_tutorial">http://sourceforge.net/apps/mediawiki/fuse/index.php?title=FUSE_Python_tutorial</a></li>
+<li>/usr/share/doc/python-fuse/examples/</li></ul>

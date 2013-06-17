@@ -1,0 +1,50 @@
+---
+migrated: node/1526
+layout: post
+title: La forma más sencilla de usar repositorios git es... mercurial
+created: 1309030496
+author: david_villa
+category: receta
+tags:
+- mercurial
+- git
+- control de versiones
+---
+Cómo usar repositorios git utilizando mercurial como cliente gracias a la extensión "hggit":http://hg-git.github.com/.
+<!--break-->
+«hg vs git» va camino de convertirse en otro _flamewar_, al nivel de «gnome vs kde», «emacs vs vi» o el clásico entre clásicos: «tabuladores vs espacios». Los partidarios de git hablan de rendimiento, los de mercurial hablan de facilidad de uso. Si tú eres de mercurial. la extensión hggit te interesa. 
+
+La extensión hggit permite utilizar la mayoría de las características de git usando el cliente mercurial estándar y ni siquiera necesitas tener git instalado. Gracias a ella, ya no tienes que descartar github como una opción para alojar tu código. Por cierto, que los creadores de hggit son precisamente los chicos de github.
+
+h2. Configurando hggit
+
+Si utilizas Debian o sucedáneos (Ubuntu), instala el paquete @mercurial-git@. En otras distros puede llamarse de otro modo.
+
+Ahora modifica tu @~/.hgrc@ para que quede así:
+
+<temp-div>
+{% highlight text %}
+[extensions]
+git=
+{% endhighlight %}
+</div>
+
+También puede depender de tu distribución, en otras puede ser «hggit=»
+
+Y eso es todo, ya puedes clonar (y todo lo demás) un repositorio git. Algunos ejemplos para las diferentes URLs de git:
+
+
+<div class="console">
+{% highlight console %}
+
+$ hg clone git://github.com/usuario/repo.git
+$ hg clone git+ssh://git@github.com:usuario/lrepo.git
+{% endhighlight %}
+</div>
+
+El transporte http(s) no está soportado por el momento.
+
+h2. Referencias
+
+* "hggit":http://hg-git.github.com/.
+* "BitBucket or GitHub? Use both!":http://philsturgeon.co.uk/blog/2010/07/bitbucket-or-github

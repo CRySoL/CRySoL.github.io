@@ -1,0 +1,176 @@
+---
+migrated: node/476
+layout: post
+title: Módem Comtrend CT-350 con el driver ueagle-atm (remake)
+created: 1166986256
+author: david_villa
+category: receta
+---
+<blockquote class="head">
+Esta receta es un "remake" de "la que hizo Nacho":http://crysol.inf-cr.uclm.es/node/254 (con su permiso) sobre el mismo tema. Sólo tiene algunos añadidos y alguna pequeña corrección.
+</blockquote>
+<!--break-->
+
+h2. Ingredientes
+
+* Módem ADSL Contrend CT-350 USB de Telefónica "el azulito".
+* Debian GNU/Linux
+* Linux >= 2.6.10
+* subversion
+* unp
+* br2684ctl
+* ppp
+* pppoe
+
+
+h2. Módulos
+
+Descarga los fuentes con subversion:
+
+
+<div class="console">
+{% highlight console %}
+ $ svn co svn://svn.gna.org/svn/ueagleatm/trunk/ueagle-atm
+A    ueagle-atm/usbatm.h
+A    ueagle-atm/ueagle-atm.c
+A    ueagle-atm/COPYING
+A    ueagle-atm/usbatm.c
+A    ueagle-atm/Makefile
+Revisión obtenida: 323
+
+{% endhighlight %}
+</div>
+
+Compila los drivers:
+
+
+<div class="console">
+{% highlight console %}
+~# cd ueagle-atm
+~/ueagle-atm# make install
+
+{% endhighlight %}
+</div>
+
+
+h2. Firmware
+
+Descárgalo y colócalo en su sitio con:
+
+
+<div class="console">
+{% highlight console %}
+# cd /lib/firmware
+/lib/firmware# wget http://eagle-usb.org/ueagle-atm/non-free/ueagle-data-1.1.tar.gz
+/lib/firmware# unp ueagle-data-1.1.tar.gz
+/lib/firmware# mv ueagle-data-1.1 ueagle-atm
+
+{% endhighlight %}
+</div>
+
+Esta es la última versión estable en el momento de la receta. Echa un vistazo en <a href="http://eagle-usb.org/ueagle-atm/non-free/">http://eagle-usb.org/ueagle-atm/non-free/</a> por si hay alguna versión posterior.
+
+
+h2. Cargando los módulos/firmware
+
+Ahora, si enchufas el módem, deberían cargarse los módulos usbatm y ueagle-atm automáticamente. Puedes comprobarlo con:
+
+<pre class="console">
+$ lsmod | grep usbatm
+$ lsmod | grep ueagle
+</pre>
+
+Si no están cargados, cárgalos tú con:
+
+<pre class="console">
+# depmod -ae
+# modprobe usbatm
+# modprobe ueagle-atm
+</pre>
+
+Puedes echar un vistazo a @/var/log/syslog@ para comprobar que todo ha ido bien. Debe aparecer algo como:
+
+<pre>
+[ueagle-atm] driver ueagle 1.3 loaded
+usb 2-2: [ueagle-atm] ADSL device founded vid (0X1110) pid (0X9021) : Eagle II
+usb 2-2: reset full speed USB device using uhci_hcd and address 3
+usb 2-2: [ueagle-atm] using iso mode
+usb 2-2: [ueagle-atm] (re)booting started
+usbcore: registered new driver ueagle-atm
+usb 2-2: [ueagle-atm] modem operational
+usb 2-2: [ueagle-atm] ATU-R firmware version : 44e2ea17
+</pre>
+
+
+h2. Bridge RFC-2684
+
+El programa @br2684@ es un puente para transportar diferentes protocolos sobre una conexión ATM, que es lo que suelen hacer los proveedores de ADSL. Para arrancarlo, ejetucta:
+
+<pre class="console">
+# br2684ctl -c 0 -b -a 8.32
+br2684ctl[2508]: Interface "nas0" created sucessfully
+br2684ctl[2508]: Communicating over ATM 0.8.32, encapsulation: LLC
+br2684ctl[2508]: Interface configured
+</pre>
+
+El <b>8.32</b> son el VPI y el VCI de tu ISP. Estos corresponden a Telefónica con IP dinámica. Si tienes otra cosa, tendrás que usar <a href="http://personal.telefonica.terra.es/web/adslusb/noticias/documentacion/20040506-parametros/index.html"> los adecuados</a>.
+
+
+h2. Usuario/contraseña
+
+Tienes que añadir el nombre de usuario y contraseña al final del fichero @/etc/ppp/pap-secrets@. Si tienes la ADSL de Telefónica, la línea es:
+
+<pre> adslppp@telefonicanetpa * adslppp </pre>
+
+
+h2. Proveedor
+
+También para Telefónica ADSL, escribe un fichero @/etc/ppp/peers/adsl@:
+
+<pre>
+user "adslppp@telefonicanetpa"
+mtu 1412     # IMPORTANTE: imprescindible si vas a compartir la conexión, en caso contrario puedes quitarlo
+plugin rp-pppoe.so
+nas0
+noipdefault
+usepeerdns
+defaultroute
+persist
+noauth
+</pre>
+
+
+h2. Para levantar la interfaz
+
+Y si todo ha ido bien, al ejecutar lo siguiente deberías tener una conexión perfectamente funcional:
+
+<pre class="console">
+# ifconfig nas0 up
+# pon adsl
+</pre>
+
+
+h2. Y para desactivar la conexión
+
+<pre class="console">
+# poff
+# killall br2684ctl
+</pre>
+
+
+h2. Automatizar la conexión:
+
+Añade la siguiente sección al fichero @/etc/network/interfaces@:
+
+<pre>
+auto ppp0
+iface ppp0 inet ppp
+      pre-up br2684ctl -c 0 -b -a 8.32
+      pre-up ifconfig nas0 up
+      provider adsl
+</pre>
+
+
+h2. Referencias
+
+* @man br2684ctl@

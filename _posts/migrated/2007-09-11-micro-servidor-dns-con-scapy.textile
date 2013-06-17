@@ -1,0 +1,52 @@
+---
+migrated: node/772
+layout: post
+title: Micro servidor DNS con scapy
+created: 1189528316
+author: david_villa
+category: receta
+tags:
+- scapy
+- networking
+---
+bq(head). Cómo crear un sencillo servidor DNS con scapy.
+<!--break-->
+h2. Introducción
+
+Entre las muchas herramientas que incorpora scapy hay un pequeño "servidor" DNS implementado como un "answer machine", es decir, como una función capaz de leer peticiones DNS y generar respuestas coherentes. Scapy da soporte para hacer este tipo de cosas de forma muy simple. Mira en "Network packet forgery with Scapy":http://<a href="http://www.secdev.org/conf/scapy_pacsec05.pdf">www.secdev.org/conf/scapy_pacsec05.pdf</a> para más info sobre esto.
+
+Obviamente, este "servidor" no es comparable en funcionalidad a ningún servidor DNS mínimamente serio, pero viene muy bien cuando necesitas probar algo y no te apetece (y con razón) pasarte media hora (como poco) peleando con ficheros de configuración.
+
+h2. Cómo se usa
+
+Pues es simplemente una funcioncita que se puede utilizar desde la shell de scapy:
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo scapy
+>>> dns_spoof(joker='10.0.0.1', match={'mybox.':'1.2.3.4'})
+{% endhighlight %}
+</div>
+
+El parámetro "match" es un diccionario con las correspondencias IP -> nombre, y el parámetro "joker" es la IP que quieres que devuelva si el nombre pedido no está en el diccionario.
+
+Suponiendo que lo anterior está corriendo en la máquina "example.org", puedes probarlo ejecutando lo siguiente *en otra máquina*:
+
+
+<div class="console">
+{% highlight console %}
+
+$ nslookup - example.org
+> mybox.
+Server:        example.org
+Address:       192.168.100.20#53
+
+Non-authoritative answer:
+Name:   mybox.
+Address: 1.2.3.4
+{% endhighlight %}
+</div>
+
+Puedes encontrar más información sobre DNS spoofing con scapy en la receta "Magia negra con scapy":node/540

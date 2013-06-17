@@ -1,0 +1,46 @@
+---
+migrated: node/514
+layout: post
+title: Crear y editar huellas para componentes con PCB
+created: 1171963284
+author: javieralso
+category: receta
+tags:
+- embedded
+- Arco
+---
+bq(head). Tutorial sobre cómo crear desde cero o editar huellas para el diseño de Circuitos Impresos con la herramienta libre PCB.
+<!--break-->
+
+h2. Preparativos
+
+* Instala @pcb@
+* Da los permisos necesarios para poder modificar las librerías de componentes. Dichas librerías se encuentran en @/usr/lib/pcb_lib/@ para el caso de Debian. Una vez que hallas modificado los permisos crea un directorio para guardar los nuevos componentes.
+
+h2. Creación de un nuevo componente
+
+Para la creación de un nuevo componente sigue estos pasos:
+
+# Ejecuta PCB, una vez abierto el entorno debes activar las capas (Layers) SILK y COMPONENT. El resto no son importantes, por lo que puedes desactivarlas.
+# A continuación selecciona la capa silk y con la herramienta line dibuja el contorno que quieres que tenga tu componente.
+# Una vez hecho ésto vuelve a seleccionar la capa component y con la herramienta via coloca los pads de tu componente.
+
+bq. Para seleccionar el ancho del pad y el grosor del agujero ve a Edit-->change board size... y modifica los campos via size y via hole.
+
+Esto debes hacerlo antes de colocar los pads del componente.
+
+# Selecciona cada uno de los pads que has puesto y, o bien presionando la tecla n o bien haciendo un click derecho y después seleccionando la opción _Edit name_, edita el nombre de cada uno de los pads. Éste nombre deberá ser el número de pin del componente o una inicial (por ejemplo, en un transistor E para la patita del emisor).
+# Después selecciona el componente entero, posiciona el cursor sobre la zona en la que quieres que aparezca la referencia del futuro componente, haz un click con el botón derecho del ratón y selecciona la opción _Convert Selection to Element_. Una vez hecho ésto vuelve a seleccionar el componente y accediendo al mismo menú de antes seleccionamos _Copy Selection to Buffer_. Pulsa la tecla Esc y con ello el componente habrá sido copiado al buffer.
+# Finalmente, selecciona _Buffer-->Save buffer elements to file_ y se abrirá un diálogo que te permitirá guardar el componente. Por omisión lo guardará en @/usr/lib/pcb_lib@. Selecciona la carpeta que creaste inicialmente, ponle un nombre a tu componente y guárdalo.
+
+A partir de ahora, ya puedes utilizar tu componente en futuros esquemas y PCBs.
+
+h2. Edición de un componente ya existente
+
+La edición de un componente ya existente se hace siguiendo éstos pasos:
+
+# Instancia el componente que deseas modificar, para ello pulsa sobre _window-->library_ y aparecerá una ventana en la que puedes elegir librería y componente. Seleciona el componente que quieres modificar y colocalo sobre el espacio de trabajo.
+# Selecciona y copia el componente al buffer como hiciste anteriormente (segunda parte del quinto punto). Una vez copiado el componente en el buffer elege la opción _buffer-->break buffer elements to pieces_. Con ello habrás descompuesto el componente en sus distintas partes.
+# A continuación pega el contenido del buffer en el espacio de trabajo: _buffer-->paste buffer to layout_. Hecho ésto ya puedes modificar y/o editar el componente a tu gusto siguiendo los mismos pasos que para la creación de un nuevo componente.
+
+h2. Referencias

@@ -1,0 +1,65 @@
+---
+migrated: node/713
+layout: post
+title: Plugin Guifications en Pidgin
+created: 1181664592
+author: Lk2
+category: receta
+---
+bq(head). Esta receta explica como obtener el plugin Guifications para Pidgin, que como bien sabéis es el nuevo nombre que usa nuestro viejo Gaim. Guifications dota a Pidgin de la funcionalidad de mostrar cuando nuestros contactos cambian de estado, entran, salen, escriben.... todo sea por tenerlos vigilados.
+
+*Revisión 18 de marzo de 2008:* Hace tiempo que todo esto ha dejado de ser necesario, lo dejo aquí como curiosidad histórica y porque aún es funcional. Hoy por hoy, basta con instalarse el paquete "pidgin-guifications"
+
+h2. Preparación
+
+Para poder hacer esta receta supondremos un sistema con Debian instalado y en el que se tenga configurado en el sources.list de APT algún repositorio de fuentes oficial de Debian (por ejemplo rediris o es.debian.org). Ello lo sabremos ejecutando:
+
+<div class="console">
+{% highlight console %}
+$ cat /etc/apt/sources.list | grep deb-src
+
+{% endhighlight %}
+</div>
+
+Si nos aparecen una o más líneas vamos bien.
+
+h2. Dependencias
+
+Como el paquete en si no existe aún compilado en paquete binario, deberemos isntalarlo desde su paquete de fuentes y compilarlo por nosotros mismos. Para ello desde una consola como root:
+
+<div class="console">
+{% highlight console %}
+# apt-get build-dep guifications
+
+{% endhighlight %}
+</div>
+
+Con ello instalaremos todas las dependencias de compilación para poder compilar más tarde guifications.
+
+h2. Compilando
+
+Esto podemos hacerlo como usuario normal teniendo instalado "fakeroot". En un directorio que crearemos para tal fin descargaremos el paquete de fuentes:
+
+<div class="console">
+{% highlight console %}
+ $ cd guifications
+$ apt-get source guifications
+$ cd guifications-2.14/
+$ fakeroot dpkg-buildpackage
+
+{% endhighlight %}
+</div>
+
+h2. Instalando
+
+Si queremos instalarlo tan solo deberemos ir a la carpeta guifications (donde hicimos el apt-get source) y ahí encontraremos nuestro paquete deb listo para instalar:
+
+<div class="console">
+{% highlight console %}
+ # dpkg -i pidgin-guifications_2.14-1_i386.deb
+
+{% endhighlight %}
+</div>
+
+Para configurarlo ya tan sólo debemos ir a la lista de contactos de nuestro Pidgin y en "Herramientas" "Complementos" buscamos Guifications, lo activamos y lo configuramos a nuestro gusto.
+

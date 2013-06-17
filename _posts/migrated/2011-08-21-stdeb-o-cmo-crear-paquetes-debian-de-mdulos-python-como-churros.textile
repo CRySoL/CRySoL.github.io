@@ -1,0 +1,83 @@
+---
+migrated: node/1541
+layout: post
+title: stdeb, o cómo crear paquetes debian de módulos Python como churros
+created: 1313888642
+author: david_villa
+category: receta
+tags:
+- Python
+- Debian-devel
+---
+Si eres un administrador de una máquina debian/ubuntu con un poco de amor propio seguramente no harás @configure/make/make install@ o al menos te lo pensarás dos veces.
+<!--break-->
+La razón (si no lo sabías) es que esto copia ficheros en cualquier parte de tu sistema de ficheros con pocas garantías de poder desinstalar todo eso limpiamente, y te puedes imaginar que puede ocurrir después de hacer eso durante cierto tiempo... Una solución para eso es utilizar "stow": aunque lo mejor con diferencia sería hacer un paquete debian e instalarlo con dpkg. Eso no siempre es sencillo..
+
+Con Python pasa algo parecido, si te bajas los fuentes de un programa o modulo la forma de instalarlo suele ser algo como:
+
+
+<div class="console">
+{% highlight console %}
+
+$ python setup.py install
+{% endhighlight %}
+</div>
+
+que es el equivalente al @configure/make/make install@ para programas C/C++/otros 
+
+h2. stdeb al rescate
+
+stdeb (paquete debian @python-stdeb@) se encarga de generar un paquete debian con todas las de la ley que podrás instalar tranquilamente con @dpkg@. Vamos a instalar un módulo python que no está en debian: python-gnupg:
+
+
+<div class="console">
+{% highlight console %}
+
+$ wget http://python-gnupg.googlecode.com/files/python-gnupg-0.2.7.tar.gz
+$ unp python-gnupg-0.2.7.tar.gz
+$ cd python-gnupg-0.2.7
+{% endhighlight %}
+</div>
+
+Aquí entra en juego @stdeb@:
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ python setup.py --command-packages=stdeb.command bdist_deb
+{% endhighlight %}
+</div>
+
+
+Y esto te deja el paquete debian en el directorio @deb_dist@
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo dpkg -i deb_dist/python-python-gnupg_0.2.7-1_all.deb
+{% endhighlight %}
+</div>
+
+Obviamente si esto fuera tan bueno, nadie haría los paquetes debian «a mano». stdeb no puede detectar conflictos entre paquetes, dependencias complejas y en general cualquier aspecto de la política de Debian que no sea automatizable (y hay bastante). Por ejemplo en este caso, ha llamado al paquete @python-python-gnupg_0.2.7-1_all.deb@, es decir, le ha puesto el prefijo «python» por ser un módulo Python a pesar de que el nombre original ya tenía ese prefijo, mmm aunque esto si que sería automatizable... :-)
+
+En cualquier caso, muy útil para probar un módulo Python sin guarrear el sistema, pero sin olvidar que es un paquete "Q&D":http://en.wikipedia.org/wiki/Quick-and-dirty.
+
+Si el package está en el PyPI puedes descargar el fuente, crear el paquete e instalarlo todo con un solo comando:
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ pypi-install gnupg
+{% endhighlight %}
+</div>
+
+
+
+h2. Referencia
+
+* "stdeb":http://pypi.python.org/pypi/stdeb/0.5.0

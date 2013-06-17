@@ -1,0 +1,155 @@
+---
+migrated: node/531
+layout: post
+title: Sacando el jugo a las tarjetas Atheros (madwifi)
+created: 1169547128
+author: int-0
+category: receta
+tags:
+- seguridad
+- networking
+---
+<blockquote>Si alguno es un afortunado poseedor de una tarjeta wifi con chipset Atheros (que es el que viene usando Cisco) debéis saber que todo un mundo de diversión inalámbrica está a vuestro alcance ;-)</blockquote>
+
+<h2>Identificar la tarjeta</h2>
+
+Bueno... para saber si tenemos una tarjeta yo uso <em>lspci</em> porque yo la tengo integrada, si la vuestra es <em>pcmcia</em> o <em>usb</em> podéis usar <em>cardctl</em> o <em>lsusb</em> respectivamente... para mi caso:
+
+
+<div class="console">
+{% highlight console %}
+# lspci | grep Ath
+00:09.0 Ethernet controller: Atheros Communications, Inc. AR5212 802.11abg NIC (rev 01)
+
+{% endhighlight %}
+</div>
+
+Y ahí la tenemos! bueno pues vamos al siguiente paso...
+
+<h2>Instalar los drivers madwifi</h2>
+
+Pues nada... si tenemos Debian podemos hacerlo más o menos rápido:
+
+
+<div class="console">
+{% highlight console %}
+$ m-a a-i madwifi
+{% endhighlight %}
+</div>
+
+Como queremos divertirnos, instalaremos un par de cosas más:
+
+
+<div class="console">
+{% highlight console %}
+$ apt-get install madwifi-tools kismet
+{% endhighlight %}
+</div>
+
+Bien... si no tenemos Debian o queremos instalar los drivers a pelo podemos entrar en <a href="http://madwifi.org/">madwifi.org</a> donde encontramos dos sabores: <em>madwifi</em> y <em>madwifi-old-openhal</em>. Descargáis el que queráis mediante <em>subversion</em>, con <em>make</em> y <em>make install</em> los tendréis compilados y funcionando sin problemas. Las diferencias entre los dos es simple: existe una capa llamada <em>HAL</em> (<em>Hardware Access Layer</em>), es la capa que accede al chipset directamente. El chipset puede manejar frecuencias y potencias de transmisión fuera del rango de los estándares wifi (incluso frecuencias militares...), por ley (según legislaciones de algunos países), los fabricantes de aparatillos inalámbricos deben proporcionar mecanismos para asegurar que sus dispositivos no trabajen en otras frecuencias. En el caso de Atheros ese mecanismo es no proporcionar el código de <em>HAL</em>. Los dos sabores que tenemos son pues:
+<ul><li>madwifi: HAL cerrado, pero toda la funcionalidad WIFI disponible.</li>
+<li>madwifi-old-openhal: porciones de HAL abiertas (descubiertas, más bien), a mi me funcionan bien pero no tan bien como el anterior.</li></ul>
+
+<h2>Configuración de la interfaz</h2>
+
+Una vez cargados los drivers con <em>dmesg</em> deberéis obtener lo siguiente:
+
+<pre>ath_pci: 0.9.4.5 (svn r1993)
+PCI: Enabling device 0000:00:09.0 (0000 -> 0002)
+ACPI: PCI Interrupt 0000:00:09.0[A] -> Link [LNK3] -> GSI 11 (level, low) -> IRQ 11
+wifi0: 11b rates: 1Mbps 2Mbps 5.5Mbps 11Mbps
+wifi0: 11g rates: 1Mbps 2Mbps 5.5Mbps 11Mbps 6Mbps 9Mbps 12Mbps 18Mbps 24Mbps 36Mbps 48Mbps 54Mbps
+wifi0: H/W encryption support: WEP AES AES_CCM TKIP
+wifi0: mac 5.9 phy 4.3 radio 4.6
+wifi0: Use hw queue 1 for WME_AC_BE traffic
+wifi0: Use hw queue 0 for WME_AC_BK traffic
+wifi0: Use hw queue 2 for WME_AC_VI traffic
+wifi0: Use hw queue 3 for WME_AC_VO traffic
+wifi0: Use hw queue 8 for CAB traffic
+wifi0: Use hw queue 9 for beacons
+wifi0: Atheros 5212: mem=0x64000000, irq=11
+</pre>
+
+Aquí vemos los cifrados hardware soportados, los <em>rates</em>, etc... también vemos que disponemos de la interfaz <b>wifiX</b> (donde X es un número). Si usáis los <em>madwifi</em> con HAL abierto sólo dispondréis de una interfaz nueva <b>athX</b>. Si tenémos wifi0 también tendremos ath0, ésta es la que debemos usar, la configuramos de la siguiente forma (archivo <tt>/etc/network/interfaces</tt> en caso de Debian/Ubuntu):
+<ul><li>Todo automático:
+<pre>iface ath0 inet dhcp</pre>
+Esto hará que se asocie con el punto de acceso que más calidad de señal tenga y haga ahí sus peticiones dhcp.</li>
+<li>Automático a una determinada red:
+
+<pre>
+iface ath0 inet dhcp
+wireless-essid UCLM
+</pre>
+
+Esto buscará la red <em>UCLM</em> y hará ahí sus peticiones DHCP, ejemplos de essid pueden ser <em>motorola</em>, <em>Bianco_</em>, etc.</li>
+
+<li>Automático en una determinada red con cifrado WEP:
+<pre>
+iface ath0 inet dhcp
+wireless-essid vecino
+wireless-key 1234567890ABCDEF1234567890
+</pre>
+
+Se conectará a la red llamada <em>vecino</em> cifrada con esa contraseña (se detecta el tipo de cifrado según la contraseña).</li></ul>
+
+Si las redes no tienen servicio DHCP se debe especificar una dirección, una máscara y una puerta de enlace como con cualquier otro tipo de interfaz.
+
+<h2>Configurar Kismet</h2>
+
+Si somos muy curiosos puede ser que queramos tener <em>kismet</em> funcionando. Kismet es una utilidad que permite estudiar redes wifi pero que por si sólo puede ser estudio de futuras recetas. Aquí explicaremos cómo configurarlo para su función con <em>madwifi</em> (los drivers con HAL cerrado). El archivo de configuración especifica <em>sources</em>, una <em>source</em> es un dispositivo inalámbrico capaz de establecerse en modo monitor. La <em>source</em> para el caso de <em>madwifi</em> es la siguiente (archivo <tt>/etc/kismet/kismet.conf</tt>):
+
+<pre>
+source=madwifi_g,wifi0,madwifi-ng
+</pre>
+
+El primer campo es el driver para la tarjeta, tenemos madwifi_a, madwifi_b, madwifi_g, madwifi_ab y madwifi_ag (consultad la documentación de Kismet y os vienen todos). El segundo campo es el nombre del dispositivo y por último el nombre que asignamos a la <em>source</em>.
+
+Si ahora iniciamos kismet (como <em>root</em> o con un usuario con permisos suficientes), la interfaz cambiará a modo monitor y empezará a capturar paquetes como loco, generará una serie de archivos (descripciones de las redes en xml, etc.) y entre ellos el <em>dump</em> en formato <em>libpcap</em> (que puede ser abierto con <em>wireshark</em>) en el directorio <tt>/var/log/kismet/</tt>.
+
+Hay que decir que kismet realiza un acceso bloqueante a la interfaz, con lo que las conexiones wifi se caerán mientras estéis usándolo. También te avisan de que después de usar kismet es probable que la interfaz deje de funcionar correctamente... pero a mi eso nunca me ha pasado.
+
+<h2>Interfaces para todos</h2>
+
+Otra cosa realmente interesante de <em>madwifi</em> es la posibilidad que nos brinda de crear nuestras propias interfaces wifi "virtuales" mediante la herramienta <em>wlanconfig</em>.
+
+Son muchas las posibilidades que nos ofrece, pero veamos algunas "útiles"...
+<ul><li>Crear una interfaz wifi en modo Ad-Hoc:
+
+
+<div class="console">
+{% highlight console %}
+$ wlanconfig ath create wlandev wifi0 wlanmode adhoc
+{% endhighlight %}
+</div>
+
+Usando la interfaz real <em>wifi0</em> nos creará una nueva, llamada <em>athX</em>, donde X es el siguiente número de interfaz disponible (aunque podemos especificarlo nosotros usando ath2, por ejemplo, en vez de ath).</li>
+
+<li>Crear una interfaz en modo monitor:
+
+
+<div class="console">
+{% highlight console %}
+$ wlanconfig ath create wlandev wifi0 wlanmode monitor
+{% endhighlight %}
+</div></li>
+
+<li>Crear una interfaz en modo <em>access point</em> con una MAC diferente a la nuestra (da escalofríos pensar qué se puede hacer con esto...):
+
+
+<div class="console">
+{% highlight console %}
+$ wlanconfig ath create wlandev wifi0 wlanmode ap bssid
+{% endhighlight %}
+</div>
+
+Si coexisten otras interfaces virtuales debemos especificar al final <em>nosbeacon</em> para deshabilitar el uso hardware de los <em>beacon frames</em>.</li></ul>
+
+Esto son sólo un par de ejemplos.... consultad la página <em>man</em> porque te explican hasta como hacer un <em>bridge</em> en unos pocos pasos...
+
+<h2>Conclusiones</h2>
+
+Aún se han quedado un par de cosas en el aire... como por ejemplo la inyección de paquetes (que también puede hacer la tarjetilla) etc. Pero creo que para ir abriendo boca tenemos suficiente. Es una lástima que el <em>HAL</em> esté cerrado porque desde luego el <em>chipset</em> este parece bastante espectacular...
+
+<h2>Enlaces</h2>
+<a href="http://madwifi.org/">Multiband Atheros Driver for Wifi</a>
+<a href="http://www.kismetwireless.net/">Kismet</a>

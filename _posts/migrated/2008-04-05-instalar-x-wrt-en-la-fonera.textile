@@ -1,0 +1,48 @@
+---
+migrated: node/901
+layout: post
+title: Instalar X-Wrt en La Fonera
+created: 1207357890
+author: david_villa
+category: receta
+tags:
+- networking
+---
+bq(head). "X-Wrt":http://x-wrt.org/install.html (a.k.a Webif<sup>2</sup>) es una interfaz web que facilita la administración y configuración de La Fonera y otros routers que usen "OpeWrt":http://wiki.openwrt.org. Webif<sup>2</sup> está disponible como paquete @ipkg@, así que su instalación resulta tremendamente simple.
+<!--break-->
+
+h2. Ingredientes
+
+* Una Fonera con OpenWrt "Kamikaze 7.09" (ver "OpenWrt en La Fonera":node/840)
+* Acceso SSH a La Fonera
+
+h2. Instalación
+
+Edita el fichero @/etc/ipkg.conf@ y añade esta línea al final:
+
+<pre>
+src X-Wrt http://downloads.x-wrt.org/xwrt/kamikaze/7.09/atheros-2.6/packages
+</pre>
+
+Ahora actualiza la lista de paquetes e instala con @ipkg@.
+
+
+<div class="console">
+{% highlight console %}
+root@OpenWrt:~# ipkg update
+root@OpenWrt:~# ipkg install webif
+
+{% endhighlight %}
+</div>
+
+Ahora carga en tu navegador la dirección IP de La Fonera y entra usando "root" como usuario y tu clave como pass. No se puede decir que haya sido muy complicado, verdad?
+
+
+h2. Comentarios
+
+Webif es muy útil si eres novato con la consola, aunque aviso que sin unas mínimas nociones de redes puede que la mayoría de lo que veas en la interfaz de administración te suene a chino cantonés.
+
+
+h2. Referencias
+
+* "Kamikaze Installation":http://wiki.x-wrt.org/index.php/Kamikaze_Installation

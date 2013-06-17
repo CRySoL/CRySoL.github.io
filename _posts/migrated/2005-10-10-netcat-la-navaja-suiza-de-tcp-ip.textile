@@ -1,0 +1,456 @@
+---
+migrated: node/28
+layout: post
+title: Netcat, la navaja suiza de TCP/IP
+created: 1128948352
+author: david_villa
+category: receta
+tags:
+- networking
+---
+<blockquote>
+Netcat es una de las herramientas más potentes y flexibles que existen en el campo de la programación, depuración, análisis y manipulación de redes y servicios TCP/IP. Es un recurso imprescindible tanto para expertos en seguridad de redes como para hackers. Esta receta incluye varios ejemplos de uso de  <b>GNU netcat</b>.
+</blockquote>
+<!--break-->
+<h2> Introducción </h2>
+
+Aunque <tt>netcat</tt> puede hacer muchas cosas, su función principal es muy simple: 
+
+<ol>
+  <li>Crea un socket con el destino indicado si es cliente, o en el puerto indicado, si es servidor</li>
+  <li>Una vez conectado, envía por el socket todo lo que llegue en su entrada estándar y envía a su salida estándar todo lo que llegue por el socket</li>
+</ol>
+
+Algo tan simple resulta ser extraordinariamente potente y flexible como vas a ver e continuación. Por simplicidad se utilizan conexiones locales aunque, por supuesto, se pueden utilizar entre máquinas diferentes.
+
+<h2> Ingredientes </h2>
+
+<ul>
+<li>netcat</li>
+<li>bash (o equivalente)</li>
+<li>utilidades GNU básicas</li>
+</ul>
+
+<h2>Sintaxis</h2>
+
+<pre>
+nc [-options] hostname port[s] [ports]
+nc -l -p port [-options] [hostname] [port]
+</pre>
+
+<h2>Parámetros básicos</h2>
+
+<ul>
+<li> <b>-l:</b> modo 'listen', queda a la espera de conexiones entrantes.</li>
+<li> <b>-p:</b> puerto local</li>
+<li> <b>-u:</b> modo UDP</li>
+<li> <b>-e:</b> ejecuta el comando dado después de conectar</li>
+<li> <b>-c:</b> ejecuta órdenes de shell (hace <tt>/bin/sh -c [comando]</tt> después de conectar</li>
+</ul>
+
+
+<h2> Un chat para dos</h2>
+
+<h3>Servidor</h3>
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p 2000
+{% endhighlight %}
+</div>
+
+<h3>Cliente</h3>
+
+<div class="console">
+{% highlight console %}
+$ nc localhost 2000
+{% endhighlight %}
+</div>
+
+
+<h2> Transferencia de ficheros</h2>
+
+La instancia de <tt>nc</tt> que <em>escucha</em> recibe el fichero. El receptor ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p 2000 > fichero.recibido
+{% endhighlight %}
+</div>
+
+Y el emisor:
+
+
+<div class="console">
+{% highlight console %}
+$ nc localhost 2000 &lt; fichero
+{% endhighlight %}
+</div>
+
+
+<h2>Servidor de <tt><a href="http://en.wikipedia.org/wiki/ECHO_protocol">echo</a></tt></h2>
+
+Ponemos un servidor que ejecuta <tt>cat</tt> de modo que devolverá todo lo que
+se le envíe
+
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p 2000 -e /bin/cat
+{% endhighlight %}
+</div>
+
+Y en otra consola:
+
+
+<div class="console">
+{% highlight console %}
+$ nc localhost 2000
+hola
+hola
+...
+
+{% endhighlight %}
+</div>
+
+<h2>Servidor de <tt><a href="http://www.ietf.org/rfc/rfc0867.txt">daytime</a></tt></h2>
+
+Exactamente lo mismo que el ejemplo anterior pero ejecutando <tt>date</tt> en lugar de <tt>cat</tt>.
+
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p 2000 -e /bin/date
+{% endhighlight %}
+</div>
+
+Y en otra consola:
+
+
+<div class="console">
+{% highlight console %}
+$ nc localhost 2000
+lun feb 23 21:26:48 CET 2004
+
+{% endhighlight %}
+</div>
+
+
+<h2> shell remota estilo <a href="http://es.wikipedia.org/wiki/Telnet">telnet</a></h2>
+
+<h3>Servidor</h3>
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p 2000 -e /bin/bash
+{% endhighlight %}
+</div>
+
+<h3>Cliente</h3>
+
+<div class="console">
+{% highlight console %}
+$ nc localhost 2000
+{% endhighlight %}
+</div>
+
+
+<h2>Telnet inverso</h2>
+
+En esta ocasión es el cliente quien pone el terminal remoto
+
+<h3> Servidor </h3>
+
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p 2000
+{% endhighlight %}
+</div>
+
+<h3> Cliente </h3>
+
+
+<div class="console">
+{% highlight console %}
+$ nc server.example.org 2000 -e /bin/bash
+{% endhighlight %}
+</div>
+
+
+h2. Cliente de IRC
+
+
+<div class="console">
+{% highlight console %}
+$ *nc irc.freenode.net 6666*
+NOTICE AUTH :*** Looking up your hostname...
+NOTICE AUTH :*** Found your hostname, welcome back
+NOTICE AUTH :*** Checking ident
+NOTICE AUTH :*** No identd (auth) response
+*NICK nadie*
+*USER nadie nadie nadie :nadie*
+:kubrick.freenode.net 001 nadie :Welcome to the freenode IRC Network nadie
+:kubrick.freenode.net 002 nadie :Your host is kubrick.freenode.net[kubrick.freenode.net/6666], running version hyperion-1.0.2b
+[...]
+
+{% endhighlight %}
+</div>
+
+y a partir de ahí puedes introducir cualquier comando de IRC:
+
+* LIST
+* JOIN #canal 
+* PART #canal
+* PRIVMSG #canal :mensaje
+* WHO #canal
+* QUIT
+
+
+<h2> Cliente de correo <a href="http://es.wikipedia.org/wiki/SMTP">SMTP</a></h2>
+
+Podemos usar <tt>netcat</tt> para enviar correo electrónico por medio de un servidor SMTP, utilizando el protocolo directamente:
+
+
+<div class="console">
+{% highlight console %}
+~$ nc mail.servidor.com
+220 mail.servidor.com ESMTP Postfix
+HELO yo
+250 mail.servidor.com
+MAIL FROM:guillermito@microchof.com
+250 Ok
+RCPT TO:manolo@cocaloca.es
+250 Ok
+DATA
+354 End data with &lt;CR>&lt;LF>.&lt;CR>&lt;LF>
+Aviso: su licencia ha caducado. Me deben un pastón.
+.
+250 Ok: queued as D44314A607
+QUIT
+221 Bye
+
+{% endhighlight %}
+</div>
+
+
+<h2> HTTP</h2>
+
+Es sencillo conseguir un cliente y un servidor HTTP rudimentarios.
+
+<h3> Servidor</h3>
+
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p http -c "cat index.html"
+{% endhighlight %}
+</div>
+
+Al cual podemos conectar con cualquier navegador HTTP, como por ejemplo <a href="http://www.mozilla.org/products/firefox/">firefox</a>.
+
+<h3> Cliente</h3>
+
+
+<div class="console">
+{% highlight console %}
+$ echo "GET /" | nc www.google.com 80 > index.html
+{% endhighlight %}
+</div>
+
+
+<h2> Streaming de audio</h2>
+
+Un sencillo ejemplo para hacer <em>streaming</em> de un fichero <tt>.mp3</tt>:
+
+<h3> Servidor </h3>
+
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p 2000 < fichero.mp3 
+{% endhighlight %}
+</div>
+
+y para servir todos los .mp3 de un directorio:
+
+
+<div class="console">
+{% highlight console %}
+$ cat *.mp3 | nc -l -p 2000 
+{% endhighlight %}
+</div>
+
+<h3> Cliente </h3>
+
+
+<div class="console">
+{% highlight console %}
+$ nc server.example.org 2000 | madplay - 
+{% endhighlight %}
+</div>
+
+
+<h2> Streaming de video</h2>
+
+<p/>
+
+<h3> Servidor </h3>
+
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p 2000 < pelicula.avi 
+{% endhighlight %}
+</div>
+
+<h3> Cliente </h3>
+
+
+<div class="console">
+{% highlight console %}
+$ nc server.example.org 2000 | mplayer - 
+{% endhighlight %}
+</div>
+
+
+<h2> Proxy </h2>
+
+Sirva para redirigir una conexión a otro puerto u otra máquina:
+
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p 2000 -c "nc example.org 22"
+{% endhighlight %}
+</div>
+
+El tráfico recibido en el puerto 2000 de esta máquina se redirige a la máquina example.org:22. Permite incluso que la conexión entrante sea UDP pero la redirección sea TCP o viceversa!
+
+
+<h2> Clonar un disco a través de la red </h2>
+
+Esto se debe usar con muchísima precaución. ¡Si no estás 100% seguro, no lo hagas! No digas que no te avisé.
+
+Es este ejemplo voy a copiar un pen drive USB que está conectado al servidor a un fichero en el cliente y después lo voy a montar para acceder al contenido.
+
+<h3> Servidor </h3>
+
+
+<div class="console">
+{% highlight console %}
+$ dd if=/dev/sda1 | nc -l -p 2000 
+{% endhighlight %}
+</div>
+
+<h3> Cliente </h3>
+
+
+<div class="console">
+{% highlight console %}
+$ nc server.example.org 2000 | dd of=pendrive.dump
+$ mount pendrive.dump -r -t vfat -o loop /mnt/usb
+
+{% endhighlight %}
+</div>
+
+h2. Ratón remoto
+
+Es decir, usar el ratón conectado a una máquina para usar el entorno gráfico de otra. El ejemplo está pensado para Xorg.
+
+h3. Servidor
+
+
+<div class="console">
+{% highlight console %}
+# nc -l -p 2000 < /dev/input/mice
+{% endhighlight %}
+</div>
+
+h3. Cliente
+
+Editar el fichero @/etc/X11/xorg.conf@ y modificar la configuración del ratón para que queda así:
+
+<pre>
+Section "InputDevice"
+    Driver     "mouse"
+    ...
+    Option    "Device"    "/tmp/fakemouse"
+    ....
+EndSection
+</pre>
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ mkfifo /tmp/fakemouse
+$ nc server.example.org 2000 > /tmp/fakemouse
+# /etc/init.d/gdm restart
+{% endhighlight %}
+</div>
+
+
+<h2> Medir el ancho de banda </h2>
+
+<p/>
+
+h3. Servidor
+
+
+<div class="console">
+{% highlight console %}
+$ nc -l -p 2000 | pv > /dev/null 
+{% endhighlight %}
+</div>
+
+h3. Cliente
+
+
+<div class="console">
+{% highlight console %}
+$ nc server.example.org 2000 < /dev/zero 
+{% endhighlight %}
+</div>
+
+
+<h2> Imprimir un documento en formato <a href="http://en.wikipedia.org/wiki/PostScript">PostScript</a></h2>
+
+Funciona en impresoras que soporten el estándar AppSocket/JetDirect, que son la mayoría de las que se conectan por Ethernet.
+
+
+<div class="console">
+{% highlight console %}
+
+$ cat fichero.ps | nc -q 1 nombre.o.ip.de.la.impresora 9100
+{% endhighlight %}
+</div>
+
+<h2>Ver «La Guerra de las Galaxias»</h2>
+
+
+<div class="console">
+{% highlight console %}
+$ nc towel.blinkenlights.nl 23
+{% endhighlight %}
+</div>
+
+h2. Otros "netcat"s
+
+* "cryptcat":http://farm9.org/Cryptcat/ - netcat cifrado.
+* "socat":http://<a href="http://www.dest-unreach.org/socat/">www.dest-unreach.org/socat/</a> - Cuando netcat te queda corto.
+* "socket":http://packages.debian.org/sid/socket
+* "ncat":http://nmap.org/ncat/
+
+<h2> Referencias</h2>
+
+  <ul>
+    <li><a href="http://netcat.sourceforge.net/">The GNU Netcat project</a></li>
+    <li><a href="http://www.stearns.org/doc/nc-intro.current.html">Netcat - network connections made easy</a></li>
+    <li><a href="http://www.linuxgazette.com/issue74/zhaoway.html">Play with the Lovely Netcat</a></li>
+    <li><a href="http://bulma.net/body.phtml?nIdNoticia=714">Usando la herramienta netcat en GNU/Linux. La navaja suiza del protocolo TCP/IP</a></li>
+    <li><a href="http://linuca.org/body.phtml?nIdNoticia=276">Netcat o nc</a></li>
+    <li><a href="http://www.wikilearning.com/tutorial_de_netcat-wkc-629.htm">Tutorial de netcat</a></li>
+  </ul>

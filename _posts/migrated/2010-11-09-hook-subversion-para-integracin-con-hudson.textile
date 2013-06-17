@@ -1,0 +1,87 @@
+---
+migrated: node/1429
+layout: post
+title: hook subversion para integración con Hudson
+created: 1289342263
+author: david_villa
+category: receta
+tags:
+- INGSOFT
+- devel
+- control de versiones
+---
+bq. Esta receta explica cómo configurar un repositorio subversion para lanzar una proyecto Hudson al hacer _commit_.
+<!--break-->
+h2. Antecedentes
+
+"Hudson":http://hudson-ci.org/ es un sistema para realizar "integración continua":http://en.wikipedia.org/wiki/Continuous_integration. La integración es una de las «patas» del TDD y los métodos ágiles en general y consiste básicamente en descargar y compilar un programa o conjunto de programas y librerías relacionados, y después ejecutar baterías de pruebas, ya sean unitarias, de sistema, aceptación, etc. También se puede utilizar para comprobar otras cosas como cobertura u otras métricas de calidad del código. Lo importante e interesante de esto es que sea completamente automático y desatendido. 
+
+Hudson permite lanzar la integración de un proyecto sin más que visitar una URL con la forma @HUDSON_URL/job/PROJECT/build?token=TOKEN_NAME&Cause=motivo@ lo que simplifica mucho hacer scripts que se encarguen de la tarea.
+
+h2. Repositorio 
+
+Normalmente se recomienda realizar una integración completa una vez al día, pero otros expertos dicen que, si no supone una gran carga, lo ideal es integrar cada vez que se produce algún cambio en el proyecto, y eso nos lleva a los VCS (Version Control Systems). Lo que pretendemos es lanzar la integración cuando cualquier programador haga un commit.
+
+Para lograr esto con subversion lo que he pensado es utilizar una característica muy interesante: las propiedades. Probablemente no soy el primero al que se le ha ocurrido esto, pero bueno, me apetecía hacerlo (procrastinación que se llama). La idea es añadir una propiedad (que voy a llamar «link») al módulo del proyecto indicando la URL de hudson citada anteriormente. Por ejemplo, para el proyecto "atheist":https://arco.esi.uclm.es/svn/public/prj/atheist/ esa propiedad la he fijado con el comando:
+
+
+<div class="console">
+{% highlight console %}
+
+$ svn ps link "https://stroustrup.mine.nu/job/atheist/build?token=clave" prj/atheist
+{% endhighlight %}
+</div>
+
+Por cuestiones de seguridad esa máquina no es públicamente accesible, pero bueno, eso no importa para la receta.
+
+h2. El hook
+
+El hook es un @post-commit@ que va a buscar el directorio «raíz» del proyecto (@prj/atheist@) intentando localizar la propiedad «link» a través de la jerarquía de directorio. Cuando la encuentre, simplemente la cargará con @wget@. Este es el @post-commit@ que está en el directorio @hooks@ en el servidor subversion:
+
+[ "post-commit":https://arco.esi.uclm.es/svn/public/samples/svn-hook-property/post-commit ]
+
+<div class="console">
+{% highlight console %}
+
+#!/bin/bash
+
+base="$1"
+rev="$2"
+wget="/usr/bin/wget --no-check-certificate"
+property=sentry
+
+function find_property() {
+    module=$1
+    while [ 1 ]; do
+        path=file://$base/$module
+        uri=$(/usr/bin/svn pg $property $path)
+
+        echo $path
+        echo $uri
+
+        if [ "$uri" ]; then
+            echo "$property path: $path" 1>&2
+            echo "$property URI: $uri" 1>&2
+            $wget "$uri&cause=$USER+(svn+commit+)" -o /dev/null
+            break
+        fi
+
+        module=$(dirname $module)
+        if [ "$module" = "." ]; then
+            echo "$property URI: not found" 1>&2
+            break
+        fi
+    done
+}
+
+/usr/bin/svnlook dirs-changed $base | \
+while read module; do find_property $module; done
+{% endhighlight %}
+</div>
+
+Obviamente esto puede tener muchas otras utilidades, cualquiera en la que el servidor tenga que averiguar un dato (como una URL) relacionada con el proyecto del que se acaba de hacer commit.
+
+h2. Referencias
+
+* "svnbook :: post-commit hook":http://svnbook.red-bean.com/en/1.4/svn.ref.reposhooks.post-commit.html
+* "Allowing Developers to do Forced Builds with Security On":http://wiki.hudson-ci.org/display/HUDSON/Quick+and+Simple+Security

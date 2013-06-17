@@ -1,0 +1,71 @@
+---
+migrated: node/631
+layout: post
+title: ! 'FreeBand: guitarra y batería ¡más arcade que nunca!'
+created: 1175250980
+author: brue
+category: noticia
+tags:
+- ocio
+- gstreamer
+- Python
+---
+<blockquote>
+Proyecto de un juego libre programado un python en el que puedes competir contra ti mismo o contra un compañero, pudiendo tocar una guitarra o una batería.
+</blockquote>
+<!--break-->
+
+Hola chicos y chicas...
+
+He hablado con David y he decidido que voy a empezar con esto en breve. Espero que se una toda la gente posible cuanto antes. Creo que David a lo mejor puede hacer una parte importante si el tiempo se lo permite.
+
+El proyecto consiste en un juego arcade donde un jugador puede controlar una guitarra al estilo del FoF y otro una batería. Una vez conseguida la meta principal, se podrán aumentar los instrumentos y las posibilidades.
+
+
+
+h2. El primer hito a conseguir es el siguiente, los demás hitos se discutirán cuando se termine este:
+
+bq. (1) Tener un programa en python, modular y extensible, que dado un ogg y un archivo de texto o XML con un formato determinado, reproduzca un sonido al pulsar una tecla (o botón de un pad), un sonido distinto por cada una de las 5 posibles teclas, y que diga si se ha pulsado en el momento correcto según el archivo asociado.
+
+bq. (2) Tener un editor de dichos archivos dado un determinado OGG.
+
+
+El archivo asociado debería contener la siguiente información:
+
+* MD5 y nombre del OGG al que pertenece
+* Tecla a pulsar (pueden ser varias en un mismo instante)
+* Momento en el que se pulsa
+* Tiempo durante el que se pulsa
+* Modificadores de nota (pulsar por ejemplo otro botón para hacer un bend de guitarra o redoble de charles)
+* (opcional) Letras de la canción
+
+Se usará para reproducir el audio gstreamer, dejando la opción de incluir pads nuevos en cualquier punto desde la fuente de cada uno de  los sonidos, hasta el destino final (alsa, oss, jack... de eso se encarga gstreamer también).
+
+¿Cuánto tiempo nos ponemos para esto?
+
+Unos cuantos números podrían ser:
+
+* Disparar sonidos con el teclado: 5 horas
+* Reproducir un ogg: 1 hora
+* Leer el formato del archivo asociado: 2 horas
+* Comprobar si hay una tecla pulsada en el momento correcto: 10 horas
+
+Hay que tener un cuenta de que no se pueden dejar las teclas pulsadas siempre y que el programa crea que lo haces bien... aunque en la primera aproximación, podría ser válido.
+
+* Editar el archivo asociado:
+
+* Reproducir una parte espećifica del ogg: 5 horas
+* Diseño GUI: 30 horas
+
+* 6 checkboxes para cada momento editable
+* edit o barra con el tiempo asociado a cada checkbox
+* barra asociada al tiempo (desplazable)
+* play/stop
+* play for x seconds
+* avanzar/retroceder un bpm/resolución beat
+
+
+Comentarios por favor. El que no quiera currar que no critique, que no vamos a cobrar un duro por el tiempo empleado.
+
+Un saludo,
+brue

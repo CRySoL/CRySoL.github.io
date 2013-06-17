@@ -1,0 +1,370 @@
+---
+migrated: node/43
+layout: post
+title: Mini tutorial de Python
+created: 1129556586
+author: david_villa
+category: receta
+tags:
+- Python
+---
+<blockquote>
+Un minúsculo tutorial para quién necesite o simplemente le apetezca aprender Python. 
+</blockquote>
+<!--break-->
+<h2>Introducción</h2>
+
+Python es un lenguaje interpretado, interactivo y orientado a objetos. Se le compara con C++. Java o Perl.  Tiene variables, clases, objetos, funciones y todo lo que se espera que tenga un lenguaje de programación moderno. Cualquier programador puede empezar a trabajar con Python con poco esfuerzo.  Según muchos estudios, Python es uno de los lenguajes más fáciles de aprender y que permiten al novato ser productivo en tiempo record.
+
+Python es perfecto como lenguaje "pegamento" y para prototipado rápido de aplicaciones (aunque se hagan luego en otros lenguajes). Pero también se pueden hacer programas serios como Zope, mailman, etc. Dispone de librerías para desarrollar aplicaciones multihilo, distribuidas, bases de datos, con interfaz gráfico, juegos, gráficos 3D y una larga lista.
+
+Este pequeño tutorial presupone que el lector tiene nociones básicas de programación con algún lenguaje como C, Java o similar.
+
+<h2>Empezamos</h2>
+
+Nada como usar algo para aprender a usarlo. El intérprete de Python se puede utilizar como una <em>shell</em> (lo que se llama <em>modo interactivo</em>), algo que viene muy bien para dar nuestros primeros pasos.
+
+
+<div class="console">
+{% highlight console %}
+$ python
+>>>
+
+{% endhighlight %}
+</div>
+
+<h2>Variables y tipos</h2>
+
+Las variables no se declaran explícitamente, se pueden usar desde el momento en que se inicializan. Y normalmente no hay que preocuparse por liberar la memoria que ocupan, tiene un "recolector de basura" (como Java).
+
+
+<div class="console">
+{% highlight console %}
+$ python
+>>> a = "hola"
+
+{% endhighlight %}
+</div>
+
+En el modo interactivo se puede ver el valor de cualquier objeto escribiendo simplemente su nombre:
+
+
+<div class="console">
+{% highlight console %}
+>>> a
+'hola'
+
+{% endhighlight %}
+</div>
+
+
+Python es un lenguaje de tipado fuerte pero dinámico. Eso significa que no se puede operar alegremente con tipos diferentes (como se hace en C).
+
+
+<div class="console">
+{% highlight console %}
+>>> a + 1
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+TypeError: cannot concatenate 'str' and 'int' objects
+
+{% endhighlight %}
+</div>
+
+Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las excepciones son el mecanismo más común de notificación de errores. 
+
+Pero se puede cambiar el tipo de una variable sobre la marcha (como en Python :-) ).
+
+
+<div class="console">
+{% highlight console %}
+>>> a = 3
+{% endhighlight %}
+</div>
+
+
+<h2>Tipos de datos</h2>
+
+<p/>
+
+<h3>Valor Nulo</h3>
+
+Una variable puede existir sin tener valor ni tipo, para ello se asigna el valor <tt>None</tt>:
+
+<pre class="console">
+>>> a = None
+>>> a
+ 
+>>>
+</pre>
+
+
+<h3>Booleanos</h3>
+Lo habitual:
+
+
+<div class="console">
+{% highlight console %}
+>>> a = True
+>>> a
+True
+>>> not a
+False
+>>> a and False
+False
+>>> 3 > 1
+True
+>>> b = 3 > 1
+>>> b
+True
+
+{% endhighlight %}
+</div>
+
+<h3>Numéricos</h3>
+Python dispone de tipos <b>enteros</b> de cualquier tamaño que soportan todas las operaciones propias de C, incluidas las de bits. También hay <b>reales</b> como en cualquier otro lenguaje. Ambos tipos se pueden operar entre si sin problema. Incluso tiene soporte para números <b>complejos</b> de forma nativa.
+
+
+<div class="console">
+{% highlight console %}
+>>> a = 2
+>>> b = 3.0
+>>> a + b
+5.0
+>>> b - 4j
+(3-4j)
+
+{% endhighlight %}
+</div>
+
+<h3>Secuencias</h3>
+
+No hay tipo carácter, se utilizan <b>cadenas</b> de tamaño 1. Las cadenas admiten operaciones como la suma y la multiplicación.
+
+
+
+<div class="console">
+{% highlight console %}
+>>> cad = 'hola '
+>>> cad + 'mundo'
+'hola mundo'
+>>> cad * 3
+'hola hola hola '
+
+{% endhighlight %}
+</div>
+
+Las <b>tuplas</b> son una agrupación de valores similar al concepto matemático de tupla. Se pueden empaquetar y desempaquetar varias variables (incluso de tipo diferente).
+
+
+<div class="console">
+{% highlight console %}
+>>> x = cad, 'f', 3.0
+>>> x
+('hola ', 'f', 3.0)
+>>> v1, v2, v3 = x
+>>> v2
+'f'
+
+{% endhighlight %}
+</div>
+
+Las <b>Listas</b> son similares a los <em>vectores</em> o <em>arrays</em> de otros lenguajes, aunque en Python se pueden mezclar tipos. Y se pueden indexar desde el final.
+
+
+<div class="console">
+{% highlight console %}
+>>> x = [1, 'f', 3.0]
+>>> x[0]
+1
+>>> x[-1]
+3.0
+
+{% endhighlight %}
+</div>
+
+Las listas también se pueden sumar y multiplicar:
+
+
+<div class="console">
+{% highlight console %}
+>>> x = [1, 'f', 3.0]
+>>> x + ['adios']
+[1, 'f', 3.0, 'adios']
+>>> x * 2
+[1, 'f', 3.0, 1, 'f', 3.0]
+
+{% endhighlight %}
+</div>
+
+Las listas y las cadenas se pueden indexar mediante "rodajas" (<em>slicing</em>):
+
+
+<div class="console">
+{% highlight console %}
+>>> cad = 'holamundo'
+>>> cad[1:6]
+'olamu'
+>>> cad[:3]
+'hol'
+>>> cad[3:]
+'amundo'
+>>> cad[-6:-2]
+'amun'
+
+{% endhighlight %}
+</div>
+
+Los <b>diccionarios</b> son <em>tablas asociativas</em>:
+
+
+<div class="console">
+{% highlight console %}
+>>> notas = {'antonio':6, 'maria':9}
+>>> notas['antonio']
+6
+
+{% endhighlight %}
+</div>
+
+Python dispone de otros tipos de datos nativos como números complejos, conjuntos (sets), pilas, colas, listas multidimensionales, etc.
+
+<h3>Orientado a objetos</h3>
+
+Casi todo en Python está orientado a objetos, incluyendo las variables de tipos básicos, y hasta los literales!
+
+
+<div class="console">
+{% highlight console %}
+>>> cad = 'holamundo'
+>>> cad.upper()
+'HOLAMUNDO'
+>>> 'ADIOS'.lower()
+'adios'
+
+{% endhighlight %}
+</div>
+
+<h2> Módulos</h2>
+
+Los módulos son análogos a las 'librerías' o 'paquetes' de otros lenguajes. Para usarlos se utiliza la sentencia <tt>import</tt>:
+
+
+<div class="console">
+{% highlight console %}
+>>> import sys
+>>> sys.exit()
+
+{% endhighlight %}
+</div>
+
+<h2> Estructuras de control</h2>
+
+Están disponibles las más habituales: <tt>for</tt>, <tt>while</tt>, <tt>if</tt>, <tt>if else</tt>, <tt>break</tt>, <tt>continue</tt>, <tt>return</tt>, etc. Todas funcionan de la forma habitual excepto <tt>for</tt>. El <tt>for</tt> de Python no es un <tt>while</tt> disfrazado, como ocurre la mayoría de lenguajes. Este <tt>for</tt> hace que, en cada iteración, la variable de control tome los valores que contiene una secuencia, es decir, que itere sobre ella; algo parecido al <a href="http://www.sgi.com/tech/stl/for_each.html"><tt>for_each</tt> de C++</a>, pero mucho más fácil de usar. Ejemplo:
+
+<pre class="console">>>> lista = range(4)
+>>> lista
+[0, 1, 2, 3]
+>>> for i in lista:
+...    print i
+...
+0
+1
+2
+3
+</pre>
+
+
+<h2>Indentación estricta</h2>
+
+En muchos lenguajes se aconseja "tabular" de determinada manera para facilitar su lectura. En Python este estilo es <b>obligatorio</b> porque el esquema de indentación define realmente los bloques. Es una importante peculiaridad de este lenguaje. Se <a href="http://www.python.org/doc/essays/styleguide.html">aconseja</a> tabulación blanda de 4 espacios. Mira el siguiente fragmento de un programa Python:
+
+
+<div>
+{% highlight python %}
+total = 0
+aprobados = 0
+notas = {'antonio':6, 'maria':9}
+for i in notas.values():
+   total += i
+   if i >= 5:
+      aprobados += 1
+
+print 'La media es:', total / len(notas)
+{% endhighlight %}
+</div>
+
+El cuerpo del bloque <tt>for</tt> queda definido por el código que está indentado un nivel debajo de él. Lo mismo ocurre con el <tt>if</tt>. La sentencia que define el bloque siempre lleva un ':' al final. No se necesitan llaves ni ninguna otra cosa para delimitar los bloques.
+
+
+<h2>Funciones</h2>
+
+Nada mejor para explicar su sintaxis que un ejemplo:
+
+
+<div>
+{% highlight python %}
+def factorial(n):
+    if n == 0: 
+       return 1
+    return n * factorial(n-1)
+
+# y su invocación
+print factorial(10)
+{% endhighlight %}
+</div>
+
+<h2>Python <em>is different</em></h2>
+
+Aunque Python se puede utilizar como un lenguaje convencional (tipo Java), siempre hay una manera más "pythónica" de hacer las cosas. Por ejemplo, el factorial se puede hacer aún más corto con algo como:
+
+
+<div>
+{% highlight python %}
+import operator
+factorial = lambda x: reduce(operator.__mul__, range(1, x+1), 1)
+print factorial(10)
+{% endhighlight %}
+</div>
+
+Muy aconsejable <a href="http://dirtsimple.org/2004/12/python-is-not-java.html">Python Is Not Java</a>
+
+
+<h2>Hacer un fichero ejecutable</h2>
+
+Lo normal es escribir un programa en un fichero de texto -con extensión <tt>.py</tt>- utilizando algún buen editor (como emacs). Después ese fichero se puede ejecutar como cualquier otro programa. Para eso, la primera línea del fichero debe tener algo como:
+
+<pre>#!/usr/bin/python</pre>
+
+Y no olvides darle permisos de ejecución al fichero:
+
+
+<div class="console">
+{% highlight console %}
+$ chmod +x fichero.py
+{% endhighlight %}
+</div>
+
+
+<h2> ¿Y ahora qué?</h2>
+<ul>
+   <li><a href="https://github.com/gregmalcolm/python_koans/wiki">Python koans</a></li>
+   <li>Empieza por la <a href="http://pyspanishdoc.sourceforge.net/tut/tut.html">Guía de aprendizaje de Python</a></li>
+   <li>Incluso hay varios libros libres:
+      <ul>
+         <li><a href="http://almacen.gulic.org/diveintopython-5.4-es/">Inmersión en Python</a></li>
+         <li><a href="http://marmota.act.uji.es/MTP/pdf/python.pdf">Introducción a la programación en Python</a></li>
+         <li><a href="http://manuales.gfc.edu.co/python/thinkCSpy.es.pdf">Aprenda a pensar como un programador, con  Python</a></li>
+         <li><a href="http://www.byteofpython.info/">Byte of Python</a></li>
+         <li>y <a href="http://www.google.com">muchos más</a>...</li>
+      </ul>
+   </li>
+   <li>Si necesitas la referecia oficial, pues la <a href="http://python.org/doc">la página de Python</a></li>
+   <li>Y el proyecto <a href="http://pyspanishdoc.sourceforge.net/">pyspanishdoc</a>, cuyo objectivo es traducir la documentación oficial</li>
+</ul>
+
+<h2> Más referencias útiles</h2>
+
+<ul>
+<li> <a href="http://mail.python.org/pipermail/python-es/2002-August/001074.html">Tipos mutables e inmutables</a> </li>
+</ul>

@@ -1,0 +1,68 @@
+---
+migrated: node/572
+layout: post
+title: ! 'TES: Emacs bonito'
+created: 1171966967
+author: magmax
+category: receta
+tags:
+- emacs
+---
+<blockquote>A menudo hay cosas que hacen de un editor algo más bonito: iluminar la línea actual, cambiar el color de fondo, algún iconillo... Pues Emacs no iba a ser menos, claro.
+</blockquote>
+
+<h1>Ingredientes</h1>
+<b>Emacs</b> y... nada más.
+
+<h1>Icono</h1>
+Voy a comenzar con el icono. ¿Cómo hacer que Emacs tenga icono? Pues muy sencillo: invocándolo con la opción <i>-i</i>:
+
+
+<div class="console">
+{% highlight console %}
+$ emacs -i
+
+{% endhighlight %}
+</div>
+
+Claro: a menudo es un rollo tener que estar haciendo eso, así que podemos editar nuestro <i>.bashrc</i> y añadir el alias siguiente:
+
+<pre>alias emacs="emacs -i"
+</pre>
+
+Y así lo tenemos para siempre.
+
+Me queda la duda de si hay alguna forma de activarlo en el .emacs. Yo no la he encontrado.
+
+<h1>Línea actual</h1>
+
+La línea actual se llama <b>hl</b>, por lo que, para activarla hay que ejecutar:
+
+<pre>M-x hl-line-mode
+</pre>
+
+Si lo que queremos es cambiarla de color, iremos al menú "Options"->"Customize Emacs"->"Specific Group"->"hl-line" y tendremos un montón de opciones que modificar. Debo advertir que en algunas distros de Ubuntu puede dar ciertos problemillas (cambias el color y... el color no se cambia y esas cosas). No sé a qué se debe, pero si alguien lo sabe, le estaría muy agradecido.
+
+Como siempre, ahí van unas líneas de mi .emacs en las que indico cómo lo tengo yo configurado (así podéis ponéroslo igual). Dentro del apartado custom-set-variables, podéis añadir:
+
+<pre> '(global-hl-line-mode t nil (hl-line))
+ '(hl-line-face (quote highlight))
+</pre>
+
+
+<h1>Colores</h1>
+
+También se pueden cambiar los colores de fondo y frontal (mala traducción de "foreground"). Para ello yo he editado directamente mi .emacs, añadiendo al final (en las referencias tenéis la lista de colores):
+
+<pre>(set-background-color "black")
+(set-foreground-color "white")
+</pre>
+
+No sé hacerlo mediante menús, pero he encontrado alguna opción interesante en "Options"->"Customize Emacs"->"Specific Group"->"color-theme", por si queréis personalizarlo.
+
+<h1>Referencias</h1>
+<a href="http://www.geocities.com/kensanata/colors.html">List of colors for Emacs</a>
+
+<h1>Próxima semana:</h1>
+
+A menudo es un engorro encontrarse mogollón de ficheros ~, # y .semantic por todas partes. Tenemos diversas opciones: deshabilitarlos, perdiendo sus propiedades o... ¡Realojarlos todos en el mismo sitio! Pues la próxima semana os contaré cómo hacerlo.

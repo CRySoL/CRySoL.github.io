@@ -1,0 +1,154 @@
+---
+migrated: node/162
+layout: post
+title: Servir un repositorio subversion con Apache-2.0
+created: 1135465200
+author: david_villa
+category: receta
+tags:
+- control de versiones
+---
+bq. Cómo montar un repositorio subversion, con Apache,  para que sea accesible remotamente
+<!--break-->
+
+h2. Ingredientes
+
+* subversion
+* apache2
+* apache2-utils
+* libapache2-svn
+
+
+h2. Crear el repositorio
+
+Un buen sitio es @/var@
+
+
+<div class="console">
+{% highlight console %}
+root@example:/var# mkdir svn
+root@example:/var# cd svn
+root@example:/var/svn# svnadmin create repo
+{% endhighlight %}
+</div>
+
+
+h2. Servir el repo con apache
+
+Lo más sencillo es editar el fichero @/etc/apache2/mods-available/dav_svn.conf@. Tienes que añadir un bloque similar a éste:
+
+<pre>
+<Location /svn/myrepo>
+  DAV svn
+  SVNPath /var/svn/repo
+</Location>
+</pre>
+
+Ahora hay que asegurarse de que el módulo DAV_SVN está activado. Normalmente estará activado automáticamente, pero si no es tu caso, se hace con:
+
+
+<div class="console">
+{% highlight console %}
+# a2enmod dav_svn
+{% endhighlight %}
+</div>
+
+h3. Permisos
+
+Hay que permitir que Apache pueda leer y escribir en el repositorio:
+
+
+<div class="console">
+
+<temp-div>
+{% highlight text %}
+# chown -R root.www-data /var/svn
+# chmod -R g+rw /var/svn
+{% endhighlight %}
+</div>
+</div>
+
+
+
+h3. Cargar los cambios
+
+No se te olvide...
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/apache2 reload
+{% endhighlight %}
+</div>
+
+
+h3. Acceso remoto
+
+El repositorio es accesible, para clientes subversion, webdav o navegadores web convencionales, a través de:
+
+<pre>http://example.com/svn/myrepo/</pre>
+
+Con esto tendrás un repositorio complemente público. Todo el que quiera podrá acceder tanto para descargar como para subir ficheros. Como eso normalmente no es lo deseable, sique leyendo...
+
+
+h2. Repositorio privado
+
+Si lo que quieres es que solo unos usuarios concretos puedan acceder al repositorio tienes que definirlo de este modo:
+
+
+
+<temp-div>
+{% highlight text %}
+<Location /svn/myrepo>
+  DAV svn
+  SVNPath /var/svn/repo
+
+  AuthType Basic
+  AuthName "My Repository"
+  AuthUserFile /etc/apache2/dav_svn.passwd
+
+  Require valid-user
+</Location>
+{% endhighlight %}
+</div>
+
+
+La sistaxis es análoga a la que se utiliza en Apache para restringir el acceso a un directorio. El fichero @/etc/apache2/dav_svn.passwd@ es un fichero de claves típico de Apache. Para añadir usuarios utiliza el método habitual:
+
+
+<div class="console">
+{% highlight console %}
+# htpasswd2 /etc/apache2/dav_svn.passw _usuario_
+{% endhighlight %}
+</div>
+
+En este caso es muy recomendable habilidar SSL en el servidor Apache, pues de otro modo la contraseña viajaría 'en claro' a través de la red.
+
+h2. Acceso restringido
+
+Otra posibilidad (muy común en el mundo del software libre) es tener un repositorio accesible para todo el mundo, pero sólo modificable por ciertos usuarios. En este caso la configuración sería algo como:
+
+
+
+<temp-div>
+{% highlight text %}
+<Location /svn/myrepo>
+  DAV svn
+  SVNPath /var/svn/repo
+
+  AuthType Basic
+  AuthName "My Repository"
+  AuthUserFile /etc/apache2/dav_svn.passwd
+
+  <LimitExcept GET PROPFIND OPTIONS REPORT>
+    Require valid-user
+  </LimitExcept>
+</Location>
+{% endhighlight %}
+</div>
+
+
+
+h2. Referencias
+
+* "Control de versiones con Subversion":http://svnbook.red-bean.com/

@@ -1,0 +1,334 @@
+---
+migrated: node/913
+layout: post
+title: ! 'ZeroC Ice: Parseando un fichero Slice'
+created: 1209211741
+author: javieralso
+category: receta
+tags:
+- Ice
+---
+<blockquote>Cómo parsear un archivo Slice (el lenguaje de especificación de interfaces de <a href="http://en.wikipedia.org/wiki/Internet_Communications_Engine"><acronym title="Internet Communications Engine">ICE</acronym></a>) para obtener toda la información semántica que contiene utilizando libSlice (el Parser proporcionado por <a href="www.zeroc.com">ZeroC</a>)</blockquote>
+<!--break-->
+<h2>Introducción</h2>
+
+Los archivos <b>slice</b> todos sabemos lo que son: Archivos que proporcionan una descripción de  las clases, módulos, interfaces y operaciones que implementará un sistema distribuido basado en <b>ICE</b>.
+La gente de ZeroC proporciona el código fuente de su middleware, pero éste no está muy bien documentado (siendo generosos), así que la manera de parsear un archivo slice y obtener toda la semántica que se necesitaba, ha pasado por hacer un poco de ingenería inversa del código de una de las utilidades que da ZeroC (en concreto <em>slice2cpp</em>). Así que para evitar tener que repetir el trabajo, aquí dejo un poco documentado el funcionamiento del parser para Slice que la gente de ZeroC montó.
+
+<h2>Prerequisitos</h2>
+
+Antes de empezar, no estaría de mas conocer un poco el patrón de programación <a href="http://es.wikipedia.org/wiki/Visitor_(patr%C3%B3n_de_dise%C3%B1o)">visitor</a>, ya que se utilizará para acceder a la información proporcionada por el parser. También se supone que se tienen nociones básicas de <a href="http://www.cppreference.com/">C++</a>.
+Yo he utilizado <em>ice-3.3-beta</em> así que tampoco estará de mas que además de tener ice instalado, se instalen los fuentes:
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~$ apt-get source zeroc-ice33
+
+{% endhighlight %}
+</div>
+
+<h2>Parseando que es gerundio...</h2>
+
+Para parsear un archivo <em>slice</em>, necesitaremos utilizar la librería <em>Slice/Parser</em> proporcionada por ZeroC. Un ejemplo de función que llama al parser sería la siguiente:
+
+
+<div>
+{% highlight cpp %}
+#include <IceUtil/OutputUtil.h>
+#include <IceUtil/Options.h>
+#include <Slice/Parser.h>
+#include <vector>
+
+#include "OurParser.h"
+#include "OurVisitor.h"
+
+OurParser::OurParser(const string& path, const string& filename)
+{
+  vector<string> dummyArgs;
+  _pp = new Preprocessor(path,filename,dummyArgs);
+  FILE* cppHandle = _pp->preprocess(false);
+    
+  UnitPtr u = Unit::createUnit(false, true, true, true);
+  int parseStatus = u->parse("", cppHandle, false);
+
+  OurVisitor visitor;
+  u->visit(&visitor, cppHandle);
+}
+
+OurParser::~OurParser()
+{}
+
+int
+main(int argc, char* argv[])
+{
+  OurParser* sp = new OurParser("", argv[1]);
+  return 0;
+}
+{% endhighlight %}
+</div>
+
+¿y como funciona esto? Bueno, la clase <em>OurParser</em> será quien realice todo el trabajo. Básicamente, su cometido consiste en crear una instancia del preprocesador pasándole el archivo a parsear y un conjunto de opciones (en nuestro caso, como no queremos pasarle nada, se le pasa un vector de cadenas vacío, <em>dummyArgs</em>). Después de instanciar el preprocesador, se preprocesa el archivo:
+
+
+<div>
+{% highlight cpp %}
+  vector<string> dummyArgs;
+  _pp = new Preprocessor(path,filename,dummyArgs);
+  FILE* cppHandle = _pp->preprocess(false);
+{% endhighlight %}
+</div>
+    
+Después se instancia el parser propiamente dicho, y se parsea el Slice
+
+
+<div>
+{% highlight cpp %}
+  UnitPtr u = Unit::createUnit(false, true, true, true);
+  int parseStatus = u->parse("", cppHandle, false);
+{% endhighlight %}
+</div>
+
+<em>u</em> es quien realiza todo el trabajo de parseado. Las opciones que se pasan cuando se crea se utilizan entre otras cosas para propósitos de depuración y las que se dan en el ejemplo son válidas en general. Si se quiere, se puede jugar con los valores a ver qué pasa o directamente echar un ojo al código de <em>slice2cpp</em> donde están un poco mas comentadas.
+la variable <em>parseStatus</em> almacena el resultado del parseo.
+
+Una vez que se ha terminado de parsear el archivo, ya se cuenta con toda la información semántica, así que solo nos resta obtener dicha información y procesarla a nuestro antojo. Como se ha intentando que el parser sea lo mas general posible, de modo que pueda ser reutilizado para lo que sea necesario (vamos, que haya buena separación entre <em>frontend</em> y <em>backend</em>), se ha hecho uso del patron de diseño <em>visitor</em> que se comentó anteriormente. En nuestro caso creamos una clase que contendrá una serie de métodos que serán llamados en determinados momentos, como por ejemplo cuando se inicie la declaración de un módulo, su finalización, cuando se declare una función, sus parámetros, metadatos, se defina una estructura de datos o una clase, etc....
+En nuestro caso, después del parseo, "visitamos" al parser para pedirle toda la información:
+
+
+<div>
+{% highlight cpp %}
+  OurVisitor visitor;
+  u->visit(&visitor, cppHandle);
+{% endhighlight %}
+</div>
+
+<em>visitor</em> es una instancia de nuestra clase visitante, que implementará los métodos necesarios para procesar la información.
+Ésta clase viene a ser algo como ésto:
+
+<div>
+{% highlight cpp %}
+#include <Slice/Parser.h>
+
+using namespace Slice;
+
+class OurVisitor: public ParserVisitor
+{
+public:
+  OurVisitor(SymbolTable&);
+  ~OurVisitor();
+  
+  virtual bool visitModuleStart(const ModulePtr&);
+  virtual void visitModuleEnd(const ModulePtr&);
+  virtual void visitClassDecl(const ClassDeclPtr&);
+  virtual bool visitClassDefStart(const ClassDefPtr&);
+  virtual void visitClassDefEnd(const ClassDefPtr&);
+  virtual bool visitExceptionStart(const ExceptionPtr&);
+  virtual void visitExceptionEnd(const ExceptionPtr&);
+  virtual bool visitStructStart(const StructPtr&);
+  virtual void visitStructEnd(const StructPtr&);
+  virtual void visitOperation(const OperationPtr&);
+  virtual void visitParamDecl(const ParamDeclPtr&);
+  virtual void visitDataMember(const DataMemberPtr&);
+  virtual void visitSequence(const SequencePtr&);
+  virtual void visitDictionary(const DictionaryPtr&);
+  virtual void visitEnum(const EnumPtr&);
+  virtual void visitConst(const ConstPtr&);
+}
+{% endhighlight %}
+</div>
+
+Bueno, como se puede ver, nuestro "visitante" tiene que heredar de la clase <em>ParserVisitor</em>, además, debe implementar todos los métodos que se ven. Éstos métodos serán llamados por el parser y será en ellos en los que nosotros definamos el procesado que queremos hacer de la información.
+
+<h2>"Extrayendo" información</h2>
+Bueno, aquí voy a comentar qué he hecho yo para obtener cierta información que necesitaba del Slice. Si se necesitase otra información, pues nada, a mirar el código de los conversores de código que da ZeroC, que es muy entrentenido :-P ...
+
+<h3>Modulos</h3>
+Cada vez que se inicia el parseado de un módulo, se invoca la función <em>visitModuleStart</em> de nuestro <em>visitor</em>. Entre otras cosas, la información que puede ser necesaria en este punto es el nombre del módulo y su ámbito de declaración. Para acceder a esa información, algo como esto:
+
+<div>
+{% highlight cpp %}
+bool
+OurVisitor::visitModuleStart(const ModulePtr& p)
+{
+   cout "Nombre del modulo: " << p->name() << endl;
+   cout "Ambito de declaracion: " << p->scope() <<endl;
+   return true;
+}
+{% endhighlight %}
+</div>
+
+Cuando se abandona la declaración de un módulo, se invoca a <em>visitModuleEnd</em>, pasandole exactamente la misma información que a su homólogo de inicio de módulo.
+
+<h3>Clases e Interfaces</h3>
+Cuando se declara una clase o una interfaz en el Slice, el parser visita la misma función: <em>visitClassDefStart</em> para el inicio de la declaración y <em>visitClassDefEnd</em> para finalizar la declaración. Si la declaración se encuentra dentro de un módulo, estaremos en la declaración de una interfaz. En caso contrario, se tratará de una clase.
+Aquí la información que leí fue la misma que en el módulo, así que el código es casi idéntico:
+
+
+<div>
+{% highlight cpp %}
+bool
+OurVisitor::visitClassDefStart(const ClassDefPtr& p)
+{
+   cout "Nombre del interfaz: " << p->name() << endl;
+   cout "Ambito de declaracion: " << p->scope() <<endl;
+   return true;
+}
+{% endhighlight %}
+</div>
+
+<h3>Operaciones</h3>
+Para el caso de las operaciones necesitaremos leer mas información aparte del nombre y el ámbito. Ésta información se refiere al tipo de retorno, tipo de la función (por ejemplo puede ser <em>idempotent</em>), y los argumentos (nombre, tipo y dirección).
+
+El procedimiento encargado de obtener la información de las operaciones es <em>VisitOperation</em> y un ejemplo de implementación que simplemente imprime información sería el siguiente:
+
+
+<div>
+{% highlight cpp %}
+void
+OurVisitor::visitOperation(const OperationPtr& p)
+{ 
+
+  size_t strIndex;
+  string metadataName, metadataValue;
+  StringList operationMetaData;
+  
+  cout "Nombre: " << p->name() << endl;
+  cout "Ambito de declaracion: " << p->scope() << endl;
+  TypePtr ret = p->returnType();
+  string retS = returnTypeToString(ret, "", p->getMetaData());
+  cout << "Tipo de retorno: " << retS << endl;
+  
+  if(p->mode() == Operation::Idempotent || p->mode() == Operation::Nonmutating){
+    // Idempotent operation
+    cout << "Funcion idempotente" << endl;
+  }
+
+  // Looking for metadata.
+  operationMetaData = p->getMetaData();
+  cout << "Metadatos:" << endl;
+  for(StringList::iterator it = operationMetaData.begin(); it != operationMetaData.end(); it++) {
+    cout << *it << endl;
+    }
+  }
+
+  // Looking for parameters.
+  ParamDeclList paramList = p->parameters();
+  cout << "Parametros:" << endl;
+  for(ParamDeclList::const_iterator q = paramList.begin();\
+       q != paramList.end(); ++q){
+    cout << "Nombre: " << (*q)->name();
+    StringList metaData = (*q)->getMetaData();
+    if (!(*q)->isOutParam()){
+      cout << "Parametro de salida" << endl;
+      typeString = inputTypeToString((*q)->type(), false, metaData);
+      cout << "Tipo del  parametro: " << typeString << endl;
+    }
+}
+{% endhighlight %}
+</div>
+Vayamos por partes: Lo primero que hemos obtenido, ha sido el nombre y el ámbito de declaración de la operación. Después de ésto, se obtiene el tipo de retorno. Éste tipo es un enumerado, por lo que deberemos transformarlo a una cadena con el nombre adecuado para poderlo imprimir (o hacer cualquier otro tipo de proceso que nos interese)
+
+<div>
+{% highlight cpp %}
+    string retS = returnTypeToString(ret, "", p->getMetaData());
+{% endhighlight %}
+</div>
+Después se consulta el modo de la operación, que nos dirá si es o no idempotente.
+A continuación yo necesitaba los metadatos de las operaciones. <em>getMetaData()</em> devuelve una lista de cadenas, cada una de las cuales es un metadato, así que con un iterador recorremos dicha lista y vamos imprimiendo todos los metadados de cada operación. Ésto también se puede hacer con módulos, clases, interfaces, etc....
+Finalmente, se consultan los parámetros: <em>parameters()</em> devuelve una lista de parámetros. Una vez que se tiene esa lista, hay que iterar sobre ella e ir obteniendo toda la información sobre cada uno de los parámetros:
+<ul>
+<li>Nombre:  <em>(*q)->name()</em></li>
+<li>Dirección: <em>(*q)->isOutParam()</em>, devuelve verdadero si el parametro es de salida.</li>
+<li>Tipo: <em>(*q)->type()</em>, enumerado con el tipo del parametro.</li>
+</ul>
+
+<h3>Sobre los tipos de retorno y de los parámetros</h3>
+<em>returnTypeToString</em>, <em>inputTypeToString</em> y <em>outputTypeToString</em> son funciones que son llamadas para convertir los enumerados que determinan el tipo de una función o parámetro en la cadena que los representa textualmente. En la implementación que tenemos, éstas funciones se encuentran dentro de un módulo llamado <em>Slice/CPlusPlusUtil</em> que hay que incluir. Cuando se detecte un <em>string</em>, <em>int</em> o <em>bool</em> por ejemplo, nuestro programita responderá con algo como <em>::ICE::string</em> o <em>::ICE::int</em> pero ¿y si queremos que, por ejemplo, cuando detecte un entero nos diga "<em>cacho entero</em>" (por ejemplo ;-))? Bueno, pues tendremos que sobreescribir las funciones de las que hablé antes para que nos devuelva lo que nosotros queramos. Yo en mi caso, modifiqué las tres. Aquí muestro mi <em>outputTypeToString</em>:
+
+<div>
+{% highlight cpp %}
+string
+Slice::outputTypeToString(const TypePtr& type, bool useWstring, const StringList& metaData)
+{
+    static const char* outputBuiltinTable[] =
+    {
+        "Byte",
+        "bool",
+        "Short",
+        "Int",
+        "Long",
+        "Float",
+        "Double",
+        "string",
+        "ObjectPtr",
+        "ObjectPrx",
+        "LocalObjectPtr"
+    };
+    
+    BuiltinPtr builtin = BuiltinPtr::dynamicCast(type);
+    if(builtin)
+    {
+        if(builtin->kind() == Builtin::KindString)
+        {
+            string strType = findMetaData(metaData, true);
+            if(strType != "string" && (useWstring || strType == "wstring"))
+            {
+                if(featureProfile == IceE)
+                {
+                    return "Wstring&";
+                }
+                else
+                {
+                    return "wstring&";
+                }
+            }
+        }
+        return outputBuiltinTable[builtin->kind()];
+    }
+
+    ClassDeclPtr cl = ClassDeclPtr::dynamicCast(type);
+    if(cl)
+    {
+        return fixKwd(cl->scoped() + "Ptr");
+    }
+
+    StructPtr st = StructPtr::dynamicCast(type);
+    if(st)
+    {
+        if(findMetaData(st->getMetaData(), false) == "class")
+        {
+            return fixKwd(st->scoped() + "Ptr");
+        }
+        return fixKwd(st->scoped());
+    }
+            
+    ProxyPtr proxy = ProxyPtr::dynamicCast(type);
+    if(proxy)
+    {
+        return fixKwd(proxy->_class()->scoped() + "Prx");
+    }
+            
+    SequencePtr seq = SequencePtr::dynamicCast(type);
+    if(seq)
+    {
+        string seqType = findMetaData(metaData, false);
+        if(!seqType.empty())
+        {
+	  return seqType;
+        }
+        else
+        {
+	  return fixKwd(seq->scoped());
+        }
+    }
+    ContainedPtr contained = ContainedPtr::dynamicCast(type);
+    if(contained)
+    {
+      return fixKwd(contained->scoped());
+    }
+
+    return "???";
+}
+{% endhighlight %}
+</div>
+Lo único que modifiqué fue la tabla de nombres del principio, dándole los que yo quise. Si los nombres que vamos a dar a los parámetros de entrada, de salida y al tipo de retorno van a ser los mismos (es decir, no vamos a distinguir por ejemplo un entero de salida, un entero de entrada y un tipo de retorno entero, llamandolos por el mismo nombre de forma interna en los tres casos) podemos utilizar solo una de éstas tres funciones y llamarla en todos los casos. En caso contrario, habrá que utilizar una función distinta para cada caso y llamarla cuando sea necesaria.

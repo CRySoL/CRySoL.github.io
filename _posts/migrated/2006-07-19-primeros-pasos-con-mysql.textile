@@ -1,0 +1,121 @@
+---
+migrated: node/350
+layout: post
+title: Primeros pasos con MySQL
+created: 1153326182
+author: david_villa
+category: receta
+tags:
+- MySQL
+---
+bq. Esta receta explica cómo poner en marcha un servidor MySQL recién instalado.
+<!--break-->
+h2. Instalación
+
+Al instalar el servidor verás algo parecido a lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install mysql-server-5.0
+Starting MySQL database server: mysqld.
+
+Checking for crashed MySQL tables in the background.
+{% endhighlight %}
+</div>
+
+
+h2. Administrador
+
+El único usuario en este momento es @root@, aunque no es mismo @root@ del sistema. Lo primero que debes hacer es entrar en la shell de MySQL:
+
+
+<div class="console">
+{% highlight console %}
+$ mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 7 to server version: 5.0.22
+
+Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
+
+mysql>
+{% endhighlight %}
+</div>
+
+Y ponerle una password porque ahora mismo NO tiene. Para ello:
+
+
+<div class="console">
+{% highlight console %}
+
+mysql> SET PASSWORD FOR root@localhost = PASSWORD ('algo_difícil_de_adivinar');
+Query OK, 0 rows affected (0.00 sec)
+{% endhighlight %}
+</div>
+
+Muy importante: jamás le pongas al usuario root de MySQL la misma clave que tenga el superusurio del sistema. 
+
+Puedes salir de la shell con @exit@ o C-d, y probar que funciona. Ahora debes añadir la opción -p para que te pregunte la password.
+
+
+<div class="console">
+{% highlight console %}
+$ mysql -u root -p
+password:
+
+{% endhighlight %}
+</div>
+
+h2. Cambiar la password de @root@
+
+Si olvidas la password del @root@ de MySQL la puedes cambiar. Para ello, para el servidor de MySQL y arrancalo de nuevo indicando que no compruebe passwords:
+
+
+<div class="console">
+{% highlight console %}
+ # /etc/init.d/mysql stop
+# mysqld --skip-grant-tables
+
+{% endhighlight %}
+</div>
+
+Ahora arranca la shell y pon una nueva clave:
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/mysql stop
+# mysqld --skip-grant-tables &
+# mysql -u root mysql
+mysql> UPDATE user SET Password=PASSWORD('otra_pass_dificil') where USER='root';
+mysql> FLUSH PRIVILEGES;
+{% endhighlight %}
+</div>
+
+Y por último, reinicia el servidor para que funcione del modo convencional:
+
+
+<div class="console">
+{% highlight console %}
+ # killall -9 mysqld
+# /etc/init.d/mysql start
+
+{% endhighlight %}
+</div>
+
+
+h2. Usuarios y permisos
+
+h3. Crear un usuario 
+
+
+<div class="console">
+{% highlight console %}
+mysql> GRANT ALL PRIVILEGES ON basededatos.* TO usuario@localhost IDENTIFIED BY 'clavecilla';
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+* "Introducción a MySQL":http://<a href="http://www.mysql-hispano.org/page.php?id=4&pag=1">www.mysql-hispano.org/page.php?id=4&pag=1</a>

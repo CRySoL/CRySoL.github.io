@@ -1,0 +1,105 @@
+---
+migrated: node/962
+layout: post
+title: Puesta en marcha de un servidor DHCP
+created: 1217581351
+author: int-0
+category: receta
+tags:
+- networking
+- Arco
+---
+<blockquote>Hola buenas! Pues nada, esta receta formará parte (espero) de una mayor que explicará como instalar una red <em>VPN</em> entre oficinas a través de Internet. Para llevar a cabo esto hay que empezar pasito a pasito, el primer paso será el siguiente: configurar la red local de cada oficina.</blockquote>
+
+<h2>El protocolo DHCP</h2>
+El protocolo <em>DHCP</em> (o <em>Dynamic Host Configuration Protocol</em>, o protocolo de configuración dinámica de los equipos) nos permitirá definir una configuración de red local en un sólo equipo, de manera que éste equipo configurará a los equipos que se lo pidan.
+
+A grandes rasgos el invento funciona así:
+<ul><li>Un equipo que está arrancando no tiene configurados los parámetros de red por lo que inicia la transacción DHCP.</li>
+<li>El equipo manda un DHCPREQ, que no es más que un mensaje <em>broadcast</em> en el que pregunta a ver si alguien le puede ayudar.</li>
+<li>El servidor DHCP (el que le puede ayudar) le responde con un DHCPOFFER, con la información que el cliente necesita.</li>
+<li>El cliente adopta esta configuración y cada cierto tiempo (el <em>lease time</em>) renovará su configuración, enviando al servidor un DHCPRENEWAL y recibiendo de éste un DHCPACK que indica que todo sigue normal.</li></ul>
+
+El funcionamiento es muy sencillo pero tiene pequeños problemas con sus pequeñas soluciones: pueden existir varios servidores DHCP, en cuyo caso el cliente selecciona la configuración ofrecida por el principal y si ninguno se definió como principal, elige cualquiera de las dos configuraciones. Además los DHCPRENEWAL los enviará sólo al servidor del que ha cogido la configuración.
+
+<h2>Instalar el servidor DHCP</h2>
+Nosotros, en <em>Debian</em> usaremos el <em>dhcp3-server</em>, así que:
+
+
+<div class="console">
+{% highlight console %}
+# aptitude install dhcp3-server
+{% endhighlight %}
+</div>
+
+Una vez instalado <b>no funciona</b> ya que no tiene definido <b>nada</b>.
+
+<h2>Configurar un servidor DHCP</h2>
+Lo primero que debemos saber es: <em>¿en qué interfaz tiene que escuchar?</em>. Por defecto nos vendrá configurado para escuchar peticiones de <em>cualquiera</em> de las interfaces. Si queremos cambiar esto tenemos que modificar el archivo <tt>/etc/default/dhcp3-server</tt>, que tiene el siguiente aspecto:
+
+<pre># Defaults for dhcp initscript
+# sourced by /etc/init.d/dhcp
+# installed at /etc/default/dhcp3-server by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+# On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
+#	Separate multiple interfaces with spaces, e.g. "eth0 eth1".
+INTERFACES=""</pre>
+
+Y pondremos <em>eth0</em> o las que sean (separadas por espacios) entre las comillas. Habiendo configurado esto sólo nos queda configurar nuestra red. Hagámoslo mejor en otro apartado, que son gratis... :D
+
+<h2>Configuración de una <em>subred</em></h2>
+Vale, vamos a configurar la <em>subred</em>... ¡pero primero tendremos que saber qué es lo que queremos! aunque nosotros podríamos tener la subred que quisiéramos... esto no es recomendable, ya que los señores tan listos de la <a href="http://www.iana.org/">IANA</a> nos recomiendan una serie valores <em>posibles</em> para nuestra red, estos son:
+<ul><li>Rango IP: 10.0.0.0 Máscara red: 10.255.255.255</li>
+<li>Rango IP: 172.16.0.0 Máscara red: 172.31.255.255</li>
+<li>Rango IP: 192.168.0.0 Máscara red: 192.168.255.255</li></ul>
+
+Nosotros vamos a elegir <b>192.168.X.X</b>, además, como queremos tener 255 subredes (por si las moscas) haremos lo siguiente: cambiaremos nuestra máscara de red por <b>255.255.255.0</b>, esto quiere decir que tendremos IP's de la forma: <b>192.168.Y.X</b> donde Y será la subred y X el <em>host</em>.
+
+Una vez que sabemos lo que queremos (si no entiendes bien esto de las máscaras de red y tal puedes hacer dos cosas: pasar de ello o desempolvar los apuntes de redes) tenemos que ponernos manos a la obra:
+<ol><li>Debemos configurar <b>manualmente</b> la interfaz de la red local, es decir, donde llegan las peticiones DHCP. La IP que asignemos a la interfaz debe ser de la forma 192.168.Y.X, en nuestro caso elegimos: 192.168.0.1. ¿No sabéis cómo?... bueeeno... pues en el archivo <tt>/etc/network/interfaces</tt> tenemos que tener algo como:
+<pre>auto eth1
+iface eth1 inet static
+	address 192.168.0.1
+	netmask 255.255.255.0
+	broadcast 192.168.0.255</pre>
+Siendo <em>eth1</em> la interfaz de la red local.</li>
+<li>Con la interfaz establecida definimos nuestra subred, eso lo hacemos en el fichero <tt>/etc/dhcp3/dhcpd.conf</tt> (que tiene muy buenos ejemplos) añadiendo lo siguiente:
+<pre>subnet 192.168.0.0 netmask 255.255.255.0 {
+  range 192.168.0.10 192.168.0.254;
+ }</pre>
+
+Notad que la máscara y el <em>192.168...</em> coincide con la configuración <em>manual</em> de la interfaz. También podéis ver que comenzamos a dar IP's a partir de la 10, ¿por qué? pues símplemente para reservarnos unas cuantas IP's a posibles servidores de nuestra red local :). Como último detalle, observad que la IP x.x.x.255 tampoco la entregamos porque esa IP es especial y se reserva para los <em>broadcast</em>.</li></ol>
+
+Con esto, reiniciamos el servidor dhcp y ya estará listo para asignar nuevas direcciones IP:
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/dhcp3-server restart
+{% endhighlight %}
+</div>
+
+Si nos vamos a los clientes y reiniciamos alguno comprobaremos dos cosas:
+<ul><li>Tiene dirección IP</li>
+<li>No funciona interneeeer :?</li></ul>
+
+¿Y esto? pues muy sencillo... tenemos dirección IP, pero no tenemos ni puerta de salida (o <em>gateway</em>) ni servidores <em>DNS</em> configurados en el sistema. Podemos ir cliente a cliente configurándolo... ¡o podemos decir al servidor DHCP que lo configure también él! y para hacerlo nada más fácil que modificar nuestra subred definida anteriormente y añadir estas opciones:
+
+<pre>subnet 192.168.0.0 netmask 255.255.255.0 {
+  range 192.168.0.10 192.168.0.254;
+  # Nuestro servidor DNS primario (nos lo da el ISP)
+  option domain-name-servers 194.179.1.101;
+  # Nuestra puerta de enlace a internet
+  option routers 192.168.0.1;
+  # Da igual, pero como lo sabemos... lo ponemos!
+  option broadcast-address 192.168.0.255;
+}</pre>
+
+Con esto ya lo tenemos listo :). Si los clientes no tienen acceso a internet es por lo siguiente: la puerta de enlace que configura nuestro ejemplo es la 192.168.0.1, que es el equipo donde hemos instalado nuestro servidor DHCP. Si este equipo no tiene configurado el enrutado <em>NAT</em>, no puede funcionar de puerta de enlace. Configurar eso será motivo de una futura receta. Por ahora ya tenéis vuestro servidor DHCP configurado y los equipos de vuestra red local también :).
+
+<h2>Referencias</h2>
+Pues la misma documentación del paquete y los comentarios en los archivos de configuración del mismo... si es que es muy facilito! :D
+

@@ -1,0 +1,106 @@
+---
+migrated: node/1688
+layout: post
+title: ! ' Asyncronous spy assertions with python-doublex'
+created: 1351259360
+author: david_villa
+category: receta
+tags:
+- Python
+- INGSOFT
+---
+Sometimes interaction among your "SUT":http://en.wikipedia.org/wiki/System_under_test class and their collaborators does not meet a synchronous behavior. That may happen when the SUT perform collaborator invocations in a different thread, or when the invocation pass across a message queue, publish/subscribe service, etc.
+<!--break-->
+Something like that:
+
+
+
+<div>
+{% highlight python %}
+class Collaborator:
+    def write(self, data):
+        print "your code here"
+
+class SUT:
+    def __init__(self, collaborator):
+        self.collaborator = collaborator
+
+    def some_method(self):
+        thread.start_new_thread(self.collaborator.write, ("something",))
+{% endhighlight %}
+</div>
+
+
+If you try to test your collaborator is called using a Spy, you will get a @wrong@ behavior:
+
+
+
+<div>
+{% highlight python %}
+    def test_wrong_try_to_test_an_async_invocation(self):
+        # given
+        spy = Spy(Collaborator)
+        sut = SUT(spy)
+
+        # when
+        sut.some_method()
+
+        # then
+        assert_that(spy.write, called())
+{% endhighlight %}
+</div>
+
+
+due to the @called()@ assertion *may* happen *before* the @write()@ invocation, but not always.
+
+You may be tempted to put a @sleep@ before the assertion, but this is a bad solution. A right way to solve that issue is to use something like a <a href="http://en.wikipedia.org/wiki/Barrier_(computer_science)">barrier</a>. The @threading.Event@ class may be used as a barrier. See this new test version:
+
+
+
+<div>
+{% highlight python %}
+    def test_an_async_invocation_with_barrier(self):
+        # given
+        barrier = threading.Event()
+        with Spy(Collaborator) as spy:
+            spy.write.attach(lambda *args: barrier.set)
+
+        sut = SUT(spy)
+
+        # when
+        sut.some_method()
+        barrier.wait(1)
+
+        # then
+        assert_that(spy.write, called())
+{% endhighlight %}
+</div>
+
+
+The @spy.write.attach()@ is part of the "doublex testing framework":https://bitbucket.org/DavidVilla/python-doublex and provides stub-observers. That is, a way to run arbitrary code when stubbed methods are called.
+
+That works because the @called()@ assertion is performed only when the spy release the barrier. It the @write()@ invocation never happen, the @barrier.wait()@ continues after 1 second and the test fail, as must do. When all is right, the barrier waits just the required time. 
+
+Well, this mechanism is a doublex builtin in the last release (1.5.1) and provide the same behavior in a clearer way. The next is functionally equivalent to the second test version above:
+
+
+
+<div>
+{% highlight python %}
+    def test_test_an_async_invocation_with_doublex_async(self):
+        # given
+        spy = Spy(Collaborator)
+        sut = SUT(spy)
+
+        # when
+        sut.some_method()
+
+        # then
+        assert_that(spy.write, called().async(timeout=1))
+{% endhighlight %}
+</div>
+
+
+More documentation and examples at <a href="https://bitbucket.org/DavidVilla/python-doublex">https://bitbucket.org/DavidVilla/python-doublex</a>
+
+cheers

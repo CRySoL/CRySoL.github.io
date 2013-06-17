@@ -1,0 +1,66 @@
+---
+migrated: node/87
+layout: post
+title: Midi por software
+created: 1131307408
+author: fsancho
+category: receta
+---
+bq. Más de uno, al pasarse a GNU/Linux se ha encontrado con el problema de no poder reproducir los ficheros midi porque su tarjeta no tiene ningún sintetizador midi integrado y los drivers alsa no lo emulan (cosa que suele venir de serie en los drivers de windows). Si te gustan los midis, o quieres recuperar el arte del karaoke desde GNU/Linux, ahí va esta pequeña receta.
+<!--break-->
+
+h1. Ingredientes:
+
+* *timidity*, un "renderizador" de midi por software
+* *freepats*, samples de sonido.
+
+h1. ¿Cómo funciona el midi por software? 
+
+Pues de manera idéntica al midi por hardware. Un fichero midi tan solo contiene las notas musicales que se han de interpretar y los nombres de los instrumentos que se deben usar. El dispositivo midi dispone de una lista de samples con cada uno de los instrumentos y al pasarle un fichero midi, interpreta en tiempo real la partitura que va en el fichero. Timidity hace lo mismo, pero para ello necesita un conjunto de samples o patches. En la calidad de estos patches reside la calidad del sonido final obtenido. Existen conjuntos de patches gratuitos e incluso libres (en Debian, Ubuntu y derivados está el paquete @freepats@), también existen conjuntos de patches comerciales de una calidad altísima, pero que no son necesarios para un uso cotidiano.
+
+Pues bien, una vez instalados los paquetes timidity y freepats, solo tienes que hacer lo siguiente:
+
+
+h1. Configurando
+
+Edita el fichero @/etc/default/timidity@ y cambia lo siguiente.
+
+<pre>TIM_ALSASEQ=true</pre>
+con esto se activa la carga del sintetizador timidity
+
+<pre>TIM_ALSASEQPARAMS="-B2,8 -Os"</pre>
+
+Estos son los parámetros por defecto de timidity. Si haces la prueba de intentar reproducir un fichero midi con el comando timidity, caerás en la cuenta de que si no tenéis un procesador potente, la CPU se carga demasiado, de manera que con los parámetros podemos ajustar el consumo de CPU. En mi caso uso los siguientes parámetros.
+
+<pre>TIM_ALSASEQPARAMS="-B2,8 -Os -EFreverb=0 -EFresamp=1 -EFchorus=0"</pre>
+
+De esta forma desactivo el efecto _Reverb_ y _Chorus_ y el resampleado de los patches lo hago con un algoritmo lineal en vez del gaussiano que utiliza por defecto. Esto hace descender drámaticamente el uso de CPU a la vez que apenas se nota un descenso en la calidad del sonido.
+
+Una vez hecho esto, basta con arrancar el servicio timidity.
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/timidity start
+Starting TiMidity++ ALSA midi emulation: timidity.
+Emulating midi on ports: 128:0 128:1 128:2 128:3
+
+{% endhighlight %}
+</div>
+
+Para probar que el emulador midi está funcionando podemos utilizar el reproductor pmidi de esta forma:
+
+
+<div class="console">
+{% highlight console %}
+pmidi -p 128:0 fichero.mid
+{% endhighlight %}
+</div>
+
+Si suena es que está funcionando correctamente. :-)
+
+Así hemos logrado tener emulación midi para aquellos programas de reproducción midi que lo requieran. Yo suelo usar kmid (no confundir con
+kmidi) para reproducir mid y kar (midis con letra de karaoke) y así amenizar mis fiestas :-D
+
+También hay que comentar que esta emulación midi es soportada por *wine* por las muchos programas y juegos que hagan uso del midi ahora
+sonarán perfectamente.

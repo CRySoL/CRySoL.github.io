@@ -1,0 +1,36 @@
+---
+migrated: node/789
+layout: post
+title: Editar menú de Gnome (y solución al "Menú Debian" desaparecido)
+created: 1192018703
+author: int-0
+category: receta
+tags:
+- gnome
+- Debian
+---
+<blockquote>Buenas... los debianitas habrán notado como hace algún tiempo que el maravilloso y útil "Menú Debian" ha desaparecido, no se porqué... pero si cómo hacerlo volver.... :D</blockquote>
+
+<h2>Menú a la carta</h2>
+¿El problema es que queremos una opción en el menú que ya no tenemos? ¿Queremos nuestro menú a la carta? pues instalemos <em>alacarte</em> (qué! bromaza :P):
+
+
+<div class="console">
+{% highlight console %}
+ # apt-get install alacarte
+{% endhighlight %}
+</div>
+
+O si usamos <em>aptitude</em>:
+
+
+<div class="console">
+{% highlight console %}
+ # aptitude install alacarte --please-dont-destroy-my-system
+{% endhighlight %}
+</div>
+
+Si ahora ejecutamos <em>alacarte</em> (como usuario también vale, lo activaremos para nuestra cuenta) vemos que ¡¡el "Menú Debian" está ahí... pero <b>desactivado</b>!!... pues lo activamos y ya está...
+
+<h2>Enlaces</h2>
+¿A qué? :P

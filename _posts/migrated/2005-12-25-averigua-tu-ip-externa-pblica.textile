@@ -1,0 +1,87 @@
+---
+migrated: node/83
+layout: post
+title: Averigua tu IP externa (pública)
+created: 1135465200
+author: david_villa
+category: receta
+tags:
+- networking
+---
+<blockquote>
+<?php
+$ip = $_SERVER['REMOTE_ADDR'];
+echo "Tu dirección IP externa: <b>$ip</b>";
+?>
+<br/>
+Esta receta explica formas de conocer la IP pública con la que te estás concectando a Internet
+</blockquote>
+<!--break-->
+Si utilizas un router o algo del estilo que incorpore un servidor DHCP, la dirección asignada a tu ordenador con toda seguridad será una <b>dirección IP privada</b> Pero a veces, es necesario conocer cuál es la IP pública con la que sales a Internet, con el fin de configurar un <a href="/node/25">cliente DNS dinámico</a> u otro tipo de aplicación específica.
+
+Para conocerla puedes usar alguno de estos métodos:
+
+<ul>
+  <li><a href="http://checkip.dyndns.org/">checkip.dyndns.org</a></li>
+  <li><a href="http://www.whatismyip.com/">www.whatismyip.com</a></li>
+  <li><a href="http://www.showmyip.com/">www.showmyip.com</a></li>
+  <li><a href="http://www.ipchicken.com/">www.ipchicken.com</a></li>
+</ul>
+
+<a href='http://www.nowredirect.com/ipchecker' target='_blank'><img src='http://www.nowredirect.com/ipchecker/ipimage.php' border='0' width='140' height='22' title='Powered by IPChecker'></a>
+
+
+<h2> Shell </h2>
+
+
+<div class="console">
+{% highlight console %}
+
+lynx -dump http://checkip.dyndns.org/ | grep IP | awk {'print $4'}
+{% endhighlight %}
+</div>
+
+
+<div class="console">
+{% highlight console %}
+
+$ curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+'
+{% endhighlight %}
+</div>
+
+<h2> Shell (avisa por mail)</h2>
+
+
+
+<temp-div>
+{% highlight text %}
+#!/bin/bash
+# Requiere los paquetes "mailx" y "lynx"
+# Te envía un email cada vez que te cambia la IP pública. Ejecutar en background
+
+while true
+do
+    old_ip="`cat ~/public.ip 2> /dev/null`" 
+    new_ip="`lynx -source <a href="http://www.whatismyip.com/">http://www.whatismyip.com/</a> | grep '&lt;TITLE>' | awk '{print $4}'`"
+
+    if [ "$old_ip" != "$new_ip" ]; then
+        echo $new_ip | mail tu@email.com -s "Tu IP ha cambiado"
+        echo $new_ip > ~/public.ip
+    fi
+    sleep 60
+done
+{% endhighlight %}
+</div>
+
+
+<h2> PHP </h2>
+
+
+
+<div>
+{% highlight php %}
+<?php
+echo "Tu dirección IP externa es: ", $_SERVER['REMOTE_ADDR'];
+?>
+{% endhighlight %}
+</div>

@@ -1,0 +1,74 @@
+---
+migrated: node/1347
+layout: post
+title: ! 'CMake: Compilando aplicaciones ZeroC Ice'
+created: 1269631755
+author: cleto
+category: receta
+tags:
+- devel
+- Ice
+- Arco
+---
+<blockquote>Esta receta explica cómo compilar un Hola Mundo para el middleware ZeroC Ice utilizando CMake.</blockquote>
+<!--break-->
+<h2>Software necesario</h2>
+
+Puedes descargarte el software que se va a utilizar del siguiente repo subversion:
+
+<div class="console">
+{% highlight console %}
+
+$ svn co https://arco.esi.uclm.es/svn/public/samples/cmake/hello_ice
+{% endhighlight %}
+</div>
+
+En el repositorio se encuentra la implementación de un "Hola Mundo" para ZeroC Ice y el CMakeLists.txt asociado.
+
+<h2>Herramientas externas</h2>
+Un programa en Ice presenta un problema común: archivos que se generan con herramientas externas al proyecto son necesarios para la compilación. En Ice, <tt>slice2cpp</tt> genera código que debe ser incluido en la compilación.
+
+CMake proporciona un comando muy útil llamado ADD_CUSTOM_COMMAND y que permite definir cómo se generan ciertos objetivos. Utilizando este comando, veamos cómo quedaría el programa CMake para construir el Hola Mundo en Ice:
+
+
+<temp-div>
+{% highlight text %} 
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(hello_ice)
+
+FIND_LIBRARY(ice_lib Ice)
+FIND_PATH(ice_path Ice)
+
+IF(NOT ice_path)
+  MESSAGE(FATAL_ERROR "** Librería de Ice no encontrada")
+ENDIF()
+
+# Variable con los slices necesarios
+SET(SLICES ${CMAKE_CURRENT_SOURCE_DIR}/slice/hello.ice)
+
+# slice2cpp
+ADD_CUSTOM_COMMAND (
+  OUTPUT hello.cpp hello.h
+  COMMAND slice2cpp ${SLICES}
+  )
+
+INCLUDE_DIRECTORIES(
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_BINARY_DIR}  # slice2cpp deja el .h en el directorio en 'build'
+  ${ice_path}
+  )
+
+ADD_EXECUTABLE(Client hello.cpp Client.cpp)
+ADD_EXECUTABLE(Server hello.cpp helloI.cpp Server.cpp)
+TARGET_LINK_LIBRARIES(Server ${ice_lib})
+TARGET_LINK_LIBRARIES(Client ${ice_lib})
+{% endhighlight %}
+</div>
+
+Al principio, se hacen unas liberas comprobaciones de que la librería de Ice existe. A continuación se define el comando <tt>slice2cpp</tt> diciendo que como salidas los ficheros <tt>hello.cpp</tt> y <tt>hello.h</tt> a partir del fichero Slice <tt>hello.ice</tt>. Los archivos de salida son dependencias de los distintos ejecutables que se deben crear. Finalmente, se enlaza con las librerías necesarias.
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#command:add_custom_command">Comando ADD_CUSTOM_COMMAND en CMake 2.8</a></li>
+</ul>

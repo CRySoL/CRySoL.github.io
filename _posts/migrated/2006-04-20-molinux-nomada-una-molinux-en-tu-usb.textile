@@ -1,0 +1,22 @@
+---
+migrated: node/287
+layout: post
+title: Molinux Nomada, una molinux en tu USB
+created: 1145520631
+author: fsancho
+category: noticia
+tags:
+- Molinux
+---
+Tengo casi a punto un nuevo "sabor" de Molinux. En esta ocasión he conseguido meter la distribución en un "pendrive". Por ahora es la distribución Live estándar, por lo que hacen falta 620MB de espacio para hacerlo funcionar.
+
+La particularidad de esta versión es que no se limita a ejecutar la distribución Live desde un pendrive sino que permite además que nuestros datos personales permanezcan archivados en el de forma que esta manera de llevar Molinux es algo mas funcional.
+<!--break-->
+Muchos me preguntareis si además se puede personalizar la distribución y ya os adelanto que por ahora no. Por varios motivos:
+
+# Molinux Nomada está pensada para dispositivos del tipo pendrive, es decir, memorias USB de estado sólido. Este tipo de memorias tienen una vida limitada a unos miles de escrituras por cada byte. Si empleo un sistema de archivos de lectura escritura, el soporte físico se vería demasiado "estresado" y la vida del dispositivo se acortaría bastante.
+# Por otro lado, si la distribución es configurable al 100% por el ususario, se perdería el caracter "live" que tiene, es decir, la capacidad de autoconfigurarse para cada ordenador donde se concecta.
+
+Con todo, se dispone de un pequeño espacio personalizable, que es el directorio HOME del usuario inicial. Desde ahí se puede avanzar en la personalización del sistema. Estoy abierto a todo tipo de sugerencias y comentarios.
+
+Para aquellos que quieran descargarse una copia de Molinux Nomada, y colaborar con su desarrollo, pueden dirigirse a su <a href="http://comunidad.molinux.info/index.php/Molinux_Nomada">página oficial</a>

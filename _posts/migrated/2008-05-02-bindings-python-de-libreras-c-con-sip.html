@@ -1,0 +1,243 @@
+---
+migrated: node/914
+layout: post
+title: Bindings Python de librerías C++, con SIP
+created: 1209707564
+author: cleto
+category: receta
+tags:
+- Arco
+- Python
+- C++
+---
+<blockquote class="head">
+Cómo crear fácilmente bindings de Python para una librería C++ usando SIP
+</blockquote>
+<!--break-->
+<h2>Introducción</h2>
+¿Tienes algunas librerías en C++ hechas y no sabes cómo utilizarlas en Python? ¿Estás "decepcionado" porque tu programa construído totalmente en Python no es tan rápido como esperabas?. La solución es "bien sencilla": te programas una librería en C/C++ (si no la tienes) que haga el trabajo, construyes un wrapper para utilizarla en Python y... ¡listo!
+
+Para el primer paso no hay, de momento, solución automática. Pero para el segundo existen diversas herramientas que ayudan a la construcción del wrapper, su compilación e instalación. Una de estas herramientas, la que vamos a utilizar en esta receta, se llama python-sip. Asiste a la creación de los wrappers para librerías C/C++, aunque los ejemplos que se mostrarán serán de C++. Para más información, consulta la sección de <b>Enlaces</b>.
+
+<h2>Ingredientes</h2>
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install python-sip4 sip4
+{% endhighlight %}
+</div>
+
+<h2>Ejemplo</h2>
+<h3>Librería C++</h3>
+Para ilustrar el funcionamiento de python-sip, ¡qué mejor que un ejemplo!. Supón que la librería consta de una clase construída en C++ y cuyo fichero de cabecera (<em>Impresora.h</em>) es el siguiente:
+
+
+<div>
+{% highlight cpp %}
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+class Impresora {
+public:
+  Impresora(const string&);
+  ~Impresora();
+  
+  void imprimirLista(set<string>);
+    
+private:
+  string nombre;
+};
+{% endhighlight %}
+</div>
+
+Y cuya implementación es la siguiente (<em>Impresora.cpp</em>):
+
+
+<div>
+{% highlight cpp %}
+#include <Impresora.h>
+
+Impresora::Impresora(const string& name) {
+  nombre = name;
+  cout << nombre << endl;
+}
+
+Impresora::~Impresora()
+{}
+
+void
+Impresora::imprimirLista(set<string> lista) {
+  set<string>::iterator it;
+  for ( it=lista.begin() ; it != lista.end(); it++ )
+    cout << " " << *it;
+  
+  cout << "<--- Imprime " << nombre << endl;
+}
+{% endhighlight %}
+</div>
+
+Como se puede apreciar, la clase tiene poca historia: tiene un atributo privado ("nombre") y un método para imprimir una lista (conjunto) de strings ordenados alfabéticamente. Para compilar esta librería tenemos el siguiente Makefile:
+
+
+<div>
+{% highlight text %}
+CXXFLAGS = -I. -fPIC
+LFLAGS = -shared
+
+all: libImpresora.so
+
+libImpresora.so: Impresora.o
+	$(CC) $(CXXFLAGS) $(LFLAGS) $^ -o $@ 
+{% endhighlight %}
+</div>
+
+En definitiva, partimos de un archivo "libImpresora.so" que contiene la librería en C++ ya compilada. Ahora comienza la construcción del wrapper con ayuda de python-sip4.
+<h2>Construcción del wrapper</h2>
+Comenzamos creando un archivo que, por convenio, llamaremos "Impresora.sip". En este fichero especificaremos la estructura del wrapper con sintaxis sip, muy parecida a C++.  Una primera aproximación sería la siguiente:
+
+
+<div>
+{% highlight cpp %}
+%Module Ejemplos 0
+
+class Impresora {
+%TypeHeaderCode
+#include < Impresora.h >
+%End
+
+public:
+  Impresora(const char *);
+  ~Impresora();
+  
+  void imprimirLista(SIP_PYLIST); 
+};
+{% endhighlight %}
+</div>
+
+<ul>
+<li><em>%Module</em> especifica el módulo en el que va estar incluída la librería, junto con un número de versión. En el ejemplo, el módulo es "Ejemplo" en su versión "0".</li>
+
+<li><em>%TypeHeaderCode</em> es necesario para que sip pueda leer la información de la clase que se va a "wrappear". Todo lo encerrado en ese bloque, sip lo utilizará para construir el wrapper con los tipos adecuados.</li>
+
+<li>Nótese que se ha modificado los tipos de los argumentos del constructor y del método "imprimirLista". Sip no soporta tipos como string (y no digamos sets de la STL de C++). Sin embargo, en el caso de string, basta con especificar de que se trata de un "char*" y C++ se encargará del cambio de tipo. El argumento de tipo set se ha sustituído por una constante de sip que representa una lista de Python. Existe una constante de este tipo para cada uno de los tipos de Python (SIP_PYDICT...). Consúltese las referencias para más información.</li>
+
+<li>Como se puede apreciar, no está especificado el atributo privado "nombre". Sip no soporta atributos ni métodos privados para la construcción del wrapper.</li>
+</ul>
+
+SIP_PYLIST representa a una lista de Python pero, ¿cómo se hará la correspondecia set->PythonList?. ¿Sip se encargará de ello?. Pues no. La correspondencia entre tipos complejos (objetos propios, clases auxiliares...) debe hacerse de forma explícita. Para especificar la conversión de uno a otro utilizaremos la directiva %MethodCode:
+
+
+<div>
+{% highlight cpp %}
+%Module Ejemplos 0
+class Impresora {
+%TypeHeaderCode
+#include <Impresora.h>
+%End
+public:
+Impresora(const char *);
+~Impresora();
+void imprimirLista(SIP_PYLIST);
+%MethodCode
+set<std::string> arg;
+for(int i = 0; i < PyList_Size(a0); ++i) {
+     char* value = PyString_AsString(PyList_GetItem(a0,i));
+      arg.insert(, value);
+}
+sipCpp->imprimirLista(arg);
+%End
+};
+{% endhighlight %}
+</div>
+
+<ul>
+<li>Declaramos una variable del mismo tipo que el argumento que espera el método, en nuestro caso un set de strings.</li>
+<li><b>a0</b> es el argumento (SIP_PYLIST) de tipo PyObject* de la librería CPython. Por tanto, el bucle no sirve nada más que para guardar cada valor de la lista Python en el set.</li>
+<li><b>sipCpp</b> es un puntero al objeto de entorno, en nuestro caso, "Impresora*". Cuando tenemos el set completamente construído llamamos a "imprimirLista" con el parámetro convertido.</li>
+</ul>
+<h3>Construcción del Wrapper</h3>
+Una vez tenemos la especificación del fichero .sip, es hora de construir el wrapper de forma automática. Para ello, es aconsejable utilizar un pequeño script en python que genera los archivos .cpp y el Makefile final. Un fichero básico sería el siguiente:
+
+
+<div>
+{% highlight python %}
+import os
+import sipconfig
+
+# The name of the SIP build file generated by SIP and used by the build
+# system.
+build_file = "impresora.sbf"
+
+# Get the SIP configuration information.
+config = sipconfig.Configuration()
+
+# Run SIP to generate the code.
+os.system(" ".join([config.sip_bin, "-c", ".", "-b", build_file, "Impresora.sip"]))
+
+# Create the Makefile.
+makefile = sipconfig.SIPModuleMakefile(config, build_file)
+
+# Add the library we are wrapping.  The name doesn't include any platform
+# specific prefixes or extensions (e.g. the "lib" prefix on UNIX, or the
+# ".dll" extension on Windows).
+makefile.extra_libs = ["Impresora"]
+makefile.extra_lflags = ["-L."]
+# Generate the Makefile itself.
+makefile.generate()
+{% endhighlight %}
+</div>
+
+El código de este script es "autocomentado". Supongamos que el fichero que contiene el código anterior se llama  "configure.py":
+
+
+<div class="console">
+{% highlight console %}
+$ python configure.py
+{% endhighlight %}
+</div>
+
+El comando anterior genera el wrapper en C++ y el Makefile que construirá todo.
+
+
+<div class="console">
+{% highlight console %}
+$ make
+{% endhighlight %}
+</div>
+
+La compilación del wrapper generará un archivo "Ejemplos.so", que es la librería compartida que será utilizada por Python.
+
+<h3>Probando</h3>
+
+Tenemos 2 opciones:
+<ul>
+<li>Ejecutar "make install" y, por tanto, instalaremos el archivo "Ejemplos.so" en <em>/usr/lib/pythonX.X/site-packages</em> donde será accesible para cualquier programa Python que utilize el módulo Ejemplos.
+</li>
+<li>Probar la librería con iPython, ejecutándolo en el directorio donde se encuentra el nuevo módulo</li>
+</ul>
+
+Cualquiera que sea el modo de prueba se debe modificar la variable de entorno LD_LIBRARY_PATH para que el intérprete de Python pueda localizar el "libImpresora.so". A continuación, un ejemplo utilizando iPython:
+
+<div class="console">
+
+<temp-div>
+{% highlight text %}
+~/pruebas/python-sip$ export LD_LIBRARY_PATH=.
+~/pruebas/python-sip$ ipython
+In [1]: import Ejemplos
+In [2]: imp = Ejemplos.Impresora("HAL9000")
+In [4]: imp.imprimirLista(["Dave", "tengo", "miedo"])
+ Dave miedo tengo<--- Imprime HAL9000
+{% endhighlight %}
+</div>
+</div>
+
+<h2>Referencias</h2>
+
+<ul>
+<li>Documentación de sip4 en  /usr/share/doc/sip4/reference/sipref.html, incluída en el paquete <b>sip4</b></li>
+<li><a href="http://docs.python.org/api/api.html">CPyton Reference</a>.</li>
+</ul>

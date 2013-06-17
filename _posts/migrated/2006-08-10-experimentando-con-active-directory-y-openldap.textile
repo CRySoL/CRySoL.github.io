@@ -1,0 +1,124 @@
+---
+migrated: node/370
+layout: post
+title: Experimentando con Active Directory y OpenLDAP
+created: 1155199344
+author: paco
+category: receta
+---
+bq. Esta receta cuenta mis experimentos con el Active Directory de la universidad. Está en construcción porque todavía estoy experimentando, así que paciencia.  Aprovecho para decir que me parece una kk el drupal éste, que no permite tener documentos en modo Draft, sin que sea visible.
+<!--break-->
+h2. Ingredientes
+
+Todos son paquetes Debian:
+
+* ldap-utils
+* krb5-user
+* libsasl2-gssapi-mit
+
+Para instalar tu propio servidor LDAP:
+
+* ldapscripts
+* slapd
+
+h2. El servidor AD de la UCLM
+
+El servidor Active Directory de la UCLM es alarcos.uclm.es.  Responde tanto desde fuera de la Universidad como desde dentro, pero en puertos diferentes.  Desde fuera solo contesta en el 3268.  Desde dentro también contesta en el estándar (389).  En el puerto 3268 no permite conexiones TLS, en el 389 sí (extraño, ¿no?).  En ambos puertos permite utilizar GSSAPI (Kerberos 5).
+
+h2. Primera búsqueda
+
+La forma más simple de usar el directorio es con ldapsearch, del paquete ldap-utils.  Y la forma más sencilla de autenticación es  la autenticación simple (parámetro -x).  Prueba primero con ésta para ver si te va.
+
+Por ejemplo, para hacer una búsqueda de los alumnos cuyos dni empiezan por 1234:
+
+
+<div class="console">
+{% highlight console %}
+ldapsearch -H ldap://alarcos.uclm.es:3268 -D '{userdn}' -w '{userpwd}' -x -b dc=uclm,dc=es '(cn=1234*)' '*'
+
+{% endhighlight %}
+</div>
+
+Donde <em>{userdn}</em> es el distinguished name (DN) del usuario y <em>{userpwd}</em> es la clave del usuario.  Para un alumno el DN tiene la forma <b>UCLM\dni</b> donde el DNI solo tiene números, no letras.  Para un profesor, o PAS, o becario tiene la forma <b>UCLM\nombre.apellido</b> (e.g: <b>UCLM\francisco.moya</b>.  Estas formas de poner el DN no son muy comunes para los usuarios de LDAP, pero el Active Directory acepta también la forma clásica.  Por ejemplo, en mi caso mi DN clásico sería <b>cn=francisco.moya, ou=Ciudad Real, ou=PDI, dc=uclm, dc=es</b>.
+
+En la UCLM el Active Directory no admite anonymous bind, siempre hay que usar un usuario válido con el parámetro -D.
+
+h2. <a name="krb5conf"> </a>Usando kerberos 5
+
+Si instalamos krb5-user podemos usar el Active Directory para autenticarnos en modo SSO (sólo necesitamos meter la passwd una vez). En la instalación del paquete nos hace algunas preguntas, aquí están las respuestas para la UCLM:
+
+<pre>
+default_realm = UCLM.ES
+kdc = alarcos.uclm.es
+admin_server = alarcos.uclm.es
+</pre>
+
+Para autenticarse basta usar la orden:
+
+
+<div class="console">
+{% highlight console %}
+kinit -A {username}
+{% endhighlight %}
+</div>
+
+El parámetro <em>{username}</em> es el DNI en el caso de los alumnos y el <b>nombre.apellido</b> en caso de profesor, o PAS o becario.
+
+A partir de este momento ya tenemos un ticket que vale para unas cuantas horas.  Se pueden consultar los tickets que tenemos con un simple:
+
+
+<div class="console">
+{% highlight console %}
+klist
+{% endhighlight %}
+</div>
+
+Que saca algo parecido a:
+
+
+<temp-div>
+{% highlight text %}
+Ticket cache: FILE:/tmp/krb5cc_1000
+Default principal: francisco.moya@UCLM.ES
+
+Valid starting     Expires            Service principal
+08/10/06 09:21:24  08/10/06 19:21:26  krbtgt/UCLM.ES@UCLM.ES
+        renew until 08/11/06 09:21:24
+{% endhighlight %}
+</div>
+
+Se ve perfectamente incluso la fecha de expiración del ticket y hasta cuando podemos renovarlo sin necesidad de hacer otro kinit.
+
+La utilización del ticket es automática siempre que utilicemos programas compilados con soporte de Kerberos 5. Pero cuidado, hay dos implementaciones de kerberos 5 en Debian: MIT Kerberos y Heimdal Kerberos.  Los tickets no son intercambiables.  Yo utilizo MIT Kerberos.
+
+Una vez utilizado el/los recursos conviene destruir los tickets para que no puedan ser utilizados por otros usuarios maliciosos.  Para destruir los tickets basta hacer:
+
+
+<div class="console">
+{% highlight console %}
+kdestroy
+{% endhighlight %}
+</div>
+
+h2. Usando LDAP con GSSAPI
+
+GSSAPI es un API estándar para la utilización de Kerberos 5 desde las aplicaciones.  En Debian hay muchos servicios que utilizan GSSAPI opcionalmente para añadir todas las ventajas de Kerberos 5.  OpenLDAP es la librería con la que se han construido las aplicaciones de ldap-utils (como ldapsearch) y también proporciona un mecanismo de autenticación usando GSSAPI.  Para que funcione es preciso instalar <em>libsasl2-gssapi-mit</em>.
+
+Una vez instalado las búsquedas se hacen considerablemente más simples:
+
+
+<div class="console">
+{% highlight console %}
+$ kinit -A francisco.moya
+$ ldapsearch -H ldap://alarcos.uclm.es:3268 -b dc=uclm,dc=es '(cn=1234*)' '*'
+
+{% endhighlight %}
+</div>
+
+El kinit solo hay que hacerlo una vez, después todas las búsquedas son autenticadas con Kerberos.  Ya no es preciso hacer un bind, puesto que Kerberos ya proporciona sufiente garantía de autenticación.
+
+h2. Autenticando con Kerberos5
+
+ActiveDirectory no tiene ni quiere tener nada que tenga que ver con gestión de usuarios en Unix. Hay paquetes de otras empresas que complementan la estructura del servicio LDAP para que sea utilizable por un Unix.  ¿Pero cómo convencer al administrador de tu Active Directory?  Una solución de compromiso es ceder la autenticación a Kerberos5 pero usar nuestro propio servidor LDAP.
+
+Ups, tengo clase, luego sigo...

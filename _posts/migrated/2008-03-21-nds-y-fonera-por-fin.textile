@@ -1,0 +1,56 @@
+---
+migrated: node/886
+layout: post
+title: ¡NDS y Fonera por fin!
+created: 1206104306
+author: paco
+category: receta
+tags:
+- networking
+- Arco
+- NDS
+---
+bq(head). Tras muchos muchos intentos de todo tipo y cuando ya pensábamos en comprar un router wifi solo para la Nintendo DS porque no había manera de que pitufara como debe...
+
+<!--break-->
+
+Facilísssimo.  Bastaba con limitar el bit rate a mano a 2Mbps.  Para la pobresilla NDS era demasiado... y la tontorrona de la Fonera no se enteraba...
+
+Bastaba un simple
+
+
+<div class="console">
+{% highlight console %}
+# iwconfig ath0 rate 2M
+
+{% endhighlight %}
+</div>
+
+Para que quede más decente yo edité mi /etc/config/wireless y le añadí a mi wifi-device una opción extra <em>rate</em>.  El mio tiene esta pinta:
+
+<pre>
+config wifi-device wifi0
+  option type atheros
+  option channel 7
+  option rate 2M
+
+config wifi-iface
+  option device wifi0
+  option network lan
+  option mode ap
+  option ssid OpenWrt
+  option encryption none
+</pre>
+
+Por supuesto de esta opción el OpenWrt no tiene ni idea, asi que tendremos que tocar los scripts.  En <em>/lib/wifi/madwifi.sh</em> añade esto al final de la función <em>enable_atheros</em>, justo antes del último <em>done</em>:
+
+<pre>
+  config_get rate "$device" rate
+  iwconfig "$ifname" rate "$rate"
+</pre>
+
+Y es que ¿dónde vamos a encontrar una parejita mejor conjuntá?
+
+<center>
+<img src="http://arco.inf-cr.uclm.es/~francisco.moya/nds-fonera.jpg" alt="[La parejita]"/>
+</center>

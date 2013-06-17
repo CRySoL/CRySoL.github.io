@@ -1,0 +1,66 @@
+---
+migrated: node/305
+layout: post
+title: Canon IXUS 55 con gphoto2 en Debian GNU/Linux
+created: 1148148512
+author: david_villa
+category: receta
+---
+bq. Esta receta explica qué hacer para poder utilizar dicha cámara con gphoto2. La cuestión es que esta cámara no es reclamada por ningún driver, a pesar de que está soportada por libgphoto2. De modo que el motivo real de esta receta es explicar lo qué puedes hacer en estos casos, sea con ésta o con cualquier otra cámara en las mismas circunstancias.
+
+h2. Ingredientes
+
+* Debian GNU/Linux ( _unstable_ en mi caso)
+* gphoto2-2.1.6
+* Una Canon IXUS 55
+
+h2. Introducción
+
+Los dispositivos USB se identifican con dos numeritos: el VendorID y el ProductID, que corresponden respectivamente al fabricante y al producto. Cuando enchufas cualquier dispositivo USB, el sistema de detección de hardware formado por udev, dbus, hal, etc intenta determinar qué driver cargar para manejar ese dispositivo en base a la pareja (VendorID, ProductID).
+
+En último término, si todo ha ido bien, el gestor de hw del escritorio - GVM(Gnome Volume Manager) en mi caso- arrancará la aplicación correspondiente para usar el dispositivo, si es que lo tienes configurado para que así sea.
+
+h2. Identificando la cámara
+
+Para averiguar los identificadores de los que hablaba antes puedes utilizar un programa llamado @usbview@.
+
+Otra forma es averiguar el identificador USB que le ha asignado Linux (usando @dmesg@), y después echar un vistazo en el @/sys/bus/usb@. Es decir, después de enchufar la cámara:
+
+
+<div class="console">
+{% highlight console %}
+ $ dmesg 
+....
+usb 1-2.3: new high speed USB device using ehci_hcd and address 21
+....
+$ cat /sys/bus/usb/devices/1-2.3/idVendor
+04a9
+$ cat /sys/bus/usb/devices/1-2.3/idProduct
+30ff
+
+{% endhighlight %}
+</div>
+
+h2. Nueva regla
+
+Ahora que sabes los identificadores, tienes que crear una nueva regla en el fichero @/etc/udev/libgphoto2.rules@, que tenga esta pinta:
+
+<pre>
+# Canon Digital IXUS 55 (PTP mode)
+SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30ff", MODE="0660", GROUP="camera"
+</pre>
+
+h2. Permisos
+
+Para terminar asegúrate de que perteneces al grupo @camera@ porque de otro modo no tendrás permiso para acceder al dispositivo.
+
+
+h2. Comentarios
+
+Hay varios programas que puedes usar para manipular las fotos de tu cámara: gthumb, gtkam, 
+
+
+h2. Referencias
+
+* "New camera":http://blogs.vislab.usyd.edu.au/index.php/Steve/2006/02/23/new_camera
+* "Setting up permissions for USB ports":http://<a href="http://www.gphoto.org/doc/manual/permissions-usb.html">www.gphoto.org/doc/manual/permissions-usb.html</a>

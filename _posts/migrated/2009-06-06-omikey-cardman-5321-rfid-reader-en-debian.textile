@@ -1,0 +1,227 @@
+---
+migrated: node/1122
+layout: post
+title: Omikey Cardman 5321 RFID reader en Debian
+created: 1244312922
+author: paco
+category: receta
+tags:
+- Debian
+- seguridad
+---
+bq(head). ¿Harto de teclear la clave cuando te salta el salvapantallas? ¿Harto de que el vecino de cubículo cotillee to correo cuando se te olvida bloquear el escritorio?  Tenemos una solución. El Omnikey Cardman 5321 es un lector de tarjetas RFID y de tarjetas de contactos bastante barato, pero el fabricante no proporciona información :-( .  Esta recetilla explica como usarlo en Debian usando el driver binario que distribuyen ellos.
+<!--break-->
+h2. Ingredientes
+
+Los siguientes son paquetes debian:
+
+* python-pyscard
+* python-serial
+
+El siguiente paquete de <a href="http://arco.esi.uclm.es/~francisco.moya/debian/">mi repo</a> (no oficial):
+
+* pcscd (1.5.3-1.1)
+
+El driver (solo binarios):
+
+* ifdokrfid_lnx-2.6.0.tar.gz
+
+Selecciona el apropiado(32/64 bits) en la <a href="http://www.hidglobal.com/driverDownloads.php?techCat=19&prod_id=331">página del fabricante</a>.
+
+h2. Instalación de paquetes
+
+Instala los paquetes Debian y la versión modificada de pcscd. Extrae el driver del fabricante en un directorio cualquiera y sitúate en él con una consola de root.
+
+
+<div class="console">
+{% highlight console %}
+
+# ./install -d /usr/lib/pcsc/drivers
+{% endhighlight %}
+</div>
+
+Finalmente reinicia pcscd:
+
+
+<div class="console">
+{% highlight console %}
+
+# /etc/init.d/pcscd restart
+{% endhighlight %}
+</div>
+
+h2. Script de auto-login
+
+En tu directorio de binarios personales (por ejemplo, <tt>~/bin</tt>) guarda el siguiente script con el nombre <tt>printId</tt>:
+
+
+
+<div>
+{% highlight python %}
+#! /usr/bin/env python
+
+from sys import stdin, exc_info
+from time import sleep
+
+from smartcard.CardConnectionObserver import CardConnectionObserver
+from smartcard.CardMonitoring import CardMonitor, CardObserver
+from smartcard.util import *
+from smartcard import CardConnection
+from smartcard.scard import SCARD_PROTOCOL_T1
+
+# define the apdus used in this script
+GUID = [0xff, 0xca, 0, 0, 0]
+
+
+class MyCardObserver( CardObserver ):
+    def __init__( self ):
+        self.observer = CardConnectionObserver()
+
+    def update( self, observable, (addedcards, removedcards) ):
+        for card in addedcards:
+            proto = SCARD_PROTOCOL_T1
+            card.connection = card.createConnection()
+            card.connection.connect(proto)
+            card.connection.addObserver(self.observer)
+            apdu = GUID
+            response, sw1, sw2 = card.connection.transmit(apdu, proto)
+            card.uid = response
+            print "+Inserted: ", response
+
+        for card in removedcards:
+            print "-Removed: ", card.uid
+
+try:
+    cardmonitor = CardMonitor()
+    selectobserver = MyCardObserver()
+    cardmonitor.addObserver(selectobserver)
+    while True:
+        sleep(60)
+    cardmonitor.deleteObserver(selectobserver)
+
+except:
+    print exc_info()[0], ':', exc_info()[1]
+{% endhighlight %}
+</div>
+
+
+Ejecutando este script podrás leer el identificador de las tarjetas RFID.  En principio lo he configurado para que funcione con mis tarjetas Mifare 1k.  Por ejemplo, al acercar mi tarjeta sale algo parecido a esto:
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ ~/bin/printId
++Inserted:  [204, 101, 19, 48]
+{% endhighlight %}
+</div>
+
+
+Guarda esos números y añade un nuevo script en tu directorio de binarios con el nombre autoLock:
+
+
+
+<div>
+{% highlight python %}
+#! /usr/bin/env python
+
+from sys import stdin, exc_info
+from time import sleep
+
+from smartcard.CardConnectionObserver import CardConnectionObserver
+from smartcard.CardMonitoring import CardMonitor, CardObserver
+from smartcard.util import *
+from smartcard import CardConnection
+from smartcard.scard import SCARD_PROTOCOL_T1
+import subprocess
+
+# APDU to get ID
+GUID = [0xff, 0xca, 0, 0, 0]
+
+AuthorizedCards = (
+    [204, 101, 19, 48], # Pon aquí tus tarjetas
+    )
+
+class MyCardObserver( CardObserver ):
+    def __init__( self ):
+        self.observer = CardConnectionObserver()
+
+    def update( self, observable, (addedcards, removedcards) ):
+        for card in addedcards:
+            proto = SCARD_PROTOCOL_T1
+            card.connection = card.createConnection()
+            card.connection.connect(proto)
+            card.connection.addObserver(self.observer)
+            apdu = GUID
+            response, sw1, sw2 = card.connection.transmit(apdu, proto)
+            card.uid = response
+            if card.uid in AuthorizedCards:
+                subprocess.call(['gnome-screensaver-command', '-d'])
+
+        for card in removedcards:
+            if card.uid in AuthorizedCards:
+                subprocess.call(['gnome-screensaver-command', '--lock', '-a'])
+
+
+cardmonitor = CardMonitor()
+selectobserver = MyCardObserver()
+cardmonitor.addObserver(selectobserver)
+while True:
+    sleep(60)
+cardmonitor.deleteObserver(selectobserver)
+{% endhighlight %}
+</div>
+
+
+El array AuthorizedCards debe inicializarse con las tarjetas que tú autorizas a que desbloqueen tu escritorio.
+
+h2. ¿Seguridad?
+
+Nada, seguridad ninguna.  ¿No ves que ni siquiera leo los certificados de tu tarjeta?  Vamos, que si trabajas en la CIA, el CNI, la NASA o una central nuclear procura refinar un poco el procedimiento.  Yo me he parado aquí porque con este lector RFID no parece que pueda escribir nada, solo leer.  Si consigues escribir algo avisa.
+
+h2. Cambios a pcscd
+
+Lo único que he hecho es deshabilitar libhal y habilitar libusb para que funcione tal y como lo configura el fabricante.  Solo he tocado el debian/rules, el debian/control y el debian/changelog:
+
+
+
+<temp-div>
+{% highlight text %}
+--- orig/pcsc-lite-1.5.3/debian/rules	2009-06-06 19:54:49.000000000 +0200
++++ new/pcsc-lite-1.5.3/debian/rules	2009-05-18 21:35:38.000000000 +0200
+@@ -48,6 +48,9 @@
+ 
+ 	# we add LDFLAGS="-lpthread" for bug #253629
+ 	./configure $(confflags) \
++		--enable-libusb \
++		--disable-libhal \
++		--enable-extendedapdu  \
+ 		--sysconfdir=/etc \
+ 		--prefix=/usr \
+ 		--enable-usbdropdir=/usr/lib/pcsc/drivers \
+--- orig/pcsc-lite-1.5.3/debian/control	2009-06-06 19:54:49.000000000 +0200
++++ new/pcsc-lite-1.5.3/debian/control	2009-05-18 21:35:01.000000000 +0200
+@@ -2,7 +2,7 @@
+ Section: misc
+ Priority: extra
+ Maintainer: Ludovic Rousseau <rousseau@debian.org>
+-Build-Depends: debhelper (>= 6.0.7~), flex, autotools-dev, libhal-dev
++Build-Depends: debhelper (>= 6.0.7~), flex, autotools-dev, libusb-dev
+ Standards-Version: 3.8.1
+ Vcs-Svn: svn://svn.debian.org/svn/collab-maint/deb-maint/pcsc-lite/trunk
+ Vcs-Browser: <a href="http://svn.debian.org/viewsvn/collab-maint/deb-maint/pcsc-lite/trunk/">http://svn.debian.org/viewsvn/collab-maint/deb-maint/pcsc-lite/trunk/</a>
+--- orig/pcsc-lite-1.5.3/debian/changelog	2009-06-06 19:54:49.000000000 +0200
++++ new/pcsc-lite-1.5.3/debian/changelog	2009-05-18 21:33:03.000000000 +0200
+@@ -1,3 +1,9 @@
++pcsc-lite (1.5.3-1.1) unstable; urgency=low
++
++  * Re-enabled libusb to make OmniKey cardreaders work.
++
++ -- Francisco Moya <paco@debian.org>  Mon, 18 May 2009 21:32:55 +0200
++
+ pcsc-lite (1.5.3-1) unstable; urgency=low
+ 
+   * New upstream release
+{% endhighlight %}
+</div>

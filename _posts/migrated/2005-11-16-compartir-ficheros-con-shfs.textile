@@ -1,0 +1,95 @@
+---
+migrated: node/100
+layout: post
+title: Compartir ficheros con SHFS
+created: 1132131507
+author: david_villa
+category: receta
+tags:
+- networking
+---
+bq. Esta receta es muy similar a esta otra de "SSHfs + FUSE":node/99. La diferencia es que aquí se usa un driver específico llamado *SHFS*. Igualmente se trata de acceder a ficheros de una máquina remota a través de SSH.
+<!--break-->
+h2. Instalación
+
+Sólo necesitas instalar las utilidades y el driver SHFS:
+
+
+<div class="console">
+{% highlight console %}
+~# apt-get install shfs-utils linux-headers-$(uname -r)
+~# m-a a-i shfs
+
+{% endhighlight %}
+</div>
+
+
+h2. Montando...
+
+Puedes utilizar el comando <tt>shfsmount</tt>:
+
+
+<div class="console">
+{% highlight console %}
+~# shfsmount usuario@servidor.net:/ruta/en/servidor /ruta/en/cliente
+{% endhighlight %}
+</div>
+
+o bien, puedes usar <tt>mount</tt>
+
+
+<div class="console">
+{% highlight console %}
+~# mount -t shfs usuario@servidor.net:/ruta/en/servidor /ruta/en/cliente
+{% endhighlight %}
+</div>
+
+o puedes meterlo en <tt>/etc/fstab</tt> si tienes configurada una "clave pública SSH":http://crysol.inf-cr.uclm.es/node/6:
+
+<pre>
+usuario@servidor.net:/ruta/en/servidor    /ruta/en/cliente   shfs   defaults   0  0
+</pre>
+
+h3. Montando con un usuario "raso"
+
+Si quieres que cualquier usuario pueda hacer el montaje tienes que indicarlo en el @fstab@:
+
+<pre>
+usuario@servidor.net:/ruta/en/servidor    /ruta/en/cliente   shfs   user   0  0
+</pre>
+
+y poner el bit SUIT a @shfsmount@:
+
+
+<div class="console">
+{% highlight console %}
+# chmod u+s /usr/bin/shfsmount
+{% endhighlight %}
+</div>
+
+Y ahora ya puedes hacer:
+
+
+<div class="console">
+{% highlight console %}
+*usuario*@cliente:~$ mount /ruta/en/cliente
+{% endhighlight %}
+</div>
+
+
+h2. Desmontar
+
+De la forma habitual:
+
+
+<div class="console">
+{% highlight console %}
+~# umount /ruta/en/cliente
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+* "shfs: (Secure) SHell FileSystem Linux kernel module":http://shfs.sourceforge.net/
+* "SHFS : montando directorios a través de ssh ":http://linuca.org/body.phtml?nIdNoticia=209

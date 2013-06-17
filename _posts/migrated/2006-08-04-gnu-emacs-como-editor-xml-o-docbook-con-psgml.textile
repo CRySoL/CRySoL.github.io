@@ -1,0 +1,109 @@
+---
+migrated: node/368
+layout: post
+title: GNU Emacs como editor XML (o DocBook), con psgml
+created: 1154727214
+author: david_villa
+category: receta
+tags:
+- emacs
+---
+bq. GNU Emacs puede ser un excelente editor (como no?) también para SGML, XML, o derivados tan populares com XHTML o DocBook. Esta receta concretamente introduce el uso del paquete *psgml*, aunque hay otros.
+<!--break-->
+h2. Introducción
+
+A parte del consabido resalte de sintaxis y la inestimable indentación automática de bloques, Emacs ofrece otra gran ayuda para la edición de XML. 
+
+Emacs entiende el DTD asociado al XML en cuestión y te ofrece una lista de los elementos XML susceptibles de ser insertados en un punto concreto del documento. Con esto te aseguras que validará el DTD o Schema que uses. Además te ahorra escribir los elementos en si y los paréntesis angulares (<>) que siempre son un latazo.
+
+
+h2. Ingredientes
+
+Como ya he dicho hay varios modos para edición de XML en Emacs tales como nXML-mode, pero yo recomiendo PSGML (al menos en esta receta :-)). Así que instala:
+
+* psgml
+* docbook-xml
+
+Aunque el último sólo lo necesitas si vas a usar DocBook y además es probable que ya lo tengas como dependencia de GNOME.
+
+h2. Configurar Emacs
+
+Para que el modo XML arranque automáticamente al iniciar Emacs y tengas un agradable coloreado de sintaxis es recomendable incluir estas pocas líneas en tu @.emacs@:
+
+
+
+<div>
+{% highlight text %}
+(defun psgml-ext ()
+(setq sgml-set-face t)  ; without this, all SGML text is in same color
+(setq sgml-markup-faces
+      '((comment   . font-lock-comment-face)
+        (start-tag . font-lock-keyword-face)
+        (end-tag   . font-lock-keyword-face)
+        (doctype   . font-lock-builtin-face)
+        (entity    . font-lock-constant-face)))
+)
+
+(setq-default sgml-indent-data t)
+(add-hook 'sgml-mode-hook 'psgml-ext)
+
+; immediate syntax coloring
+(setq sgml-auto-activate-dtd t)
+{% endhighlight %}
+</div>
+
+
+Aquí tienes muchas más "definiciones útiles para el .emacs":http://es.tldp.org/Tutoriales/DOCBOOK/doctut/multiple-html/dotemacs que sirve para afinar más aún el modo SGML.
+
+h2. Prólogo (declaración DOCTYPE)
+
+Para muchos de los comandos que se incluyen a continuación es necesario que definas un prólogo en el documento. Por ejemplo, en el caso de XHTML puede ser algo como:
+
+
+
+<div>
+{% highlight xml %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% endhighlight %}
+</div>
+
+
+y para DocBook
+
+
+
+
+<div>
+{% highlight xml %}
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.docbook.org/xml/4.3/docbookx.dtd">
+{% endhighlight %}
+</div>
+
+
+
+h2. Combinaciones útiles
+
+Como cualquier modo de Emacs digno de ser usado, PSGML tiene más combinaciones de teclas que las que cualquier humano podría aprender en su vida :-). Así que sólo pondré las que considero más útiles. Para algunos es determinante dónde esté el cursor o dónde se haga click.
+
+<table style="margin-left: 20px">
+  <tr><td width="200px;">               </td><td>               </td></tr>
+  <tr><td>  Insertar elemento (y cierre) </td><td>     *C-c C-e*  (o Mayus-Click Derecho) </td></tr>
+  <tr><td>  Insertar elemento (apertura) </td><td>     *C-c &lt;*   </td></tr>
+  <tr><td>  Cerrar el elemento actual    </td><td>     *C-c /*   </td></tr>
+  <tr><td>  Cambiar elemento            </td><td>     *C-c =*   </td></tr>
+  <tr><td>  'Etiquetar' un bloque       </td><td>     *C-c C-r*   </td></tr>
+  <tr><td>  Ir al comienzo del elemento </td><td>     *M-C-a*   </td></tr>
+  <tr><td>  Ir al final del elemento    </td><td>     *M-C-e*   </td></tr>
+</table>
+
+
+h2. Referencias
+
+* "PSGML":http://<a href="http://www.lysator.liu.se/projects/about_psgml.html">www.lysator.liu.se/projects/about_psgml.html</a>
+* "Edición Estructurada en Emacs":http://es.tldp.org/Manuales-LuCAS/doc-edicion-estructurada-emacs/docbook_emacs-html/index.html
+* "Emacs and PSGML Mode":http://fedora.redhat.com/docs/documentation-guide/ch-emacs.html
+* "Tutorial de DocBook":http://es.tldp.org/Tutoriales/DOCBOOK/doctut/single-html/dbktut.html
+* "DocBook: The Definitive Guide":http://docbook.org/tdg/en/html/docbook.html
+* "Edición Estructurada en Emacs":http://es.tldp.org/Manuales-LuCAS/doc-edicion-estructurada-emacs/docbook_emacs-html/index.html
+* "Using sgml-mode with Emacs":http://<a href="http://www.freebsd.org/doc/en/books/fdp-primer/psgml-mode.html">www.freebsd.org/doc/en/books/fdp-primer/psgml-mode.html</a>
+<a href="http://book.chinaunix.net/special/ebook/oreilly/LearningGnuEmacs/0596006489/gnu3-CHP-8-SECT-4.html">http://book.chinaunix.net/special/ebook/oreilly/LearningGnuEmacs/0596006489/gnu3-CHP-8-SECT-4.html</a>

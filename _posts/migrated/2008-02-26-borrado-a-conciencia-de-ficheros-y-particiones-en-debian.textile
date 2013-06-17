@@ -1,0 +1,38 @@
+---
+migrated: node/867
+layout: post
+title: Borrado a conciencia de ficheros y particiones en Debian
+created: 1204044893
+author: david_villa
+category: receta
+---
+bq. El objetivo es borrar ficheros, directorios o incluso particiones de modo que sea imposible recuperar los ficheros originales. Eso se consigue a base de escribir datos aleatorios y normalmente ceros después. La utilidad de esto es, obviamente, que ningún listillo pueda recuperar datos sensibles de tu disco duro, disco externo, etc.
+
+
+Hay varias herramientas en Debian que sirven para la tarea, entre paréntesis pongo el paquete:
+
+* shred (coreutils)
+* wipe (wipe)
+* srm (secure-delete)
+
+
+h2. Una partición
+
+
+<div class="console">
+{% highlight console %}
+
+$ shred -n 1 -vz /dev/sde1
+{% endhighlight %}
+</div>
+
+
+h2. Un directorio
+
+
+<div class="console">
+{% highlight console %}
+
+$ wipe -rcf directorio/
+{% endhighlight %}
+</div>

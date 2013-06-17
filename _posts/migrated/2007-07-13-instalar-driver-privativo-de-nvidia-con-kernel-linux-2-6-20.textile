@@ -1,0 +1,71 @@
+---
+migrated: node/737
+layout: post
+title: Instalar driver privativo de Nvidia con kernel Linux >= 2.6.20
+created: 1184317104
+author: Lk2
+category: receta
+tags:
+- linux (el kernel, qué si no?)
+---
+bq(head). Si tienes una tarjeta gráfica de Nvidia y usas GNU normalmente usarás los drivers privativos y gratuitos para la misma. Como sabrás, hace falta compilar el módulo "nvidia" para cada nueva versión de kernel que instales. El problema ha surgido a partir de la versión del kernel linux 2.6.20, en el que se activó algo sobre la paravirtualización que hace que la compilación del módulo nvidia falle.
+
+h2. Introducción
+
+La principal motivación de esta receta es explicar como tener aceleración hardware para gráficos 3D en las tarjetas Nvidia, ya que el driver libre "nv" no nos lo proporciona. La receta básicamente consistirá en añadir unas líneas al Makefile del instalador de Nvidia, así que vamos al lío.
+
+h2. Obtener el instalador/los paquetes necesario para nuestra tarjeta gráfica.
+
+Últimamente Nvidia está haciendo muchos cambios sobre sus drivers, por lo que muchas tarjetas que estaban soportadas han pasado a estarlo por el driver "legacy" (el viejuno) y cosas por el estilo. Las distintas opciones que tenemos son:
+
+* Última versión del driver (actualmente "100.14.11":http://<a href="http://www.nvidia.com/object/linux_display_ia32_100.14.11%20.html">www.nvidia.com/object/linux_display_ia32_100.14.11%20.html</a>).
+* Última versión del driver "legacy" (actualmente "1.0-9639":http://<a href="http://www.nvidia.com/object/linux_display_ia32_1.0-9639.html">www.nvidia.com/object/linux_display_ia32_1.0-9639.html</a>).
+* Versión "legacy" para GPUs muy viejas (actualmente "1.0-7185":http://<a href="http://www.nvidia.com/object/linux_display_ia32_1.0-7185.html">www.nvidia.com/object/linux_display_ia32_1.0-7185.html</a>).
+
+Para saber qué driver te conviene más es recomendable verlo en la lista de "hardware soportado por el driver de Nvidia":http://us.download.nvidia.com/XFree86/Linux-x86/100.14.11/README/appendix-a.html.
+
+h2. Instalación mediante instalador de la web de Nvidia
+
+Para instalarlo mediante el instalador oficial de Nvidia lo descargaremos a nuestro disco duro desde su web a un directorio, por ejemplo, ~/nvidia.
+
+Una vez descargado el comportamiento a seguir es el mismo para todas las versiones.
+
+# Desinstalamos las versiones previas que tengamos instaladas, ya sea mediante apt si usamos el "método de module-assistant":http://crysol.org/node/121 como si usamos el mismo instalador de la web de Nvidia. Si estamos en este último caso deberemos ejecutar como root:
+
+<div class="console">
+{% highlight console %}
+# nvidia-installer --uninstall
+
+{% endhighlight %}
+</div>
+# Descargamos y descomprimimos la nueva versión. Para ello:
+
+<div class="console">
+{% highlight console %}
+~/nvidia $ sh NVIDIA-Linux-x86-100.14.11-pkg1.run -x
+
+{% endhighlight %}
+</div>
+# En el paso anterior se creará un directorio. Iremos a la siguiente ruta:
+
+<div class="console">
+{% highlight console %}
+ ~/nvidia $ cd NVIDIA-Linux-x86-100.14.11-pkg1/usr/src/nv/
+
+{% endhighlight %}
+</div>
+# Editamos el archivo Makefile.kbuild y añadimos en la línea 78 estás dos líneas:
+<pre>PARAVIRT_OPS := $(shell grep "D paravirt_ops" /boot/System.map-$(shell uname -r) | colrm 9)
+EXTRA_LDFLAGS := --defsym paravirt_ops=0x$(PARAVIRT_OPS)
+</pre>
+
+Tras esto tan sólo deberemos cerrar el servidor de las X con "/etc/init.d/gdm stop" y, desde un terminal, ejecutar como root lo siguiente:
+
+<div class="console">
+{% highlight console %}
+ ~/nvidia/NVIDIA-Linux-100.14.11-pkg1 # ./nvidia-installer
+
+{% endhighlight %}
+</div>
+
+Tras esto, y tras terminar el proceso, tendremos instalado el driver de Nvidia. Sólo hará falta configurar convenientemente Xorg para que lo use.

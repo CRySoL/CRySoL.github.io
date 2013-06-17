@@ -1,0 +1,277 @@
+---
+migrated: node/840
+layout: post
+title: OpenWRT en La Fonera
+created: 1207079925
+author: david_villa
+category: receta
+tags:
+- Arco
+- networking
+---
+bq(head). Esta receta es un resumen _quick & dirty_ de los pasos necesarios para instalar un sistema OpenWRT estándar en La Fonera. Básicamente es una traducción simplificada de las dos recetas que aparecen en las referencias.
+<!--break-->
+*IMPORTANTE*: Algunos comandos de esta receta pueden bloquear (brick) tu fonera (con erótico resultado). Así que queda bajo tu responsabilidad, luego no me llores :-)
+<!--break-->
+
+h2. Ingredientes
+
+* netcat
+* fping
+* Una fonera con "acceso SSH habilitado":node/700
+
+
+h2. Parchear el kernel
+
+Accede a la fonera por ssh y ejecuta lo siguiente:
+
+
+
+<div class="console">
+{% highlight console %}
+
+root@OpenWrt:~# *wget http://fonera.info/camicia/openwrt-ar531x-2.4-vmlinux-CAMICIA.lzma*
+Connecting to fonera.info[87.106.220.204]:80
+openwrt-ar531x-2.4-v 100% |*****************************|   512 KB    00:00 ETA
+root@OpenWrt:~# *mtd -e vmlinux.bin.l7 write openwrt-ar531x-2.4-vmlinux-CAMICIA.lzma vmlinux.bin.l7*
+Unlocking vmlinux.bin.l7 ...
+Erasing vmlinux.bin.l7 ...
+Writing from openwrt-ar531x-2.4-vmlinux-CAMICIA.lzma to vmlinux.bin.l7 ...  [w]
+root@OpenWrt:~# *sync; reboot*
+{% endhighlight %}
+</div>
+
+
+
+h2. Actualizando las particiones 
+
+
+
+<div class="console">
+{% highlight console %}
+
+root@OpenWrt:~# *cd /tmp*
+root@OpenWrt:/tmp# *cp /dev/mtd/5 /tmp/mtd5*
+root@OpenWrt:/tmp# *cp /dev/mtd/6 /tmp/mtd6*
+root@OpenWrt:/tmp# *wget http://fonera.info/camicia/out.hex*
+Connecting to fonera.info[62.81.199.144]:80
+out.hex              100% |*************************************|  4096       00:00 ETA:-- ETA
+root@OpenWet:/tmp# *md5sum out.hex*
+d5a5ee5817da231684c6198801b5cb1f  out.hex
+{% endhighlight %}
+</div>
+
+Comprueba que el MD5 corresponde para asegurarte de que el fichero ha bajado correctamente.
+
+
+
+<div class="console">
+{% highlight console %}
+
+root@OpenWrt:~# *mtd erase "FIS directory"*
+Unlocking FIS directory ...
+Erasing FIS directory ...
+root@OpenWrt:~# *cat mtd5 >/dev/mtd/5*
+root@OpenWrt:~# *cat out.hex >/dev/mtd/6*
+root@OpenWrt:~# *sync*
+root@OpenWrt:~# *md5sum out.hex /dev/mtd/6 mtd5 /dev/mtd/5*
+d5a5ee5817da231684c6198801b5cb1f  out.hex
+d5a5ee5817da231684c6198801b5cb1f  /dev/mtd/6
+2d5c82c2a7785e65640199987000cee5  mtd5    
+2d5c82c2a7785e65640199987000cee5  /dev/mtd/5
+{% endhighlight %}
+</div>
+
+
+h2. Entrar en el RedBoot
+
+Todo lo que has hecho antes sirve ni más ni menos que para habilitar el acceso telnet al RedBoot. Lo siguiente es para comprobar que realmente lo has conseguido.
+
+Si todo ha ido bien, cuando reinicies la fonera, el RedBoot abrirá un servidor telnet durante unos segundos en la dirección 192.168.1.254:9000. Si la interfaz de red de tu PC no tiene una IP en el rango 192.168.1.0/24, tienes que añadirle una para poder conectar con el RedBoot. Lo habitual es que tu PC y la fonera estén conectados al mismo switch. Para que no te quedes sin conexión a internet y puedas seguir leyendo esta receta, en lugar de cambiarle la IP, es mejor que le añadas otra, para lo cual ejecuta esto *en el PC*:
+
+
+<div class="console">
+{% highlight console %}
+# ip addr add 192.168.1.100/24 dev eth0
+{% endhighlight %}
+</div>
+
+Obviamente no debe haber ningún otro equipo que tenga esa IP ni tampoco la de la fonera.
+
+Lo siguiente es un scriptillo que debes ejecutar *en el PC*. Este script se encarga de hacer telnet a la fonera en el momento justo.
+
+
+
+<div class="console">
+{% highlight console %}
+
+root@OpenWrt:~# <b>while true; do fping -t 200 192.168.1.254 && break; done; sleep 5; echo -e "\x3" | nc -w 1 -vvv 192.168.1.254 9000; telnet 192.168.1.254 9000</b>
+192.168.1.254 is unreachable
+192.168.1.254 is unreachable
+ICMP Host Unreachable from 192.168.1.100 for ICMP Echo sent to 192.168.1.254
+192.168.1.254 is unreachable
+192.168.1.254 is alive
+192.168.1.254: inverse host lookup failed: Unknown host
+(UNKNOWN) [192.168.1.254] 9000 (?) open
+== Executing boot script in 4.130 seconds - enter ^C to abort
+^C
+RedBoot> net timeout
+ sent 2, rcvd 76
+Trying 192.168.1.254...
+Connected to 192.168.1.254.
+Escape character is '^]'.
+RedBoot>
+{% endhighlight %}
+</div>
+
+
+h2. Servidor TFTP
+
+La única forma que tiene el RedBoot de descargar ficheros de la red es con un cliente TFTP. Por eso lo más fácil es que pongas "un servidor TFTP en tu PC":/node/492 (receta). Ejecuta lo siguiente *en el PC* para descargar los ficheros necesarios en @/srv/tftp@, que es el directorio que indica dicha receta:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# wget http://downloads.openwrt.org/kamikaze/7.09/atheros-2.6/openwrt-atheros-2.6-vmlinux.lzma -O /srv/tftp/vmlinux
+# wget http://downloads.openwrt.org/kamikaze/7.09/atheros-2.6/openwrt-atheros-2.6-root.squashfs -O /srv/tftp/squashfs
+{% endhighlight %}
+</div>
+
+
+h2. Instalación
+
+Cuando tengas listo el servidor TFTP y los ficheros en su sitio puedes volver con la fonera. Ejecuta lo siguiente desde el RedBoot. Algunos de estos comandos pueden tardar varios minutos, paciencia y no los cortes que la lías.
+
+
+
+<div class="console">
+{% highlight console %}
+
+RedBoot> *ip_address -l 192.168.1.254 -h 192.168.1.100*
+IP: 192.168.1.254/255.255.255.0, Gateway: 0.0.0.0
+Default server: 192.168.1.100
+RedBoot> *load -r -b %{FREEMEMLO} vmlinux*
+Using default protocol (TFTP)
+Raw file loaded 0x80040c00-0x80100bff, assumed entry at 0x80040c00
+RedBoot> *fis init*
+About to initialize [format] FLASH image system - continue (y/n)? *y*
+*** Initialize FLASH Image System
+... Erase from 0xa87e0000-0xa87f0000: .
+... Program from 0x80ff0000-0x81000000 at 0xa87e0000: .
+RedBoot> *fis create -e 0x80041000 -r 0x80041000 vmlinux.bin.l7*
+... Erase from 0xa8030000-0xa80f0000: ............
+... Program from 0x80040c00-0x80100c00 at 0xa8030000: ............
+... Erase from 0xa87e0000-0xa87f0000: .
+... Program from 0x80ff0000-0x81000000 at 0xa87e0000: .
+RedBoot> *fis free*
+  0xA80F0000 .. 0xA87E0000
+{% endhighlight %}
+</div>
+
+Estos datos son importantes (sobre todo si a ti te salen diferentes que lo que ves aquí). Resta estas dos números en hexadecimal porque lo necesitas para un comando posterior. Lo puedes hacer con bc:
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ bc
+obase=16
+ibase=16
+A87E0000 - A80F0000
+*6F0000*
+{% endhighlight %}
+</div>
+
+La imagen del sistema de ficheros...
+
+
+
+<div class="console">
+{% highlight console %}
+
+RedBoot> *load -r -b %{FREEMEMLO} squashfs*                   
+Using default protocol (TFTP)
+Raw file loaded 0x80040c00-0x80160bff, assumed entry at 0x80040c00
+{% endhighlight %}
+</div>
+
+Pasarlo a flash. Aquí es dónde tienes que utilizar la dirección que calculaste antes:
+
+
+
+<div class="console">
+{% highlight console %}
+
+RedBoot> *fis create -l 0x6f0000 rootfs*
+... Erase from 0xa80f0000-0xa87e0000: ...............................................................................................................
+... Program from 0x80040c00-0x80160c00 at 0xa80f0000: ..................
+... Erase from 0xa87e0000-0xa87f0000: .
+... Program from 0x80ff0000-0x81000000 at 0xa87e0000: .
+{% endhighlight %}
+</div>
+
+
+h2. Afinando
+
+Al reiniciar La Fonera, tiene un servidor telnet en la IP 192.168.1.1, puedes acceder como @root@, no tiene clave. Lo más recomendable es que quites el servidor telnet y arranques @dropbear@ (servidor SSH). 
+
+Para permitir SSH en la interfaz Ethernet escribe (o des-comenta) esto al final de @/etc/config/firewall@:
+
+
+
+<temp-div>
+{% highlight text %}
+accept:proto=tcp dport=22
+{% endhighlight %}
+</div>
+
+
+Para que la interfaz Ethernet (eth0) pida una IP por DHCP cambia el fichero @/etc/config/network@ para que quede así:
+
+
+
+<temp-div>
+{% highlight text %}
+config interface loopback
+	option ifname	lo
+	option proto	static
+	option ipaddr	127.0.0.1
+	option netmask	255.0.0.0
+
+config interface lan
+	option ifname	eth0
+	option type 	bridge
+	option proto    dhcp
+{% endhighlight %}
+</div>
+
+
+Y para activar la interfaz WiFI, elimina la siguiente línea del fichero @/etc/config/wireless@:
+
+
+
+<temp-div>
+{% highlight text %}
+	option disabled 1
+{% endhighlight %}
+</div>
+
+
+En ese mismo fichero puedes configurar el SSID y el tipo de encriptación, por defecto no tiene ("red insegura" que dice Windows Vista).
+
+h2. Comentarios
+
+Gracias a Paco y a oscarah por sus inestimables aportaciones
+
+
+h2. Referencias
+
+* "La Fonera: A better way to enable RedBoot via Telnet / Ethernet (safely) [HowTo]":http://blog.coldtobi.de/1_coldtobis_blog/archive/157_la_fonera_a_better_way_to_enable_redboot_via_telnet__ethernet_safely_howto.html
+* "Install OpenWRT on the La Fonera":http://blog.coldtobi.de/1_coldtobis_blog/archive/158_install_openwrt_on_the_la_fonera.html
+
+<!--
+http://www.miltonpividori.com.ar/2007/10/16/openwrt-en-mi-router-linksys/
+-->

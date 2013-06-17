@@ -1,0 +1,59 @@
+---
+migrated: node/1367
+layout: post
+title: Reproducir vídeo con mplayer utilizando la GPU y vdpau para decodificar
+created: 1277457820
+author: Tanganas
+category: receta
+tags:
+- multimedia
+---
+<blockquote class="head"> 
+Con esta receta dejaremos la carga de decodificar el vídeo a la <acronym title="Graphics Processing Unit">GPU,</acronym> con lo que notaremos una gran mejoría en la fluidez de reproducción del vídeo y una descarga de trabajo en la CPU.
+</blockquote>
+
+<h3> Compatibilidad</h3>
+Esta receta está destinada a tarjetas NVIDIA con soporte para vdpau, en <a href="http://es.wikipedia.org/wiki/VDPAU">esta tabla</a> podrás comprobar si tu tarjeta tiene soporte.
+
+<h3> Pasos a seguir:</h3>
+<ol>
+<li> Instalar driver de nvidia:
+	Bien explicado en <a href="http://crysol.org/es/node/121"> esta receta</a>
+</li>
+<li> Instalar driver <tt>nvidia-vdpau</tt>:
+
+<div class="console">
+{% highlight console %}
+# apt-get install nvidia-vdpau-driver
+{% endhighlight %}
+</div>
+</li>
+<li>Instalar mplayer:
+	
+<div class="console">
+{% highlight console %}
+# apt-get install mplayer
+{% endhighlight %}
+</div>
+</li>
+ <li>Reproducir vídeo:
+	
+<div class="console">
+{% highlight console %}
+$ mplayer -vo vdpau -vc ffh264vdpau video_a_reproducir
+{% endhighlight %}
+</div>
+</li>
+</ol>
+
+<h3> front-end</h3>
+Si quieres utilizar un front-end, yo recomiendo <tt>smplayer</tt>. 
+Para utilizar vdpau con smaplayer accede a configuración (botón del destornillador) y en esa ventana:
+
+General > Video > Driver de salida (estará la opción xv) substituye por vdpau y aplicar.
+
+
+<div class="messages error">
+<center><b>Aclaración</b></center>
+<p>vdpau no es CUDA; se puede comprobar en la tabla enlazada al inicio de la receta que tarjetas gráficas sin tecnología CUDA tienen soporte para utilizar la biblioteca VDPAU (Video Decode and Presentation API for Unix).</p>
+</div>

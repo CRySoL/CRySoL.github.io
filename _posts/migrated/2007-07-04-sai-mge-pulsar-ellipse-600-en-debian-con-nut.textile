@@ -1,0 +1,242 @@
+---
+migrated: node/733
+layout: post
+title: SAI "MGE Pulsar Ellipse 600" en Debian con NUT
+created: 1183577268
+author: david_villa
+category: receta
+tags:
+- Arco
+---
+bq(head). Esta receta explica cómo instalar y configurar dicho SAI en un sistema Debian GNU/Linux o derivado para sacarle el máximo partido. Te recomiendo que leas al menos la introducción de "Configuración y disfrute de un SAI":node/82 para que tengas una idea de lo que se puede hacer y lo que necesitas, ya que no lo voy a repetir aquí.
+<!--break-->
+<img style="float:left; padding:15px" src="/files/Pulsar600.jpeg"/>
+
+*[ACTUALIZADO]* 20/03/2008
+Recientes cambios en la versión 2.2.0 de NUT requieren modificaciones en los ficheros de configuración. La receta que estás leyendo utiliza los nuevos parámetros de configuración.
+
+
+h2. Introducción
+
+En la receta que cito ahí arriba se hablaba de un SAI MGE Pulsar Extreme 1500C con interfaz RS-232. Ese es un SAI de gama media que ronda los 1.000€. Está bien para un servidor corporativo, pero es demasiado para un servidor doméstico, a menos que tu economía funcione realmente bien. Como ése no es mi caso, yo compré un MGE Pulsar Ellipse 600, que es un SAI más modesto (~60€), es el más barato de MGE que tiene conexión de  datos (USB por cierto). Veremos ahora cómo configurarlo, dando servicio sólo a una máquina.
+
+Como utiliza un driver USB necesitas un paquete adicional:
+
+
+<div class="console">
+{% highlight console %}
+ # apt-get install nut-usb
+{% endhighlight %}
+</div>
+
+h2. Driver
+
+Crea un fichero <tt>/etc/nut/ups.conf</tt> y escribe:
+
+<pre>
+[mysai]
+     driver = usbhid-ups
+     port = auto
+</pre>
+
+Es muy importante que el fichero pueda ser leído por @upsd@ y otros programas. Para ello, haz que el fichero pertenezca al grupo <tt>nut</tt> y tenga permisos de lectura,
+
+
+<div class="console">
+{% highlight console %}
+$ chown root.nut /etc/nut/ups.conf
+$  chmod g+r /etc/nut/ups.conf 
+
+{% endhighlight %}
+</div>
+
+Necesitas un Linux 2.6 o más nuevo para que funcione este driver. Puedes comprobar que lo detecta correctamente con:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# /lib/nut/usbhid-ups -a mysai
+Network UPS Tools: 0.29 USB communication driver - core 0.32 (2.2.1-)
+
+Using subdriver: MGE HID 1.01
+{% endhighlight %}
+</div>
+
+
+<h2>Activar el servicio nut</h2>
+
+Edita el fichero <tt>/etc/default/nut</tt> para que quede tal que:
+
+<pre>
+START_UPSD=yes
+START_UPSMON=yes
+</pre>
+
+
+h2. Configuración del servidor
+
+Para usar el servicio únicamente desde la propia máquina que tiene el servidor (y el SAI) basta con que copies <tt>/usr/share/doc/nut/examples/upsd.conf.sample</tt> en <tt>/etc/nut/upsd.conf</tt>. Si quieres usarlo para avisar a otras máquinas debes modificarlo.
+
+<h2>Usuarios</h2>
+
+Copia el fichero <tt>/usr/share/doc/nut/examples/upsd.users.sample</tt> en <tt>/etc/nut/upsd.users</tt> y añade lo siguiente:
+
+
+<temp-div>
+{% highlight text %}
+[admin]
+        password = mypass
+        allowfrom = localhost
+        actions = SET
+        instcmds = ALL
+
+[monuser]
+        password  = mypass
+        allowfrom = localhost
+        upsmon master
+{% endhighlight %}
+</div>
+
+
+h2. Cliente local
+
+Copia el fichero <tt>/usr/share/doc/nut/examples/upsmon.conf.sample</tt> en <tt>/etc/nut/upsmon.conf</tt> y añade lo siguiente:
+
+
+<temp-div>
+{% highlight text %}
+MONITOR mysai@localhost 1 monuser mypass master
+{% endhighlight %}
+</div>
+
+Ahora reinicia el servicio:
+
+
+<div class="console">
+{% highlight console %}
+
+# /etc/init.d/nut restart
+Broadcast Message from nut@localhost
+        (somewhere) at 15:59 ...
+
+Communications with UPS mysai@localhost established
+{% endhighlight %}
+</div>
+
+
+h2. Verificando la configuración
+
+Al ejecutar <tt>upsc</tt> deberías ver algo similar a esto:
+
+
+<div class="console">
+{% highlight console %}
+
+# upsc mysai@localhost
+battery.charge: 100
+battery.charge.low: 30
+battery.runtime: 537
+battery.type: PbAc
+driver.name: usbhid-ups
+driver.parameter.pollfreq: 30
+driver.parameter.pollinterval: 2
+driver.parameter.port: auto
+driver.version: 2.2.1-
+driver.version.data: MGE HID 1.01
+driver.version.internal: 0.32
+input.transfer.high: 264
+input.transfer.low: 184
+outlet.0.desc: Main Outlet
+outlet.0.id: 1
+outlet.0.switchable: no
+outlet.1.desc: PowerShare Outlet 1
+outlet.1.id: 2
+outlet.1.status: on
+outlet.1.switchable: no
+outlet.2.desc: PowerShare Outlet 2
+output.frequency.nominal: 50
+output.voltage: 230.0
+output.voltage.nominal: 230
+ups.beeper.status: enabled
+ups.delay.shutdown: -1
+ups.delay.start: -10
+ups.load: 21
+ups.mfr: MGE UPS SYSTEMS
+ups.model: Ellipse 600
+ups.power.nominal: 600
+ups.productid: ffff
+ups.serial: AP9F35029
+ups.status: OL CHRG
+ups.vendorid: 0463
+{% endhighlight %}
+</div>
+
+h2. Simulación de un corte de luz
+
+
+Con esto puedes ver que todo se cierra convenientemente y comprobar lo que ocurrirá en un corte de corriente:
+
+
+<div class="console">
+{% highlight console %}
+# upscmd -c fsd
+{% endhighlight %}
+</div>
+
+Es importante señalar que este comando deja conectado el SAI al terminar, es decir, todo lo que tengas conectado a sus salidas seguirá teniendo corriente. 
+
+h2. Afinando el funcionamiento del SAI
+
+Puedes modificar algunas variables del SAI, como por ejemplo, el tiempo que tarda en desconectarse después de recibir el comando <tt>shutdown</tt>. Para ver qué variables puedes modificar usa:
+
+
+<div class="console">
+{% highlight console %}
+# upsrw mysai@localhost
+{% endhighlight %}
+</div>
+
+Para modificar una variable usa algo como:
+
+
+<div class="console">
+{% highlight console %}
+# upsrw -s battery.charge.low=20 -u admin -p mypass mysai@localhost
+{% endhighlight %}
+</div>
+
+
+h2. Invocando comandos
+
+Mediante comandos NUT se pueden hacer operaciones de mantenimiento con el SAI, como desactivarlo o comprobar el nivel de la batería.
+
+Puedes ver los comandos disponibles para tu driver con:
+
+
+<div class="console">
+{% highlight console %}
+# upscmd -l mysai@localhost
+{% endhighlight %}
+</div>
+
+
+h3. Apagar el SAI bajo demanda
+
+Resulta muy útil poder apagar (y dejar apagado) el SAI. De ese modo te garantizas que todo lo que tengas conectado al SAI queda completamente apagado, con el consiguiente ahorro energético. Para eso tienes que ejecutar el siguiente comando:
+
+
+<div class="console">
+{% highlight console %}
+# upscmd -u admin -p mypass mysai shutdown.stayoff; shutdown -h +0
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+* "Network UPS Tools":http://<a href="http://www.networkupstools.org/">www.networkupstools.org/</a>
+* "MGE and NUT How-To":http://opensource.mgeups.com/howto.htm
+* "Gestionando un SAI desde OpenBSD con NUT":http://<a href="http://www.usebox.net/jjm/ups-obsd/">www.usebox.net/jjm/ups-obsd/</a>
+* "Monitorizar un SAI con Debian":http://<a href="http://www.servitux.org/view.php/page/sai">www.servitux.org/view.php/page/sai</a>

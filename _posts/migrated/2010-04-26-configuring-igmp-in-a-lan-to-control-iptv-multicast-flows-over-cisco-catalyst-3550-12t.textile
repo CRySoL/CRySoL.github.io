@@ -1,0 +1,203 @@
+---
+migrated: node/1353
+layout: post
+title: Configuring IGMP in a LAN to control IPTV multicast flows over Cisco Catalyst
+  3550-12T
+created: 1272273838
+author: netup
+category: receta
+tags:
+- networking
+---
+<blockquote>
+In this article a scheme with one device <i>Cisco Catalyst 3550-12T</i> [1] that combines the functions of both a switch and an IGMP querier is described. Catalyst 3550-12T switch has 10 Gigabit Ethernet ports and two ports for GBIC modules. Peak performance is 17 billion 
+packets per second that allows transmitting data at a 24 Gbps rate.
+</blockquote>
+<!--break-->
+<h2>Configuring IGMP snooping and IGMP querier</h2> 
+ 
+<p> 
+It is required to have an IP address configured on the Vlan 1 interface of the switch:
+</p> 
+ 
+
+<temp-div>
+{% highlight text %}
+!
+interface Vlan1
+ ip address 10.1.2.247 255.255.0.0
+!
+{% endhighlight %}
+</div>
+ 
+<p> 
+IGMP snooping is enabled by using the command (in global configuration mode):
+</p> 
+ 
+
+<temp-div>
+{% highlight text %}
+ip igmp snooping
+{% endhighlight %}
+</div>
+ 
+<p> 
+IGMP querier is enabled by using the command (in global configuration mode):
+</p> 
+ 
+
+<temp-div>
+{% highlight text %}
+ip igmp snooping querier
+{% endhighlight %}
+</div>
+
+<h2>Testing</h2> 
+ 
+<p> 
+A stand on basis of Cisco Catalyst 3550-12T ( C3550-IPSERVICESK9-M, Version 12.2(40)SE ) and 
+NetUP DVB to IP gateway [2] was prepared by NetUP specialists. A general network scheme is 
+given in the figure 1 below. As the client equipment it was used a PC with vlc mediaplayer and 
+an IP set-top box AmiNET 130.
+</p> 
+ 
+<center> 
+<img src="http://www.netup.tv/es-ES/articles/images/configuring_igmp_with_catalyst_3550-12T/igmp_net_c3550.gif"/><br> 
+Fig. 1. General layout of the test stand.
+</center> 
+ 
+<p> 
+IGMP snooping and IGMP querier were enabled as discussed above. To check this, one can 
+use the following commands (the output is provided):
+</p> 
+ 
+
+<temp-div>
+{% highlight text %}
+c3550#show ip igmp snooping querier
+Vlan      IP Address        IGMP Version   Port
+----------------------------------------------------------------
+1         10.1.2.247        v2             Switch
+ 
+c3550#show ip igmp snooping groups
+Vlan      Group             Version     Port List
+------------------------------------------------------------
+{% endhighlight %}
+</div>
+ 
+<p> 
+As it can be seen the switch operates as an IGMP querier. In the groups list there are 
+no groups as no subscriber has requested a multicast stream. In this case the average 
+data transfer rate on the client's port equals 0 Mbps. To check this run the following 
+command:
+</p> 
+ 
+
+<temp-div>
+{% highlight text %}
+c3550#show interfaces GigabitEthernet 0/2 | include 5 minute
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+ {% endhighlight %}
+</div>
+
+<p> 
+At that on the port of NetUP DVB to IP gateway we can see data transfered 
+at the rate of 110-120 Mbps (full decoding of 4 transponders is performed 
+that is around 50 TV channels):
+</p> 
+ 
+
+
+<temp-div>
+{% highlight text %}
+c3550#show interfaces GigabitEthernet 0/1 | include 5 minute
+  5 minute input rate 125753000 bits/sec, 11558 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+{% endhighlight %}
+</div>
+ 
+<p> 
+Due to IGMP snooping multicast packets are not coming to the client port. If the client 
+requests a TV channel, copied to his port are only those multicast packets that belong 
+to this TV channel. To check this let's request a TV program on the client's device:
+</p> 
+ 
+
+<temp-div>
+{% highlight text %}
+vlc udp://@226.2.0.5:1234
+{% endhighlight %}
+</div>
+ 
+<p> 
+The requested TV channel appears on the client's TV screen. And on the switch in the groups list we can see a new record:
+</p> 
+ 
+
+<temp-div>
+{% highlight text %}
+c3550#show ip igmp snooping groups
+Vlan      Group             Version     Port List
+------------------------------------------------------------
+1         226.2.0.5         v2          Gi0/2
+{% endhighlight %}
+</div>
+ 
+<p> 
+As we can see from this record, the switch is copying multicast packets for the group 226.2.0.5 to 
+the client port (Gi0/2). To check this we can check the rate of data transfer to the client port:
+</p> 
+ 
+
+<temp-div>
+{% highlight text %}
+c3550#show interfaces GigabitEthernet 0/2 | include 5 minute
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 3300000 bits/sec, 304 packets/sec
+{% endhighlight %}
+</div>
+ 
+<p> 
+As it can be seen, only one TV channel is being transfered to the client port at the rate of ~3 Mbps. Because of such behavior of the switch we avoid overloading the client's port with unwanted multicast packets.
+</p> 
+ 
+<p> 
+It is worth of noting that the CPU load of the switch is almost zero. Most likely 
+multicast packets are processed at the hardware level.
+</p> 
+ 
+
+<temp-div>
+{% highlight text %}
+c3550#show processes cpu history
+ 
+ 
+    1111111111122222111111111111111111111111111111111111111111
+100
+ 90
+ 80
+ 70
+ 60
+ 50
+ 40
+ 30
+ 20
+ 10
+   0....5....1....1....2....2....3....3....4....4....5....5....
+             0    5    0    5    0    5    0    5    0    5
+               CPU% per second (last 60 seconds)
+{% endhighlight %}
+</div>
+ 
+<p> 
+<b>Important!</b> According to "IPv4 Multicast Unusable Group And Source Addresses" [3] it is not recommended 
+to use certain ranges for IPv4 multicast addresses. For example, subnet 226.0.0.0 - 226.0.0.255. Cisco 
+Catalyst 3550-12T switch sends multicast packets to all ports regardless of client's requests.
+</p> 
+ 
+<ol> 
+<li>Cisco Catalyst 3550-12T switch description - <a href="http://www.cisco.com/en/US/products/hw/switches/ps646/ps645/index.html">http://www.cisco.com/en/US/products/hw/switches/ps646/ps645/index.html</a></li> 
+<li>NetUP DVB to IP gateway overview - <a href="http://www.netup.tv/en-EN/decoder-streamer.php">http://www.netup.tv/en-EN/decoder-streamer.php</a></li> 
+<li>IPv4 Multicast Unusable Group And Source Addresses - <a href="http://tools.ietf.org/html/draft-ietf-mboned-ipv4-mcast-unusable-01">http://tools.ietf.org/html/draft-ietf-mboned-ipv4-mcast-unusable-01</a></li> 
+</ol>

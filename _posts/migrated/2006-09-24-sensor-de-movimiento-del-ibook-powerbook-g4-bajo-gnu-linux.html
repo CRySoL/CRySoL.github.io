@@ -1,0 +1,73 @@
+---
+migrated: node/397
+layout: post
+title: Sensor de movimiento del iBook/PowerBook G4 bajo GNU/Linux
+created: 1159119116
+author: cleto
+category: receta
+---
+<blockquote>
+Si posees un iBook o PowerBook comprado a mediados de 2005, tu ordenador tiene SMS (Suddent Motion Sensor) para proteger tu disco duro de caídas estrepitosas. Con esta receta lo harás funcionar en tu GNU/Linux y, si quieres, comenzar el desarrollo de aplicaciones para él. Este procedimiento está probado en un iBook G4 con Ubuntu Edgy.
+</blockquote>
+
+<h1> Requisitos </h1>
+Para instalar el driver necesitamos los siguientes requisitos:
+<ul>
+<li> Kernel igual o superior al 2.6.17 (en Ubuntu Edgy funciona perfectamente).</li>
+<li> Las herramientas básicas de compilación. Se recomienda instalar el paquete build-essential.</li>
+<li> Los headers de tu núcleo.</li>
+<li> El driver <b>ams</b> (Apple Motion Sensor) de la <a href="http://www.popies.net/ams/">web de Popies</a>. Recomiendo bajarse la última versión (hoy por hoy, la 0.04).</li>
+</ul>
+
+<h1> Instalación </h1>
+Primero, compilamos el driver con:
+
+
+<div class="console">
+{% highlight console %}
+$ make
+{% endhighlight %}
+</div>
+
+Esto nos genera el módulo <em>ams.ko</em>. Como root, copiamos el archivo .ko al lugar donde tenemos el resto de módulos para cargarlo posteriormente. Así:
+
+
+<div class="console">
+{% highlight console %}
+# cp ams.ko /lib/modules/$(uname -r)/
+# depmod -ae
+# modprobe ams
+{% endhighlight %}
+</div>
+
+Si todo ha ido bien, al ejecutar <em>dmesg</em> nos saldrá algo parecido a:
+
+
+<div class="console">
+{% highlight console %}
+Apple Motion Sensor actived.
+{% endhighlight %}
+</div>
+
+<h1> Utilización </h1>
+De momento, el modulito que hemos cargado no hace gran cosa. Una de ellas es dar las coordenadas x,y,z del sensor de movimientos. Cada coordenada se puede encontrar en la ruta <em>/sys/devices/ams</em> del sistema de archivos.
+
+Además, puedes hacer que el ratón se mueva con el movimiento del sensor. Escribiendo...
+
+
+<div class="console">
+{% highlight console %}
+# echo 1 > /sys/devices/ams/mouse
+{% endhighlight %}
+</div>
+
+...se activa esta opción. Para desactivarlo sólo hay que cambiar el 1 por un 0.
+
+<h1>Referencias</h1>
+<ul>
+<li> <a href="http://www.popies.net">Web de Popies</a></li>
+<li> <a href="http://johannes.sipsolutions.net/PowerBook/Apple_Motion_Sensor_Specification/">Especificación del sensor (ingeniería inversa)</a></li>
+</ul>
+
+
+

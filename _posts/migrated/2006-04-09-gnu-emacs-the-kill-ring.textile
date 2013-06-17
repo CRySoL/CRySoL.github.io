@@ -1,0 +1,19 @@
+---
+migrated: node/1383
+layout: post
+title: ! 'GNU Emacs: The kill ring'
+created: 1144586890
+author: david_villa
+category: receta
+tags:
+- emacs
+---
+Aunque parece el título de una película de miedo, el «kill ring» es la peculiar manera que tiene emacs de entender el 'portapapeles'. En lugar de tener un único espacio de almacenamiento donde cortar y pegar, emacs tiene *una pila*; la verdad es que de entrada sí que acojona un poco... :-P
+<!--break-->
+Cuando copias (@M-w@) o cortas (@C-w@) estás apilando en el «kill ring»; y cuando pegas (@C-y@) estás copiando la cima de la pila en el punto en el que tienes el cursor. En la terminología de emacs, «pegar» se dice «yank». Obviamente, lo interesante es poder acceder al resto de la pila.
+
+La forma más sencilla es recorrer la pila. Esto se consigue pulsando @M-y@ inmediatamente después de ejecutar un «yank» (@C-y@). Cada vez que pulses @M-y@ aparecerá en el cursor un elemento del «anillo», empezando desde la cima hasta la base y vuelta a empezar.
+
+Otra forma es indicar qué elemento del «anillo» quieres, conocida su posición. Por ejemplo, para pegar el penúltimo elemento del «anillo» utiliza: @C-u 2 C-y@, para el antepenúltimo escribe un 3, etc.
+
+A partir de emacs-22 hay una posibilidad muy interesante. El menú «Edit->Select and Paste» despliega una lista que contiene el «kill ring» completo. Lo bueno es que, como es un menú GTK2, se puede desacoplar el menú y dejarlo como una ventana independiente. Basta pinchar con el ratón en un elemento de esa lista para pegarlo en el buffer activo ¡una gozada! ¡emacs nunca fue tan fácil!

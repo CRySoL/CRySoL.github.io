@@ -1,0 +1,72 @@
+---
+migrated: node/783
+layout: post
+title: Timeout de un método en C++ con Glib
+created: 1181772000
+author: david_villa
+category: receta
+tags:
+- C++
+---
+h2. Primera aproximación
+
+<pre>
+#include <glib.h>
+#include <iostream>
+
+using namespace std;
+
+class A {
+public:
+    void tick() {
+        cout << "tick" << endl;
+    }
+};
+
+gboolean adaptor(gpointer p) {
+    (static_cast<A*>(p))->tick();
+    return TRUE;
+}
+
+int main() {
+    A a;
+    g_timeout_add(500, adaptor, &a);
+    g_main_loop_run(g_main_loop_new(NULL, TRUE));
+}
+</pre>
+
+Si el fichero se llama @method_timeout.cc@, se puede compilar con:
+
+
+<div class="console">
+{% highlight console %}
+$  make method_timeout CXXFLAGS="$(pkg-config --cflags glib-2.0)" LDLIBS="$(pkg-config --libs glib-2.0)"
+{% endhighlight %}
+</div>
+
+h2. Utilizando un método de clase como adaptador
+
+<pre>
+class A {
+public:
+    void tick() {
+        cout << "tick" << endl;
+    }
+
+    static gboolean tick_adaptor(gpointer p) {
+        (static_cast<A*>(p))->tick();
+	return TRUE;        
+    }
+};
+
+int main() {
+    A a;
+    g_timeout_add(500, A::tick_adaptor, &a);
+    g_main_loop_run(g_main_loop_new(NULL, TRUE));
+}
+</pre>
+
+h2. Referencias
+
+* "The function pointer tutorials":http://<a href="http://www.newty.de/fpt/fpt.html">www.newty.de/fpt/fpt.html</a>
+* "C++ FAQ LITE":http://parashift.com/c++-faq-lite/

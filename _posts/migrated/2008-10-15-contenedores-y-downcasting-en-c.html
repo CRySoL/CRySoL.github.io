@@ -1,0 +1,104 @@
+---
+migrated: node/1025
+layout: post
+title: Contenedores y downcasting en C++
+created: 1224088777
+author: cleto
+category: receta
+tags:
+- Arco
+- C++
+---
+<blockquote>En esta receta se explica cómo hacer downcasting de los elementos de un contenedor a una clase más derivada.</blockquote>
+<!--break-->
+<h2>Introducción</h2>
+Supongamos que tenemos la siguiente jerarquía (nos servirá a lo largo de toda la receta):
+ 
+
+<div>
+{% highlight cpp %}
+class A { 
+public:
+    virtual ~A() {} 
+};
+
+class B : public A { 
+public:  
+    string getB() {
+        return "Soy de tipo B";
+    }
+};
+
+class C : public A {
+public:  
+    string getC() {
+        return "Soy de tipo C";
+    }
+};
+{% endhighlight %}
+</div> 
+
+
+<h2>El vector de B's y C's</h2>
+En muchas ocasiones, utilizamos los contenedores de C++ (como vector, stack...) para almacenar distintos tipos de datos. Por ejemplo, imagina que queremos tener un 'vector' que contenga tanto instancias de 'B' como de 'C'. En C++ es necesario crear un vector de la clase padre de ambas, o sea, un 'vector' de A's. Un pensamiento ingenuo (como el mío), implementaría esto mismo así:
+
+ 
+
+<div>
+{% highlight cpp %}
+B b;
+C c;
+....
+vector<A> v;
+v.push_back(b);
+v.push_back(c);
+....
+/* 
+   Aquí el downcasting. Pero habrá una sorpresa...
+*/
+{% endhighlight %}
+</div> 
+
+
+¡Y compila!. Lo que está ocurriendo es legal, pero realmente <b>no es lo que queremos</b> ya que el compilador "trunca" el objeto para añadirlo al contenedor y satisfacer el tipo del vector. Este proceso se denomina <em>"Object Slicing"</em>. De esta forma, NO estas incluyendo en el vector objetos de tipo 'B' o 'C', sino que todos son de tipo 'A' y, por lo tanto, cuando quieras recuperarlos te encontrarás con que no es posible hacer el molde a tipos más derivados (esa es la sorpresa de la que habla el comentario del texto :-)).
+
+
+<h2>Solución</h2>
+
+Antes de dar la solución, vamos a pensar qué queremos realmente. Queremos tener un contenedor que tenga varios tipos de objetos. Hemos visto que el compilador hace <em>slicing</em> de los objetos si estos son instancias. Pero si lo que introducimos en el contenedor son <b>referencias a los objetos</b>, el Object Slicing no ocurre, por lo que tendremos los objetos completos para luego hacer el downcasting.
+
+De esta forma, el código correcto sería el siguiente:
+
+ 
+
+<div>
+{% highlight cpp %}
+// El upcasting se hace sin problemas (Polimorfismo)
+A* b = new B();
+A* c = new C();
+
+....
+
+vector<A*> v;
+v.push_back(b);
+v.push_back(c);
+
+....
+
+// Downcasting
+B* be = dynamic_cast<B*>(v[0]);
+C* ce = dynamic_cast<C*>(v[1]);
+
+cout << be->getB() << endl;
+cout << ce->getC() << endl;
+{% endhighlight %}
+</div> 
+
+
+Como puedes ver, para hacer el downcasting C++ ofrece el operador <tt>dynamic_cast</tt>. Es necesario que las clases que intervienen en el casting dinámico estén "en una jerarquía polimórfica real", es decir, la clase padre tiene que tener, al menos, un método virtual.
+
+<h2>Referencias</h2>
+
+<ul>
+<li><a href="http://arco.esi.uclm.es/~david.villa/pensar_en_C++/products/vol1/ch15s12.html">Pensar en C++ :: Capítulo 15 :: Downcasting</a></li>
+</ul>

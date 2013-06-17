@@ -1,0 +1,81 @@
+---
+migrated: node/116
+layout: post
+title: Hacer paquetes.deb a partir de .rpm y .tar.gz
+created: 1133040032
+author: aledelgal
+category: receta
+---
+bq. En esta pequeña receta veremos como hacer paquetes .deb a partir de .rpm y .tar.gz , ya que es mucho más fácil, cómoda y limpia su instalación (con dpkg). Para mucha gente será algo trivial, pero creo que a gente como yo le puede venir bien :)
+
+
+h1. Ingredientes
+
+<ul>
+  <li> Paquete alien </li>
+  <li> Paquete checkinstall </li>
+</ul>
+
+
+h1. RPM
+
+Para pasar los .rpm a .deb hay que usar alien. El modo de actuar es el siguiente:
+
+Con esto lo convierte e instala a la vez:
+
+
+<div class="console">
+{% highlight console %}
+$ alien -i archivo.rpm 
+
+{% endhighlight %}
+</div>	
+
+Así solamente lo pasas a .deb:
+
+
+<div class="console">
+{% highlight console %}
+$ alien -d archivo.rpm 
+
+{% endhighlight %}
+</div>
+
+Y así lo instalas (una vez pasado a .deb):
+
+
+<div class="console">
+{% highlight console %}
+$ dpkg -i paquete.deb
+
+{% endhighlight %}
+</div>
+
+
+h1. TAR.GZ
+
+Es muy fácil:
+
+
+<div class="console">
+{% highlight console %}
+$ tar xfz nombre-del-paquete.tar.gz
+$ cd nombre-del-paquete
+$ ./configure
+$ make
+$ sudo checkinstall
+
+{% endhighlight %}
+</div>
+
+Con esto tendremos hecho nuestro paquetito.deb para hacer con él lo que queramos. Instalarlo, por ejemplo.
+
+
+
+
+h1. Referencias
+
+
+<ul>
+  <li> "Ubuntu-es.org":http://ubuntu-es.org</li>
+</ul>

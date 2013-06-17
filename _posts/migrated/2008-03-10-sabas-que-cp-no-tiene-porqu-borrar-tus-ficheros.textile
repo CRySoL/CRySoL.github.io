@@ -1,0 +1,22 @@
+---
+migrated: node/881
+layout: post
+title: Sabías que... "cp" no tiene porqué borrar tus ficheros.
+created: 1205133257
+author: magmax
+category: receta
+tags:
+- shell
+---
+<blockquote>Minirreceta sobre cómo evitar que CP sobreescriba tus ficheros.
+</blockquote>
+
+¿Has perdido información alguna vez por culpa de copiar un fichero encima de otro con el mismo nombre? Eso es porque no conocías la opción <b>-b</b> de la orden <tt>cp</tt>.
+
+Con esta opción te permite realizar copias seguras, de manera que si el fichero ya existe, éste se renombrará a "nombre~" (se puede cambiar el sufijo con la opción <b>-S</b> o bien mediante la variable de entorno <b>SIMPLE_BACKUP_SUFFIX</b>).
+
+Otra opción bastante decente es usar <b>-V t</b>, que hace respaldos numerados.
+
+¿Dónde lo veo yo útil? ¡Para pasar las fotos a CD cuando voy a sacarlas a papel! Siempre sobreescribo alguna... :-D
+
+Más info: <tt>$ man cp</tt>

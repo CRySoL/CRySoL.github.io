@@ -1,0 +1,187 @@
+---
+migrated: node/541
+layout: post
+title: WebDAV con Apache2 en Debian GNU/Linux
+created: 1170169629
+author: david_villa
+category: receta
+tags:
+- Arco
+---
+bq. Cómo configurar Apache2 para disponer de un directorio  WebDAV, accesible para lectura/escritura desde GNOME VFS, konqueror, cadaver o como una "web folder" desde el "sistema operativo más rentable de todos los tiempos". 
+<!--break-->
+
+h2. Ingredientes
+
+* Apache2
+
+
+h2. Módulos
+
+
+<div class="console">
+{% highlight console %}
+# a2enmod dav_fs 
+{% endhighlight %}
+</div>
+
+
+h2. Carpeta DAV
+
+Lo habitual es 'compartir' un directorio del sistema de ficheros, y para eso se usa la directiva "Alias":
+
+
+<temp-div>
+{% highlight text %}
+<VirtualHost *>
+   ....
+
+   Alias /webdav /var/www/dav
+   <Location /webdav>
+      DAV On
+   </Location>
+</VirtualHost>
+{% endhighlight %}
+</div>
+
+Con eso tienes un directorio cuyo contenido *todo el mundo* puede leer, escribir y borrar.
+
+
+h2. Escritura restringida
+
+Con la siguiente configuración cualquiera podrá ver el contenido del directorio pero sólo los usuarios autorizados podrán modificar su contenido:
+
+
+<temp-div>
+{% highlight text %}
+<Location /webdav>
+   Dav On
+
+   AuthType Basic
+   AuthName DAV
+   AuthUserFile user.passwd
+
+   <LimitExcept GET OPTIONS>
+      Require valid-user
+   </LimitExcept>
+</Location>
+{% endhighlight %}
+</div>
+
+El fichero @user.passwd@ se crea @htpasswd@ de la forma habitual. Una alternativa es usar "mod_auth_digest":http://httpd.apache.org/docs/2.2/mod/mod_auth_digest.html, aunque es experimental y requiere soporte del navegador.
+
+
+h2. DAV privado
+
+Y si lo que quieres es que sólo los usuarios autorizados pueden acceder a la carpeta (incluso para lectura) simplemente hay que eliminar la excepción:
+
+
+<temp-div>
+{% highlight text %}
+<Location /webdav>
+   Dav On
+
+   AuthType Basic
+   AuthName DAV
+   AuthUserFile user.passwd
+   Require valid-user
+</Location>
+{% endhighlight %}
+</div>
+
+
+h2. Autenticación LDAP
+
+En realidad LDAP se puede utilizar como medio de autenticación y autorización para cualquier recurso de Apache, no sólo para carpetas DAV.
+
+Instala los siguientes paquetes:
+
+* libapache2-mod-auth-pam
+* libpam-ldap
+* libnss-pam
+
+
+Edita el fichero @/etc/pam.d/apache2@ para que queda tal que:
+
+
+<temp-div>
+{% highlight text %}
+auth required pam_ldap.so try_first_pass
+auth required pam_permit.so
+account required pam_ldap.so
+account required pam_permit.so
+{% endhighlight %}
+</div>
+
+Edita @/etc/pam_ldap.conf@ y modifica las líneas que se indican:
+
+
+<temp-div>
+{% highlight text %}
+host 192.168.1.1         # servidor LDAP
+base dc=example,dc=net   # base de búsqueda
+#rootbinddn cn=manager,dc=example,dc=net
+{% endhighlight %}
+</div>
+
+Edita @/libnss_ldap.conf@:
+
+
+<temp-div>
+{% highlight text %}
+base dc=example,dc=net
+uri ldap://192.168.1.1
+#rootbinddn cn=manager,dc=example,dc=net
+bind_policy soft
+nss_connect_policy persist
+idle_timelimit 3600
+nss_paged_results yes
+pagesize 1000
+pam_min_uid 1000
+{% endhighlight %}
+</div>
+
+Edita el fichero @/etc/nsswitch.conf@
+
+
+<temp-div>
+{% highlight text %}
+passwd:         compat ldap
+group:          compat ldap
+hosts:          files dns
+{% endhighlight %}
+</div>
+
+La configuración para la carpeta DAV pero usando LDAP sería algo como:
+
+
+<temp-div>
+{% highlight text %}
+<Location /webdav>
+   Dav On
+
+   AuthPAM_Enabled on
+   AuthGROUP_Enabled on
+   AuthType Basic
+   AuthName DAV
+   AuthBasicAuthoritative off
+   AuthUserFile none.passwd     # un fichero vacío 
+
+   <LimitExcept GET OPTIONS>
+      Require group staff
+   </LimitExcept>
+</Location>
+{% endhighlight %}
+</div>
+
+
+h2. Un poquillo de seguridad
+
+Si vas a enviar claves por la red (como es el caso de lo descrito anteriormente), lo mejor es que sirvas la carpeta por SSL. Mira la receta de "Crear un sitio web SSL con Apache2":http://crysol.inf-cr.uclm.es/node/198.
+
+
+h2. Referencias
+
+* "Apache mod_dav":http://httpd.apache.org/docs/2.0/mod/mod_dav.html
+* "WebDAV on Apache2":http://<a href="http://www.debian-administration.org/articles/285">www.debian-administration.org/articles/285</a>
+* "Apache Web Login Authentication":http://<a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialApacheAddingLoginSiteProtection.html">www.yolinux.com/TUTORIALS/LinuxTutorialApacheAddingLoginSiteProtection.html</a>

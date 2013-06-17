@@ -1,0 +1,47 @@
+---
+migrated: node/986
+layout: post
+title: Ayuda con instalación de Ubuntu a medias
+created: 1219138746
+author: Elpaco
+---
+Hola,
+ Ayer intente instalar el Ubuntu en  el disco C. En el disco D tengo instalado el windows XP. En el C guardo archivos del Windows que tengo instalado en el disco D 
+ Primero hice las particiones con el partition, una de swap de 2 G y otra de para instalar el Ubuntu de 2 G tambien, pues me equivoqué y en vez de hacer la particion de 40 G con el partition tal como habia pensado hacer, la hice de 2 G.
+ El ubuntu empezó a instalarse en la partición de 2 G situada en el disco D.
+  Cuando iba a instalar las ultimas partes la instalación se detuvo, diciendo que no podia instalar el GRUB y alguna otra cosa mas,...me decia que tenia que poner un CD de instalación de un Ubuntu mas reciente. Así que lo descarge con otro ordenador y lo puse reiniciando el ordenador y empezando de nuevo con el proceso de instalación de Ubuntu (pues la disquetera no se abria para poder poner el nuevo CD que pedia.  
+  El segundo intento de instalacion de Ubuntu continuo su curso hasta que se detubo en el mismo punto que el anterior. No instaló el GRUB y alguna otra cosa mas.
+ Asi que al quedarse paralizado el ordenador le toque el boton de reinicio y volvi a intentar instalar el mismo CD que ya estaba dentro (tercer intento).
+ Al llegar al mismo punto de la instalación se volvio a detener la instalacion pues el programa pedia el CD que en realidad ya estaba dentro y además no permitia abrir la disquetera (¿¿¿...???) :aggressive: 
+ En vista de que no funcionaba la cosa, reinicie de nuevo para ir a la Bios y cambiar la opcion de arranque para empezar con el windows que estaba en el otro disco, el D en mi caso), y asi poder consultar en los manuales de linux para saber que hacer.
+ Pero el ordenador ya no entraba en Windows,...salia la frase que decia que no podia encontrar el sistema. (¿¿..??)  
+  Como única opción que vi fue poner un disco de arranque (puse Pilitos) y mirar a ver que pasaba. No pude detectar mucho, asi que desde el mismo disco de arranque entre en internet y consulte foros y manuales.
+ Encontre lo de escribir ¨fdisk/mbr¨ en la consola de recuperacion de cualquier disco de arranque y lo puse en la consola (MS2) de pilitos,...pero nada,...no identificaba ese comando.  
+ En realidad, el Ubuntu no habia llegado a instalar el GRUB y en los manuales y foros ponia que ese comando de ¨fdisk/mbr¨era para eliminar el GRUB y asi al menos poder arrancar de nuevo con el windows. Aunque tambien ponia que así se formatearia la particion en donde se habia instalado Ubuntu y Windows arrancaria de nuevo,...así que esa era la opcion de mi intento.
+ De todos modos desde el MS2 del disco de arranque de Pilitos no daba efecto pues no reconocia ese comando de ¨fdisk/mbr¨  
+ Asi que buscando por manuales encontre la alternativa de poner el CD de Windows 
+para poder acceder a la consola de recuperacion de windows y alli poner el comando ¨fdisk/mbr¨para poder liberar el arranque de Windows.
+  Eso hice, pero el Cd de instalacion de Windows no me dio la opcion de recuperar la instalacion para asi poder entrar en la consola de recuperacion, (O bien yo no supe llegar a esa opcion),...y siguió instalandose el windows XP de nuevo sin que yo lo pudiera evitar.  
+ Temía que se perdieran todos los datos instalados,...pero por suerte encontré la opción de conversar todos los archivos y la seleccione.
+  Arranque de nuevo el ordenador y esta vez ya tenia otra vez el windows xp pero con todos los programas desinstalados  
+  Esta noche pasada he tenido alguna pesadilla pensando en lo que me costaría volver a instalar los programas,...al menos los mas básicos. 
+ Pero al poner en marcha el ordenador esta mañana, me he visto ante la sorpresa de que el ordenador me pregunta con que sistema quiero empezar,...le he dado a la segunda opcion para ver si por casualidad esa era la del Ubuntu,...pero no,...aunque tambien me he llevado una sorpresa,...pues era la primera instalación que ya tenia del windows xp,...con todos los programas instalados. :) 
+  Me fui a mirar en el disco D y he visto allí dos carpetas de instalación de windows, juntas una al lado de la otra,...en la del primer Windows que ya tenia pone: Windows,...y en la carpeta del segundo windows que acababa de instalar pone: windows 0.  
+ Mi pregunta es saber si el tener dos windows xp instalados y ademas en la misma particion del mismo disco (el D) puede causar problemas,....y tambien saber como desinstalar el nuevo windows instalado. ¿Simplemente borrando su carpeta,...?
+ No se  
+  Me gustaria un monton poder instalar Ubuntu, pero ahora despues de todo lo sucedido, con el Partition Magic he observado el estado del disco C en donde estaba intentando instalar el Ubuntu y me he llevado otra sorpresa, pues pone: disco defectuoso, lo cataloga de esta manera, sin ni siquiera ponerle su letra de C, como queriendo decir que esta ¨hecho polvo¨,..vamos.  
+ Otra pregunta es saber si eso que detecta el Partition Magic del disco C, se puede deber tal vez a que la instalacion del Ubuntu no se completó  
+ O tal vez debido al intento erroneo de instalar el Ubuntu en un disco demasiado pequeño de 2 G.  
+ Por si se trataba de eso,... con el Partition Magic ya habia intentado antes agrandar esa pariticion de 2 G y la puse a 40 G. 
+ Aunque por mi poca experiencia y falta de sueño (ya eran las 3 de la mañana) creo que ¨meti la pata¨ otra vez, pues esa particion que agrande la puse en NTFS en vez de en Ext3 y ademas no la puse como primaria.
+ Mas tarde intente corregir este error, pero el partition Magic ya no permitia interactuar en el disco C pues lo identificaba como defectuoso.
+ Ahora mi otra pregunta es:
+¿Cómo instalar el Ubuntu en esa particion de 40 G en ese disco que el partition magic identifica como defectuoso?
+ O en todo caso:
+ ¿Cómo proceder en el Partition magic para que identifique esta particion como correcta y poder interactuar otra vez en ella?
+  O tal vez:
+ ¿ Cómo configurar esa particion solo con el programa de instalacion del Ubuntu para hacerla primaria y darle la configuracion necesaria?
+......,...pues cuando en mi primer intento de instalacion del Ubuntu desde la misma instalacion intenté  pasar a primaria la particion en donde queria instalar el Ubuntu (que por error era de 2 G) no lo conseguí,...regrese al partition cambie esa particion a primaria (con el partition) volvi a la instalacion del ubuntu y entonces como primaria si que la aceptó,....pero con el Ubuntu no habia hallado el modo de transformar esa particion en primaria.
+ Bueno,...en definitiva:
+ ¿Cómo puedo instalar Ubuntu en esa particion de 40 G del disco D el cual ahora el Partition Magic indentifica como defectuoso?  
+  Espero no haberme excedido en la descripcion y muchas gracias por la atención. :?

@@ -1,0 +1,104 @@
+---
+migrated: node/1344
+layout: post
+title: ! 'CMake: Construir una librería estática y/o dinámica'
+created: 1269540696
+author: cleto
+category: receta
+tags:
+- Arco
+- devel
+---
+<blockquote>Esta receta explica cómo construir librerías estáticas y dinámicas con CMake.</blockquote>
+<!--break-->
+<h2>Software necesario</h2>
+
+Los ejemplos que vamos a utilizar puedes descargarlos utilizando subversion desde:
+
+
+<div class="console">
+{% highlight console %}
+
+$ svn co https://arco.esi.uclm.es/svn/public/samples/cmake/libstatic
+$ svn co https://arco.esi.uclm.es/svn/public/samples/cmake/libshared
+{% endhighlight %}
+</div>
+
+Los directorios contienen una librería con una definición de la clase Dummy (dummy.h y dummy.cpp) con un único método. También se incluye el CMakeLists.txt correspondiente.
+
+<h2>Librería estática</h2>
+
+Para crear una librería estática nada más fácil que lo que sigue:
+
+
+<temp-div>
+{% highlight text %}
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(libstatic)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+
+ADD_LIBRARY(dummy STATIC dummy.cpp)
+{% endhighlight %}
+</div>
+
+El comando INCLUDE_DIRECTORIES permite añadir los directorios donde se encuentran las cabeceras del proyecto. En este caso, el fichero dummy.h se encuentra en el mismo directorio donde están los fuentes (el mismo en el que se encuentra CMakeLists.txt). La variable global CMAKE_CURRENT_SOURCE_DIR tiene esta ruta.
+
+De una forma similar a como se añadían ejecutables, para crear una librería se debe utilizar ADD_LIBRARY que acepta, entre muchos otros, los siguientes parámetros:
+
+<ul>
+<li><tt>objetivo</tt>: se trata un nombre simbólico para el objetivo que representa el crear la librería. Si no se especifica otra cosa, este nombre se utilizará para crear el fichero final de la forma <em>lib</em>objetivo<em>.a</em>.</li>
+<li><tt>STATIC</tt>: modo de la librería.</li>
+<li><tt>dependencias</tt>: de qué ficheros u objetivos depende la librería para su construcción</li>
+</ul>
+
+<h2>Librería dinámica</h2>
+A la vista de lo anterior, parece sencillo crear una librería dinámica. ¿Bastará cambiar STATIC por SHARED?. Sí, con eso bastaría. Pero vamos a añadir algo más para hacer que la librería sea más "distribuible":
+
+
+<temp-div>
+{% highlight text %}
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(libshared)
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+
+ADD_LIBRARY(dummy SHARED dummy.cpp)
+SET_PROPERTY(TARGET dummy PROPERTY SOVERSION 1.0)
+{% endhighlight %}
+</div>
+
+En CMake, los targets (objetivos) tienen propiedades que, a priori, tienen ciertos valores por defecto. La propiedad SOVERSION de los objetivos que son librerías dinámicas, por defecto, no tiene valor. Sin embargo, es conveniente versionar las librerías para que aquellas plataformas que lo soporten (como por ejemplo, GNU) puedan gestionar las versiones.
+
+Con el comando SET_PROPERTY se puede modificar las propiedades de las estructuras que se van creando en el programa. En este caso, para el objetivo 'dummy' se cambia el valor de la propiedad SOVERSION a 1.0. De esta forma, al compilar la librería CMake generará los enlaces simbólicos necesarios de forma automática.
+
+<h2>Librería estática y dinámica</h2>
+Es posible que para una misma librería quieras que pueda ser enlazada de forma estática y también dinámica. Veamos una posible solución:
+
+
+<temp-div>
+{% highlight text %}
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(libstaticshared)
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+
+ADD_LIBRARY(dummy_shared SHARED dummy.cpp)
+SET_PROPERTY(TARGET dummy_shared PROPERTY SOVERSION 1.0)
+
+ADD_LIBRARY(dummy_static STATIC dummy.cpp)
+
+SET_TARGET_PROPERTIES(dummy_shared dummy_static PROPERTIES OUTPUT_NAME dummy)
+{% endhighlight %}
+</div>
+
+No se puede utilizar <tt>dummy</tt> como objetivos de ambas librerías. Lo que se puede hacer, por tanto, es crear un objetivo por cada tipo de librería (<tt>dummy_shared</tt> y <tt>dummy_static</tt>). Si no decimos nada más, CMake nos generará los archivos <tt>libdummy_static.a</tt>, <tt>libdummy_shared.so</tt>,... Y eso, obviamente, no es lo deseable.
+
+Por ello utilizamos SET_TARGET_PROPERTIES que sirve para configurar propiedades de objetivos (es un caso particular de SET_PROPERTY).
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html">Documentación CMake2.8</a>: consultar las propiedades genéricas y de los diferentes tipos abstractos (directorios, objetivos, ficheros fuente...).</li>
+</ul>

@@ -1,0 +1,26 @@
+---
+migrated: node/522
+layout: post
+title: Usar la librería libxml2
+created: 1171962195
+author: magmax
+category: receta
+---
+bq. libxml2 es una librería que facilita el manejo de los XMLs. La librería permite el acceso tanto para lectura como para escritura. Si dispones de DTD, también trae funciones para su uso.
+
+h2. Para compilar
+
+Deberías insertar en tu Makefile lo siguiente:
+
+<pre>
+  CFLAGS += `xml-config --cflags`
+  LDLIBS += `xml-config --libs`
+</pre>
+
+Y, con eso, debería bastar.
+
+h2. Un ejemplo
+
+Puedes encontrar un "ejemplo":http://arco.inf-cr.uclm.es/svn/public/misc/libxml/ejemplo.c en el que se incluyen algunas de las funciones de acceso. Es muy sencillo y puede dar una idea bastante decente de su uso.
+
+A parte del ejemplo, recomiendo <a href="http://xmlsoft.org/html/libxml-lib.html">http://xmlsoft.org/html/libxml-lib.html</a> y <a href="http://xmlsoft.org/docs.html">http://xmlsoft.org/docs.html</a>. Las cabeceras que hemos utilizado en el ejemplo son @parser@ y @tree@.

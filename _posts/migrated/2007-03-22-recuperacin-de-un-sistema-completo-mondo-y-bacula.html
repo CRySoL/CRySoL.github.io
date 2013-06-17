@@ -1,0 +1,131 @@
+---
+migrated: node/625
+layout: post
+title: ! 'Recuperación de un sistema completo: Mondo y Bacula'
+created: 1174596492
+author: int-0
+category: receta
+tags:
+- Arco
+- seguridad
+---
+<blockquote>A pesar de que en anteriores recetas explicamos cómo realizar y recuperar backups en bacula, esto no es suficiente en el caso de querer recuperar un sistema completo. En caso de desastre total deberíamos volver a crear particiones, instalar un sistema base en el que recuperar los backups y, si no hicimos backup de la configuración del sistema, tendríamos que volver a configurarlo todo. Deberíamos separar backups del sistema y backups de los datos del sistema. Así podremos encontrar un método mejor para realizar nuestros respaldos.</blockquote>
+<!--break-->
+<h2>Backup de los datos</h2>
+Bien... hay mucho que explicar... pero está todo en las recetas sobre bácula:
+
+<ul>
+<li><a href="/node/400">Instalar un sistema Bacula</a></li>
+<li><a href="/node/549">Configurar un sistema Bacula</a></li>
+</ul>
+
+Lo único que debemos saber es qué es lo que vamos a almacenar. Esto es fácil: <tt>/var/</tt> (no todo... las bases de datos, páginas web, repositorios, etc.) y <tt>/home</tt>. Como seréis buenos usuarios, no usaréis <em>root</em> para nada, por tanto ese no hace falta salvar.
+
+Ahora sólo nos queda salvar el sistema...
+
+<h2>Backup del sistema</h2>
+Para hacer backup del sistema hay que tener en cuenta un par de cosas: qué ficheros salvar, sus enlaces, atributos, particiones, sector de arranque, etc. y lo que es más importante: en caso de que nos quedemos sin sistema... ¿cómo lo podemos recuperar? ¿una <em>live</em>? como véis no es tan trivial como puede parecer en un principio... necesitamos un método para hacer todo esto de una forma fácil y rápida: <b>mondo</b>.
+
+<h3>Instalar mondo</h3>
+Para los debianitas y similares:
+
+
+<div class="console">
+{% highlight console %}
+$ apt-get install mondo
+{% endhighlight %}
+</div>
+
+Lo normal en estos casos es que ahora ponga unos comandillos para invocar a mondo... pero mondo tiene GUI!!! :jawdrop: (para que luego digan los de hassefroch) (algunos dirán que 6 botones en modo texto no son <em>gui</em>... pero otros dicen que un ratón tiene potenciómetros así que estamos en paz). Vienen muchas opciones, la más normal será <em>hard disk</em>. Esta opción creará unas imágenes <em>iso</em> del tamaño que digamos con nuestro respaldo del sistema. Hay una opción (<em>create DVD images</em>) que también podríamos usar... esta opción graba directamente los DVD's... pero tiene un problema: deberíamos estar todo el proceso ahí para ir cambiando los grabables... en un sistema grande eso puede ser un auténtico tostón.
+
+Otra cosa que hay que tener en cuenta es que en el directorio temporal necesitamos una gran cantidad de espacio libre (un poco más que el tamaño total de los ficheros a hacer backup).
+
+A la hora de hacer el backup excluiremos todos aquellos directorios que ya tengamos incluídos en las cintas de backup, <tt>/home</tt> sobre todo. En cuanto a <tt>/var</tt>, excluiremos todo aquello que no hayamos metido en cinta, cosas como la base de datos de <em>dpkg</em>, etc.
+
+<h2>Restaurar el sistema</h2>
+Bien... hemos creado las imágenes con <em>mondo</em> y justo después se nos ha reventado el sistema :jawdrop:. No pasa nada! Tanto si perdimos algunos ficheros como el sistema entero... reiniciamos el PC con el primer DVD insertado. El DVD arranca y nos aparece otra <em>gui</em> con varias opciones: testear backup, restauración manual y restauración automática. Realizamos una restauración automática, nos irá pidiendo los DVD's y extraerá los ficheros y tal.
+
+Una vez hayamos terminado reiniciaremos el PC ya sin los DVD's y arrancará nuestro sistema. Como nuestro sistema ya tenía bácula restauraremos los datos de <tt>/home</tt> desde las cintas (siguiendo las recetas).
+
+<h2>Apéndice A: automondo</h2>
+El uso del <em>gui</em> en mondo tiene un problema: exige interacción con el usuario. Puede ser que necesitemos poder crear imágenes sin que un usuario lo exija (<em>cron</em>). Además puede ser necesario almacenar alguna configuración en algún sitio.
+
+Para estas cosas he creado un pequeño y tonto <em>script</em> que he llamado <em>automondo</em>. El <em>script</em> lo copiaremos en <tt>/usr/sbin</tt>, lo llamaremos <tt>automondo</tt> y le daremos permisos de ejecución. El <em>script</em> es el siguiente:
+
+<pre>#!/bin/bash
+
+# Cargamos la configuracion (si existe)
+#
+CONFIG_FILE=/etc/mondo/automondo.conf
+if [ -e $CONFIG_FILE ]
+then
+        . $CONFIG_FILE
+fi
+# Cargamos valores por defecto (en caso de que no exista CFG o falten parametros)
+if [ -z "$IMG_DESTINATION" ]
+then
+        IMG_DESTINATION=/root/images/mondo
+fi
+if [ -z "$IMG_PREFIX" ]
+then
+        IMG_PREFIX=`hostname`
+fi
+if [ -z "$IMG_SIZE" ]
+then
+        IMG_SIZE=4200m
+fi
+if [ -z "$BCK_EXCLUDE" ]
+then
+        BCK_EXCLUDE="/tmp /lost+found"
+fi
+if [ -z "$TMP_DIR" ]
+then
+        TMP_DIR="/tmp"
+fi
+# Creamos el destino si no existe
+if [ ! -d $IMG_DESTINATION ]
+then
+        mkdir $IMG_DESTINATION
+fi
+# Creamos el temporal si no existe
+if [ ! -d $TMP_DIR ]
+then
+        mkdir $TMP_DIR
+fi
+# Invocamos el asunto...
+/usr/sbin/mondoarchive -O -d $IMG_DESTINATION -p $IMG_PREFIX -i -E "$BCK_EXCLUDE" -N -s $IMG_SIZE -9 -T "$TMP_DIR" -S "$TMP_DIR"</pre>
+
+Y ahora creamos el archivo <tt>/etc/mondo/automondo.conf</tt> con el siguiente contenido:
+
+<pre>
+# Destino para las imagenes
+#
+IMG_DESTINATION=/root/mondo/images
+
+# Prefijo en el nombre de las imagenes
+#
+IMG_PREFIX=`hostname`
+
+# Tamaño de los iso
+#
+IMG_SIZE=4200m
+
+# Directorios a excluir (proc y tal lo excluye mondo automáticamente)
+#
+BCK_EXCLUDE="/var/tmp /var/run /home /root/mondo"
+
+# Directorio temporal
+#
+TMP_DIR="/root/mondo/temp"</pre>
+
+Si ahora ejecutamos <em>automondo</em> se nos crearán automáticamente las imágenes del sistema ;).
+
+<blockquote>Nota: Existe un "pequeño" problema que no se muy bien como arreglar. Resulta que aunque las imágenes las crea bien y funcionan (doy fe) da un "error" al final del proceso y pide la pulsación de <em>intro</em> para continuar. Cleto me ha sugerido el siguiente cambio en la última línea del script:
+
+<pre>echo -e \n | /usr/sbin/mondoarchive -O -d $IMG_DESTINATION -p $IMG_PREFIX -i -E "$BCK_EXCLUDE" -N -s $IMG_SIZE -9 -T "$TMP_DIR" -S "$TMP_DIR"</pre>
+
+Es pasar un <em>intro</em> al programa para que se pulse... pero no termina de convencerme el asunto... ¿qué opináis?</blockquote>
+
+<h2>Enlaces</h2>
+Las recetas sobre bácula que menciono al principio.
+<a href="http://www.mondorescue.org/">Mondo Rescue Home Page.</a>

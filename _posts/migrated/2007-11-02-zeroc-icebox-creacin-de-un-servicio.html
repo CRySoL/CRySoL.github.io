@@ -1,0 +1,147 @@
+---
+migrated: node/798
+layout: post
+title: ! 'ZeroC IceBox: Creación de un servicio'
+created: 1194003900
+author: cleto
+category: receta
+tags:
+- networking
+- Ice
+- Arco
+---
+<blockquote>La siguiente receta explica como crear un servicio para IceBox. El ejemplo está hecho en C++, sin embargo es aplicable para los lenguajes soportados por ZeroC-Ice. Sólo es un leve cambio de sintaxis... :-P</blockquote>
+
+<h2>Introducción</h2>
+IceBox es un servicio de Ice que permite tener control sobre un conjunto de servicios en ejecución. La necesidad de esta característica depende de la aplicación pero es útil cuando queremos tener varios servicios ejecutándose en la misma máquina.
+Existe una clase llamada IceBox::Service. Esta clase tiene, entre otros muchos, los siguientes métodos:
+<ul>
+<li><b>start</b>: código que se ejecutará al iniciarse el servicio.</li>
+<li><b>stop</b>: código que se ejecutará al pararse el servicio.</li>
+</ul>
+
+<h2>Servicio IceBox "Hola Mundo"</h2>
+Primeramente, tenemos que tener nuestro interfaz hello.ice:
+<pre>module UCLM {
+  interface Hello {
+        void puts(string str);
+        void shutdown();
+  };
+};</pre>
+... y su implementación correspondiente (helloI.cpp):
+<pre>#include < Ice/Ice.h >
+#include < helloI.h >
+
+/*                                                                                                                           
+ * Este fichero fue generado en primera instancia mediante:                                                                  
+ *                                                                                                                           
+ * $ slice2cpp --impl hello.ice                                                                                              
+ *                                                                                                                           
+ * y posteriormente modificado                                                                                               
+ */
+
+using namespace std;
+
+void
+UCLM::HelloI::puts(const ::std::string& str,
+                   const Ice::Current& current){
+  cout << "SERVER: Se recibirá el valor: " << str << endl;
+}
+
+void
+UCLM::HelloI::shutdown(const Ice::Current& c){
+    cout << "Shutting down..." << endl;
+    c.adapter->getCommunicator()->shutdown();
+}</pre>
+
+Una vez creados ambos componentes, ya puedes empezar con IceBox::Service. Primero, hay que especificar la clase del servicio que vayas a implementar. Por ejemplo, el contenido del archivo HelloService.h  sería:
+<pre>#ifndef HELLO_SERVICE_I_H
+#define HELLO_SERVICE_I_H
+
+#include < IceBox/IceBox.h >
+
+#ifndef HELLO_API
+#   define HELLO_API ICE_DECLSPEC_EXPORT
+#endif
+
+class HELLO_API HelloService : public ::IceBox::Service{
+ public:
+  virtual void start(const ::std::string&,
+                       const ::Ice::CommunicatorPtr&,
+                       const ::Ice::StringSeq&);
+  virtual void stop();
+
+ private:
+  ::Ice::ObjectAdapterPtr _adapter;
+};
+
+#endif</pre>
+Y la implementación:
+<pre>#include "helloI.h"
+#include "HelloService.h"
+using namespace std;
+
+extern "C"{                                                                                                                           
+   HELLO_API ::IceBox::Service*
+   create(::Ice::CommunicatorPtr communicator){
+      return new HelloService;
+   }
+}
+
+void
+HelloService::start(const string& name,
+             const ::Ice::CommunicatorPtr& communicator,
+             const ::Ice::StringSeq& args){
+
+   _adapter = communicator->createObjectAdapter(name);
+   ::Ice::ObjectPtr object = new UCLM::HelloI;
+   _adapter->add(object,communicator->stringToIdentity("ServiceHola"));
+   _adapter->activate();
+
+   cout << "** Activación del Servicio." << endl;
+   cout << object << endl;
+}
+
+void
+HelloService::stop(){
+   _adapter->deactivate();
+   cout << "** Desactivación del Servicio" << endl;
+}</pre>
+
+Comentarios respecto al código anterior:
+<ul><li>La primera parte de código se debe a cómo está implementado IceBox. Cuando IceBox llame a create, se debe devolver un objeto del servicio creado.</li>
+<li>El método <b>start</b> tiene los siguientes argumentos:</li>
+<ul><li><em>name</em>: nombre del servicio. Muy útil para recoger propiedades de tu servicio de un fichero de configuración ;-).</li>
+<li><em>communicator</em>: el comunicador asociado.</li>
+<li><em>args</em>: los parámetros pasados a tu servicio en formato <em>StringSeq</em>.</li></ul>
+<li><b>stop</b> únicamente desactiva el adaptador de objetos.</li></ul>
+Los dos métodos implementados son los únicos necesarios e imprescindibles para crear un servicio de IceBox. Es recomendable, sin embargo, especificar un método destructor de clase.
+<h2>Compilación e instalación</h2>
+El objetivo de la compilación no es un ejecutable (ya te habrás dado cuenta de que no tiene un main por ningún sitio). Por ello, es necesario utilizar las opciones de compilación -lIceBox (para enlazar con la librería de IceBox) y la opción -shared (para crear el archivo como una librería compartida).
+
+Por convenio, el archivo de salida de la compilación debe llamarse lib"servicio".so. En nuestro caso, <em>libHelloService.so</em>.
+
+Para que IceBox pueda linkar en tiempo de ejecución el servicio de "Hola Mundo" tienes varias alternativas:
+<ul>
+<li>Crear/Modificar la variable de entorno LD_LIBRARY_PATH.</li>
+<li>Copiar el archivo en /usr/lib (más guarrete :-P).</li>
+</ul>
+<h2>Configuración y arranque de IceBox</h2>
+Una vez que ya tengas la librería compartida (servicio de IceBox) creada y todo accesible, tienes que configurar el servicio de IceBox (fichero icebox.config):
+<pre>IceBox.ServiceManager.Endpoints=tcp -p 10000
+IceBox.UseSharedCommunicator.HelloService=1
+IceBox.Service.HelloService=HelloService:create 
+HelloService.Proxy=ServiceHola:tcp -p 9999
+HelloService.Endpoints=tcp -p 9999</pre>
+Finalmente, ejecutamos nuestro servicio con Icebox mediante el comando:
+
+<div class="console">
+{% highlight console %}
+$ icebox --Ice.Config=icebox.config
+{% endhighlight %}
+</div>
+<h2>Referencias</h2>
+<ul>
+<li>Manual de ZeroC-Ice (disponible con apt-get install zeroc-ice-manual o bien con aptitude install --please-i-only-want-a-manual zeroc-ice-manual :-P).</li>
+<li><a href="#">Receta de librerías dinámicas</a>.</li>
+</ul>

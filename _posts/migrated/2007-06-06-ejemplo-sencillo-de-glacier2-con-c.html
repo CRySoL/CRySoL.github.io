@@ -1,0 +1,44 @@
+---
+migrated: node/712
+layout: post
+title: Ejemplo sencillo de Glacier2 con C++
+created: 1181119300
+author: cleto
+category: receta
+tags:
+- Arco
+---
+<blockquote>En esta receta se explica cómo utilizar Glacier2 con un típico "Hola Mundo!" en C++</blockquote>
+
+<h2>¿Qué es Glacier2?</h2>
+Glacier2 es un firewall para  Ice que permite invocación de objetos remotos en redes privadas. Si los objetos servidores están en una red local y los clientes van a invocar estos objetos desde fuera de la red, el uso de Glacier2 es una buena idea. Podemos verlo como especie de NAT para objetos ICE.
+
+Glacier2 presenta una limitación recogida en el manual en la versión de ICE 3.2.0 y es que la comunicación no puede ser no confiable, esto es, no se pueden usar protocolos como UDP, únicamente permite TCP (y SSL).
+
+<h2>Especificación Slice</h2>
+En el archivo Slice debes especificar la interfaz que, posteriormente, vas a implementar. Vamos a llamar a la interfaz "Printer" y al método que imprime una cadena pasada por argumentos "printString":
+<pre>module Demo{
+       interface Printer{
+       		 void printString(string s);
+	};
+};</pre>
+Una vez tengas este fichero (con el nombre, por ejemplo, "Printer.ice") debes ejecutar lo siguiente para generar los ficheros necesarios:
+
+<div class="console">
+{% highlight console %}
+$ slice2cpp --impl Printer.ice
+{% endhighlight %}
+</div>
+
+Ten en cuenta lo siguiente: al usar <em>--impl</em> vamos a obtener un esqueleto de implementación, ahí escribiremos el código a ejecutar por parte de los objetos servidores (código del sirviente). Una vez escrito, no debemos volver a generar este esqueleto porque podríamos machacar nuestro código y lo perderíamos, por tanto esto sólo lo invocaremos la primera vez así, en sucesivas invocaciones no emplearemos <em>--impl</em>.
+
+<h2>Implementación de la interfaz</h2>
+Por convenio, el nombre de la clase que implementa la interfaz especificada en el archivo .ice debe acabar en "I". Por ello, slice2cpp te ha generado 2 archivos: "PrinterI.h" y "PrinterI.cpp" (código del sirviente). Éste último tiene la implementación de la función "printString" vacía, por lo que debes completarla de la siguiente forma:
+<pre>#include \<PrinterI.h\>
+using namespace std;
+void
+Demo::PrinterI::printString(const ::std::string& s,
+                            const Ice::Current& current)
+{
+  cout << s << endl;
+}</pre>

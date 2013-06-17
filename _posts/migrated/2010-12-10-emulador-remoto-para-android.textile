@@ -1,0 +1,54 @@
+---
+migrated: node/1439
+layout: post
+title: Emulador remoto para Android
+created: 1292010099
+author: oscarah
+category: receta
+tags:
+- android
+- devel
+---
+Si desarrollas con Eclipse aplicaciones para Android, y no tienes una máquina muy potente, te habrás dado cuenta de que usar el emulador y Eclipse al mismo tiempo, puede ser un problema. ¿Tienes una segunda máquina a tu disposición? Esta es tu receta entonces.
+<!--break-->
+h2. Ingredientes
+
+Lo mínimo necesario es:
+
+* Dos máquinas, que llamaremos A y B. Suponemos que A es la máquina en la que desarrollas y B es la que usarás para emular Android.
+* El entorno de Android configurado en ambas máquinas. En A debes tener Eclipse, con el plugin de Android (ADT), y en B, el SDK con el emulador y los AVDs que vayas a usar. Esto no dista de una instalación normal.
+
+h2. En materia
+
+Cuando arrancas el emulador (QEmu), tienes disponibles un par de puertos (5554 y 5555) con los que el plugin de Eclipse se conectará al dispositivo emulado. Dado que se usa TCP/IP para esta comunicación, no importa donde estén Eclipse o el emulador. Sin embargo, (y por lo menos en el SDK para Android 2.3), se escucha en la interfaz local (127.0.0.1). Así que lo único que tienes que hacer es instalarte @redir@ en A y realizar las redirecciones oportunas.
+
+
+<div class="console">
+{% highlight console %}
+
+A$ sudo apt-get install redir
+[...]
+A$ redir --laddr 192.168.0.10 --lport 5554 --caddr 127.0.0.1 --cport 5554 &
+A$ redir --laddr 192.168.0.10 --lport 5555 --caddr 127.0.0.1 --cport 5555 &
+{% endhighlight %}
+</div>
+
+Obviamente, en donde pone 192.168.0.10 debes poner la IP que corresponda con tu configuración.
+
+En la máquina de desarrollo, lo único necesario es conectar con este emulador, usando la herramienta ADB:
+
+
+<div class="console">
+{% highlight console %}
+
+B$ adb connect 192.168.0.10
+connected to 192.168.0.10:5555
+B$ adb devices
+List of devices attached 
+192.168.0.10:5555	device
+{% endhighlight %}
+</div>
+
+Por ultimo, en el proyecto de Eclipse, es necesario que configures el "Deployment Target Selection Mode" a manual. De esta forma, saldrá un diálogo con los dispositivos disponibles cuando intentes ejecutar tu aplicación. Para ello, dirígete a "Run -> Run Configurations...", y en la pestaña "Target" selecciona Manual.
+
+Y esto es todo. Ahora podrás abrir eclipse y el emulador sin morir en el intento ;)

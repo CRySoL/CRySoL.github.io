@@ -1,0 +1,45 @@
+---
+migrated: node/1097
+layout: post
+title: Save (and restore) a MySQL data base
+created: 1139170422
+author: david_villa
+category: receta
+tags:
+- MySQL
+---
+bq. This recipe explain how to make a backup of a complete database in a easy way. Then, the backup file can be restored when a disaster occurs.
+<!--break-->
+h2. Make a backup
+
+The required command is @mysqldump@ that has the next syntax:
+
+<pre>mysqldump -u [user] -p [dbname] > [backup.sql]</pre>
+
+A sample:
+
+
+<div class="console">
+{% highlight console %}
+# mysqldump --single-transaction -u admin -p drupal > drupal_backup.sql
+{% endhighlight %}
+</div>
+
+
+h2. Restore de database from a file
+
+This is the same method to load a .sql file:
+
+
+<div class="console">
+{% highlight console %}
+# mysql -u admin -p drupal < drupal_backup.sql
+{% endhighlight %}
+</div>
+
+
+h2. References
+
+* "Backing Up And Restoring A MySQL Database":http://<a href="http://www.rlrouse.com/backup-restore-mysql.html">www.rlrouse.com/backup-restore-mysql.html</a>
+* "mysqldump":http://dev.mysql.com/doc/refman/5.0/en/mysqldump.html
+* "mysql — The MySQL Command-Line Tool":http://dev.mysql.com/doc/refman/5.0/en/mysql.html

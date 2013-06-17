@@ -1,0 +1,35 @@
+---
+migrated: node/1086
+layout: post
+title: Solución al problema de captura por firewire
+created: 1233664311
+author: int-0
+category: receta
+tags:
+- Arco
+- multimedia
+---
+<blockquote>Muchos nos quedamos <em>picuetos</em> cuando, de repente, nuestras <em>camcoders</em> dejaron de funcionar con <a href="http://www.kinodv.org/"><em>Kino</em></a>. Aquí se explica cómo hacerla funcionar, otra vez...</blockquote>
+
+<h2>Antecedentes...</h2>
+Supongo que lo primero que tendríamos que explicar es el porqué dejaron de funcionar... allá por los kernels 2.6.8 (mas o menos) el linux usaba una <em>stack</em> para el firewire que creaba distintos archivos de dispositivo: <em>eth1394</em>,  <em>raw1394</em>, etc. Estos dispositivos son en realidad la forma en la que se usará el bus...
+
+Todos nuestros programas tales como <a href="http://www.kinodv.org/"><em>Kino</em></a>, <a href="http://www.mplayerhq.hu/design7/news.html"><em>mplayer</em></a>, etc. usan estos dispositivos para realizar el acceso... hasta ahí todo normal...
+
+Resulta que unos individuos se dan cuenta de que esta forma de acceso al bus es una chapucilla y deciden realizar un pequeño cambio: usar otro <em>stack</em> distinto y dejar la selección del modo de uso del bus a una capa software superior... es decir... <em>libraw1394</em>, <em>libdv1394</em>, etc. Esta nueva forma se supone que es mucho mejor y más elegante... entonces... ¿cuál es el problema?... pues fácil: todos nuestros programas siguen usando <em>/dev/raw1394</em> y no <em>libraw1349</em>.
+
+<h2>Solución</h2>
+Al poco tiempo de hacer el cambio de <em>stack</em> no había solución pero hace ya tiempo se añadió un pequeño parche que nos permite volver a tener <em>/dev/raw1394</em> (como admins):
+
+<div class="console">
+{% highlight console %}
+ # mknod /dev/raw1394 c 171 0
+# chmod 777 /dev/raw1394
+{% endhighlight %}
+</div>
+
+Y ya está... con esto forzamos al driver a que cree el dispositivo, a la vieja usanza. Esto nos devolverá el siguiente aviso (cuando conectemos una cámara y comencemos una captura):
+<pre>[12289.756231] ieee1394: raw1394: /dev/raw1394 device initialized
+[12289.777387] NOTE: The dv1394 driver is unsupported and may be removed in a future Linux release. Use raw1394 instead.</pre>
+
+Aunque realmente este aviso no es para nosotros... sino para los autores de los programas que no se actualizan a la nueva api...

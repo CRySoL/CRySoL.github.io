@@ -1,0 +1,53 @@
+---
+migrated: node/1515
+layout: post
+title: Clase LaTeX para escribir el PFC
+created: 1305827917
+author: david_villa
+category: receta
+tags:
+- LaTeX
+---
+<div class="messages error" style="width:50%; margin:auto; padding:10px">
+<center><b>Nota</b>
+<p>
+El repositorio de <b>arco-pfc</b> está ahora en
+<a href="https://bitbucket.org/arco_group/arco-pfc">https://bitbucket.org/arco_group/arco-pfc</a>.
+</p>
+</center>
+</div>
+
+
+Quizá haya por aquí alguien que quiera escribir su <acronym title="Proyecto de Fin de Carrera">PFC</acronym> en LaTeX, pero sin liarse demasiado. Si es tu caso, instala la última versión del paquete @arco-pfc@ incluye la clase LaTeX del mismo nombre (es decir, se usa directamente con @\documentclass{arco-pfc}@). Esta clase sigue el "formato específico de la ESI":http://<a href="http://www.esi.uclm.es:8081/www/documentos/Normativas/NormativaPFC2007.pdf">www.esi.uclm.es:8081/www/documentos/Normativas/NormativaPFC2007.pdf</a> de Ciudad Real, pero es fácil cambiarlo si estudias en otra parte.
+<!--break-->
+Además, si no quieres/puedes usar el paquete debian @arco-pfc@ (aunque es lo que recomiendo) puedes descargar directamente el fichero "arco-pfc.cls del repo mercurial":https://bitbucket.org/arco_group/arco-pfc/src/tip/tex/arco-pfc.cls
+
+h2. Ejemplo
+
+Tienes un "ejemplo no tan mínimo":https://bitbucket.org/arco_group/arco-pfc/src/tip/example de PFC que usa esta clase. Te pueden resultar especialmente interesantes el "main.tex":https://bitbucket.org/arco_group/arco-pfc/src/tip/example/main.tex y el "Makefile":https://bitbucket.org/arco_group/arco-pfc/src/tip/example/Makefile que incluso descarga y compila el escudo de informática automáticamente. También puedes descargar el ejemplo completo con mercurial así:
+
+
+<div class="console">
+{% highlight console %}
+
+$ hg clone https://bitbucket.org/arco_group/arco-pfc
+{% endhighlight %}
+</div>
+
+El resultado en PDF en <a href="https://fowler.esi.uclm.es/job/arco-pfc/ws/example/main.pdf">https://fowler.esi.uclm.es/job/arco-pfc/ws/example/main.pdf</a>
+
+
+h2. arco-authors
+
+Disponible en el repo para tu @sources.list@
+
+
+<temp-div>
+{% highlight text %}
+deb <a href="http://babel.esi.uclm.es/arco">http://babel.esi.uclm.es/arco</a> unstable main
+{% endhighlight %}
+</div>
+
+h2. Errores y sugerencias
+
+Si detectas algún problema o tienes alguna idea para mejorarlo, puede usar el "tracker de arco-pfc":https://bitbucket.org/arco_group/arco-pfc/issues

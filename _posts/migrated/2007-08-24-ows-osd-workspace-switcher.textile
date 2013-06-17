@@ -1,0 +1,18 @@
+---
+migrated: node/764
+layout: post
+title: ! 'OWS: OSD Workspace Switcher'
+created: 1187955512
+author: david_villa
+category: noticia
+---
+Por si alguien quiere probarlo, os comento que he puesto en el repo de GNESIS una utilidad a la que hace mucho que le tenía ganas. Es un applet para GNOME que indica en pantalla el nombre del escritorio actual (<em>workspace</em> en la jerga _gnomera_). 
+<!--break-->
+
+Su utilidad es evidente: "saber dónde estás". Tener el nombre del escritorio a mano y bien clarito facilita enormemente (a mi por lo menos) tener organizadas las ventanas. Cada uno puede usar el criterio que mejor le funcione. Yo por ejemplo uso: web, admin, media, devel, doc y misc.
+
+Además, ofrece casi todas las "features" del _Workspace Switcher_ estándar de GNOME, así que si vas a utilizar OWS, no necesitas tener cargado también el estándar. Esta es <a href="http://arco.inf-cr.uclm.es/~david.villa/ows.html">la página "oficial" de OWS</a>, al menos por el momento (incluye instrucciones de instalación).
+
+Si alguien lo prueba, agradeceré todo tipo de informe de fallos, comentarios, peticiones, burlas, insultos y chistes relacionados :-P
+
+Saludos

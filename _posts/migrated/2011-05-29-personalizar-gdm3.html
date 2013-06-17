@@ -1,0 +1,50 @@
+---
+migrated: node/1518
+layout: post
+title: Personalizar gdm3
+created: 1306690509
+author: nacho
+---
+Gdm3 supuso un paso atrás en lo que a personalización del escritorio se refiere, ya que no hay una manera directa de configurarlo mediante temas, y la mayoría de la gente tiene el horrible tema de las estrellitas y la navecita espacial, dibujadas por un niño de 6 años.
+
+Supongo que en un futuro esto cambiará y se podrán usar temas, tal y como hacíamos en gdm2. Hasta entonces, podemos aliviar nuestros ojos cambiando algunas cosas (no muchas, eso sí). Para ello, editaremos el fichero <tt>/etc/gdm3/greeter.gconf-defaults</tt>. Este es el mío:
+
+
+<div>
+{% highlight python %}
+# Use a specific background
+/desktop/gnome/background/picture_filename	/home/nacho/Escritorio/gdm-aperture-bg.svg
+/desktop/gnome/background/picture_options	zoom
+
+# Theming options
+/desktop/gnome/interface/gtk_theme		Clearlooks
+#/desktop/gnome/interface/icon_theme		Human
+
+# Greeter options
+/apps/gdm/simple-greeter/logo_icon_name 	portal-cake
+
+# Play system beeps - especially the one when the greeter is ready
+/desktop/gnome/sound/event_sounds		true
+
+# Some other possible options
+/apps/gdm/simple-greeter/banner_message_enable		true
+/apps/gdm/simple-greeter/banner_message_text		Still Alive
+/apps/gdm/simple-greeter/disable_restart_buttons	false
+/apps/gdm/simple-greeter/disable_user_list		false
+
+# The lower panel doesn't work with the compositor
+/apps/metacity/general/compositing_manager		false
+
+# Prevent the power management icon from showing up
+/apps/gnome-power-manager/ui/icon_policy		never
+{% endhighlight %}
+</div>
+
+Y tiene esta pinta:
+
+<img src="http://crysol.org/files/gdm3.png"/>
+
+
+Como véis, son opciones de configuración de gconf, y las podéis cambiar con gconf-editor, si preferís. Lo único que tiene un poco de misterio es cómo cambiar el icono. Veis que en mi fichero he usado el icono <tt>portal-cake</tt>. Es un fichero mío y que he colocado en <tt>/usr/share/icons</tt>. De momento, sólo se pueden usar iconos que estén ahí. Fijaos además, que debéis poner únicamente el nombre del fichero, sin la extensión.
+
+Hala, a personalizar vuestros logins! Postead capturas! La forma más fácil es ir al menú Aplicaciones->Herramientas del Sistema->Nuevo acceso en una ventana, y hacer una captura de esa ventana.

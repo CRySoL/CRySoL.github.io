@@ -1,0 +1,68 @@
+---
+migrated: node/1691
+layout: post
+title: Inslación de Debian en un ASUS UX32V con W8 preinstalado
+created: 1354039045
+author: mjsantof
+category: receta
+tags:
+- Arco
+- Debian
+---
+Si habéis adquirido un nuevo equipo que venga con Windows 8 preinstalado habréis podido comprobar que aunque la instalación de vuestra debian se realiza sin problema, incluída la instalación del grub, a la hora de arrancar el grub éste no aparece.
+<!--break-->
+Dependiendo de la versión de la BIOS que tengáis instalada, algunas de ellas te permiten deshabilitar el gestor de arranque EFI con lo cual esto  debería ser suficiente para que el grub pueda arrancar. Sin embargo, en la versión del ASUS UX32V esta opción no aparece disponible.
+
+Suponiendo que tenemos instalado el sistema, tendremos que reiniciar en modo rescate (text-mode rescue (64-bit, EFI)). Tened en cuenta que en mi caso tengo dos particiones, una para el raíz / y otra para el /home, por lo que en mi caso será suficiente con montar la partición en la que está el raíz. Si éste no fuera vuestro caso, tendréis que montar también la partición donde tengáis /boot. Una vez dicho esto, habrá que hacer lo siguiente:
+<ul> <li>Cuando arranquéis con la opción de modo rescate, os pedirá elegir el dispositivo (de entre la lista de todos los disponibles) el sistema de ficheros raíz (en mi caso <em>/dev/sda5></em>) </li> <li>En el siguiente menú elegimos la primera opción: Ejecutar un intérpre de comandos en /dev/sda5</li>
+<li>Una vez en el intérprete de comandos hacemos lo siguiente:</li> </ul>
+
+<pre class="console">
+# mount /dev/sda5 /mnt   
+# mkdir -p /mnt/boot/efi/
+# mount /dev/sda1 /mnt/boot/efi
+# mkdir /mnt/dev
+# mkdir /mnt/proc
+# mkdir /mnt/sys
+# mount --bind /dev /mnt/dev
+# mount --bind /proc /mnt/proc
+# mount --bind /sys /mnt/sys
+# chroot /mnt
+
+# aptitude install grub-efi-amd64 
+# grub-install --recheck --no-floppy --force
+# update-grub
+ </pre>
+
+Haciendo esto ya conseguimos que arranque el grub y que podamos acceder a la partición donde está la debian, aunque seguimos teniendo dos problemas a estas alturas: 
+<ul> <li>Windows 8 no está accesible desde el grub (sí desde el menú de la bios, pulsado dos veces la tecla ESC)</li> <li>La pantalla se queda en negro antes de que nos salga la consola de login y es necesario suspender y despertar el sistema para que ésta pantalla aparezca</li> </ul>
+
+Para solucionar el primer problema, el arranque de windows, hay que hacer lo siguiente:
+
+<ul> 
+<li> Obtener el UUID  de la partición EFI (/dev/sda1) 
+<pre># blkid </pre>
+</li>
+<li>Añadir la siguiente entrada al archivo /etc/grub.d/40_custom
+<pre>
+menuentry "Windows 8" {
+       search --fs-uuid --no-floppy --set=root C4EF-484C
+       chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
+}
+</pre>
+La secuencia C4EF-484C la debes sustituir por el UUID que te haya devuelto el comando blkid
+</li> </ul>
+
+Ahora para solucionar el problema con ACPI, hay que editar el siguiente archivo: /etc/default/grub y buscar la línea "GRUB_CMDLINE_LINUX_DEFAUL" y añadir lo necesario para que quede de la siguiente manera:
+<pre>
+GRUB_CMDLINE_LINUX_DEFAULT="quiet i915.i915_enable_rc6=1 i915.semaphores=1 i915.i915_modeset=0"
+</pre>
+
+Después de todo esto ya sí que podemos actualizar el grub y ambos problemas deberían estar resueltos:
+<pre> # update-grub</pre>
+
+Enlaces y fuentes consultadas:
+<a href="http://www.backtrack-linux.org/forums/showthread.php?t=48904">http://www.backtrack-linux.org/forums/showthread.php?t=48904</a>
+<a href="http://askubuntu.com/questions/183416/where-to-install-boot-loader-on-a-zenbook-prime">http://askubuntu.com/questions/183416/where-to-install-boot-loader-on-a-zenbook-prime</a>
+<a href="http://askubuntu.com/questions/53578/can-i-install-in-uefi-mode-with-the-alternate-installer">http://askubuntu.com/questions/53578/can-i-install-in-uefi-mode-with-the-alternate-installer</a>
+Fernando Rincón

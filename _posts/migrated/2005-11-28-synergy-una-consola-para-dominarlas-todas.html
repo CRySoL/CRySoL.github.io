@@ -1,0 +1,95 @@
+---
+migrated: node/129
+layout: post
+title: ! 'Synergy: una consola para dominarlas todas'
+created: 1133194725
+author: int-0
+category: receta
+---
+<blockquote>Esta receta en realidad debió ser un taller de la Install Party, pero por problemas de tiempo no se pudo realizar así que ahora la publico para que quien tenga más de un equipo a su disposición pueda manejar ambos de una forma cómoda.</blockquote>
+
+<h1>Qué es Synergy</h1>
+<cite>synergy: [noun] a mutually advantageous conjunction of distinct elements</cite>
+Synergy permite envíar eventos de teclado y ratón a otros equipos, de forma remota mediante TCP, esto es: con el termial de un equipo podemos manejar las consolas de equipos de forma remota.
+
+Por poner un ejemplo: imaginad que vais a prácticas con vuestro portátil, que tenéis trabajo que hacer con el ordenador del laboratorio y con el vuestro propio; es un poco engorroso (o incómodo) estar de un teclado para otro y lo mismo con el ratón. Pues con synergy podríais manejar desde el portátil el equipo de sobremesa, simplemente desplazando el ratón hacia el lado de la pantalla donde esté el sobremesa; el cursor desaparecerá del portátil y aparecerá en la pantalla del sobremesa, entonces los eventos del teclado del portátil se desviarán al sobremesa también. Para volver a manejar el portátil simplemente moveríais el ratón hacia el otro equipo.
+
+El modo de funcionamiento que se describe aquí es para un usuario con privilegios normales, es decir: synergy no funcionará como servicio del sistema sino como aplicación de usuario.
+
+<h1>Cómo funciona Synergy</h1>
+Synergy se compone de dos aplicaciones: synergyc y synergys (cliente y servidor respectivamente). La aplicación servidora, <strong>synergys</strong> es la que debe correr en la máquina cuya consola debe controlar al resto, debe incluir el fichero de configuración de synergy con la información de las máquinas involucradas. Los equipos a controlar deben llamar al cliente <strong>synergyc</strong> junto con el nombre del servidor.
+
+<h1>Instalación tediosa</h1>
+Bueno... esto es un poco largo y penoso pero siguiendo la receta lo tendréis en un par de horas:
+
+<div class="console">
+{% highlight console %}
+$ apt-get install synergy
+{% endhighlight %}
+</div>
+Sigamos :P
+
+<h1>Configuración del servidor</h1>
+En nuestro <em>home</em> debemos crear el fichero <strong>.synergy.conf</strong>, este fichero describe qué máquinas intervienen y cómo están dispuestas lógicamente, para ello primero debemos crear una sección <em>screens</em> con los <strong>hostnames</strong> de TODAS las máquinas (incluído el servidor):
+
+<pre>section: screens
+     portatil:
+     sobremesa:
+end</pre>
+
+Es MUY importante que ambas máquinas puedan ser accesibles por su <em>hostname</em> así que para ello usaríamos el archivo <strong>/etc/hosts</strong> si nuestra red no tuviera DNS dinámico. Por ejemplo, podríamos añadir en <strong>ambos</strong> equipos las siguientes líneas al archivo <strong>/etc/hosts</strong>:
+
+<pre>portatil 192.168.0.3
+sobremesa 192.168.0.2</pre>
+
+Ahora tenemos que definir la disposición de la máquinas, en el mismo archivo <strong>.synergy.conf</strong>:
+
+<pre>section: links
+     portatil:
+          left=sobremesa
+     sobremesa:
+          right=portatil
+end</pre>
+
+Esto significa que si estamos ejecutando el servidor en el portátil, si desplazamos el cursor del ratón por el borde izquierdo, aparecerá en el borde derecho del sobremesa... y viceversa, claro.
+
+El archivo completo es el que sigue:
+
+<pre>section: screens
+     portatil:
+     sobremesa:
+end
+
+section: links
+     portatil:
+          left=sobremesa
+
+     sobremesa:
+          right=portatil
+end</pre>
+
+La ventaja de usar este método es que podéis interconectar sistemas windows, UNIX, Linux, MacOS X, etc.
+
+<h1>Ejecución</h1>
+En el servidor (portátil):
+
+<div class="console">
+{% highlight console %}
+$ synergys
+{% endhighlight %}
+</div>
+Y en el cliente (sobremesa):
+
+<div class="console">
+{% highlight console %}
+$ synergyc portatil
+{% endhighlight %}
+</div>
+Recordad que aqui <em>portatil</em> es en realidad un hostname, podríais poner también la IP, que según el ejemplo sería 192.168.0.3.
+
+<h1>Problemas conocidos</h1>
+Bueno... existen problemas como que la pulsación de <em>Alt Gr</em> y otra tecla no se envía correctamente, pero en el archivo de configuración se puede contemplar esto.
+Además he encontrado bugs relacionados con <em>xscreensaver</em> y aplicaciones que cambien el modo gráfico: el ratón puede cambiar de pantalla de forma involuntaria y la aplicación se queda congelada hasta que no vuelves a poner el ratón en el equipo original. Si tienes el cursor del ratón en la otra pantalla, y en el equipo servidor reinicia de modo gráfico... te quedas sin ratón y hay que reiniciar la sesión.
+
+<h1>Enlaces</h1>
+<a href="http://synergy2.sourceforge.net/index.html">Página oficial Synergy</a>

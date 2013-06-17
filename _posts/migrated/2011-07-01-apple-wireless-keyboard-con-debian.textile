@@ -1,0 +1,51 @@
+---
+migrated: node/1527
+layout: post
+title: Apple Wireless Keyboard con Debian
+created: 1309529376
+author: david_villa
+category: receta
+tags:
+- drivers
+---
+Cómo configurar "este estupendo teclado inalámbrico":http://<a href="http://www.apple.com/es/keyboard/">www.apple.com/es/keyboard/</a> bluetooth en Debian.
+<!--break-->
+h2. Ingredientes
+
+* bluez-compat
+* gnome-bluetooth
+
+
+h2. Configuración
+
+La dificultad de configurar este teclado depende bastante del tipo de adaptador Bluetooth que tenga tu ordenador. Con los que monta Dell no he tenido ningún problema y se puede configurar directamente con el asistente de GNOME. Simplemente hay que pulsar «Configurar un dispositivo nuevo...» en el applet, marcarlo cuando lo encuentre y teclear a ciegas (en el teclado bluetooth) el PIN de 6 dígitos, no olvides pulsar ENTER.
+
+Con otros, el pairing no funciona (parece un problema de tiempo) aborta antes de que dé tiempo a acabar. En estos casos se puede formar el paring «a mano» sin usar el asistente. Simplemente ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+
+$ hcitool scan
+Scanning ...
+	DE:AD:CA:FE.BA:BE	Apple Wireless Keyboard
+$ sudo hidd --connect DE:AD:CA:FE.BA:BE
+{% endhighlight %}
+</div>
+
+Y listo, funciona perfectamente, incluyendo las teclas multimedia.
+
+h2. Layout
+
+En general el layout de este teclado (el español en mi caso) es razonable, sobre todo si eres usuario de GNU Emacs ;-). Sólo hay una tecla que para mi gusto sobra (el maldito «eject») y una que se echa mucho en falta (el «del») así que recomiendo «remapearla».
+
+Para otras teclas que puedas echar en falta mira "Boot Camp: Apple Wireless Keyboard keyboard mapping in Windows":http://support.apple.com/kb/HT1171
+
+
+
+
+
+
+h2. Referencias
+
+* "HOWTO: Apple Wireless Keyboard (Bluetooth)":http://ubuntuforums.org/showthread.php?t=224673

@@ -1,0 +1,43 @@
+---
+migrated: node/366
+layout: post
+title: Publicar los "homes" con Apache2
+created: 1154462658
+author: david_villa
+category: receta
+---
+bq. Cómo configurar Apache para que todos los usuarios de la máquina sobre la que se ejecuta puedan tener su propio espacio web.
+<!--break-->
+
+h1. Activar el módulo UserDir
+
+
+<div class="console">
+{% highlight console %}
+ # a2enmod userdir 
+{% endhighlight %}
+</div>
+
+Por defecto la configuración del módulo requiere que cada usuario cree un subdirectorio llamada exactamente @public_html@. Ese directorio debería tener al menos permisos de lectura y ejecución para el servidor web. O sea:
+
+
+<div class="console">
+{% highlight console %}
+ ~$ mkdir public_html
+~$ chmod 0755 public_html
+
+{% endhighlight %}
+</div>
+
+h1. Recargar el servidor
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/apache2 restart 
+{% endhighlight %}
+</div>
+
+h1. Probar
+
+Ahora con un navegador web deberías ver lo que cuelga del directorio @public_html@ (siempre que apache tenga permiso, claro) en una URL del tipo <a href="http://example.com/~user">http://example.com/~user</a>. Ese simbolillo raro se llama "virgulilla":http://es.wikipedia.org/wiki/Virgulilla y sale pulsando AltGr-4 (más un espacio en windows)

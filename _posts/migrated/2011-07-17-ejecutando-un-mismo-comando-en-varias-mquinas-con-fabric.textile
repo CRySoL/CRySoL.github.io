@@ -1,0 +1,128 @@
+---
+migrated: node/1534
+layout: post
+title: Ejecutando un mismo comando en varias máquinas (con fabric)
+created: 1310925880
+author: david_villa
+category: receta
+tags:
+- shell
+- Python
+---
+Os dejo aquí un script que permite ejecutar comandos predefinidos en un conjunto de máquinas. En realidad es un @fabfile@, es decir, un script para ejecutar con "fabric":http://docs.fabfile.org/en/1.2.0/index.html.
+
+El script que aparece en esta receta lo estoy usando para instalar un mismo paquete (debian) en varios servidores a la vez (lo cual es un latazo hacer una por una). Así que los comandos que tiene definidos son los recurrentes update, install y remove de aptitude. Obviamente se puede utilizar para ejecutar cualquier comando imaginable.
+<!--break-->
+h2. Ingredientes
+
+* fabric
+
+h2. ¿Cómo se usa?
+
+Pues muy sencillito, por ejemplo, para instalar el paquete @go2@ en las máquinas @server1@ y @server2@ simplemente:
+
+
+<div class="console">
+{% highlight console %}
+
+$ ./r-apt.py -H server1,server2 install:go2
+canonical name: pepe@server1.example.org
+canonical name: pepe.sanchez@server2.pentagon.edu:3040
+remote sudo password (if needed): 
+{% endhighlight %}
+</div>
+
+Se puede ejecutar como un comando gracias al peculiar shebang "#!/usr/bin/fab -f".
+
+Pide la clave (una única vez) para hacer @sudo@ en las máquinas remotas. Se asume que el usuario @pepe@ tiene autenticación por clave pública, es _sudoers_ en ambas máquinas y tiene la misma clave, que no es demasiado descabellado.
+
+Fíjate que el script ha averiguado los nombres canónicos de las máquinas incluyendo nombre de usuario remoto y puerto. Esta información está por supuesto en el @~/.ssh/config@ del usuario, pero @fabric@ no lo soporta. El script @r-apt.py@ incluye "una función":http://markpasc.typepad.com/blog/2010/04/loading-ssh-config-settings-for-fabric.html que he encontrado (con mínimas modificaciones) y que ofrece esta útil característica.
+
+Lo bueno es que fabric permite ejecutar más de un comando en más de una máquina, de modo que se puede hacer algo tan interesante como:
+
+
+<div class="console">
+{% highlight console %}
+
+$ ./r-apt.py -H server1,server2 *update install:go2 install:atheist*
+canonical name: pepe@server1.example.org
+canonical name: pepe.sanchez@server2.pentagon.edu:3040
+remote sudo password (if needed): 
+{% endhighlight %}
+</div>
+
+update e install de "n" paquetes en "n" máquinas poniendo la clave una única vez... no está mal.
+
+h2. El script
+
+Lo pongo aquí para que puedas ver lo sencillito que es, pero lo tienes también en mi "repo bitbucket":https://bitbucket.org/davidvilla/fabric-tools/src/dd2ca2f1dbd2/r-apt.py
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/fab -f
+# -*- coding:utf-8; tab-width:4; mode:python -*-
+"""
+usage: ./r-apt.py cmd:args
+sample: ./r-apt.py install:cherokee
+"""
+
+import os
+import getpass
+
+from fabric.api import run, env, sudo
+
+
+# http://markpasc.typepad.com/blog/2010/04/loading-ssh-config-settings-for-fabric.html
+def annotate_hosts_with_ssh_config_info(hosts):
+    from os.path import expanduser
+    from paramiko.config import SSHConfig
+
+    def hostinfo(host, config):
+        hive = config.lookup(host)
+        if 'hostname' in hive:
+            host = hive['hostname']
+        if 'user' in hive:
+            host = '%s@%s' % (hive['user'], host)
+        if 'port' in hive:
+            host = '%s:%s' % (host, hive['port'])
+        return host
+
+    try:
+        config_file = file(expanduser('~/.ssh/config'))
+    except IOError:
+        pass
+    else:
+        config = SSHConfig()
+        config.parse(config_file)
+        keys = [config.lookup(host).get('identityfile', None) for host in hosts]
+        keys = [x for x in keys if os.path.exists(x)]
+        env.key_filename = [expanduser(key) for key in keys if key is not None]
+        retval = [hostinfo(host, config) for host in hosts]
+
+    for h in retval:
+        print('canonical name: {0}'.format(h))
+
+    return retval
+
+
+env.hosts = annotate_hosts_with_ssh_config_info(env.hosts)
+env.password = getpass.getpass('remote sudo password (if needed): ')
+
+
+def update():
+    sudo('aptitude update')
+
+
+def install(pkg):
+    sudo('aptitude -y install {0}'.format(pkg))
+
+
+def remove(pkg):
+    sudo('aptitude -y remove {0}'.format(pkg))
+
+
+def hostname():
+    run('hostname')
+{% endhighlight %}
+</div>

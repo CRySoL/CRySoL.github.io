@@ -1,0 +1,81 @@
+---
+migrated: node/120
+layout: post
+title: Abrir una sesión X en otra máquina
+created: 1133085996
+author: magmax
+category: receta
+---
+<blockquote>
+Las X-Windows de los sistemas Unix tienen una arquitectura cliente-servidor. Aunque lo habitual es que los programas que vemos se ejecuten en nuestra máquina, es perfectamente posible abrir una sesión X en una máquina distinta mediante <acronym title="X Display Manager Control Protocol">XDMCP</acronym>
+</blockquote>
+<!--break-->
+
+<h1> Configuración</h1>
+
+Edita el fichero <tt>/etc/gdm/gdm_conf</tt> de la máquina que ejecuta el servidor X.
+
+Busca la sección <tt>[xdmcp]</tt>, y activa la opción <tt>enable=true</tt>.
+
+Es muy recomendable dejar la opción: <tt>AllowRemoteRoot=false</tt> para evitar problemas de seguridad.
+
+Esto es válido si se usa <tt>gdm</tt> como gestor de conexión. Si usas <tt>kdm</tt> o <tt>xdm</tt> la configuración puede variar.
+
+Ahora busca la sección <tt>[server-Standard]</tt> y edita la opción <tt>command</tt> para que NO incluya el argumento <tt>-nolisten tcp</tt>. Quedará algo como:
+
+
+<div class="console">
+{% highlight console %}
+command=/usr/X11R6/bin/X -deferglyphs 16 -audit 0
+{% endhighlight %}
+</div>
+		
+
+<h1> Conexión</h1>
+
+Para conectar, bastará con escribir en la consola:
+
+
+<div class="console">
+{% highlight console %}
+user@client:~$ X :0.1 -query [server_host]
+user@client:~$
+{% endhighlight %}
+</div>
+
+El <tt>0.1</tt> indica el <em>display</em> y el <em>screen</em>. Normalmente variará entre 0.0, 1.0, 2.0 y 3.0, y se podrá acceder, respectivamente, con F7, F8, F9 y F10.
+
+<h1>Varias sesiones X en la misma máquina</h1>
+
+Puede ser interesante tener una o varias sesiones X adicionales en la máquina local. Por ejemplo, con:
+
+
+<div class="console">
+{% highlight console %}
+$ xinit -- :1 
+{% endhighlight %}
+</div>
+
+se abre un segundo cliente X (en F8) que ejecuta únicamente un x-terminal, pero sin gestor de ventanas ni de escritorio.
+
+<h1>Sesión X anidada</h1>
+
+Si en lugar de utilizar el comando X usa Xnest consigue el mismo efecto que en los ejemplos anteriores, pero en lugar de tener un terminal gráfico a pantalla completa obtiene una ventana del tamaño adecuado.
+
+
+<div class="console">
+{% highlight console %}
+user@client:~$ Xnest :1 -query [server_host]
+{% endhighlight %}
+</div>
+
+<h1>Referencias</h1>
+
+<ul>
+   <li>
+     <a href="http://grulla.hispalinux.es/articles/xterm.html">Ejecución de aplicaciones X remotas y configuración de un X Terminal</a>
+   </li>
+   <li>
+   <a href="http://es.wikipedia.org/wiki/XDMCP">Wikipedia :: XDMCP</a>
+   </li>
+</li>

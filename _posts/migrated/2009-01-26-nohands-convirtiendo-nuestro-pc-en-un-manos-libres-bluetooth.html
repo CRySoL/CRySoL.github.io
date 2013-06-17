@@ -1,0 +1,101 @@
+---
+migrated: node/1083
+layout: post
+title: ! 'nohands: convirtiendo nuestro PC en un manos libres bluetooth'
+created: 1232995371
+author: int-0
+category: receta
+tags:
+- Arco
+- multimedia
+---
+<blockquote>Para los que pasamos muchas horas delante del ordenador, puede ser interesante que éste se comporte como nuestro teléfono móvil sin necesidad de apartar nuestra atención del equipo. Para ello tenemos que hacer que nuestro dispositivo <em>bluetooth</em> implemente el <a href="http://en.wikipedia.org/wiki/Bluetooth_profile#Hands-Free_Profile_.28HFP.29">HFP Profile</a>. De eso va esta receta.</blockquote>
+<!--break-->
+<h2>Ingredientes</h2>
+Primero instalamos los paquetes necesarios para que nos funcione el invento (apt-get o aptitude al gusto):
+
+<ul><li>
+subversion</li><li>
+g++</li><li>
+autoconf</li><li>
+libtool</li><li>
+libspeexdsp-dev</li><li>
+libasound2-dev</li><li>
+libbluetooth-dev</li><li>
+libaudiofile-dev</li><li>
+libdbus-1-dev</li>
+</ul>
+
+Con todo esto ahora podemos descargarnos el proyecto <a href="http://nohands.sourceforge.net/"nohands</a>, que es candidato para formar parte de la pila <a href="http://www.bluez.org/">bluez</a>, conocida por todos nosotros. Ahora sólo nos queda descargarnos lo último de lo último:
+
+
+<div class="console">
+{% highlight console %}
+$ svn co https://nohands.svn.sourceforge.net/svnroot/nohands/trunk nohands
+{% endhighlight %}
+</div>
+
+<h2>Compilación e instalación</h2>
+Primero compilamos todo...
+
+<div class="console">
+{% highlight console %}
+ $ cd nohands
+$ ./autogen.sh
+$ ./configure && make
+$ sudo make install
+{% endhighlight %}
+</div>
+
+<blockquote><b>Pseudo BUG:</b>Si tenemos <em>libbluetooth1-dev</em>, dará un error de compilación en el archivo <tt>nohands/libhfp/bf.cpp</tt>. Esto se debe a que la línea 81 dice lo siguiente:
+
+<pre>attr2 = SDP_ATTR_SUPPORTED_FEATURES;</pre>
+
+Y habría que poner lo siguiente:
+
+<pre>attr2 = SDP_SUPPORTED_FEATURES;</pre>
+
+Podéis cambiarlo y ya os compilará sin problemas... de todas formas es mejor usar <em>libbluetooth2-dev</em> (o lo que es lo mismo, <em>libbluetooth-dev</em>)</blockquote>
+
+<h2>Probando... 1, 2, 3...</h2>
+
+Algo que faltaría en <em>Ingredientes</em> es algo evidente: tarjeta de sonido funcionando y opcionalmente un micrófono y un altavoz. Conectamos todo eso al equipo, con la mezcladora ajustamos los valores de captura de micrófono y reproducción <em>PCM</em> y lanzamos el programa:
+
+
+<div class="console">
+{% highlight console %}
+$ hfconsole
+{% endhighlight %}
+</div>
+
+Nos aparecerá lo siguiente:
+
+<center>
+<img src="http://crysol.org/files/hfc-01.png"/>
+<blockquote><em>Imagen increíblemente realista de cómo se vería la aplicación recién instaladita.</em></blockquote>
+</center>
+
+Para buscar nuestro teléfono pulsamos en <em>"Search for Device..."</em>, entonces aparecerá lo siguiente:
+
+<center>
+<img src="http://crysol.org/files/hfc-02.png"/>
+<blockquote><em>Otra imagen realmente impresionante de la aplicación buscando dispositivos bluetooth.</em></blockquote>
+</center>
+
+No os preocupéis si no sabéis la dirección <em>mac</em> de vuestro teléfono porque se irán resolviendo los nombres poco a poco. Cuando lo tengáis, lo marcáis y pulsáis <em>"Añadir"</em>. Si tenéis varios los podéis añadir también, pero recordad que una limitación de <em>Bluetooth</em> es que sólo se puede mantener una conexión <em>SCO</em> a la vez, esto quiere decir que aunque el programa atienda a varios móviles, únicamente uno podrá hacer <em>streaming</em> del audio a la vez. Cuando hayamos cerrado la ventana de búsqueda de dispositivos, el programa se conectará con el móvil y tomará este aspecto:
+
+<center>
+<img src="http://crysol.org/files/hfc-03.png"/>
+<blockquote><em>La última imagen, y no por ello menos impresionante, de la aplicación haciendo uso del móvil que hayamos elegido...</em></blockquote>
+</center>
+
+...¡y ya tenéis control sobre el móvil!
+
+Un único detalle más: por defecto se usa la tarjeta de sonido seleccionada como <em>default</em> en <em>ALSA</em>, podéis elegir la tarjeta de entrada y de salida en las preferencias del programa, en el recuadro <em>"Device / Options"</em> podéis escribir lo siguiente, por ejemplo:
+
+<pre>in=hw:2,1&out=hw:3,0</pre>
+
+Esto haría que se capturase del canal 1 de la tarjeta de sonido 2, enviando ese audio al móvil y que el canal 0 de la tarjeta 3 reprodujese lo que el móvil esté recibiendo.
+
+<h2>Referencias</h2>
+...tenéis los enlaces por toda la receta ;)

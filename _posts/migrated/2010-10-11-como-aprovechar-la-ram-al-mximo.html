@@ -1,0 +1,98 @@
+---
+migrated: node/1409
+layout: post
+title: Como aprovechar la RAM al máximo
+created: 1286817255
+author: arturo
+category: receta
+---
+<blockquote class="head"> 
+   Muchos de vosotros habréis oido quejarse a la gente diciendo: "Mi equipo no me reconoce 4gb o más ...". Esto puede servir de excusa a gentuza como M$ para venderte que el nuevo SO (vista o 7) si que "reconocen" más de 3 gb.
+En esta receta veremos como aprovechar al máximo la RAM de nuestro equipo sin tener que recurrir a versiones de 64 bits.
+</blockquote>
+
+<h2>Introducción</h2>
+Lo primero será comprobar cuantos módulos de memoria tenemos y cuanta RAM puede soportar nuestra maquina. Para eso existe el comando "dmidecode" (man dmidecode para mas info):
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo dmidecode -t 16
+# dmidecode 2.9
+SMBIOS 2.4 present.
+
+Handle 0x1000, DMI type 16, 15 bytes
+Physical Memory Array
+	Location: System Board Or Motherboard
+	Use: System Memory
+	Error Correction Type: None
+	Maximum Capacity: 4 GB
+	Error Information Handle: Not Provided
+	Number Of Devices: 2
+{% endhighlight %}
+</div>
+
+En mi caso, la capacidad maxima de mi maquina es de 4GB. Si queremos comprobar los módulos de memoria que tenemos:
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo dmidecode -t 17
+# dmidecode 2.9
+SMBIOS 2.4 present.
+
+Handle 0x1100, DMI type 17, 27 bytes
+Memory Device
+	Array Handle: 0x1000
+	Error Information Handle: Not Provided
+	Total Width: 64 bits
+	Data Width: 64 bits
+	Size: 2048 MB
+	Form Factor: DIMM
+	Set: None
+	Locator: DIMM_A
+	Bank Locator: Not Specified
+	Type: DDR
+	Type Detail: Synchronous
+	Speed: 667 MHz (1.5 ns)
+	Manufacturer: AAAAAAAAAAAA
+	Serial Number: 00000000000000
+	Asset Tag: 000000000000000
+	Part Number: 0000000000000
+
+......
+{% endhighlight %}
+</div>
+
+Bien. Fijaos en la MemTotal que aparece cuando listamos el /proc/meminfo.
+
+<h2>Instalando nuevo kernel</h2>
+Existen 3 posibles soluciones al problema. Una es recompilar un nuevo kernel marcando la opción "High Memory Support ...". La otra es instalando el kernel-server que te ofrece ubuntu y la última es instalando el kernel precompilado para PAE. Creo que esta es la más fácil:
+
+
+<div class="console">
+{% highlight console %}
+ sudo apt-get install linux-image-[TU VERSION]-generic-pae 
+{% endhighlight %}
+</div>
+
+Si tienes problemas con algún driver, prueba a instalar los headers, recompilar kerneles, drivers, etc. Reinicia la máquina y comprueba tu RAM en meminfo o con:
+
+
+<div class="console">
+{% highlight console %}
+free -mt 
+{% endhighlight %}
+</div>
+
+<h2>Rizando el rizo</h2>
+Una posible mejora en cuanto a memoria sería la de reducir el uso del swap:
+
+
+<div class="console">
+{% highlight console %}
+sudo sysctl -w vm.swappiness=[TU VALOR]
+{% endhighlight %}
+</div>

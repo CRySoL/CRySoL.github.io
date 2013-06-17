@@ -1,0 +1,88 @@
+---
+migrated: node/1234
+layout: post
+title: Hacer un Makefile para paquete Debian
+created: 1255109251
+author: cleto
+category: receta
+tags:
+- Arco
+- Debian-devel
+---
+bq. En la siguiente receta se exponen algunas ideas y recomendaciones a la hora de crear un Makefile de tal forma que sea sencillo el proceso de creación de los paquetes Debian.
+<!--break-->
+h2. Preliminares
+
+Antes de comenzar a crear tu proyecto, si tienes en mente empaquetarlo, debes ser consciente de cómo debhelper tratará de construir los paquetes binarios.
+
+Lo primero es saber la diferencia entre un *paquete fuente* y un *paquete binario*. El paquete fuente es aquel que aparece en primer lugar del archivo "debian/control". Se trata de todo el software que maneja el mantenedor del paquete (código fuente original + directorio debian), por lo que representa el sistema completo. Los paquetes fuentes pueden obtenerse a través de "apt-get source loquesea".
+
+Sin embargo, el paquete binario es lo que realmente instalas con "apt-get install loquesea". Estos paquetes contienen programas o librerías ya compiladas y listas para usar. Los paquetes binarios son todos aquellos que van después de la descripción del fuente en el archivo control.
+
+Un paquete fuente puede generar 1 o más paquetes binarios, dependiendo de la complejidad del sistema que se pretende desarrollar. Por ejemplo, el paquete "sl" tiene como control:
+
+
+<div>
+{% highlight text %}
+Source: sl
+Section: games
+Priority: optional
+...
+
+Package: sl
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Correct you if you type `sl' by mistake
+ Sl is a program that can display animations aimed to correct you
+ if you type 'sl' by mistake.
+ SL stands for Steam Locomotive.
+{% endhighlight %}
+</div>
+
+
+Como se puede ver, el paquete fuente y el único paquete binario que genera se llaman igual. Esto se debe a que el programa "sl" es extremadamente sencillo y no es necesario dividirlo. Una librería es un caso típico donde un paquete fuente tiene asociado varios paquetes binarios (el de la propia librería y el -dev correspondiente). 
+
+El término "dependencia" también es distinto si hablamos de un paquete fuente o de un binario. Las dependencias de un paquete fuente son de construcción, esto es, todo el software que se necesita para compilar y construir los paquetes. Mientras que las dependencias de un binario son los paquetes que tienen que estar instalados para su correcto funcionamiento. 
+
+Con todo ello, debhelper tiene 2 modos de funcionamiento básicos:
+* Crear un paquete binario a partir de un paquete fuente (1 fuente -> 1 binario).
+* Crear varios paquetes binarios a partir del fuente (1 fuente -> n binarios).
+
+Cuando debhelper llega a la etapa de installación (dh_install), requiere que exista una regla "install" en el Makefile general del proyecto porque le invocará "make install DESTDIR=destino". Sin embargo, dependiendo del modo detectado (1 fuente -> 1 binario, o 1 fuente -> n binarios) el valor de la variable DESTDIR será uno u otro.
+
+El primer caso es el más sencillo. DESTDIR valdrá "debian/nombre_del_binario/", por lo que todo lo que se instale allí irá al contenido del paquete. En el segundo caso, la cosa se complica un poco. DESTDIR valdrá "debian/tmp" y cada binario debe especificar qué porción del proyecto necesita a través de los ficheros "debian/paquete_binario_i.install".
+
+Por ejemplo, supongamos que uno de los paquetes binarios se llama "miservicio-package" y queremos que incluya el ejecutable "miservicio". El archivo .install debe llamarse "miservicio-package.install" y tener el siguiente contenido:
+
+<div>
+{% highlight text %}
+usr/bin/miservicio
+{% endhighlight %}
+</div>
+
+De esta forma, si el Makefile lo dejó todo en su sitio, debhelper copiará el ejecutable de "debian/tmp/usr/bin/miservicio" a "debian/miservicio/usr/bin". En definitiva, de entre todos los ejecutables que puede haber dejado el Makefile en "debian/tmp/usr/bin", con el fichero .install puedes especificar qué archivo va en qué paquete binario.
+
+Si ayudas a que debhelper encuentre fácilmente los archivos, tendrás un archivo debian/rules sencillo. Normalmente, un mantenedor de Debian no tiene permisos para escribir en el proyecto original y no puede "acomodarse" a su gusto los elementos del proyecto para que su tarea sea sencilla. Pero tu caso no es ese: tienes permisos de escritura en el proyecto (bien porque es tuyo, bien porque perteneces al equipo de desarrollo) y el mantenedor vas a ser tú. ¿Para qué complicarse la vida?.
+
+h2. Recomendaciones sobre el Makefile
+
+Habiendo entendido todo lo anterior es fácil deducir qué elementos son necesarios en un Makefile pensado para ayudar en el proceso de construcción de paquetes. A continuación, puedes ver un Makefile con los elementos que, al menos, deberías incluir:
+
+
+
+<div>
+{% highlight makefile %}
+...
+DESTDIR?=/usr/local    # Si no está definida, se utiliza /usr/local
+...
+all: objetivo    # En la etapa de construcción (dh_build), debhelper hará "make" sobre nuestro proyecto)
+...
+...
+install:
+    -mkdir -p $(DESTDIR)/loquesea     # Crear los directorios pertinentes
+    ...
+    cp tal $(DESTDIR)/loquesea/       # Copiar los binarios donde sea pertinente
+...
+...
+{% endhighlight %}
+</div>

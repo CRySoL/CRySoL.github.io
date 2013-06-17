@@ -1,0 +1,114 @@
+---
+migrated: node/702
+layout: post
+title: Kerberos5, LDAP y errores frecuentes
+created: 1180110271
+author: paco
+tags:
+- Debian
+---
+h2. Autenticación Kerberos o ActiveDirectory
+
+En /etc/krb5.conf modificar el realm por defecto y añadir los datos de nuestro realm.  En el caso de la UCLM basta declarar el controlador del dominio y el servidor de administración.  Ambos coinciden, deben ser alarcos.uclm.es.
+
+
+<temp-div>
+{% highlight text %}
+[libdefaults]
+    default_realm = UCLM.ES
+
+[realms]
+    UCLM.ES = {
+        kdc = alarcos.uclm.es
+        admin_server = alarcos.uclm.es
+    }
+{% endhighlight %}
+</div>
+
+h2. Probando Kerberos
+
+Para saber si funciona empezaremos por crear un ticket con
+
+
+<div class="console">
+{% highlight console %}
+~$ kinit -A francisco.moya
+{% endhighlight %}
+</div>
+
+Pedirá la clave del dominio.  Si no da error ya tienes un ticket Kerberos sin dirección asociada.  Puedes comprobarlo con
+
+
+<div class="console">
+{% highlight console %}
+~$ klist  
+{% endhighlight %}
+</div>
+
+
+<temp-div>
+{% highlight text %}
+Ticket cache: FILE:/tmp/krb5cc_0
+Default principal: francisco.moya@UCLM.ES
+
+Valid starting     Expires            Service principal
+05/25/07 18:30:55  05/26/07 04:30:59  krbtgt/UCLM.ES@UCLM.ES
+        renew until 05/26/07 18:30:55
+
+Kerberos 4 ticket cache: /tmp/tkt0
+klist: You have no tickets cached
+{% endhighlight %}
+</div>
+
+Ahora sabemos que al menos Kerberos funciona.  Ya podemos destruir el ticket:
+
+
+<div class="console">
+{% highlight console %}
+~$ kdestroy 
+{% endhighlight %}
+</div>
+
+h2. Configuración de libpam-krb5
+
+Para configurar libpam-krb5 basta editar los archivos /etc/pam.d/common-{auth,account,session,password} como se indica en /usr/share/doc/libpam-krb5/README.Debian.
+
+Además vamos a crear una cuenta de usuario para cada uno de los usuarios que queramos dejar pasar via Kerberos. Si, si, ya se que eso es un rollo, pero ya lo arreglaremos más adelante.  De momento crea una cuenta y no discutas, porque al menos esa cuenta nos servirá para pruebas.
+
+
+<div class="console">
+{% highlight console %}
+$ adduser francisco.moya 
+{% endhighlight %}
+</div>
+
+Esta cuenta no tiene por qué tener password.  De hecho para evitar problemas lo mejor es deshabilitarla poniendo un * o un ! en el campo de password correspondiente del /etc/shadow (vipw -s).
+
+Ahora ya puedes comprobar si el nuevo usuario es capaz de entrar en el sistema con la password del dominio.
+
+h2. Posibles problemas
+
+Si kinit no funciona me temo que te has equivocado en la configuración de tu controlador de dominio.  O bien el KDC no es el que tú crees o bien no has puesto el default_realm correctamente.
+
+Si kinit funciona es posible que te encuentres un error del estilo "cannot retrieve user authentication info".  Aaaaaayyyy, no me hiciste caso ¿verdad?  Comprueba que:
+
+* El usuario (e.g. francisco.moya) está en /etc/passwd con
+
+<div class="console">
+{% highlight console %}
+$ getent passwd francisco.moya 
+{% endhighlight %}
+</div>
+
+* Existe una línea en el /etc/shadow para el mismo usuario
+
+<div class="console">
+{% highlight console %}
+~# grep ^francisco.moya /etc/shadow
+francisco.moya:*:13475:0:99999:7:::
+
+{% endhighlight %}
+</div>
+
+h2. Datos de usuario compartidos con LDAP
+

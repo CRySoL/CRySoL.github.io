@@ -1,0 +1,118 @@
+---
+migrated: node/621
+layout: post
+title: Manejo básico de señales en GNU/Linux
+created: 1174322870
+author: javieralso
+category: receta
+tags:
+- Arco
+---
+<blockquote>Un manual muy básico de cómo manejar señales en GNU/Linux</blockquote>
+<!--break-->
+
+<h2>Introducción</h2>
+GNU/Linux soporta las llamadas <em>Señales fiables POSIX</em> y las <em>Señales en Tiempo Real POSIX</em>. No voy a listar todas éstas señales, ya que se encuentran en <em>signal.h</em> y se pueden consultar en cualquier manual de <b>GNU/Linux</b>
+
+Para explicar el proceso de escribir un manejador de señales (en <em>C</em>), usaré un ejemplo muy sencillo y lo iré explicando después.
+
+<h2>El código de ejemplo</h2>
+Bueno, éste es el código que utilizaré como ejemplo. Guardadlo en un archivo con el nombre que querais y lo compilais con <em>gcc</em> (como toda la vida :D)
+
+
+<div>
+{% highlight c %}
+#include &lt;stdio.h>
+#include &lt;signal.h&gt;
+#include &lt;string.h&gt;
+
+void timerHandler();
+
+int main () {
+  struct sigaction sigTimerAction;
+
+  memset (&sigTimerAction, 0, sizeof(sigTimerAction));
+
+  sigTimerAction.sa_handler = timerHandler;
+  sigTimerAction.sa_restorer = NULL;
+
+  sigaction (SIGALRM, &sigTimerAction, NULL);
+  
+  alarm((unsigned int)1);
+  
+  while(1);
+}
+
+void timerHandler() {
+  static int c;
+
+  printf ("Contador %i\n", c++);
+  alarm ((unsigned int)1);
+}
+{% endhighlight %}
+</div>
+
+<h3>Funcionamiento</h3>
+
+Bueno, el código está formado por dos funciones, una es el <em>main</em> de toda la vida. La otra, <em>timerHandler</em> es el manejador de señales, que se ejecutara, en este caso, cada vez que se lance una señal <b>SIGALRM</b>.
+
+La función del manejador no tiene mucho misterio. Tan solo se trata de una línea que imprime el valor de un contador y una función que restaura el temporizador para que se lance una señal un segundo después de ejecutarse (Bueno, no es un segundo exacto, recordad que estamos en un entorno <em>multiprogramado</em> ;)).
+
+La función <em>main</em> empieza con una instancia de una estructura tipo <b>sigaction</b>. Es en ésta estructura donde se guarda la información de qué manejador se asocia a qué señal. La implementación de <em>sigaction</em> es la siguiente:
+
+
+<div>
+{% highlight c %}
+struct sigaction {
+    void (*sa_handler)(int);
+    void (*sa_sigaction)(int, siginfo_t *, void *);
+    sigset_t sa_mask;
+    int sa_flags;
+    void (*sa_restorer)(void);
+}
+{% endhighlight %}
+</div>
+
+y la utilidad de los campos de dicha estructura es la que sigue a continuación:
+<ul>
+<li><em>sa_restorer</em>: Está obsoleto y no debería utilizarse. <em>POSIX</em> no especifica ningún elemento <em>sa_restorer</em>.</li>
+<li><em>sa_handler</em>: Especifica la acción asociada a la señal <em>signum</em>. Ésta acción puede ser:<ul>
+<li><b>SIG_DFL</b> para la acción por defecto,</li>
+<li><b>SIG_IGN</b> para ignorar la señal o</li>
+<li>un puntero a una función que actue como manejador de dicha señal.</li></ul></li>
+<li><em>sa_mask</em>: Proporciona una máscara de señales que deben ser bloqueadas durante la ejecución del manejador de señal. Además, la señal que activó el manejador actual también será bloqueada a menos que se utilicen los flags <b>SA_NODEFER</b> o <b>SA_NOMASK</b>.</li>
+<li><em>sa_flags</em>: Especifica un conjunto de flags que pueden variar el comportamiento del manejador de señal.</li>
+<li><em>signum</em>: Especifica la señal a capturar y puede ser cualquier señal válida excepto <b>SIGKILL</b> y <b>SIGSTOP</b>.</li>
+</ul>
+
+Bueno, podemos ver que después de limpiar (o <em>iniciliazar</em> para los mas puristas) la estructura, asignamos el manejador que queremos que sea ejecutado en el campo <em>sa_handler</em>. <em>sa_restorer</em> es mejor inicializarlo a <em>NULL</em> para evitar problemas.
+
+A continuación, se llama la función <em>sigaction</em> (¿de qué me sonará el nombre? ;)). El prototipo de ésta función, es el que sigue:
+
+
+<div>
+{% highlight c %}
+int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact);
+{% endhighlight %}
+</div>
+
+Los argumentos son estos:
+<ul>
+<li><em>int signum</em>: Se utiliza para especificar la señal que desea capturarse.</li>
+<li><em>const struct sigaction *act</em>: Especifica la estructura <em>sigaction</em> en la que se encuentra la información sobre el manejador a asociar a la señal capturada.</li>
+<li><em>struct sigaction *oldact</em>: Una estructura en la que se almacenará la información del antiguo manejador instalado para esa señal. Se puede dejar a <em>NULL</em> si se desea.</li>
+</ul>
+
+La función <em>sigaction</em> retorna 0 si todo ha ido bien y -1 si ha habido algún error.
+
+En nuestro caso, utilizamos ésta función para asociar <em>timerHandler</em> con la señal <b>SIGALRM</b>.
+Una vez hecho esto, ya solo queda llamar a la función <em>alarm</em> para que se lance una señal <b>SIGALRM</b> en un segundo y generar un bucle infinito para que el programa no finalice nunca ;).
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://linux.about.com/od/commands/l/blcmdl7_signal.htm">Libería de comandos de <em>GNU/LINUX</em>: <em>signal</em>.</a></li>
+<li><a href="http://linux.about.com/library/cmd/blcmdl2_sigaction.htm">Libería de comandos de <em>GNU/LINUX</em>: <em>sigaction</em>.</a></li>
+</ul>
+
+
+

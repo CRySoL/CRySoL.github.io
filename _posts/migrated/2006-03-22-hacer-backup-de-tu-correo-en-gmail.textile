@@ -1,0 +1,57 @@
+---
+migrated: node/265
+layout: post
+title: Hacer backup de tu correo en Gmail
+created: 1143057906
+author: paco
+category: receta
+---
+bq. Imagina que de pronto se estropea tu disco duro, o tu portátil. Imagina que evolution deja de funcionar y no puedes leer tu correo. ¿Qué? ¿Te da un pasmo, como a mi? Esta receta te ayudará a configurar tu correo de manera que lo recibas todo por duplicado, tanto en la UCLM como en Gmail. El de la UCLM lo leerás como es habitual, pero si un día te encuentras sin poder acceder a tu correo, o lo borras por error (sí, también me pasó a mi :( ). O estás en casa de un amigo y quieres leer tu correo, ahí está Gmail para ayudarte.
+
+h1. Paquetes necesarios
+
+Bueno, ya imagino que tendrás un lector de correo. Voy a suponer que tienes evolution y ya ireis aportando vuestros comentarios para adaptar la receta a cualquier otro. Además necesitareis <b>fetchmail</b>.
+
+h1. Redirigir cuando se leen
+
+En primer lugar nos gustaría no tener que hacer nada especial, leer el correo normalmente y que automáticamente se vaya mandando a Gmail. Eso lo podeis hacer con evolution añadiendo un filtro (menú <em>Editar->Filtros de mensajes</em>). Este filtro debe situarse el primero de todos y aplicarse a todos los correos que no sean considerados spam (por aquello de no hacer backup del spam) y lo que debe hacer es redirigirlo a un programa externo:
+
+
+<div class="console">
+{% highlight console %}
+ /usr/sbin/exim4 -bm usuario@gmail.com
+
+{% endhighlight %}
+</div>
+
+Y ya está. Nota que no añadimos ninguna acción "Parar de procesar" porque queremos que, además, aplique todos nuestros filtros.
+
+h1. Redirigir cuando no tenemos evolution
+
+Imaginaros que perdeis evolution (por ejemplo, si actualizais debian unstable hoy mismo, 22/3/2006).  Igual pensais que da lo mismo, que podeis usar el interfaz web (webmail.uclm.es).  Aaaaaaaayyyyy, como se nota que no lo habeis usado... eh?  Bueno, es broma, estoy seguro que todos sabeis que el webmail de la uni es una KK con mayúsculas.  Y Gmail es rápido, seguro, con mucho espacio, y con una cantidad de pijadas que alucina. Vamos, esto en inglés está claro: <em>gmail is cool</em>.
+
+Ahí es donde entra <b>fetchmail</b>, el programita que mantenía el in-nombrable <em>esr</em> (cough, cough, cough, ...). Bueno, el caso es que es un programita chulo, a pesar de su maintainer.
+
+Haced un ficherito de configuración <b>.fetchmailrc</b> en tu home:
+
+<pre>
+set postmaster "TuDireccionDeCorreoPreferida"
+set bouncemail
+set no spambounce
+set properties ""
+poll correo.uclm.es via correo.uclm.es
+ with proto POP3
+       user 'UsuarioUCLM' there with password 'TuPasswdDeCorreo' is 'UsuarioLocal' here options keep
+ mda '/usr/sbin/exim4 -bm TuDireccionDeCorreoGmail'
+</pre>
+
+Evidentemente en ese texto hay que sustituir:
+
+* <em>TuDireccionDeCorreoPreferida</em> (e.g. pepe.potamo@uclm.es)
+* <em>UsuarioUCLM</em>                  (e.g. pepe.potamo)
+* <em>TuPasswdDeCorreo</em>             (la misma que usas en webmail.uclm.es)
+* <em>TuDireccionDeCorreoGmail</em>     (e.g. pepe@gmail.com)
+
+Y con esto basta ejecutar de vez en cuando <b>fetchmail</b> para que reenvíe automáticamente los correos a Gmail sin quitarlos del servidor. Ya los sacarás del servidor cuando tu evolution se mejore...
+
+Fácil, ¿eh? Lo malo es que uno se acostumbra a usar Gmail y le da un poco de grima volverse al evolution...

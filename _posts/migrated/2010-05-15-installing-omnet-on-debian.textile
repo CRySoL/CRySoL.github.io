@@ -1,0 +1,42 @@
+---
+migrated: node/1357
+layout: post
+title: Installing Omnet on Debian
+created: 1273955793
+author: david_villa
+category: receta
+tags:
+- networking
+---
+h2. Ingredients
+
+Install next Debian packages:
+
+* tcl8.5-dev
+* tk8.5-dev
+* libopenmpi-dev
+* blt-dev
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ wget http://www.omnetpp.org/omnetpp/doc_download/2217-omnet-41-source--ide-tgz
+$ unp omnetpp-4.0p1-src.tgz
+$ export PATH=$PATH:/home/user/repos/omnetpp-4.0p1/bin
+$ export TCL_LIBRARY=/usr/share/tcltk/tcl8.5
+$ ./configure
+$ make
+{% endhighlight %}
+</div>
+
+You need to put the omnet @bin@ directory in you path. Write this in your @.bashrc@:
+
+
+<temp-div>
+{% highlight text %}
+export PATH=$PATH:/home/user/repos/omnetpp-4.0p1/bin
+{% endhighlight %}
+</div>
+

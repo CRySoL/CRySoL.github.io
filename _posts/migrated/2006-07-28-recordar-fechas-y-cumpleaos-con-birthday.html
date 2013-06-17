@@ -1,0 +1,56 @@
+---
+migrated: node/361
+layout: post
+title: Recordar fechas y cumpleaños con 'birthday'
+created: 1154081987
+author: magmax
+category: receta
+---
+<blockquote> ¿Se os olvidan los cumpleaños de vuestros amigos? ¿No recordáis cuándo son las fiestas? ¡En 5 minutos podéis solucionarlo!
+</blockquote>
+<!--break-->
+
+<h1>Material</h1>
+Necesitaremos instalar el paquete <tt>birthday</tt> en la máquina que más habitualmente utilicemos:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install birthday
+
+{% endhighlight %}
+</div>
+
+<h1>Configuración</h1>
+Editaremos un fichero que no existe aún: <tt>~/.birthdays</tt>. Yo recomiendo crear una carpeta (por ejemplo <tt>~/.birthday</tt>) donde organizar un poco mejor todos los cumpleaños y eventos. Luego comentaré cómo lo tengo yo configurado.
+
+El formato de este fichero es lo mejor: sencillo. consiste en poner lo que quieras, un igual (=) y la fecha en formato dd/mm, dd/mm/yy o bien dd/mm/yyyy. Ya está. Acordaros de pulsar un intro al final o se os comerá la última de las letras :-D. Ejemplito:
+
+<pre>Pepito=15/12/1978
+Fulanito=01/09/1977
+</pre>
+
+Cuando hayáis metido 2 ó 3 (que sucendan en las próximas 3 semanas, por favor), probad a ejecutar 
+
+
+<div class="console">
+{% highlight console %}
+$ birthday
+
+{% endhighlight %}
+</div>
+
+Os mostrará los eventos de las próximas 3 semanas.
+
+<h1>Mi configuración</h1>
+Dado que el ficherito <tt>~/birthdays</tt> te permite incluir ficheros, el mío sólo contiene inclusiones. Las fechas se encuentran en varios ficheros dentro del directorio <tt>~/birthday</tt>, donde tengo los ficheros "amigos", "familia" y "fiestas" (éste último os lo podéis bajar más abajo).
+
+¿Y cómo hago para que no sea muy pesado pero me avise antes de que ocurran las cosas? Pues metiéndolo en mi <tt>.bashrc</tt>. De esa manera, cada vez que abro una consola me aparecen 3 ó 4 líneas con los próximos eventos :-D.
+
+<h1>Comentarios</h1>
+Vaaaale, sí. Ya sé que este truco no os va a salvar la vida y que posiblemente no os importe un carajo, ¿pero cuántos de vosotros conocíais este paquetito?
+
+El caso es que me he picao y ya he comenzado a hacer un programita similar, con idiomas, compatible pero ampliable. En python, por supuesto. Le meteré alguna opción para colorines y esas cosas.
+
+<h1>Referencias</h1>
+Pues.... las páginas man de birthday.

@@ -1,0 +1,140 @@
+---
+migrated: node/180
+layout: post
+title: Instalación de NINO en Debian GNU/Linux
+created: 1137003786
+author: KO_mOd_O
+category: receta
+tags:
+- seguridad
+- networking
+- Debian
+---
+<blockquote  class="head">
+
+Esta receta explica la instalación y configuración inicial de NINO (NINO is not Openview) en Debian GNU/Linux. Concretamente se ha realizado la instalación en Debian Sid con núcleo Linux 2.6.14.
+
+NINO es una solución para la gestión de red vía interfaz web que emplea SNMP, WMI, y SNMP para monitorizar equipos y dispositivos de red.
+
+Para más información visitar la página oficial de <a href="http://nino.sourceforge.net/nino/index.html">NINO</a>.
+
+</blockquote>
+
+<h1> 0.- Requerimientos. </h1>
+
+<ul>
+<li>Perl 5.8 o superior.</li>
+<li>MySQL (cliente y servidor).</li>
+<li>Net-SNMP.</li>
+<li>Apache y módulos Perl para Apache.</li>
+<li>Módulos Perl DBD/DBI, Time Hires, y Net-SNMP.</li>
+</ul>
+
+<h1> 1.- Instalación. </h1>
+
+Usando un gestor de paquetes como apt:
+
+
+<div class="console">
+{% highlight console %}
+ # apt-get update
+# apt-get install perl mysql-client mysql-server
+# apt-get install snmp snmpd
+# apt-get install apache2 apache-perl libapache2-mod-perl2
+# apt-get install libdbd-mysql-perl
+# apt-get install libsnmp-perl
+
+{% endhighlight %}
+</div>
+
+<h1> 2.- Configurar la base de datos. </h1>
+
+Para ello debemos de tener creado un usuario. En este ejemplo y como superusuario se crea un usuario con todos los privilegios para acceder de forma local y remota:
+
+
+<div class="console">
+{% highlight console %}
+ mysql> GRANT ALL PRIVILEGES ON *.* TO 'usuario'@'localhost'
+      -> IDENTIFIED BY 'password' WITH GRANT OPTION;
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'usuario'@'%
+       -> IDENTIFIED BY 'password' WITH GRANT OPTION;
+
+{% endhighlight %}
+</div>
+
+<h1> 3.- Instalar NINO. </h1>
+
+Podemos obtener el código fuente <a href="http://prdownloads.sourceforge.net/nino/nino-4.1.8.tar.bz2?download"> aquí
+</a>.
+
+
+<div class="console">
+{% highlight console %}
+ # tar xjvf nino-4.1.8.tar.bz2
+# mv nino-4.1.8/var/nino /var
+# cd /var/nino/scripts
+# ./install
+
+{% endhighlight %}
+</div>
+
+Antes de instalar NINO es necesario modificar la línea 27 del script de instalación eliminando la opción -v, de manera que quede de la siguiente forma:
+
+
+<div class="console">
+{% highlight console %}
+ HTTP_VERSION=` ${HTTPD} | grep "version" `
+
+{% endhighlight %}
+</div>
+
+<h1> 4.- Volver a arrancar servicios. </h1>
+
+
+<div class="console">
+{% highlight console %}
+ # /etc/init.d/mysql restart
+# /etc/init.d/apache2 restart
+
+{% endhighlight %}
+</div>
+
+<h1> 5.- Configuración inicial de NINO. </h1>
+
+En un navegador web:
+
+
+<div class="console">
+{% highlight console %}
+ http://localhost/nino/install.html
+
+{% endhighlight %}
+</div>
+
+El usuario y la clave por defecto son admin, admin.
+
+Llegados a este punto deberemos indicar los parámetros básicos de configuración, como el e-mail en el cual se notificarán los eventos, dónde se encuentra la base de datos a usar (por ejemplo, en localhost), el usuario de la base de datos, y la clave de la base de datos.
+
+Tras pinchar en Submit nos aparecerá una ventana confirmando que las tablas han sido creadas. Por último pinchamos en el botón Next.
+
+<h1> 6.- Arrancar los servicios de NINO. </h1>
+
+
+<div class="console">
+{% highlight console %}
+ # /etc/init.d/nino start
+
+{% endhighlight %}
+</div>
+
+<h1> 7.- Disfrutar de NINO. </h1>
+
+En un navegador web:
+
+
+<div class="console">
+{% highlight console %}
+ http://localhost/nino/main.html
+
+{% endhighlight %}
+</div>

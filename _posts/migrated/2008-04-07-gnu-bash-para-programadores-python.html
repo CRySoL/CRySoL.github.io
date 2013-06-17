@@ -1,0 +1,259 @@
+---
+migrated: node/904
+layout: post
+title: GNU Bash para programadores Python
+created: 1207588749
+author: david_villa
+category: receta
+tags:
+- shell
+- Python
+---
+<h2> Tratamiento de cadenas </h2>
+<p/>
+
+<table style="margin:0">
+
+<tr><td><b>Longitud:</b></td> <td></td></tr>
+
+<tr>
+<td style="width:50%">
+
+
+
+<temp-div>
+{% highlight text %}
+cadena="holamundo"
+len(cadena)
+{% endhighlight %}
+</div>
+
+
+</td>
+<td>
+
+
+
+<div class="console">
+{% highlight console %}
+
+cadena=holamundo
+${#cadena} 
+{% endhighlight %}
+</div>
+
+
+</td>
+</tr>
+
+<tr><td><b>Obtener subcadena:</b> En Python se indica el primero y el último+1.</td><td>En bash el primero y la cantidad.</td></tr>
+
+<tr>
+<td>
+
+
+<div>
+{% highlight python %}
+>>> cadena[2:5]
+"lam"
+{% endhighlight %}
+</div>
+
+</td>
+
+<td>
+
+
+<div class="console">
+{% highlight console %}
+
+${cadena:2:3}   
+lam
+{% endhighlight %}
+</div>
+
+</td>
+
+</tr>
+
+<tr><td><b>Split:</b></td> <td></td></tr>
+
+<tr>
+<td>
+
+
+<div>
+{% highlight python %}
+cadena = "adios:mundo:cruel"
+trozos = cadena.split(":")
+print trozos[0]
+{% endhighlight %}
+</div>
+
+</td>
+
+<td>
+
+
+<div class="console">
+{% highlight console %}
+
+IFS=:
+declare -a trozos=($cadena)
+echo ${trozos[0]}
+{% endhighlight %}
+</div>
+
+</td>
+</tr>
+
+<tr><td><b>Es subcadena?:</b></td> <td></td></tr>
+
+<tr>
+<td>
+
+
+<div>
+{% highlight python %}
+"mund" in "holamundo"
+{% endhighlight %}
+</div>
+
+
+</td>
+<td>
+
+
+<div class="console">
+{% highlight console %}
+
+[[ "holamundo" =~ "mund" ]]   # Ok, it's substring
+{% endhighlight %}
+</div>
+
+</td>
+</tr>
+
+
+<tr><td><b>Reemplazar subcadena:</b></td> <td></td></tr>
+
+<tr>
+<td>
+
+
+
+<div>
+{% highlight python %}
+cad2 = cad1.replace("foo", "bar")
+{% endhighlight %}
+</div>
+
+
+</td>
+<td>
+
+
+<div class="console">
+{% highlight console %}
+
+cad2=${cad1/foo/bar}
+{% endhighlight %}
+</div>
+
+</td>
+</tr>
+
+
+
+</table>
+
+<h3> Subcadenas (con expresiones regulares) </h3>
+
+
+
+<div class="console">
+{% highlight console %}
+
+foo=/tmp/mi.directorio/imagen.png
+path = ${foo%/*}     # /tmp/mi.directorio
+file = ${foo##*/}    # imagen.png
+base = ${file%%.*}    # imagen
+ext = ${file#*.}      # png
+{% endhighlight %}
+</div>
+
+
+
+<h2> Variables de entorno </h2>
+<p/>
+<h3> Comprobaciones </h3>
+
+
+<div class="console">
+{% highlight console %}
+
+[ -n "${VAR+x}" ]    # Fails if VAR is unset
+[ -n "${VAR:+x}" ]   # Fails if VAR is unset or empty
+[ -n "${VAR-x}" ]    # Succeeds if VAR is unset
+[ -n "${VAR:-x}" ]   # Succeeds if VAR is unset or empty
+{% endhighlight %}
+</div>
+
+
+<h2> Ficheros <h2>
+<p/>
+<h3> Generar un fichero dado su contenido </h3>
+
+
+<temp-div>
+{% highlight text %}
+cat > .hg/hgrc << EOF
+contenido del fichero
+aunque tenga muchas
+lineas
+EOF
+{% endhighlight %}
+</div>
+
+<h3> os.path.isdir(nombre) </h3> 
+
+
+<temp-div>
+{% highlight text %}
+if [ -d nombre]; then    # si es un directorio
+...
+fi
+{% endhighlight %}
+</div>
+
+<h3> os.path.isfile(nombre) </h3>
+
+
+<temp-div>
+{% highlight text %}
+if [ ! -e nombre ]; then   # si no es un fichero
+...
+fi
+{% endhighlight %}
+</div>
+
+
+<h2> Librería estándar </h2>
+
+
+<table style="margin:0; width:30%">
+<tr>
+<td>os.path.abspath</td> <td>readlink -f</td>
+<tr><td>os.path.dirname</td> <td>dirname</td>
+</tr>
+</table>
+
+
+<h2>  Referencias </h2>
+
+<ul><li><a href="http://diariolinux.com/2007/04/01/separar-nombre-y-extension-de-fichero-en-bash/">Separar nombre de extensión de fichero en Bash</a>
+</li><li><a href="http://www.linux-es.org/taxonomy/term/19">Bash</a>
+</li><li><a href="http://fixunix.com/questions/15902-bash-checking-if-env-var-set.html">http://fixunix.com/questions/15902-bash-checking-if-env-var-set.html</a>
+</li><li><a href="http://tldp.org/LDP/abs/html/string-manipulation.html">http://tldp.org/LDP/abs/html/string-manipulation.html</a>
+</li><li><a href="http://www.linuxconfig.org/Bash_scripting_Tutorial#Bash_File_Testing">Bash scripting Tutorial</a>
+</li></ul>

@@ -1,0 +1,77 @@
+---
+migrated: node/852
+layout: post
+title: Router «chupachups» en GNU/Linux
+created: 1202686004
+author: david_villa
+category: receta
+tags:
+- networking
+---
+bq(head). Un "router chupachups" (más conocido como "router on a stick":http://en.wikipedia.org/wiki/One-armed_router) es una máquina que ruta tráfico entre dos o más redes que coexisten en la misma red física. Eso se consigue normalmente por medio de <a href="http://en.wikipedia.org/wiki/Virtual_LAN">VLAN</a>es (aunque éste no es el caso). Es decir, es un router con una única interfaz de red.
+<!--break-->
+h2. Introducción
+
+La intención es compartir una conexión a internet a través de un modem con conexión Ethernet. Para ello voy a utilizar un switch al que conecto:
+
+* El modem de ONO. Sólo permite salir a Internet al primer PC que le pida IP por DHCP.
+* Un PC antiguo que tiene una única tarjeta Ethernet (éste va a hacer de router)
+* Los PCs y portátiles con los que voy a compartir la conexión.
+
+h2. Configuración de la interfaz de red
+
+En la receta "Compartir la conexión a Internet (y algo más) con GNU/Linux":http://crysol.org/node/96, se utilizaban dos interfaces de red Ethernet: *eth0* para la conexión a Internet y *eth1* para la red local. 
+
+En el caso que nos ocupa, voy a substituir *eth1* por un interfaz virtual de *eth0* de modo que la mayoría de lo que se cuenta en la citada receta es válido. Sólo voy a poner aquí las diferencias.
+
+El fichero @/etc/network/interfaces@ queda tal que:
+
+
+
+<temp-div>
+{% highlight text %}
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+
+auto eth0:0
+iface eth0:0 inet static
+      address 192.168.0.1
+      netmask 255.255.255.0
+{% endhighlight %}
+</div>
+
+
+h2. DNS y DHCP
+
+*dnsmasq* tiene ciertas limitaciones en lo referente a interfaces virtuales, así que el fichero @/etc/dhsmasq.conf@ debe incluir únicamente estas modificaciones:
+
+
+
+<temp-div>
+{% highlight text %}
+dhcp-range=192.168.0.2,192.168.0.254,12h
+dhcp-option=3,192.168.0.1
+dhcp-option=6,192.168.0.1
+{% endhighlight %}
+</div>
+
+
+Es decir, tendrás DNS y DHCP en las dos interfaces. Como eso no es deseable ni conveniente, puedes cerrar los puertos correspondientes con las siguientes reglas "iptables". No olvides echar un vistazo a nuestra receta "La enésima receta de iptables":http://crysol.org/node/339.
+
+
+
+<div class="console">
+{% highlight console %}
+
+# iptables -A INPUT -i eth0 -p tcp --dport 53 -j REJECT
+# iptables -A INPUT -i eth0 -p udp --dport 67 -j REJECT
+{% endhighlight %}
+</div>
+
+
+h2. Limitaciones
+
+En el caso del *modem de ONO*, es indispensable que el router sea el primer PC de la red en pedir IP, puesto que si algún otro se le adelanta, únicamente ése tendrá acceso a Internet a través del modem, y el router quedará sin servicio. Moraleja: Enciende el router antes que los demás PCs de tu red.

@@ -1,0 +1,57 @@
+---
+migrated: node/856
+layout: post
+title: ! 'Kicad: Conclusiones'
+created: 1202990321
+author: javieralso
+category: opinión
+tags:
+- embedded
+---
+<blockquote>Como lo prometido es deuda y yo prometí hace unos meses que probaría el paquete <b>kicad</b> y después os contaría mis experiencias, pues aquí estoy dispuesto a cumplir como está mandao...
+</blockquote>
+<!--break-->
+
+<h1>Impresiones personales</h1>
+
+Bueno, pues después de varios meses utilizando <b>kicad</b> para un proyecto mas o menos profesional y partiendo desde cero, tanto en la captura de los esquemas como en la creción de algunos componentes que no existian en las librerías, he de decir que los resultados me han sorprendido gratamente.
+
+Ésta <em>suite</em> de diseño electrónico, está compuesta básicamente por un editor de esquemas electrónicos, un editor de PCBs, un editor de asociaciones componentes-huella (para el diseño del PCB) y un visor de archivos GERBER. Todo está centralizado bajo un mismo interfaz, desde el que abriendo el archivo de proyecto se puede acceder a todas las partes del proyecto (captura, PCB, etc.....)
+
+El proceso de captura, con ésta herramienta es cómodo y bastante fácil. No hay mucho que contar aquí. Los menús son intuitivos y bastante cómodos. Para la selección de huellas en el proceso de fabricación del PCB, se lanza otra aplicación que permite ir buscando componente a componente, la huella mas apropiada a nuestras necesidades. Así mismo, también puede hacer una prebúsqueda de candidatos para dichas huellas, que unas veces con mayor acierto, otras con menos, pero facilita pelín el trabajo.
+
+A la hora de la creación del PCB, la herramienta cuenta con un algoritmo de posicionado automático de componentes, que aunque no sirve para mucho, al menos viste ;-)
+Al igual que antes, también tengo que decir que es intuitiva y fácil de usar. Basta con cargar la <em>netlist</em> generada por las dos herramientas anteriores y él solo busca todos los componentes y los coloca en el PCB. Nuestro único trabajo es ubicar los componentes estratégicamente según necesitemos y tratando siempre de facilitar el trabajo del rutado.
+
+En cuanto al rutado, me ha dejado gratamente impresionado. Hay que decir que le puede llevar bastante tiempo, incluso horas, aunque eso dependerá de la rejilla que hayamos elegido. A menor espaciado, mas tiempo, porque tenemos mas posibilidades de rutado.
+
+El algoritmo genera un rutado bastante bueno, pudiendo especificarle el espacio mínimo entre pistas (<em>clearance</em>). Siempre será necesario repasar el PCB a mano y modificar alguna pista, algo inevitable, pero en general el proceso es bastante rápido.
+
+Como conclusión, <b>kicad</b> me ha parecido una buena herramienta para captura de esquemas y diseño de PCBs, mas recomendable que otras herramientas como por ejemplo <em>gEDA</em> o <em>pcb</em>.
+
+<h1>Algunas fotillos</h1>
+Aquí dejo algunas capturas de pantalla del proyecto en el que he estado trabajando con <b>kicad</b>. Especialmente quiero enseñar los resultados obtenidos con PCB.
+
+Espero que os gusten.
+<center>
+<img src="http://crysol.inf-cr.uclm.es/files/Pantallazo-5.png">
+</center>
+
+<center>
+<img src="http://crysol.inf-cr.uclm.es/files/Pantallazo-3.png">
+</center>
+
+<center>
+<img src="http://crysol.inf-cr.uclm.es/files/Pantallazo-4.png">
+</center>
+
+<center>
+<img src="http://crysol.inf-cr.uclm.es/files/Pantallazo-6.png">
+</center>
+
+<center>
+<img src="http://crysol.inf-cr.uclm.es/files/io-def.png">
+</center>
+
+Solo me queda decir que proximamente enviaré a una factoría en Japón los Gerber de los PCBs que diseñé para que me los fabriquen. Cuando lleguen prometo contaros que tal es el resultado final. ;-)
+

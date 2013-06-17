@@ -1,0 +1,52 @@
+---
+migrated: node/1242
+layout: post
+title: Barrer la escoria en la red
+created: 1256476046
+author: paco
+category: reto
+tags:
+- platanada
+---
+Los contenidos de CRySoL no son de dominio público.  Se pueden copiar y adaptar, pero respetando los derechos de autoría.  El administrador del sitio  "unidadlocal.com":http://unidadlocal.com nos ignora a pesar de las protestas.  Es turno de pasar a la acción.
+<!--break-->
+Todos conoceis la política de CRySoL para la distribución de las recetas.  Todo el contenido es distribuido libremente y con permiso de adaptación con la única condición de mencionar la fuente y mantener la libertad de reproducción.  Pedimos poco, ¿verdad?  Pues hay escoria por el Mundo que viola hasta esos mínimos derechos.
+
+No contento con su <a href="http://crysol.org/es/node/1233">primer plagio</a> ahora nos han plagiado otras dos recetas <a href="http://crysol.org/es/node/42">http://crysol.org/es/node/42</a> y <a href="http://crysol.org/es/node/995">http://crysol.org/es/node/995</a>
+
+He creado un ticket en su servicio de hosting (hostmonster.com) reportando el problema.  El número de ticket es #PWW-13332-697.  El texto ha sido el siguiente:
+
+
+<div>
+{% highlight text %}
+Dear sirs,
+
+According to DNS  unidadlocal.com is hosted at your company.  At least three pages created by the
+site administrator constitute copyright infringement of the content distributed from our site (crysol.org). 
+We tried to contact unidadlocal.com site administrator through the forum to clarify this issue but all the
+comments regarding this were removed by the administrator.
+
+We are now seeking for legal advice. Given that we distribute the content under quite liberal terms
+(http://creativecommons.org/licenses/by-sa/3.0/) I think we should all arrive to an agreed settlement.
+
+The copyright infringements we found so far are:
+
+http://unidadlocal.com/Dos_monitores_dual-head_con_xrandr_en_Linux
+http://unidadlocal.com/Conectar_por_SSH_a_traves_de_un_proxy_HTTP_en_Linux
+http://unidadlocal.com/Utilizar_un_servidor_FTP_remoto_como_backup_en_linux
+
+Shamelessly taken from
+
+http://crysol.org/es/dos_monitores_con_xrandr
+http://crysol.org/es/node/42
+http://crysol.org/es/node/995
+
+Note that this is an illegal activity in violation of your own service terms.  We kindly request you to urge
+your customer to clarify this issue as soon as possible.
+
+Best regards,
+F. Moya
+{% endhighlight %}
+</div>
+
+Por otra parte creo que lo apropiado ahora es notificar las violaciones de copyright a Google y empezar a hablar con los abogados.  Por favor, necesitamos asistencia legal en Mexico y en Estados Unidos.  Si algún abogado se presta a colaborar con CRySoL en este asunto, por favor, enviadnos un mensajito.  Ahora mismo no se cómo estará la cosa en USA y Mexico, pero en España ronda entre 3000€ y 6000€ de costas procesales por un asunto fácil y pequeño, como éste.

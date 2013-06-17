@@ -1,0 +1,154 @@
+---
+migrated: node/939
+layout: post
+title: Bindings Python de librerías C++ con Boost.Python
+created: 1214171220
+author: david_villa
+category: receta
+tags:
+- Python
+- C++
+---
+bq(head). Ejemplos mínimos para empezar con Boost.Python, probablemente la mejor libreŕia de generación de bindings Python para C++.
+<!--break-->
+
+h2. Introducción
+
+Boost es un conjunto de librerías de calidad reconocida con amplio uso entre la comunidad de programadores C++, hasta el punto de que algunos de sus diseños e implementaciones pasarán a formar parte de la próxima versión del estándar C++, más conocido como "C++0x":http://en.wikipedia.org/wiki/C%2B%2B0x. Por eso Boost.Python es una garantía de éxito.
+
+h2. Ingredientes
+
+* python
+* python-dev
+* libboost-python1.35-dev
+
+h2. Hello (una función)
+
+hello.cc
+
+
+<div>
+{% highlight cpp %}
+#include <string>
+
+std::string hello() {
+   return "hello, world";
+}
+{% endhighlight %}
+</div>
+
+
+hello_wrapper.cc
+
+
+<div>
+{% highlight cpp %}
+#include <boost/python.hpp>
+
+std::string hello();
+
+using namespace boost::python;
+
+BOOST_PYTHON_MODULE(Hello) {
+    def("hello", hello);
+}
+{% endhighlight %}
+</div>
+
+
+Makefile
+
+
+<temp-div>
+{% highlight text %}
+CXXFLAGS=-I/usr/include/python2.4
+LDFLAGS=-shared -lboost_python
+
+Hello.so: hello.o hello_wrapper.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+clean:
+	$(RM) Hello.so *.o *~
+{% endhighlight %}
+</div>
+
+
+hello.py (ejemplo de uso)
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/python
+import Hello
+print Hello.hello()
+{% endhighlight %}
+</div>
+
+
+
+h2. Bindings para una clase
+
+control.h
+
+
+<div>
+{% highlight cpp %}
+class IntRW {
+private:
+    int _state;
+
+public:
+    void set(int value) {
+        _state = value;
+    }
+
+    int get() {
+        return _state;
+    }
+};
+{% endhighlight %}
+</div>
+
+
+control_wrapper.cc
+
+
+<div>
+{% highlight cpp %}
+#include <boost/python.hpp>
+#include "control.h"
+
+using namespace boost::python;
+
+BOOST_PYTHON_MODULE(Control)
+{
+    class_<IntRW>("IntRW")
+        .def("set", &IntRW::set)
+        .def("get", &IntRW::get)
+    ;
+}
+{% endhighlight %}
+</div>
+
+
+control.py (ejemplo de uso)
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/python
+import Control
+actuator = Control.IntRW()
+actuator.set(100)
+print actuator.get()
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+La documentación de Boost.Python está un poco anticuada, pero es lo que hay:
+
+* "Boost Python":http://<a href="http://www.boost.org/doc/libs/1_35_0/libs/python/doc/index.html">www.boost.org/doc/libs/1_35_0/libs/python/doc/index.html</a>
+* "Boost.Python Tutorial":http://<a href="http://www.boost.org/doc/libs/1_35_0/libs/python/doc/tutorial/doc/html/index.html">www.boost.org/doc/libs/1_35_0/libs/python/doc/tutorial/doc/html/index.html</a>
+* "boost.python wiki":http://wiki.python.org/moin/boost.python/HowTo

@@ -1,0 +1,192 @@
+---
+migrated: node/1238
+layout: post
+title: Crear un paquete Debian con scripts de inicio
+created: 1255430533
+author: toledanus
+category: receta
+tags:
+- Arco
+- Debian-devel
+---
+<blockquote class="head">
+
+Esta receta muestra como empaquetar scripts de inicio en un sistema debian.
+
+</blockquote>
+
+<h2>Ingredientes</h2>
+<ul>
+<li>debhelper</li>
+<li>Leer la receta de <a href="http://crysol.org/es/node/1231">dh_make</a> :-) para generar el directorio base</li>
+</ul>
+
+<h2>Archivos necesarios en el directorio debian</h2>
+<ul>
+
+<li><b>preinst, postinst, prerm y postrm</b></li>
+<ul>
+Estos bash scripts se ejecutan (como su nombre indica) antes y después de la instalación del paquete y antes y después de su eliminación. Con ellos podemos, por ejemplo, generar archivos de configuración, recuperar información de usuario en tiempo de instalación, actualizar el update-rc.d (tanto para añadir como para eliminar el script), etc. En resumen, manejan la gestión del paquete desde su instalación hasta su eliminación, por lo que hay que tener especial cuidado en la desinstalación y dejar el sistema tal y como estaba originalmente.
+
+Por supuesto deben ser ejecutables (chmod +x y #!/bin/bash).
+</ul>
+
+<li><b>[nombreScript].init</b></li>
+<ul>
+Este es el script de inicio que se almacenará sin la extensión ".init". Mas adelante se detalla su estructura.
+</ul>
+
+</ul>
+
+<h2>Archivos opcionales en el directorio debian</h2>
+
+<ul>
+<li><b>[nombreScript].dirs</b></li>
+<ul>
+En este archivo se especifican los directorios que se deben crear durante la instalación del paquete (uno por línea).
+</ul>
+
+<li>Interactuar con el usuario</li>
+<ul>
+A veces puede ser interesante interacturar con los usuarios por medio de una interfaz en shell en la que solicitar algún parámetro. Para ello se utiliza <b>debconf</b>.  Para utilizar debconf se necesitan especificar las preguntas (archivo templates), cuando se mostrará cada una (archivo config) y por último se deben recuperar en el archivo de post instalación (archivo postinst). Para profundizar sobre <b>debconf</b> (mas tipos de entradas, db_input, etc) leer el <a href="http://www.fifi.org/doc/debconf-doc/tutorial.html">Tutorial Debconf</a>.
+
+<li><b>templates</b></li>
+<ul>
+Gracias a este archivo podemos especificar los campos que solicitamos al usuario durante la instalación del paquete. Cada entrada tiene un aspecto de este tipo:
+<pre>
+Template: script/IdPregunta
+Type: string
+Default: respuesta por defecto
+Description: Is this the ask?:
+Description-es.UTF-8: Esta es la pregunta?
+</pre>
+</ul>
+
+<li><b>config</b></li>
+<ul>
+Este bash script (ejecutable) permite que el script de post instalación (postinst) pueda recuperar la información que el usuario introduce. El archivo <b>config</b> carga el confmodule, inicializa la db del paquete y lanza las entradas por medio de <b>db_input</b>. Algo así: 
+
+<div>
+{% highlight bash %}
+#!/bin/bash
+
+set -e
+# if we do not have debconf, we just skip this
+. /usr/share/debconf/confmodule || exit 0
+
+db_version 0.1
+db_capb
+db_title glacier2node
+
+db_input high scriptName/question0 || true
+.........
+db_go || true
+{% endhighlight %}
+</div>
+</ul>
+
+<li>Recuperación de la información</li>
+<ul>
+El script postinst puede recuperar la información proporcionada por el usuario, tras cargar debconf, por medio de <b>db_get</b>. 
+
+
+<div>
+{% highlight bash %}
+#!/bin/bash
+
+set -e
+. /usr/share/debconf/confmodule || exit 0
+
+db_get scriptName/question0
+q0="$RET"
+{% endhighlight %}
+</div>
+</ul>
+
+</ul>
+
+<h2>El script de inicio</h2>
+<ul>
+El script de inicio consta de tres partes.
+
+<li>Descripción LSB(Linux Standard Base) del script</li>
+<ul>Tiene este aspecto:
+<pre>
+### BEGIN INIT INFO
+# Provides:          nombre del paquete
+# Required-Start:    $syslog
+# Required-Stop:     $syslog
+# Should-Start:      $local_fs
+# Should-Stop:       $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: script de prueba
+# Description:       pues eso
+### END INIT INFO
+</pre>
+</ul>
+
+<li>Métodos para el manejo del script</li>
+
+<ul>
+Para llevar a cabo esta tarea se debe utilizar el comando <b>start-stop-daemon</b> ya que garantiza un control completo y efectivo del proceso. Es recomendable que el script de soporte a las opciones start, stop, restart y force-reload por si posteriormente se quiere "debianizar".
+</ul>
+
+<li>Switch entre operaciones</li>
+
+<ul>
+Finalmente solo es necesario hacer el switch entre las operaciones que soporte el script. Algo así:
+
+<div>
+{% highlight bash %}
+case "$1" in
+    start)
+		start_script
+		;;
+    stop)
+		stop_script
+		;;
+    restart)
+		stop_script
+		start_script
+		;;
+	force-reload)
+		reload_script
+		;;
+    *)
+		echo "Usage: /etc/init.d/$NAME {start|stop|restart}" >&2
+		exit 2
+		;;
+esac
+
+exit 0
+{% endhighlight %}
+</div>
+</ul>
+</ul>
+
+<h2>Construcción del paquete</h2>
+<ul>
+Finalmente el directorio /debian debemos tener al menos estos archivos,
+<pre>
+changelog  copyright  files myScript.init  postrm  rules compat control docs preinst postinst prerm
+</pre>
+y si utilizamos debconf también deben estar los archivos config y templates. Ahora solo queda:
+
+<div class="console">
+{% highlight console %}
+
+dpkg-buildpackage -us -uc -rfakeroot
+{% endhighlight %}
+</div>
+y listo.
+
+</ul>
+
+<h2>Referencias</h2>
+<ul>
+<li> <a href="http://www.debian.org/doc/debian-policy/ch-maintainerscripts.html">Debian Policy Manual (Capítulo 6)</a></li>
+<li> <a href="http://www.fifi.org/doc/debconf-doc/tutorial.html">Tutorial Debconf</a></li>
+<li> <a href="http://wiki.debian.org/LSBInitScripts">LSB</a></li>
+<li> man start-stop-daemon</li>
+</ul>

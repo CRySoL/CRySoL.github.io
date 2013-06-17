@@ -1,0 +1,116 @@
+---
+migrated: node/177
+layout: post
+title: Creación de paquetes Debian binarios
+created: 1136972899
+author: magmax
+category: receta
+tags:
+- Debian-devel
+---
+<blockquote>
+A menudo resulta interesante crear un paquete debian de un programa, para su sencilla instalación/desinstalación. Esta receta, inicialmente escrita por Fernando Rincón, explica cómo hacer lo básico en pocos pasos.
+</blockquote>
+<!--break-->
+<h1> Generación de la estructura de directorios</h1>
+
+En primer lugar debe crearse un directorio de trabajo (debian), a partir del cual se generará la estructura de directorios del paquete, considerando que el directorio de trabajo es el directorio raíz. A continuación se distribuirán los archivos que forman parte del paquete en los subdirectorios correspondientes.
+
+Si se desea instalar el fichero mi_ejecutable en la ubicación <tt>/usr/bin/mi_ejecutable</tt>, la estructura del directorio de trabajo debería ser la siguiente:
+
+
+<div class="console">
+{% highlight console %}
+./debian/usr/bin/mi_ejecutable 
+{% endhighlight %}
+</div>
+      
+
+
+<h1> Generación de los ficheros de control</h1>
+
+Hay varios tipos de ficheros de control. El fichero control propiamente dicho indica las características y dependencias del paquete. Los ficheros <tt>preinst</tt>, <tt>postinst</tt>, <tt>prerm</tt> y <tt>postrm</tt> son los scripts que se ejecutan durante la instalación, la actualización y el borrado de un paquete, para la configuración/desconfiguración de los programas incluidos en el paquete (Ver sección 6 de [3]).
+
+Los ficheros de control deben almacenarse en la siguiente ubicación:
+
+
+<div class="console">
+{% highlight console %}
+debian/DEBIAN
+{% endhighlight %}
+</div>
+      
+
+
+<h2> El fichero Control</h2>
+
+Para la generación del paquete es imprescindible la creación de un fichero de control (también llamado control), en el que se indicará el nombre del paquete, la versión, la sección a la que pertenece, la prioridad de instalación, etc ... La descripción exacta del contenido de cada campo puede encontrarse en la sección 3 de [3].
+
+Por ejemplo:
+
+<pre>Package: linuxstatus
+Version: 1.1-1
+Section: base
+Priority: optional
+Architecture: all
+Depends: bash (>= 2.05a-11), textutils (>= 2.0-12), awk, procps (>= \
+1:2.0.7-8), sed (>= 3.02-8), grep (>= 2.4.2-3), coreutils (>= 5.0-5)
+Maintainer: Chr. Clemens Lee <clemens@kclee.com>
+Description: Linux system information
+ This script provides a broad overview of different
+ system aspects.
+</pre>	
+
+
+<h2> Configuración mediante debconf</h2>
+
+Debconf proporciona una base de datos con un frontend que facilita el proceso de configuración de un paquete recién instalado o actualizado. Se basa en el uso de una serie de reglas que definen las preguntas a realizar al usuario, y el tipo de valores que
+
+<h1> Construcción del paquete</h1>
+
+Desde el directorio inmediatamente superior al directorio de trabajo debian debe ejecutarse:
+
+
+<div class="console">
+{% highlight console %}
+$ fakeroot dpkg-deb --build debian .
+{% endhighlight %}
+</div>
+      
+
+Esto generará un paquete con el nombre <paquete>_<versión>_<arquitectura>.deb.
+
+<h1> Referencias</h1>
+<ul>
+<li>
+[1] <a href="http://tldp.org/HOWTO/Debian-Binary-Package-Building-HOWTO/index.html"> Debian Binary Package Building HOWTO</a>  [en]
+</li>
+<li>
+[2] <a href="http://www.debian.org/doc/maint-guide/"> Debian New Maintainers' Guide</a>  [en]
+</li>
+<li>
+[3]<a href="http://www.debian.org/doc/debian-policy/index.html"> Debian Policy Manual </a> [en]
+</li>
+<li>
+[4] <a href="http://www.kitenet.net/~joey/debconf-debconf/tutorial-doc.html"> The Debconf Programmer's Tutorial</a>  [en]
+</li>
+<li>
+<a href="http://www.linuks.mine.nu/irc/debian-packaging/">Debian Packaging </a> [en]
+</li>
+<li><a href="http://es.tldp.org/Presentaciones/200002hispalinux/conf-29/29-html/">Creación de paquetes de Debian  </a>[es]
+</li>
+<li><a href="http://www-106.ibm.com/developerworks/linux/library/l-debpkg.html?ca=dgr-lnxw57DebianLinux">Create Debian Linux packages </a> [en]
+</li>
+<li><a href="http://arco.inf-cr.uclm.es/mdoc-deb.html">Como crear un paquete de Debian sin software de ayuda </a> [es]
+</li>
+</ul>
+
+
+<h2> Más información</h2>
+
+El manual para mantenedores Debian está disponible en castellano y es paquete deb: maint-guide-es.
+
+
+<h1> Autoría </h1>
+
+La <a href="http://arco.inf-cr.uclm.es/mdoc-deb.html">receta original</a> se publicó en la web del <a href="http://arco.inf-cr.uclm.es/">Grupo ARCO</a>. Su autor fue Fernando Rincón. Yo tan sólo la he transcrito a Crysol.

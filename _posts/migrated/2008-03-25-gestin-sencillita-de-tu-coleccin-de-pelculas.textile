@@ -1,0 +1,131 @@
+---
+migrated: node/890
+layout: post
+title: Gestión sencillita de tu colección de películas
+created: 1206401152
+author: david_villa
+category: receta
+tags:
+- Python
+---
+bq(head). Esta receta explica cómo añadir de una forma muy fácil títulos a tu colección (gestionada con GCStar) mediante un scriptillo hecho en Python + amara. (menudo combo! :-))
+<!--break-->
+h2. Introducción
+
+Hoy me hablaba MagMax acerca de "GCStar":http://<a href="http://www.gcstar.org/">www.gcstar.org/</a>, un programilla bastante decente para gestionar colecciones de cosas: libros, películas, juegos, vinos... Como me da mucha pereza tener que abrir el programa sólo para añadir un título y el catálogo lo guarda en un XML he pensado que podía aprovechar para escribir una receta de amara y en esas estamos. Por lo que parece, el programa permite importar títulos desde un fichero de texto pero no he dado con la forma de hacerlo desde línea de comandos.
+
+h2. Ingredientes
+
+* gcstar
+* python-amara
+
+h2. El script
+
+Como verás, gracias a @amara@ el programa resulta muy sencillo:
+
+"gcstar_add.py":https://arco.inf-cr.uclm.es/svn/public/misc/gcstar/gcstar_add.py
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/python
+import sys, os, amara
+
+def get_collection_filename():
+    for line in file(os.path.join(os.environ['HOME'],
+                                  '.config/gcstar/GCstar.conf')):
+        if line.startswith('file='):
+            return line.split('=')[1].strip()
+
+EXTs = ['.avi','.mpg', '.mpeg', '.mkv', '.ogm']
+
+dbname = get_collection_filename()
+doc = amara.parse(dbname)
+count = 0
+
+for line in sys.stdin:
+
+    line = line.decode('utf-8').strip()
+    format = ''
+
+    name, ext = os.path.splitext(line)
+    if ext in EXTs:
+        line = name
+        format = ext[1:]
+
+    item = doc.xml_create_element(u'item', content=u' ')
+    item.title = unicode(line)
+    if format: item.video = unicode(format)
+    doc.collection.xml_append(item)
+    count += 1
+
+fd = open(dbname, 'w')
+fd.write(doc.xml())
+fd.close()
+
+print count, 'new items'
+{% endhighlight %}
+</div>
+
+
+Puedes guardar el fichero en @~/bin@ o en @/usr/local/bin@ por ejemplo. Aunque la receta era sobre @amara@, la verdad es que no hay mucho que contar sobre su uso, no?
+
+
+h2. Modo de uso
+
+El script utiliza el último fichero de colección que hayas utilizado desde GCStar, leyéndolo desde la configuración del programa, así que no tiene que indicarle ningún parámetro.
+
+Puedes ponerle un título desde la entrada estándar:
+
+
+<div class="console">
+{% highlight console %}
+ echo "Love story" | gcstar_add.py
+{% endhighlight %}
+</div>
+
+Y claro, también un fichero de texto (en UTF-8) que contenga títulos (uno por línea):
+
+
+<div class="console">
+{% highlight console %}
+gcstar_add.py ~/pelis.gcs < mis_pelis.txt
+{% endhighlight %}
+</div>
+
+O añadir todos los ficheros que un directorio:
+
+
+<div class="console">
+{% highlight console %}
+$ ls *.avi | gcstar_add.py
+{% endhighlight %}
+</div>
+
+
+h2. Desde nautilus
+
+Y para completar la jugada, el script para añadir películas directamente desde nautilus.
+
+"Add to my GStar collection":ttps://arco.inf-cr.uclm.es/svn/public/misc/gcstar/Add%20to%20my%20GCStar%20collection
+
+
+<temp-div>
+{% highlight text %}
+!/bin/bash
+
+fname=/tmp/gcstar-$PPID
+:> $fname
+
+for name in "$@"; do
+    echo $name >> $fname
+done
+
+~/bin/gcstar_add.py < $fname
+
+rm $fname
+{% endhighlight %}
+</div>
+
+
+Le das permisos de ejecución, lo guardas en @~/.gnome2/nautilus-scripts/@ y listo.

@@ -1,0 +1,4 @@
+---
+layout: refresh
+refresh_to_post_id: /receta/2008-01-29/desarrollo-de-aplicaciones-para-psp-slim-y-psp-fat-con-fw-actuales
+---

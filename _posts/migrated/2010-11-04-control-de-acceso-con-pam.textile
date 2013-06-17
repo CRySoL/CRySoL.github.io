@@ -1,0 +1,145 @@
+---
+migrated: node/1425
+layout: post
+title: Control de acceso con PAM
+created: 1288883942
+author: cleto
+category: receta
+tags:
+- Arco
+- seguridad
+---
+Esta receta se muestra cómo crear un servicio PAM para discriminar el acceso entre diferentes usuarios y grupos.
+<!--break-->
+h2. Introducción
+
+Pluggable Authentication Modules (PAM) es el sistema de autenticación centralizada que se utiliza en sistemas como Debian GNU/Linux y, fundamentalmente, se caracteriza porque se compone de módulos que permiten realizar diferentes tareas para realizar el proceso de autenticación de usuarios.
+
+Antes de comenzar, es necesario que sepas algunos conceptos. Los _servicios_  PAM son ficheros almacenados en el directorio @/etc/pam.d@ en los que se definen un determinado conjunto de reglas de acceso. Por ejemplo, @/etc/pam.d/sshd@ describe qué acciones se deben realizar para autenticar y gestionar las sesiones del servicio de ssh.
+
+Estos servicios tienen reglas de la siguiente forma:
+
+
+<temp-div>
+{% highlight text %}
+<interfaz del módulo>  <flags de control>   <nombre módulo>   <argumentos>
+{% endhighlight %}
+</div>
+
+
+Los módulos, normalmente, se llaman @pam_*.so@ y están muy bien documentados (man pam_*). Los módulos pueden ofrecer las siguientes interfaces:
+
+* @auth@: referente a la comprobación de usuario y contraseña.
+* @account@: referente a la gestión de la cuenta de usuario (cuenta bloqueada, etc.).
+* @password@: referente a la gestión de la constraseña (caducada o no, etc.)
+* @session@: referente a las acciones a realizar sobre la sesión del usuario (registrarlo en un log, etc.) 
+
+Por ejemplo, el módulo @pam_unix.so@ ofrece los cuatro componentes para la autenticación basada en los archivos @/etc/shadow@ y @/etc/password@. Otros módulos sólo ofrecen algunos componentes, normalmente @auth@.
+
+Basicamente, los flags de control modifican la forma en la que se debe aplicar la regla de autenticación:
+
+* @required@: es necesario que el módulo tenga éxito. En caso contrario, se niega el acceso. Ello no implica que *no* se ejecuten el resto de módulos @required@.
+* @requisite@: igual que required solo que si falla se niega el acceso en ese preciso momento, es decir, no se chequean más condiciones posteriores. Poner un módulo como requisite hace que el orden *importe*.
+* @sufficient@: si el módulo tiene éxito, se concede el acceso si todos los required han tenido éxito. Pero si falla, *se ignora*. Al igual que antes, un módulo hace que *importe* el orden.
+* @optional@: un componente de módulo con este flag sólo será tenido en cuenta si no hay otra regla que referencie al mismo componente.
+
+Utilizando la directiva @include@ es posible _apilar_ (o, simplemente, incluir) la política de autenticación de otro servicio de forma que las políticas "paranoicas" y de grano fino puedan implementarse. 
+
+Dicho esto, veamos algunos ejemplos útiles. Más información, en la "sintáxis de PAM":http://web.mit.edu/rhel-doc/4/RH-DOCS/rhel-rg-en-4/s1-pam-format.html.
+
+h2. Mini-plataforma de pruebas
+
+Como muchos ya sabeis, no es fácil hacer a la primera que un servicio PAM funcione correctamente. Por ello, y utilizando la librería @python-pam@ he hecho un mini-programa de test que te puede servir para probar un servicio de PAM para no temer que probar la autenticación contra la aplicación final.
+
+El script se llama "pamtest.py":http://arco.esi.uclm.es/~cleto.martin/pamtest.py y simplemente hay que pasarle el servicio PAM que se quiere probar. Para mis pruebas yo he creado el archivo @/etc/pam.d/test@, por lo que yo ejecuto lo siguiente para probarlo:
+
+
+<div class="console">
+{% highlight console %}
+
+$ pamtest.py test
+{% endhighlight %}
+</div>
+
+h2. Ejemplos
+
+Algunos ejemplos que pueden ser útiles.
+
+h3. Denegar el acceso root
+
+Es posible realizar esta operación con varios módulos: @pam_access@, @pam_listfile@, @pam_succeed_if@.... En general, todos se utilizan para gestionar el acceso en base a usuario, grupos y criterios más refinados.
+
+Con @pam_access@, el servicio test quedaría así:
+
+
+<temp-div>
+{% highlight text %}
+auth required pam_unix.so
+auth required pam_access.so debug accessfile=/tmp/access.conf
+{% endhighlight %}
+</div>
+
+@pam_unix.so@ realizará la autenticación a través de login y password de forma tradicional. Pero, además, @pam_access@ utilizará el archivo @/tmp/access.conf@ para especificar la política de seguridad. Si no se especifica el archivo, se utiliza @/etc/security/access.conf@. En él puedes encontrar muchos ejemplos.  Para nuestro objetivo, este archivo contiene:
+
+
+<temp-div>
+{% highlight text %}
+- : root : ALL
+{% endhighlight %}
+</div>
+
+Para probarlo, debes ejecutar @pamtest.py@ con sudo:
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo pamtest.py test
+login: root
+password:
+{% endhighlight %}
+</div>
+
+h3. Aceptar sólo usuarios de un determinado grupo
+
+Antes se ha utilizado @pam_access@, por lo que en esta ocasión voy a utilizar @pam_succeed_if@. De esta forma quedaría el servicio:
+
+
+<temp-div>
+{% highlight text %}
+auth required pam_unix.so
+auth sufficient pam_succeed_if.so user ingroup dialout
+auth sufficient pam_succeed_if.so uid eq 0
+auth required pam_deny.so
+{% endhighlight %}
+</div>
+
+Nótese que también se le permite el acceso al usuario root. También se hubiera podido utilizar @pam_listfile@:
+
+
+<temp-div>
+{% highlight text %}
+auth required pam_unix.so
+auth required pam_listfile.so item=group sense=allow file=/etc/groups.allow
+{% endhighlight %}
+</div>
+
+En este caso *sólo* tiene acceso los grupos que se especifiquen en el archivo @/etc/groups.allow@
+
+h3. Acceso ldap
+
+Si tienes configurado un control de acceso basado en LDAP, utilizarlo en PAM es tan sencillo como el siguiente ejemplo:
+
+
+<temp-div>
+{% highlight text %}
+auth required pam_ldap.so
+auth required pam_listfile.so item=user sense=deny file=/etc/user.deny
+{% endhighlight %}
+</div>
+
+Donde se realizará la autenticación por LDAP y se prohibirá el acceso a los usuarios especificados en el archivo.
+
+h2. Referencias
+
+* "Artículo sobre PAM":http://<a href="http://www.informit.com/articles/article.aspx?p=165226">www.informit.com/articles/article.aspx?p=165226</a>

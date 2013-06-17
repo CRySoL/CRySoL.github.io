@@ -1,0 +1,4 @@
+---
+layout: refresh
+refresh_to_post_id: /receta/2008-06-22/bindings-python-de-libreras-c-con-boost-python
+---

@@ -1,0 +1,52 @@
+---
+migrated: node/627
+layout: post
+title: ! 'GNU Emacs: Edición «rectangular» (selección vertical)'
+created: 1174690694
+author: david_villa
+category: receta
+tags:
+- emacs
+---
+bq(head). Cómo utilizar los comandos de manipulación de rectángulos de Emacs, que facilitan enormemente ciertas tareas repetitivas.
+<!--break-->
+h2. Introducción
+
+Imagina que necesitas:
+
+* Indentar un trozo de código un número concreto de espacios
+* Comentar un bloque de código escrito en un lenguaje que no conoce Emacs
+* Cambiar de sitio una columna en un fichero CSV
+* Añadir asteriscos al principio de cada línea de un bloque
+
+Todas estas tareas implican escribir o borrar lo mismo en todas las líneas que pueden ser muchas, es decir, una tarea muy poco gratificante. Pues la solución a todas ellas es la "edición de rectángulos" . 
+
+h2. Manipulación de rectángulos
+
+Los "rectángulos":http://<a href="http://www.gnu.org/software/emacs/manual/html_node/Rectangles.html#Rectangles">www.gnu.org/software/emacs/manual/html_node/Rectangles.html#Rectangles</a> son justo eso, zonas rectangulares acotadas por dos columnas y dos filas cualesquiera. Esto permite, por ejemplo, copiar, pegar, borrar o insertar columnas de texto en cualquier parte. 
+
+Lo normal para usar estos comandos es definir primero la región o rectángulo sobre el que se va a aplicar el comando. Eso se hace poniendo la _marca_ (C-space) en una esquina y el cursor en la esquina diagonalmente opuesta.
+
+<table style="margin-left: 20px">
+  <tr><td width="200px;">               </td><td>               </td></tr>
+  <tr><td>     Cortar (kill)            </td><td>     C-x r *k*   </td></tr>
+  <tr><td>     Borrar (delete)          </td><td>     C-x r *d*   </td></tr>
+  <tr><td>     Pegar  (yank)            </td><td>     C-x r *y*   </td></tr>
+  <tr><td>     Insertar espacio (open)  </td><td>     C-x r *o*   </td></tr>
+  <tr><td>     Limpiar (clear)          </td><td>     C-x r *c*   </td></tr>
+  <tr><td>     Insertar texto (string)  </td><td>     C-x r *t* string RET </td></tr>
+</table>
+
+También resulta muy útil la posibilidad de definir una región "de ancho cero" cuando se inserta texto, pues de ese modo no se sobreescribe nada.
+
+h2. Renombrado múltiple de ficheros
+
+Una funcionalidad que, personalmente me parece muy interesante, es utilizar los rectángulos en combinación con el modo wdired-mode (paquete @emacs-goodies-el@). wdired permite editar los nombres de los ficheros de un directorio como si editaras un fichero de texto. Usando los rectángulos, puedes borrar o añadir algo de todos los nombres, por ejemplo, el nombre del grupo de una lista de mp3'ses.
+
+h2. Referencia
+
+* <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Rectangles.html">GNU Emacs. Rectangles</a>
+
+h2. Próxima entrega
+
+La próxima semana Magmax nos contará los pasos imprescindibles para poner a punto un emacs recién instalado y sin configuración previa.

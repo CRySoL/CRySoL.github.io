@@ -1,0 +1,34 @@
+---
+migrated: node/235
+layout: post
+title: Gnesis 2.0 RC1 disponible para descarga
+created: 1140809175
+author: david_villa
+category: noticia
+tags:
+- GNESIS
+---
+<table>
+<tr>
+<td>
+<p>
+Después de casi un año de inactividad, "*gnesis*":http://arco.inf-cr.uclm.es/gnesis/ vuelve a la vida. Como novedad, Gnesis 2.0 "fSancho" está basada en "Molinux":http://<a href="http://www.molinux.info">www.molinux.info</a>. Para el que no la conozca, Gnesis es la distribución GNU/Linux de la ESI(Escuela Superior de Informática de Ciudad Real) orientada a las necesidades de los alumnos en cuanto a realización de prácticas y trabajos. A pesar de que existen millones de distribuciones, la existencia de una nueva (que no es nueva) está bien justificada:
+
+<ul>
+ <li> Simplifica a los alumnos la configuración e instalación del software necesario para las prácticas.
+ </li>
+ <li> Evita los problemas el uso de diferentes librerías y programas, unificando las versiones y los procedimientos de configuración.
+ </li>
+ <li> Acerca a los alumnos de informática al desarrollo de una distribución GNU/linux, permitiéndoles conocer con todo detalle cómo se crea y mantiene.</li>
+</ul>
+
+</td>
+<td width="220" align="center">
+<img width="200" src="files/235_gnesis-2.0-cdlabel.png" alt="gnesis CD label. Los PNG con canal alpha se ven mal en IE, aunque claro, ¿por qué ibas a estar usando IE?"/>
+</td>
+</tr>
+</table>
+
+Está disponible para descarga la primera versión candidata, de modo que es muy de agradecer que la probéis e informéis de todos los errores que encontréis a fin de afinarla con objeto de poder hacer pública una versión definitiva. La idea es tener una versión estable para entregar con la mátricula a los nuevos alumnos de informática en Julio. 
+
+Esta nueva "release" de Gnesis ha sido posible gracias a los denodados esfuerzos de *Cleto Martín* y a la indispensable colaboración de *Fernando Sancho*, ambos miembros muy activos de CRySoL, que han puesto en marcha esta distribución en un tiempo record (poco más de tres semanas). Muy importante también el trabajo del profesor *Carlos González Morcillo*, reponsable y creador del _artwork_, que ha hecho (como siempre) un trabajo totalmente profesional. Enhorabuena a los tres, sois unos fieras!

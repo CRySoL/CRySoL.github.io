@@ -1,0 +1,236 @@
+---
+migrated: node/935
+layout: post
+title: Manual básico de iproute2
+created: 1213926802
+author: david_villa
+category: receta
+tags:
+- networking
+---
+bq(head). Esta recetilla incluye algunos comandos sencillos para comprender y empezar a manejar el famoso pero desconocido comando @ip@.
+<!--break-->
+h2. Ingredientes
+
+* iproute
+
+
+h2. «Auto-documentado»
+
+@ip@ dispone de ayuda "contextual", es decir, dispone de ayuda específica para el comando que utilices. La forma más básica es simplemente ejecutarlo sin argumentos.
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ ip
+Usage: ip [ OPTIONS ] OBJECT { COMMAND | help }
+       ip [ -force ] [-batch filename
+where  OBJECT := { link | addr | addrlabel | route | rule | neigh | ntable |
+                   tunnel | maddr | mroute | monitor | xfrm }
+       OPTIONS := { -V[ersion] | -s[tatistics] | -d[etails] | -r[esolve] |
+                    -f[amily] { inet | inet6 | ipx | dnet | link } |
+                    -o[neline] | -t[imestamp] }
+{% endhighlight %}
+</div>
+
+
+Cada OBJECT tiene su formato y también su propia "ayuda" escribiendo @help@ al final. Por ejemplo, para el objeto @addr@:
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ ip addr help
+Usage: ip addr {add|change|replace} IFADDR dev STRING [ LIFETIME ]
+                                                      [ CONFFLAG-LIST]
+       ip addr del IFADDR dev STRING
+       ip addr {show|flush} [ dev STRING ] [ scope SCOPE-ID ]
+                            [ to PREFIX ] [ FLAG-LIST ] [ label PATTERN ]
+IFADDR := PREFIX | ADDR peer PREFIX
+          [ broadcast ADDR ] [ anycast ADDR ]
+          [ label STRING ] [ scope SCOPE-ID ]
+SCOPE-ID := [ host | link | global | NUMBER ]
+FLAG-LIST := [ FLAG-LIST ] FLAG
+FLAG  := [ permanent | dynamic | secondary | primary |
+           tentative | deprecated | CONFFLAG-LIST ]
+CONFFLAG-LIST := [ CONFFLAG-LIST ] CONFFLAG
+CONFFLAG  := [ home | nodad ]
+LIFETIME := [ valid_lft LFT ] [ preferred_lft LFT ]
+LFT := forever | SECONDS
+{% endhighlight %}
+</div>
+
+
+h2. Interfaces (nivel de enlace)
+
+<p>
+
+h3. Cambiar la dirección MAC
+
+
+
+<div class="console">
+{% highlight console %}
+
+# ip link set eth0 address BE:BA:FA:BA:DA:00
+{% endhighlight %}
+</div>
+
+
+h3. Desactivar una interfaz
+
+
+
+<div class="console">
+{% highlight console %}
+
+# ip link set eth1 down
+{% endhighlight %}
+</div>
+
+
+
+h2. Interfaces (nivel IP)
+
+<p>
+
+h3. Listar direcciones
+
+Con este comando consigues (entre otras cosas) las direcciones lógicas y físicas de todos los interfaces conectados:
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 16436 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth1: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
+    link/ether 00:50:40:d6:09:af brd ff:ff:ff:ff:ff:ff
+3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:e0:4c:9a:60:00 brd ff:ff:ff:ff:ff:ff
+    inet 161.67.38.135/24 brd 161.67.38.255 scope global eth0
+    inet6 fe80::2e0:4cff:fe00:4567/64 scope link 
+       valid_lft forever preferred_lft forever
+{% endhighlight %}
+</div>
+
+
+Para una interfaz concreta:
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ ip addr show dev eth0
+3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
+    link/ether 00:e0:4c:9a:60:00 brd ff:ff:ff:ff:ff:ff
+    inet 161.67.38.135/24 brd 161.67.38.255 scope global eth0
+    inet6 fe80::2e0:4cff:fe00:4567/64 scope link 
+       valid_lft forever preferred_lft forever
+{% endhighlight %}
+</div>
+
+
+
+h3. Añadir una dirección a una interfaz
+
+
+<div class="console">
+{% highlight console %}
+ $ ip addr *add* 192.168.0.1 dev eth0 
+{% endhighlight %}
+</div>
+
+
+h3. Borrar una dirección de una interfaz
+
+
+<div class="console">
+{% highlight console %}
+ $ ip addr *del* 192.168.0.1 dev eth0 
+{% endhighlight %}
+</div>
+
+
+h2. Tablas de rutas
+
+<p>
+
+h3. Ver la tabla
+
+
+<div class="console">
+{% highlight console %}
+ $ ip route
+192.168.0.0/24 dev eth0  proto kernel  scope link  src 192.168.0.23 
+default via 192.168.0.1 dev eth0 
+
+{% endhighlight %}
+</div>
+
+h3. Añadir/eliminar una ruta por defecto
+
+Para añadir:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# ip route add default via 192.168.0.1 dev eth0
+{% endhighlight %}
+</div>
+
+
+Para borrar:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# ip route del default via 192.168.0.1
+
+# ip route del default dev eth0
+{% endhighlight %}
+</div>
+
+
+h3. Añadir/eliminar una ruta para entrega directa
+
+<p>
+
+
+
+<div class="console">
+{% highlight console %}
+
+# ip route add 192.168.0.0/24 dev eth0
+
+# ip route del 192.168.0.0/24
+{% endhighlight %}
+</div>
+
+
+
+
+h2. ToDo
+
+Iré añadiendo más cosillas con el tiempo...
+
+
+h2. Referencias
+
+* "IP Command Reference":http://<a href="http://www.ocac.go.th/documents/download/4_file.pdf">www.ocac.go.th/documents/download/4_file.pdf</a>
+* "IP Route Management":http://linux-ip.net/html/tools-ip-routing.html
+* "Enrutamiento avanzado y control de tráfico en Linux":http://<a href="http://www.gulic.org/almacen/lartc/lartc.pdf">www.gulic.org/almacen/lartc/lartc.pdf</a> | "[en]":http://lartc.org/
+* "Encaminamiento regulado con Linux":http://<a href="http://www.agapea.com/libros/Encaminamiento-regulado-con-Linux-isbn-8420530174-i.htm">www.agapea.com/libros/Encaminamiento-regulado-con-Linux-isbn-8420530174-i.htm</a>

@@ -1,0 +1,4 @@
+---
+layout: refresh
+refresh_to_post_id: /receta/2009-08-13/sincronizacin-del-calendario-de-gnome-con-google-calendar
+---

@@ -1,0 +1,83 @@
+---
+migrated: node/398
+layout: post
+title: Poner una imagen de fondo en GRUB
+created: 1160257014
+author: manueldavid
+category: receta
+---
+<blockquote>Sí te aburre el tradicional color en blanco y negro que aparece en tu cargador de arranque de GRUB, En esta receta verás como colocar una imagen de fondo. </blockquote>
+<!--break-->
+<h2>Utilizar Gimp</h2>
+
+Una imagen de arranque de GRUB puede tener una resolución máxima de 640X480 píxeles y un máximo de 14 colores.Para conseguir tal resolución ejecute el programa Gimp y realiza los siguientes pasos con el puntero del ratón:
+
+<ol>
+<li>Archvivo->Abrir->Selecciona la imagen que quieras colocar de fondo en el gestor de arranque GRUB</li>
+
+<li>imagen->escalar imagen->y aquí pon la resolución 640X480</li>
+
+<li>imagen->modo->indexado(y aquí pon el número máximo de colores a 14)</li>
+
+<li>guarda la imagen en modo RGB</li>
+
+<li>ya puedes cerrar el Gimp</li>
+
+<li>ahora accede a donde hayas guardado la imagen y ponle el nombre <b>nombre_que_tú_quieras.xpm</b> (es fundamental que no se te olvide la terminación .xpm)
+</li>
+</ol>
+
+<h2>Comprimir la imagen</h2>
+
+Aunque  no es estrictamente necesario comprimir la imagen, reducirá el tiempo necesario para cargarla. Por lo que harás lo siguiente desde línea de comandos(accede al directorio en donde guardaste la imagen): 
+
+
+<div class="console">
+{% highlight console %}
+$ gzip nombre_que_hayas_elegido.xpm 
+{% endhighlight %}
+</div>
+
+esta instrucción creará un archivo de la forma <b>nombre_que_hayas_elegido.xpm.gz</b> 
+
+
+<h2>Copiar en el directorio /boot/grub</h2>
+
+Ahora copia el fichero <b>nombre_que_hayas_elegido.xpm.gz</b> en el directorio <tt>/boot/grub</tt>, para ello teclea en línea de comandos:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo  cp nombre_que_hayas_elegido.xpm.gz /boot/grub 
+{% endhighlight %}
+</div>
+
+
+<h1>Añadir línea al archivo de configuración menu.lst</h1>
+
+Ejecuta en línea de comandos:
+
+
+<div class="console">
+{% highlight console %}
+$ cd /boot/init
+$ sudo gedit menu.lst
+{% endhighlight %}
+</div>
+
+y ahora añade la siguiente línea al comienzo del fichero menu.lst:
+
+<pre>splashimage=(hd0,1)/boot/grub/nombre_que_hayas_elegido.xpm.gz</pre>
+
+si fuera necesario, se sustituye (hd0,1) con la notación Grub para el disco  duro y la partición en la que está almacenada tu distribución GNU/Linux.Esto lo podrás comprobar en el mismo archivo menu.lst, por ejemplo, en mi archivo menu.lst  sale entre otras cosas:
+
+<pre>
+title	Ubuntu, kernel 2.6.15-27-386
+root		(hd0,1)
+kernel		/boot/vmlinuz-2.6.15-27-386 root=/dev/hda2 ro quiet splash
+initrd		/boot/initrd.img-2.6.15-27-386
+savedefault
+boot
+</pre>
+
+tras guardar la configuración, la próxima vez que arranques tu máquina aparecerá la pantalla del GRUB con la imagen de fondo.

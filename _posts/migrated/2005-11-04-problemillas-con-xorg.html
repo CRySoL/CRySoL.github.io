@@ -1,0 +1,27 @@
+---
+migrated: node/81
+layout: post
+title: Problemillas con Xorg
+created: 1131129908
+author: arturo
+category: historia
+---
+Hola a todos:
+
+Recientemente acabo de pasar de SARGE a inestable y en el proceso he tenido un par de problemillas. Uno de ellos ha sido con Xorg. Hace unos días vi que alguien tenia tambien problemas con esto. Mi problema fue un conflicto de paquetes entre x11-common y xorg-common. Los dos acceden a /etc/X11/Xsession. El error que obtenia era este:
+
+<pre>
+/var/cache/apt/archives/x11-common_6.8.2.dfsg.1-7_all.deb (--unpack):
+trying to overwrite `/etc/X11/Xsession', which is also in package xorg-common
+</pre>
+
+Y con apt-get -f install tampoco se terminaba de arreglar, así que la solución pasó por instalar a la fuerza el paquetito en cuestión:
+
+
+<div class="console">
+{% highlight console %}
+ # dpkg -i --force all x11-common_6.8.2.dfsg.1-7_all.deb 
+{% endhighlight %}
+</div>
+
+Y después desinstalé xorg-common por si las moscas.

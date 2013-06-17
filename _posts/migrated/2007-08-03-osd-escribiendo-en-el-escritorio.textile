@@ -1,0 +1,150 @@
+---
+migrated: node/749
+layout: post
+title: OSD, escribiendo en el escritorio
+created: 1186159638
+author: david_villa
+category: receta
+---
+bq(head). Llevo un par de tardes mirando qué alternativas hay en GNOME para pintar texto en pantalla, es decir OSD(On Screen Display), y he pensado ponerlo aquí en plan receta por si a alguien le resulta de utilidad y sobre todo para tenerlo a mano cuando me haga falta.
+<!--break-->
+Básicamente, he encontrado dos cosas que tienen buena pinta:
+
+* "XOSD":http://<a href="http://www.ignavus.net/software.html">www.ignavus.net/software.html</a>
+* "gnome-osd":http://<a href="http://www.gnomefiles.org/app.php?soft_id=350">www.gnomefiles.org/app.php?soft_id=350</a>
+
+h2. XOSD
+
+Paquetes:
+
+* libxosd2
+* xosd-bin
+
+Se trata de una librería para X con una "buena documentación":http://ldots.org/xosd-guide/ con ejemplos. Permite hacer cosas muy interesantes aparte de escribir texto:
+
+* Elección de colores, fuentes, sombra
+* Escribir en dos líneas
+* Pintar barras horizontales (como las típicas de volumen) o sliders
+* Se puede hacer scroll
+* Tiene una utilidad para consola llamada @osd_cat@ con la que puedes escribir en pantalla desde un script shell.
+
+Y lo mejor de todo es que hay bindings para Python que se llaman "PyOSD":http://repose.cx/pyosd/. El paquete Debian se llama @python-osd@. Aquí pongo un ejemplo básico de uso de XOSD usando estos _bindings_:
+
+
+<div>
+{% highlight python %}
+import pyosd
+
+osd = pyosd.osd()
+osd.set_colour("red")
+osd.display("hola")
+osd.show()
+{% endhighlight %}
+</div>
+
+Con @pydoc pyosd@ puedes ver algo de documentación sobre el módulo, escueta pero útil. De todos modos, la documentación de la librería C es perfectamente aplicable, salvando las distancias. 
+
+
+h2. gnome-osd
+
+Paquetes:
+
+* gnome-osd
+
+Es un componente GNOME muy inspirado en XOSD y por eso comparten algunas características:
+
+* Color, fuente, sombra
+* Se puede usar desde consola, con un programa llamado @gnome-osd-client@
+
+Aunque tiene algunas ventajas respecto a XOSD:
+
+* Permite utilizar "marcado Pango":http://developer.gnome.org/doc/API/2.0/pango/PangoMarkupFormat.html en el texto.
+* Se pueden animar la entrada y salida del texto
+* Tiene transparencias simuladas
+* Color de fondo
+
+También tiene algunas desventajas: no tiene scroll, varias lineas ni permite "pintar" barras. 
+
+El componente está escrito en Python, así que se puede utilizar como un módulo del siguiente modo:
+
+
+<div>
+{% highlight python %}
+import gtk, pango
+from gnomeosd.gosd import osd
+
+w = osd("<b>hola</b>", "#000000", "#80ff80", pango.FontDescription("sans serif 48"),
+         use_markup=True, drop_shadow=True)
+w.show()
+gtk.main()
+{% endhighlight %}
+</div>
+
+Sin embargo, esta forma de usarlo es bastante precaria y se pierden muchas de sus posibilidades. Lo más adecuado es utilizar el componente mediante su interfaz *bonobo* o *dbus*, y eso tiene la ventaja de que el cliente puede estar escrito en varios lenguajes: C, Java, Ruby, C#, Python, etc. Este es un ejemplo para utilizarlo con Bonobo (el sistema de componentes de GNOME) desde un cliente Python:
+
+
+<div>
+{% highlight python %}
+import bonobo
+
+osd = bonobo.get_object("OAFIID:GNOME_OSD", "IDL:Bonobo/Application:1.0")
+osd.ref()
+osd = bonobo.AppClient(osd)
+osd.msg_send("show", ["<b>hola</b>", 1000])
+{% endhighlight %}
+</div>
+
+En @/usr/share/python-support/gnome-osd/gnomeosd/client.py@ puedes encontrar la forma de hacerlo con DBUS.
+
+El texto que se indica puede ser un XML que tiene algunos atributos adicionales a los de Pango. El formato del mensajes es:
+
+
+<temp-div>
+{% highlight text %}
+<message ..atributos..> ...texto con marcado pango... </message>
+{% endhighlight %}
+</div>
+
+Los atributos posibles son:
+
+* id
+* inherit
+* animations
+* avoid_panels
+* drop_shadow
+* ellipsize
+* enable_sound
+* hide_on_hover
+* hide_timeout
+* osd_fake_translucent_bg
+* osd_font
+* osd_halignment
+* osd_vposition
+* sound_sample
+
+Cuando se utiliza este XML hay que invocar un función diferente llamada @show-full@. El equivalente al ejemplo anterior sería:
+
+
+<div>
+{% highlight python %}
+mport bonobo
+
+osd = bonobo.get_object("OAFIID:GNOME_OSD", "IDL:Bonobo/Application:1.0")
+osd.ref()
+osd = bonobo.AppClient(osd)
+osd.msg_send("show-full", ['<message id="sample" hide_timeout="1000"><b>hola</b></message>'])
+{% endhighlight %}
+</div>
+
+Más información en "<code>man gnome-osd-client</code>" y en el árbol @/apps/gnome-osd@ de gconf, accesible con:
+
+
+<div class="console">
+{% highlight console %}
+$ gconf-editor /apps/gnome-osd
+{% endhighlight %}
+</div>
+
+h2. Otros
+
+Si conoces otra alternativa que cubra la funcionalidad básica de éstas, por favor, deja un comentario, gracias.

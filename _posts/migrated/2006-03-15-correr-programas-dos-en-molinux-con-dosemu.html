@@ -1,0 +1,137 @@
+---
+migrated: node/258
+layout: post
+title: Correr programas DOS en Molinux con Dosemu
+created: 1142462749
+author: Geronimo
+category: receta
+tags:
+- Molinux
+---
+<blockquote>Aunque parezca mentira, no pocas empresas u oficinas tienen algún programa <acronym title="Dos Operating System">DOS</acronym> hecho a medida que las hacen depender de MS-DOS, y por tanto de MS Windows. Esto puede ser un gran problema a la hora de una posible migración a GNU/Linux. Con esta receta aprenderemos cómo ejecutar estos programas en una Molinux Sancho gracias al emulador <strong>dosemu</strong>.</blockquote>
+<!--break-->
+<h2>Instalación de dosemu</h2>
+
+Dosemu es un emulador de <acronym title="Dos Operating System">DOS</acronym> para GNU/Linux, licenciado bajo la GPL, que permite correr un DOS (MS-DOS, FreeDOS...) y aplicaciones DOS. Utilizaremos además <a href="http://www.freedos.org">FreeDOS</a>. FreeDOS es un proyecto que aspira a crear un sistema operativo libre que sea totalmente compatible con las aplicaciones y los controladores de MS-DOS.
+
+Ni dosemu ni FreeDOS están en los repositorios de Molinux Sancho, así que añadire unos repositorios de Ubuntu Breezy (no olvides que Sancho es en realidad una Breezy). Para ello debes editar el fichero <tt>/etc/apt/sources.list</tt> y añadir la siguiente línea:
+
+<pre>deb http://archive.ubuntu.com/ubuntu breezy main multiverse</pre>
+
+y ejecutar posteriormente <tt>aptitude update</tt> como de costumbre. A continuación instala los paquetes:
+
+<ul>
+<li><tt>dosemu</tt></li>
+<li><tt>dosemu-freedos</tt></li>
+<li><tt>xfonts-dosemu</tt></li>
+</ul>
+
+
+<div class="console">
+{% highlight console %}
+sudo aptitude install dosemu dosemu-freedos xfonts-dosemu
+{% endhighlight %}
+</div>
+
+<h2>Ajustes post-instalación</h2>
+
+El paquete es <em>casi</em> perfecto, sólo necesita un par de ajustes para tener dosemu completamente operativo y funcional.
+
+<h3>Violación de segmento al ejecutar dosemu</h3>
+
+Si al ejecutar Dosemu te da una violación de segmento con el siguiente error:
+
+<pre>ERROR: cpu exception in dosemu code outside of VM86()!
+trapno: 0x0e  errorcode: 0x00000004  cr2: 0x468a5b2d
+eip: 0x468a5b2d  esp: 0xbf8fffc5  eflags: 0x00210286
+cs: 0x0073  ds: 0x007b  es: 0x007b  ss: 0x007b
+Page fault: read instruction to linear address: 0x468a5b2d
+CPU was in user mode
+Exception was caused by non-available page
+/usr/bin/dosemu: line 218: 16058 Violación de segmento  $SUDO $BINARY $XFLAG "$@"
+</pre>
+
+es un problema con versiones del kernel Linux posteriores a la 2.6.12. Es debido a cambios en  la ¿generación de direcciones virtuales? (<em>virtual address randomization</em>) del kernel. La solución es ejecutar
+
+
+<div class="console">
+{% highlight console %}
+sudo echo 0 > /proc/sys/kernel/randomize_va_space
+{% endhighlight %}
+</div>
+
+la primera vez que ejecutes dosemu. Lo ideal es hacer un script y ponerlo en el arranque de la máquina.
+
+<h3>Cuando ejecuto <tt>xdosemu</tt> no encuentra la fuente vga, y muchos carácteres están mal</h3>
+
+Si miras el contenido del paquete <tt>xfonts-dosemu</tt>:
+
+
+<pre class="console">
+[00:11:47][david@minipimer]:~$ dpkg -c /var/cache/apt/archives/xfonts-dosemu_1.2.1-3_all.deb
+drwxr-xr-x root/root         0 2004-10-06 16:23:25 ./
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./etc/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./etc/X11/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./etc/X11/fonts/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./etc/X11/fonts/misc/
+-rw-r--r-- root/root       425 2003-06-23 02:02:07 ./etc/X11/fonts/misc/xfonts-dosemu.alias
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/X11R6/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/X11R6/lib/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/misc/
+-rw-r--r-- root/root      4626 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/misc/vga.pcf.gz
+-rw-r--r-- root/root      5648 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/misc/dosemu-vga11x19.pcf.gz
+-rw-r--r-- root/root      4783 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/misc/vga-cp866.pcf.gz
+-rw-r--r-- root/root      5255 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/misc/vga10x20-cp866.pcf.gz
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/share/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/share/doc/
+drwxr-xr-x root/root         0 2004-10-06 16:23:25 ./usr/share/doc/xfonts-dosemu/
+-rw-r--r-- root/root      3740 2004-10-06 16:22:27 ./usr/share/doc/xfonts-dosemu/copyright
+-rw-r--r-- root/root     93715 2004-03-06 15:03:08 ./usr/share/doc/xfonts-dosemu/changelog.gz
+-rw-r--r-- root/root      6490 2004-10-06 16:22:27 ./usr/share/doc/xfonts-dosemu/changelog.Debian.gz
+</pre>
+
+observarás que el fichero de la fuente vga lo guarda en el directorio <tt>/usr/X11R6/lib/X11/fonts/misc/</tt>. Por defecto Molinux no busca fuentes ahí:
+
+
+<div class="console">
+{% highlight console %}
+[00:12:46][david@minipimer]:~$ grep misc /etc/X11/xorg.conf
+        FontPath        "/usr/share/X11/fonts/misc"
+
+{% endhighlight %}
+</div>
+
+La solución es por tanto sencilla; debes añadir la línea
+
+<pre>        FontPath        "/usr/X11R6/lib/X11/fonts/misc/"</pre>
+
+justo después de la línea que nos salió anteriormente. Reinia el servidor X posteriormente.
+
+
+
+<h2>Invocación</h2>
+
+Si ejecutamos dosemu desde una emulación del terminal tendremos bastantes menos problemas que si lo hiciésemos desde un terminal normal y corriente. Además, dependiendo del programa, será posible que necesitemos derechos de superusuario para acceder a determinados puertos y tal.
+
+Para programas DOS normales, la mejor solución sin duda será usar xdosemu:
+
+
+<div class="console">
+{% highlight console %}
+$ xdosemu programa.exe
+{% endhighlight %}
+</div>
+
+porque nos ahorraremos un montón de problemas tanto de carácteres como de tamaño del terminal y demás. xdosemu de hecho nos abre una ventana con el programa DOS al igual que si lo hubiésemos ejecutado en MS Windows.
+
+
+<h2>Referencias</h2>
+
+<ul>
+<li><a href="http://es.wikipedia.org/wiki/DOS">Wikipedia :: DOS</li>
+<li><a href="http://www.dosemu.org">Proyecto dosemu</a></li>
+<li><a href="http://www.freedos.org">Proyecto FreeDOS</a></li>
+</ul>

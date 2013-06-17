@@ -1,0 +1,55 @@
+---
+migrated: node/435
+layout: post
+title: Averiguar la IP de un 'chisme', que la consigue por DHCP
+created: 1162980083
+author: david_villa
+category: receta
+tags:
+- Arco
+- scapy
+- networking
+---
+bq. Cómo averiguar la IP asignada a un dispositivo empotrado, conocida su MAC.
+<!--break-->
+h2. Introducción
+
+Si tienes una cámara IP u otro 'chisme' similar que obtiene su IP por DHCP ¿cómo  sabes tú qué dirección le han dado?
+
+Una posible solución es utilizar la caché ARP de tu máquina para inventarte una IP asociada a la MAC del dispositivo, pero esto no siempre funciona. Veamos otra alternativa.
+
+h2. ARP ping
+
+Otra posibilidad muy interesante, si estás en la misma red que el 'chisme', es utilizar activamente el protocolo ARP. De esa manera puedes conseguir una lista de todos los hosts conectados con sus IP y sus MAC. Aunque hay muchas herramientas que pueden servir,  pueden resultar incómodas para nuestro objetivo concreto.
+
+Por fortuna, contamos con @scapy@, que nos da la posibilidad de crear herramientas específicas por una facilidad pasmosa.
+
+Con un pequeño programilla, problema resuelto:
+
+
+[<a href="https://bitbucket.org/davidvilla/scapy-utils/raw/1595d61acc43/arping.py">arping.py</a>]
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/python
+import sys, scapy
+
+if len(sys.argv) != 3:
+    print "Uso: arping <net> <MAC>"
+    print "ej: arping 192.168.1.0/24 00:11:22:33:44:55"
+    sys.exit(1)
+
+scapy.conf.verb=0
+ans,unans = scapy.srp(scapy.Ether(dst="ff:ff:ff:ff:ff:ff")/scapy.ARP(pdst=sys.argv[1]), timeout=2)
+
+for request,reply in ans:
+    if reply.hwsrc.lower().startswith(sys.argv[2].lower()):
+        print "%15s - %s" % (reply.psrc, reply.hwsrc)
+{% endhighlight %}
+</div>
+
+
+h2. Comentarios
+
+@scapy@ fue concebido con la idea de dar a los programadores la posibilidad de crear herramientas de red específicas con muy poco esfuerzo, y al menos para mi, ese objetivo está sobradamente cumplido.

@@ -1,0 +1,26 @@
+---
+migrated: node/1546
+layout: post
+title: 9 reglas para una mejor orientación a objetos
+created: 1316552224
+author: david_villa
+tags:
+- INGSOFT
+---
+En las conferencias de la "XPWeek":http://xpweek.es/?page_id=2, Sebastián Hermida nos explicaba los nueve reglas o (pasos) de Jeff Bay para conseguir mejores diseños orientados a objetos y, en general, código más limpio. Al loro, porque algunas te pueden sorprender:
+<!--break-->
+# *Solo un nivel de indentación por método.* Es decir, un solo nivel de if, for, etc. Por tanto no puede haber if anidados ni un if dentro de un for, ni esas cosas que solemos hacer y que huelen tan mal.
+# *No uses @else@*. Pues eso, lo que oyes.
+# *Envuelve todos tus tipos primitivos y strings*. Todos tus tipos de datos deben ser clases relacionadas con el dominio del problema.
+# *Use only one dot per line*. No puedes invocar un método de un objeto resultado de invocar otro método.
+# *No uses abreviaturas*. Los nombres completos son más claros. ¿de verdad es un problema unas cuantas letras más?
+# *Mantén pequeñas todas las entidades*. Otra forma de decir KISS. Clases pequeñas, métodos pequeños, menos es más.
+# *No crees clases que tengan más de dos atributos*. Esto si que es duro...
+# *Usa colecciones de primera clase*. Si tienes una clase que contiene una colección como atributo, no debería tener ningún otro atributo.
+# *No uses getters, setters ni propiedades*. Otra forma de decir «olvida todo lo que has aprendido en la escuela».
+
+Habrá que probar a ver si funciona.
+
+h2. Más información
+
+* "Nine Steps to Better Software Design Today Exercise":http://tomasmuller.com.br/2009/05/04/conclusion-nine-steps-to-better-software-design-today-exercise/

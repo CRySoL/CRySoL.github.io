@@ -1,0 +1,66 @@
+---
+migrated: node/13
+layout: post
+title: Instalación local de Mambo / Joomla bajo GNU/Linux
+created: 1127753532
+author: cleto
+category: historia
+---
+A continuación voy a dar los pasos que di para la instalación de Mambo (posteriormente de Joomla) en mi portátil.
+
+REQUISITOS
+- Intérprete PHP
+- Servidor HTTP Apache
+- Mysql
+
+En caso de no tener dichos requisitos los podemos obtener mediante:
+
+<code>#:apt-get install apache</code> 
+<code>#:apt-get install mysql-common mysql-client mysql-server</code>
+<code>#:apt-get install php4 php4-common php4-cgi php4-mysql</code>
+
+Una vez tengamos esto pasamos a descargar Mambo <a href="http://mamboforge.net/frs/?group_id=5">aquí</a>. Mientras se descarga, podemos ir creando la base de datos necesaria para que Mambo funcione correctamente. Los datos que aparecen en el ejemplo son:
+a) Nombre de la BD: mambo
+b) Nombre del usuario de la BD: user_mambo
+c) Contraseña de la BD: passmambo
+d) Contraseña del administrador (de mysqladmin): hola
+
+Para ello seguimos los siguientes pasos:
+<code>#: mysqladmin password hola</code> (Definimos la contraseña del administrador de las Bases de Datos)
+<code>#: mysqladmin -u root -p create mambo</code> (creamos la base de datos "mambo". Cuando nos pide la contraseña debemos poner "hola").
+<code>#:mysql -u root -p mysql</code> (Comenzamos la creación del usuario de la BD)
+<code>mysql> grant all on mambo.* to user_mambo@localhost identified by 'passmambo';</code> (Completada la creación)
+
+Para salir de este intérprete hacemos:
+<code>mysql> quit</code>
+
+Si todo ha ido bien, vamos a instalar definitivamente Mambo que ya debe de estar descargado. Personalmente, he decidido instalarlo en mi home; de tal forma que para poder visualizarlo he de crear un directorio llamado <strong>public_html</strong> así:
+<code>~$:mkdir public_html</code>
+
+Bien... movemos el archivo .gz de Mambo a public_html y lo descomprimimos dentro:
+<code>~$: mv MamboVx.x.x.x.tar.gz public_html/ && cd public_html</code>
+<code>~/public_html/$: tar xvzf MamboVx.x.x.x.tar.gz</code>
+<code>~/public_html/$: chmod -R +rwx *</code> (Nos aseguramos de dar permisos a los archivos descomprimidos. Nos aseguramos bien :-)
+
+Una vez concluido todo esto, nos vamos a nuestro navegador web favorito y tecleamos la siguiente dirección: <code>http://localhost/~usuario/</code> Donde "usuario" es el nombre de tu cuenta en tu GNU/Linux.
+
+El navegador te mostrará la fase de instalación de Mambo cuyo dos primeros me salto porque sólo hay que "pasar al siguiente". En el tercer paso hay que rellenar los datos sobre la base de datos. Pues bien... ¡ale, a rellenar! :)
+
+Host Name	       localhost
+MySQL User Name	       user_mambo
+MySQL Password	       passmambo
+MySQL Database Name    mambo
+
+Las demás opciones y datos las dejamos como están y pasamos al siguiente paso. Aquí nos preguntan por el nombre de nuestro sitio web. Por ejemplo: "Sitio mambo de prueba". Al llegar al siguiente paso, se nos pregunta un email y una constraseña del administrador (Path y URL hay que dejarlos tal cual). Rellenamos los datos requeridos y concluimos la instalación pasando al siguiente paso.
+
+En este último paso se nos muestra nuestra configuración elegida en formato PHP. Este código lo pegamos en un archivo que almacenaremos en public_html. Este archivo ha de llamarse <strong>configuration.php</strong> y debe tener permisos de escritura y lectura (<code>~/public_html/ $: chmod +rw configuration.php</code>).
+
+Para concluir debemos eliminar (y sin ninguna compasión) el directorio <strong>installation</strong> incluido en nuestro public_html:
+<code>~/public_html/ $: rm -rf installation</code>
+
+Y, ¡¡¡ya está!!!. Para ver tu web debes hacer ir a <strong>http://localhost/~usuario/</strong> y para el apartado de administración es <strong>http://localhost/~usuario/administrator/</strong>
+
+Joomla, en su instalación, es prácticamente igual. Además, si ya tienes instalado Mambo y quieres pasarte a Joomla sólo tienes que descomprimir los archivos de Joomla donde tengas los de Mambo.
+
+Un saludo!
+

@@ -1,0 +1,28 @@
+---
+migrated: node/669
+layout: post
+title: Nueva versión de UCLM-WiFi
+created: 1178542203
+author: cleto
+category: noticia
+tags:
+- networking
+- GNESIS
+- uclmwifi
+---
+¡Hola a todos!
+
+En el repositorio de GNESIS ya está la nueva versión del script para la conexión a la VPN de la Universidad. Como características nuevas:
+<ul>
+<li>Eliminación del dialog en la parte de la conexión.</li>
+<li>"activawifi.sh" se ha sustituido por "vpn."</li>
+<li>Puedes conectarte a través de cualquier tipo de conexión, no sólo por wireless (este aspecto necesito que se pruebe, ya que mi cuenta de acceso no tiene permisos para un acceso remoto).</li>
+<li>Mejorado el aspecto de configuración.</li>
+</ul>
+
+Para instalarlo debes agregar el repositorio al archivo <tt>/etc/apt/sources.list</tt>:
+<pre>deb http://babel.esi.uclm.es/gnesis unstable main</pre>
+
+Utiliza después "apt-get update" y luego "apt-get install uclmwifi". Si ya lo tienes instalado, no te preocupes: se actualiza a la versión 1.2.
+
+Un saludo!

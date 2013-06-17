@@ -1,0 +1,129 @@
+---
+migrated: node/103
+layout: post
+title: Configurar Eclipse
+created: 1132316036
+author: magmax
+category: receta
+---
+<blockquote>
+El documento pretende ser un manual "paso a paso" que permita configurar un proyecto Java con Eclipse. Se utilizará Eclipse 3.1 y el proyecto creado será un "tomcat project".
+</blockquote>
+<!-- break -->
+
+<h1>Cosas necesarias</h1>
+
+Vamos a utilizar Eclipse 3.1 y el plugin <a href="http://www.sysdeo.com/eclipse/tomcatPlugin.html">com.sysdeo.eclipse.tomcat_3.1.0</a>. Para instalar este plugin basta bajárselo, descomprimirlo y copiarlo al directorio "plugins".
+
+<h1>Creación de un proyecto</h1>
+
+file -> new -> project
+
+Si seleccionamos directamente un "Tomcat Project", Eclipse puede darnos problemas, por lo que trataremos de crear un proyecto normal ("Java Project") y luego lo transformaremos.
+
+Pulsamos "next". En la siguiente pantalla introduciremos un nombre de proyecto. Tenemos que seleccionar si queremos utilizar un proyecto nuevo o aprovechar los fuentes ya existentes. También seleccionaremos la compatibilidad del compilador. Finalmente pulsaremos "next".
+
+La pantalla que aparece nos permite seleccionar el "build path" y el lugar donde dejar los .class. Poned el path a los .class (o un directorio que podáis borrar después, si no estáis seguros), pero el "build path" lo configuraremos más tarde. Pulsamos "Finalizar" y ya tenemos nuestro proyecto nuevo.
+
+<h1>Transformar el proyecto en proyecto Tomcat</h1>
+
+Ya tenemos el proyecto, así que nos podemos ir a la vista llamada "Package Explorer". Buscamos nuestro proyecto, que estará abierto. Abrimos las propiedades (botón derecho -> propiedades) y vamos a la sección "tomcat". En la solapa "General" tenemos que hacer varias cosas:
+
+<ul>
+<li>seleccionar "Is a Tomcat Project". </li>
+<li>Poner en "context name" el nombre del proyecto. Por ejemplo, <tt>/proyecto</tt>.</li>
+<li>En "Subdirectory to set as web application root (optional)" pondremos dónde se encuentra el directorio "WEB-INF" desde la posición de nuestro proyecto. Aún no hemos configurado el Build Path, por lo que podremos poner lo que queramos; sin embargo, si se utiliza el ejemplo del apartado "Default output folder", se tendrá que poner aquí <tt>/webapp</tt></li>
+</ul>
+
+Volvemos al proyecto en la vista "Package Explorer". Pulsamos el botón derecho sobre él, y vamos al menú "Tomcat Project -> Add Tomcat Libraries to build path". Si no aparece este menú es porque nos hace falta el plugin.
+
+
+
+<h1>Configurar el Build Path</h1>
+
+En el apartado anterior lo dejamos a medias, pero es imprescindible configurar el build path.
+
+Primero, se selecciona el proyecto o una clase del proyecto que queremos configurar, y nos vamos a Project -> properties. También se puede pulsar el botón derecho sobre el proyecto en el "Package Explorer" y pulsar "properties".
+
+En la ventana que aparece seleccionamos "Java Build Path". Tendremos 4 pestañas de configuración: "Source", "projects", "libraries", "order and export".
+
+<h2>Source</h2>
+Añadiremos el directorio desde el que cuelguen los paquetes. Por ejemplo, si los paquetes son com.pruebas.probando.1.java, y se encuentra en fuentes/src/com/pruebas/probando, seleccionaremos el directorio "fuentes/src".
+
+Esta tarea "sencilla" puede resultar más difícil de lo que parece. 
+
+<h2>Projects</h2>
+Proyectos de los que depende nuestro proyecto. Está muy chulo, pero puede hacer insufrible la compilación.
+
+<h2>Libraries</h2>
+Muy importante. Se seleccionarán las librerías de la que depende el proyecto. Si éstas se encuentran en un directorio ajeno al introducido en "Source", no podremos añadirlas directamente. Por ello, pulsaremos "Add Class Folder", "Create New Folder", "Advanced"; se pone un nombre al enlace, se selecciona "Link to folder in file system" y se selecciona la carpeta a incluir. Una vez hecho ésto, la carpeta seleccionada aparecerá dentro del proyecto, por lo que podremos incluir los jars (nótese que sólo muestra aquéllos que aún no se han seleccionado).
+
+<h2>Order and Export</h2>
+Muy importante también. Dependiendo de qué se encuentre más arriba, así será de importante a la hora de compilar. Aseguráos de que lo primero de todo está el directorio que pusisteis en "source", es decir: lo primero que tire de vuestro código.
+
+<h2>Default output folder</h2>
+Este apartado se puede ver/modificar desde cualquiera de las pestañas anteriores. Es necesario poner dónde queremos que Eclipse nos deje los ficheros <i>.class</i>. Si queréis que Tomcat lo pueda usar sin problemas, debéis terminar en <tt>WEB_INF/classes</tt>. Por ejemplo: <tt>proyecto/webapp/WEB_INF/classes</tt>
+
+<h1> Configurar Tomcat </h1>
+Una vez configurado el sistema para que pueda compilar, es interesante configurar Tomcat para poder depurar.
+
+Un gran problema es que la configuración de Tomcat no puede hacerse por proyecto, sino que tiene que ser genérica. Por ello, es posible que haya que estar tocándola cada vez que se cambie de proyecto. 
+
+Nos vamos a "Window" -> "Preferences" -> "Tomcat". Se elegirá la versión adecuada y dónde se encuentra la raíz de la instalación. También será necesario indicar dónde se encuentra el fichero de configuración.
+
+Después nos vamos a la sección "Tomcat" -> "JVM Settings". Se selecciona el JRE a utilizar para ejecutar Tomcat y se pone en el classpath todo lo que necesitemos: directorio del .class, y todos los .jar. El orden es importante (más prioridad cuanto más arriba).
+
+No es necesario configurar nada más para que funcione.
+
+
+<h1>Ajustes</h1>
+<h2>Espacios en lugar de tabs</h2>
+Si se trabaja entre varios, puede ser interesante que las tabulaciones se conviertan en espacios. No es nada sencillo hacer esto, por lo que se explicará aquí:
+
+En "Window"->"Preferences"->"Java"->"Code Style"->"Formatter" creamos un nuevo estilo, inicializado con el propio de eclipse. En "Tab Policy" se pone "Spaces only". El tamaño de indentación y el número de espacios también se ponen aquí.
+
+<h2>Indentación con la tecla tab</h2>
+Habitualmente queremos que la tecla "tab" nos tabule la línea actual. Por ello, es normal que queramos marcar también la opción "Java"->"Editor"->"Typing"->"Tab key indents the current line".
+
+<h2>Marcado automático de elementos relacionados</h2>
+Por defecto viene desactivado, pero es muy útil. Permite que, al seleccionar una palabra, se marquen todas las relacionadas. Por ejemplo: al seleccionar una variable, se marcan todas las ocurrencias de dicha variable; al marcar una excepción, todas las ocurrencias que pueden generar la excepción.
+
+Se encuentra en General -> Java -> Editor -> Mark Occurrences, y permite seleccionar qué es lo que quieres que te marque y qué no.
+
+<h2>Anotaciones</h2>
+Existe una cosa llamada "Task Tags" (Java -> Compiler -> Task Tags) muy útil y poco utilizada. Se trata de marcas en los comentarios que Eclipse entiende y puede ofrecernos para solucionar problemas.
+
+Sirven para poner notas como "TODO: falta terminar el método" o "FIXME hay que guardar el valor".
+
+Las anotaciones por defecto son tres, y esto es así porque hay bastante gente que lleva años utilizándolas:
+<ul>
+<li><b>TODO</b>:
+del inglés "to do" (por hacer). Sirve para designar tareas que aún no están terminadas. A menudo Eclipse suele ponerlo en los métodos generados.
+</li>
+<li><b>FIXME</b>:
+Trozos de código que contienen fallos y a los que se tiene que volver para resolver algún problema.
+</li>
+<li><b>XXX</b>:
+Se suele utilizar para designar trozos de código que funcionan, pero que se han comentado para realizar pruebas. Se dejan en el código porque el programador pensó que puede ser útil en el futuro. Esta práctica no es muy recomendable, aunque tenga marca para ello.
+</li>
+</ul>
+
+Eclipse nos permite crear nuevas marcas (recomiendo utilizar palabras en otro idioma distinto del que se escriben los comentarios, para evitar confusiones).
+
+<h2>Plugin para control de memoria</h2>
+
+Uno de los problemas de eclipse es la cantidad de memoria que utiliza. Si queremos ejecutar el recolector de basura java o, simplemente, saber qué memoria se está utilizando, recomiendo el plugin de <a href="http://www.kyrsoft.com/opentools/memmon.html">kyrsoft</a>.
+
+<h2>Línea vertical</h2>
+
+A menudo nos suele gustar que el código tenga un máximo de caracteres por línea. Una manera fácil de conseguirlo es pedirle a Eclipse que nos pinte una línea vertical en una columna determinada.
+
+La manera de conseguir esto es en <tt>window -> preferences -> General -> Editors -> Text Editors</tt>, y se marca la opción "Show print margin", indicándole la columna en la que queremos la línea vertical en el campo "Print margin column".
+
+<h1>Final</h1>
+
+Y con esto está todo configurado. No debería dar ningún problema, y se pueden añadir varios proyectos a un mismo workspace.
+
+
+
+

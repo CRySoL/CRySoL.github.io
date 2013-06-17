@@ -1,0 +1,44 @@
+---
+migrated: node/1529
+layout: post
+title: Nombres de teclas en python
+created: 1309882735
+author: nacho
+category: scriptillo
+tags:
+- Python
+---
+Como nunca me acuerdo de cómo son los nombres de las teclas en Python, y soy tan torpe que no encuentro nunca la página con los nombres, me he escrito este pequeño programita. Lo dejo aquí por si es útil a alguien más:
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/python
+
+import sys
+import gtk
+
+def onKeystroke(widget, event):
+    key = gtk.gdk.keyval_name(event.keyval).upper()
+    label.set_text(key)
+
+def onExit(widget):
+    print "Exiting..."
+    gtk.main_quit()
+    sys.exit(0)
+
+
+label = gtk.Label("Press a key or a combination")
+win = gtk.Window(gtk.WINDOW_TOPLEVEL)
+win.resize(320, 240)
+win.add(label)
+win.connect('destroy', onExit)
+win.connect('key-press-event', onKeystroke)
+
+win.show_all()
+
+gtk.main()
+sys.exit(0)
+
+{% endhighlight %}
+</div>

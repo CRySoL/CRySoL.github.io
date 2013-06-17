@@ -1,0 +1,164 @@
+---
+migrated: node/399
+layout: post
+title: XGL y Beryl en Ubuntu Dapper
+created: 1160405375
+author: cleto
+category: receta
+---
+<blockquote class="warning">
+<b>ATENCIÓN: Esta receta está OBSOLETA. Tienes información completa y actualizada en la página de <a href="http://www.compiz-fusion.org/">Compiz Fusion</a></b>
+</blockquote>
+
+
+<blockquote>
+Los chicos de compiz han cambiado de nombre. Ahora su proyecto se llama <a href="http://forum.beryl-project.org/">Beryl</a> y viene con bastante fuerza. En las primeras versiones ya están haciendo cosas muy chulas y atractivas. Sin duda, el proyecto promete...
+
+La receta que viene a continuación es una actualización de la exitosa <a href="/node/240">Xgl en Ubuntu Dapper con Nvidia</a> que se adapta a los nuevos tiempos y las nuevas aplicaciones.
+</blockquote>
+
+<h2>Introducción</h2>
+El procedimiento que se explica más abajo se ha probado tanto en Ubuntu Dapper como en Ubuntu Edgy sin cambiar ningún paso. Además, las tarjetas que se han probado han sido tanto Nvidia como ATI* (con la aceleración 3D ya configurada).
+
+Antes de comenzar con la instalación propiamente dicha, debemos comprobar que no tenemos ningún rastro del compiz ni del xgl (para empezar de cero). Para ello, ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get remove compiz compiz-gnome xserver-xgl
+{% endhighlight %}
+</div>
+
+Si tenías algo instalado, acepta que APT desinstale todo resto de software anticuado :-P.
+
+*NOTA: a día de hoy (9-10-2006), el soporte para Edgy está muy verde.
+
+<h2>Instalación</h2>
+<h3>Añadiendo repositorios</h3>
+El software que necesitamos para la instalación no viene por defecto en Ubuntu (de momento). Es por ello que debemos añadir repositorios en el archivo <b>/etc/apt/sources.list</b>. Así:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo gedit /etc/apt/sources.list
+{% endhighlight %}
+</div>
+
+Y añade:
+
+<pre>
+deb http://www.beerorkid.com/compiz/ dapper main
+deb http://xgl.compiz.info/ dapper main
+deb-src http://xgl.compiz.info/ dapper main
+</pre>
+
+Los paquetes de beerorkid van firmados, luego tienes que disponer de las claves:
+
+
+<div class="console">
+{% highlight console %}
+$ wget http://www.beerorkid.com/compiz/quinn.key.asc -O - | sudo apt-key add -
+{% endhighlight %}
+</div>
+
+<h3>Preparando el sistema</h3>
+Para actualizar tu sistema, de forma que los paquetes de Beryl y Xgl se puedan instalar, debemos ejecutar lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo aptitude update && sudo aptitude upgrade && sudo aptitude dist-upgrade
+{% endhighlight %}
+</div>
+
+La última acción (dist-upgrade) es algo "comprometida", sobre todo en Edgy (a día de hoy). He comprobado que en Edgy no hace falta hacer el dist-upgrade, sin embargo, en Dapper es obligatorio (si no lo habías hecho recientemente) y es seguro hacerlo (Dapper es estable).
+
+<h3>Instalando</h3>
+
+Sólo hay que instalar estos paquetes:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo apt-get install xserver-xgl libgl1-mesa xserver-xorg libglitz-glx1 beryl beryl-core beryl-manager beryl-plugins beryl-plugins-data beryl-settings emerald emerald-themes
+
+{% endhighlight %}
+</div>
+ 
+<h3>Retoques finales</h3>
+Para hacer más cómo el uso de Xgl y Beryl vamos a configurar Gnome y GDM para tal fin. Primero, añadimos como programa al inicio:
+
+<pre> beryl-manager </pre>
+
+Esto lo hacemos de forma gráfica, desde el menú de Gnome, en Sistema->APreferencias->Sesiones y en la pestaña de "Programas al inicio". Así, sin tener que preocuparnos más adelante, Berly se iniciará automáticamente al hacer login.
+
+Vamos a crear ahora el lanzador del servidor Xgl. Para ello, utilizamos un editor de textos y creamos un archivo de la siguiente forma:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo gedit /usr/bin/startgnomexgl.sh
+{% endhighlight %}
+</div>
+
+Y en su interior colocamos lo siguiente:
+
+<pre>
+Xgl -fullscreen :1 -ac -accel glx:pbuffer -accel xv:pbuffer & sleep 2 && DISPLAY=:1
+# Iniciar Gnome
+exec gnome-session
+</pre>
+
+Esta configuración funciona sin problemas tanto para una ATI como para una Nvidia (siempre y cuando tengamos aceleración 3D activado).
+
+Para evitar problemas mayores, vamos a hacer Xgl sea una sesión. De esta forma, si no nos funciona o tenemos cualquier tipo de problema, podemos volver a nuestra configuración inicial sin causar "grandes daños". Creamos la sesión editando el siguiente archivo:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo gedit /usr/share/xsessions/Gnome-Xgl.desktop 
+{% endhighlight %}
+</div>
+
+Cuyo contenido debe ser el siguiente:
+
+<pre>
+[Desktop Entry]
+Encoding=UTF-8
+Name=gnome-xgl
+Exec=/usr/bin/startgnomexgl.sh
+Icon=
+Type=Application
+</pre>
+
+Finalmente, damos los permisos correspondientes:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo chmod 755 /usr/share/xsessions/Gnome-Xgl.desktop
+$ sudo chmod 755 /usr/bin/startgnomexgl.sh
+{% endhighlight %}
+</div>
+
+Hasta aquí, la instalación de Xgl y Beryl.
+
+<h2>¿Probando? 1,2...</h2>
+Una vez instalado todo, debemos reiniciar el servidor gráfico. Puedes hacerlo de varias formas:
+<ul>
+<li> Saliendo de tú sesión. </li>
+<li> Pulsando Control+Alt+BackSpace (una forma más rápida) </li>
+<li> Desenchunfando y enchunfando de nuevo el ordenador. ¡¡¡MUY POCO RECOMENDABLE!!! :-)</li>
+</ul>
+
+Dejando las gracias a un lado, una vez que hayas reiniciado el sistema gráfico tienes que modificar la sesión que vas a utilizar. Por ello, antes de introducir tus datos de login cambia la sesión a "Gnome-Xgl". Una vez dentro, si todo ha ido bien, comproborás que ya tienes todos los efectos que trae Berly. Además, existe un "applet" en la barra de Gnome para configurar todo el sistema Berly; incluso, trae un selector de temas de escritorio muy "modernos".
+
+<h2>Problemas comunes</h2>
+<ul>
+<li><b>La configuración del teclado</b>: Berly y Xgl puede que te cambien la configuración del teclado. Para volver a una configuración normal mira en Sistema->Preferencias->Teclado. Además de cambiar la distribución del teclado según el idioma, ahí podrás mapear la tecla Super. En "Comportamiento de la Distribución" y, concretamente, en "Comportamiento de la tecla Alt/Windows" puedes hacer que Super esté mapeada en la tecla Windows, por ejemplo.</li>
+</ul>
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://www.guia-ubuntu.org/dapper/index.php/Xgl_y_Beryl">Xgl y Beryl</a>: receta muy actualizada. Es la que seguí en mi caso y la que os he comunicado.</li>
+</UL>

@@ -1,0 +1,223 @@
+---
+migrated: node/1694
+layout: post
+title: Virtual machine unattended Debian installations with libvirt and d-i preseeding
+created: 1356470125
+author: david_villa
+category: receta
+tags:
+- Debian
+---
+That recipe explains how to perform an unattended Debian GNU/Linux installation (thanks to *preseeds*) on a virtual machine using @libvirt@.
+<!--break-->
+"libvirt":http://libvirt.org/ is a virtualization tool/library providing a common API to manage virtual machines over KVM, qemu, LXC, Xen, OpenVZ and many others. A interesting feature of libvirt is @virsh@, an application that allows to perform most of virtual machine operations from command line. That is good because... you can script virtual machine deployments!
+
+h2. @libvirt@ packages
+
+You need to install:
+
+* @libvirt-bin@
+* @virtinst@
+* @virt-viewer@
+
+h2. Virtual machine networking
+
+You will need a virtual network to connect virtual machines to the host computer, @libvirt@ comes with a *default* nat-based virtual network. You may see details of that network using next command:
+
+
+<div class="console">
+{% highlight console %}
+
+# export LIBVIRT_DEFAULT_URI=qemu:///system
+# virsh net-dumpxml default
+<network>
+  <name>default</name>
+  <uuid>0ced79b9-2b84-e3cd-eb1e-3f1521231c89</uuid>
+  <forward mode='nat'/>
+  <bridge name='virbr0' stp='on' delay='0' />
+  <ip address='192.168.122.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.122.2' end='192.168.122.254' />
+    </dhcp>
+  </ip>
+</network>
+{% endhighlight %}
+</div>
+
+It is required to start default network before run installer:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# export LIBVIRT_DEFAULT_URI=qemu:///system
+# virsh net-start default
+{% endhighlight %}
+</div>
+
+
+h2. @virt-install@
+
+Next command installs a debian net-install in a virtual machine with name *node1*,  RAM 512MB, virtual hard disk with name @node1.img@ with a maximum of 8GB. If you do not specify other network, default is used.
+
+
+
+<div class="console">
+{% highlight console %}
+
+# export LIBVIRT_DEFAULT_URI=qemu:///system
+# virt-install \
+  --debug \
+  --name=node1 \
+  --ram=512 \
+  --disk ./node1.img,size=8 \
+  --location=http://ftp.us.debian.org/debian/dists/testing/main/installer-i386
+{% endhighlight %}
+</div>
+
+
+The @virt-install@ script has many options with a lot of detail. The command above is the minimal functional option set that I found, but you probably may improve or customize it.
+
+Now you must connect to the virtual machine console:
+
+
+<div class="console">
+{% highlight console %}
+
+# virt-viewer node1
+{% endhighlight %}
+</div>
+
+...and continue with the typical Debian installation wizard
+
+Using @virsh@ you are able to do a lot of operation over your virtual machine from command line:
+
+
+<div class="console">
+{% highlight console %}
+
+# virsh start node1
+# virsh shutdown node1
+# virsh reboot node1
+# virsh destroy node1
+# virsh resume node1
+# virsh screenshot node1
+# virsh snapshot-create node1
+# virsh snapshot-revert node1
+{% endhighlight %}
+</div>
+
+And many many others. Also it is possible to manage virtual machines in remote actual computers (even migrate among them!).
+
+h2. Debian installer preseeding
+
+But we want to improve this procedure. We want to get a basic but fully functional Debian installation with absolutely *no manual* operation. To make that possible we can use the Debian Install Preseeding system. You need to write a configuration file with the answers to all the wizard questions. For this recipe I am using next preseed file:
+
+[ "preseed.cfg":https://bitbucket.org/DavidVilla/libvirt-toys/raw/tip/debian-pressed/preseed.cfg ]
+
+<temp-div>
+{% highlight text %}
+d-i debian-installer/locale string es_ES
+d-i console-keymaps-at/keymap select es
+d-i keyboard-configuration/xkb-keymap select es
+
+d-i netcfg/choose_interface select auto
+d-i netcfg/get_domain string unassigned-domain
+
+d-i mirror/protocol string http
+d-i mirror/country string manual
+d-i mirror/http/hostname string http.us.debian.org
+d-i mirror/http/directory string /debian
+d-i mirror/http/proxy string
+d-i mirror/suite select testing
+
+d-i clock-setup/utc boolean true
+d-i time/zone string Europe/Eastern
+d-i clock-setup/ntp boolean true
+
+d-i partman-auto/method string regular
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-md/device_remove_md boolean true
+d-i partman-lvm/confirm boolean true
+d-i partman-auto/choose_recipe select atomic
+d-i partman/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+
+d-i passwd/make-user boolean false
+d-i passwd/root-password-crypted password $1$6vSrqLkZ$qUkEBeV.ptGOMZoyeYZ.b/
+tasksel tasksel/first multiselect standard
+d-i pkgsel/include string openssh-server puppet
+popularity-contest popularity-contest/participate boolean true
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean false
+d-i finish-install/reboot_in_progress note
+{% endhighlight %}
+</div>
+
+You can get detailed information of all these sentences in the "Automating the installation using preseeding":http://d-i.alioth.debian.org/tmp/en.amd64/apb.html document.
+
+Note the @root-password-crypted@ line. This contains the MD5 sum for the root account password. This has been created executing the command:
+
+<div class="console">
+{% highlight console %}
+
+$ printf "r00tme" | mkpasswd -s -m md5
+{% endhighlight %}
+</div>
+
+h2. Serving the @preseed.cfg@ file
+
+You must make this file accesible for the installer. A simple way is to install @lighttpd@ and copy it in @/var/www/preseed.cfg@. 
+
+Other alternative is to run next commad in the directory containing the file.
+
+
+<div class="console">
+{% highlight console %}
+
+# python -m SimpleHTTPServer 80
+{% endhighlight %}
+</div>
+
+h2. Ask @virt-install@ load preseeds
+
+We are going to repeat the installation using the preseed configuration. The new version of the @virt-install@ command include an @extra-args@ argument that will be passed as kernel options to the virtual machine:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# export LIBVIRT_DEFAULT_URI=qemu:///system
+# virt-install \
+  --debug \
+  --name=node1 \
+  --ram=512 \
+  --disk ./node1.img,size=8 \
+  --location=http://ftp.us.debian.org/debian/dists/testing/main/installer-i386 \
+  --extra-args="\
+    auto=true priority=critical vga=normal hostname=node1 \
+    url=http://192.168.122.1/preseed.cfg"
+ {% endhighlight %}
+</div>
+
+
+@extra-args@ means:
+
+* ask only critical installation details.
+* set @node1@ as hostname. This way you can use the same pressed file to build many virtual machines.
+* URL to fetch the preseed config (at the host webserver in this case).
+
+h2. I want more, please
+
+If you enjoy that, read @virsh@ manpage and take a look to "virt-manager":http://virt-manager.org/ ... :-)
+
+h2. References
+
+* virt-install and virsh manpages
+* <a href="http://www.debian.org/releases/stable/i386/apbs04.html.es">http://www.debian.org/releases/stable/i386/apbs04.html.es</a>
+* <a href="https://help.ubuntu.com/12.10/installation-guide/i386/preseed-contents.html">https://help.ubuntu.com/12.10/installation-guide/i386/preseed-contents.html</a>
+* <a href="http://www.50ply.com/blog/2012/07/16/automating-debian-installs-with-preseed-and-puppet/">http://www.50ply.com/blog/2012/07/16/automating-debian-installs-with-preseed-and-puppet/</a>

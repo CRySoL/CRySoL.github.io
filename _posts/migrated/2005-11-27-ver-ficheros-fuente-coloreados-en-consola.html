@@ -1,0 +1,94 @@
+---
+migrated: node/123
+layout: post
+title: Ver ficheros fuente coloreados en consola
+created: 1133086584
+author: david_villa
+category: receta
+---
+<blockquote>Como usar <b>GNU less</b> para ver ficheros fuente con resalte de sintaxis en consola</blockquote>
+<!--break-->
+
+Aprovechando <tt>lesspipe</tt> es sencillo conseguir que <tt>less</tt> se comporte de modo distinto dependiendo del tipo de fichero que se abre y de ese modo integrarlo con <tt>highlight</tt> o <tt>GNU source-highlight</tt> para conseguir resaltado sintáctico en consola.
+
+<h1>1. lesspipe</h1>
+
+<tt>lesspipe</tt> es un programa que permite modificar el comportamiento de <tt>less</tt> de un modo muy sencillo. Primero debes escribir un fichero <tt>$HOME/.lessfilter</tt>. Este fichero normalmente es un script bash que debe tener permisos de ejecución.
+
+En los próximos apartados se incluyen ejemplos de <tt>lessfilter</tt> para <tt>highlight</tt> y <tt>souce-highlight</tt> que se utilizan para colorear código,	aunque en realidad se puede usar less para todo tipo de ficheros, como listado de archivos comprimidos, imágenes, ps, html, etc.
+
+Para que funcione es necesario además incluir lo siguiente en tu fichero <tt>$HOME/.bashrc</tt>:
+
+<pre>eval $(lesspipe)
+export LESS=-r
+</pre>
+
+<h1>2. <a href="http://www.andre-simon.de/">hightlight</a></h1>
+
+Es una utilidad que permite colorear ficheros fuente de varios lenguajes y generar varios formatos de salida, como HTML, LaTeX o secuencias de escape ANSI.
+
+La posibilidad de generar salida para la consola (opción -A) se incorporó en la versión 2.1, así que asegúrate que tienes una versión igual o superior.
+
+<h2>Fichero <tt>.lessfilter</tt></h2>
+
+<pre>  #!/bin/sh
+
+  set -e
+  file "$1" | grep text &gt; /dev/null
+  highlight -A "$1"
+  exit 0
+</pre>
+
+Si usas highlight 2.2-4 o posterior el script es aún más sencillo:
+
+<pre>  #!/bin/sh
+	  
+  set -e
+  highlight -A "$1"
+  exit 0
+</pre>
+
+
+<h1>3. <a href="http://www.gnu.org/software/src-highlite/source-highlight.html">source-highlight</a></h1>
+
+Es un programa muy similar a <b>highlight</b> pero más limitado. Necesitas la versión 1.8 como mínimo
+
+<h2>3.1. Fichero <tt>.lessfilter</tt></h2>
+
+<pre>#!/bin/sh
+
+case "$1" in
+*.c)
+source-highlight -s cpp -f esc "$1" -o STDOUT
+;;
+*.cc)
+source-highlight -s cpp -f esc "$1" -o STDOUT
+;;
+*.py)
+source-highlight -s python -f esc "$1" -o STDOUT
+;;
+*)
+# We don't handle this format.
+exit 1
+esac
+	
+exit 0
+</pre>
+
+Puedes utilizar este fichero <a href="http://arco.inf-cr.uclm.es/svn/public/misc/lessfilter/lessfilter_source-highlight"><tt>.lessfilter</tt> </a> para <tt>source-highlight</tt>.
+
+<h1>Referencias</h1>
+<ul>
+  <li>
+<a href="http://www.greenwoodsoftware.com/less/">less</a>
+  </li>
+  <li>
+<a href="http://www-zeuthen.desy.de/~friebel/unix/lesspipe.html">lesspipe</a>
+  </li>
+  <li>
+   <a href="http://www.andre-simon.de/">hightlight</a>
+  </li>
+  <li>
+   <a href="http://www.gnu.org/software/src-highlite/source-highlight.html">GNU source-highlight</a>
+  </li>
+</ul>

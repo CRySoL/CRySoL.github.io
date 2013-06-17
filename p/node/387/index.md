@@ -1,0 +1,4 @@
+---
+layout: refresh
+refresh_to_post_id: /historia/2006-08-28/aire-fresco-en-el-entretenimiento
+---

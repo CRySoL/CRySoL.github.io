@@ -1,0 +1,50 @@
+---
+migrated: node/1416
+layout: post
+title: Blender -  Efecto de Profundidad de Campo
+created: 1287777844
+author: nacho
+category: receta
+tags:
+- blender
+---
+<blockquote>La profundidad de campo (DoF por sus siglas en inglés, _depth of field_) es un efecto que se produce cuando se enfoca un punto concreto, y el resto de elementos, tanto los que están más lejos como los que están más cerca, aparecen desenfocados, en una cantidad proporcional a la distancia del punto de enfoque. Puede sirve para dar un efecto artístico a la imagen, o para centrar la antención en un elemento concreto. En esta receta veremos cómo simular este efecto en Blender 2.54</blockquote>
+<!--break-->
+<h2>Ajustes de Cámara</h2>
+Normalmente, al renderizar una escena, todos los elementos de la imagen aparecen enfocados, ya que no hay definido ningún punto de enfoque. Lo primero que hay que hacer para conseguir este efecto es definir el punto en el que la imagen será completamente nítida y estará perfectamente enfocada.
+
+Para ello, seleccionamos la cámara y, en el panel de propiedades, localizaremos en la pestaña *Lens* la parte donde pone *Depth of Field*. Aquí encontraremos dos elementos: un cuadro de texto y un botón deslizante etiquetado como *Distance*. Con estos dos elementos podemos controlar el punto de enfoque. Para saber dónde está y ver las modificaciones que hacemos, activaremos el checkbox *Limits*, que se encuentra un poco más abajo. Veremos que aparece una cruz amarilla, que indica el punto de enfoque.
+
+Desplazando el deslizador *Distance* podemos situar el punto de enfoque a una distancia específica de la cámara. Esto es útil cuando sabemos exactamente la distancia a la que queremos situarlo, aunque esto no es lo habitual.
+
+Lo más común es querer situar el enfoque en un objeto concreto, y para eso utilizaremos el cuadro de texto. En él podemos escribir el nombre del objeto que queremos enfocar, y la cruz amarilla que representa el foco se colocará sobre él.
+
+<center>
+<a href="http://crysol.org/files/tutorial-dof_1.png" target=_crysol><img src="http://crysol.org/files/tutorial-dof_1.png" width="50%"/></a>
+</center>
+
+Aunque hemos definido una distancia de enfoque, podemos comprobar que al renderizar la imagen sigue saliendo totalmente nítida. Para aplicar el efecto es necesario utilizar los _nodos de composición_.
+
+<h2>Composición</h2>
+Seleccionamos la vista de composición y activamos el botón *Compositing Nodes* y el checkbox *Use nodes*. Tomaremos la entrada del nodo *Render Layers* (Add->input->render layers), y la salida será el nodo *Composite* (add->output->composite). Si queremos, podemos añadir un nodo *Viewer*, cuyo resultado podemos ver en la ventana de edición de imagen, seleccionando *Viewer Node*. De esta forma podemos ver los cambios que vayamos haciendo sin necesidad de renderizar cada dos por tres (seis).
+
+Para aplicar el efecto de DoF, añadiremos un nodo *Defocus* (add->filter->defocus) y conectaremos la salida de *render layers* con la entrada *image* del *defocus*. También conectaremos la salida *Z* con la entrada homónima, y activamos el checkbox *Use z-buffer*. Con esto conseguimos controlar la cantidad de desenfoque mediante el búfer de profundidad de la imagen. Debería quedar algo como la imagen:
+<a href="http://crysol.org/files/tutorial-dof_2.png" target=_crysol><img src="http://crysol.org/files/tutorial-dof_2.png" width="50%"/></a>
+Podeis jugar un poco con los parámetros del nodo Defocus, para ajustar el efecto del desenfoque:
+
+* El *Bokeh type* define cómo se ven los objetos desenfocados. Yo he usado triangular, por eso el fondo se ve con triángulos de colores (el fondo es un cielo negro con estrellas de colores. Lo sé, es hortera, pero es para efectos demostrativos).
+* *Angle* sirve para aplicarle una rotación al bokeh
+* *fStop*: este es el parámetro más importante. Define la cantidad de desenfoque. El valor por defecto (127) indica un desenfoque nulo, es decir, todos los objetos están enfocados. A medida que lo disminuyáis, aumentará el desenfoque (y se notará más en los objetos más alejados del foco).
+* *MaxBlur*: permite establecer un máximo de desenfoque, de manera que el cálculo se detenga aunque el valor de fStop indique que deba continuar. Es útil para que el renderizado no se eternice.
+* *Threshold*: indica el umbral de distancia para considerar que el desenfoque es seguro. Se utiliza para corregir errores que pueden surgir al tener, por ejemplo, un objeto enfocado contra un fondo lejano muy desenfocado; en este caso es posible que el desenfoque del fondo se introduzca en los bordes del objeto. Generalmente no hace falta cambiarlo.
+* *Preview*: permite obtener una vista rápida del efecto de desenfoque.
+* *Use Z-Buffer*: indica al nodo que utilice la entrada "Z" para calcular el desenfoque. Si no se usa, el desenfoque se controla con el botón deslizante que aparece en la entrada "Z".
+* *Z-Scale*: Es posible conectar una textura en blanco y negro en la entrada Z para utilizarla como buffer. Las texturas se interpretan en el rango [0, 1], que puede resultar demasiado estrecho. Con este valor se consigue aumentar el rango.
+
+<a href="http://crysol.org/files/tutorial-dof_render.png" target=_crysol><img src="http://crysol.org/files/tutorial-dof_render.png" width="50%"/></a>
+
+<h2>Erratas</h2>
+Si encuentras algún error o incongruencia en la receta, por favor, deja un comentario.
+
+<h2>Referencias</h2>
+<a href="http://www.blender.org/development/release-logs/blender-243/composite-defocus/">http://www.blender.org/development/release-logs/blender-243/composite-defocus/</a>

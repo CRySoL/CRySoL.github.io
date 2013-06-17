@@ -1,0 +1,145 @@
+---
+migrated: node/620
+layout: post
+title: Mantener un paquete Debian con svn-buildpackage
+created: 1174242079
+author: david_villa
+category: receta
+tags:
+- Debian-devel
+- control de versiones
+---
+bq(head). Esta receta explica cómo usar la herramienta @svn-buildpackage@ para mantener un paquete Debian existente.
+<!--break-->
+h2. Introducción
+
+Utilizar control de versiones para los ficheros de gestión de un paquete Debian tiene muchas "ventajas":http://www-user.rhrk.uni-kl.de/~blochedu/svn-docs/HOWTO.html/ch-intro.html#s-feat. Para esta receta voy a partir del paquete "pyhello", que hicimos en la anterior receta "Empaquetar un script Python para Debian (y mantenerlo)":node/325. Si no la conoces, échale un vistazo aunque sepas de qué va el tema.
+
+h2. Ingredientes
+
+* svn-buildpackage
+* lintian
+
+
+h2. Repo subversion
+
+Si eres mantenedor de Debian es fácil conseguir acceso a los repositorios subversion de "alioth":http://alioth.debian.org/ para subir allí tus ficheros. Pero si eres un mantenedor _amateur_ tendrás que hacerte tu propio repositorio. Para hacer el repositorio mira la receta "Servir un repositorio subversion con Apache-2.0":node/162. Si no necesitas que sea accesible remotamente, basta con que sigas únicamente la sección "Crear el repositorio" de dicha receta. A partir de ahora voy a suponer que tienes tu repositorio en @/var/deb-repo@.
+
+h2. Migrando el paquete
+
+Usa @svn-inject@ para subir tu paquete al repositorio. Este programa se encarga de crear el módulo y los directorios necesarios. Así que es tan fácil como ejecutar:
+
+
+<div class="console">
+{% highlight console %}
+~/prj$ svn-inject -o -c 2 /ruta/al/paquete/antiguo/pyhello-0.1-1.dsc file:///var/deb-repo
+{% endhighlight %}
+</div>
+
+A parte de crear el módulo @pyhello@ en el repo (como he dicho antes), ha hecho también un _ckeck out_ en el directorio actual, de modo que echa un vistazo:
+
+
+<div class="console">
+{% highlight console %}
+~/prj$ ls pyhello
+tags
+trunk
+~/prj$ svn info pyhello
+Ruta: pyhello
+URL: file:///var/deb-repo/pyhello
+Raíz del repositorio: file:///var/deb-repo
+UUID del repositorio: 57189996-dc92-4614-af31-cdb96cf453dc
+Revisión: 1
+Tipo de nodo: directorio
+...
+
+{% endhighlight %}
+</div>
+
+h2. mergeWithUpstream
+
+@svn-buildpackage@ tiene dos modos de uso:
+
+* Manteniendo en el repo también los ficheros del uptream (el software que estás empaquetando). Es la opción por defecto y es lo recomendable cuando es un paquete Debian nativo, es decir, el mantenedor es el autor del paquete y sólo se distribuye en Debian.
+* Manteniendo sólo los ficheros de gestión del paquete.  Se puede activar con la opción '-o' de @svn-inject@ o con una propiedad subversion que se llama "mergeWithStream". Esto es lo habitual y es lo que hemos hecho en el paso anterior. En este modo es necesario poner los ficheros .tgz del upstream en un directorio llamado @tarballs@.
+
+h2. Compilando el paquete
+
+Desde el directoio @trunk@ ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+~/prj/pyhello/trunk$ svn-buildpackage -us -uc -rfakeroot
+{% endhighlight %}
+</div>
+
+Si además quieres que después de compilar se verifiquen posibles errores con @lintian@ escribe:
+
+
+
+<div class="console">
+{% highlight console %}
+
+~/prj/pyhello/trunk$ svn-buildpackage -us -uc --svn-lintian -rfakeroot
+{% endhighlight %}
+</div>
+
+
+Normalmente, @svn-builpackage@ se negará a compilar el paquete a menos que todos los ficheros modificados hayan sido subidos al repo. Si quieres compilar aunque no cumplas esa condición, añade la opción @--svn-ignore@
+
+El paquete generado queda en @~/prj/pyhello/build-area/pyhello_0.1-1_i386.deb@
+
+h2. Cerrar un bug
+
+Si arreglas algún problema en el paquete (sin que haya salido una nueva versión del uptream) tendrás que regenerar el paquete para su distribución. Este nuevo paquete debe tener un número de versión posterior, en concreto suele cambiar el número que va después del guión. Para crear una nueva minor-release después de arreglar los problemas, ejecuta:
+
+
+
+<div class="console">
+{% highlight console %}
+
+~/prj/pyhello/trunk$ svn-buildpackage --svn-tag-only
+{% endhighlight %}
+</div>
+
+
+Esto ha creado una nueva entrada en el @debian/changelog@, que debes editar convenientemente. Después, puedes compilar la nueva versión del paquete del mismo modo que has hecho antes, que ahora queda en @~/prj/pyhello/build-area/pyhello_0.1-2_i386.deb@
+
+Y cuando todo sea correcto, sube los cambios al repo con:
+
+
+<div class="console">
+{% highlight console %}
+~/prj/pyhello$ svn ci 
+{% endhighlight %}
+</div>
+
+Fíjate en que ahora tienes un nuevo directorio en @pyhello/tags/0.1-1@ que representa la versión anterior del paquete.
+
+Este proceso es el equivalente al "dch -i" cuando no se usa svn-buildpackage.
+
+h2. Nueva versión del 'upstream'
+
+Cuando el autor produce una nueva versión de su programa, tú como mantenedor del paquete debes empaquetarla. Para ello, descarga el .tar.gz de la web o repo del autor y ejecuta el siguiente comando:
+
+
+<div class="console">
+{% highlight console %}
+~/prj/pyhello/trunk$ svn-upgrade /tmp/pyhello-0.2.tar.gz 
+{% endhighlight %}
+</div>
+
+Después, realiza los mismos pasos que en la sección anterior para cerrar un bug.
+
+Este proceso es el equivalente al "uupdate -u" en la forma 'manual'.
+
+h2. Referencias
+
+* "svn-buildpackage - maintaining Debian packages with Subversion":http://www-user.rhrk.uni-kl.de/~blochedu/svn-docs/HOWTO.html/
+* "Manage your Debian packages with Subversion and pbuilder":http://workaround.org/moin/SvnBuildpackage
+* "Manage your Debian packages with Subversion and debuild":https://trac.cyconet.org/debian/wiki/SvnBuildPackage
+
+* "Debian Perl Group Subversion Guide":http://pkg-perl.alioth.debian.org/subversion.html
+* "Quick reference of SVN commands for pkg-games":http://wiki.debian.org/Games/SVN
+* "SvnBuildpackage":http://workaround.org/moin/SvnBuildpackage

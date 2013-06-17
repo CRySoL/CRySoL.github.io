@@ -1,0 +1,107 @@
+---
+migrated: node/1227
+layout: post
+title: Configuración y uso de Pbuilder
+created: 1253788799
+author: Lk2
+category: receta
+tags:
+- Arco
+- Debian-devel
+---
+bq(head). *Pbuilder* es un sistema de construcción automática de paquetes Debian. El principal objetivo de este sistema es poder generar paquetes Debian (o Ubuntu) sin "ensuciar" nuestro sistema con las dependencias de los paquetes que estemos generando.
+<!--break-->
+h2. Instalación
+
+Lo primero de todo, como es natural, es instalar el paquete *pbuilder*. Para ello, como ya sabes, usa apt-get/aptitude/synaptics/tu-sistema-de-paquetes-favorito para hacerlo. Por ejemplo, con @aptitude@:
+
+
+<div class="console">
+{% highlight console %}
+# aptitude install pbuilder
+{% endhighlight %}
+</div>
+
+h2. Configuración
+
+El sistema *pbuilder* utiliza dos ficheros de configuración; el primero está en @/etc/pbuilderrc@, que será el utilizado por todos los usuarios si no definen el segundo fichero de configuración.
+
+Este segundo (y en mi opinión más importante fichero) se debe ubicar en el directorio del usuario que vaya a usar *pbuilder*. En tu caso, será @$HOME/.pbuilderrc@
+
+Ambos ficheros tienen la misma forma de construirse, que simplemente se trata de un script en Bash. En este script debemos especificar una serie de variables, las cuales serán usadas por *pbuilder* para averiguar para que versión de Debian/Ubuntu quieres compilar tus paquetes. Esto te permite hacer _virguerías_ como tener diferentes repositorios para cada distribución/versión y cosas así.
+
+De todos modos, estos ficheros son opcionales ya que podemos decirle a *pbuilder*, mediante opciones, lo que queremos generar.
+
+Un ejemplo mínimo de fichero de configuración sería el siguiente:
+
+<pre>
+PBUILDER_DIR=$HOME/pbuilder
+DIST=sid
+BASETGZ="$PBUILDER_DIR/$DIST-base.tgz"
+DISTRIBUTION="$DIST"
+BUILDRESULT="$PBUILDER_DIR/$DIST/result/"
+BUILDPLACE="$PBUILDER_DIR/build/"
+APTCACHE="$PBUILDER_DIR/$DIST/aptcache/"
+BINDMOUNTS="$PBUILDER_DIR/$DIST/result"
+OTHERMIRROR="deb file:$HOME/pbuilder/$DIST/result ./"
+MIRRORSITE=http://ftp.uk.debian.org/debian/
+</pre>
+
+Con esto se le indica a *pbuilder* que su directorio de trabajo será @$HOME/pbuilder@ (buena idea para ejecutar pbuilder como _sudo_), que distribución será la que se generará (sid), los nombres de los directorios y ficheros que usará y el repositorio de donde descargará los paquetes del chroot.
+
+Naturalmente, los directorios que se especifican en el fichero de configuración *deben* existir para la correcta preparación del entorno y compilación de los paquetes.
+
+h2. Generar las imágenes de *pbuilder*
+
+El primer paso del proceso de uso de *pbuilder* es crear las imágenes para chroot de la distribución para la que queramos generar. Para hacerlo, simplemente escribe en tu terminal
+
+
+<div class="console">
+{% highlight console %}
+$ sudo pbuilder create
+{% endhighlight %}
+</div>
+
+El proceso tarda un poco (sobre todo dependiendo de la velocidad de la red). Como resultado obtendrás, en el directorio que hayas configurado (para el ejemplo @$HOME/pbuilder@) un par de directorios (build y el nombre de la distro que estés generando).
+
+De vez en cuando sería MUY conveniente que actualices esta imagen generada. Nada tan fácil:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo pbuilder update
+{% endhighlight %}
+</div>
+
+Una vez terminado sin errores, estás listo para generar tus paquetes.
+
+*Edición 1/10/2010*: recientes cambios en la forma de funcionar de _sudo_ hacen que algunas variables de entorno (en concreto _$HOME_) se mantengan para el usuario destino del _sudo_. Es decir, que al ejecutar con _sudo_ las ordenes explicadas en este apartado, al intentar leer el fichero de configuración @$HOME/.pbuilderrc@ intentará leer @/root/.pbuilderrc@. Si esto os ocurre y queréis evitarlo deberéis añadir al fichero @/etc/sudoers@ (configuración de _sudo_) la siguiente línea:
+
+<pre>Defaults        env_keep += HOME</pre>
+
+Para más información sobre este cambio en _sudo_ leer @/usr/share/doc/sudo/UPGRADE.gz@
+
+h2. Creación de nuestro primer paquete
+
+Una vez terminado el proceso de creación de la imagen seguro que no puedes esperar para generar tu primer paquete ;). Empezaremos por algo sencillito como descargar el código fuente desde los repositorios APT de Debian (que ya incluye los ficheros necesarios para generar el paquete) y compilarlo usando *pbuilder*.
+
+Elige un paquete (el que más rabia te dé) y descarga su código fuente en el directorio que te apetezca (por ejemplo, en @/tmp@):
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ cd /tmp
+$ apt-get source gentoo
+$ cd gentoo-0.15.3
+$ pdebuild
+{% endhighlight %}
+</div>
+
+
+Y a esperar toca... Pasado un tiempo (más o menos dependiendo del paquete que estés compilando) pbuilder terminará el proceso y encontrarás todos los ficheros necesarios en el directorio que tengas configurado como @BUILDRESULT@ en el fichero de configuración.
+
+h2. Referencias
+
+* <a href="http://www.netfort.gr.jp/~dancer/software/pbuilder-doc/pbuilder-doc.html">http://www.netfort.gr.jp/~dancer/software/pbuilder-doc/pbuilder-doc.html</a>

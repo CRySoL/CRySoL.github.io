@@ -1,0 +1,51 @@
+---
+migrated: node/898
+layout: post
+title: Llamadas VoIP desde NDS
+created: 1207061498
+author: mjsantof
+category: receta
+tags:
+- Arco
+- NDS
+---
+bq(head). Si ya podemos conectar nuestra NDS a "la  Fonera" ¿por qué no utilizar esa conexión para hacer algo más? Podemos hacer llamadas por VoIP a números fijos, sin ningún coste, y lo mejor de todo, DESDE NUESTRA NDS!  gracias a SVSIP.
+<!--break-->
+
+
+<h2> Instalación y configuración</h2>
+Antes de descargarnos la aplicación, lo primero que necesitamos en una cuenta con alguno de los proveedores de telefonía IP, <a href="http://svsip.free.fr/spip.php?article14"> aquí</a> encontraréis algunos junto con su configuración.  (Nota: Skype no es válido porque no utiliza SIP). 
+
+Yo he utilizado VoipBuster, aunque aviso que para poder crear una cuenta de usuario con este proveedor hay que descargarse un .exe desde su página. La instalación no ha dado problemas con el wine, pero no he conseguido ejecutarlo... 
+
+Una vez que ya tenemos una cuenta con algún proveedor, pasamos a descarganos la aplicación SVSIP de la <a href= "http://svsip.free.fr/spip.php?rubrique17"> página del autor </a>. 
+
+Una vez que hemos descargado y descomprimido el archivo, en el directorio svsip está el archivo config.txt, que tendremos que completar con los datos del proveedor de telefonía IP y de la cuenta de usuario, quedando de la siguiente manera:
+<pre>
+# This is a comment in the config file.
+# Information on http://svsip.free.fr
+
+# Set domain sip provider (example: freephonie.net)
+--domain sip.VoipBuster.com
+
+# Set authentication username
+--username XXX
+
+# Set authentication password
+--password XXX
+
+# Optional registration interval (default 55) (for freephonie set 1800)
+--reg-timeout 1800
+
+# Optional microphone volume (default 1.0)
+--mic-level 3.0
+
+# Nuevo control de altavoz (default 1.0)
+--speaker-level 2.0 
+
+</pre>
+
+
+Finalmente, copiamos en el raíz de nuestra flashcard o tarjeta de memoria el directorio &quot;svsip&quot; y el ejecutable para la NDS &quot;svsip.nds&quot;. Ahora, si no tenéis configurada la conexión al punto de acceso, el ejecutable &quot;wifi-config.nds&quot; que viene con el archivo comprimido descargado os ayudará a elegir y a configurar la conexión.
+
+Y con esto, ya podéis hacer pruebas!

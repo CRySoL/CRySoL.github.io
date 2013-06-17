@@ -1,0 +1,85 @@
+---
+migrated: node/1441
+layout: post
+title: Planificación manual de CPU's con taskset
+created: 1292336626
+author: int-0
+category: receta
+tags:
+- linux (el kernel, qué si no?)
+---
+<blockquote>Imaginemos que tenemos un sistema con 20 procesadores. Nuestro <em>linux</em> (si, el <em>kernel</em>) tiene un planificador (o <em>scheduler</em>) muy majo que reparte todos los procesos entre los procesadores de forma que todos se queden más o menos equiparados en cuanto a carga. Ahora supongamos que algunos procesos consumen de vez en cuando mucha CPU y no queremos que esta sobrecarga afecte a algunas CPU's (vale, es un escenario muy específico, pero os aseguro que se da ;)). ¿Cómo podemos alterar esta planificación para algunos casos? pues fácil, con esta receta :).</blockquote>
+<!--break-->
+<h2>La herramienta <em>taskset</em></h2>
+Este programilla en Debian lo podemos encontrar en <em>util-linux</em>:
+
+<div class="console">
+{% highlight console %}
+# aptitude install util-linux
+{% endhighlight %}
+</div>
+
+Y es el que nos permitirá jugar con el <em>affinity flag</em>
+En algunos sistemas <GNU/Linux> esta herramienta se encuentra en el paquete <em>schedutils</em>.
+
+<h2>El <em>affinity flag</em></h2>
+El <b>AF</b> es una máscara de bits que se crea para cada nuevo proceso e indica al planificador qué procesadores pueden ejecutar dicho proceso. En esta máscara cada bit representa a un procesador, siendo el procesador #0 el bit menos significativo.
+
+Cuando un proceso se crea, por defecto su AF es 0xFFFFFFFF. Esto significa que cuando el proceso sea desalojado de un procesador, cualquier otro procesador podrá seguir con su ejecución.
+
+Por defecto esta solución permite al planificador del kernel seleccionar cada vez cualquier CPU para cualquier proceso.
+
+Cualquier usuario puede obtener el AF de un proceso de una forma fácil, imaginemos que el proceso tiene como PID el <b>12345</b>:
+
+<div class="console">
+{% highlight console %}
+$ taskset -p 12345
+pid 1611's current affinity mask: 3
+{% endhighlight %}
+</div>
+
+¡Vaya! ¡os he engañado! esto me ha dicho <3> en lugar del numerajo que os había dicho... Pues muy sencillo, en el caso del ejemplo resulta que el sistema tiene sólo 2 procesadores: esto es, los dos bits menos significativos a 1 o lo que es lo mismo, 3 en decimal. ¿Qué quiere decir esto? pues que por defecto el FA tiene a 1 todos los CPU's de nuestro sistema.
+
+<h2>Modificar el AF</h2>
+Ya sabemos como funciona por defecto el AF, ahora bien, hemos dicho que un determinado proceso no queremos que nos ocupe una determinada CPU. Lo único que debemos hacer es alterar su AF: si no queremos que pueda entrar en la CPU #0 entonces su AF debe ser <b>0xFFFFFFFE</b>. Ahora supongamos que el <em>PID</em> de dicho proceso es <b>12345</b>:
+
+<div class="console">
+{% highlight console %}
+ # taskset -p 0xFFFFFFFE 12345
+{% endhighlight %}
+</div>
+
+Esta solución es válida si el proceso ya estaba en ejecución, pero si queremos lanzar uno nuevo especificando su AF:
+
+<div class="console">
+{% highlight console %}
+ # taskset 0xFFFFFFFE /etc/init.d/lapd start
+{% endhighlight %}
+</div>
+
+Y si somos unos vaguetes y no queremos andar con máscaras, podemos indicar también una lista de CPU's donde puede correr nuestro proceso:
+
+<div class="console">
+{% highlight console %}
+ # taskset -p -c 1,2,5-8 12345
+{% endhighlight %}
+</div>
+
+Esto hace que el proceso cuyo <em>PID</em> es 12345 pueda ser procesado por las CPU's #1, #2, #5, #6, #7 y #8. Si queremos lanzar un proces nuevo:
+
+<div class="console">
+{% highlight console %}
+ # taskset -c 0 ls
+{% endhighlight %}
+</div>
+
+Esto hace que el comando <tt>ls</tt> sea ejecutado únicamente por la CPU #0.
+
+Un apunte más: sólo el señor <em>root</em> puede establecer un FA. También lo pueden hacer usuarios con <em>CAP_SYS_NICE</em> activo (pero eso es harina de otro gran costal).
+
+<h2>Más información</h2>
+Básicamente:
+<ul><li>Páginal del manual de taskset</li>
+<li><a href="http://www.cyberciti.biz/tips/setting-processor-affinity-certain-task-or-process.html">http://www.cyberciti.biz/tips/setting-processor-affinity-certain-task-or-process.html</a> (aunque los comandos tienen sintaxis antigua)</li></ul>
+
+Salud y buenos alimentos! :)

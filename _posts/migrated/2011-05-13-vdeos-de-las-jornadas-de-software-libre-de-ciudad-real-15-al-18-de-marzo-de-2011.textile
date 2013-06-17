@@ -1,0 +1,38 @@
+---
+migrated: node/1511
+layout: post
+title: Vídeos de las Jornadas de Software Libre de Ciudad Real - 15 al 18 de marzo
+  de 2011
+created: 1305298998
+author: cleto
+tags:
+- proselitismo
+---
+Ya están disponibles para descargar los vídeos de las Jornadas de Software Libre que se celebraron del 15 al 18 de marzo de 2011 en Ciudad Real. 
+
+Lista de los servidores:
+
+* <a href="http://autolog.uclm.es/~biblio/videos/">http://autolog.uclm.es/~biblio/videos/</a>
+* <a href="http://arco.esi.uclm.es/~cleto.martin/videos_jornadas">http://arco.esi.uclm.es/~cleto.martin/videos_jornadas</a>
+* <a href="http://babel.esi.uclm.es/videos_jornadas/">http://babel.esi.uclm.es/videos_jornadas/</a>
+<!--break-->
+Lista de los vídeos disponibles:
+
+* Inauguración ("high":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/01_inauguracion_high_full.avi, "low":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/01_inauguracion_low_full.avi)
+* "Introducción al Software Libre":http://crysol.org/es/node/1464 ("high":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/02_intro_sl_high_full.avi, "low":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/02_intro_sl_low_full.avi)
+* "Imagen 3D Libre":http://crysol.org/es/node/1463 ("high":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/03_imagen3d_high_full.avi, "low":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/03_imagen3d_low_full.avi)
+* "Desarrollo de aplicaciones con NDS":http://crysol.org/es/node/1465 ("high":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/04_nds_high_full.avi, "low":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/04_nds_low_full.avi)
+* "Composición musical con Software Libre":http://crysol.org/es/node/1466 ("high":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/05_musica_high_full.avi, "low":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/05_musica_low_full.avi)
+* "Seguridad Informática":http://crysol.org/es/node/1467 ("high":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/06_seguridad_high_full.avi, "low":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/06_seguridad_low_full.avi)
+* "El Software Libre y tu libertad (Richard M. Stallman)":http://crysol.org/es/node/1462 ("high":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/07_stallman_high_full.avi, "low":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/07_stallman_low_full.avi)
+* "Software Libre y Ciencia":http://crysol.org/es/node/1468 ("high":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/08_sl_ciencia_high_full.avi, "low":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/08_sl_ciencia_low_full.avi)
+* "Diseño Gráfico con Software Libre":http://crysol.org/es/node/1469 ("high":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/09_grafico_high_full.avi, "low":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/09_grafico_low_full.avi)
+* "Desarrollo Ágil":http://crysol.org/es/node/1470 ("high":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/10_agil_high_full.avi, "low":http://arco.esi.uclm.es/~cleto.martin/videos_jornadas/10_agil_low_full.avi)
+
+Para una cómoda visualización, recomiendo:
+
+<div class="console">
+{% highlight console %}
+$ mplayer url_del_video
+{% endhighlight %}
+</div>

@@ -1,0 +1,4 @@
+---
+layout: refresh
+refresh_to_post_id: /receta/2010-02-24/problemas-con-la-red-en-java-openjdk-6-en-debian
+---

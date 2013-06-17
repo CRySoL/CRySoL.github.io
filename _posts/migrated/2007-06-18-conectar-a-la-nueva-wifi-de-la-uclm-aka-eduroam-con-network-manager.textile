@@ -1,0 +1,72 @@
+---
+migrated: node/719
+layout: post
+title: Conectar a la nueva WiFi de la UCLM (aka. eduroam) con network-manager
+created: 1182179925
+author: Lk2
+category: receta
+tags:
+- networking
+---
+bq(head). Como el otro día avisé, en la facultad ya se divisa la nueva red wifi de la Universidad. Su SSID es "eduroam" y para conectarnos desde GNU podemos seguir varios métodos.
+
+h2. Utilizando el paquete oficial de Gnesis
+
+Tan solo sigue esta otra "receta para instalar y configurar eduroam":http://crysol.org/node/725 . Gracias a Cleto
+
+h2. Utilizando network-manager
+
+Lo primero que necesitas para usar este método es, como no, instalar network-manager. Para ello, como root:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install network-manager-gnome (si usas Gnome)
+# apt-get install network-manager-kde (si usas kde)
+
+{% endhighlight %}
+</div>
+
+Para otros entornos de escritorio no se si estará disponible, pero con
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install network-manager
+{% endhighlight %}
+</div>
+
+debería bastar.
+
+Una vez instalado debes -borrar- re-escribir tu <ode>/etc/network/interfaces</code>. Más bien se trata de dejar lo mínimo imprescindible, ya que si no network-manager no funcionará. El contenido del archivo deberá ser, más o menos, así:
+
+
+<div class="console">
+{% highlight console %}
+$ cat /etc/network/interfaces
+auto lo
+iface lo inet loopback
+
+{% endhighlight %}
+</div>
+
+Si te has encontrado con esto ya estás listo para usar network-manager. Ahora, entra en la red utilizándolo.
+
+Para arrancar network-manager ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+nm-applet --sm-bus
+{% endhighlight %}
+</div>
+
+Esto solo será necesario la primera vez que arranques, ya que se suele colocar como  programa de inicio de sesión.
+
+Una vez esté funcionando network-manager en la barra de notificación, pincha sobre él y deben aparecer las redes inalámbricas disponibles. Selecciona "eduroam" y debe abrirse una ventana de introducción de contraseña. En ella, selecciona como tipo de contraseña *WPA-Empresarial*, como identificador *tu_DNI@uclm.es*, y como password la misma que para RedC@ampus y demás servicios de la UCLM.
+
+Puede que tras ello te pida introducir la contraseña del depósito de claves ... la introduces y esperas a que termine de conectarse.
+
+h2. Utilizando un script
+
+Las instrucciones para poder conectar mediante un script que utiliza wpa_supplicant por debajo las puedes encontrar en la "web sobre WiFis de la UCLM":http://<a href="http://www.uclm.es/wifi/linux.html">www.uclm.es/wifi/linux.html</a>

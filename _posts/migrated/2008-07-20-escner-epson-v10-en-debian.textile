@@ -1,0 +1,82 @@
+---
+migrated: node/954
+layout: post
+title: Escáner EPSON V10 en Debian
+created: 1216553319
+author: david_villa
+category: receta
+tags:
+- Debian
+---
+bq(head). Cómo configurar Debian para poder utilizar el escáner EPSON V10/V100.
+<!--break-->
+
+h2. Ingredientes
+
+* alien
+* sane
+* libsane-extras
+* xsane
+
+h2. Comprobaciones
+
+Antes de nada debes comprobar que tu sistema es capaz de detectar el escáner. Los siguientes comandos deberían ofrecer resultados similares:
+
+
+<div class="console">
+{% highlight console %}
+$ lsusb
+[...]
+Bus 007 Device 007: ID 04b8:012d Seiko Epson Corp. Perfection V10/V100 (GT-S600/F650)
+[...]
+$ sane-find-scanner
+[...]
+found USB scanner (vendor=0x04b8 [EPSON], product=0x012d [EPSON Scanner]) at libusb:007:007
+[...]
+
+{% endhighlight %}
+</div>
+
+h2. Drivers
+
+*Después* de instalar los paquetes que aparecen en el apartado "ingredientes" descarga los paquetes <tt>iscan</tt> y <tt>iscan-plugin-gt-s600</tt> de la "web del fabricante":http://<a href="http://www.avasys.jp/lx-bin2/linux_e/scan/DL1.do">www.avasys.jp/lx-bin2/linux_e/scan/DL1.do</a>. Están en formato RPM, debes convertirlos a DEB con </tt>alien</tt>.
+
+
+
+<div class="console">
+{% highlight console %}
+
+# alien --scripts iscan-2.3.0-1.c2.i386.rpm
+# alien iscan-plugin-gt-s600-2.0.0-1.c2.i386.rpm
+{% endhighlight %}
+</div>
+
+
+Estos paquetes incluyen ficheros que también están en la distribución de SANE, por lo que debes instalarlos tal como sigue:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# dpkg -i --force-overwrite iscan_2.3.0-2_i386.deb
+# dpkg -i --force-overwrite iscan-plugin-gt-s600_2.0.0-2_i386.deb 
+{% endhighlight %}
+</div>
+
+
+Y por último, no olvides añadir tu usuario al grupo <tt>scanner</tt>:
+
+
+<div class="console">
+{% highlight console %}
+# addgroup pepe scanner
+{% endhighlight %}
+</div>
+
+Y con eso debería estar disponible para usar con <tt>xsane</tt>, <tt>iscan</tt>, el gimp o cualquier otro programa similar.
+
+
+h2. Referencias
+
+* "Re: Epson V100 scanner : Getting it to work":http://ubuntuforums.org/showpost.php?p=3287406&postcount=4

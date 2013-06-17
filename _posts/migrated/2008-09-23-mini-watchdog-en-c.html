@@ -1,0 +1,75 @@
+---
+migrated: node/1012
+layout: post
+title: mini-watchdog en C
+created: 1222205248
+author: greenbite
+category: receta
+tags:
+- seguridad
+---
+A continuación os propongo el codigo de un pequeño WATCHDOG: Yo por ejemplo lo uso para tener mi aMule siempre funcionando, ya que suele cascar amenudo.
+<!--break-->
+Para ejecutarlo yo por ejemplo hago: 
+
+
+<div class="console">
+{% highlight console %}
+
+$ ./watchdog /usr/bin/amule 
+{% endhighlight %}
+</div>
+
+El funcionamiento es muy sencillo:
+
+   1. Tomamos los argumentos del usuario y verificamos que sean correctos.
+   2. Ejecutamos el programa que se paso como argumento y esperamos a que finalice su ejecución.
+   3. En funcion de lo que devuelve el programa sabemos si ha acabado correctamente o de manera erronea.
+   4. Si acabo correctamente salimos, sino volvemos al punto 2.
+
+El código del programa es el siguiente:
+
+
+<div>
+{% highlight c %}
+#include "stdio.h"
+
+int main(int argc,char *argv[]){
+     int pid,ret=-1;
+
+    //verificamos si los argumentos son correctos
+    if (argc!=2) {
+         printf("\nERROR: Numero de argumentos incorrecto");
+         printf("\nLa forma de usarlo es $./watchdog NOMBRE_PROGRAMA\n");
+         return -1;
+    }
+
+    //iniciamos el WATCHDOG y mostramos su PID por si es necesario
+    printf("\nWATCHDOG COMIENZA SU ACTIVIDAD [PID=%d]",getpid());
+  
+    while (ret!=0){
+         //ejecutamos el comando que le hemos indicado
+         if((pid=fork())==0) {
+             execl(argv[1],argv[1],NULL);
+          }
+         printf("\n%s COMIENZA A EJECUTARSE [PID=%d]",argv[1],pid);
+         fflush(stdout);
+
+        //esperamos a que el programa acabe su ejecución
+        wait (&ret);
+        printf("\n%s HA DEVUELTO %d",argv[1],ret);
+     
+        if (ret==0) {
+             //si devuelve 0 el programa fue finalizado correctamente
+             printf("\n\nSALIDA CORRECTA\n");  
+       }else {
+            //sino, finalizo de manera erronea
+            printf("\n\nDEBE VOLVER A CARGARSE\n");
+       }
+
+      //sincronizamos el flujo stdout   
+      fflush(stdout);
+  }
+} //fin main
+{% endhighlight %}
+</div>

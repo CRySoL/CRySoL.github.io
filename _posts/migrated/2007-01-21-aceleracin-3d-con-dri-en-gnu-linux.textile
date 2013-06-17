@@ -1,0 +1,114 @@
+---
+migrated: node/515
+layout: post
+title: Aceleración 3D con DRI en GNU/Linux
+created: 1169405110
+author: int-0
+category: receta
+---
+1. Motivación
+
+¿Para qué podemos querer aceleración 3D en nuestro GNU/Linux? Si, vale, también vale para algo más que para jugar pero bueno. El caso es que la aceleración hardware 3D está bastante avanzada ya pero aún asi las distribuciones (salvo Debian) tienen algo verde este punto.
+
+Para los que gusten de tener el sistema de paquetes impoluto y usen Debian existe una alternativa muy cómoda: paquetes binarios. El único problema es que no tendrán lo último que exista en DRI (drivers, etc.).
+
+2. El problema
+
+Generalmente no existen drivers para sistemas GNU/Linux. Además son necesarios dos drivers: uno para el kernel y el otro para las XFree86. Por todo ello, en principio, puede parecer una tarea muy pesada el configurar y compilar todo esto, pero ya veréis como en menos de 30 minutos podemos tener aceleración en nuestro equipo.
+
+3. Hardware soportado
+
+Yo lo he hecho en una Savage mobity, en una ATI M1, en una ATI RADEON 9200 Mobility, en una Intel82852. Si quereis buscar vuestra tarjeta podeis hacerlo en: <a href="http://dri.sourceforge.net/cgi-bin/moin.cgi/Status">http://dri.sourceforge.net/cgi-bin/moin.cgi/Status</a> Para las NVIDIA, lo siento, tendreis que usar nvidia-glx (que a mi personalmente no me gusta nada). Hay un mini-doc al respecto. Para las ATI, existe un driver muy bueno, FireGL de ATI pero yo prefiero usar DRI.
+
+4. Un alto precio
+
+No me refiero a dinero material. Instalar esto de la forma en que ahora explicaré implica saltarse a la torera el sistema de paquetes de la distribución que tengamos entre manos ya que sustituiremos las XFree de nuestra distro por las XFree que nos vamos a hacer nosotros. El problema que tengo yo con esto es que cuando actualizo el sistema y se me actualizan paquetes del XFree o del Mesa pues me toca actualizar los fuentes, recompilar y reinstalar todo. De todas formas... ¿cada cuanto se actualiza el paquete XFree? pues eso, vosotros mismos... Tambien puede que tengamos que sustituir librerias de paquetes como Mesa por los que vamos a crear nosotros, ya explicaré como hacer esto mas adelante.
+
+5. Obtener XFree86 (DRI trunk), DRM y MESA
+
+Tenemos que bajarnos todo esto, lo haremos directamente del repositorio CVS, asi tendremos siempre lo último. Lo vamos a poner todo en /usr/src (es MUY importante respetar el árbol de directorios). Yo suelo hacerlo en 3 consolas a la vez para no estar esperando.
+
+Usaremos el acceso anónimo, es decir, cuando pida password pulsais "enter" y ya está (da una especie de error pero no os preocupéis), empezamos con XFree (DRI trunk):
+$ cd /usr/src
+$ mkdir dri
+$ cd dri
+$ cvs -d:pserver:anonymous@pdx.freedesktop.org:/cvs/dri login
+$ cvs -z3 -d:pserver:anonymous@pdx.freedesktop.org:/cvs/dri co xc
+
+Ahora las librerias Mesa:
+$ cd /usr/src
+$ mkdir mesa
+$ cd mesa
+$ cvs -d:pserver:anonymous@pdx.freedesktop.org:/cvs/mesa login
+$ cvs -z3 -d:pserver:anonymous@pdx.freedesktop.org:/cvs/mesa co Mesa
+
+Y finalmente el DRM del kernel (tranquilos, si teneis el soporte agpgart en vuestro núcleo, que es lo normal ahora, no tenéis que tocar el núcleo. En caso contrario id buscando documentación sobre como añadirlo):
+$ cd /usr/src
+$ mkdir drm
+$ cd drm
+$ cvs -d:pserver:anonymous@cvs.freedesktop.org:/cvs/dri login
+$ cvs -z3 -d:pserver:anonymous@cvs.freedesktop.org:/cvs/dri co drm
+
+Bien, ahora vamos a configurarlo, para ello tenemos que editar el fichero /usr/src/dri/xc/xc/config/cf/cf/host.def y cambiaremos lo siguiente:
+#define MesaSrcDir /usr/src/mesa/Mesa
+#define DRMSrcDir /usr/src/drm/drm
+
+Ahora una ventaja de usar DRI que no tienen otros drivers: si nuestro procesador tiene el juego de instrucciones SSE (cosa muy probable) podemos compilar optimizando el código para que las use, consiguiendo un 20% o 30% más de rendimiento en la aceleración. Para saber si nuestro procesador aguanta esto podéis ejecutar:
+$ cat /proc/cpuinfo
+
+Ahí veréis los juegos de instrucciones que tiene vuestra CPU, si veis SSE pues enhorabuena... añadid la siguiente linea al archivo /usr/src/dri/xc/xc/config/cf/cf/host.def:
+#define MesaUseKatmai YES
+
+Antes de compilar vamos a crear un directorio donde se crearán todos los archivos de compilación. Esto no es obligatorio pero es mas "elegante" y a la larga más cómodo. La forma de hacerlo es muy simple:
+$ cd /usr/src/dri
+$ ln -s xc XFree40
+$ mkdir build
+$ cd build
+$ lndir -silent -ignorelinks ../XFree40
+
+Bien, sólo nos queda compilarlo todo, esto es lo más fácil, lo único que tenemos que hacer eso:
+$ cd /usr/src/dri/build/xc
+$ make World >& world.log
+
+Compilamos así para generar un bonito fichero de log donde tendremos todos los mensajes de la compilación, muy útil si se produjese algún error. Si tenéis errores comprobad el asunto de los directorios antes que nada, si no están justo como he indicado no os va a funcionar. Para ver los mensajes de compilación durante ésta sólo tenéis que poner lo siguiente:
+$ tail -f world.log
+
+Si hasta aquí no habéis tenido problemas sólo queda instalar y configurar.
+
+6. Instalar y configurar todo
+
+Para instalar todo esto (XFree y Mesa) tendremos que machacar las XFree antiguas. Las librerias Mesa las va a instalar en /usr/X11R6/lib por lo que (en principio) no va a machacar las que instalamos nosotros con el sistema de paquetes de nuestra distro, ya que éstas se suelen meter en /usr/lib.
+
+Es recomendable que paréis GDM antes de hacer esto, así que:
+$ /etc/init.d/gdm stop
+$ cd /usr/src/dri/build/xc
+$ make install
+
+Si en /etc/X11/XF86Config-4 usábais el driver específico de vuestra tarjeta no tendréis que cambiar nada, si teníais vesa o alguno de éstos pues tenéis que poner el de vuestra tarjeta. Ahora ya podéis poner otra vez GDM en funcionamiento. Arranque o no, echad un vistazo al archivo /var/log/XFree.0.log para ver todo lo que ha hecho y no ha hecho. Si hay problemas con DRM tenéis que revisar vuestra configuración de agpgart. Si todo fue bien os dirá (en alguna linea) que el direct rendering infraestructure está activado. Ahora sólo falta probarlo, para ello, abrid un terminal dentro de las X y ejecutad:
+$ glxinfo
+
+Al principio os tiene que salir algo como: direct rendering: Yes, si es asi, enhora buena, ya podéis disfrutar de la aceleración 3D en vuestro sistema GNU/Linux. En caso contrario, si en el archivo XFree.0.log no hay ningún error significa que DRI está funcionando, pero, ¿por qué no funciona?, muy sencillo: GLX está usando las Mesa del sistema de paquetes en vez de las que hemos compilado ahora. Aquí viene mi solución (un tanto polémica): en /usr/lib están las librerias que no queremos, son las libGL.*, pues las movemos a nuestro home por ejemplo (borrarlas es una peor idea porque nunca se sabe...) y ahora hacemos enlaces de /usr/X11R6/lib/libGL.* a /usr/lib/libGL.* (con ln -s). Si ahora volvéis a probar glxinfo o glxgears seguro que ya os funciona.
+
+7. Instalación DRI a partir de paquetes binarios
+
+Lo primero será descargarlos, los podréis encontrar en: <a href="http://www.nixnuts.net/files/binary/">http://www.nixnuts.net/files/binary/</a> La instalacion es muy sencilla:
+$ dpkg -i drm-trunk-module-2.6.8-1-k7_2004.11.01-1_i386.deb
+$ dpkg -i xlibmesa-gl1-dri-trunk_2004.11.01-1_i386.deb
+$ dpkg -i xserver-xfree86-dri-trunk_2004.11.01-1_i386.deb
+
+Como véis en el nombre del fichero está la fecha. DRI es un proyecto muy dinámico y continuamente está sacando versiones y modificaciones.
+
+Puede que tengáis problemas de dependencias con las librerias Mesa, en ese caso desinstalarlas primero. De todas formas, al instalar estos paquetes se crearán automáticamente 'diversions', es decir, tendréis las dos versiones instaladas pero se deben usar automáticamente las de DRI.
+
+8. Refinando las DRI
+
+En fin, las DRI ya nos funcionan y estamos conentos... ¿estamos contentos?, pues probablemente estaríamos más contentos si pudiésemos enredar con ellas, configurar detallitos y todas esas cosas que nos gusta hacer con nuestra Debian. Exite un bonito programa llamado DRIConf, lo podéis descargar en: <a href="http://freedesktop.org/~fxkuehl/driconf/">http://freedesktop.org/~fxkuehl/driconf/</a> Para instalarlo necesitaréis el paquete python2.3-scipy-core y es muy sencillo:
+$ unp driconf-0.2.2.tar.gz
+$ cd driconf-0.2.2
+$ python setup.py install (como root)
+
+Podéis configurar las DRI para un usuario en concreto e incluso para un programa en concreto, ¿cómo se usa?... ejecutadlo y hacer pruebas que es lo mismo que estoy haciendo yo ahora...
+
+9. Enlaces
+* 	DRI Proyect  [en]
+* 	DRI Compilation Guide  [en]

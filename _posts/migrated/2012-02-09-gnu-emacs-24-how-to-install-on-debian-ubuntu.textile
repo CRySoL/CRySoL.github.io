@@ -1,0 +1,23 @@
+---
+migrated: node/1567
+layout: post
+title: ! 'GNU Emacs 24: How to install on Debian/Ubuntu'
+created: 1328801439
+author: david_villa
+category: receta
+tags:
+- emacs
+---
+GNU Emacs 24 is now available for debian/ubuntu in an unofficial package repository. You can install running that:
+
+
+<div class="console">
+{% highlight console %}
+
+# echo "deb http://emacs.naquadah.org/ unstable/" > /etc/apt/sources.list.d/emacs24.list
+# wget -q -O - http://emacs.naquadah.org/key.gpg | apt-key add -
+# aptitude update
+# aptitude install emacs-snapshot-gtk
+{% endhighlight %}
+</div>
+

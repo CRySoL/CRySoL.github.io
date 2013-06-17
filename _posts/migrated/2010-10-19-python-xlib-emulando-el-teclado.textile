@@ -1,0 +1,87 @@
+---
+migrated: node/1413
+layout: post
+title: ! 'python-xlib: emulando el teclado'
+created: 1287489245
+author: oscarah
+category: receta
+tags:
+- Python
+---
+En el pasado post nos quedamos a medias. Vimos como hacer algunas cosillas con el ratón, pero no hicimos nada con el teclado. Intentémoslo ahora.
+
+<b>Entrada en el blog de <a href="http://gexter-project.blogspot.com">Gexter</a></b>
+<!--break-->
+Con la misma función, fake_input(), es posible enviar eventos del teclado. Cambiamos el ButtonPress/ButtonRelease por KeyPress/KeyRelease, y como parámetro, el código de la tecla que queremos. He te aquí el problema. ¿Qué es ese "código" y de donde lo sacamos?
+
+Sería interesante disponer de documentación sobre esto, pero esta es bastante escasa. Así que nos toca ver el código fuente o los ejemplos que encontremos. Tampoco es que haya muchos... pero algunos si que hay. En mi búsqueda me encontré con xautomation, una herramienta de la que puedo sacar muchas cosas :p
+
+Viendo su código, se puede deducir que a la función fake_input() es necesario pasarle un keycode, que a su vez, se obtiene a partir de un keysym. Dos conceptos nuevos que tendremos que definir. Al parecer, los keycodes están en un rango bastante reducido (hay menos de 255), por lo que deduzco que tienen una correspondencia (casi) directa con una tecla del teclado (esto, posiblemente no sea así, pero vamos a asumir que sí). Hay un método de la clase Display que hace la conversión entre un keysym y un keycode. Y en el módulo XK hay un montón de keysyms definidos (por ejemplo, XK_colon, XK_plus o XK_space).
+
+Deduzco que, por un lado tenemos un número asociado al caracter que queremos pulsar, y por otro, la tecla a la que se corresponde con la distribución del teclado actual (Spain, USA, etc). Por ejemplo, si quiero introducir el caracter '.', primero tengo que identificar su keysym. Al parecer, es el 46, o XK_period (y además, se corresponde con el valor ASCII para el punto). Ahora, tenemos que traducir este keysym al valor de la tecla correspondiente, usando Display.keysym_to_keycode(). Y el valor retornado es el que podemos usar en fake_input().
+
+Supongo que todo este jaleo es conveniente para dar soporte a múltiples distribuciones de teclados, así como a diferentes juegos de caracteres. Veamos un ejemplo, el clásico 'Hello World!', que tiene un poco de todo.
+
+
+
+<div>
+{% highlight python %}
+from Xlib.display import Display  
+from Xlib.ext import xtest  
+from Xlib import X, XK  
+  
+d = Display()  
+msg = "Hello World!"  
+  
+for c in msg:  
+    keysym = XK.string_to_keysym(c)  
+    keycode = d.keysym_to_keycode(keysym)  
+  
+    xtest.fake_input(d, X.KeyPress, keycode)  
+    xtest.fake_input(d, X.KeyRelease, keycode)  
+  
+d.flush()  
+{% endhighlight %}
+</div>
+
+
+He usado una función de XK que hace la traducción desde una cadena a un keysym (por ejemplo, convierte la cadena "space" al keysym XK_space). Lo probamos pero no muestra el resultado esperado, sino: 'helloworld' ¿Qué ha pasado con el espacio, las mayúsculas y el símbolo de admiración? Bien, vayamos por partes. Es normal que no se muestren las mayúsculas porque realmente no son la pulsación de una tecla, sino dos (el 'Bloq Mayus' se puede considerar como el uso repetido de 'Shift'). Tendremos que tenerlo en cuenta. Lo mismo pasa con la admiración. El caso del espacio es diferente. La función string_to_keysym() sólo reconoce las cadenas que tengan una correspondencia directa con algún atributo del módulo XK. Es decir, lo que necesitamos es el nombre del keysym sin el prefijo XK_. En este caso, habrá que "traducir" ese espacio, ' ', a la cadena 'space'. Haciendo los cambios oportunos, tendríamos:
+
+
+
+<div>
+{% highlight python %}
+from Xlib.display import Display
+from Xlib.ext import xtest
+from Xlib import X, XK
+
+d = Display()
+msg = "Hello World!"
+shift = d.keysym_to_keycode(XK.XK_Shift_L)
+
+for c in msg:
+    if   c == ' ': c = "space"
+    elif c == '!': c = "exclam"
+    keysym = XK.string_to_keysym(c)
+    keycode = d.keysym_to_keycode(keysym)
+
+    if c in ["H","W", "exclam"]:
+        xtest.fake_input(d, X.KeyPress, shift)
+
+    xtest.fake_input(d, X.KeyPress, keycode)
+    xtest.fake_input(d, X.KeyRelease, keycode)
+
+    if c in ["H","W", "exclam"]:
+        xtest.fake_input(d, X.KeyRelease, shift)
+
+    d.flush()
+{% endhighlight %}
+</div>
+
+
+Se nos ha complicado un poco el código. Como veis, la estrategia es pulsar la tecla SHIFT antes de cada caracter 'especial'. Además, es necesario convertir los símbolos a nombres válidos para XK. Dentro de gext, haremos todas estas conversiones, para que introducir cualquier texto sea lo más sencillo posible.
+
+Espero no haberte aburrido mucho ;) Nos vemos en la siguiente entrada.
+Happy hacking!
+
+Au revoir!

@@ -1,0 +1,113 @@
+---
+migrated: node/1017
+layout: post
+title: Patrón Singleton en Python como metaclase
+created: 1182981171
+author: david_villa
+category: receta
+tags:
+- Python
+- patrones
+---
+bq. Esta receta incluye la implementación «comentada» del patrón de diseño «Singleton» usando una metaclase Python.
+<!--break-->
+h2. Introducción
+
+Para una mejor comprensión y máximo aprovechamiento, se recomienda al lector no iniciado en las metaclases, leer la receta "Ahí va la virgen! Metaclases! (con Python)":node/600 antes de proceder con ésta.
+
+h2. Patrón _singleton_ como metaclase
+
+El <a href="http://es.wikipedia.org/wiki/Singleton_(patr%C3%B3n_de_dise%C3%B1o)"><em>singletón</em></a> es un patrón de diseño muy popular. Se trata de un artificio que impide que pueda existir más una instancia de cierta clase. Si se intenta crear dos o más objetos de esa clase, se obtiene siempre la misma instancia (la única que puede haber). Sería algo como:
+
+
+
+<div>
+{% highlight python %}
+>>> a = ClaseSingleton()
+>>> b = ClaseSingleton()
+>>> a == b
+... True
+{% endhighlight %}
+</div>
+
+
+Esa es la teoría, en la práctica las limitaciones de los lenguajes de programación no siempre permiten que el patrón se pueda implementar de una forma tan transparente. En esos casos (Java, C++, etc) el constructor de la clase se hace privado y se implementa un método @get_instance()@ o algo parecido.
+
+Pero Python siempre da la nota, y esta vez no podía ser menos. Por medio de una metaclase se puede implementar el _singleton_ de una forma elegante y completamente transparente para el usuario de la clase.
+
+Una primera aproximación sencilla sería algo como:
+
+
+
+<div>
+{% highlight python %}
+class Singleton(type):
+    def __init__(cls, name, bases, dct):
+        cls.__instance = None
+        type.__init__(cls, name, bases, dct)
+        
+    def __new__(cls, name, bases, dct):
+        if cls.__instance is None:
+            cls.__instance = type.__new__(cls, name, bases, dct)
+        return cls.__instance
+
+class A(object):
+    __metaclass__ = Singleton
+
+
+a = A()
+b = A()
+assert a == b  # False, no funciona  :-(
+{% endhighlight %}
+</div>
+
+
+Pero esto *no funciona*. Esto se debe a que tanto @__new__@ como @__init__@ sólo se ejecutan una vez: *cuando se crea la clase*. 
+
+Sin embargo, para el _singleton_ hace falta poder controlar la instancia de la clase (el objeto creado). Y para eso se puede utilizar otro interesante método de la metaclase. Se trata de @__call__@, el operador de invocación, que también se puede sobrecargar como ocurre con la mayoría de los operadores de Python. Siempre que tengas "algo llamable" (invocable) entra en juego el operador de llamada, incluso en las funciones convencionales. Cuando creas un objeto escribiendo el nombre de una clase y unos paréntesis, realmente estás utilizando el operador de invocación de su metaclase, así que aprovechemos eso!
+
+De modo que la siguiente aproximación es algo como:
+
+
+
+<div>
+{% highlight python %}
+class Singleton(type):
+    def __init__(cls, name, bases, dct):
+        cls.__instance = None
+        type.__init__(cls, name, bases, dct)
+        
+    def __call__(cls):
+        if cls.__instance is None:
+            cls.__instance = type.__call__(cls)
+        return cls.__instance
+
+class A:
+    __metaclass__ = Singleton
+
+
+a = A()
+b = A()
+assert a == b  # True, funciona!  :-)
+{% endhighlight %}
+</div>
+
+
+Esto sí que funciona, pero ¿qué pasa con los argumentos del constructor? Esto lo arregla:
+
+
+
+<div>
+{% highlight python %}
+class Singleton(type):
+
+    def __init__(cls, name, bases, dct):
+        cls.__instance = None
+        type.__init__(cls, name, bases, dct)
+
+    def __call__(cls, *args, **kw):
+        if cls.__instance is None:
+            cls.__instance = type.__call__(cls, *args,**kw)
+        return cls.__instance
+{% endhighlight %}
+</div>

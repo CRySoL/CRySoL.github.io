@@ -1,0 +1,44 @@
+---
+migrated: node/321
+layout: post
+title: twisted, controlando varios equipos con synergy
+created: 1149246020
+author: int-0
+category: scriptillo
+---
+Buenas... tengo por ahí unos cuantos shellscripts tontos pero que me resultan útiles, asiq he decidido ir poniendolos por aquí, ok? pues el primero:
+
+<pre>#!/bin/bash
+MIHOST=`hostname`
+
+killall synergys
+synergys -c ~/.synergy.$1.conf
+
+ssh $USER@$1 "killall synergyc"
+ssh $USER@$1 "synergyc $MIHOST"</pre>
+
+Para que sirve: para conectar varios equipos con synergy (ver receta de aquí). Permite tener varios archivos de configuración y elegir uno según se desee.
+
+Ejemplo de uso: supongamos que tenéis un portátil, un equipo en casa y un equipo en el trabajo. Queréis usar synergy con el de casa y luego en el curro y las configuraciones son distintas, pues os toca estar configurándolo y reconfigurándolo y además tenéis que estar ejecutando servidor, clientes, tal... Pues el script permite ahorrarse todo eso..
+
+Para que funcione correctamente necesitáis:
+- Synergy
+- OpenSSH server/client
+- Cuentas de usuario (con el mismo nombre) en los equipos
+- Que los equipos que se quieran usar sean accesibles en ambas direcciones
+- Deben ser accesibles por su hostname (ver la misma receta)
+
+Cómo se usa: tendremos varios archivos de configuración en nuestro home, uno para cada equipo con el que queramos conectar. Si el equipo con el que queremos conectarnos se llama "pepe" el archivo de configuración se llamará ".synergy.pepe.conf". La forma de construirlo es igual que siempre. Una vez hecho esto, para conectarse con alguno de los equipos:
+
+
+<div class="console">
+{% highlight console %}
+$ twisted pepe
+{% endhighlight %}
+</div>
+
+Nos pedirá la contraseña del usuario dos veces y ya estará funcionando el synergy entre ambos equipos. :-)
+
+Mejoras: pues una recomendación para que no pida la contraseña y todo sea mas rápido y cómodo es configurar las "authorized_keys" de ambos equipos. Otro problema que le veo es que sólo sirve para conectar 2 equipos ya que no ejecuta nada mas que un cliente en un host, lo ideal sería ver cuantos clientes se deberían lanzar según el archivo de configuración. Alguien se anima? :-P
+
+Si tenéis alguna duda, ya sabéis... :)

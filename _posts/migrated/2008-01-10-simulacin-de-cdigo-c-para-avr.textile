@@ -1,0 +1,110 @@
+---
+migrated: node/833
+layout: post
+title: Simulación de código C para AVR
+created: 1199971932
+author: javieralso
+category: receta
+tags:
+- embedded
+---
+<blockquote>Cómo depurar un programa en C para AVR en GNU/Linux con <b>avr-gdb</b></blockquote>
+<!--break-->
+<h2>Introducción</h2>
+Después de haberlo intentado varias veces, habiéndome dado por vencido siempre, he vuelto a las andadas, ésta vez para no parar hasta conseguir depurar un programa escrito que utiliza <a href="http://www.nongnu.org/avr-libc"><b>avr-libc</b></a> (se puede consultar la receta sobre  <a href="http://crysol.org/node/530">instalar la toolchain para AVR</a> en éste mismo blog).
+
+Para la depuración he utilizado <em>avr-gdb</em> y <a href="http://www.nongnu.org/simulavr/"><em>simulavr</em></a> desde distintas máquinas, consiguiendo de ese modo ver en una la ejecución del programa objeto de la prueba y en otra el contenido de los registros y de la memoria del micro.
+
+A partir de ahora, explico cómo lo he hecho todo, desde la compilación (se necesitan parámetros específicos para el enlazador) hasta la puesta en funcionamiento del simulador. Doy por sentando que se conoce el uso de <em>gdb</em> para depurar.
+
+
+<h2>Praparándolo todo</h2>
+
+Bueno, para que podamos funcionar tan solo necesitamos <em>simulavr</em> y <em>avr-gdb</em>. En nuestro querido Debian ya sabeis:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~$ sudo apt-get install avr-gdb simulavr
+
+{% endhighlight %}
+</div>
+
+<h2>Compilación del código a simular</h2>
+Para poder simular el código, debemos pasar la opción <b>-g</b> a <em>avr-gcc</em>. Además, de eso, debemos decirle al enlazador que utilice la opción <b>-gstabs</b>. Os paso directamente el Makefile del proyecto que utilicé como prueba para que lo veais mas claro. Está un poco "guarro", pero servirá para ilustrar el ejemplo ;-):
+
+<pre>
+MCU=atmega128
+CC=avr-gcc
+OBJCOPY=avr-objcopy
+CFLAGS=-g -mmcu=$(MCU) -Wall -Wstrict-prototypes 
+#-------------------
+all: rs232toRS485.hex rs232toRS485.bin
+#-------------------
+%.hex : %.out 
+	$(OBJCOPY) -j .text -O  ihex rs232toRS485.out rs232toRS485.hex 
+
+%.bin : %.out
+	$(OBJCOPY) -j .text -O binary rs232toRS485.out rs232toRS485.bin
+
+rs232toRS485.out : main.o 
+	$(CC) $(CFLAGS) -o rs232toRS485.out -Wl,-Map,rs232toRS485.map <b>-Wa,-gstabs</b> main.o
+	avr-objdump -S rs232toRS485.out > rs232toRS485.lst
+
+%.o : %.c 
+	$(CC) $(CFLAGS) -O0 -c $^
+
+</pre>
+
+Además de lo comentado anteriormente, también se ha marcado una regla que se encarga de la creación de una imagen binaria del código de salida. Ésta imagen es importante, ya que es la que cargará <em>simulavr</em> para poder llevar a cabo la simulación del micro.
+
+<b>NOTA: </b>Para que se pueda ver el contenido de las variables locales dentro del entorno de simulación, es muy importante que el flag de optimización esté puesto a 0. ($(CC) $(CFLAGS) <b>-O0</b> -c $^).
+
+<h2>Simulando</h2>
+Bueno, una vez que ya tenemos nuestro programita compilado toca simularlo. Supondremos que vamos a correr <em>simulavr</em> y <em>avr-gdb</em> en la misma máquina, aunque ésto no tiene por qué ser así, de hecho yo lo hago en máquinas separadas para poder ver la traza y el estado de los registros. Pero ésto ya va a gusto del consumidor :-P.
+
+Para nuestros propósitos <em>simulavr</em> funcionará como un <em>gdbserver</em>, es decir, le dirá a <em>avr-gdb</em> cómo debe comportarse. Por ello tenemos que arrancarlo primero. Para ello lo lanzamos de la siguiente manera:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~$ simulavr -d atmega128 -P simulavr-disp -g rs232toRS485.bin 
+
+{% endhighlight %}
+</div>
+
+¿Qué hemos hecho? pues hemos llamado a <em>simulavr</em> diciéndole que vamos a simular un <em>atmega128</em>. Como queremos ver el contenido de los registros hemos llamado tambíen a <em>simulavr-disp</em> ya que <em>simulavr</em> solo dice a <em>avr-gdb</em> cómo comportarse, pero no muestra información alguna. <em>simualvr-disp</em> es el frontend que nos permite ver el contenido de los registros internos de la máquina que estamos simulando.
+
+Para lanzar <em>avr-gdb</em> crearemos antes un archivo de comandos a ejecutar para "automatizar" un poco el uso. Éste archivo tiene algo como ésto:
+
+<pre>
+file rs232toRS485.out
+target remote localhost:1212
+load
+break main
+continue
+</pre>
+En él decimos a gdb que cargue el archivo a simular, se conecte con <simulavr> en esta mísma máquina (<b>localhost</b>) y escuchando en el puerto <em>1212</em> que es donde por defecto escucha <em>simulavr</em>.
+Lanzamos <avr>avr-gdb</em> (a mi en especial me gusta mas <em>avr-gdbtui</em>) de la siguiente manera:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~$ avr-gdbtui -x comandos.gdb 
+
+{% endhighlight %}
+</div>
+
+siendo <em>comandos.gdb</em> el archivo en el que guardamos los comandos anteriores.
+Podremos ver como inmediatamente cambian los valores de los registros mostrados en <em>simulavr</em> y <em>avr-gdb</em> queda parado en el <em>main</em> de nuestro programa. Ésto sucede porque nuestro programa empieza a simularse inmediatamente después de lanzar el depurador y para en el primer breakpoint que encuentra, que se encuentra en <em>main</em> (breakpoint por defecto). Cómo antes de eso se tiene que ejecutar código (arranque del micro, configuración de la pila, registros de configuración iniciales, inicialización de memoria, etc....) vemos los cambios en los registros de la máquina reflejados en <em>simulavr</em>. Ahora ya podremos simular/depurar como se hace usualmente con gdb.
+
+¡¡Ale, a disfrutarlo :-D!!
+
+<h2>En el futuro...</h2>
+Actualmente también me estoy peleando con <a href="http://avarice.sourceforge.net/"><em>avarice</em></a> que permite borrar, programar, leer, verificar y depurar "on board" muchos dispositivos de la familia AVR utilizando un <a href="http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2737"><em>AVR JTAG ICE</em></a> y <em>avr-gdb</em> o <em>insight</em>. En cuanto sea capaz de terminar de hacerlo funcionar, prometo explicarlo en otra recetilla. Mientras tanto a esperar pacientemente jugueteando con todo lo que ya tenemos sobre AVR....
+
+<h2>Referencias</h2>
+<ul>
+  <li><a href="http://www.zen9658.zen.co.uk/avr-doc/HOWTO-get-started.html">How to get started with an AVR at minimal cost</a></li>
+  <li><a href="http://electrons.psychogenic.com/modules/arms/art/6/SimulatingandDebuggingAVRprograms.php">Simulating and debugging AVR programs</a></li>
+</ul>

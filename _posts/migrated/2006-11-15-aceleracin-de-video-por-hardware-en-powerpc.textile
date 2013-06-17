@@ -1,0 +1,42 @@
+---
+migrated: node/445
+layout: post
+title: Aceleración de video por hardware en PowerPC
+created: 1163588906
+author: nacho
+category: receta
+---
+bq. Sencillos pasos para tener aceleración 3D en tu PPC con GNU/Linux.
+<!--break-->
+
+Es mucho más sencillo de lo que podríais pensar. Sólo dos pasos:
+
+1) Instalar las librerías de aceleración hardware.
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install xlibmesa-dri
+{% endhighlight %}
+</div>
+
+2) Modificar /etc/X11/xorg.conf, añadiendo lo que corresponda:
+
+<pre>
+Section "Device"
+        Identifier      "Tarjeta de vídeo genérica"
+        Driver          "ati"
+        BusID           "PCI:0:16:0"
+        Option  "AGPMode"          "4"
+        Option  "AGPFastWrite"     "yes"
+        Option  "EnablePageFlip"   "on"
+        Option  "ColorTiling"      "on"
+        Option  "RenderAccel"      "yes"
+        Option  "UseFBDev"         "true"
+        Option  "EnableDepthMoves" "true"
+        Option  "BackingStore"     "true"
+        Option  "DynamicClocks"     "on"
+EndSection
+</pre>
+
+¡suerte!

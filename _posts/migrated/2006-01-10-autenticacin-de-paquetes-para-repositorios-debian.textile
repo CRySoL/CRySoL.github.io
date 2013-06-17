@@ -1,0 +1,117 @@
+---
+migrated: node/169
+layout: post
+title: Autenticación de paquetes para repositorios Debian
+created: 1136847600
+author: david_villa
+category: receta
+---
+bq. Cómo configurar adecuadamente la autenticación de repositorios en Debian, Ubuntu y derivados.
+<!--break-->
+Cuando instalas paquetes binarios desde Internet tu sistema puede quedar comprometido si los descargas de sitios poco fiables. Incluso utilizando sitios oficiales puede ser un grave problema de seguridad si alguien consigue hacerse pasar por el servidor o introduce paquetes maliciosamente modificados.
+
+Para evitar todo esto, los repositorios disponen de una firma PGP que garantiza la autenticidad de sus paquetes. El programa @apt-get@ comprueba que los paquetes vienen firmados por quien dice ser, accediendo en un servidor público de claves.
+
+h2. Síntomas
+
+Si cuando ejecutas @apt-get update@ te salen avisos similares al siguiente, te interesa esta receta:
+
+
+<div class="console">
+{% highlight console %}
+W: GPG error: ftp://ftp.nerim.net sid Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 07DC563D1F41B907
+{% endhighlight %}
+</div>
+
+A pesar de estos avisos, se pueden instalar paquetes como siempre, pero no habrá ninguna garantía de su autenticidad. El programa @apt-get@ suele pedir una confirmación de este tipo cuando se instalan paquetes cuya autenticidad no se puede comprobar:
+
+<pre class="console">AVISO: ¡No se han podido autenticar los siguientes paquetes!
+  zeroc-icee-translators
+¿Instalar estos paquetes sin verificación [s/N]?
+</pre>
+
+h2. Paquetes necesarios
+
+* gnupg
+
+
+h2. Configuración
+
+Primero ejecuta el programa @pgp@ como root. De ese modo se crean el directorio @.gnupg@ y los ficheros de configuración por defecto:
+
+
+<div class="console">
+{% highlight console %}
+# gpg
+{% endhighlight %}
+</div>
+
+Pulsa C-c cuando haya arrancado.
+
+Ahora edita el fichero @/root/.gnupg/gpg.conf@ y añade (o descomenta) esta línea:
+
+<pre>
+keyserver-options auto-key-retrieve
+</pre>
+
+También puedes añadir algún servidor de claves más, con líneas de este estilo:
+
+<pre>
+keyserver hkp://pgp.rediris.es
+</pre>
+
+
+h2. Nuevas firmas
+
+A la vista de los avisos comentaba antes:
+
+
+<div class="console">
+{% highlight console %}
+W: GPG error: ftp://ftp.nerim.net sid Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 07DC563D1F41B907
+{% endhighlight %}
+</div>
+
+Puedes descargar la clave pública que corresponde a la firma (el numerajo que aparece al final) con el siguiente comando. Parece que el servidor es un poco duro de oido y, a veces, hay que ejecutarlo varias veces (no conozco el motivo). Cuando todo funciona debería salir algo así:
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ gpg --keyserver pgpkeys.mit.edu --recv-keys 07DC563D1F41B907
+gpg: solicitando clave 1F41B907 de hkp servidor subkeys.pgp.net
+gpg: clave 1F41B907: "Christian Marillat <marillat@debian.org>" sin cambios
+gpg: Cantidad total procesada: 1
+gpg:              sin cambios: 1
+{% endhighlight %}
+</div>
+
+
+Y la puedes incorporar al anillo de claves de *apt* con este otro comando. Igual que antes, puede que tengas que ejecutarlo varias veces hasta que diga algo como esto:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# gpg --export --armor 07DC563D1F41B907 | apt-key add -
+OK
+{% endhighlight %}
+</div>
+
+
+Si te dice lo siguiente es que no está funcionando.
+
+
+<div class="console">
+{% highlight console %}
+gpg: no se encuentran claves absolutamente fiables
+{% endhighlight %}
+</div>
+
+Y para terminar, un @apt-get update@ que debería salir sin esos feos avisos, y con total garantía de autenticidad sobre lo que instalas. Evidentemente, se supone que tú, como administrador, deberías contrastar que esa firma corresponde a alguien "fiable".
+
+h2. Referencias
+
+* "SecureApt":http://wiki.debian.org/SecureApt

@@ -1,0 +1,54 @@
+---
+migrated: node/701
+layout: post
+title: ! 'Nueva versión de uclmwifi: 1.5.5'
+created: 1180095083
+author: cleto
+category: noticia
+tags:
+- GNESIS
+- uclmwifi
+---
+¡Hola amigos y amigas!
+
+Me es grato comunicaros que "uclmwifi" sigue avanzando. La gente que ya se instaló <a href="http://crysol.inf-cr.uclm.es/node/669">la versión 1.2</a> habéis "sufrido" las distintas actualizaciones y cambios que ha sufrido uclmwifi. Si aún no lo has probado añade el siguiente repositorio:
+<!--break-->
+
+<pre>
+deb http://babel.esi.uclm.es/gnesis unstable main
+deb-src http://babel.esi.uclm.es/gnesis unstable main
+</pre>
+
+Y con lo siguiente, instala uclmwifi:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get update
+# apt-get install uclmwifi
+
+{% endhighlight %}
+</div>
+
+En esta versión (1.5.5), uclmwifi ya es un paquete en condiciones (gracias a la ayuda inestimable de Paco y de David) y presenta las siguientes novedades:
+<ul>
+<li>El archivo "vpn-mppe-utils" contiene funciones para crear un túnel mppe para conexiónes wireless o cableadas. Sólo debe emplearse si piensas crear tu propia conexión. Los scripts "uclmwifi" y "uclmvpn" pueden servirte como ejemplo.</li>
+<li>"uclmwifi" llama a las funciones de "vpn-mppe-utils" en el orden apropiado y con los parámetros correctos para realizar la conexión a la VPN vía wireless.</li>
+<li>"uclmvpn" hace lo mismo que "uclmwifi" pero para conexiones externas (desde fuera de la Uni). Es necesario tener red para que se ejecute correctamente. ¡OJO! Los alumnos no tienen permiso para conexiones externas (al menos yo :-)). Falta comprobar si las cuentas de profesores funcionan.</li>
+<li>Todo viene bien explicadito con páginas de man ;-).</li>
+<li>Para reconfigurar el usuario y contraseña de la conexión basta con "dpkg-reconfigure uclmwifi".</li>
+<li>Se han arreglado diversos bugs detectados en distintas situaciones de conexión (problemas con DHCP, asociación con puntos de acceso...). Comprueba el Changelog para más información.</li>
+</ul>
+
+uclmwifi forma parte del desarrollo de un applet para GNOME llamado <b>vpnapplet</b>. El proyecto está alojado en <a href="http://gna.org">GNA</a> y puedes descargarlo utilizando SVN con:
+
+
+<div class="console">
+{% highlight console %}
+svn co svn://svn.gna.org/svn/vpnapplet vpnapplet
+{% endhighlight %}
+</div>
+
+Gracias a todos por usar el script y por vuestras sugerencias. ¡Un saludo!
+
+Pd: ¡Mirad! <a href="http://www.ubuntu-es.org/index.php?q=node/48042">uclmwifi llega a ubuntu</a> :-)

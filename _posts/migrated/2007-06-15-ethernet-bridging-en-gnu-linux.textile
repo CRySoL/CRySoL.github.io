@@ -1,0 +1,78 @@
+---
+migrated: node/717
+layout: post
+title: Ethernet Bridging en GNU/Linux
+created: 1181942813
+author: david_villa
+category: receta
+tags:
+- networking
+---
+bq(head). Cómo hacer un bridge o switch software en GNU/Linux
+<!--break-->
+h2. Ingredientes
+
+* bridge-utils
+
+h2. Crear un bridge con dos tarjetas de red Ethernet
+
+Crea el _bridge_ indicando un nombre:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# brctl addbr br0
+{% endhighlight %}
+</div>
+
+
+Añades las interfaces físicas
+
+
+
+<div class="console">
+{% highlight console %}
+
+# brctl addif br0 eth0
+# brctl addif br0 eth1
+{% endhighlight %}
+</div>
+
+
+Quita las direcciones IP de las interfaces físicas:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# ifconfig eth0 0.0.0.0
+# ifconfig eth1 0.0.0.0
+{% endhighlight %}
+</div>
+
+
+Asigna una dirección IP al _bridge_
+
+
+
+<div class="console">
+{% highlight console %}
+
+# ifconfig br0 192.168.0.1 up
+{% endhighlight %}
+</div>
+
+
+Si en alguna de las redes a las que están conectadas las interfaces físicas hay un servidor DHCP, lo puedes usar:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# dhclient br0
+{% endhighlight %}
+</div>

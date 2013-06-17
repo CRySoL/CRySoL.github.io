@@ -1,0 +1,152 @@
+---
+migrated: node/681
+layout: post
+title: Webcams USB y Linux
+created: 1179105239
+author: int-0
+category: receta
+tags:
+- drivers
+- linux (el kernel, qué si no?)
+---
+<blockquote>Hola majetes! Supongo que todos vosotros tendréis webcams y quizá hayáis probado a enchufarlas en vuestras distros y... ohhh... desilusión... el linux no la pilla! (Si tenemos Debian es peor todavía porque de serie apenas tenemos módulos adecuados). No hay que preocuparse... vamos a hablar de unos cuantos módulos que hay por ahí con los que, en total, tendremos soporte para varios cientos de cámaras. No quiero decir que estén todos los que hay, pero al menos sí algunos de los más importantes.</blockquote>
+
+<h1>Notas sobre el hardware</h1>
+Bien, las webcams normalitas (las <em>no</em> motorizadas) suelen tener un hardware bastante sencillo: un sensor <a href="http://es.wikipedia.org/wiki/CCD">CCD</a> <em>on-chip</em> (también las hay con sensores CMOS o <a href="http://es.wikipedia.org/wiki/Sensor_CMOS">APS</a>) y un <em>bridge</em> USB que conecta el sensor con el  <em>host</em>.
+Y esto para qué nos sirve? muy sencillo: buscar drivers para nuestras webcams implica conocer qué sensor y que <em>bridge</em> lleva nuestra cámara. Otra forma de buscar los drivers es conociendo el <em>VendorId</em> y <em>ProductId</em> y haciendo la búsqueda en <em>google</em>. La mejor forma de averiguar el <em>chipset</em> es destripar la webcam con destornillador en mano, pero si alguno quiere ser más "fino" puede examinar los drivers de <em>hassefroch</em> (que <em>SI</em> incluye el fabricante... lo hay con suerte! :-P). Por ejemplo, sirva el archivo <em>.inf</em> de mi webcam:
+
+<pre>Provider = %SX%
+CatalogFile.NT = snpstd3.cat
+DriverVer =  06/27/2006,5.16.0.000
+
+%USBPCamV2Desc% =  SN.PCamV2.XP,USB\VID_0c45&PID_613a        ; SN9C120 +
+OV7648</pre>
+
+Qué significa todo esto? pues ni idea, pero <b>SN9C120</b> es un <em>bridge</em> bastante común y <b>OV7648</b> es un sensor muy utilizado también. Ahí ya tenemos el chipset para el que debemos buscar drivers.
+
+<h1>Webcams Phillips</h1>
+Para no hacer una receta muy larga no pondré aquí todas las cámaras que soporta, pero aquí tenéis la <a href="http://www.lavrsen.dk/twiki/bin/view/PWC/WorkingWebcamsWithPWC">lista de compatibilidad</a> del módulo.
+
+Si tenemos alguna de estás cámaras, lo normal es que el linux venga con el módulo <b>pwc.ko</b> de serie. Éste es el módulo que maneja estas cámaras. Pero si queremos compilarlo nosotros mismos:
+
+
+<div class="console">
+{% highlight console %}
+# m-a ai pwc
+{% endhighlight %}
+</div>
+
+También podemos hacerlo más artesanal, nos descargamos los <a href="http://www.saillard.org/linux/pwc/files/">fuentes de pwc</a> y compilamos:
+
+
+<div class="console">
+{% highlight console %}
+$ unp pwc-10.0.12-rc1.tar.bz2
+$ make
+# make install
+{% endhighlight %}
+</div>
+
+Tened en cuenta que <em>make install</em> debéis hacerlo con el módulo <em>pwc</em> descargado. Si todo ha ido bien, ya tenéis soporte para cámaras <em>phillips</em> y muchas <em>logitech</em>, sólo tenéis que <em>pincharlas</em> y con <em>xawtv</em> o <em>effectv</em> podréis probarlas.
+
+<h1>GSPCA/SPCA5XX</h1>
+Este modulito soporta más de 200 cámaras. Tiene un código muy sencillito que te permite <em>customizarlo</em> fácilmente. Además el autor es muy majete y si le dices cómo es tu cámara (o se la mandas) le añade soporte en el driver. Podéis echar un vistazo a la <a href="http://mxhaard.free.fr/spca5xx.html">lista de compatibilidad completa</a> del driver. Existe otra  versión del módulo para dispositivos empotrados, la podéis encontrar en la misma página. En Debian no se incluye el módulo por defecto, pero podemos instalarlo fácilmente:
+
+
+<div class="console">
+{% highlight console %}
+# m-a ai spca5xx
+# m-a ai gspca
+{% endhighlight %}
+</div>
+
+Si, como antes, queremos hacerlo más artesanal, descargaremos los fuentes de la <a href="http://mxhaard.free.fr/download.html">sección de descargas</a>. Usaremos <em>gspcav1</em>, ya que el otro módulo ya está obsoleto:
+
+
+<div class="console">
+{% highlight console %}
+$ unp gspcav1-20070508.tar.gz 
+$ cd gspcav1-20070508
+$ make
+# make install
+{% endhighlight %}
+</div>
+
+Al igual que antes, si todo salió bien, podemos conectar la cámara y con algún programa V4L probar que funcionan.
+
+<h1>OV511</h1>
+Este es el nombre del <em>bridge</em> al que da soporte éste módulo que soporta más de cien cámaras. Podéis verlas en su <a href="http://alpha.dyndns.org/ov511/cameras.html">lista de dispositivos</a>. Debian tampoco trae este módulo de serie en el kernel pero es fácil de incluir:
+
+
+<div class="console">
+{% highlight console %}
+# m-a ai ov511
+{% endhighlight %}
+</div>
+
+Si queremos una instalación artesanal, vamos a su página y en la <a href="http://alpha.dyndns.org/ov511/download.html">sección de descargas</a> nos bajamos la versión que queramos, descomprimimos y compilamos:
+
+
+<div class="console">
+{% highlight console %}
+ $ unp ov511-2.32.tar.bz2
+$ cd ov511-2.32
+$ make
+# make install
+{% endhighlight %}
+</div>
+
+<h1>QuickCam Express</h1>
+Este módulo actualmente suele formar parte del linux y fue el precursor del <a href="http://linuxtv.org/v4lwiki/">V4L</a>. Si queremos compilarnos nuestro propio <em>qc-usb</em>:
+
+
+<div class="console">
+{% highlight console %}
+ # m-a ai qc-usb
+{% endhighlight %}
+</div>
+
+También podemos obtener los fuentes en su <a href="http://qce-ga.sourceforge.net/>página oficial</a>, descomprimir y compilar:
+
+
+<div class="console">
+{% highlight console %}
+ $ unp qc-usb-0.6.5.tar.gz
+$ make all
+# make install
+{% endhighlight %}
+</div>
+
+<h1>Linux UVC</h1>
+Este módulo pretende dar soporte genérico al <em>USB Video Class</em>. Es decir: si un dispositivo cumple el estándar de los dispositivos de vídeo USB, este módulito debería poder soportarlo. Para que nos entendamos: es como el módulo genérico de <em>USB Mass Storage Device</em> pero para vídeo.
+
+Al igual que antes, podemos instalarlo fácilmente:
+
+
+<div class="console">
+{% highlight console %}
+# m-a ai linux-uvc
+{% endhighlight %}
+</div>
+
+También podemos descargar los fuentes de la <a href="http://linux-uvc.berlios.de/">página oficial</a> o hacerlo directamente desde el repositorio:
+
+
+<div class="console">
+{% highlight console %}
+$ svn checkout svn://svn.berlios.de/linux-uvc/linux-uvc/trunk
+$ cd trunk
+$ make
+# make install
+{% endhighlight %}
+</div>
+
+...y con todo esto creo que tenemos soportadas más de 400 cámaras entre todos los drivers ;-).
+
+De todas formas, si vuestra cámara siguiese sin funcionar, no os preocupéis, hay más módulos no tan genéricos para muchas cámaras (incluso webcams para puerto paralelo). Además, si no existiera el driver, podéis encontrar los <em>datasheets</em> del chipset de la cámara y enviarlo a las listas de desarrollo del módulo que soporte un hardware parecido; seguro que os podrán ayudar a incluir vuestra cámara.
+
+<h1>Colaborar</h1>
+Si vuestra cámara no esta oficialmente soportada por alguno de estos módulos, pero los probáis y os funciona, sería de gran ayuda a los desarrolladores que los enviaseis un correo con el modelo de cámara, chipset (si lo conocéis) y versión del módulo que usáis.
+
+<h1>Enlaces</h1>
+Los tenéis por toda la receta :-P.

@@ -1,0 +1,170 @@
+---
+migrated: node/1535
+layout: post
+title: La Historia de OpenGL vs Direct3D
+created: 1311528572
+author: nacho
+category: historia
+tags:
+- gráficos
+---
+Hace poco, un forero bajo el seudónimo de M.Sameer se hacía la siguiente pregunta:
+
+_«¿Es que DirectX es más fácil o mejor que OpenGL, incluso aunque OpenGL is multi-plataforma? ¿Por qué no vemos juegos potentes reales en Linux, como los que hay para Windows?»_
+
+De entre las muchas respuestas que recibió, "destaca sobre todas las demás la que da Nicol Bolas":http://programmers.stackexchange.com/questions/60544/why-do-game-developers-prefer-windows/88055#88055, y que cuenta la historia y la evolución de ambas APIs. Me ha parecido muy curiosa y enriquecedora, así que me he dispuesto a traducirla y compartirla con vosotros. Aquí va:
+
+
+h2. Nace el Conflicto
+
+Un día, cerca del principio de los años 90, Microsoft miró alrededor. Vieron que la SNES y la SEGA Genesis eran super chulas, y ejecutaban un montón de juegos de acción y cosas así. Y vieron su DOS. Los desarrolladores codificaban los juegos para DOS igual que para las consolas: directo al metal. La diferencia era que, mientras un desarrollador que hacía un juego para SNES sabía qué hardware tendría el usuario, los desarrolladores de DOS tenían que escribir para múltiples configuraciones posibles. Y esto es más dífícil de lo que parece.
+
+Y Microsoft tenía un problema aún mayor: Windows. Veréis, Windows quería poseer el hardware, no como DOS, que dejaba que los desarrolladores hicieran lo que les diera la gana. Poseer el hardware es necesario si quieres que las aplicaciones cooperen entre sí. Pero esta cooperación es precisamente lo que los desarrolladores _odian_, porque se lleva valiosos recursos hardware que ellos podrían usar para que su juego fuera más molón.
+
+Para promover el desarrollo de juegos para Windows, Microsoft necesitaba una API uniforma que fuera de bajo nivel, corriera en Windows sin que éste la ralentizase y, sobre todo, multi-plataforma. Una única API para todo el hardware gráfico, de sonido las entradas.
+
+Y así, nació DirectX.
+
+Las aceleradoras gráficas nacieron unos meses más tarde. Y Microsoft se encontró con un problema: DirectDraw, el componente gráfico de DirectX, sólo manejaba gráficos bidimensionales, alojando memoria gráfica y haciendo _bit-blits_ entre diferentes secciones de la memoria.
+
+Así que Microsoft compró un poco de _middleware_ y lo amoldó a su estilo, creando D3D v3. Lo despreció _todo el mundo_. Y no sin razón: mirar el código de D3D v3 es como mirar dentro del Arca de la Alianza.
+
+"John Carmack":http://en.wikipedia.org/wiki/John_D._Carmack, de *Id Software*, echó un vistazo a esa basura y dijo: _«Que le den por culo»_, y decidió implementar una nueva API: "OpenGL":http://<a href="http://www.opengl.org">www.opengl.org</a>
+
+Otra parte de la "bestia de múltiples cabezas" que es Microsoft había estado ocupada trabajando con SGI en una implementación de OpenGL para Windows. La idea aquí era cortejar a los desarrolladores de aplicaciones GL típicas: aplicaciones para workstations, herramientas CAD, modelado... ese tipo de cosas. Los juegos eran lo último que tenían en mente; esto era principalmente una cosa para Windows NT, pero Microsoft decidió añadirlo también a Win95.
+
+Como forma de atraer a los desarrolladores de workstation hacia Windows, Microsoft decidió intentar sobornarles con acceso a estas novedosas tarjetas gráficas 3D. Microsoft implemnentó el protocolo _Installable Card Driver_: un fabricante de tarjetas gráficas podría anular la implementación software de OpenGL de Microsoft y utilizar una basada en hardware. El código podría usar automáticamente usar una implementación hardware de OpenGL si estaba disponible.
+
+h2. El Ascenso de OpenGL
+
+Ya tenemos nuestro escenario: Direct3D vs OpenGL. En realidad es una historia impresionante, teniendo en cuenta lo malo que era D3D v3.
+
+La Junta de Revisión Arquitectónica de OpenGL (ARB, Architectural Review Board) es la organización responsable de mantener OpenGL. Crean un montón de extensiones, mantienen el repositorio de extensiones, y crean nuevas versiones de la API. La ARB es un comité compuesto por muchos de los actores de la industria gráfica, así como algunos fabricantes de SO. Apple y Microsoft han formado parte de la ARB en varias ocasiones.
+
+3Dfx aparece con la Voodoo2. Este es el primer hardware con multitexturizado, que es algo que OpenGL no podía hacer antes. Mientras que 3Dfx estaba fervientemente en contra de openGL, NVIDIA, fabricantes del próximo chip gráfico con multitexturas (el TNT1), lo adoraba. Así que la ARB lanzó una extensión: GL_ARB_multitexture, que permitiría el acceso al multitexturizado.
+
+Mientras tanto, sale Direct3D v5. Ahora, D3D se ha convertido en una API en condiciones, más que algo vomitado por un gato. ¿El problema? Que no tiene multitexturas.
+
+Oops.
+
+Ahora bien, eso no fue tan malo como debería haber sido, porque la gente no usaba mucho las multitexturas. Al menos, no directamente. El multitexturizado afecta bastante al rendimiento, y en muchos casos no merece la pena, comparado con el _multi-passing_. Y por supuesto, a los desarrolladores de juegos les encanta asegurarse de que sus juegos funcionan en hardware antiguo, que no tenía multitexturas, así que muchos juegos simplemente no las usaban.
+
+Esto concedió un indulto a D3D y tuvo una segunda oportunidad.
+
+El tiempo pasa y NVIDIA lanza la GeForce 256 (no la GeForce GT-250, la primera GeForce), zanjando así durante 2 años la competición en el mundo de las tarjetas gráficas. El principal atractivo es la habilidad de hacer transformadas e iluminación (T&L) de vértices en hardware. No sólo eso, a NVIDIA le gustaba tanto OpenGL que su motor de T&L _era_ efectivamente OpenGL. Casi literalmente; tal como yo lo entiendo, algunos de sus registros tomaban enumeradores OpenGL _directamente_ como valores.
+
+Sale D3D v6. Multitexturas por fin, pero... sin T&L por hardware. OpenGL había tenido _siempre_ una pipeline de T&L, incluso antes de la 256, lo tenían implementado en software. Así que a NVIDIA le resultó muy fácil convertir su implementación software en una solución hardware. Direct3D no soportaría el T&L por hardware hasta D3D v7.
+
+h2. El Amanecer de los _Shaders_, Ocaso de OpenGL
+
+En esta situación, aparece GeForce 3. Y ocurren un montón de cosas al mismo tiempo.
+
+Microsoft había decidido que no volverían a llegar tarde. Así que, en lugar de mirar lo que estaba haciendo NVIDIA y después copiarlo cuando ya lo habían hecho, adoptaron la asombrosa postura de ir directamente y hablar con ellos. Entonces se enamoraron y tuvieron una pequeña consolita. Después vino un divorcio enfarragoso. Pero esa es otra historia.
+
+Para el mundo PC, esto significó que la GeForce 3 vino al mundo a la vez que D3D v8. Y no es difícil ver cómo la GeForce 3 influenció los _shaders_ de D3D v8. El _pixel shader_ de Shader Model 1.0 era _extremadamente_ específico para hardware NVIDIA. Todavía no se había hecho ningún intento en absoluto de abstraer el hardware de NVIDIA; SM 1.0 era simplemente "lo que sea que haga la GeForce 3".
+
+Cuando ATI empezó a competir en la carrera de las tarjetas gráficas con la Radeon 8500, había un problema. El pipeline de proceso de pixeles de la 8500 era más potente que el de NVIDIA. Así que Microsoft sacó Shader Model 1.1, que era básicamente «lo que sea que haga la 8500".
+
+Podría parecer un error por parte de D3D. Pero fracaso y éxito son cuestión de grados. Y un fracaso _tremendo_ estaba gestándose en Villa OpenGL.
+
+A NVIDIA le encantaba OpenGL, así que cuando salió la GeForce 3, lanzaron un montón de extensiones de OpenGL. Extensiones _propietarias_. Sólo para NVIDIA. naturalmente, cuando la 8500 apareció, no podía usar ninguna de ellas. 
+
+Al menos, en D3D v8 podías ejecutar tus _shaders_ de SM 1.0 en hardware ATI. Sí, tenías que escribir shaders nuevos para poder aprovechar las maravillas de la 8500, pero al menos tu código _funcionaba_.
+
+Para poder tener _algún_ shader en la Radeon 8500 con OpenGL, ATI tuvo que escribir muchas extensiones OpenGL. Extensiones _propietarias_. Sólo para ATI. Así que necesitabas código de NVIDIA y código de ATI, solo para tener shaders.
+
+Ahora bien, os preguntaréis: «¿dónde está la ARB de OpenGL, cuyo trabajo era mantener actualizado OpenGL?» Pues donde suelen acabar la mayoría de los comités: siendo estúpidos.
+
+Veréis, antes mencioné ARB_multitexture porque afecta profundamente a todo esto. La ARB parecía (vista desde fuera) querer evitar totalmente la idea de los shaders. Se imaginaron que, si eran capaces de meter a capón suficiente configurabilidad en su pipeline de una única función, podrían equiparar las características de la pipeline de shaders.
+
+Así que la ARB publicó extensión tras extensión. Cada extensión con las palabras "texture_env" era otro intento de parchear este diseño obsoleto. Mirad el registro: entre las extensiones ARB y las EXT hubo _ocho_ de estas extensiones. Muchas de ellas se incluyeron en el núcleo de OpenGL.
+
+Microsoft era partde de la ARB en este momento, y la abandonaron más o menos cuando salió D3D v9. Así que es perfectamente posible que estuvieran trabajando para sabotear OpenGL de alguna forma. Personalmente no creo en esta teoría, por dos razones: una, que habrían necesitado ayuda de otros miembros de la ARB, ya que cada uno sólo posee un voto; y dos, aún más importante, la ARB no necesitaba a Microsoft para joderlo todo. Ya veremos esto más adelante.
+
+Al final, la ARB, posiblemente bajo la amenaza de ATI y NVIDIA (ambos miembros activos) levantó la cabeza el tiempo suficiente para dar shaders reales estilo ensamblador.
+
+¿Queréis algo aún más estúpido?
+
+T&L por hardware. Algo que OpenGL tuvo _antes_. Para obtener el máximo rendimiento posible del T&L por hardware, necesitas almacenar los datos de tus vértices en la GPU. Al fin y al cabo, es la GPU la que realmente quiere usar los datos de tus vértices.
+
+En D3D v7, Microsoft introdujo el concepto de Vertex Buffers. Son franjas de memoria de GPU que almacenan datos de vértices. 
+
+¿Queréis saber cuándo tuvo OpenGL su equivalente para esto? NVIDIA, a quien le encantaban todas las cosas de OpenGL (siempre y cuando fueran extensiones propietarias NVIDIA), lanzó la extensión Vertex Array Range cuando salió la GeForce 256. Pero.. ¿cuándo decidió la ARB dar una funcionalidad similar?
+
+_Dos años después_. Esto fue _después_ de que aprobaran los Vertex Shaders y Fragment Shaders (pixel en lenguaje D3D). Eso es lo que tardó la ARB en desarrollar una solución multiplataforma para almacenar datos de vértices en la memoria de la GPU. De nuevo, algo que el T&L por hardware _necesita_ para alcanzar su rendimiento máximo.
+
+h2. Un Lenguaje para Arruinarlos a Todos
+
+Así pues, el entorno de desarrollo de OpenGL estuvo roto durante un tiempo. Sin shaders multi-plataforma, sin almacenamiento GPU multiplataforma, mientras los usuarios de D3D disfrutaban de ambos. ¿Podría ponerse peor?
+
+Pues... podría decirse que sí. Aparece *3D Labs*.
+
+¿Y esos quiénes son, os preguntaréis?. Son una compañía ya desaparecida a quienes considero los verdaderos asesinos de OpenGL. Sí, la ineptitud general de la ARB hizo que OpenGL fuera vulnerable cuando debería haber estado dándole cera a D3D. Pero 3D Labs es quizá la única y mayor razón, en mi opinión, del actual estado mercantil de OpenGL. ¿Qué pueden haber hecho para provocarlo?
+
+Diseñaron el OpenGL Shading Language.
+
+Veréis, 3D Labs era una compañía moribunda. Sus carísimas GPUs estaban siendo marginadas por la creciente presión de NVIDIA en el mercado de las workstations. Y al contrario que NVIDIA, 3D Labs no tenía presencia alguna en el mercado principal; si NVIDIA ganaba, ellos morían.
+
+Y así ocurrió.
+
+Así, en una apuesta por seguir siendo relevantes en un mundo que no quería sus productos, 3D Labs apareció en una Game Developer Conference enarbolando presentaciones sobre algo que llamaron "OpenGL 2.0". Sería una re-escritura completa, desde cero, de la API de OpenGL. Y tiene sentido; había un montón de porquería en aquella API en ese momento (nota: esa porquería aún existe). No hay más que echarle un ojo a cómo funcionan la carga y el enlazado de texturas, es cuasi-arcano.
+
+Parte de su propuesta era un lenguaje de sombreado (shading). Naturalmente. Sin embargo, al contrario que las extensiones actuales de la ARB, su lenguaje era "de alto nivel" (C es un lenguaje de alto nivel en lo referente a shaders. Sí, en serio).
+
+Microsoft estaba trabajando en su propio lenguaje de alto nivel para sombreado; al que, con toda la imaginación colectiva de Microsoft, llamaron... Lenguaje de Sombreado de Alto Nivel (HLSL, High-Level Shading Language). Pero su enfoque era totalmente distinto al de los lenguajes.
+
+El mayor problema del lenguaje de 3D Labs era que que estaba empotrado (built-in). HLSL era un lenguaje que Microsoft definió. Lanzaron un compilador para él, y generaba código ensamblador de ShaderModel 2.0 (o posteriores), que le podías pasar a D3D. En los días de D3D v9, Direct3D nunca tocaba HLSL directamente. Era una abstracción bonita, pero era puramente opcional. Y un desarrollador siempre tenía la opción de ir detrás del compilador y toquetear la salida para conseguir un rendimento mejor.
+
+El lenguaje de 3D Labs no tenía _nada_ de eso. Le dabas al driver el código estilo C y producía un shader. Fin de la historia. Nada de shaders en ensamblador, nada que pudieras pasar a otro sitio. El objeto OpenGL final, que representa un shader.
+
+Esto significaba que los usuarios de OpenGL estaban a merced de los caprichos de los desarrolladores que estaban cogiéndole el tranquillo a compilar lenguajes estilo ensamblador. Los bugs del compilador proliferaban en el recién bautizado OpenGL Shading Language (GLSL). Y lo que es peor, si te las apañabas para conseguir que un shader compilase correctamente en varias plataformas (que no era poco), aún estabas sujeto a los optimizadores del día. Que no eran tan óptimos como podrían ser.
+
+Aunque este era el principal fallo de GLSL, no era el único. Ni mucho menos.
+
+En D3D, y en los antiguos lenguajes ensamblador de OpenGL, podías mezclar y emparejar vertex shaders y fragment (pixel) shaders). Siempre y cuando se comunicaran con la misma interfaz, podías usar cualquier vertex shader con cualquier fragment shader compatible. Y había incluso niveles de incopatibilidad que podían aceptar: el vertex shader podía escribir una salia que el fragment shader no pudiera leer.
+
+GLSL no tenía nada de eso. Fusionaron los vertex shader y fragment shaders en algo que 3D Labs llamó un «objeto de programa». Así que si querías compartir entre vertex y fragment shaders, tenías que crear varios objetos de programa. Y esto provocaba el sengundo gran problema.
+
+3D Labs creía que estaban siendo listos. Basaron la el modelo de compilación de GLSL en el de C/C++. Coges un .c o .cpp y lo compilas en un fichero objeto. Entonces coges uno o varios ficheros objeto y los enlazas en un programa. Así compila GLSL: compilas tu shader (vertex o fragment) en un objeto shader. Luego pones esos objetos shader en un objeto programa, y los enlazas para formar tu programa.
+
+A pesar de que esto permitía ideas potencialmente chulas como tener "librerías" de shaders que contenían código extra que los shaders principales podrían llamar, lo que significó en la práctica fue que los shaders se compilaban _dos veces_. Una, en la entapa de compilación; y otra, en la de linkado. El compilador de NVIDIA, en particular, era conocido básicamente por ejecutar la compilación dos veces. No generaba ningún tipo de código objeto intermedio, simplemente lo compilaba una vez y descartaba la respuesta, y luego lo compilaba otra vez en la fase de linkado.
+
+Así que incluso si quieres linkar tu vertex shader a dos fragment shaders distintos, tienes que hacer un montón más de compilaciones que en D3D. Especialmetne desde que la compilación de un lenguaje estilo C se hacía _offline_, no al principio de la ejecución del programa.
+
+Había otros problemas con GLSL. Puede parecer mal que le eche la culpa a 3D Labs, ya que al final fue la ARB la que aprobó e incorporó el lenguaje (pero nada más de su "iniciativa OpenGL 2.0"). Pero fue su idea.
+
+Y esta es la parte más triste: 3D Labs _tenía razón_ (en gran parte). GLSL no es un lenguage basado en vectores como lo era HLSL en su tiempo. Esto era porque el hardware de 3D Labs era escalar (similar al hardware de NVIDIA actual), pero acertaron en la dirección que tomarían muchos fabricantes de hardware.
+
+Hicieron bien en tomar un modelo de compilación on-line para un lenguaje de "alto nivel". Incluso D3D cambió a este modelo al final.
+
+El problema era que 3D Labs lo hizo bien _en el momento equivocado_. Y, al intentar invocar al futuro demasiado pronto, al intentar ser a prueba del futuro, dejaron de lado el presente. Suena parecido a cómo OpenGL siempre tuvo la posibilidad de la funcionalidad de T&L. Solo que la pipeline T&L de OpenGL todavía era _útil_ antes que el T&L hardware, mientras que GLSL era una responsabilidad antes de que el mundo lo alcanzara.
+
+GLSL es un buen lenguaje _ahora_. ¿Pero en su día? Era horrible. Y OpenGL lo pagó caro.
+
+h2. Cayendo a la Apoteosis
+
+Aunque mantengo que 3D Labs asestó el golpe de gracia, fue la propia ARB la que quizá puso el último clavo en el ataúd.
+
+Es una historia que quizá hayáis oído. En los días de OpenGL 2.1, OpenGL se dirigía hacia un problema: tenía un montón de porquería heredada. La API ya no era fácil de usar. Había 5 formas de hacer las cosas, y nadie sabía cuál era la más rápida. Podías aprender OpenGL con tutoriales sencillos, pero realmente no aprendías cómo sacar y aprovechar el máximo rendimiento y potencia gráfica.
+
+Así que la ARB decidió probar otra reinvención de OpenGL. Se parecía al OpenGL 2.0 de 3D Labs, pero mejor, porque la ARB estaba detrás. Lo llamaron "Longs Peak".
+
+¿Qué tiene de malo tomarse un tiempo para mejorar la API? Es malo porque Microsoft se había quedado vulnerable. Estamos hablando del momento en que se hizo el cambio a Vista.
+
+Con Vista, Microsoft decidió establecer algunos cambios muy necesarios en sus drivers gráficos. Forzaron a los drivers a someterse al sistema operativo para vitualización de memoria gráfica, y algunas otras cosas.
+
+Aunque uno puede debatir sobre lo acertado de esta decisión, o si es siquiera posible, el hecho es el siguiente: Microsoft consideró hacer D3D v10 únicamente para Vista (y superiores). Incluso si tenías hardware que era capaz de ejecutar D3D 10, no podrías hacerlo sin Vista.
+
+También recordaréis que Vista... digamos que no funcionó muy bien. Así que tenemos un SO de bajo rendimiento, una nueva API que sólo corre en ese SO, y una generación nueva de hardware que _necesitaba_ una API y un SO que hicieran algo más que ser más rápidos que la generación anterior.
+
+Sin embargo, los desarrolladores _podían_ acceder a las características de D3D 10 vía OpenGL. Bueno, podrían si la ARB no hubiera estado tan ocupada trabajando en Longs Peak.
+
+Básicamente, la ARB se pasó sus buenos 18-24 meses trabajando para hacer la API mejor. Para cuando OpenGL 3.0 por fin salió, ya se había adptado Vista, Windows 7 estaba a la vuelta de la esquina, y la mayoría de los desarrolladores de juegos ni siquiera estaban interesados en las características de D3D 10. Al fin y al cabo, el hardware D3D 10 corría las aplicaciones D3D 9 muy bien. Y con el ascenso de los ports PC-a-consola (o desarrolladores de PC pasándose a desarrollo en consola, como quieras verlo), los desarrolladores no necesitaban las funcionalidades D3D 10.
+
+Ahora bien, si los desarrolladores hubieran tenido acceso a esas funcionalidades antes via OpenGL en WinXP, entonces OpenGL podría haber recibido sólo un (merecido) disparo en el brazo. Pero la ARB perdió su oportunidad. ¿Y queréis saber la peor parte?
+
+A pesar de pasar 2 preciosos años intentando reconstruir la API desde cero... no lo hicieron, y simplemente volvieron al status-quo (excepto por un mecanismo de obsolescencia).
+
+Así que la ARB no sólo perdió una ventana _crucial_ de oportunidad, es que ni siquiera hicieron el trabajo que les hizo perder esa oportunidad. Una gran cagada (epic fail) por todos lados.
+
+Y esta es la historia de OpenGL vs Direct3D. Una historia de oportunidades perdidas, gran estupidez, cegera intencionada y simple estupidez.

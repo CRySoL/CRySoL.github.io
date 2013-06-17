@@ -1,0 +1,48 @@
+---
+migrated: node/246
+layout: post
+title: Plugin Opacity en Xgl/Compiz
+created: 1141439686
+author: cleto
+category: receta
+---
+<blockquote>
+Esta receta describe como añadir el plugin de transparencias <b>opacity</b> para Xgl/Compiz.
+</blockquote>
+<!--break-->
+<h1>Requisitos</h1>
+Se supone que ya tienes aceleración 3D y <a href="http://crysol.inf-cr.uclm.es/drupal/node/240">Xgl/Compiz</a> funcionando en tu máquina. A parte eso, necesitas como es lógico, el <a href="http://www.downwithnumbers.com/files/compiz_opacity.tar.gz">el plugin opácity</a>. Para comprender mejor cómo funciona este plugin para <b>compiz</b> puedes mirar <a href="http://www.downwithnumbers.com/compiz_plugins.html">este artículo</a>
+
+<h1>Instalando y activando el nuevo plugin</h1>
+Cogemos el .gz descargado y lo descomprimelo. Posteriormente, cópialo a <em>/usr/lib/compiz</em>, que es donde se encuentran por defecto los plugins de compiz carga. Para ello ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+$ unp compiz_opacity.tar.gz
+$ sudo cp libopacity.so /usr/lib/compiz/
+{% endhighlight %}
+</div>
+
+Una vez tengamos el archivo .so copiado, debes indicarle a compiz que lo cargue. Para ello, añade como argumento la palabra <b>opacity</b> a la llamada de @compiz@. Si tenías:
+
+<pre>
+#!/bin/bash
+gnome-window-decorator &  compiz --replace gconf decoration wobbly\
+fade minimize cube rotate zoom scale move resize place switcher &
+xmodmap /usr/share/xmodmap/xmodmap.es
+</pre>
+
+... debes modificarlo para que quede así:
+
+<pre>
+#!/bin/bash
+gnome-window-decorator &  compiz --replace gconf decoration wobbly\
+fade minimize cube rotate zoom scale move resize place switcher <b>opacity</b> &
+xmodmap /usr/share/xmodmap/xmodmap.es
+</pre>
+
+<h1>Probando opacity</h1>
+Para usar  el plugin hay que pulsar <b>control + may.izq + rueda_ratón</b> en una ventana (preferiblemente en la barra de título). Subiendo y bajando la rueda del ratón verás como varía la transparencia de la ventana completa; desde totalmente opaca a casi invisible.
+
+Espero que os guste. Un saludo!

@@ -1,0 +1,24 @@
+---
+migrated: node/212
+layout: post
+title: ! 'Wormux: el Worms para GNU/Linux'
+created: 1138775942
+author: cleto
+---
+Referencias de david nos encaminaron a encontrar un juego llamado <a href="http://www.wormux.org/es/index.php">Wormux</a>. Se trata del Worms de toda la vida pero para GNU/Linux y libre.
+
+Tiene muy buena pinta, aunque carece de ciertos aspectos. Las animaciones no están muy curradas y hay ciertos movimientos que no están permitidos (subirse a un jugador).
+
+Por lo demás, decir que es un fantástico juego y que la gente que lo ha desarrollado se lo ha currado. Realmente las carencias que tiene son pequeños matices; sin ninguna importancia. El juego en sí está muy logrado. ¡Enhorabuena!
+
+Para instalarlo, teneis que agregar en /etc/apt/source.list:
+<pre>
+deb http://download.gna.org/wormux/debs sarge/  # Debian stable ("Sarge")
+deb http://download.gna.org/wormux/debs sid/    # Debian unstable ("Sid")
+deb http://download.gna.org/wormux/debs breezy/ # Ubuntu Breezy
+deb http://download.gna.org/wormux/debs dapper/ # Ubuntu Dapper
+</pre>
+¡Agregar sólo la que utiliceis vosotros!.<a href="http://wormux.org/wiki/en/download.php"> También hay para otras plataformas</a>. Una vez hecho esto, debeis hacer un apt-get update y, depués, apt-get install wormux. Espero que os guste.
+
+Un saludo!
+

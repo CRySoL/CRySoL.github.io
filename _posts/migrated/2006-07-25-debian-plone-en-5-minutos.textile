@@ -1,0 +1,127 @@
+---
+migrated: node/357
+layout: post
+title: Debian Plone en 5 minutos
+created: 1153820195
+author: paco
+category: receta
+---
+bq. Cómo instalar y poner en marcha Zope/Plone en Debian GNU/Linux
+<!--break-->
+
+
+h1. Ingredientes
+
+Todos son paquetes Debian:
+
+* plone (metapaquete que depende de todos los necesarios)
+
+h1. Introducción
+
+El manejo de zope en Debian/Ubuntu ha cambiado mucho desde que se hiciera la receta "Cómo empezar con Zope". Todavía queda alguna cosilla por pulir, pero para eso están las recetas de CRySoL, para que las afinemos entre todos :-)
+
+h1. Instalación
+
+Instala los paquetes necesarios:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install plone 
+{% endhighlight %}
+</div>
+
+Crea una nueva instancia:
+
+
+<div class="console">
+{% highlight console %}
+$ dzhandle -z 2.8 make-instance myPloneSite -m manual -t tree-linked -r end -u initialuser:initialpasswd --service-user=user:group --service-port=8080
+
+{% endhighlight %}
+</div>
+
+Donde initialuser/initialpasswd son el usuario y passwd iniciales para Zope (no necesitan cuenta Unix), y el user:group son el usuario y grupo Unix que ejecutará la instancia.
+
+Usa @dzhandle@ para añadir nuevos productos:
+
+
+<div class="console">
+{% highlight console %}
+$ dzhandle -z 2.8 add-product myPloneSite CMFPlone 
+{% endhighlight %}
+</div>
+
+Igual te interesa instalar alguno más.  Por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+$ dzhandle -z 2.8 add-product myPloneSite PloneCollectorNG RDFGrabber ExtFile ReplaceSupport exUserFolder COREBlog2 TinyTablePlus PloneExFile Formulator CMFForum CMFMember CMFSin PlacelessTranslationService LinguaPlone CMFPhotoAlbum 
+{% endhighlight %}
+</div>
+
+Cuando termines reinicia la instancia:
+
+
+<div class="console">
+{% highlight console %}
+$ dzhandle zopectl myPloneSite restart 
+{% endhighlight %}
+</div>
+
+h1. Instalando LDAP
+
+Plone 2.1 ya viene con GRUF y exUserFolder, lo que permite, entre otras cosas, utilizar un servidor LDAP para la autenticación.  Eso es muy cómodo en entornos como la Universidad, porque de esa forma los alumnos pasan a ser miembros del sitio plone sin necesidad de hacer nada.
+
+La forma más sencilla (con diferencia) de configurar un servidor LDAP como fuente de usuarios externa es con LDAPUserFolder.  Este es un paquete que estaba en Debian pero por desgracia el desinterés general ha hecho que desaparezca.  Es realmente trivial hacer un paquete Debian con LDAPUserFolder.  Basta tomar como ejemplo otro cualquiera de los que siguen mantenidos (zope-tinytableplus), traerte la distribución original de LDAPUserFolder, copiar su directorio debian, y editar un poco.  Si quieres ahorrarte el trabajo puedes cogerlo de <a href="http://atc.inf-cr.uclm.es/Members/paco/Debian/zope-ldapuserfolder_2.7-1_all.deb">zope-ldapuserfolder_2.7-1_all.deb</a>.
+
+Recuerda que para añadirlo a tu sitio debes usar:
+
+
+<div class="console">
+{% highlight console %}
+$ dzhandle add-product myPloneSite LDAPUserFolder
+
+{% endhighlight %}
+</div>
+
+h1. Configurando Plone
+
+Apunta con un browser de web a http://localhost:8080/manage.
+
+Usando el Combo de arriba a la derecha añade un Plone Site. Pincha en acl_users dentro del nuevo sitio. Selecciona la pestaña Sources y añade un LDAP User Folder.
+
+Para configurar el servidor de la Universidad como proveedor de usuarios:
+
+<ul>
+<li>Users base DN: dc=uclm,dc=es</li>
+<li>Groups not stored on LDAP Server</li>
+<li>Manager DN: Tu login de la UCLM (p.ej. uclm\francisco.moya), rellena también la passwd y marca la casilla read-only</li>
+<li>Manager DN Usage: Always</li>
+<li>Default User Roles: Member</li>
+</ul>
+
+En la pestaña de LDAP Schema puede ser útil añadir algun otro campo de los que usa tu servidor LDAP.  Por ejemplo, la UCLM tiene el campo displayName que contiene el nombre completo del alumno/profe/pas.
+
+Aunque por defecto son Members, se pueden añadir más roles en la pestaña Users.  Busca el usuario que quieres editar y selecciona las casillas correspondientes a los roles a añadir.
+
+h1. Cambiando el aspecto
+
+Plone soporta skins. En el Plone 2.1 son un poco cutrecitas, pero las soporta. Hay un montón de skins por ahí. Basta instalar el paquete correspondiente.  La forma de instalación más habitual es descomprimir el paquete en el directorio Products (/var/lib/zope2.8/instance/myPloneSite en nuestro caso), reiniciar con <b>dzhandle zopectl myPloneSite restart</b>, e instalar el producto en el menu de preferencias del sitio.  Una vez instalado el paquete podeis cambiar el aspecto en el mismo menú de preferencias o incluso permitir que cada usuario pueda cambiar el aspecto.
+
+Hacer un paquete Debian tampoco es difícil tomando como ejemplo uno cualquiera de Debian (yo siempre uso zope-tinytableplus como modelo).
+
+h1. Extreme Management Tool
+
+ExtremeManagement es una magnífica herramienta de gestión de proyectos que usa la filosofía XP. Si quereis paquetes Debian echadle un ojito a <a href="http://atc.inf-cr.uclm.es/Members/paco/Debian">mis paquetes no oficiales</a>.  Está todo lo necesario, pero por desgracia hay que hacer un pequeño retoque antes de poder usarlo con Plone 2.x. El problema y su solución están descritos <a href="http://plone.org/products/extreme-management-tool/issues/16">aquí</a> pero lo resumo para el que no quiera leer mucho.
+
+Edita en el ZMI (http://localhost:8080/manage en nuestro caso) el objeto <b>portal_properties</b> y dentro de él <b>navtree_properties</b>. Añade una propiedad de tipo <em>lines</em> con el nombre <em>rolesSeeUnpublishedContent</em>. Graba y rellena esa propiedad con el siguiente texto:
+
+<pre>
+Manager
+Reviewer
+Owner
+</pre>
+
+Ya está, ahora ya puedes añadir y usar el paquete eXtremeManagement como es habitual.

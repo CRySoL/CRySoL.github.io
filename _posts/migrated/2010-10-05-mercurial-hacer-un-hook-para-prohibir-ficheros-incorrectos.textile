@@ -1,0 +1,163 @@
+---
+migrated: node/1406
+layout: post
+title: ! 'Mercurial: hacer un hook para prohibir ficheros «incorrectos»'
+created: 1286268229
+author: oscarah
+category: receta
+tags:
+- mercurial
+---
+En esta receta veremos cómo hacer un script «hook» que impide a los usuarios puedan subir ficheros que no cumplan los criterios que decidamos. En concreto, vamos a evitar que puedan subir ficheros binarios al repositorio.
+<!--break-->
+Los repositorios están destinados principalmente al desarrollo de software, lo que generalmente implica el uso de ficheros de texto plano. Están optimizados para llevar un control sobre los cambios que se realizan, ocupando el mínimo espacio posible para ello. Sin embargo, incluir ficheros binarios rompe los esquemas. ¿Solución? Los hooks de mercurial.
+
+h2. Creando el repo
+
+Para probar esta receta, puedes crear un repositorio local, clonarlo y ver que funciona correctamente. Para ello, primero creamos el repo "raiz":
+
+
+<div class="console">
+{% highlight console %}
+
+box$ hg init base
+{% endhighlight %}
+</div>
+
+Ahora, es necesario editar el fichero @.hg/hgrc@ del repositorio base. Se añade el hook "pretxnchangegroup":http://hgbook.red-bean.com/read/handling-repository-events-with-hooks.html#sec:hook:pretxnchangegroup, que se ejecuta al hacer push (o bundle). Si estamos haciendo un 'push' con varios 'commit', se ha de tener en cuenta que sólo se ejecutará una vez para todos los 'commit'. Por eso, es necesario iterar de alguna forma sobre cada 'changeset', y comprobar que la política se cumple. El script que se ejecuta en este hook (@./check.sh@) hace eso precisamente:
+
+
+
+<div>
+{% highlight bash %}
+#!/bin/bash
+# -*- mode: shell; coding: utf-8 -*-
+
+TMP=`mktemp -u`
+FAIL=0
+
+# Hacemos una copia primero, para actualizar los changesets. De esta forma,
+# no tendremos conflictos con los nombres. HG usa hardlinks para esto, así
+# que no es muy grave.
+hg clone file://. $TMP > /dev/null 2>&1
+
+# Iteramos sobre todos los 'changesets'.
+for node in `hg log --template '{node}\n' -r $HG_NODE:`; do
+    # Limpiamos ficheros anteriores, para que no nos haga preguntas.
+    rm $TMP/* -fr
+
+    # Actualizamos (update) al 'changeset' a analizar.
+    hg -R $TMP revert --all -r $node > /dev/null 2>&1
+
+    # Aquí se llama al script que hace la verificación correspondiente.
+    ./assertText.sh $TMP
+
+    # Si el script falló, salimos con un estado de error (1)
+    if [ "$?" -ne 0 ]; then
+	echo "Assertion failed!"
+	FAIL=1
+	break
+    fi
+done
+
+# No olvidar la limpieza
+rm $TMP/ -fr
+exit $FAIL
+{% endhighlight %}
+</div>
+
+Guarda ese script en el directorio @base@ (fuera del @.hg@), y dale permisos de ejecución.
+
+Como vemos en el script, se hace una copia del repositorio en un directorio temporal, y se actualiza esa copia con cada 'changeset' concreto. Ahora, se pasa el script que hace la verificación. En este caso, el script es muy sencillo. Únicamente se listan todos los ficheros que no estén ocultos, y se comprueba (con la herramienta file) que todos son ficheros de texto:
+
+
+<div>
+{% highlight bash %}
+#!/bin/bash
+# -*- mode: shell; coding: utf-8 -*-
+
+for i in `find $1 -type f \! -path "*/.*"`; do
+    file $i | grep 'text' > /dev/null 2>&1
+    if [ "$?" -ne 0 ]; then
+	echo "$i is not a text file!"
+	exit 1
+    fi
+done
+exit 0
+{% endhighlight %}
+</div>
+
+Este script (@assertText.sh@) es bastante simple, y no cubre todas las posibilidades deseadas. Por ejemplo, un fichero SVG es un fichero de texto (XML), pero file no dirá en su mensaje la palabra 'text'. Se deja a la imaginación del lector mejorar el proceso de verificación de cada fichero ;)
+
+De nuevo, guarda el fichero en el directorio @base@ y dale permisos de ejecución. Es hora de comprobar que funciona.
+
+h2. Verificando la política
+
+Ahora clonaremos localmente el repositorio base, y probaremos que el hook funciona correctamente:
+
+<div class="console">
+{% highlight console %}
+
+box$ hg clone file://$(pwd)/base copia
+updating to branch default
+0 files updated, 0 files merged, 0 files removed, 0 files unresolved
+{% endhighlight %}
+</div>
+
+Primero, añade un fichero de texto normal y corriente, y verifica que no hay problema.
+
+
+<div class="console">
+{% highlight console %}
+
+box$ cd copia
+box$ echo "esto es algo de texto" > file.txt
+box$ hg add file.txt 
+box$ hg ci -m "commit correcto"
+box$ hg push
+pushing to /tmp/tests/base
+searching for changes
+adding changesets
+adding manifests
+adding file changes
+added 1 changesets with 1 changes to 1 files
+{% endhighlight %}
+</div>
+
+Ok, en eso no hay problema. Veamos ahora que pasa si se añade un fichero binario, por ejemplo, una imagen. 
+
+
+<div class="console">
+{% highlight console %}
+
+box$ cp /usr/share/pixmaps/nobody.png data.png
+box$ hg add data.png 
+box$ hg ci -m "commit incorrecto"
+box$ hg push
+pushing to /tmp/tests/base
+searching for changes
+adding changesets
+adding manifests
+adding file changes
+added 1 changesets with 1 changes to 1 files
+/tmp/tmp.Wb35uj91pi/data.png is not a text file!
+Assertion failed!
+transaction abort!
+rollback completed
+abort: pretxnchangegroup hook exited with status 1
+{% endhighlight %}
+</div>
+
+Como vemos, el fichero @data.png@ no ha satisfecho la política, y por tanto, no podrá ser subido al repositorio. 
+
+h2. Posibles problemas
+
+Cuando lanzamos un push, y se ejecuta el script @check.sh@, los cambios ya han sido actualizados en el repositorio base. Mercurial está a la espera de que el script acabe correctamente para hacerlos definitivos o descartarlos. Esto implica que todos los 'commit' que se han hecho estarán accesibles para otros *mientras* se esté ejecutando el script. Si el proceso de verificación es muy largo, puede que alguien haga un 'pull' de un changeset que no es válido, lo que causará problemas.
+
+Para evitarlo, en el wiki de mercurial, se dan posibles soluciones. La más sencilla implica evitar que se hagan dos 'push' concurrentemente, y proporcionar una copia "valida" mientras se verifican los commits. 
+
+h2. Referencias
+
+* "Ejecutar acciones disparadas por eventos en repositorios Mercurial":http://crysol.org/es/node/1329
+* "Handling repository events with hooks":http://hgbook.red-bean.com/read/handling-repository-events-with-hooks.html#sec:hook:prechangegroup
+* "Ensure Commit Policy":http://mercurial.selenic.com/wiki/EnsureCommitPolicy

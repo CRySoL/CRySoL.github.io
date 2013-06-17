@@ -1,0 +1,107 @@
+---
+migrated: node/518
+layout: post
+title: Impresora HP LaserJet 1000 USB
+created: 1169410799
+author: david_villa
+category: receta
+---
+bq(head). Cómo configurar la impresora HP LaserJet 1000 USB en GNU/Linux
+<!--break-->
+
+
+h2. Ingredientes
+
+* cupsys
+* foo2zjs:http://foo2zjs.rkkda.com/
+
+
+h2. Instalación
+
+
+<div class="console">
+{% highlight console %}
+$ wget http://foo2zjs.rkkda.com/foo2zjs.tar.gz
+$ unp foo2zjs.tar.gz
+$ cd foo2zjs
+$ make
+$ ./getweb new1000
+# ln -s /usr/share/doc/hotplug/examples/usb.usermap /etc/hotplug/usb.usermap
+# make install
+# make install-hoplug
+# /etc/init.d/hotplug restart
+
+{% endhighlight %}
+</div>
+
+Debe aparecer algo como:
+
+
+<div class="console">
+{% highlight console %}
+/etc/hotplug/usb/hplj1000: HP LaserJet 1000 firmware loaded into /dev/usb/lp0
+hplj1000: loaded successfully
+
+{% endhighlight %}
+</div>
+
+
+h2. Configuración
+
+* Abre un navegador en la dirección http://localhost:631/admin.
+* Pincha "Add printer".
+* Ponle un nombre (ej: my_hp) y pulsa "Continue"
+* Elige hp:/usb/hp_laserjet_1000. Si no aparece elige USB Printer #1. Pulsa "Continue"
+* Elige HP.
+* Elige HP LaserJet 1000 Foomatic/foo2zjs
+* Pincha en el nombre de la impresora.
+* Pincha en "Print Test Page"
+
+
+h2. Compartir la impresora
+
+Edita @/etc/cups/cupsd.conf@ y busca una sección con esta pinta:
+
+<pre>
+<Location />
+   Order Deny, Allow
+   Deny From All
+   Allow Frow 127.0.0.1
+</Location>
+</pre>      
+
+Añade otras líneas "Allow" que permitan acceder a los clientes o a toda un red, por ejemplo:
+
+<pre>
+<Location />
+   Order Deny, Allow
+   Deny From All
+   Allow Frow 127.0.0.1
+   Allow Frow 140.20.10.1
+   Allow Frow 192.168.0.*
+</Location>
+</pre>      
+
+Reinicia cups:
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/cups restart 
+{% endhighlight %}
+</div>
+
+
+h3. Configuración del cliente
+
+Con la interfaz web de CUPS añade una impresora con la siguiente configuración.
+
+* Protocolo: Internet Printing Protocol (http)
+* URI: http://servidor:631/printers/my_hp
+* Fabricante: Raw
+* Modelo: Raw Queue
+
+h2. Enlaces
+
+* "Linux Printing.org :: HP LaserJet 1000":http://<a href="http://www.linuxprinting.org/show_printer.cgi?recnum=HP-LaserJet_1000">www.linuxprinting.org/show_printer.cgi?recnum=HP-LaserJet_1000</a>
+* "foo2zjs: a linux printer driver for ZjStream protocol":http://foo2zjs.rkkda.com/

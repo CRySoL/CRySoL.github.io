@@ -1,0 +1,239 @@
+---
+migrated: node/677
+layout: post
+title: Creación de módulos e interfaces en nesC para TinyOS 2
+created: 1178823257
+author: javieralso
+category: receta
+tags:
+- embedded
+- Arco
+---
+<blockquote>Después de pelearme con <a href="http://crysol.inf-cr.uclm.es/node/405"><b>tinyOS</b></a> he conseguido comprender mas o menos como va el tema de los módulos y <em>wiring</em> (conexionado lógico entre módulos). Aquí dejo un ejemplo muy básico y la explicación que ilustra lo suficiente para poder comenzar a hacer cosillas.</blockquote>
+<!--break-->
+
+<h2>Introducción</h2>
+
+tinyOS se basa en el uso de módulos que se "cablean" (<em>wiring</em>) entre sí para dar lugar a la aplicación en sí. Este cableado se lleva a cabo en lo que se conoce como <em>configuraciones</em> y podemos tener montones de configuraciones distintas para una misma aplicación. De este modo, podemos conseguir que una misma aplicación pueda correr en distintas arquitecturas hardware sin apenas tocar código, solo modificando las configuraciones, lo que hará que se utilicen unos módulos u otros que se encargan del control a mas bajo nivel.
+
+Básicamente, aquí hablaré de:
+<ul>
+  <li>Módulos</li>
+  <li>Interfaces</li>
+  <li>Configuraciones</li>
+</ul>
+
+Todo el código de ejemplo que se usa en esta receta puede descargarse, vía subversión, del repositorio público de <a href="thhp://arco.inf-cr.uclm.es"><b>ARCO</b></a> de la siguiente forma:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@richie:~$ svn co https://arco.inf-cr.uclm.es/svn/public/prj/tinyOS 
+{% endhighlight %}
+</div>
+
+y con ésto ya podremos seguir todos los ejemplos dados a continuación.
+
+<h2>Interfaces</h2>
+
+Las <em>interfaces</em> se pueden definir como la parte "visible" de los módulos. No se puede acceder a ninguna función de un módulo si antes no ha sido definida en una interfaz.
+Una interfaz puede ser provista por varios módulos distintos. Por ejemplo, podemos tener una interfaz de comunicaciones que abstraiga los procedimientos de envío y recepción de mensajes y varios módulos que hagan uso de esa interfaz, uno para cada tipo de hardware subyacente (por ejemplo no se maneja igual el hardware de comunicaciones de una <em>mica2</em> que el de una <em>telos</em>). Los métodos serán los mismos y se llamarán igual (la interfaz es la misma), pero la implementación interna puede ser totalmente distinta. Nosotros lo veremos como una caja negra.
+
+En nuestro ejemplo se utilizan dos interfaces: <b>interfaz2</b>, en el archivo <em>interfaz2.nc</em> e <b>interfazPRB</b> en el archivo <em>interfazPRB.nc</em>. Las implementaciones son las que siguen:
+
+
+<div>
+{% highlight c %}
+interface interfaz2 {
+  command void i2c1();
+  command uint16_t i2c2(int c);
+  command uint16_t i2c3(char d);
+}
+{% endhighlight %}
+</div>
+
+para <em>interfaz2.nc</em> y
+
+
+<div>
+{% highlight c %}
+interface interfazPRB {
+  command void comando1();
+  command int comando2(int c);
+}
+{% endhighlight %}
+</div>
+
+para <em>interfazPRB.nc</em>
+
+Bueno. Se puedes ver, escribir una un interfaz es bastante simple. Lo único que hay que hacer es especificar el nombre de la y los comandos de que consta. Estos comandos son los prototipos (como se llama en <em>ANSI C</em>) de las funciones precedidos de la palabra reservada <b>command</b>. Si quisiesesmos declarar <em>señales</em>, utilizariamos el modificador <b>signal</b>. El nombre del archivo debe de ser el mismo que el del interfaz, respetando las mayúsculas y con extensión <em>.nc</em>. 
+
+<h2>Módulos</h2>
+
+Los módulos implementan bloques funcionales generalmente de un nivel de abstracción más bajo que el bloque que los referencia. Un mismo módulo puede proveer varias interfaces y por lo tanto puede implementar distintas funcionalidades (Por ejemplo el módulo <em>AMSender</em> provee las interfaces <em>Packet</em>, <em>AMPacket</em>, <em>AMSend</em>, etc...). Lo lógico es que todos los conjuntos de funciones (interfaces) que implementa un módulo guarden algún tipo de relación.
+
+En nuestro caso, utilizamos dos módulos: <em>modulo2C</em>, implementado en <b>modulo2C.nc</b> y <em>moduloC</em> implementado en <b>moduloC.nc</b>.
+Éste es el contenido de los archivos:
+
+
+<div>
+{% highlight c %}
+module modulo2C {
+  provides {
+    interface interfaz2;
+    /*
+      Única interfaz proporcionada por el módulo 
+    */
+  }
+}
+
+implementation
+{
+  command void interfaz2.i2c1() {
+    int v1 = 5;
+    int v2;
+    v2 = v1;
+  }
+
+  command uint16_t interfaz2.i2c2(int c) {
+    return (uint16_t)2*c;
+  }
+
+  command uint16_t interfaz2.i2c3(char d) {
+    return (uint16_t)d*d*d;
+  }
+}
+{% endhighlight %}
+</div>
+
+para <em>modulo2C</em> y 
+
+
+<div>
+{% highlight c %}
+module moduloC {
+  provides interface interfazPRB;
+  uses {
+    interface interfaz2;
+    interface Leds;
+  }
+}
+
+implementation {
+  command void interfazPRB.comando1() {
+    call Leds.led0Toggle();
+    call Leds.led1Toggle();
+    call Leds.led2Toggle();
+  }
+
+  command int interfazPRB.comando2(int c) {
+    call Leds.set((uint8_t)c);
+    return 0;
+  }
+}
+{% endhighlight %}
+</div>
+
+Cada uno de los módulos se compone de dos partes. La primera es la declaración. En ella se especifica el nombre del módulo, así como las interfaces que provee y las interfaces que usa. En el caso de <em>moduloC</em>, por ejemplo, podemos ver que la interfaz que proporciona es la interfaz <em>interfacePRB</em> y utiliza las interfaces <em>interfaz2</em> y <em>Leds</em>.
+A continuación sigue la implementación. Aquí debe hacerse la implementación de cada uno de los comandos especificados en la interfaz. En éste caso no hay señales. Si las hubiese, la forma de lanzarlas es llamarlas como funciones normales (precedidas de la palabra reservada <b>signal</b>) cuando sea necesario. En éste caso, como se trata solo de un ejemplo, las funciones son totalmente triviales.
+
+No queda mucho mas que comentar acerca de los módulos. Básicamente, después de ésto solo faltaría escribir la configuración con el <em>wiring</em> entre módulos e interfaces. ¿Y qué es eso?, pues ahora mismo lo explico.
+
+<h2>Configuraciones</h2>
+
+Como se ha dicho anteriormente, una aplicación escrita para <b>tinyOS</b> se compone de implementación de módulos y de configuraciones. En algunos casos, pueden hacerse aplicaciones solo con archivos de configuraciones. Un archivo de configuración consiste básicamente en un archivo formado por los módulos (o componentes) a utilizar en la aplicación y la relación que hay entre dichos módulos y las interfaces utilizadas por otros módulos.
+
+En un principio esto puede parecer bastante lioso, así que nada mejor que verlo con algún ejemplo. Veamos primero el archivo de configuración <b>moduloEjm.nc</b>:
+
+
+<div>
+{% highlight c %}
+configuration moduloEjmC {
+  provides interface interfazPRB;
+}
+
+implementation  {
+
+  components LedsC;
+  components modulo2C;
+  components moduloC;
+  
+  moduloC.Leds -> LedsC;
+  moduloC.interfaz2 -> modulo2C;
+
+  interfazPRB = moduloC;
+}
+{% endhighlight %}
+</div>
+
+Paso a paso para no liarnos: 
+
+Lo primero que tenemos que hacer es indicar que estamos hablando de una configuración, en éste caso <em>moduloEjmC</em>. Como siempre, dicho nombre coincide con el del archivo en el que se aloja. Ésta configuración, provee una interfaz (aunque podrian ser mas), la interfaz <em>interfazPRB</em>.
+En la parte de implementación vemos que utilizamos tres módulos o componentes: <em>LedsC</em>,  <em>modulo2C</em> y <em>moduloC</em>. Éstos son los módulos cuya funcionalidad necesitaremos para llevar a cabo las tareas de la configuración en la que estamos trabajando.
+
+Después nos encontramos con la parte de <em>wiring</em>. Aquí tenemos dos conexiones:
+<ul>
+  <li><em>moduloC.Leds -> LedsC;</em></li>
+  <li><em>moduloC.interfaz2 -> modulo2C;</em></li>
+</ul>
+
+ ¿Qué hace ésto? fácil, hemos conectado la interfaz <em>Leds</em> utilizada en la implementación del módulo <em>moduloC</em> con el componente (o módulo) <em>LedsC</em> que provee dicha interfaz y que hemos declarado anteriormente en la sección <em>components</em>. Con ésto, cada vez que invoquemos a alguno de los comando de ésta interfaz, lo que en realidad estaremos haciendo será llamar a los métodos con dicho nombre que haya implementados en el módulo <em>LedsC</em>. Si tuviésemos otro módulo con la misma interfaz, podriamos haberlo utilizado indistintamente, con la única diferencia de la implementación que esconda detrás, claro.
+
+La segunda conexión ya queda algo mas clara, conecta el interfaz <em>interfaz2</em> de <em>moduloC</em> con el módulo <em>modulo2C</em> que provee dicha interfaz y que nosotros mismos escribimos.
+
+Finalmente, en la última línea, podemos ver una asignación distinta a todas las vistas anteriormente. Ésta asignación lo único que hace es conectar la interfaz que se provee (<em>interfazPRB</em>) con el módulo que proveerá la funcionalidad a dicha interfaz, que en éste caso es <em>moduloC</em>.
+
+Ahora, lo único que falta es utilizar todo ésto:
+
+
+<div>
+{% highlight c %}
+configuration ejmAppC{}
+
+implementation
+{
+  components MainC, ejmC;
+  components moduloEjmC;
+
+  ejmC -> MainC.Boot;
+  ejmC.interfazPRB -> moduloEjmC;
+}
+{% endhighlight %}
+</div>
+
+Aquí tenemos el contenido de <b>ejmAppC.nc</b>, que tiene la configuración <em>ejmAppC</em>.
+
+Esta configuración podemos ver que no provee interfaz alguna, pero que sí usa componentes, en concreto <em>MainC</em>, <em>ejmC</em> y <em>moduloEjmC</em>. Los dos últimos son familiares ;-)
+
+Después tenemos los <em>wirings</em>: uno que conecta la interfaz <em>Boot</em> del módulo <em>MainC</em> (utilizado para informar de que tinyOS ha arrancado y demás) con el módulo de mayor nivel de nuestra aplicación (la aplicación en si), <em>ejmC</em> y otro que conecta la interfaz <em>interfazPRB</em> que utiliza la aplicación, con el módulo (aunque lo hayamos "implementado" en un archivo de configuración, lo estamos tratando como un módulo, ya que esa configuración corresponde a la de un módulo) <em>moduloEjmC</em>.
+
+Con ésto, ya solo nos falta implementar las funciones de nuestro programita propiamente dicho:
+
+
+<div>
+{% highlight c %}
+module ejmC {
+  uses interface Boot;
+  uses interface interfazPRB;
+}
+
+implementation {
+  event void Boot.booted() {
+    call interfazPrb.comando1();
+  }
+}
+{% endhighlight %}
+</div>
+
+Aquí puedes ver cómo se define un módulo llamado <em>ejmC</em> y que utiliza las interfaces <em>Boot</em> e <em>interfazPRB</em> que ya conectamos anteriormente a cada uno de los módulos que queríamos que nos diesen la funcionalidad.
+
+A continuación, en la parte de la implementación tan solo tenemos que implementar las funciones y comandos que necesitemos para dar la funcionalidad que queramos a nuestro programita.
+
+¿Qué por qué este es el módulo de mayor nivel? Bueno, por nada en especial. Simplemente que implementa la interfaz <em>Boot</em> del módulo <em>MainC</em>, quien lanzará el evento <em>Boot.booted</em> cuando tinyOS termine de arrancar y por tanto entregará el control del hilo principal a dicho evento, comenzando la ejecución del programa por ahí.
+
+<h2>Referencias</h2>
+
+<ul>
+  <li>Página principal de tinyOS: <a href="http://www.tinyos.net">www.tinyos.net</a></li>
+  <li>Documentación y tutoriales <em>on-line</em> acerca de tinyOS 2: <a href="http://www.tinyos.net/tinyos-2.x/doc/">www.tinyos.net/tinyos-2.x/doc/</a></li>
+</ul>

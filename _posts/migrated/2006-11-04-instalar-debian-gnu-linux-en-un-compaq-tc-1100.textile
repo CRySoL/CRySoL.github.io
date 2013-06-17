@@ -1,0 +1,156 @@
+---
+migrated: node/432
+layout: post
+title: Instalar Debian GNU/Linux en un Compaq tc 1100
+created: 1162635432
+author: david_villa
+category: receta
+---
+h2. Interfaces de red
+
+Fichero @/etc/network/interfaces@:
+
+
+<temp-div>
+{% highlight text %}
+auto lo
+iface lo inet loopback
+
+auto eth1
+iface eth1 inet dhcp
+
+iface eth0 inet dhcp
+      pre-up echo "on" > /proc/acpi/wmi/WMID/wlan
+      post-down echo "off" > /proc/acpi/wmi/WMID/wlan
+      wireless-essid PEPITO
+{% endhighlight %}
+</div>
+
+
+h2. Servidor X
+
+Fichero @/etc/X11/xorg.conf@:
+
+
+<temp-div>
+{% highlight text %}
+Section "Files"
+	FontPath	"/usr/share/X11/fonts/misc"
+	FontPath	"/usr/share/X11/fonts/cyrillic"
+	FontPath	"/usr/share/X11/fonts/100dpi/:unscaled"
+	FontPath	"/usr/share/X11/fonts/75dpi/:unscaled"
+	FontPath	"/usr/share/X11/fonts/Type1"
+	FontPath	"/usr/share/X11/fonts/100dpi"
+	FontPath	"/usr/share/X11/fonts/75dpi"
+	# path to defoma fonts
+	FontPath	"/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType"
+EndSection
+
+Section "Module"
+	Load	"bitmap"
+	Load	"dbe"
+	Load	"ddc"
+#	Load	"dri"
+	Load	"extmod"
+	Load	"freetype"
+	Load	"glx"
+	Load	"int10"
+	Load	"record"
+	Load	"type1"
+	Load	"vbe"
+	Load	"wacom"
+EndSection
+
+Section "InputDevice"
+	Identifier	"Keyboard0"
+	Driver		"keyboard"
+	Option		"CoreKeyboard"
+	Option		"XkbRules"	"xfree86"
+	Option		"XkbModel"	"pc105"
+	Option		"XkbLayout"	"es"
+EndSection
+
+Section "InputDevice"
+	Identifier	"Mouse0"
+	Driver		"mouse"
+	Option		"CorePointer"
+	Option		"Device"		"/dev/input/mice"
+	Option		"Protocol"		"ImPS/2"
+	Option		"Emulate3Buttons"	"true"
+	Option		"ZAxisMapping"		"4 5"
+EndSection
+
+Section "InputDevice"
+	Identifier	"cursor"
+	Driver		"wacom"
+	Option		"Device"	"/dev/wacom"
+	Option		"Type"		"cursor"
+	Option		"Mode"		"Absolute"
+	Option		"ForceDevice"	"ISDV4"
+	Option		"Button2"	"3"
+EndSection
+
+Section "InputDevice"
+	Identifier	"stylus"
+	Driver		"wacom"
+	Option		"Device"	"/dev/wacom"
+	Option		"Type"		"stylus"
+	Option		"Mode"		"Absolute"
+	Option		"ForceDevice"	"ISDV4"
+	Option		"Button2"	"3"
+EndSection
+
+Section "Device"
+	Identifier	"NVidia"
+	Driver		"nvidia"
+	Option "RandRRotation" "true"
+	Option "ConnectedMonitor" "CRT,DFP"
+
+	Option "TwinView" "true"
+	Option "TwinViewOrientation" "Clone"
+	Option "UseEdidFreqs" "true"
+	Option "HorizSync"   "CRT: 28-49; DFP: 28-49"
+	Option "VertRefresh" "CRT: 43-72; DFP: 43-72"
+	Option "Metamodes" "CRT: 1024x768, DFP: 1024x768; CRT: 800x600, DFP: 800x600;  CRT: 640x480, DFP: 640x480"
+EndSection
+
+Section "Monitor"
+	Identifier	"Monitor0"
+	Option		"DPMS"
+	Option          "VBERestore"     "true"
+	Option          "NoDDC"          "true"
+	HorizSync	28-49
+	VertRefresh	43-72
+EndSection
+
+Section "Screen"
+	Identifier	"Default Screen"
+	Device		"NVidia"
+	Monitor		"Monitor0"
+	DefaultDepth	24
+	SubSection "Display"
+		Depth		24
+		Modes		"1024x768" "800x600" "640x480"
+	EndSubSection
+EndSection
+
+Section "ServerLayout"
+	Identifier	"Default Layout"
+	Screen		"Default Screen"
+	InputDevice	"Keyboard0"
+	InputDevice	"Mouse0"
+	InputDevice	"cursor"	"SendCoreEvents"
+	InputDevice	"stylus"	"SendCoreEvents"
+EndSection
+
+Section "DRI"
+	Mode	0666
+EndSection
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+* "tc1100":http://wiki.linuxquestions.org/wiki/Tc1100
+* "Debian on an HP/Compaq tc1100 tablet PC":http://math.bu.edu/people/kayeats/computers/tc1100.html

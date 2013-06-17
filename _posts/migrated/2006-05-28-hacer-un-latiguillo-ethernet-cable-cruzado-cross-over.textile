@@ -1,0 +1,40 @@
+---
+migrated: node/308
+layout: post
+title: Hacer un «latiguillo» Ethernet - cable cruzado - cross over
+created: 1148828629
+author: david_villa
+category: receta
+---
+bq. Esta receta indica cuál es la configuración de los hilos de un cable UTP para construir una cable directo o cruzado, tal como mandan los estándares.
+<!--break-->
+h2. Cable directo
+
+Este cable se utiliza conectar un PC a un switch o un switch a un router. En el cable directo *ambos* extremos tienen una clavija RJ-45 montada según la configuración T568-B.
+
+<center>
+<img src="/files/308_T568B.png" alt="T568B"/><br/>
+*T568-B*
+</center>
+
+
+h2. Cable cruzado (crossover)
+
+Este cable se utiliza para conectar un PC a otro y también para conectar un switch o hub en cascada. El cable cruzado debe tener un extremo según la configuración T568-B y el otro según la T568-A.
+
+<center>
+<img src="/files/308_T568A.png" alt="T568A"/><br/>
+*T568-A*
+</center>
+
+
+h2. Comentarios
+
+Las imágenes de esta receta son obra del autor y tienen la misma licencia que el texto (CC).
+
+
+h2. Referencias
+
+* "Par trenzado":http://es.wikipedia.org/wiki/Cable_de_par_trenzado
+* "RJ-45":http://en.wikipedia.org/wiki/RJ-45
+* "Ethernet crossover cable":http://en.wikipedia.org/wiki/Ethernet_crossover_cable

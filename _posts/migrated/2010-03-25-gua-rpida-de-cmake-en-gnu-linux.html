@@ -1,0 +1,176 @@
+---
+migrated: node/1342
+layout: post
+title: Guía rápida de CMake en GNU/Linux
+created: 1269517130
+author: cleto
+category: receta
+tags:
+- Arco
+- devel
+---
+<blockquote> Esta receta es una guía rápida de CMake. Se trata de una herramienta para la construcción automática de proyectos software, facilitando su portabilidad.
+</blockquote>
+
+Unas herramientas parecidas son las conocidas como <a href=http://crysol.org/es/node/1221>"Autotools"</a>. CMake es, a juicio de muchos, más sencillo de utilizar que las Autotools siendo, además, muy versátil, potente y escalable. Y como muestra de ello, proyectos como KDE <a href="http://lwn.net/Articles/188693/">se han pasado a CMake de forma satisfactoria</a>.
+<!--break-->
+<h2>Introducción</h2>
+Antes de comenzar a utilizar CMake es recomendable tener en cuenta algunas cuestiones.
+
+En primer lugar, CMake necesita como entrada un fichero llamado <b>CMakeLists.txt</b>. Este fichero contiene un programa que describe qué dependencias deben cumplirse (el <em>configure</em>) y cómo se construye el proyecto (una especie de Makefile de alto nivel). 
+
+El lenguaje que se utiliza para crear este programa es propio de CMake. Se trata de un lenguaje imperativo, que se ejecuta de forma secuencial y cuya sintaxis es bastante regular y simple:
+
+
+<temp-div>
+{% highlight text %}
+comando1 (arg1 arg2)
+comando2 (arg1 arg2 arg3 ...)
+{% endhighlight %}
+</div>
+
+Todo el fichero CMakeLists.txt está constituido por comandos que describen tanto las dependencias como la forma de construir el proyecto. También existen estructuras de control (<em>if</em>) y bucles (<em>foreach</em>, <em>while</em>). Gracias a estas estructuras, construir un programa que describa los pormenores de la construcción de un proyecto es fácil para aquellos que estamos acostumbrados a programar.
+
+Para obtener CMake:
+
+<div class="console">
+{% highlight console %}
+
+# apt-get install cmake
+{% endhighlight %}
+</div> 
+
+<h2>Hola mundo!</h2>
+Si en el CMakeLists.txt se describe un programa, entonces debe ser posible hace un "Hola Mundo", ¿verdad?. Efectivamente, se puede. Crea el archivo CMakeLists.txt con el siguiente contenido:
+
+
+<temp-div>
+{% highlight text %}
+SET(saludo "Hola Mundo")
+MESSAGE(${saludo})
+{% endhighlight %}
+</div>
+
+El programa anterior presenta dos aspectos muy útiles: crear variables (utilizando SET) y acceder a su contenido (${variable}).
+
+Para probarlo, ejecuta lo siguiente en el mismo directorio donde se encuentra el archivo:
+
+<div class="console">
+{% highlight console %}
+
+$ cmake .
+{% endhighlight %}
+</div>
+Y obtendrás la siguiente salida:
+
+<div class="console">
+{% highlight console %}
+
+cleto@michi:/tmp/cmake$ cmake .
+-- The C compiler identification is GNU
+-- The CXX compiler identification is GNU
+-- Check for working C compiler: /usr/bin/gcc
+-- Check for working C compiler: /usr/bin/gcc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+Hola Mundo
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /tmp/cmake
+{% endhighlight %}
+</div>
+
+Las comprobaciones que CMake hace antes del mensaje "Hola Mundo" son las correspondientes para un proyecto programado en C/C++. Por defecto, si no se especifica otro lenguaje, se harán estas comprobaciones.
+
+Prueba ahora a ejecutar de nuevo el comando anterior:
+
+<div class="console">
+{% highlight console %}
+
+cleto@michi:/tmp/cmake$ cmake .
+Hola Mundo
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /tmp/cmake
+{% endhighlight %}
+</div>
+
+¿¡Ahora no se han hecho las comprobaciones!?. Esto se debe a que CMake cachea todo el proceso de creación de las comprobaciones, de forma que la siguiente ejecución será mucho más rápida. Toda la caché está almacenada en el archivo CMakeCache.txt generado. Las comprobaciones <b>se siguen haciendo</b> aunque no aparezcan en el log.
+
+Ahora supón el siguiente ejemplo:
+
+<temp-div>
+{% highlight text %}
+SET(saludo1 "Hola Mundo")
+SET(saludo2 Hola Mundo)
+
+MESSAGE(${saludo1})
+MESSAGE(${saludo2})
+MESSAGE("${saludo2}")
+{% endhighlight %}
+</div>
+
+Este ejemplo pone de manifiesto la importante diferencia entre un string y una lista de strings (los únicos tipos básicos que maneja CMake). La salida sería:
+
+<div class="console">
+{% highlight console %}
+
+cleto@michi:/tmp/cmake$ cmake .
+Hola Mundo
+HolaMundo
+Hola;Mundo
+[...]
+{% endhighlight %}
+</div>
+
+La primera salida corresponde con una cadena de caracteres y, por tanto, MESSAGE toma un sólo argumento. La segunda es la salida de una lista y MESSAGE toma como entrada 2 argumentos (Hola y Mundo). En la tercera se produce una conversión de lista a cadena, por lo que el tercer comando sólo tiene un parámetro de entrada. En CMake, cada elemento de la lista se separa con un ';'. Por tanto, el siguiente código sería equivalente:
+
+
+<temp-div>
+{% highlight text %}
+SET(saludo2 Hola;Mundo) # Lo mismo que SET(saludo2 Hola Mundo)
+{% endhighlight %}
+</div>
+
+En la documentación, puedes obtener más información sobre <a href="http://www.cmake.org/cmake/help/syntax.html">la sintaxis de CMake</a>.
+
+<h3>Makefile generado</h3>
+Por defecto, en sistema UNIX como GNU/Linux, CMake genera un Makefile con diferentes objetivos. Si ejecutas <tt>make</tt> para el ejemplo del "Hola Mundo", obviamente, no pasará nada ya que hasta el momento no se ha creado un programa para compilar proyectos.
+
+<h3>Limpiando todo lo generado</h3>
+Si has mirado todo lo que genera CMake te habrás podido asustar. Si pones el archivo CMakeLists.txt en el mismo sitio donde tienes el código fuente de tu aplicación, cuando quieras eliminar todo lo generado podrá ser realmente tedioso e incómodo. Para ello, se recomienda hacer lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+
+$ ls
+CMakeLists.txt
+$ mkdir build
+$ cd build
+$ cmake .. 
+{% endhighlight %}
+</div>
+
+Así, si quieres borrar todo lo generado, bastará con borrar el contenido del directorio <tt>build</tt>. En los ejemplos siguientes, se seguirá esta estrategia.
+
+<h2>Ejemplos</h2>
+Vamos a utilizar CMake para lo que realmente sirve: construir automáticamente proyectos. Cada uno de los siguientes ejemplos muestran cómo satisfacer las necesidades más habituales a la hora de construir ejecutables, librerías, etc. así como su instalación y configuración. Se recomienda una lectura secuencial de las mismas:
+
+<ul>
+<li><a href="http://crysol.org/es/node/1343">Compilar un Hola Mundo! con CMake</a></li>
+<li><a href="http://crysol.org/es/node/1344">Construir una librería estática y/o dinámica con CMake</a></li>
+<li><a href="http://crysol.org/es/node/1345">Instalar software con CMake</a></li>
+<li><a href="http://crysol.org/es/node/1346">Linkado de librerías con CMake</a></li>
+<li><a href="http://crysol.org/es/node/1347">Compilando aplicaciones ZeroC Ice con CMake</a></li>
+</ul>
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://www.cmake.org/cmake/help/documentation.html">Documentación de CMake</a></li>
+<li><a href="http://www.cmake.org/Wiki/CMake">Wiki de CMake</a></li>
+</ul>

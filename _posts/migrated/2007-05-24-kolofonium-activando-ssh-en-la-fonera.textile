@@ -1,0 +1,82 @@
+---
+migrated: node/700
+layout: post
+title: Kolofonium, activando SSH en "la fonera"
+created: 1180016165
+author: CRySoL
+category: receta
+tags:
+- embedded
+- networking
+---
+Si tenéis un router "La Fonera", con versión del firmware 0.7.1 r2, esto te interesa. Hasta esta versión era muy sencillo acceder al shell por diferentes maneras, pero los de Fon se lo han currado y en la revisión 2 han cerrado muchos agujeros.
+
+De todos modos, como siempre, hay gente que se lo curra más :-P, por lo que sigue siendo posible habilitar el SSH. Si te interesa: <a href="http://stefans.datenbruch.de/lafonera/">web de stefans</a>. Ahí tienes una explicación muy chula de como va el tema, y de lo sencillo que es hacer el arreglo esta vez. 
+
+IMPORTANTE: La fonera tiene el firmware 0.7.1 r2. Para evitar que se actualice automáticamente no la conectes a Internet. Si ya viene con 0.7.2 puedes _resetarla_ a la versión anterior pulsado durante 5 segundos el botoncito rojo que hay debajo.
+
+h2. Pasos
+
+* Conecta la fonera al tu PC y ponle la IP 169.254.255.2 al interfaz Ethernet de tu PC
+* Accede a la web de administración: 169.254.255.1:80.
+* Ve a <i>advanced</i>-><i>internet conexion</i> (user: root, clave: admin). Configúrala de este modo:
+** *Mode*: "Static IP"
+** *IP Address*: Una con la que la fonera pueda tener acceso a Internet cuando la conectes a tu router
+** *Netmask Mask*: Depende de la IP, pero lo más seguro es que sea: 255.255.255.0
+** *Gateway*: La IP interna de tu router. Lo más habitual será algo como 192.168.0.1
+** *DNS Server*:  @88.198.165.155@
+* Guarda los cambios, conecta la fonera a Internet y reiníciala (pulsando el botoncillo rojo)
+* Espera a que se actualice y el "fake radius" haga su trabajo. Puede tardar un rato.
+* SIN APAGAR la fonera, desconecta el cable Ethernet que la conecta al router y conectala a tu PC.
+* Ahora tienes un servidor SSH llamado <tt>dropbear</tt> esperándote en el puerto 22. De nuevo el user/pass es root/admin. Ese puerto está abierto por defecto en:
+** La interfaz WLAN (privada): 192.168.10.1 
+** La interfaz Zeroconf en la Ethernet: 169.254.255.1
+
+
+NOTA: Todo esto no evita que la fonera se actualice a la versión más moderna (pero cuando el @dropbear@ está ya funcionando). Comprueba que tienes abierto el puerto 22. Si no es así, entonces mala suerte, los chicos de FON le han metido un nuevo bug (medida de seguridad que llaman ellos).
+
+Si por cualquier razón no puedes acceder al interfaz Wifi, puedes redireccionar el puerto 22 con destino a la ip 192.168.10.1 y por ethernet(169.254.255.1) accedes al SSH.
+
+h2. Haciendo los cambios definitivos
+
+Todo esto sirve para ejecutar el servidor SSH (dropbear) pero sólo por esta vez. Lo más probable es que quieras que arranque siempre. Para ello:
+
+* Edita el fichero @/bin/thinclient@ y comenta la última línea del fichero. Esto evita futuros cambios no deseados en el firmware por parte de los chicos de FON. La línea en cuestión quedará algo así:
+
+<pre>#. /tmp/.thinclient</pre>
+
+Esta es una de esas raras ocasiones en las que necesitas usar <tt>vi</tt>,. Ya sabes que nunca faltan razones para aprender a quererlo, gggrrrgrr
+
+* Por último haz un enlace a @dropbear@ en @/etc/init.d/@ para que se ejecute siempre al arranque:
+
+
+<div class="console">
+{% highlight console %}
+# ln -s /etc/init.d/dropbear /etc/init.d/S50dropbear
+{% endhighlight %}
+</div>
+
+
+h2. Abrir SSH en la interfaz pública
+
+Si quieres entrar a la fonera por SSH desde la interfaz WAN usando la IP pública tienes que descomentar las siguientes dos líneas del fichero @/etc/firewall.user@ de la fonera:
+
+<pre>
+iptables -t nat -A prerouting_rule -i $WAN -p tcp --dport 22 -j ACCEPT
+iptables        -A input_rule      -i $WAN -p tcp --dport 22 -j ACCEPT
+</pre>
+
+h2. ¿Qué IP tiene mi fonera?
+
+Si configuras La Fonera para que pida una IP por DHCP para su interfaz Ethernet no sabrás que IP le han asignado. Si necesitas saberla, para conectar por SSH por ejemplo, puedes usar lo que cuento en "Averiguar la IP de un 'chisme', que la consigue por DHCP":node/435.
+
+h2. ¿Y ahora qué?
+
+Si quieres sacarle toda la potencia a tu Fonera lo mejor es "instalar OpenWRT":node/840.
+
+h2. Referencias
+
+* "Explicaciones varias":http://blogantastico.blogspot.com/2007/05/fonera-2200-abierta-de-patas.html
+* "Puerto serie":http://<a href="http://www.radikaldesig.com/">www.radikaldesig.com/</a>
+* "Hacking Fonera":http://blog.blase16.de/index.php?url=2006/11/28/Hacking-Fonera
+* "OpenWrtDocs/Fonera":http://wiki.openwrt.org/OpenWrtDocs/Hardware/Fon/Fonera

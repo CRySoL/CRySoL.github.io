@@ -1,0 +1,59 @@
+---
+migrated: node/560
+layout: post
+title: Instalación de Moin Wiki en Debian
+created: 1171558144
+author: fsancho
+category: receta
+---
+bq. Este documento pretende servir de introducción a Wiki, para que te vayas familiarizando con este entorno de edición.
+<!--break-->
+
+
+h1. Ingredientes
+
+* Debian
+* moin
+
+h1. Instalación
+
+Una vez instalado moin-wiki, es necesario configurar un lugar donde alojar el wiki. Para esto es necesario seguir unos sencillos pasos:
+
+* Crea un directorio donde alojar el wiki @/var/lib/arcowiki/@
+
+
+<div class="console">
+{% highlight console %}
+ # mkdir /var/lib/arcowiki 
+{% endhighlight %}
+</div>
+
+* Copia en el directorio creado el contenido de @/usr/share/moin/cgi-bin/@ 
+
+
+<div class="console">
+{% highlight console %}
+ $ cp -r /usr/share/moin/data /usr/share/moin/cgi-bin/*  /var/lib/arcowiki 
+{% endhighlight %}
+</div>
+
+* Haz al usuario de apache (www-data) propietario de estos archivos
+
+
+<div class="console">
+{% highlight console %}
+# chown -R www-data: /var/lib/arcowiki
+# chmod +x /var/lib/arcowiki/moin.cgi
+
+{% endhighlight %}
+</div>
+
+* Añade estas líneas en el archivo de configuración correspondiente de apache o apache2. En el caso de apache este archivo es @/etc/apache/httpd.conf@. En tu caso, puesto que usas apache2 pon wiki tan sólo en el sitio seguro (SSL), y este archivo está en @/etc/apache2/sites-enabled/default@.
+
+<pre>
+Alias /wiki/ "/usr/share/moin/htdocs/"
+ScriptAlias /wiki "/var/lib/arcowiki/moin.cgi"
+</pre>
+
+Una vez realizados estos pasos tan solo queda reiniciar apache y empezar a editar tus documentos.
+ 

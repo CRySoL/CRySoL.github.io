@@ -1,0 +1,400 @@
+---
+migrated: node/224
+layout: post
+title: Simulador ns2. Principios básicos.
+created: 1139566163
+author: felix
+tags:
+- Arco
+---
+<blockquote>Probablemente <a href="http://www.isi.edu/nsnam/ns/">NS2</a> es el simulador de redes open source más extendido tanto en investigación como para propósitos docentes, en esta receta vamos a aprender a instalarlo y a simular un escenario para MANET's muy simple.</blockquote>
+
+<h1>Introducción</h1>
+
+Entre los usos más habituales que les puedes dar a este tipo de simuladores se encuentran:
+
+<ul>
+<li> Simular estructuras y protocolos de redes de todo tipo (satélite, wireless, cableadas, etc..)
+<li> Desarrollar nuevos protocolos y algoritmos y comprobar su funcionamiento.
+<li> Comparar distintos protocolos en cuanto a prestaciones.
+</ul> 
+
+<h1> Instalación </h1>
+
+
+En la <a href="http://www.isi.edu/nsnam/ns/">web</a> del proyecto nos podemos encontrar todo lo necesario para instalarlo. Desde el 2005 los distintos módulos y el propio simulador han sido licenciados con una colección de licencias "GNU GPL compatible".
+
+La opción mas sencilla para instalarlo es bajarse el paquete "todo en uno" que contiene todas las versiones de las librerias que necesita. Este tgz puedes bajártelo de <a href="http://sourceforge.net/project/showfiles.php?group_id=149743&package_id=169689&release_id=371538">aqui</a> (la actual versión es la ns2.29 y son 68 Megas).
+
+No obstante, puedes obtener las librerías y el propio simulador por separado en la página <a href="http://www.isi.edu/nsnam/ns/ns-build.html">web de descarga</a> e intentar instalar solamente aquellas partes que te falten o en las que estes interesado.
+
+La forma mas simple, como ya hemos dicho es bajarse el paquete "todo en uno". Una vez bajado el paquete lo descomprimimos:
+
+<div class="console">
+{% highlight console %}
+$ tar xvzf ns-allinone-2.29.2.tar.gz
+
+{% endhighlight %}
+</div>
+
+se nos crea un directorio denominado ns-allinone-2.29 dónde encontraremos un script "install" que debemos ejecutar para compilar e instalar el simulador y sus herramientas asociadas.
+
+
+<div class="console">
+{% highlight console %}
+$ ls
+bin   gt-itm   install        lib  nam-1.11  otcl-1.11  sgb        tclcl-1.17  xgraph-12.1
+cweb  include  INSTALL.WIN32  man  ns-2.29   README     tcl8.4.11  tk8.4.11    zlib-1.2.3
+
+{% endhighlight %}
+</div>
+
+
+Es necesario resaltar dos herramientas (aparte del propio simulador ns que se encuentra en el directorio ns-2.29):
+
+<ul>
+<li> nam: herramienta que se utiliza para visualizar de forma gráfica nuestras simulaciones.
+<li> xgraph que sirve para realizar gráficas a partir de los datos de la simulación. No coje el archivo de salida del simulador directamente sino que se tienen que generar archivos adicionales mediante scripts.
+</ul> 
+
+Puedes compilar cada uno de los paquetes por separado introduciendote en su directorio y ejecutando el configure para realizar a continuación el make correspondiente.
+
+<pre>
+Un aspecto importante es que debe ser compilado con el g++2.95 ya que con versiones posteriores da errores al compilar.
+</pre>
+
+Una vez compilado el programa tenemos un ejecutable denominado ns.
+
+Para comprobar que el simulador se ha compilado de forma correcta debemos validarlos con los ejemplos y sus salidas que nos bienen con el propio simulador, para lo cual existe una serie de scripts que comienzan con la
+palabra validate y que permiten validar todos los ejemplos o solamente parte de ellos. Estos tests tambien son una buena fuente de ejemplos para aprender a usar el simulador ns.
+
+<h1> Uso básico de ns2 </h1>
+
+El uso básico del simulador ns2 es bastante simple, se crea un archivo dónde le decimos qué queremos simular (topología, nodos, movimientos, tráfico, etc..) y se lo pasamos como parámetro al simulador, este genera una traza de todos los eventos que se han generado durante la simulación.
+
+El archivo de configuración es un script realizado en TCL y la salida es un archivo de texto (generalmente con extensión .tr), adicionalmente le podemos indicar que nos genere tambien un archivo para el visor gráfico nam o generar archivos adicionales para visualizar en el xgraph.
+
+Por ejemplo, una ejecución básica (mi simulador ha sido instalado en ./original/ns-allinone-2.29/ns-2.29/) sería:
+
+
+<div class="console">
+{% highlight console %}
+$ ls
+basico.tcl  escenarios  modificado  original  scripts
+$./original/ns-allinone-2.29/ns-2.29/ns basico.tcl
+num_nodes is set 5
+warning: Please use -channel as shown in tcl/ex/wireless-mitf.tcl
+INITIALIZE THE LIST xListHead
+Starting Simulation...
+channel.cc:sendUp - Calc highestAntennaZ_ and distCST_
+highestAntennaZ_ = 1.5,  distCST_ = 422.8
+SORTING LISTS ...DONE!
+NS EXITING...
+$ ls
+basico1-out.nam  basico1-out.tr  basico.tcl  escenarios modificado original scripts  
+
+{% endhighlight %}
+</div>
+
+Podemos ver que nos ha generado los archivos basico1-out.nam basico1-out.tr de las salidas del simulador.
+
+Vamos a describir ahora el ejemplo basico.tcl paso a paso explicando que es cada uno de los elementos que lo conforman. Para las distintos valores que pueden tomar las variables lo mejor es echar un vistazo a la documentación del propio simulador.
+
+Nuestro ejemplo básico es una simulación de cinco nodos wireless estáticos (se les puede añadir movimiento): veamos pues las distintas partes del archivo (los que sepan TCL supongo que la mayoría de los comentarios les
+parecerán obvios).
+
+Primero se definen las variables que luego usaremos en la configuración de los nodos que podemos identificar con los elementos físicos que vamos a simular.
+
+<pre>NOTA: El fichero básico.tcl es una recopilación desde distintos ejemplos creados por otros autores
+</pre>
+
+
+<div class="console">
+{% highlight console %}
+# ======================================================================
+# Define options
+# ======================================================================
+set val(chan)           Channel/WirelessChannel    ;# channel type
+set val(prop)           Propagation/TwoRayGround   ;# radio-propagation model
+set val(netif)          Phy/WirelessPhy            ;# network interface type
+set val(mac)            Mac/802_11                 ;# MAC type
+set val(ifq)            Queue/DropTail/PriQueue    ;# interface queue type
+set val(ll)             LL                         ;# link layer type
+set val(ant)            Antenna/OmniAntenna        ;# antenna model
+set val(ifqlen)         50                         ;# max packet in ifq
+set val(nn)             5                          ;# number of mobilenodes
+set val(rp)             AODV                       ;# routing protocol
+set val(x)              670   ;# X dimension of the topography
+set val(y)              670   ;# Y dimension of the topography
+set val(seed)           0.0
+# Energy options
+set val(engmodel)       EnergyModel
+set val(txPower)        1.4               ;# transmitting power in mW
+set val(rxPower)        0.9               ;# recving power in mW
+set val(sensePower)     0.00000175;         ;# sensing power in mW
+set val(idlePower)      0.0                 ;# idle power in mW
+set val(initeng)        75                 ;# Initial energy in Joules
+
+{% endhighlight %}
+</div>
+
+A continuación definimos las características de la antena que queremos añadir a cada nodo. Estos valores en concreto pertenecen a una tarjeta Lucent Orinoco.
+
+
+<div class="console">
+{% highlight console %}
+# ======================================================================
+# Main Program
+# ======================================================================
+# Initialize the SharedMedia interface with parameters to make
+# it work like the 2.4GMHz Lucent Orinoco WaveLAN DSSS radio interface (11 Mb/s and 170 m)
+Phy/WirelessPhy set CPThresh_ 10.0
+Phy/WirelessPhy set CSThresh_ 5.011872e-12
+Phy/WirelessPhy set RXThresh_ 1.02054e-10
+Phy/WirelessPhy set Rb_ 11*1e6
+Phy/WirelessPhy set Pt_ 0.031622777
+Phy/WirelessPhy set freq_ 2.472e9
+Phy/WirelessPhy set L_ 1.0
+
+{% endhighlight %}
+</div>
+
+Por último en cuanto a configuración de parámetros establecemos el ancho de banda a utilizar:
+
+
+<div class="console">
+{% highlight console %}
+# Setting the bandwidth to 11 Mbps
+Mac/802_11 set dataRate_ 11Mb
+Mac/802_11 set basicRate 11Mb
+
+{% endhighlight %}
+</div>
+
+Lo siguiente es crear una instancia del simulador e indicar al simulador dónde tiene que guardar los eventos de traza y del nam respectivamente.
+
+
+<div class="console">
+{% highlight console %}
+#
+# Initialize Global Variables
+#
+set ns_         [new Simulator]
+set tracefd     [open basico1-out.tr w]
+set namtrace    [open basico1-out.nam w]
+$ns_ trace-all $tracefd
+$ns_ namtrace-all-wireless $namtrace $val(x) $val(y)
+
+{% endhighlight %}
+</div>
+
+a continuación, definimos la topología con las constantes que hemos declarado al principio del archivo, creamos el objeto que va a simular todos los eventos (god) y le indicamos que vamos a usar el nuevo formato de traza.
+
+
+<div class="console">
+{% highlight console %}
+# set up topography object
+set topo       [new Topography]
+$topo load_flatgrid $val(x) $val(y)
+#
+# Create God
+#
+create-god $val(nn)
+#Usamos el nuevo formato de traza
+$ns_ use-newtrace
+
+{% endhighlight %}
+</div>
+
+A partir de aquí vamos a definir los nodos y su configuración, como podemos ver creamos una configuración y a continuación creamos 4 nodos con esa configuración con un bucle for.
+
+
+<div class="console">
+{% highlight console %}
+#configure node
+$ns_ node-config -adhocRouting $val(rp) \
+                         -llType $val(ll) \
+                         -macType $val(mac) \
+                         -ifqType $val(ifq) \
+                         -ifqLen $val(ifqlen) \
+                         -antType $val(ant) \
+                         -propType $val(prop) \
+                         -phyType $val(netif) \
+                         -channelType $val(chan) \
+                         -topoInstance $topo \
+                         -agentTrace ON \
+                         -routerTrace ON \
+                         -macTrace OFF \
+                         -movementTrace OFF \
+                         -energyModel $val(engmodel)\
+                         -rxPower $val(rxPower) \
+                         -txPower $val(txPower) \
+                         -sensePower $val(sensePower) \
+                         -idlePower $val(idlePower) \
+                         -initialEnergy $val(initeng)
+for {set i 0} {$i < 4} {incr i} {
+     set node_($i) [$ns_ node]
+     $node_($i) random-motion 0         ;# disable random motion
+}
+
+{% endhighlight %}
+</div>
+
+Si queremos crear una configuración distinta para un determinado nodo, pues determinamos los nuevos valores (en este ejemplo solo cambiamos la energía inicial del nodo) y definimos los nodos a continuación (en nuestro caso el
+quinto nodo que nos faltaba).
+
+
+<div class="console">
+{% highlight console %}
+$ns_ node-config -initialEnergy 5
+set node_(4) [$ns_ node]
+$node_(4) random-motion 0
+
+{% endhighlight %}
+</div>
+
+Ya tenemos los nodos, ahora nos falta posicionarlos en el entorno a simular, debemos proporcionar las coordenadas x y z para cada uno de los nodos creados.
+
+
+<div class="console">
+{% highlight console %}
+#
+# Provide initial (X,Y, for now Z=0) co-ordinates for mobilenodes
+#
+$node_(0) set X_ 25.0
+$node_(0) set Y_ 275.0
+$node_(0) set Z_ 0.0
+$node_(1) set X_ 250.0
+$node_(1) set Y_ 300.0
+$node_(1) set Z_ 0.0
+$node_(2) set X_ 75.0
+$node_(2) set Y_ 125.0
+$node_(2) set Z_ 0.0
+$node_(4) set X_ 125.0
+$node_(4) set Y_ 375.0
+$node_(4) set Z_ 0.0
+$node_(3) set X_ 225.0
+$node_(3) set Y_ 150.0
+$node_(3) set Z_ 0.0
+
+{% endhighlight %}
+</div>
+
+Teniendo los nodos posicionados, configurados y con las antenas configuradas solamente nos queda generar tráfico para ver como se nos comporta nuestro escenario.
+
+ns2 denomina agentes a los objetos encargados de generar tráfico (de muy distinta índole) de uno a otro. Para ello, creamos el agente y lo "adosamos" a un nodo mientras que creamos otro agente y lo "adosamos" al destino. Finalmente conectamos los dos agentes para indicarles que el tráfico que genera uno va a ir destinado al segundo. 
+
+
+<div class="console">
+{% highlight console %}
+set tcp [new Agent/TCP]
+$tcp set class_ 2
+set sink [new Agent/TCPSink]
+$ns_ attach-agent $node_(0) $tcp
+$ns_ attach-agent $node_(1) $sink
+$ns_ connect $tcp $sink
+
+{% endhighlight %}
+</div>
+
+
+Estos agentes siguen la pila de protocolos, es decir, si quieres crear un agente ftp sobre tcp, debes crear primero el agente tcp y luego asociar el agente ftp a dicho agente tcp.
+
+A continuación le indicamos al dicho agente el tiempo en el cual debe generar tráfico mediante el comando start y stop.
+
+
+<div class="console">
+{% highlight console %}
+set ftp [new Application/FTP]
+$ftp attach-agent $tcp
+$ns_ at 1.0 "$ftp start"
+$ns_ at 4.0 "$ftp stop"
+#$ns_ at 20.0 "$ftp start"
+#$ns_ at 28.0 "$ftp stop"
+
+{% endhighlight %}
+</div>
+
+Ya queda poco, un aspecto interesante si queremos visualizar la simulación en el nam es indicarle el tamaño de dichos nodos en la representación gráfica.
+
+
+<div class="console">
+{% highlight console %}
+#define el tamaño del nodo en el nam, si no pones esto no aparece nada en el nam
+for {set i 0} {$i < $val(nn)} {incr i} {
+# 20 defines the node size in nam, must adjust it according to your scenario
+# The function must be called after mobility model is defined
+$ns_ initial_node_pos $node_($i) 20
+}
+
+{% endhighlight %}
+</div>
+
+Como penúltimo paso indicamos cuando se debe detener la simulación tanto al propio simulador como a los nodos.
+
+
+<div class="console">
+{% highlight console %}
+#
+# Tell nodes when the simulation ends
+#
+for {set i 0} {$i < $val(nn) } {incr i} {
+    $ns_ at 250.0 "$node_($i) reset";
+}
+$ns_ at 35.0 "stop"
+$ns_ at 35.01 "puts \"NS EXITING...\" ; $ns_ halt"
+proc stop {} {
+    global ns_ tracefd
+    $ns_ flush-trace
+    close $tracefd
+}
+
+{% endhighlight %}
+</div>
+
+Para finalizar, comenzamos la simulación.
+
+
+<div class="console">
+{% highlight console %}
+ puts "Starting Simulation..."
+$ns_ run
+
+{% endhighlight %}
+</div>
+
+Si juntamos todo en un archivo denominado "basico.ns2" y simulamos, tendremos la simulación en los
+archivos .tr y .nam que le hemos indicado anteriormente.
+
+<div class="console">
+{% highlight console %}
+ ns basico.ns2
+
+{% endhighlight %}
+</div>
+
+
+Interpretar los resultados sin herramientas de ayuda es un poco lioso, una descripción de el significado de cada una de las lineas de salida la podeis encontrar <a href="http://www.isi.edu/nsnam/ns/doc/node186.html">aqui</a>
+
+
+Las posibilidades para simular topologías, configuraciones, antenas, algoritmos de enrutado, tecnologías (bluetooth, wimax, wifi, etc.) son infinitas.
+
+En cuanto aprenda como poner imágenes, pongo algún pantallazo del nam.
+
+<h1>Algunos enlaces útiles</h1>
+
+<ul>
+<li> <a href="http://www.isi.edu/nsnam/ns/doc/">http://www.isi.edu/nsnam/ns/doc/</a> La documentación del simulador (el paquete "todo en uno" incluye una copia)
+
+<li> <a href="http://www.isi.edu/nsnam/ns/">http://www.isi.edu/nsnam/ns/</a> La página web del simulador.
+
+<li> <a href="http://linux.ideando.net/articulos/ns/ns2.htm">http://linux.ideando.net/articulos/ns/ns2.htm</a> : un paso a paso muy bueno en castellano.
+
+<li> <a href="http://www-sop.inria.fr/mistral/personnel/Eitan.Altman/ns.html">http://www-sop.inria.fr/mistral/personnel/Eitan.Altman/ns.html</a> algunos ejemplos que incluyen funciones para generar archivos que sirven como entrada de xgraph
+
+<li> <a href="http://www.etsimo.uniovi.es/tcl/tutorial/">http://www.etsimo.uniovi.es/tcl/tutorial/</a> Pôr último no está de mas mirarse un tutorial de tcl.
+</ul>
+
+---------------------------------------
+felixjesus.villanueva(la arroba)uclm.es
+<a href="http://arco.inf-cr.uclm.es/~felix">Mi web</a> 

@@ -1,0 +1,99 @@
+---
+migrated: node/472
+layout: post
+title: Samsung SyncMaster 203b con GNU/Linux
+created: 1166266441
+author: david_villa
+category: receta
+---
+bq. Cómo configurar este monitor con xorg7 y sacarle todo el jugo.
+<!--break-->
+
+h1. Introducción
+
+Recientemente ha caído en mis manos este magnifico monitor, aunque no es para mí :-(. El "SyncMaster 203B":http://<a href="http://www.samsung.com/es/products/monitor/mediumtoprangetft/ls20habbsqedc.asp?page=Specifications">www.samsung.com/es/products/monitor/mediumtoprangetft/ls20habbsqedc.asp?page=Specifications</a> es un TFT de 20", resolución 1400x1050, 8ms y además con rotación.
+
+Si tratas de configurarlo para las X y recurres al manido: 
+
+
+<div class="console">
+{% highlight console %}
+$ dpkg-reconfigure xserver-xorg
+{% endhighlight %}
+</div>
+
+comprobarás que en la máxima resulción (1400x1050) la imagen aparece desplazada a la derecha unos 5 o 6 centímetros, de modo que es completamente inusable.
+
+
+h1. Configuración
+
+Si le echas un vistazo al manual del monitor, verás alguna cosa interesante. Curiosamente explica cómo configurarlo en xorg sobre un sistema GNU, pero no da todos los detalles necesarios. Sí dice que debe utilizarse una frecuencia de refresco de *60Hz* pero con eso no es suficiente. Es necesario indicar un "Modeline" correcto en la sección "Monitor" de tu @/etc/X11/xorg.conf@.
+
+Para generar esa línea puedes utilizar "Modeline Tool":http://<a href="http://www.bohne-lang.de/spec/linux/modeline/index.html.en">www.bohne-lang.de/spec/linux/modeline/index.html.en</a>. Simplemente indica la resolución (1400x1050) y la frecuencia (60Hz) y copipega lo que salga.
+
+En mi caso, dicha sección ha quedado tal que así:
+
+<pre>
+Section "Monitor"
+        Identifier      "SyncMaster"
+        Option          "DPMS"
+        HorizSync       28-49
+        VertRefresh     43-72
+        Modeline "1400x1050" 123.91  1400 1464 1616 1896  1050 1050 1052 1089
+EndSection
+</pre>
+
+Y problema resuelto.
+
+
+h1. Soporte para rotación
+
+Para la rotación puedes usar el comando @xrandr@, que viene con el paquete @xbase-clients@. Para que funcione, debes añadir también la siguiente línea a la sección "Monitor" del "xorg.conf", y reiniciar las X.
+
+<pre>
+        Option "RandRRotation"
+</pre>
+
+Ahora, si escribes en un terminal:
+
+<pre class="console">
+~$ xrandr
+ SZ:    Pixels          Physical       Refresh
+*0   1400 x 1050   ( 370mm x 278mm )  *60
+ 1   1280 x 1024   ( 370mm x 278mm )   75
+ 2   1280 x 960    ( 370mm x 278mm )   60
+ 3   1152 x 864    ( 370mm x 278mm )   75
+ 4   1024 x 768    ( 370mm x 278mm )   75
+ 5    800 x 600    ( 370mm x 278mm )   75
+ 6    640 x 480    ( 370mm x 278mm )   75
+Current rotation - normal
+Current reflection - none
+Rotations possible - normal left inverted right
+Reflections possible - none
+</pre>
+
+Con este comando puedes cambiar de resolución "al vuelo" y también la rotación. Para este monitor, la única rotación que tiene sentido es:
+
+
+<div class="console">
+{% highlight console %}
+$ xrandr -o left
+{% endhighlight %}
+</div>
+
+Y para volver a la orientación normal, pues:
+
+
+<div class="console">
+{% highlight console %}
+$ xrandr -o normal
+{% endhighlight %}
+</div>
+
+Así que, puedes poner estos comandos como "lanzadores" en el panel y Voilà (comodísimo).
+
+
+h1. Referencias
+
+* "esDebian.org":http://<a href="http://www.esdebian.org/forum/viewtopic.php?forum=3&showtopic=75514&show=10&page=1">www.esdebian.org/forum/viewtopic.php?forum=3&showtopic=75514&show=10&page=1</a>
+* "Modeline Tool":http://<a href="http://www.bohne-lang.de/spec/linux/modeline/index.html.en">www.bohne-lang.de/spec/linux/modeline/index.html.en</a>

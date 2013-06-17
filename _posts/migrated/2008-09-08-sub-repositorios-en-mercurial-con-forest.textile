@@ -1,0 +1,118 @@
+---
+migrated: node/1002
+layout: post
+title: Sub-repositorios en mercurial con Forest
+created: 1220890863
+author: david_villa
+category: receta
+tags:
+- control de versiones
+- mercurial
+---
+bq. Cómo manejar conjuntos de repositorios mercurial al estilo de los directorios de subversion o los subrepositorios de git.
+<!--break-->
+h2. Introducción
+
+En mercurial, como en casi todos los VCS de última generación, no existe la posibilidad de descargar un directorio arbitrario dentro de la jerarquía de un repositorio. En mercurial, o te bajas todo el repositorio o no te bajas nada. Esto obliga a modularizar más y crear un repositorio por cada desarrollo individual. Así, cada uno se baja solo los módulos en los que trabaja y no toooodo el mogollón.
+
+El problema de esto es que si trabajas con más de un módulo es bastante rollo tener que actualizar cada uno por separado. Para simplificar eso está la extensión "forest".
+
+h2. Instalación
+
+Forest no viene de serie con mercurial así que lo tienes que descargar. Lo más fácil es descargar el repo de forest y así lo tienes fácil para actualizar.
+
+
+<div class="console">
+{% highlight console %}
+
+pepe@box:~/repos$ hg clone http://hg.akoha.org/hgforest/
+{% endhighlight %}
+</div>
+
+h2. Uso básico
+
+Forest aporta una serie de nuevos comandos a mercurial para trabajar con conjuntos de repositorios. Puedes clonar un repositorio forest y eso clonará todos los repositorios asociados. Aquí vamos a hacer el uso más simple posible de forest, tanto que ni siquiera hay un repositorio forest remoto, solo existirá en local.
+
+h2. Clonar los repositorios
+
+Lo primero es crear un directorio y descargar los repos "asociados"
+
+
+
+<div class="console">
+{% highlight console %}
+
+pepe@box:~/repos$ mkdir WorldDomination
+pepe@box:~/repos$ cd WorldDomination
+pepe@box:~/repos/WorldDomination$ hg clone ssh://.../darkforces
+pepe@box:~/repos/WorldDomination$ hg clone ssh://.../terminator
+pepe@box:~/repos/WorldDomination$ hg clone ssh://.../popusday
+[...]
+{% endhighlight %}
+</div>
+
+
+h2. Crear un repo "dummy"
+
+Es decir:
+
+
+
+<div class="console">
+{% highlight console %}
+
+pepe@box:~/repos/WorldDomination$ hg init
+{% endhighlight %}
+</div>
+
+
+
+Edita @.hg/hgrc@ y añade esto:
+
+
+<temp-div>
+{% highlight text %}
+[extensions]
+hgext.forest=/home/pepe/repos/hgforest/forest.py
+{% endhighlight %}
+</div>
+
+y ya puedes usar "forest".
+
+h2. Comando básicos
+
+
+<div class="console">
+{% highlight console %}
+
+pepe@box:~/repos/WorldDomination$ hg fpull
+[darkforces]
+pulling from ssh://.../darkforces
+searching for changes
+no changes found
+
+[terminator]
+pulling from ssh://.../terminator
+searching for changes
+no changes found
+
+[popusday]
+pulling from ssh://.../popusday
+searching for changes
+no changes found
+{% endhighlight %}
+</div>
+
+Y del mismo estilo tienes:
+
+* fupdate
+* fstatus
+* fpush
+* fincoming
+* foutgoing
+
+Y algunos más específicos, que no son necesarios para esta forma tan simple de uso.
+
+h2. referencias
+
+* "Forest Extension":http://<a href="http://www.selenic.com/mercurial/wiki/index.cgi/ForestExtension">www.selenic.com/mercurial/wiki/index.cgi/ForestExtension</a>

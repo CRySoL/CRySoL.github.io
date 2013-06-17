@@ -1,0 +1,47 @@
+---
+migrated: node/1240
+layout: post
+title: Manipulación de documentos PDF desde Python, con pyPdf
+created: 1256293712
+author: david_villa
+category: receta
+tags:
+- Python
+---
+bq. "pyPdf":http://pybrary.net/pyPdf/ es un modulo muy interesante para manipular páginas y contenido de documentos PDF, en la receta pongo algún ejemplo
+<!--break-->
+Un ejemplo para poner la páginas en orden inverso:
+
+"reverse.py":http://arco.esi.uclm.es/svn/public/samples/pypdf/reverse.py
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/python
+
+# To reverse a PDF document
+
+import os, sys
+import pyPdf
+
+output = pyPdf.PdfFileWriter()
+input = pyPdf.PdfFileReader(file(sys.argv[1], 'rb'))
+
+# print the title of document1.pdf
+print "title = %s" % input.getDocumentInfo().title
+print "npages = %s" % input.getNumPages()
+
+for page in reversed(input.pages):
+    output.addPage(page)
+
+fdout = file(os.path.splitext(sys.argv[1])[0] + '.out.pdf', 'wb')
+output.write(fdout)
+fdout.close()
+{% endhighlight %}
+</div>
+
+
+h3. Referencias
+
+* <a href="http://code.activestate.com/recipes/511465/">http://code.activestate.com/recipes/511465/</a>
+* <a href="http://www.devshed.com/c/a/Python/Python-for-PDF-Generation/1/">http://www.devshed.com/c/a/Python/Python-for-PDF-Generation/1/</a>

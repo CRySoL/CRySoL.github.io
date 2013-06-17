@@ -1,0 +1,36 @@
+---
+migrated: node/1435
+layout: post
+title: ! 'GNU Emacs: Editar archivos remotos'
+created: 1290597755
+author: ricardo
+category: receta
+tags:
+- emacs
+---
+A veces necesitamos editar archivos en una o varias máquinas remotas con acceso ssh. Muchas veces en esas máquinas no hay emacs o es una versión antigua que no podemos, no queremos o debemos actualizar. Hay una manera muy sencilla de editar archivos, compilar en máquinas remotas y demás posibilidades que ofrece emacs con tu emacs local: usando "TRAMP mode" (Transparent Remote Access). En concreto yo lo uso con SSH. En las referencias se puede consultar como obtenerlo e instalarlo, en debian basta con instalar el paquete emacs. Una vez instalado sólo tenemos que ejecutar lo siguiente:
+<!--break-->
+
+<temp-div>
+{% highlight text %}
+C-x C-f /ssh:USER@HOST:FILE_PATH
+{% endhighlight %}
+</div>
+
+Como se puede ver el comando es el mismo que para abrir un fichero local (<tt>C-x C-f</tt>). 
+
+Además yo lo uso para hacer compilaciones. Por ejemplo si abro un prog.cc y tengo en ese directorio su correspondiente Makefile podemos compilarlo usando:
+
+
+<temp-div>
+{% highlight text %}
+M-x compile
+{% endhighlight %}
+</div>
+
+Al usar SSH cada vez que accedamos nos va a pedir una password pero esto lo podemos evitar usando esta <a href="http://crysol.org/es/node/6">receta</a>.
+
+<h2>Referencias</h2>
+
+<a href="http://www.emacswiki.org/cgi-bin/wiki/TrampMode">http://www.emacswiki.org/cgi-bin/wiki/TrampMode</a>
+<a href="http://www.gnu.org/software/tramp/#Obtaining-Tramp">http://www.gnu.org/software/tramp/#Obtaining-Tramp</a>

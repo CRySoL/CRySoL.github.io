@@ -1,0 +1,43 @@
+---
+migrated: node/1432
+layout: post
+title: Blender - Herramientas de Selección
+created: 1289936366
+author: nacho
+tags:
+- blender
+---
+En esta receta describo algunas de las herramientas o modos de selección que tiene Blender.
+<!--break-->
+<h2>Modo de Objetos</h2>
+Si seleccionas un objeto y pulsas <tt>Shift + G</tt> aparecerá un menú con varias opciones para seleccionar objetos que tengan alguna relación con el que ya has seleccionado:
+
+* *Children* - todos los hijos del objeto (hijos, nietos, sobrinos...)
+* *Immediate Children* - sólo los hijos directos
+* *Paren* - el padre del objeto
+* *Sibling* - hermanos del objeto
+* *Type* - Objetos del mismo tipo (malla, curva, NURBS...) que el objeto seleccionado.
+* *Layer* - Objetos en la misma capa
+* *Group* - Objetos que estén en el mismo grupo (se crean grupos con <tt>Ctrl + G</tt>)
+* *Hook* - Selecciona los _hooks_ del objeto seleccionado
+* *Pass* - Objetos con el mismo _Pass Index_
+* *Color* - ni idea
+* *Properties* - ni idea
+
+
+<h2>Modo de Edición</h2>
+En el modo de edición, el menú de <tt>Shift + G</tt> cambia dependiendo del modo en que se esté: selección de vértices, aristas o caras. Son muchas opciones y son bastante auto-explicativas, así que no las describiré.
+
+También en el modo de edición aparecen nuevas opciones en el menú _Select_ de la barra de menú. Algunas de las más interesantes son las siguientes:
+
+* *Edge/Face Ring* - Igual que <tt>Ctrl + Alt + RMB</tt>, selecciona las aristas paralelas, formando un «anillo».
+* *Edge/Face Loop* - Igual que <tt>Shift + Alt + RMB</tt>, selecciona aristas consecutivas, formando un bucle.
+* *Vertex Path* - Sólo funciona con 2 vértices seleccionados, trazando una ruta entre esos dos vértices.
+* *More/Less* - También funciona con las teclas <tt>+</tt> y <tt>-</tt>. Selecciona elementos contiguos a los que ya están seleccionados.
+* *Quads* - Selecciona únicamente las caras _quads_, formadas por 4 vértices.
+* *Triangles* - Selecciona únicamente las caras formadas por 3 vértices.
+* *Loose Verts/Edges* - Selecciona los vértices o aristas que no estén unidos al resto.
+* *Non Manifold* - Muy útil para eliminar geometría redundante. Además, algunos modificadores dan a veces el error "Non manifold mesh as input". Con esta opción podrás ver qué vértices están dando el error, y solucionarlo.
+* *Every N number of verts* - Bastante descriptivo. Primero hay que seleccionar una región o grupo de vértices, asegurándonos de que hay un *vértice activo*. Con esta opción se seleccionará uno de cada *N* vértices. El valor de N se controla en el panel de herramientas de la izquierda (el que sale/oculta con la tecla <tt>T</tt>).
+* *Random* - Selecciona un porcentaje (ajustable en el panel de herramientas) de vértices del total.
+* *Inverse* - Realiza la selección inversa de la selección actual.

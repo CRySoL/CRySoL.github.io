@@ -1,0 +1,101 @@
+---
+migrated: node/453
+layout: post
+title: Introducción a Unicode y UTF-8
+created: 1163867572
+author: david_villa
+category: receta
+---
+bq. Pequeña introducción sobre Unicode y la codificación UTF-8.
+<!--break-->
+h2. Introducción
+
+UCS _Universal Character Set_ es un sistema *universal* de codificación de caracteres definido por la norma ISO 10646. Su objetivo es acabar de una vez con tantos sistemas de codificación incompatibles entre sí (ASCII, latin-1, euc*, cp* y cientos más) de modo que para cualquier carácter del mundo, sea chino, cirílico o bengalí, haya un número que lo identifique unívocamente.
+
+Pero, como dice Tanenbaum: "Lo mejor de los estándares es que hay muchos dónde elegir" y esta vez no iba a ser menos. De forma paralela al desarrollo de la norma UCS, un consorcio de empresas creó el proyecto "Unicode":http://<a href="http://www.unicode.org/">www.unicode.org/</a> con el mismo objetivo. Pero no puede haber dos sistemas de codificación universales porque no serían universales. Por suerte se pusieron de acuerdo y desde la versión Unicode 2.0, ISO 10646 y Unicode son compatibles (al menos en lo que a la codificación se refiere).
+
+
+h2. UTF-8
+
+Pues bien:
+
+bq. "UTF-8":http://<a href="http://www.ietf.org/rfc/rfc3629.txt">www.ietf.org/rfc/rfc3629.txt</a> es un formato para codificar caracteres UCS (o Unicode) utilizando secuencias de bytes.
+
+UTF-8 es una invención de "Ken Thompson":http://en.wikipedia.org/wiki/Ken_Thompson (sí, sí, el creador de Unix) como medio para resolver el problema de utilizar Unicode en sistemas tipo Unix. Cuando a Thompson se le ocurrió la idea de UTF-8 (septiembre 1992) trabajaba en el desarrollo de "Plan 9":http://plan9.bell-labs.com/plan9dist/ en Bell Labs. Una semana más tarde Plan 9 se convertía en el primer sistema operativo en tener soporte para UTF-8. 
+
+
+h2. ¿Cómo funciona UTF-8?
+
+UTF-8 codifica los caracteres del siguiente modo:
+
+* Los caracteres UCS desde el U+0000 al U+007F se codifican como bytes individuales en el rango [0x00-0x7F] y, por tanto, es compatible con ASCII de 7 bits. Un fichero que contiene únicamente caracteres ASCII de 7 bits se codifica igual en UTF-8.
+* Los caracteres UCS mayores de U+007F se codifican como una secuencia de bytes. Todos los bytes de esa secuencia tienen el bit más significativo a 1, de forma que es muy fácil distinguir si un byte es compatible con ASCII o pertenece a una secuencia multi-byte.
+* El primer byte de una secuencia multi-byte siempre tiene un valor en el rango [0xC0-0xFD] y el número de bits a 1 que contiene indica la longitud de la secuencia. El resto de los caracteres de la secuencia deben estar en el rango [0x80-0xBF].
+* Los bytes 0xFE y 0xFF nunca se pueden usar en UTF-8.
+
+
+h2. Configuración del entorno (@locales@)
+
+En cualquier variante moderna del sistema operativo GNU suele haber herramientas para configurar fácilmente el "encoding" por defecto. En Debian GNU/Linux se hace con las famosas "locales". Las "locales" ofrecen el soporte de _localization_(l10n) e _internacionalization_(i18n) que implica cosas como el formato de las fechas, la moneda, la coma decimal, el tamaño del papel, el idioma de los mensajes de los programas, el criterio de ordenación de cadenas, etc, etc.
+
+Si no las tienes instaladas, simplemente ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install locales 
+{% endhighlight %}
+</div>
+
+Si ya las tenías instaladas puedes cambiar la configuración de la forma habitual, es decir:
+
+
+<div class="console">
+{% highlight console %}
+# dpkg-reconfigure locales 
+{% endhighlight %}
+</div>
+
+Elige @es_ES.UTF-8@ como encoding por defecto, aunque puedes elegir varias.
+
+Para ver la configuración actual, ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+$ locale
+LANG=es_ES.UTF-8
+LANGUAGE=es_ES
+LC_CTYPE="es_ES.UTF-8"
+LC_NUMERIC="es_ES.UTF-8"
+LC_TIME="es_ES.UTF-8"
+LC_COLLATE="es_ES.UTF-8"
+LC_MONETARY="es_ES.UTF-8"
+LC_MESSAGES="es_ES.UTF-8"
+LC_PAPER="es_ES.UTF-8"
+LC_NAME="es_ES.UTF-8"
+LC_ADDRESS="es_ES.UTF-8"
+LC_TELEPHONE="es_ES.UTF-8"
+LC_MEASUREMENT="es_ES.UTF-8"
+LC_IDENTIFICATION="es_ES.UTF-8"
+LC_ALL=
+
+{% endhighlight %}
+</div>
+
+Si por cualquier motivo, necesitas que alguna de estas variables tenga un valor diferente del indicado por defecto, instala el paquete @localeconf@.
+
+h3. GNOME
+
+Para que todo el entorno GNOME sea UTF-8 basta con indicarlo así antes de abrir la sesión en el GDM. Antes de introducir la contraseña abre el menú "Idioma" y escoge la opción "Español (UTF-8)", o "Predeterminada del sistema" si ya has configurado correctamente las locales.
+
+
+h2. Referencias
+
+* "UTF-8 and Unicode FAQ for Unix/GNU":http://<a href="http://www.cl.cam.ac.uk/~mgk25/unicode.html">www.cl.cam.ac.uk/~mgk25/unicode.html</a>
+* "RFC 3629 :: UTF-8, a transformation format of ISO 10646":http://<a href="http://www.ietf.org/rfc/rfc3629.txt">www.ietf.org/rfc/rfc3629.txt</a>
+* "UTF-8 encoded sample plain-text file":http://<a href="http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt">www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt</a>
+* "Unicode":http://<a href="http://www.unicode.org/">www.unicode.org/</a>
+* "The Unicode HOWTO":<a href="ftp://ftp.ilog.fr/pub/Users/haible/utf8/Unicode-HOWTO.html">ftp://ftp.ilog.fr/pub/Users/haible/utf8/Unicode-HOWTO.html</a>
+* "Characters and encodings":http://<a href="http://www.cs.tut.fi/~jkorpela/chars/">www.cs.tut.fi/~jkorpela/chars/</a>
+* "Juegos de caracteres: ASCII, CP850, ISO-8859-15, Unicode, UTF-8, etc.":http://<a href="http://www.vicente-navarro.com/blog/2008/06/15/juegos-de-caracteres-ascii-cp850-iso-8859-15-unicode-utf-8/">www.vicente-navarro.com/blog/2008/06/15/juegos-de-caracteres-ascii-cp850-iso-8859-15-unicode-utf-8/</a>

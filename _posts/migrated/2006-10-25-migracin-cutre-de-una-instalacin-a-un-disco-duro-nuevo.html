@@ -1,0 +1,97 @@
+---
+migrated: node/414
+layout: post
+title: Migración cutre de una instalación a un disco duro nuevo
+created: 1161793853
+author: int-0
+category: receta
+---
+<blockquote>Buenas, hace poco (hoy) recibí mi flamante nuevo disco duro para el portátil, como paso de reinstalarme todo y me encuentro muy agusto con su actual funcionamiento me decidí a realizar una "migración cutre" de todo el disco al nuevo... puede parecer una tontería (y lo es) pero hay un par de cosas a tener en cuenta...</blockquote>
+
+<h1>Preparamos el invento</h1>
+Para realizar la migración sin tener que parar mi sistema pensé lo siguiente: conecto el disco nuevo a una caja externa para discos de 2.5, y copio de mi disco viejo al nuevo. Enchufamos el disco mediante una de estas cajas y lo tenemos en <tt>/dev/sda</tt> a nuestra disposición, así que... empezamos
+
+<h1>Origen y destino</h1>
+El particionado del sistema origen es el siguiente:
+<ul><li>Partición primaria 1: hda1 montado como /</li>
+<li>Partición extendida:
+<ul><li>Partición lógica 1: hda5 montado como /home</li>
+<li>Partición lógica 2: hda6 usado como <em>swap</em></li></ul></li></ul>
+El nuevo disco necesitaba un particionado distinto porque los tamaños de las particiones eran otros, lo dejé así:
+<ul><li>Partición primaria 1: hda1 montado como /</li>
+<li>Partición primaria 2: hda2 para experimentar con otros S.O. ;-)</li>
+<li>Partición extendida:
+<ul><li>Partición lógica 1: hda5 montado como /home</li>
+<li>Partición lógica 2: hda6 usado como <em>swap</em></li></ul></li></ul>
+
+Como véis este particionado no es casual, lo hice para que las nuevas particiones y puntos de montaje fuesen iguales que en antiguo HDD, con esto nos ahorramos modificar el archivo <tt>/etc/fstab</tt> con las nuevas rutas. Es más cómodo.
+
+<h1>Poco a poco</h1>
+Una vez particionado podremos pensar en copiar todo a <em>cholón</em> pero esto nos plantea los sisguiente problemas:
+<ol><li>Como la caja esta montada en nuestro sistema (para copiar los ficheros) hay que dejar fuera del proceso de copia el punto de montaje de la caja.</li>
+<li>Hay que respetar los otros sistemas de ficheros montados. En mi caso, /home está en otro sistema de ficheros, si lo copio tal cual no será correcto pues tengo que copiarlo en sda5 y no en sda1.</li>
+<li>Existen directorios que no se deben copiar: /proc y /sys con ejemplos de ello</li></ol>
+
+Como los directorios en la raíz son pocos decidí finalmente copiarlos uno a uno. Primero creamos los directorios que no vamos a copiar pero que son puntos de montaje:
+
+<div class="console">
+{% highlight console %}
+:new_hdd# mkdir proc
+:new_hdd# mkdir sys
+:new_hdd# mkdir home
+:new_hdd# mkdir mnt
+{% endhighlight %}
+</div>
+
+El <tt>/mnt</tt> lo creamos porque <em>supongo</em> que el disco nuevo lo tendremos montado ahí así que no podemos copiarlo recursivamente...
+
+Y ahora copiamos uno a uno los directorios de toda la vida, emplearemos <em>rsync</em> para que respete enlaces, fechas, etc.:
+
+<div class="console">
+{% highlight console %}
+:new_hdd# rsync -a /bin ./
+:new_hdd# rsync -a /boot ./
+:new_hdd# rsync -a /etc ./
+:new_hdd# rsync -a /media ./
+:new_hdd# rsync -a /root ./
+:new_hdd# rsync -a /tmp ./
+:new_hdd# rsync -a /lib ./
+:new_hdd# rsync -a /sbin ./
+:new_hdd# rsync -a /usr ./
+:new_hdd# rsync -a /initrd ./
+:new_hdd# rsync -a /opt ./
+:new_hdd# rsync -a /var ./
+{% endhighlight %}
+</div>
+
+En fin... todos los que tengáis en la raíz que no sean puntos de montaje (estos tendréis que haberlos creado en el paso anterior... o cuando sea, pero los creáis).
+Ahora viene un paso bastante criticable, pero que a mi me ha funcionado a las mil maravillas: resulta que <tt>/dev</tt> también se <em>puebla</em> al inicio, pero hay nodos que tuve que crear yo a mano para ciertas cosas... ni corto ni perezoso he hecho:
+
+<div class="console">
+{% highlight console %}
+:new_hdd# rsync -a /dev ./
+{% endhighlight %}
+</div>
+
+No he tenido ningún mensaje de error y los nodos se me han creado muy bien y en el sistema migrado no he tenido errores y todo me va muy bien :-)
+
+Pues bien, una vez migrado la raíz, desmontamos sda1 y montamos sda5, ahora le toca el turno a los <em>homes</em>:
+
+<div class="console">
+{% highlight console %}
+:new_hdd# rsync -a /home/* ./
+{% endhighlight %}
+</div>
+
+Y una vez terminado esto desmontamos sda5 y volvemos a montar sda1, sólo nos queda instalar el grub:
+
+<div class="console">
+{% highlight console %}
+:new_hdd# grub-install --recheck --no-floppy --root-direcotory=/mnt/new_hdd /dev/sda
+{% endhighlight %}
+</div>
+
+Ahora apagamos el sistema, sacamos el disco viejuno y metemos el nuevo. Reiniciamos y ¡tachán!... no arranca... :-(
+Ehhh!! no pasa nada! esta receta tiene un final feliz: arrancamos con una liveCD como por ejemplo el CD de <em>Ubuntu Dapper</em> y en un terminal volvemos a montar hda1 (ahora es hda1 que ya está dentro del portátil!) y volvemos a ejecutar <em>grub-install</em> indicándole el nuevo dispositivo (ya sabéis, <tt>/dev/hda</tt>), de la misma forma que antes...
+
+Si ahora reiniciáis... debería arrancar... y así lo espero porque esta receta termina aquí.

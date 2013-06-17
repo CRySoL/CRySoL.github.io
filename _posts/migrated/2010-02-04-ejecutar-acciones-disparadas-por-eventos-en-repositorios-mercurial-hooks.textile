@@ -1,0 +1,35 @@
+---
+migrated: node/1329
+layout: post
+title: Ejecutar acciones disparadas por eventos en repositorios Mercurial (hooks)
+created: 1265281146
+author: Lk2
+category: receta
+tags:
+- Arco
+- control de versiones
+---
+bq. "Mercurial":http://mercurial.selenic.com/, como ya vimos en la receta  "«Mercurial, por favor»":http://crysol.org/es/node/919 es un sistema de control de versiones distribuido y demás info que podéis encontrar en los enlaces. En esta receta quiero explicar algo sobre el uso un poco más avanzado: los llamados _hooks_
+<!--break-->
+Los _hooks_ son ejecutables en los que indicamos al repositorio que tiene que ejecutar eso ante un determinado evento. Esta es una lista de los eventos disponibles:
+
+* *changegroup*: se ejecuta una vez que el repositorio recibe un conjunto de cambios. Por ejemplo, cada vez que se hace "push", el repositorio "master" lanzaría este evento. También cuando haces "pull" en tu repositorio desde el "mater".
+* *commit*: este evento se lanza cada vez que hacemos un "commit" en nuestro repositorio local, independientemente del rol que juegue éste en el global de repositorios.
+* *incoming*: se ejecutará su _hook_ cada vez que se recibe un conjunto de cambios. La diferencia con "changegroup" es que *incoming* se ejecuta una vez para cada _changeset_ recibido, mientras que "changegroup" se ejecuta una sola vez para todos los _changeset_ recibidos en un mismo "pull"/"push".
+* *outgoing*: Igual que "changegroup", pero al enviar el conjunto de _changesets_ en lugar de al recibirlos. Cada vez que un cliente haga "pull", en su "master" ocurrirá este evento. A su vez, cada vez que el cliente haga "push", también le ocurrirá este evento.
+
+Y bueno, hay muchos más eventos que podéis encontrar documentados en "la guía definitiva de Mercurial":http://hgbook.red-bean.com/read/ en su "capítulo 10: Handling repository events with hooks":http://hgbook.red-bean.com/read/handling-repository-events-with-hooks.html
+
+h2. Configurando _hooks_
+
+Para configurar un _hook_ en un repositorio tan solo hay que añadir lo siguiente en el archivo *.hg/hgrc* del repositorio:
+
+<pre>
+[hooks]
+nombre del hook = acción
+</pre>
+
+Si como acción quieres ejecutar un script y éste lo tienes en el mismo repositorio tendrás que tener en cuenta dos cosas importantes:
+
+# Si quieres que el _hook_ se ejecute en el "master", éstos normalmente no tienen copia local de los ficheros en el sistema de archivos. Deberías considerar que lo primero que debe hacer tu script es ejecutar un "hg up"
+# Si el script está en el repositorio deberás tener en cuenta que hasta que no se haga "update" el script no estará actualizado (en el caso, por ejemplo, de "changegroup"). Así puede ser que si has actualizado el script se ejecute en el evento una versión antigua de éste.

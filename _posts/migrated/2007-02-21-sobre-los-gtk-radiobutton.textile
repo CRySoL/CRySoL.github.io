@@ -1,0 +1,16 @@
+---
+migrated: node/575
+layout: post
+title: Sobre los gtk.RadioButton
+created: 1172073541
+author: oscarah
+category: consulta
+---
+Recientemente tuve una conversación muy interesante sobre la idoneidad de los widgets "gtk.RadioButton":http://<a href="http://www.pygtk.org/pygtk2reference/class-gtkradiobutton.html">www.pygtk.org/pygtk2reference/class-gtkradiobutton.html</a>. Vamos a ver... ¿por qué no son más intuitivos?  ¿Qué piensas sobre ellos?
+
+* tiene pocos métodos?
+* es perfecta tal como está?
+* es un toogle disfrazado?
+* mierda de grupos!?
+
+PD: Cleto, que tienes que decir?? :-p

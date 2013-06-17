@@ -1,0 +1,107 @@
+---
+migrated: node/214
+layout: post
+title: WiFi RT2500 de Ralink en GNU/Linux
+created: 1138886434
+author: javieralso
+category: receta
+---
+<blockquote>Cómo compilar e instalar los drivers para las tarjetas WiFi RT2500 de Ralink en GNU/linux
+</blockquote>
+<!--break-->
+<h2>Introducción</h2>
+
+Las tarjetas wifi con chipset Ralink RT2500 cada vez son más comunes. Se encuentran integradas en muchos equipos portátiles y como tarjetas PCMCIA para portátiles, por ejemplo. Por desgracia, los núcleos Linux no traen soporte para este chipset. Poe eso hay tienes que añadirlo tú, aunque la tarea es bastante más fácil de lo que puede parecer.
+
+<h2>Lo primero, ¿Tienes una RT2500?</h2>
+
+Bueno, para los menos versados en este tema, la forma de saber qué chipset utiliza tu interfaz wireless (así como cualquier hardware de nuestro equipo) es con el comando <tt>lspci</tt>.
+
+Cuando ejecutes este comando, podrás ver una lista de todos los dispositivos PCI que tienes en tu sistema (si tienes insertada alguna PCMCIA en tu también aparecerá). Ahora solo queda buscar el dispositivo de red que tengas instalado y si ves que su chipset es RT2500 puedes continuar.
+
+<h2>Qué necesitamos</h2>
+
+Necesitas los fuentes del driver. Éstos se pueden obtener de varias maneras:
+<ul>
+<li>Paquete debian:
+<pre class="console">
+$apt-get -f install rt2500-source
+</pre>
+</li>
+<li>
+Bajarte el <a href="http://sourceforge.net/projects/rt2400">Código Fuente</a> del driver directamente de internet. De esta forma podrás conseguir la última versión disponible.</li>
+</ul>
+
+También necesitas los <em>headers</em> del núcleo que estés utilizando. En Debian:
+
+<pre class="console">
+# apt-get -f install linux-headers-$(uname -r)
+</pre>
+
+Ahora ya puedes continuar con la compilación.
+
+
+<h2>Compilación e instalación</h2>
+
+En primer lugar deberemos crear un enlace hacia el directorio en el que están nuestros headers que se llame <em>linux</em> para que a la hora de compilar se encuentren todas las librerias necesarias:
+
+<pre class="console">
+$ cd /usr/src/
+$ ln -s kernel-headers-2.6.8-1-686 linux
+</pre>
+
+Otra cosa importante es que debes compilar este driver con la versión 3.4 de gcc, si no, es muy probable que surjan problemas. Si no lo tienes instalado:
+
+<pre class="console">
+# apt-get -f install gcc-3.4
+</pre>
+
+Ahora ya estás en condiciones de descomprimir los fuentes y compilarlos. Si has descargado los fuentes con apt, éstos se encontrarán en <tt>/usr/src/rt2500.tar.gz</tt>. Descomprímelos y compílamos:
+
+<pre class="console">
+$ tar -zxvf rt2500.tar.gz
+$ cd modules
+$ make CC=gcc-3.4
+</pre>
+
+Una vez compilado todo sin problemas, puedes proceder con la instalación:
+
+<pre class="console">
+$ make install
+</pre>
+
+La instalación habrá creado el fichero <tt>/etc/modprobe.conf</tt>. Dentro de este fichero habrá algo del estilo '<em>alias ra0 rt2500</em>'. Tienes que copiar esa línea dentro del archivo <tt>/etc/modules.conf</tt> y después borrar el archivo <tt>/etc/modprobe.conf</tt>.
+
+Con esto, se supone que el driver ha quedado instalado. Ahora tan solo queda cargar el módulo:
+
+<pre class="console">
+# modprobe rt2500
+</pre>
+
+Si esto no funciona (que debería), puedes probar esto otro (dentro del directorio donde has compilado el driver):
+
+<pre class="console">
+# insmod rt2500.ko
+</pre>
+
+y con esto el driver deberia quedar perfectamente instalado y tu dispositivo de red detectarse como <tt>ra0</tt>.
+A veces (sobre todo con las versiones más nuevas de Linux) el comando <tt>depmod</tt> parece no funcionar bien, por ello, es conveniente, después de tener el módulo cargado ejecutar:
+
+<pre class="console">
+# update-modules
+</pre>
+
+Con ello habrás actualizado correctamente la lista de módulos y el correspondiente a tu WiFi se cargará durante el arranque.
+
+<h2>Enlaces</h2>
+<ul>
+<li>
+<a href="http://sourceforge.net/projects/rt2400">RT2400/2500 para GNU/Linux</a>
+</li>
+<li>
+<a href="http://rt2x00.serialmonkey.com/wiki/index.php/Main_Page">Web del proyecto en serialmonkey.com</a>
+</li>
+<li>
+<a href="http://www.esdebian.org/forum/viewtopic.php?forum=7&showtopic=61164">dichosa wireless ralink rt2500</a>
+</li>
+</ul>

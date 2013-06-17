@@ -1,0 +1,58 @@
+---
+migrated: node/687
+layout: post
+title: Ajustes al tinyOS 2
+created: 1179244986
+author: javieralso
+category: receta
+tags:
+- embedded
+- Arco
+---
+<blockquote>Algunos parámetros que hay que configurar (modificando las librerías) para que las aplicaciones escritas en <b>tinyOS 2</b> funcionen bien y/o se adapten a tus necesidades específicas.
+</blockquote>
+<!--break-->
+
+<h2>Frecuencia de transmisión/Recepción de la radio</h2>
+
+Los dispositivos que utilizan el chip de radio <a href="http://www.chipcon.com/index.cfm?kat_id=2&subkat_id=12&dok_id=14">cc1000</a> de <a href="http://www.chipcon.com">Chipcon</a> pueden no funcionar bien en <b>tinyOS 2</b> debido a que en las motas, estos chips deben estar configurados para funcionar en el rango de <b>915 a 998 MHz</b> y por defecto no es así. La forma de solucionar ésto es editando el archivo <em>CC1000Const.h</em>. Suponiendo que tienes el árbol de tinyOS instalado en <em>/opt/tinyos-2.x/</em>, deberás modificar el archivo <em>/opt/tinyos-2.x/tos/chips/cc1000/CC1000Const.h</em> y hacer que la macro que define la constante <em>CC1K_DEF_PRESET</em> quede de la siguiente forma:
+
+<pre>
+#ifndef CC1K_DEF_PRESET
+#define CC1K_DEF_PRESET	(CC1K_915_998_MHZ)
+#endif 
+</pre>
+
+De éste modo, en los futuros programas, la radio se configurará para funcionar a la frecuencia correcta.
+
+<h2>Longitud del campo de datos en la estructura <tt>message_t</tt></h2>
+
+La estructura <a href="http://www.tinyos.net/tinyos-2.x/doc/html/tep111.html"><em>message_t</em></a> proporciona una abstracción para enviar y recibir mensajes a través de la radio o del puerto serie. El campo de datos de ésta estructura, tiene una longitud máxima prefijada de 28 Bytes, que en muchos casos puede ser mas que suficiente, pero en otras ocasiones podemos quedarnos cortos. 
+
+Para solucionar ésto, debemos pasar a <em>nesC</em> el flag <em>DTOSH_DATA_LENGTH</em> para indicar la longitud máxima que queremos que tenga dicho campo de datos.
+
+La forma de hacer ésto es editando el fichero <tt>Makefile</tt> de tu proyecto añadiendo lo siguiente:
+
+<pre>
+<b>NESC_FLAGS ?= -DTOSH_DATA_LENGTH=250</b>
+
+COMPONENT=sampleApp
+include $(MAKERULES)
+</pre>
+
+No suele ser recomendable definir una longitud mayor que esa, ya que puede haber problemas de compilación.
+
+<h2>Instalación de librerías propias</h2>
+
+Si tenemos pensado escribir nuestros propios módulos e interfaces, como se explica en una <a href="http://crysol.inf-cr.uclm.es/node/677">receta</a> publicada también en éste portal, podemos guardarlos todos bajo un mismo directorio (por ejemplo <em>~/tinyOS_libs/</em>) y a continuación hacer lo siguiente para que el compilador sepa encontrar dicha librería:
+
+Editamos el archivo <tt>Makefile</tt> de tu proyecto para hacer que incluya el directorio de tu librería:
+
+<pre>
+<b>NESC_FLAGS ?= -I ~/tinyOS/libs/</b>
+
+COMPONENT=sampleApp
+include $(MAKERULES)
+</pre>
+
+Con esto, cuando compiles, se buscarán las librerías también en ese directorio.

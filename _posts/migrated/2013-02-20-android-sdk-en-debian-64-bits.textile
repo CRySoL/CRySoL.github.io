@@ -1,0 +1,26 @@
+---
+migrated: node/1699
+layout: post
+title: Android SDK en Debian 64 bits
+created: 1361376005
+author: david_villa
+category: receta
+tags:
+- Debian
+- android
+---
+El SDK de android require algunas librerías para i386. Si tienes una distribución de 64 bits necesitas instalar algunos paquetes adicionales que permite usar dichas librerías. Simplemente ejecuta:
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo dpkg --add-architecture i386
+$ sudo aptitude update
+$ sudo aptitude install ia32-libs
+$ sudo aptitude install lib32ncurses5 lib32stdc++6 libstdc++6-4.6-dev zlib1g-dev 
+{% endhighlight %}
+</div>
+
+

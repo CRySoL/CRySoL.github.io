@@ -1,0 +1,18 @@
+---
+migrated: node/1109
+layout: post
+title: ! 'Recordmydesktop: drag and drop'
+created: 1239724164
+author: Lk2
+category: receta
+---
+bq. Esta mini-receta sobre recordmydesktop (y sus front-ends) consiste en evitar que, al hacer un _screencast_, no podamos hacer Drag&Drop en cualquier ámbito del sistema.
+<!--break-->
+Primero, pongo en antecedentes al personal: *recordmydesktop* es un programa (y paquete Debian) que permite hacer capturas de vídeo de la pantalla del ordenador (o _screencasts_). Cuando lo utilizamos con las opciones por defecto que nos da, por ejemplo, su front-end de GTK (paquete *gtk-recordmydesktop*), mientras dure la grabación nos estará vedado el realizar drag and drop (arrastrar y soltar, más o menos), lo cual es un problema si lo que queremos grabar es precisamente eso.
+
+Para ello tan solo bastará con añadirle la opción *--no-frame* al programa. Si lo usamos desde línea de comandos es trivial; si usamos el front end de GTK en "Opciones avanzadas", dentro de la pestaña "Miscelánea" , encontramos una caja de texto etiquetada como "Extra options". En ella podemos indicar cualquier opción que acepte recordmydesktop por línea de órdenes, por lo que solo hará falta usar esta opción.
+
+h2. Referencias
+
+* "F.A.Q. recordmydesktop":http://recordmydesktop.sourceforge.net/faq.php#When_recording,_some_windows_don
+* "TOC recordmydesktop":http://recordmydesktop.sourceforge.net/rug/p1_3d.php

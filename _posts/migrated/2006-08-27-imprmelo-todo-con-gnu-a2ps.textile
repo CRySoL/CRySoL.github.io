@@ -1,0 +1,50 @@
+---
+migrated: node/386
+layout: post
+title: Imprímelo todo con GNU a2ps
+created: 1156691833
+author: david_villa
+category: receta
+---
+bq. Esta receta recoge algunas posibilidades interesantes del programa @a2ps@. Por cierto, el título es sólo un juego de palabras, no abuses de la impresora que quedan pocos árboles y la tinta está muy cara ;-)
+<!--break-->
+
+Como ocurre con alguna de mis otras recetas, pondré aquí los resultados de mis peleas con a2ps que quizá sean de utilidad para alquien y que seguro que lo será para mi mismo :-)
+
+h1. Introducción
+
+Realmente, a2ps es una fachada para un montón de utilidades de manejo de ficheros e impresión PostScript. Dado cualquier fichero, a2ps elige la "mejor" manera de imprimirlo, sin embargo, es extremadamente flexible y personalizable. Resulta especialmente interesante para imprimir código fuente ya que realiza un resalte de sintaxis de alta calidad. Ten en cuenta que "imprimir" no implica usar la impresora, @a2ps@ también puede volcar el resultado en un fichero PostScript (opción @-o@).
+ 
+h1. Personalizar encabezado y pie de página
+
+El siguiente comando especifica un encabezado y pie de página alternativo. También numera las líneas.
+
+
+<div class="console">
+{% highlight console %}
+ $ a2ps -1 --header="El Cisne" --footer="Iniciativa Dharma" --line-numbers 1 numbers.c -o numbers.ps 
+{% endhighlight %}
+</div>
+
+h2. Problemas con el encoding UTF-8
+
+En general no hay problema si el fichero de texto a imprimir es ASCII o latin-1.  Sin embargo, a2ps aún no maneja bien UTF-8. No imprimirá bien acentos o caracteres no-ASCII.
+
+Del mismo modo, el terminal con el que se ejecuta a2ps no puede usar UTF-8 si le vas a pasar cadenas, como en el ejemplo anterior. 
+
+Y si utilizas UTF-8 como encoding por defecto tampoco aparecerán correctamente las cadenas "internacionalizadas", por ejemplo la palabra "Página" en el marco por defecto. Para arreglarlo debes indicar otro encoding.
+
+Es decir, debes poner tu terminal (por ejemplo, gnome-terminal) en iso-88591 (latin-1) y ejecutar el comando anterior con una pequeña modificación:
+
+
+<div class="console">
+{% highlight console %}
+ $ LANG=es_ES a2ps -1 --header="El Cisne" --footer="Iniciativa Dharma" --line-numbers 1 numbers.c -o numbers.ps 
+{% endhighlight %}
+</div>
+
+Y todo saldrá perfecto.
+
+h1. Referencias
+
+* @info a2ps@

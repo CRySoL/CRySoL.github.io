@@ -1,0 +1,94 @@
+---
+migrated: node/430
+layout: post
+title: Cherokee y HTTPS
+created: 1162556477
+author: int-0
+category: receta
+tags:
+- Arco
+---
+<blockquote>Todos conocemos Apache, un servidor web con muchos modulos, muchas cositas, muy usado, muy bueno, muy todo... pues bien, un programador de por aquí se decidió por crear un nuevo servidor web, más ligero y rápido y con la misma funcionalidad básica que apache: SSL, PHP, CGI y todas esas cosas que podemos pedir de un servidor Web normalito. Otra ventaja de cherokee es que es menos "atacado" que el apache, por tanto se conocen menos fallos. En fin, que vamos a explicar como habilitar el <em>https</em> en cherokee.</blockquote>
+<!--break-->
+<h1>Configuración de cherokee</h1>
+Sólo diré que la configuración es muy similar al de apache, el objetivo de esta receta no es explicar como configurar cherokee, sino simplemete una opción del mismo. Por tanto os remito a la documentación que tendréis en <tt>/usr/share/doc/cherokee</tt> cuando instaléis el paquete. Lo que si que voy a decir (y que conviene tener en cuenta) es que cuando cambiéis algo en la configuración, al reiniciar el servidor, en caso de error, no obtendréis ningún mensaje de error y el servicio no arrancará. Para probar los cambios es mejor arrancar el servidor "a lo bruto", es decir:
+
+
+<div class="console">
+{% highlight console %}
+# /usr/sbin/cherokee
+{% endhighlight %}
+</div>
+
+Así obtendréis mensajes de error y veréis si arranca o no. En fin, al trabajo...
+
+<h2>Certificados</h2>
+
+Es necesario crear una <em>certificación</em> para los sitios seguros, por eso de que sea un sitio confiable o no, etc. Por tanto, antes de nada debemos crear el nuestro propio, si tenemos los certificados creados para el apache, en <tt>/etc/apache2/ssl/apache.pem</tt> podemos usarlo directamente en el cherokee copiando el archivo en <tt>/etc/cherokee/ssl/cherokee.pem</tt>. Si necesitamos crear una certificación nueva, necesitaremos el paquete <b>openssl</b> y debemos hacer lo siguiente: crearemos un <a href="http://en.wikipedia.org/wiki/Self-signed_certificate">certificado CA</a>, después deberemos crear una petición de certificación y finalmente firmaremos el certificado, esto se hace directamente en tres pasos:
+
+
+<div class="console">
+{% highlight console %}
+/usr/lib/ssl/misc/CA.pl -newca
+{% endhighlight %}
+</div>
+
+Introduciremos los datos que nos pidan (frase secretam etc.); esto generará un <a href="http://en.wikipedia.org/wiki/Self-signed_certificate">certificado CA</a>, pero que todavía debemos firmar. Ahora creamos la petición de certificación:
+
+
+<div class="console">
+{% highlight console %}
+$ /usr/lib/ssl/misc/CA.pl -newreq
+{% endhighlight %}
+</div>
+
+Introduciremos los datos que nos vaya pidiendo. Con esto habremos obtenido una firma digital para nuestro certificado, ahora lo firmamos:
+
+
+<div class="console">
+{% highlight console %}
+$ /usr/lib/ssl/misc/CA.pl -sign
+{% endhighlight %}
+</div>
+
+Ya tenemos nuestro nuevo certificado firmado y listo para usar con cherokee (o apache) en un archivo <em>pem</em>. Lo copiamos a <tt>/etc/cherokee/ssl</tt> y lo llamamos <tt>cherokee.pem</tt>. Ahora sólo nos falta activar <em>ssl</em> en el cherokee.
+
+<h2>Activar módulos</h2>
+
+Habilitar/deshabilitar módulos es tan fácil como en apache: tenemos los módulos instalados en <tt>/etc/cherokee/mods-available</tt> y para activarlos debemos crear un enlace simbólico del módulo en <tt>/etc/cherokee/mods-enabled</tt>, es decir:
+
+
+<div class="console">
+{% highlight console %}
+$ cd /etc/cherokee/mods-enabled
+$ ln -s ../mods-available/ssl ssl
+{% endhighlight %}
+</div>
+
+Ya sólo nos queda cambiar la configuración del servidor y reiniciarlo...
+
+<h2>Configurar SSL</h2>
+
+Este paso es el más complejo, abrimos el archivo <tt>/etc/cherokee/cherokee.conf</tt> y descomentamos la siguiente línea:
+
+<pre>PortTLS 443</pre>
+
+Reiniciamos el servidor:
+
+
+<div class="console">
+{% highlight console %}
+$ /etc/init.d/cherokee restart
+{% endhighlight %}
+</div>
+
+Y ya está... :-P
+
+Para más información: documentación de cherokee en <tt>/usr/share/doc/cherokee</tt>.
+
+<h2> Referencias</h2>
+
+<ul>
+<li><a href="http://www.cherokee-project.com/">Cherokee</a>
+</li>
+</ul>

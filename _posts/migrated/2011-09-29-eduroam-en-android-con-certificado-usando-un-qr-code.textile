@@ -1,0 +1,24 @@
+---
+migrated: node/1549
+layout: post
+title: eduroam en Android con certificado usando un QR code
+created: 1317308374
+author: david_villa
+category: receta
+tags:
+- android
+---
+La UCLM tiene instrucciones para "conectar a eduroam con Android":http://<a href="http://www.uclm.es/wifi/android.html">www.uclm.es/wifi/android.html</a> y también explica cómo "utilizar un certificado":http://<a href="http://www.uclm.es/wifi/android_certificado.html">www.uclm.es/wifi/android_certificado.html</a>, pero indica que hay que copiar el fichero a la memoria SD.
+
+En lugar de eso, pongo aquí un código QR para descargarlo automáticamente:
+<!--break-->
+<a href="https://bitbucket.org/DavidVilla/certs/raw/d6a8d6143f87/AddTrust_External_Root.pem"><img src="http://qrcode.kaywa.com/img.php?s=5&d=https%3A%2F%2Fbitbucket.org%2FDavidVilla%2Fcerts%2Fraw%2Fd6a8d6143f87%2FAddTrust_External_Root.pem" alt="qrcode"  />
+</a>
+
+Cuando pinches el enlace, saldrá un formulario similar a:
+
+<img src="http://si.ua.es/es/wifi/imagenes/eduroam/peap/android/certificadouawifi.png" alt="save pem"/>
+
+Escribe «UCLM» y después sigue "estas instrucciones":http://si.ua.es/es/wifi/eduroam/peap/eduroam-instalacion-para-android.html y las de la "UCLM":http://<a href="http://www.uclm.es/wifi/android.html">www.uclm.es/wifi/android.html</a>
+
+Saludos

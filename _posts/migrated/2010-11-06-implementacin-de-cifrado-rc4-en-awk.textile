@@ -1,0 +1,63 @@
+---
+migrated: node/1426
+layout: post
+title: Implementación de cifrado RC4 en awk
+created: 1289051328
+author: oscarah
+category: receta
+tags:
+- shell
+---
+El algoritmo "RC4":http://es.wikipedia.org/wiki/RC4 se usa para codificar información usando una clave. Es muy sencillo, aunque no es de los más seguros. Sin embargo, para muchas ocasiones es suficiente. Hay implementaciones disponibles en C, C++, C#, Python o incluso JavaScript. Sin embargo, no encontré nada en AWK. Si el sistema es reducido (por ejemplo, una Fonera o un RouterStation), es posible que no quieras instalarte la toolchain para C o no puedas usar un intérprete de Python.
+<!--break-->
+Aquí propongo una alternativa rápida.
+
+
+<div>
+{% highlight awk %}
+#!/usr/bin/awk -f
+# -*- mode: awk; coding: utf-8 -*-
+
+# Oscar Aceña (c) 2010
+
+func _ord_init_() { for (j=1; j<256; j++) _ord_[sprintf("%c", j)] = j }
+func ord(char) { return _ord_[char] }
+
+func rc4crypt(data, key) {
+    for (j=0; j<256; j++) box[j] = j
+    for (i=0; i<256; i++) {
+	x = (x + box[i] + ord(substr(key, (i % length(key))+1, 1))) % 256
+	aux = box[i]
+	box[i] = box[x]
+	box[x] = aux
+    }
+    x = 0
+    for (i=0; i<length(data); i++) {
+	x = (x + 1) % 256
+	y = (y + box[x]) % 256
+	aux = box[x]
+	box[x] = box[y]
+	box[y] = aux
+	t = xor(box[(box[x] + box[y]) % 256], ord(substr(data, i+1, 1)))
+	out = out sprintf("%02X", t)
+    }
+    return out
+}
+
+BEGIN {
+    _ord_init_()
+    print rc4crypt(ARGV[1], "Password")
+}
+{% endhighlight %}
+</div>
+
+El script imprime, en hexadecimal, el texto que se pasa en el primer argumento, después de haberlo cifrado. El algoritmo es bidireccional, por lo que se puede usar la misma función para descifrar. Sin embargo, tendrás que convertir la cadena de hexadecimal a binario :P
+
+
+<div class="console">
+{% highlight console %}
+
+$ ./rc4crypt "My secret to save"
+6D964F14270DD45C77A7D5CDAED2684E22
+{% endhighlight %}
+</div>

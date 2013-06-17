@@ -1,0 +1,24 @@
+---
+migrated: node/1487
+layout: post
+title: ! 'arco-devel: toggle-split'
+created: 1301140496
+author: david_villa
+category: receta
+tags:
+- Arco
+- emacs
+---
+The new version of the "arco-devel":/arco-devel package (0.66-1)  includes an emacs command (@toggle-window-split@) and keybinding (C-x 4) for toggle between vertical and horizontal two-buffer layouts. To use that, just add the next lines to your @.emacs@:
+
+
+<div>
+{% highlight text %}
+(add-to-list 'load-path "/usr/share/arco-tools/emacs")
+(load "toggle-split.cfg")
+{% endhighlight %}
+</div>
+<!--break-->
+h2. References
+
+* <a href="http://www.emacswiki.org/emacs/ToggleWindowSplit">http://www.emacswiki.org/emacs/ToggleWindowSplit</a>

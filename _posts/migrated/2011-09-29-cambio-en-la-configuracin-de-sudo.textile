@@ -1,0 +1,33 @@
+---
+migrated: node/1548
+layout: post
+title: Cambio en la configuración de sudo
+created: 1317303855
+author: david_villa
+category: receta
+---
+Con la versión 1.8.2-1 de @sudo@ es necesario añadir las rutas «seguras» al fichero @/etc/sudoers@.
+<!--break-->
+De lo contrario cuando ejecutes algo como @sudo aptitude@ verás cosas como:
+
+
+<div class="console">
+{% highlight console %}
+
+dpkg: warning: 'ldconfig' not found in PATH or not executable.
+dpkg: warning: 'start-stop-daemon' not found in PATH or not executable.
+dpkg: error: 2 expected programs not found in PATH or not executable.
+Note: root's PATH should usually contain /usr/local/sbin, /usr/sbin and /sbin.
+{% endhighlight %}
+</div>
+
+Para arreglarlo añade lo siguiente:
+
+
+<temp-div>
+{% highlight text %}
+Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+{% endhighlight %}
+</div>
+
+Y listo.

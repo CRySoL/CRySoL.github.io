@@ -1,0 +1,249 @@
+---
+migrated: node/1370
+layout: post
+title: Repositorio de paquetes Debian «serio básico» y cómo usarlo
+created: 1278013348
+author: cleto
+category: receta
+tags:
+- Arco
+- Debian-devel
+---
+Esta receta explica cómo montar un repositorio de paquetes medianamente decente, que se pueda manejar con las herramientas estándares de Debian y se puedan utilizar firmas PGP tanto para el repo como para los paquetes.
+<!--break-->
+h2. Ingredientes
+
+El ingrediente principal de esta receta es *reprepro* (aka mirrorer). Esta herramienta permite crear y gestionar un repositorio official (no trivial) de una forma trivial :-). Hay "más herramientas para la gestión de repositorios":http://wiki.debian.org/HowToSetupADebianRepository.
+
+Instala reprepro en la máquina que servirá el repositorio:
+
+
+<div class="console">
+{% highlight console %}
+
+# aptitude install reprepro
+{% endhighlight %}
+</div>
+
+h2. Configuración
+
+Creamos los siguientes directorios:
+
+
+<div class="console">
+{% highlight console %}
+
+$ mkdir -p /var/repo/conf
+$ mkdir -p /var/repo/incoming
+{% endhighlight %}
+</div>
+
+En el directorio @conf@ estarán todos los archivos de configuración para reprepro. El directorio @incoming@ será la cola de entrada de paquetes subidos por los developers. A éste último volveré más adelante.
+
+h3. @conf/distributions@
+
+En primer lugar, crea el archivo @conf/distributions@ con el siguiente contenido:
+
+
+<temp-div>
+{% highlight text %}
+Origin: Ciudad Real y Software Libre
+Label: CRySoL
+Suite: stable
+Codename: stable
+Architectures: i386 amd64 powerpc source
+Components: main
+Description: CRySoL repository
+Pull: stable-pull
+
+Origin: Ciudad Real y Software Libre
+Label: CRySoL
+Suite: unstable
+Codename: sid
+Architectures: i386 amd64 powerpc source
+Components: main
+Description: CRySoL repository
+SignWith: PGP-ID-123
+Uploaders: ./uploaders
+{% endhighlight %}
+</div>
+
+Según lo especificado, el repositorio tendrá 2 ramas: _stable_ y _sid_. Además de los campos evidentes, en la stable se ha especificado la propiedad _Pull_. Esta propiedad nos servirá para definir una regla (_stable-pull_) por la que se actualizará la rama _stable_ a partir de _sid_. Las reglas de _Pull_ se especifican en el fichero @conf/pulls@.
+
+La distribución _sid_ será donde, por defecto, subirán los paquetes los developers. El campo _SignWith_ especifica el identificador de la firma PGP con la que se generarán los archivos _Release.gpg_ (lo que se conoce comúnmente como «firmar el repo»). El usuario/os que tengan privilegios para reconstruir y modificar el repositorio *deben* tener dicha clave en su anillo.
+
+Finalmente, la propiedad _Uploaders_ especifica un archivo con el siguiente contenido:
+
+
+<temp-div>
+{% highlight text %}
+allow * by key PGPID-DEVELOPER1
+allow * by key PGPID-DEVELOPER2
+allow * by key PGPID-DEVELOPER3
+{% endhighlight %}
+</div>
+
+Es decir, los identificadores de las claves de los developers autorizados. Hay más atributos para las distribuiciones. Consulta el man de reprepro.
+
+h3. conf/pulls
+
+Como ya se ha señalado, la rama _stable_ del repositorio se actualizará automáticamente utilizando la regla _pull-table_. Un ejemplo puede ser el siguiente:
+
+
+<temp-div>
+{% highlight text %}
+Name: stable-pull
+From: sid
+Components: main
+Architectures: amd64 powerpc i386 source
+FilterList: purge packages.old
+{% endhighlight %}
+</div>
+
+Los campos más importantes son las reglas de filtrado como _FilterList_. En este caso, se utiliza el comando _purge_ que indica que, en tiempo de actualización, se borren los archivos que *no aparecen* listados dentro de packages.old_. Éste es un nombre de archivo cualquiera. En mi caso, es generado por un programa que selecciona los paquetes que llevan más de 1 semana sin actualizarse. Como no se han actualizado en ese tiempo, pasan a _stable_.
+
+h3. conf/incoming
+
+Finalmente, sólo queda configurar cómo se debe realizar la gestión de la cola de subida de paquetes. Un ejemplo de regla de gestión (_sid-process_):
+
+
+<temp-div>
+{% highlight text %}
+Name: sid-process
+IncomingDir: incoming
+TempDir: /tmp
+Default: sid
+Allow: unstable>sid UNRELEASED>sid
+Cleanup: on_deny on_error
+{% endhighlight %}
+</div>
+
+Por defecto, los paquetes se subirán a _sid_ tal y como se indica. Además, si los paquetes han sido firmados por alguien no autorizado o se produce un error durante su comprobación, se borrarán de la lista (propiedad _Cleanup_). La propiedad _Allow_ permite que los paquetes en cuyos ChangeLog se hayan utilizado los términos
+_unstable_ o _UNRELEASED_ (muy común si estás probando el paquete) vayan a parar a _sid_.
+
+h2. Gestión del repo
+
+Los siguientes ejemplos se suponen ejecutados desde el raíz del repositorio (en nuestro ejemplo:@/var/repo@). La opción @-V @ puede ser omitida en todos los casos.
+
+h3. Importar paquetes .deb
+
+
+<div class="console">
+{% highlight console %}
+
+$ reprepro -V includedeb sid path/to/*.deb
+{% endhighlight %}
+</div>
+
+h3. Eliminar un paquete
+
+
+<div class="console">
+{% highlight console %}
+
+$ reprepro -V remove sid package_name
+{% endhighlight %}
+</div>
+
+h3. Procesar la cola de envíos
+
+Nótese que se utiliza el nombre de la regla de procesamiento
+_sid-process_
+
+
+<div class="console">
+{% highlight console %}
+
+$ reprepro -V processincoming sid-process
+{% endhighlight %}
+</div>
+
+h3. Haz tu repo accesible
+
+Si no lo has hecho aún, es necesario que permitas que los usuarios puedan acceder a tu repositorio utilizando HTTP u otro protocolo. Si tienes Apache, o algún otro servidor web, permite que tu repositorio sea accedido para leer (y listar) desde su raíz.
+
+h3. Exporta la clave
+
+Si los usuarios empiezan a utilizar tu repositorio seguramente te den la brasa con: "¿no puedes exportar la clave? Es que me da error el apt...". Exporta tu clave PGP y hazla accesible:
+
+
+<div class="console">
+{% highlight console %}
+
+$ gpg --export --armor ID-KEY-123 > key.asc
+$ mv key.asc /var/repo
+{% endhighlight %}
+</div>
+
+h2. Utilizando el repositorio
+
+Veamos ahora lo que necesita el usuario para poder utilizar el repo y subir paquetes.
+
+h3. Importar clave y actualizar
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ wget -O- http://example.com/repo/key.asc | sudo apt-key add -
+...
+OK
+$ sudo apt-get update
+{% endhighlight %}
+</div>
+
+
+
+h3. debsign
+
+Una vez que hayas generado tu paquete Debian y te dispongas a subirlo, antes de nada debes firmarlo con tu clave GPG con @debsign@ (te pedirá la clave un par de veces):
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ debsign -kID-KEY paquete_1.0-1_i386.changes
+{% endhighlight %}
+</div>
+
+
+h3. dupload
+
+@dupload@ es una herramienta para subir paquetes fuentes y binarios (ya firmados). Para que no sea un engorro utilizarlo con el repositorio, recomiendo que edites tu .dupload.conf:
+
+
+<temp-div>
+{% highlight text %}
+package config;
+
+$default_host = "host_del_repo";
+
+$cfg{'host_del_repo'} = {
+ fqdn => "example.com",
+ login => "repo_user",
+ method => "scpb",
+ incoming => "/var/repo/incoming/",
+
+# The dinstall on ftp-master sends emails itself
+ dinstall_runs => 1,
+};
+{% endhighlight %}
+</div>
+
+Con todo ello, accederás por @scp@ (batched) a @example.com@ como el usuario @repo_user@. Ya sólo queda ejecutar:
+
+
+<div class="console">
+{% highlight console %}
+
+$ dupload --to host_del_repo paquete_1.0-1_i386.changes
+{% endhighlight %}
+</div>
+
+h2. Referencias
+
+* "Man de reprepro (o mirrorer)":http://mirrorer.alioth.debian.org/reprepro.1.html
+* "Setting up your own APT repository with upload support":http://<a href="http://www.debian-administration.org/articles/286">www.debian-administration.org/articles/286</a>. Muy
+  buena, pero algo obsoleta.

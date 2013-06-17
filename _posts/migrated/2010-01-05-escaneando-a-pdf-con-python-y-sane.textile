@@ -1,0 +1,72 @@
+---
+migrated: node/1319
+layout: post
+title: Escaneando a PDF con Python y SANE
+created: 1262647880
+author: david_villa
+category: scriptillo
+tags:
+- Python
+- drivers
+---
+bq. Aquí os dejo un scriptillo muy resultón para escanear documentos de una o varías páginas y guardar el resultado directamente en PDF.
+<!--break-->
+h2. Ingredientes
+
+* python-imaging-sane
+* pdfjam
+
+h2. pysane
+
+El script toma como único parámetro el nombre del fichero PDF resultante y se pone a escanear la primera página inmediatamente al arrancar. Después pregunta por consola si hay que escanear más páginas. Por último monta un PDF con todas las páginas escaneadas.
+
+[ "pysane.py":https://arco.esi.uclm.es/svn/public/prj/pysane/pysane.py ]
+
+
+<div>
+{% highlight python %}
+#! /usr/bin/python
+# -*- coding:utf-8 -*-
+
+import sys, os, time
+import sane
+
+output = sys.argv[1] if len(sys.argv) > 1 else 'output.pdf'
+dirname = '/tmp/%s-%s' % (time.time(), os.getpid())
+os.mkdir(dirname)
+
+sane.init()
+print 'Available devices:', sane.get_devices()
+
+s = sane.open(sane.get_devices()[0][0])
+s.mode = 'color'
+s.resolution = 150
+
+print 'Device parameters:', s.get_parameters()
+
+files = []
+for i, img in enumerate(s.multi_scan()):
+    fname = os.path.join(dirname, 'img%s.pdf' % i)
+    files.append(fname)
+
+    print "Saving on '%s'" % fname
+    img.save(fname)
+
+    if raw_input('Another page? (Y/n): ').lower().startswith('n'):
+        break
+
+s.close()
+
+print "scanned pages: %s" % (i+1)
+
+if len(files)  == 1:
+    os.system("mv '%s' '%s'" % (fname, output))
+else:
+    os.system("pdfjoin --fitpaper true --outfile %s %s" % (output, str.join(' ', files)))
+{% endhighlight %}
+</div>
+
+
+Si alguien le tiene alergia a la consola y quiere hacerle una interfaz gráfica debería ser ultrasencillo.
+
+Saludos.

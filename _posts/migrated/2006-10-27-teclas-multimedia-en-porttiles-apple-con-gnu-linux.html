@@ -1,0 +1,38 @@
+---
+migrated: node/418
+layout: post
+title: Teclas multimedia en portátiles Apple con GNU/Linux
+created: 1161956822
+author: nacho
+category: receta
+---
+<blockquote>
+Con esta receta podrás utilizar las teclas para ajustar el brillo del monitor y el volumen de los altavoces internos de tu portátil y expulsar el CD/DVD, además de hacer que aparezca un indicador gráfico en la pantalla
+</blockquote><!--break-->
+
+Ante todo he de decir que mi experiencia en el mundo de los portátiles es bastante corta. Quizá esta receta no sea necesaria y resulta que ya lo tenéis todos. Bueno, a lo que vamos.
+
+Lo que voy a contar está probado en un powerpc con una Debian, aunque supongo que no debería haber problemas para el resto de arquitecturas y distros. Los paquetitos que necesitamos son:
+<ul>
+<li>pbbutonsd</li>
+<li>gtkpbbutons</li>
+</ul>
+
+El primero es el demonio, y permite la funcionalidad de todas las teclas (a mí sólo me funcionaba la disminución de brillo). Con instalarlo de la manera habitual es suficiente.
+
+El segundo es el encargado de mostrarte en pantalla el porcentaje de brillo o volumen que tienes configurado. Además de instalarlo, hay que ejecutarlo, por lo que recomiendo agregarlo a la lista de programas que deben ejecutarse atomáticamente al inicio de la sesión gráfica. En gnome esto se hace en Escritorio->Preferencias->Sesiones->Programas al Inicio.
+
+Y ya está. Yo al menos, no he tenido que tocar nada más. Obviamente, debes tener el teclado configurado correctamente (layout, idioma, etc).
+
+<h3>Temas</h3>
+El gtkpbbutons tiene varios temas, para cambiar el aspecto del indicador gráfico. En la instalación vienen 3 temas: el default (por defecto o predeterminado), Crystal y MacOSX. Para ejecutarlo con un tema concreto, p.ej. MacOSX, habría que escribir:
+
+
+<div class="console">
+{% highlight console %}
+$ gtkpbbutons -t MacOSX
+{% endhighlight %}
+</div>
+
+<h3>Créditos</h3>
+Aunque la receta la escriba yo, el verdadero artífice es Cleto. ¡Hurra por él! :D

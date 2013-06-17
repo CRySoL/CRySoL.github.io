@@ -1,0 +1,13 @@
+---
+migrated: node/1570
+layout: post
+title: Separación silábica en LibreOffice
+created: 1333017751
+author: david_villa
+category: receta
+---
+* Descargar el fichero correspondiente desde <a href="http://libreoffice-na.us/English/dictionary.html">http://libreoffice-na.us/English/dictionary.html</a>
+* Instalar en LibreOffice desde Herramientas -> Gestor de Extensiones
+* Editar el estilo de párrafo
+* En la pestaña «Flujo de Texto» marcar «Automáticamente»
+

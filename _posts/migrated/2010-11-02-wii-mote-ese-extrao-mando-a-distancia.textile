@@ -1,0 +1,92 @@
+---
+migrated: node/1424
+layout: post
+title: ! 'wii-mote: ese extraño mando a distancia'
+created: 1288708735
+author: david_villa
+category: receta
+tags:
+- drivers
+---
+bq. Esta receta explica (a modo de recordatorio) cómo configurar wminput para usar el mando de la Wii como mando a distancia para PC.
+<!--break-->
+h2. Ingredientes
+
+* wminput 
+
+h2. Cargar el módulo
+
+@wminput@ require tener cargado el módulo Linux @uinput@. Eso se hace con :
+
+
+<div class="console">
+{% highlight console %}
+
+# modprobe uinput
+{% endhighlight %}
+</div>
+
+Si no quieres tener que hacer esto cada vez, añadelo al final de @/etc/modules@ con:
+
+
+<div class="console">
+{% highlight console %}
+
+# echo uinput >> /etc/modules
+{% endhighlight %}
+</div>
+
+h2. Permisos para usuarios rasos
+
+Crea un fichero llamado @/etc/udev/rules.d/uinput.rules@ y escribe esto:
+
+
+<temp-div>
+{% highlight text %}
+KERNEL=="uinput", MODE="0666"
+{% endhighlight %}
+</div>
+
+h2. wiimote para control multimedia
+
+Con las siguiente configuración puedes utilizarlo para emular las teclas multimedia habituales en los teclados. Crea un fichero @~/.cwiid/wminput/default@ (crea los directorios que no tengas) y escribe esto:
+
+
+<temp-div>
+{% highlight text %}
+Wiimote.A	= KEY_PLAYPAUSE
+Wiimote.B	= BTN_RIGHT
+Wiimote.Up	= KEY_UP
+Wiimote.Down	= KEY_DOWN
+Wiimote.Left	= KEY_PREVIOUSSONG
+Wiimote.Right	= KEY_NEXTSONG
+Wiimote.Minus	= KEY_VOLUMEDOWN
+Wiimote.Plus	= KEY_VOLUMEUP
+Wiimote.Home	= KEY_MUTE
+Wiimote.1	= KEY_PROG1
+Wiimote.2	= KEY_PROG2
+{% endhighlight %}
+</div>
+
+h2. En marcha
+
+Ahora tienes que ejecutar @wminput@ que es el programa que hace la _traducción_. Sigue las instrucciones:
+
+
+<div class="console">
+{% highlight console %}
+
+$ wminput
+Put Wiimote in discoverable mode now (press 1+2)...
+Ready.
+
+{% endhighlight %}
+</div>
+
+
+
+h2. Referencias
+
+* "wminput":http://abstrakraft.org/cwiid/wiki/wminput
+* "Nombres de variables que corresponden con los botones":http://abstrakraft.org/cwiid/browser/doc/wminput.list
+* "Códigos de las teclas":http://abstrakraft.org/cwiid/browser/wminput/action_enum.txt

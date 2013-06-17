@@ -1,0 +1,75 @@
+---
+migrated: node/1343
+layout: post
+title: ! 'CMake: Compilar un Hola Mundo!'
+created: 1269532983
+author: cleto
+category: receta
+tags:
+- Arco
+- devel
+---
+<blockquote>Esta receta explica cómo compilar un programa trivial con CMake.</blockquote>
+<!--break-->
+<h2>Software necesario</h2>
+El ejemplo que vamos a utilizar puedes descargarlo utilizando subversion desde:
+<pre>svn co https://arco.esi.uclm.es/svn/public/samples/cmake/single_binary</pre>
+
+El directorio 'single_binary' contiene una implementación (hello.cpp) de un "Hola Mundo" en C++ y el archivo CMakeLists.txt.
+
+<h2>Versión "quick" y no tan "dirty"</h2>
+
+El contenido del archivo es el siguiente:
+
+
+<temp-div>
+{% highlight text %}
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+PROJECT(hello)
+ADD_EXECUTABLE(hello hello.cpp)
+{% endhighlight %}
+</div>
+
+En primer lugar, se especifica la versión mínima de CMake que se debe utilizar. A continuación, se debe dar un nombre al proyecto utilizando el comando PROJECT. 
+
+Como se trata de un proyecto archi-sencillo, sólo consta de un ejecutable y éste se debe generar a partir del fichero "hello.cpp" (su dependencia). El comando ADD_EXECUTABLE acepta una lista de dependencias. Como puedes ver, prácticamente es una regla de Makefile pero más abstracta de forma que sea posible no sólo crear Makefiles sino también exportar a proyectos de Eclipse y otros entornos de desarrollo privativos (a los cuales no recomiendo exportar).
+
+<h2>Versión "paranoic"</h2>
+En el ejemplo anterior, desde un punto de vista ortodoxo, hemos supuesto muchas cosas. Por ejemplo, en el fichero "hello.cpp" se incluye la cabecera "iostream". ¿Hemos comprobado que está instalada? El compilador de C++ que utilizamos, ¿tiene soporte para que se pueda utilizar el namespace "std"? Como ves, hay muchas cosas que se han dado por supuestas en el ejemplo anterior.
+
+Aunque para este ejemplo no sea necesario, veamos una versión del archivo CMakeLists.txt más avanzada:
+
+
+<temp-div>
+{% highlight text %}
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(hello)
+
+INCLUDE(TestForSTDNamespace)
+IF (CMAKE_NO_STD_NAMESPACE)
+  MESSAGE(FATAL_ERROR "** El compilador no soporta std:: en clases STL")
+ENDIF()
+
+INCLUDE(CheckIncludeFileCXX)
+CHECK_INCLUDE_FILE_CXX(iostream IS_OSTREAM)
+
+IF(NOT IS_OSTREAM)
+  MESSAGE(FATAL_ERROR "** No se encuentra la cabecera 'iostream'")
+ENDIF()
+
+ADD_EXECUTABLE(hello hello.cpp)
+{% endhighlight %}
+</div>
+
+En este ejemplo se introduce el uso de módulos que se proporcionan en la distribución de CMake 2.8 en Debian:
+<ul>
+<li><tt>TestForSTDNamespace</tt>: incluye el código necesario para comprobar que existe el compilador soporta el uso del espacio de nombres std. Esta macro modifica una variable global (CMAKE_NO_STD_NAMESPACE) con el resultado de dicho test.</li>
+<li><tt>CheckIncludeFileCXX</tt>: se trata de un módulo que contiene el comando CHECK_INCLUDE_FILE_CXX que acepta como primer parámetro el nombre del archivo a incluir y, como segundo parámetro, una variable donde almacenar el resultado. De esta forma, utilizando un IF podemos comprobar que efectivamente se encuentra instalada la cabecera iostream.</li>
+</ul>
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#section_Commands">CMake 2.8 Commands</a>: lista de todos los comandos básicos.</li>
+<li><a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#section_Standard CMake Modules">Standard CMake 2.8 Modules</a>: en este enlace se muestran los módulos disponibles, así como las variables de salida que definen.</li>
+</ul>

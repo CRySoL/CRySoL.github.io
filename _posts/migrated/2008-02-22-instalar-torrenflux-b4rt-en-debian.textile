@@ -1,0 +1,91 @@
+---
+migrated: node/864
+layout: post
+title: Instalar torrenflux-b4rt en Debian
+created: 1203693999
+author: david_villa
+category: receta
+tags:
+- Debian
+---
+bq(head). Se trata de un frontend para bittorrent y wget escrito en PHP. "torrentflux-b4rt":http://tf-b4rt.berlios.de/ es un fork de "torrentflux":http://<a href="http://www.torrentflux.com/">www.torrentflux.com/</a> más flexible, ligero y potente que el original. En esta receta se explica cómo instalarlo sobre @lighttpd@ y @sqlite@.
+<!--break-->
+
+h2. Ingredientes
+
+Instala los siguiente paquetes debian con @apt-get@, @aptitude@, @synaptic@ o lo que sea que uses.
+
+h3. Obligatorios
+
+* lighttpd - servidor web rápido con bajo consumo de memoria
+* sqlite - servidor ligero de base de datos 
+* php5 php5-cgi php5-cli php5-sqlite
+* python
+* bittornado - cliente de bittorrent
+
+h3. Opcionales
+
+* transmission-cli - cliente de bittorrent
+* vlc - reproductor multimedia
+
+h2. Configurar php5 con @lighttpd@
+
+lighhttpd viene sin configuración para php5, pero como vas a ver, es muy sencillo hacerla:
+
+
+<div class="console">
+{% highlight console %}
+# cd /etc/lighttpd/conf-available/
+/etc/lighttpd# sed 's/php4/php5/g' 10-fastcgi.conf > 10-fastcgi-php5.conf
+# lighty-enable-mod fastcgi-php5
+# /etc/init.d/lighttpd restart
+
+{% endhighlight %}
+</div>
+
+h2. Instalar @torrentflux-b4rt@
+
+ Descarga el tarball de la sección de descargas de la "web oficial":http://tf-b4rt.berlios.de/. En el momento de escribir esta receta era la versión "1.0-beta1":http://prdownload.berlios.de/tf-b4rt/torrentflux-b4rt_1.0-beta1.tar.bz2
+
+Descomprime el fichero en algún sitio razonable, como @/usr/local/tfb/@:
+
+
+<div class="console">
+{% highlight console %}
+/usr/local/tfb$ unp torrentflux-b4rt_1.0-beta1.tar.bz2
+
+{% endhighlight %}
+</div>
+
+Enlaza el subdirectorio @html@ desde un directorio visible por el servidor web (@/var/www@):
+
+
+<div class="console">
+{% highlight console %}
+# ln -s /usr/local/tfb/html /var/www/tfb
+{% endhighlight %}
+</div>
+
+Y cambiar el propietario:
+
+
+<div class="console">
+{% highlight console %}
+# chown -R www-data.www-data /usr/local/tf/html
+{% endhighlight %}
+</div>
+
+h2. Configurar torrentflux
+
+Carga en tu navegador la dirección http://localhost/tfb y sigue las instrucciones. Es importante que estés atento a los siguientes datos.
+
+* Base de datos: sqlite
+* Directorio de descarga: [uno con permisos para el servidor web]
+* Aplicaciones necesarios instaladas
+
+Una vez terminada la puesta en marcha, verás la página de configuración en la que puedes elegir los programas a usar, las tasas máximas de descarga y otras muchas variables.
+
+h2. Referencias
+
+* "Install Torrentflux-b4rt on Debian 4.0 Etch":http://howto.landure.fr/gnu-linux/debian-4-0-etch-en/install-torrentflux-b4rt-on-debian-4-0-etch
+

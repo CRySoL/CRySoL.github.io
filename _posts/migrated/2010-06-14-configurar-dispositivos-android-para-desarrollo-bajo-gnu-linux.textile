@@ -1,0 +1,108 @@
+---
+migrated: node/1362
+layout: post
+title: Configurar dispositivos Android para desarrollo bajo GNU/Linux
+created: 1276502542
+author: Lk2
+category: receta
+tags:
+- drivers
+- Debian
+- Arco
+---
+bq(head). ¿Tienes un teléfono con Android? ¿Quieres desarrollar aplicaciones desde tu Debian? Esta es tu receta :)
+<!--break-->
+En otra receta del amigo Cleto se explicaba como "configurar el móvil HTC Magic para desarrollar en GNU/Linux":http://crysol.org/es/node/1138.
+
+Mantén la otra receta abierta, ya que muchas cosas de las allí explicadas nos servirán para la nuestra (y que mejor que reutilizarlas si ya están escritas :P).
+
+h2. Requisitos
+
+Los requisitos cambian un poco:
+* SDK de Android (en cualquier versión, pero preferiblemente la última)
+* Ordenador con Debian GNU/Linux unstable
+* Móvil con Android con la opción de desarrollo habilitada
+* Cable de desarrollo (normalmente USB) para el teléfono
+
+h2. Configuración
+
+Aquí podemos seguir la receta comentada anteriormente para crear el grupo @androiddev@.
+
+El siguiente paso en el debemos editar las reglas de *udev* para que, al conectar nuestro teléfono, de permiso a dicho grupo de usuarios para poder manejarlo a su antojo. Para ello, primero necesitamos saber el _Vendor Id_ y el _Product id_ de nuestro teléfono.
+
+Para ello, utiliza el comando @lsusb@. Cada una de las líneas que aparecen tiene la siguiente estructura:
+
+
+<temp-div>
+{% highlight text %}
+Bus XXX Device YYY: ID aaaa:bbbb Description{% endhighlight %}
+</div>
+
+
+dónde:
+* XXX es un número identificador del bus USB (no nos importa)
+* YYY es el número que identifica al dispositivo dentro del mismo bus (tampoco nos interesa)
+* *aaaa*: este es el _vender id_ mencionado anteriormente
+* *bbbb*: el _product id_, mencionado también anteriormente
+* Description: una descripción del dispositivo en cuestión.
+
+Con un poco de "pericia" puedes deducir cual de las líneas corresponde a tu teléfono/dispositivo Android. en mi caso, al usar un teléfono HTC, la descripción pone "High Tech Computer Corp.".
+
+Si no lo sacas, una buena técnica es desenchufarlo, hacer @lsusb@, y volver a enchufarlo y entonces comparar las salidas, viendo que sale diferente entre las dos ejecuciones. Si eres un "master", puedes ir a mirar que se cuece en @dmesg@, que también te debe decir los datos que necesitamos.
+
+Una vez tengamos ambos datos (recordemos, _vender id_ y _product id_), crearemos un fichero en @/etc/udev/rules.d@ con el nombre @50-androiddev.rules@ que contenga, como podéis ver en la otra receta, lo siguiente:
+
+
+<temp-div>
+{% highlight text %}
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="aaaa", ATTRS{idProduct}=="bbbb", GROUP="androiddev", SYMLINK+="android%n"
+{% endhighlight %}
+</div>
+
+dónde debes sustituir *aaaa* por tu _vender id_ y *bbbb* por tu _product id_.
+
+Por cada teléfono diferente que enchufes deberá aparecer una línea, ya que los _vendor id_ y _product id_ cambian para cada aparato.
+
+Tras editar el fichero, guarda los cambios y recarga las reglas de Udev:
+
+
+<div class="console">
+{% highlight console %}
+
+# /etc/init.d/udev reload
+{% endhighlight %}
+</div>
+
+h2. En el móvil
+
+Mira en la otra receta para saber que hacer en tu dispositivo Android para activar la depuración.
+
+h2. Probando que todo funciona
+
+Antes de volver a conectar tu teléfono, asegúrate de pertenecer al grupo *androiddev* creado al principio. Si no, no podrás hacer lo que Cleto contó en su receta sobre el HTC Magic.
+
+También puedes probar a hacer directamente:
+
+
+<div class="console">
+{% highlight console %}
+
+$ ./adb devices
+{% endhighlight %}
+</div>
+
+y comprobar si tu dispositivo es listado y reconocido (algo como lo siguiente):
+
+
+<div class="console">
+{% highlight console %}
+
+$ ./adb devices
+List of devices attached 
+HT043PL12817	device
+{% endhighlight %}
+</div>
+
+h2. Referencias
+
+* "Configurar HTC Magic (G2) con Android en Debian GNU/Linux":http://crysol.org/es/node/1138

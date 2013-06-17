@@ -1,0 +1,26 @@
+---
+migrated: node/1557
+layout: post
+title: Configuración de thunderbird/icedove para el correo de la UCLM
+created: 1323944978
+author: david_villa
+category: receta
+---
+h2. Recepción
+
+Tipo de servidor: IMAP
+Nombre del servidor: imap.mail.uclm.es
+Puerto: 993
+Nombre de usuario: Pepito.Grillo
+
+Seguridad de la conexión: SSL/TLS
+Método de autenticación: Contraseña normal
+
+h2. Envío
+
+Nombre del servidor: smtp.mail.uclm.es
+Puerto: 587
+Nombre de usuario: Pepito.Grillo
+Método de autenticación: Contraseña normal
+Seguridad de la conexión: STARTTLS
+

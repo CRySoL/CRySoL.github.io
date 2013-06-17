@@ -1,0 +1,58 @@
+---
+migrated: node/506
+layout: post
+title: Montar un repositorio trivial de paquetes Debian
+created: 1169288880
+author: cleto
+category: receta
+tags:
+- Debian
+---
+<blockquote>A veces, para tener nuestros paquetes Debian generados disponibles en un repositorio no es necesario montar uno complejo (por ejemplo, cuando tus paquetes sólo están para una arquitectura). Los repositorios triviales nos permiten tener nuestros paquetes Debian personalizados disponibles en menos de 10 minutos.</blockquote>
+<!--break-->
+
+<h1>Estructura de directorios</h1>
+Inicialmente, debemos crear una estructura de directorios para nuestro nuevo repositorio trivial. Vamos a tomar como raíz el directorio <em>/var</em>, y dentro creamos los siguientes directorios:
+
+<pre>
+-var
+ +-mirepo
+   +-binary
+   +-source
+</pre>
+
+Utilizamos el comando <em>mkdir</em> para crear el antrerior árbol de directorios.
+
+<h1>Llenando el repositorio</h1>
+Una vez creada la estructura, copiamos nuestros paquetes binarios Debian (los .deb) en el directorio <em>binary</em> y los paquetes fuentes (los .dsc) en el directorio <em>source</em>. A continuación, creamos los ficheros índices de nuestro repositorio trivial utilizando <em>dpkg</em>:
+
+
+<div class="console">
+{% highlight console %}
+# cd /var/mirepo/
+# dpkg-scanpackages binary /dev/null | gzip -9c > binary/Packages.gz
+# dpkg-scansources source /dev/null | gzip -9c > source/Sources.gz
+{% endhighlight %}
+</div>
+Como vemos, lo anterior nos crea los índices de nuestros paquetes que serán consultados por <em>apt</em> cuando consulte el repositorio.
+<h1>Utilizando el repositorio</h1>
+Una vez que hemos hecho todo lo anterior podemos añadir la siguiente línea a nuestro <em>/etc/apt/sources.list</em> para utilizar el repositorio de forma local:
+<pre>deb file:///var/mirepo binary/</pre>
+Y si quieres tenerlo accesible de forma remota, puedes crear un enlace simbólico en <em>/var/www/</em> para redireccionar la consulta <em>http</em> a tu servidor Apache:
+
+
+<div class="console">
+{% highlight console %}
+# cd /var/www
+# ln -s /var/mirepo mirepo
+{% endhighlight %}
+</div>
+
+Y añadir como repositorio la línea:
+
+<pre>
+deb http://midominio.com/mirepo binary/
+</pre>
+
+<h1>Referencias</h1>
+<a href="http://es.tldp.org/Manuales-LuCAS/doc-guia-ubuntu-breeze/guia-ubuntu-htmls/repositorios.html">Traducción  al español del Howto oficial de Debian para crear repositorios.</a>

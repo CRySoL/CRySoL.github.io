@@ -1,0 +1,68 @@
+---
+migrated: node/727
+layout: post
+title: ! 'Buscar ficheros en el repositorio Debian: apt-file'
+created: 1182769847
+author: mjsantof
+category: receta
+tags:
+- Debian
+---
+<blockquote class="head">
+A todos nos ha pasado alguna vez cuando intentamos compilar algo, encontrarnos con errores del tipo: No existe el fichero o el directorio. Algunas veces, encontrar el paquete que contiene ese .h puede ser toda una odisea, pero hoy me he encontrado con una maravillosa herramienta: <tt>apt-file</tt>.
+</blockquote>
+
+<!--break-->
+
+<h1>Instalación</h1>
+ Con sólo tres comandos, estos problemas pasarán a mejor vida, la instalación y configuración la hacemos en dos pasos. Instalación:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install apt-file
+{% endhighlight %}
+</div>
+
+Y ahora actualizamos la base de datos, para poder llevar a cabo las búsquedas correctamente.
+
+
+<div class="console">
+{% highlight console %}
+# apt-file update
+{% endhighlight %}
+</div>
+
+
+<h2>Uso</h2>
+Para devolver la lista con todos los paquetes que contienen este archivo:
+
+
+<div class="console">
+{% highlight console %}
+$ apt-file search nombre_del_fichero
+{% endhighlight %}
+</div>
+
+Si queremos la lista de todos los archivos que contiene el paquete:
+
+
+<div class="console">
+{% highlight console %}
+$ apt-file list nombre_del_paquete
+{% endhighlight %}
+</div>
+
+Y finalmente, para vaciar la base de datos:
+
+
+<div class="console">
+{% highlight console %}
+# apt-file purge
+{% endhighlight %}
+</div>
+
+Con esto nos ahorraremos la búsquedas en <a href="http://packages.debian.org">http://packages.debian.org</a>!
+
+<h2>Refetencias</h2>
+Página del manual de <em>apt-file</em>.

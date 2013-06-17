@@ -1,0 +1,59 @@
+---
+migrated: node/933
+layout: post
+title: Entornos chroot con cdebootstrap en Debian
+created: 1213614043
+author: javieralso
+category: receta
+tags:
+- Arco
+- Debian
+---
+<blockquote>Si utilizas varias aplicaciones que tienen librerías que entran en conflicto entre sí, una solución puede ser "enjaularla" para que no entre en conflicto con tu sistema. Aquí explico cómo crear una <em>jaula</em> en pocos pasos, que permitirá entre otras cosas aislar aplicaciones.
+</blockquote>
+<!--break-->
+
+Además, el uso de <em>jaulas</em> también puede resultar útil si tienes ciertos servicios como servidores web o ftp y quieres aumentar un poco mas la seguridad del sistema, ya que hace, al menos algo mas difícil, el acceso al sistema, debido a que éste queda, en teoría, fuera del alcance del sistema enjaulado.
+
+En mi caso, yo he utilizado la <em>jaula</em> para aislar dos compiladores cruzados para microcontroladores AVR, debido a que utilizo <a href="http://crysol.org/node/405">tinyos</a> y necesita una versión muy concreta de <a href="http://www.nongnu.org/avr-libc/">avr-libc</a> que entra en conflicto con ya que yo <a href="http://crysol.org/node/530">tengo instalada</a>.
+
+<h2>Empezando</h2>
+
+Bueno, para poder empezar, necesitas tener instalado <em>cdebootstrap</em>, si usas <a href="http://www.debian.org/index.es.html">Debian</a> ya sabes, <em>apt-get</em> (o <em>aptutude</em>, que esto parece como ser del Bétis o del Sevilla ;)). 
+
+Una vez con <em>cdebootstrap</em> instalado, creas un directorio en el lugar en el que quieras tener tu <em>jaula</em> instalada. Yo por ejemplo, la he creado en <em>/usr/local/tinyos</em> por ésto de tener las cosas un poco mas ordenaditas. Cuando ya tengas el directorio creado invocas a <em>cdebootstrap</em> con un comando tal que éste:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@rigoberto:~$ sudo cdebootstrap unstable /usr/local/tinyos/  http://babel.esi.uclm.es/debian
+{% endhighlight %}
+</div>
+
+Esto crea, dentro de <em>/usr/local/tinyos/</em> un sistema <em>unstable</em> totalmente desnudo (con lo mas básico) partiendo del repositorio que le hemos pasado.
+
+Ahora, para poderlo utilizar, necesitas montar <em>/proc</em> y <em>/dev</em>. Éste último no es que sea especialmente necesario a menos que vayas a utilizar algún dispositivo de entrada/salida. En mi caso, como necesito un puerto serie para poder programar las motas, he de montarlo dentro de la jaula.
+Para montar las unidades y acceder a la jaula, se puede utilizar un script como el siguiente, que lo hace todo de forma automática:
+
+
+<temp-div>
+{% highlight text %}
+#!/bin/bash
+
+sudo mount -t proc none /usr/local/tinyos/proc
+sudo mount -t sysfs none /usr/local/tinyos/sys
+sudo mount --bind /dev /usr/local/tinyos/dev
+sudo chroot /usr/local/tinyos
+sudo umount /usr/local/tinyos/dev
+sudo umount /usr/local//tinyos/sys
+sudo umount /usr/local/tinyos/proc
+{% endhighlight %}
+</div>
+
+Este script monta <em>/proc</em>, <em>/sys</em> y <em>/dev</em> dentro de la jaula y ejecuta <em>chroot</em> para cambiar el raíz. Cuando sale del <em>chroot</em>,  desmonta todo otra vez.
+
+<h2> Referencias </h2>
+
+<ul>
+<li><a href="http://administradores.educarex.es/wiki/index.php/Creaci%C3%B3n_de_un_Entorno_chroot">Creación de un Entorno chroot</a></li>
+</ul>

@@ -1,0 +1,165 @@
+---
+migrated: node/182
+layout: post
+title: Configurar, parchear, cacharrear y compilar un Linux FÁCILMENTE
+created: 1137080133
+author: int-0
+category: receta
+tags:
+- linux (el kernel, qué si no?)
+---
+<blockquote>A estas alturas, con tantas recetas como existen, hay todavía muchas cosas que no podemos hacer o que intentamos rodear para evitar lo inevitable: una compilación del núcleo. Existen por internet muchísimas recetas sobre compilaciones y tal, yo no pretendo hacer una receta completísima, ni tan siquiera completa, sólo pretendo hacer una miniguía del núcleo linux, que sirva como base para recetas más completas o que crezca (con la ayuda de todos) hasta convertirse en una guía útil de compilación de Linux. Así pues, los que no sepáis espero que lo encontréis interesante y no demasiado aburrido y los que ya sabéis leedlo para corregirlo y aportar nuevos apartados y trucos.</blockquote>
+<!--break-->
+<h2>Añadir nuevos módulos/drivers</h2>
+Bueno, este título es incorrecto (intencionadamente). Para los usuarios de sistemas tipo <em>hasefroch 95, XP</em>, etc. os puede resultar más cómodo pensar en los módulos del linux como en los drivers de los dispositivos. Esto no es del todo correcto ya que existen módulos que no hacen la función de drivers. A partir de ahora eliminaremos el calificativo de "drivers" y usaremos "módulos" (más correcto).
+
+Generalmente, la compilación de nuevos módulos no incluídos de serie en el kernel, no requiere de una compilación completa del núcleo, ni tan siquiera tener los fuentes completos (linux-source), simplemente una parte de ellos: <b>las cabeceras</b> (linux-headers). Así pues, para compilar módulos para nuestro núcleo tendremos que instalarnos las cabeceras:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install linux-headers-$(uname -r)
+{% endhighlight %}
+</div>
+
+Puede que nuestra distro cuente con los fuentes del módulo que queremos instalar, entonces esta receta termina aquí, sólo tenéis que ejecutar <b>modules-assistant</b> y seguir las instrucciones. Si el módulo es "extraño" y los fuentes no vienen "de serie", tendrán instrucciones apropiadas, que generalmente se resumirán en:
+
+
+<div class="console">
+{% highlight console %}
+
+$ make
+# make install
+# depmod -ae
+{% endhighlight %}
+</div>
+
+(Notad que el primer make se hace como usuario, el <em>install</em> y el <em>depmod</em> como superusuario) Todos los modulos se relacionan entre si por sus dependencias, esto es: para cargar un módulo se requiere cargar otro previamente (lógico). Con <em>depmod</em> volvemos a calcular todas esas interdependencias, siempre que añadáis un módulo (o lo eliminéis) ejecutar esa línea para actualizar cambios.
+
+Instalar un módulo en realidad es copiar un fichero <b>.ko</b> en el directorio /lib/modules/$(uname -r)/ (y ahí se puede poner en cualquier subdirectorio, depmod los recorrerá todos).
+
+Normalmente los módulos suelen compilarse e instalarse así sin ningún problema, pero los hay más rollazos y puede ser que necesitemos parchear nuestro kernel.
+
+Esto es otro cantar.
+
+<h2>Parcheando Linux</h2>
+Diversos motivos pueden llevarnos al parcheo de un núcleo, el más común será el de instalar un módulo nuevo.
+
+Para parchear el kernel necesitaremos los fuentes (aquí no nos sirve <em>uname -r</em> porque los paquetes no nombran las revisiones del núcleo):
+
+
+<div class="console">
+{% highlight console %}
+
+# apt-get install linux-source-2.6.14
+# cd /usr/src
+# unp linux-source-2.6.14.tar.bz2
+{% endhighlight %}
+</div>
+
+Si el parche no está en el repositorio oficial de la distribución vendrá con las oportunas intrucciones de uso, leedlas y que la fuerza os acompañe. Si el parche si está en vuestra distro, se instala, por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install kernel-patch-mppe
+{% endhighlight %}
+</div>
+
+Estos parches tienen una forma automática de aplicarse:
+
+
+<div class="console">
+{% highlight console %}
+
+# cd /usr/src/linux-source-2.6.14
+# ../kernel-patches/all/apply/mppe
+{% endhighlight %}
+</div>
+
+Pero existe una forma mejor que se explicará más adelante...
+
+<h2>Configurando un Linux</h2>
+Antes de compilar un kernel debemos configurar sus parámetros, son muchos y una gran cantidad de ellos no sabremos para qué sirven (la dura realidad). Normalmente deberemos modificar algún que otro parámetro para ajustarlo a las necesidades de algún módulo o programa. Entonces... ¿cómo hacemos para no cambiar todas las opciones al tuntún?... fácil, en /boot/config-$(uname -r) tenemos la configuración de los parámetros actuales del kernel en ejecución. Para que nuestro núcleo use esos parámetros haremos lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+# cp /boot/config-$(uname -r) /usr/src/linux-source-2.6.14/.config
+{% endhighlight %}
+</div>
+
+Con esto asumimos que el linux en ejecución tiene una versión 2.6.14, no es muy recomendable usar archivos de configuración para versiones distintas, sobre todo porque os faltarán parámetros. Una vez copiado este archivo procederemos a cambiar los parámetros apropiados, esto es, reconfigurarlo:
+
+
+<div class="console">
+{% highlight console %}
+
+# cd /usr/src/linux-source-2.6.14
+# make menuconfig
+{% endhighlight %}
+</div>
+
+o también:
+
+
+<div class="console">
+{% highlight console %}
+# make xconfig
+{% endhighlight %}
+</div>
+
+La primera opción requiere tener instaladas las librerias de desarrollo de <em>ncurses</em> y la segunda (más bonita) las de <em>qt</em>. Modificaremos los parámetros y finalmente salvaremos la configuración en el archivo <b>.config</b>.
+
+<h2>Finalmente la compilación</h2>
+Bueno, la compilación a la antigua se hace muy fácilmente:
+
+
+<div class="console">
+{% highlight console %}
+
+# cd /usr/src/linux-source-2.6.14
+# make
+{% endhighlight %}
+</div>
+
+Si el parche se aplicó bien y el núcleo esta bien configurado se compilará todo tranquilamente. Eso si... obtendremos una gran cantidad de archivos binarios que no podremos utilizar para nada, la forma correcta de compilarlo será usando el programa <em>kernel-package</em>:
+
+
+<div class="console">
+{% highlight console %}
+
+# cd /usr/src/linux-source-2.6.14
+# make-kpkg --initrd --bzImage buildpackage
+{% endhighlight %}
+</div>
+
+Esto creará un paquete .deb con nuestro nuevo núcleo, que podremos instalar y (teóricamente) usar.
+
+<h2>Hacerlo todo junto en un sólo comando</h2>
+
+Si tenemos el Linux sin parchear (pero <b>configurado</b> como se ha explicado  antes) podemos parchearlo y compilarlo todo de una forma fácil; supongamos que tenemos instalado el parche <em>mppe</em> como se dijo anteriormente, para hacerlo todo de una basta con teclear:
+
+
+<div class="console">
+{% highlight console %}
+
+# cd /usr/src/linux-source-2.6.14
+# make-kpkg --initrd --bzImage --added-patches mppe buildpackage
+{% endhighlight %}
+</div>
+
+Además, si quedó algún nuevo parámetro por configurar (debido al resultado de aplicar el parche) se pedirá por consola su valor. Normalmente, cuando se pregunta por el soporte de un módulo en el núcleo las opciones son: <b>Y</b>, <b>N</b> y <b>M</b>. Si se responde <b>Y</b> el módulo será incluído en la misma imagen del núcleo, esto aumenta la velocidad de carga pero también aumenta el consumo de memoria (el núcleo ocupa más). Si se responde <b>N</b> el núcleo no soportará esa característica (estad seguros cuando eliminéis algo!) y lo más normal <b>M</b> que creará un módulo para soportar dicha característica.
+
+<h2>Enlaces de interés</h2>
+La lista podría ser enorme, pero vamos a poner unos pocos (añadid vosotros los que queráis):
+
+* <a href=http://www.linux.org>Página oficial del kernel linux</a>
+* <a href=http://www.linuxhq.com>Página de seguimiento de desarrollo del linux</a>
+* <a href=http://www.linuca.org/body.phtml?nIdNoticia=78>Compilación paso a paso (algo antiguo)</a>
+* <a href=http://es.tldp.org/COMO-INSFLUG/COMOs/Kernel-Como/>Antiguo kernel-como del proyecto de documentación (el kernel en estado puro)</a>
+* <a href=http://www.thelinuxlink.net/~fingolfin/kernel-compile/>Guia bastante completa sobre el kernel (english)</a>
+* <a href=http://www.falkotimme.com/howtos/debian_kernel2.6_compile/>Guia de compilación del núcleo en Debian con make-kpkg (english)</a>
+
+<h2>Hasta luego</h2>
+En fin... creo que esto es todo lo que quería contar hasta ahora, el tema es muy extenso (sólo echad un ojo a <em>make-kpkg</em>) hay muchas cosas que se puedan hacer... bastante será que lo que haya aquí no contenga errores... así que espero que poco a poco se puedan añadir más cosillas y las que hay se corrijan y mejoren.

@@ -1,0 +1,4 @@
+---
+layout: refresh
+refresh_to_post_id: /receta/2008-06-16/entornos-chroot-con-cdebootstrap-en-debian
+---

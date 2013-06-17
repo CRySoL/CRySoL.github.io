@@ -1,0 +1,23 @@
+---
+migrated: node/456
+layout: post
+title: Instalador de Gnesis 3.0 en su versión 0.0.1 Alfa-Beta-Gamma "archi-experimental"
+created: 1164189652
+author: cleto
+category: noticia
+---
+¡Hola a todos!
+
+Escribo para comunicaros de que ya existe un instalador MUY (pero que MUY) básico para Gnesis 3.0. Este instalador irá con la distribución mínima de Gnesis (de unos 85 MB) y está hecho con Dialog y Bash.
+
+A día de hoy, instala el sistema live en un disco duro que tenga una partición swap y una para el directorio raíz. Ambas particiones son obligatorias y el instalador permite crearlas utilizando cfdisk. De momento, es suficiente con esto pero habrá que dar soporte para crear más particiones y hacerlo más general aún.
+
+Aún falta pulir un poco más la parte de configuración de la instalación. Existen ciertos problemas para deshabilitar Casper (arranque live) totalmente de la distribución instalada. Queda por realizar:
+
+- Deshabilitar el autologin en el terminal. 
+- Omitir la creación del usuario "live".
+- Editar algunos archivos para que se muestre el nombre de la distribución en distintos puntos del sistema (grub, texto inicial en el terminal...).
+
+En estos momentos, las pruebas del instalador se están haciendo sobre Debian "etch" debido a problemas con el nuevo núcleo (2.6.18-2) a la hora de generar las distribuciones live. El problema es sencillo: no funciona. :)
+
+Si alguien está interesado en todo esto que no dude en comunicarse conmigo. Y, si le gusta el riesgo, que no dude en pasarse por el canal de #debian-live en el servidor irc.oftc.net (NO HABLAR DE UBUNTU EN EL CANAL). :)
