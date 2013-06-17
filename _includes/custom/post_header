@@ -1,16 +1,7 @@
 <div class="header">
    <span class="submitted">
     {{ page.date | date: "%Y-%m-%d" }}
-    {% if page.author %}
-    —
-      {% if site.authors[page.author] %}
-         <a href="/users.html#{{page.author}}">
-           {{ site.authors[page.author].nick }}
-         </a>
-      {% else %}
-	 <span title="(unknown author)">{{ page.author }}?</span>
-      {% endif %}
-    {% endif %}
+    {% include custom/page_author %}
   </span>
 
    <span class="source">

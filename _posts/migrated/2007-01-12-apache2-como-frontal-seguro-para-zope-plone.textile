@@ -8,7 +8,7 @@ category: receta
 tags:
 - Arco
 ---
-bq. Cómo configurar Apache para mejorar la seguridad de un sitio Zope, utilizando _mod_proxy_ y _VirtualHostMonster_.
+Cómo configurar Apache para mejorar la seguridad de un sitio Zope, utilizando _mod_proxy_ y _VirtualHostMonster_.
 <!--break-->
 
 h2. Escenario
@@ -59,7 +59,7 @@ Sobre el mismo fichero que has hecho para el sitio SSL, haz las siguientes modif
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 <VirtualHost *:443>
   ...

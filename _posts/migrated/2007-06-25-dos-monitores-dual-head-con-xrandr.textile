@@ -166,7 +166,7 @@ xrandr: screen cannot be larger than 2560x1024 (desired size 1280x1600)
 Esto lo puedes arreglar definiendo un área suficientemente grande para el "Screen" (la primera línea que aparece al ejecutar @xrandr@). Para eso, modifica tu fichero @/etc/X11/xorg.conf@ y añade una línea @Virtual@ en _Screen/Display_, por ejemplo:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Section "Screen"
         Identifier      "Default Screen"

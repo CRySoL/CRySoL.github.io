@@ -21,7 +21,7 @@ Hoy he descubierto otro módulo de Emacs, llamado <a href="https://github.com/di
 Éste es un ejemplo de configuración:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 (require 'el-get)
 
@@ -39,7 +39,7 @@ Hoy he descubierto otro módulo de Emacs, llamado <a href="https://github.com/di
 @el-get@ puede descargar módulos de repos git, svn, mercurial, bazar, directamente por http, con apt-get, de "ELPA":http://tromey.com/elpa/ y muchas otras formas. Además, el propio programa viene con cientos de «recipes», que son los fragmentos de configuración que dicen cómo y de dónde descargar módulos, de modo que la gran mayoría de los módulos que vayas a necesitar están a tiro de:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 M-x el-get-install <TAB>
 {% endhighlight %}

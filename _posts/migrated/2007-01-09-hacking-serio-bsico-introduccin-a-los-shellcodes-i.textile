@@ -8,7 +8,7 @@ category: receta
 tags:
 - seguridad
 ---
-bq. Cómo programar una shell code para utilizar en tus xploits (Parte 1)
+Cómo programar una shell code para utilizar en tus xploits (Parte 1)
 <!--break-->
 h2. Introducción
 
@@ -37,7 +37,7 @@ Las llamadas a sistema en Linux se hacen con parámetros en los registros e invo
 Un ejemplo sería:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 mov eax,1     ; eax = 1 => exit syscall
 xor ebx,ebx   ; ebx = 0 => ebx = int
@@ -56,7 +56,7 @@ Bien, existe un truco. Cuando se realiza un "call", la cima de la pila contiene 
 Ejemplo:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 BITS 32
 
@@ -82,7 +82,7 @@ Cuidado con operaciones que tengan 0's. Hacer "mov eax, 0" hará que el binario 
 Recordad que para poner algo a 0 basta con hacer un XOR consigo mismo.
 
 
-<temp-div>
+<div>
 {% highlight text %}
 BITS 32
 
@@ -103,7 +103,7 @@ Vale. Ahora, miramos en la tabla de syscalls y vemos que sys_execve es la 11.
 La implementación en C es la siguiente:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 int execve (const char *filename, char *const argv [], char *const envp[]);
 {% endhighlight %}
@@ -114,7 +114,7 @@ Así que necesitamos tres punteros a los argumentos. El primer puntero ya sabemo
 Más o menos quedaría así:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 BITS 32        ; Máquina de 32 bits - las shellcodes son específicas
 
@@ -165,7 +165,7 @@ $ ./testshell exec (u otro fichero bin generado por nasm)
 El programita que carga el fichero como función es:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 /* Coded by brue - brue.org - testshell.c */
 #include <stdio.h>
@@ -272,7 +272,7 @@ char shell[]=
 Esta variable la podremos usar como shell code en nuestro exploit ... pero eso ya es otra receta.
 
 
-<temp-div>
+<div>
 {% highlight text %}
 /* Coded by brue - brue.org - hex2c.c   *
  *                                      *

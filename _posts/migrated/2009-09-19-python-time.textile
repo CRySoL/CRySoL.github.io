@@ -8,7 +8,7 @@ category: receta
 tags:
 - Python
 ---
-bq. Una pequeña reseña sobre las funciones de manipulación de la hora en Python mediante el módulo @time@.
+Una pequeña reseña sobre las funciones de manipulación de la hora en Python mediante el módulo @time@.
 <!--break-->
 h2. ¿Qué hora es?
 
@@ -19,7 +19,7 @@ h3. @time.time() -> float@
 Devuelve la hora UNIX en segundos, como float, aunque es poco probable que el sistema de escritorio pueda dar precisión menor a la milésima de segundo.
 
 
-<temp-div>
+<div>
 {% highlight text %}
 >>> time.time()
 253391341.7215531
@@ -31,7 +31,7 @@ h3. @time.localtime([seconds]) -> struct_time@
 Devuelve la hora como tupla @(tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday, tm_yday, tm_isdst)@. Si no se le indica nada, utiliza la hora actual.
 
 
-<temp-div>
+<div>
 {% highlight text %}
 >>> time.localtime()
 (2009, 9, 19, 22, 36, 45, 5, 262, 1)
@@ -45,7 +45,7 @@ h3. @time.asctime([tuple]) -> string@
 Devuelve una representación textual de la hora. Se le puede indicar una hora como tupla.
 
 
-<temp-div>
+<div>
 {% highlight text %}
 >>> time.asctime()
 'Sat Sep 19 22:26:04 2009'
@@ -62,7 +62,7 @@ h3. @strftime(format[, tuple]) -> string@
 Formatea una hora (indicada como tupla) usando la especificación indicada por parámetro (@format@). Si no se indica el segundo parámetro (@tuple@) toma la hora actual.
 
 
-<temp-div>
+<div>
 {% highlight text %}
 >>> time.strftime("%a %b %d %H:%M:%S %Y")
 'Sat Sep 19 19:40:42 2009'
@@ -77,7 +77,7 @@ h3. @strptime(string, format) -> struct_time@
 Hace lo contrario de @strptime()@, es decir, parsea una cadena para obtener la hora como tupla.
 
 
-<temp-div>
+<div>
 {% highlight text %}
 >>> time.strptime("Sat Sep 12 16:47:31 2009", "%a %b %d %H:%M:%S %Y")
 (2009, 9, 12, 16, 47, 31, 5, 255, -1)
@@ -88,7 +88,7 @@ Hace lo contrario de @strptime()@, es decir, parsea una cadena para obtener la h
 h2. Conversiones
 
 
-<temp-div>
+<div>
 {% highlight text %}
 FLOAT  -> TUPLA   localtime(), gmtime() 
 FLOAT  -> STRING  ctime()

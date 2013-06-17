@@ -84,7 +84,7 @@ Para usar el servicio únicamente desde la propia máquina que tiene el servidor
 Copia el fichero <tt>/usr/share/doc/nut/examples/upsd.users.sample</tt> en <tt>/etc/nut/upsd.users</tt> y añade lo siguiente:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 [admin]
         password = mypass
@@ -105,7 +105,7 @@ h2. Cliente local
 Copia el fichero <tt>/usr/share/doc/nut/examples/upsmon.conf.sample</tt> en <tt>/etc/nut/upsmon.conf</tt> y añade lo siguiente:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 MONITOR mysai@localhost 1 monuser mypass master
 {% endhighlight %}

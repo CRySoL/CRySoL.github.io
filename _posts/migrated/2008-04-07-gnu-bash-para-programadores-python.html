@@ -21,7 +21,7 @@ tags:
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 cadena="holamundo"
 len(cadena)
@@ -205,7 +205,7 @@ ext = ${file#*.}      # png
 <h3> Generar un fichero dado su contenido </h3>
 
 
-<temp-div>
+<div>
 {% highlight text %}
 cat > .hg/hgrc << EOF
 contenido del fichero
@@ -218,7 +218,7 @@ EOF
 <h3> os.path.isdir(nombre) </h3> 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 if [ -d nombre]; then    # si es un directorio
 ...
@@ -229,7 +229,7 @@ fi
 <h3> os.path.isfile(nombre) </h3>
 
 
-<temp-div>
+<div>
 {% highlight text %}
 if [ ! -e nombre ]; then   # si no es un fichero
 ...

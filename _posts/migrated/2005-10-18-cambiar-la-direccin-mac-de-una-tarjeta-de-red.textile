@@ -6,7 +6,7 @@ created: 1129656126
 author: david_villa
 category: receta
 ---
-bq. En determinadas «circunstancias especiales» puede ser necesario que un PC tenga una tarjeta de red con una dirección MAC específica. Esta receta explica cómo conseguirlo con @ifconfig@, @iproute@ o @macchanger@
+En determinadas «circunstancias especiales» puede ser necesario que un PC tenga una tarjeta de red con una dirección MAC específica. Esta receta explica cómo conseguirlo con @ifconfig@, @iproute@ o @macchanger@
 <!--break-->
 A pesar de que la dirección física suele estar grabada en ROM en la propia tarjeta, es posible pedirle al sistema operativo que utilice otro "número" para identificar esa tarjeta.
 

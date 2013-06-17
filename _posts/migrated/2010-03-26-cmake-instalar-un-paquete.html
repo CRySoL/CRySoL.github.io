@@ -20,7 +20,7 @@ En esta receta nos vamos a centrar en un uso básico del comando. Para algo más
 
 Supongamos que queremos instalar un binario y dos versiones de una misma librería: una estática y otra dinámica. El código CMake para este caso podría ser el siguiente:
 
-<temp-div>
+<div>
 {% highlight text %}
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT
@@ -41,7 +41,7 @@ ADD_EXECUTABLE(hello hello.cpp)
 Inicialmente, podrías añadir un comando por cada uno de los componentes que queremos instalar indicando el directorio destino. Sin embargo, como es habitual necesitar instalar varios objetivos, el comando INSTALL proporciona una forma más compacta:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 # ... el código anterior aquí
 

@@ -152,8 +152,7 @@ footer {
   font-size: 80%;
 }
 
-.node .footer .read-more {
-  border-top: solid thin #ccc;
+.node .footer .more {
   text-align: right;
 }
 
@@ -222,7 +221,11 @@ height: 140px;
 .migrated {
   font-size: 80%;
 	padding: 2px 4px;
-	Background: #fdd;
+	background: #fdd;
+}
+
+.migrated a {
+  color: black;
 }
 
 
@@ -242,7 +245,7 @@ pre, kbd  {
 
   max-width: 98%;
   max-height: 400px;
-  overflow: auto;
+  overflow: hidden;
 
   word-wrap: normal;
   white-space: pre;
@@ -250,6 +253,10 @@ pre, kbd  {
   border: solid thin #dedede;
 
   background:#f9f9f9 url(/assets/images/file.gif) 4px 4px no-repeat;
+}
+
+pre:hover {
+  overflow: auto;
 }
 
 pre.console,  kbd, .console .highlight pre {

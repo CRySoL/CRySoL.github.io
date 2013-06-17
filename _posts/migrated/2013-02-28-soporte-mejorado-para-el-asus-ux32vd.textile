@@ -21,7 +21,7 @@ Pues todo esto se arregla a día de hoy:
 * En el fichero @/etc/default/grup@ edita:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 GRUB_CMDLINE_LINUX_DEFAULT="quiet acpi_osi="
 {% endhighlight %}
@@ -30,7 +30,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet acpi_osi="
 luego:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 # update-grub
 {% endhighlight %}

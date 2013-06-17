@@ -6,7 +6,7 @@ created: 1150543510
 author: david_villa
 category: receta
 ---
-bq. hdparm es una pequeña herramienta que sirve para manipular la configuración de las unidades de disco. El objetivo es optimizar el tiempo de acceso o la velocidad de transferencia. 
+hdparm es una pequeña herramienta que sirve para manipular la configuración de las unidades de disco. El objetivo es optimizar el tiempo de acceso o la velocidad de transferencia. 
 <!--break-->
 
 *AVISO:* El uso de algunas opciones de @hdparm@ puede provocar bloqueos en la unidad, cuelques del equipo, perdida de datos y destrucción del Universo.
@@ -97,7 +97,7 @@ h2. Guardar la configuración
 Una vez que hayas probado qué opciones van bien con tu disco y estés seguro de que funcionan adecuadamente, lo más cómodo es escribir escribar la configuración en @/etc/hdparm.conf@. El siguiente sirve como ejemplo:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 /dev/hda {
         mult_sect_io = 16

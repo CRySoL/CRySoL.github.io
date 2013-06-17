@@ -8,7 +8,7 @@ category: receta
 tags:
 - networking
 ---
-bq. This recipe shows how to setup a basic synchronization mechanism (similar to DropBox) by means of conventional GNU/Linux tools. This does not require root privileges and no packages (except ssh-server) need to be installed in the server.
+This recipe shows how to setup a basic synchronization mechanism (similar to DropBox) by means of conventional GNU/Linux tools. This does not require root privileges and no packages (except ssh-server) need to be installed in the server.
 <!--break-->
 <center>
 *WARNING: This procedure may cause data loss. Use it under your responsibility*
@@ -97,7 +97,7 @@ $ incrontab -e
 Your default editor will start. Write down next line, save and close.
 
 
-<temp-div>
+<div>
 {% highlight text %}
 /home/john/PoorBox IN_MODIFY,IN_DELETE,IN_CLOSE_WRITE,IN_MOVE /home/john/bin/poorbox.sh to-server $# $%
 {% endhighlight %}
@@ -129,7 +129,7 @@ $ crontab -e
 write and save next line:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 */1 *  *   *   *     /home/john/bin/poorbox.sh to-host
 {% endhighlight %}

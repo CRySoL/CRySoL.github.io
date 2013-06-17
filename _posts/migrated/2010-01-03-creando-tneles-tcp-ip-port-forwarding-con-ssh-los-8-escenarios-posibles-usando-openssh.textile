@@ -9,7 +9,7 @@ category: receta
 tags:
 - networking
 ---
-bq. Esta receta es una copia (gracias a su licencia CC) de un post del blog de "Vicente Navarro":http://<a href="http://www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh">www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh</a> (un blog con un contenido estupendo por cierto). La pongo aquí porque me parece un material muy bueno y en previsión de que (FSM no lo quiera) dicho blog desaparezca repentinamente.
+Esta receta es una copia (gracias a su licencia CC) de un post del blog de "Vicente Navarro":http://<a href="http://www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh">www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh</a> (un blog con un contenido estupendo por cierto). La pongo aquí porque me parece un material muy bueno y en previsión de que (FSM no lo quiera) dicho blog desaparezca repentinamente.
 <!--break-->
 La función típica del protocolo de red Secure Shell (SSH) es acceder en modo terminal a un sistema remoto y ejecutar allí comandos de forma segura gracias a que los datos van cifrados. Pero además, a través de esa conexión de datos segura, es posible crear túneles (reenviar puertos / port forwarding) entre los extremos conectados de forma que las conexiones TCP/IP se encauzan a través de la conexión SSH con lo que podemos conseguir saltarnos cualquier firewall o bloqueo de puertos siempre que tengamos la posibilidad de conectar con SSH.
 
@@ -238,7 +238,7 @@ externo1 $ ssh -R 0.0.0.0:7900:localhost:5900 usuario@interno1
 Sin embargo, es importante entender que, por motivos de seguridad, esto no funcionará si en la configuración del servidor de SSH no modificamos el valor del parámetro GatewayPorts que por defecto está a no:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 GatewayPorts
 
@@ -256,7 +256,7 @@ Si no tenemos la posibilidad de modificar la configuración del servidor, no pod
 De modo que en el /etc/ssh/sshd_config añadiremos:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 GatewayPorts clientspecified
 {% endhighlight %}

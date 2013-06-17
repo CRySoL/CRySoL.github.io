@@ -53,7 +53,7 @@ $ curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+'
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 #!/bin/bash
 # Requiere los paquetes "mailx" y "lynx"
@@ -62,7 +62,7 @@ $ curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+'
 while true
 do
     old_ip="`cat ~/public.ip 2> /dev/null`" 
-    new_ip="`lynx -source <a href="http://www.whatismyip.com/">http://www.whatismyip.com/</a> | grep '&lt;TITLE>' | awk '{print $4}'`"
+    new_ip="`lynx -source http://www.whatismyip.com/ | grep '&lt;TITLE>' | awk '{print $4}'`"
 
     if [ "$old_ip" != "$new_ip" ]; then
         echo $new_ip | mail tu@email.com -s "Tu IP ha cambiado"

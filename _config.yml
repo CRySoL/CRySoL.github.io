@@ -139,10 +139,439 @@ authors:
     twitter: david_vi11a
     github: davidvilla
     bitbucket: DavidVilla
-  jorgen:
-    name: Jörgen Mortensen
-    nick: Jörgen
-    email: jorgen@company.com
-    web: http://company.com
-    twitter: company
-    github: jorgenm
+  admin:
+    name: admin
+    nick: admin
+    email: david.villa@gmail.com
+    picture: files/pictures/picture-1.png
+  magmax:
+    name: magmax
+    nick: magmax
+    email: miguelangel.garcia@gmail.com
+    picture: files/pictures/picture-2.png
+  felix:
+    name: felix
+    nick: felix
+    email: felix.villanueva@uclm.es
+  arturo:
+    name: arturo
+    nick: arturo
+    email: arturoj.gomez@gmail.com
+    picture: files/pictures/picture-6.jpg
+  diego:
+    name: diego
+    nick: diego
+    email: diegomartinsf@gmail.com
+    picture: files/pictures/picture-7.png
+  int-0:
+    name: int-0
+    nick: int-0
+    email: tobias.diaz@alu.uclm.es
+    picture: files/pictures/picture-8.jpg
+  Ismael_Caballero:
+    name: Ismael.Caballero
+    nick: Ismael.Caballero
+    email: Ismael.Caballero@uclm.es
+  nacho:
+    name: nacho
+    nick: nacho
+    email: ignacio.diez.arias@gmail.es
+    picture: files/pictures/picture-13.gif
+  javieralso:
+    name: javieralso
+    nick: javieralso
+    email: javieralso@gmail.com
+  cleto:
+    name: cleto
+    nick: cleto
+    email: cleto.martin@gmail.com
+    picture: files/pictures/picture-17.png
+  fsancho:
+    name: fsancho
+    nick: fsancho
+    email: toptnc@gmail.com
+    picture: files/pictures/picture-19.gif
+  Geronimo:
+    name: Geronimo
+    nick: Geronimo
+    email: davidcaste@gmail.com
+    picture: files/pictures/picture-20.jpg
+  KO_mOd_O:
+    name: KO_mOd_O
+    nick: KO_mOd_O
+    email: DVallejoFernandez@gmail.com
+  ricardo:
+    name: ricardo
+    nick: ricardo
+    email: ricardo822000@yahoo.es
+  jota:
+    name: jota
+    nick: jota
+    email: jj.pufa@gmail.com
+  Lk2:
+    name: Lk2
+    nick: Lk2
+    email: josel.segura@gmx.es
+    picture: files/pictures/picture-26.jpg
+  tato:
+    name: tato
+    nick: tato
+    email: bamedibaal@gmail.com
+    picture: files/pictures/picture-28.jpg
+  CRySoL:
+    name: CRySoL
+    nick: CRySoL
+    email: razyel@gmx.net
+  ixmith:
+    name: ixmith
+    nick: ixmith
+    email: ixmith@gmail.com
+  gloria:
+    name: gloria
+    nick: gloria
+    email: globargon@gmail.com
+    picture: files/pictures/picture-45.jpg
+  ritxi:
+    name: ritxi
+    nick: ritxi
+    email: ritxi666@hotmail.com
+  loren:
+    name: loren
+    nick: loren
+    email: lorenzo.lopez@gmail.com
+  ljimenez:
+    name: ljimenez
+    nick: ljimenez
+    email: luis.jimenez@uclm.es
+  sqater07:
+    name: sqater07
+    nick: sqater07
+    email: quijote.crysol@quijote.nom.es
+  Consegliere:
+    name: Consegliere
+    nick: Consegliere
+    email: ppalazon@member.fsf.org
+  Seth:
+    name: Seth
+    nick: Seth
+    email: fnez666@gmail.com
+  aledelgal:
+    name: aledelgal
+    nick: aledelgal
+    email: aledelgal@gmail.com
+  brue:
+    name: brue
+    nick: brue
+    email: djbrue@gmail.com
+    picture: files/pictures/picture-99.gif
+  matisnow:
+    name: matisnow
+    nick: matisnow
+    email: snow_@hotmail.com
+  Heracles:
+    name: Heracles
+    nick: Heracles
+    email: manuelj.abaldea@alu.uclm.es
+    picture: files/pictures/picture-110.jpg
+  oscarah:
+    name: oscarah
+    nick: oscarah
+    email: oscar.acena@gmail.com
+    picture: files/pictures/picture-111.gif
+  fernando:
+    name: fernando
+    nick: fernando
+    email: fernando.rincon@uclm.es
+  zarco:
+    name: zarco
+    nick: zarco
+    email: Javier.Zarco1@alu.uclm.es
+  fmreja:
+    name: fmreja
+    nick: fmreja
+    email: fmreja@fmreja.jazztel.es
+  morcy:
+    name: morcy
+    nick: morcy
+    email: carlos.gonzalez@uclm.es
+    picture: files/pictures/picture-128.jpg
+  gnumac:
+    name: gnumac
+    nick: gnumac
+    email: steve.jobs@hotmail.com
+  bati:
+    name: bati
+    nick: bati
+    email: juanbddc@yahoo.es
+  paco:
+    name: paco
+    nick: paco
+    email: Francisco.Moya@uclm.es
+  DarioAxel:
+    name: DarioAxel
+    nick: DarioAxel
+    email: darioaxel@gmail.com
+  kronox:
+    name: kronox
+    nick: kronox
+    email: linux@linux-gnu.com
+  goyo:
+    name: goyo
+    nick: goyo
+    email: goyocasero@gmail.com
+  Marset:
+    name: Marset
+    nick: Marset
+    email: fernando@marset.org
+  kat_chme:
+    name: kat_chme
+    nick: kat_chme
+    email: zishika@gmail.com
+  toledanus:
+    name: toledanus
+    nick: toledanus
+    email: toledanus@gmail.com
+  noe:
+    name: noe
+    nick: noe
+    email: lunoes@hotmail.com
+  ceslcam:
+    name: ceslcam
+    nick: ceslcam
+    email: pablo.delpozo@ceslcam.com
+  carlos_santana:
+    name: carlos_santana
+    nick: carlos_santana
+    email: carlos@inmobiliaria.org
+  fidel:
+    name: fidel
+    nick: fidel
+    email: fidel65m@hotmail.com
+  manueldavid:
+    name: manueldavid
+    nick: manueldavid
+    email: manueldavid83@hotmail.com
+    picture: files/pictures/picture-531.png
+  lsc_adriana:
+    name: lsc_adriana
+    nick: lsc_adriana
+    email: cielo_aj@hotmail.com
+  jsarthou:
+    name: jsarthou
+    nick: jsarthou
+    email: sarthou@gmail.com
+  Victor:
+    name: Victor
+    nick: Victor
+    email: volmo84@gmail.com
+  jalbusac:
+    name: jalbusac
+    nick: jalbusac
+    email: jalbusac@gmail.com
+  fcojavierc25:
+    name: fcojavierc25
+    nick: fcojavierc25
+    email: fcojavierc25@hotmail.com
+    picture: files/pictures/picture-698.gif
+  kryle:
+    name: kryle
+    nick: kryle
+    email: kryle_08@hotmail.com
+  raul:
+    name: raul
+    nick: raul
+    email: cartermena@hotmail.com
+  LaEspiral:
+    name: LaEspiral
+    nick: LaEspiral
+    email: lala@lala.com
+  Vigilante:
+    name: Vigilante
+    nick: Vigilante
+    email: javierperis@gmail.com
+    picture: files/pictures/picture-805.jpg
+  darkgnu:
+    name: darkgnu
+    nick: darkgnu
+    email: dark_gnu@yahoo.es
+    picture: files/pictures/picture-817.png
+  Melef:
+    name: Melef
+    nick: Melef
+    email: melefdefanelia@hotmail.com
+  arkangel:
+    name: arkangel
+    nick: arkangel
+    email: arkangel.cl@gmail.com
+  rek2:
+    name: rek2
+    nick: rek2
+    email: rek2@binaryfreedom.info
+  josefern:
+    name: josefern
+    nick: josefern
+    email: jf_moya@hotmail.com
+    picture: files/pictures/picture-840.jpg
+  mjsantof:
+    name: mjsantof
+    nick: mjsantof
+    email: MariaJose.Santofimia@uclm.es
+    picture: files/pictures/picture-1292.jpg
+  ottoreuss:
+    name: ottoreuss
+    nick: ottoreuss
+    email: ottoreuss@hotmail.com
+    picture: files/pictures/picture-1325.jpg
+  almudena:
+    name: almudena
+    nick: almudena
+    email: almudena.ballester@gmail.com
+  nachxs:
+    name: nachxs
+    nick: nachxs
+    email: nachxs@gmail.com
+  ns2:
+    name: ns2
+    nick: ns2
+    email: JMMG82@yahoo.es
+  RMerchan:
+    name: RMerchan
+    nick: RMerchan
+    email: rmerchan@infoglobal.es
+  jorgeroden:
+    name: jorgeroden
+    nick: jorgeroden
+    email: jorgeroden@gmail.com
+  electrolinux:
+    name: electrolinux
+    nick: electrolinux
+    email: ralbab@gmail.com
+  Yeshua:
+    name: Yeshua
+    nick: Yeshua
+    email: dates9979@yahoo.es
+  Salsicha:
+    name: Salsicha
+    nick: Salsicha
+    email: paracosas@hotmail.com
+  shakaran:
+    name: shakaran
+    nick: shakaran
+    email: shakaran@gmail.com
+    picture: files/pictures/picture-2054.png
+  webtraviesa:
+    name: webtraviesa
+    nick: webtraviesa
+    email: bsegura@redaccenir.com
+  wmosquera:
+    name: wmosquera
+    nick: wmosquera
+    email: wmosquera@tecnoav.com
+  luis_munoz:
+    name: luis.munoz
+    nick: luis.munoz
+    email: luis.munoz.villarreal@gmail.com
+  greenbite:
+    name: greenbite
+    nick: greenbite
+    email: greenbite@gmail.com
+    picture: files/pictures/picture-2004.jpg
+  Elpaco:
+    name: Elpaco
+    nick: Elpaco
+    email: fernandoortola@wanadoo.nl
+    picture: files/pictures/picture-1990.jpg
+  wintux:
+    name: wintux
+    nick: wintux
+    email: australbit@yahoo.es
+    picture: files/pictures/picture-2051.jpg
+  Matstella:
+    name: Matstella
+    nick: Matstella
+    email: marstella69@hotmail.com
+  david_garcia:
+    name: david.garcia
+    nick: david.garcia
+    email: dave.alcarin@gmail.com
+  suso:
+    name: suso
+    nick: suso
+    email: smc@manticore.es
+  icaro:
+    name: icaro
+    nick: icaro
+    email: karpvs@yahoo.fr
+  inakin:
+    name: inakin
+    nick: inakin
+    email: ignacio.arriaga@gmail.com
+  john:
+    name: john
+    nick: john
+    email: john.reveco@gmail.com
+  jorge:
+    name: jorge
+    nick: jorge
+    email: jorge.barco@alu.uclm.es
+  epatipati:
+    name: epatipati
+    nick: epatipati
+    email: epatipati@gmail.com
+  morbius:
+    name: morbius
+    nick: morbius
+    email: lothard@hotmail.com
+  Tanganas:
+    name: Tanganas
+    nick: Tanganas
+    email: heracles777@gmail.com
+    picture: files/pictures/picture-3017.jpg
+  technomasterhack:
+    name: technomasterhack
+    nick: technomasterhack
+    email: principecontrahecho@hotmail.com
+  Trini:
+    name: Trini
+    nick: Trini
+    email: trini86.quintana@gmail.com
+  Marot77:
+    name: Marot77
+    nick: Marot77
+    email: contacto@pablomaroto.es
+    picture: files/pictures/picture-3331.jpg
+  netup:
+    name: netup
+    nick: netup
+    email: vans2k@gmail.com
+    picture: files/pictures/picture-2967.png
+  squiralte1:
+    name: squiralte1
+    nick: squiralte1
+    email: squiralte1@gmail.com
+    picture: files/pictures/picture-3330.gif
+  michurin:
+    name: michurin
+    nick: michurin
+    email: alexey@michurin.com.ru
+  esteban_trabajos:
+    name: esteban_trabajos
+    nick: esteban_trabajos
+    email: esteban.trabajitos@gmail.com
+  hornbas863:
+    name: hornbas863
+    nick: hornbas863
+    email: re.edreenogh@gmail.com
+  psm1984:
+    name: psm1984
+    nick: psm1984
+    email: psm1984@gmail.com
+  animesfl:
+    name: animesfl
+    nick: animesfl
+    email: animesflawliet@hotmail.com
+  RRC19189:
+    name: RRC19189
+    nick: RRC19189
+    email: RRC19189@Gmail.com
+    picture: files/pictures/picture-3642.jpg

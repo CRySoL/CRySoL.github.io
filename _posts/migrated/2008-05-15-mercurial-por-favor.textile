@@ -156,7 +156,7 @@ Después debes darle los permisos necesarios para que todos los usuarios del gru
 También es muy importante que el @umask@ de los usuarios sea 002 o menos restrictivo. Puedes añadir la siguiente línea al @/etc/profile@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 umask 002
 {% endhighlight %}

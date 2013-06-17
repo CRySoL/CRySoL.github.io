@@ -124,11 +124,11 @@ h3. Con mercurial
 Edita el fichero @.hg/hgrc@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 [paths]
-default = <a href="http://www.selenic.com/repo/hg">http://www.selenic.com/repo/hg</a>
-default-push = <a href="http://hg.example.com/hg">http://hg.example.com/hg</a>
+default = http://www.selenic.com/repo/hg
+default-push = http://hg.example.com/hg
 {% endhighlight %}
 </div>
 

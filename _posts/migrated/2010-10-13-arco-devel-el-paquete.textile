@@ -31,7 +31,7 @@ Los "yasnippets":http://code.google.com/p/yasnippet/ son un tipo de macros para 
 
 * *flyspell-vars*. Pone un bloque de "variables de fichero":http://<a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables">www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables</a> para pedir que se active la ortografía al vuelo (flyspell). Solo hay que escribir "spell&lt;TAB>" y te añade lo siguiente (pudiendo elegir interactivamente el tipo de comentario y el diccionario).
 
-<temp-div>
+<div>
 {% highlight text %}
 # Local Variables:
 #  coding: utf-8
@@ -108,7 +108,7 @@ Se supone que es un fichero que tendrá alias y funciones bash varias. Ahora mis
 Para usarlo incluye lo siguiente en tu @.bashrc@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 source /usr/share/arco/devel.sh
 {% endhighlight %}
@@ -123,7 +123,7 @@ Son ficheros @.mk@, es decir, fragmentos de Makefile útiles para utilizar en lo
 Para utilizar estos ficheros en tus Makefile escribe:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 include /usr/share/arco/flymake-c.mk
 {% endhighlight %}
@@ -134,9 +134,9 @@ h2. Instalación de @arco-devel@
 Añade lo siguiente a tu @/etc/apt/sources.list@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
-deb <a href="http://babel.esi.uclm.es/arco/">http://babel.esi.uclm.es/arco/</a> unstable main
+deb http://babel.esi.uclm.es/arco/ unstable main
 {% endhighlight %}
 </div>
 

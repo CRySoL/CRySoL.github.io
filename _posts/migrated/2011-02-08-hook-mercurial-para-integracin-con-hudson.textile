@@ -10,7 +10,7 @@ tags:
 - mercurial
 - control de versiones
 ---
-bq. En esta receta se explica como configurar un _hook_ de *Mercurial* para lanzar un proyecto en Hudson al enviar un conjunto de cambios (_push_).
+En esta receta se explica como configurar un _hook_ de *Mercurial* para lanzar un proyecto en Hudson al enviar un conjunto de cambios (_push_).
 <!--break-->
 h2. Necesidad
 
@@ -25,7 +25,7 @@ Otra cosa importante a tener en cuenta es que, a diferencia de Subversion, Mercu
 Supongamos que el _hook_ (que veremos más adelante) está en el directorio @.hg/hooks@ de nuestro repositorio y que ya tiene permisos de ejecución. Editamos el fichero @.hg/hgrc@ añadiendo lo siguiente:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 [hook]
 changegroup.hudson = ./.hg/hooks/hook_pyhudson.py

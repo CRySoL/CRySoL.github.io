@@ -13,7 +13,7 @@ h2. Modo PDF-Tex
 Se puede conseguir añadiendo lo siguiente a tu <tt>.emacs</tt>
 
 
-<temp-div>
+<div>
 {% highlight text %}
 (setq TeX-PDF-mode t)
 {% endhighlight %}
@@ -33,7 +33,7 @@ C-c C-e: Entornos
 h2. Usar otro visor para los PDF
 
 
-<temp-div>
+<div>
 {% highlight text %}
 M-x customize-group
 TeX-command

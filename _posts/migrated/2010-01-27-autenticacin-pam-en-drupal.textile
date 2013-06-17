@@ -9,7 +9,7 @@ tags:
 - Arco
 - seguridad
 ---
-bq. Cómo utilizar PAM para conseguir la autenticación de usuarios de un sitio Drupal
+Cómo utilizar PAM para conseguir la autenticación de usuarios de un sitio Drupal
 <!--break-->
 h2. Introducción 
 
@@ -22,7 +22,7 @@ El módulo "PAM Authentication":http://drupal.org/project/pam_auth permite deleg
 Este es un ejemplo que utiliza Kerberos como primera opción, si falla utiliza una servidor LDAP. Además exige que el usuario autentificado pertenezca al grupo «research»:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 auth [success=1 default=ignore] pam_krb5.so minimum_uid=5000
 auth required pam_ldap.so try_first_pass

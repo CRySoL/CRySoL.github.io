@@ -43,7 +43,7 @@ Si quieres ver un ejemplo de fichero de configuración puede usar @xbindkeys --d
 el fichero de configuración se debe guardar en @$HOME/.xbindkeysrc@. Un ejemplo utilizando esos botones sería:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 "rotate_tablet"
   c:157

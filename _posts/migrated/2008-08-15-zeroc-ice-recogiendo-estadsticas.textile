@@ -26,7 +26,7 @@ Esta receta describe cómo recoger estadísticas de uso de red mediante la inter
 La interfaz <em>Ice::Stats</em> permite informar sobre el número de bytes enviados y recibidos por cada invocación:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 local interface Stats {
      void bytesSent(string protocol, int num);

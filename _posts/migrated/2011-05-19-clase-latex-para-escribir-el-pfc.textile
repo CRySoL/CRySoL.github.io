@@ -42,9 +42,9 @@ h2. arco-authors
 Disponible en el repo para tu @sources.list@
 
 
-<temp-div>
+<div>
 {% highlight text %}
-deb <a href="http://babel.esi.uclm.es/arco">http://babel.esi.uclm.es/arco</a> unstable main
+deb http://babel.esi.uclm.es/arco unstable main
 {% endhighlight %}
 </div>
 

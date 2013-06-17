@@ -15,7 +15,7 @@ El siguiente fichero <tt>.jedrc</tt> resuelve dos cosas que suelen ser bastante 
 Fichero ~/.jedrc
 
 
-<temp-div>
+<div>
 {% highlight text %}
 () = evalfile("emacs");
 WRAP = 100;

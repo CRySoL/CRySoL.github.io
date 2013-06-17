@@ -99,7 +99,7 @@ En @/usr/share/python-support/gnome-osd/gnomeosd/client.py@ puedes encontrar la 
 El texto que se indica puede ser un XML que tiene algunos atributos adicionales a los de Pango. El formato del mensajes es:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 <message ..atributos..> ...texto con marcado pango... </message>
 {% endhighlight %}

@@ -20,7 +20,7 @@ Antes de comenzar, es necesario que sepas algunos conceptos. Los _servicios_  PA
 Estos servicios tienen reglas de la siguiente forma:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 <interfaz del módulo>  <flags de control>   <nombre módulo>   <argumentos>
 {% endhighlight %}
@@ -72,7 +72,7 @@ Es posible realizar esta operación con varios módulos: @pam_access@, @pam_list
 Con @pam_access@, el servicio test quedaría así:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 auth required pam_unix.so
 auth required pam_access.so debug accessfile=/tmp/access.conf
@@ -82,7 +82,7 @@ auth required pam_access.so debug accessfile=/tmp/access.conf
 @pam_unix.so@ realizará la autenticación a través de login y password de forma tradicional. Pero, además, @pam_access@ utilizará el archivo @/tmp/access.conf@ para especificar la política de seguridad. Si no se especifica el archivo, se utiliza @/etc/security/access.conf@. En él puedes encontrar muchos ejemplos.  Para nuestro objetivo, este archivo contiene:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 - : root : ALL
 {% endhighlight %}
@@ -105,7 +105,7 @@ h3. Aceptar sólo usuarios de un determinado grupo
 Antes se ha utilizado @pam_access@, por lo que en esta ocasión voy a utilizar @pam_succeed_if@. De esta forma quedaría el servicio:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 auth required pam_unix.so
 auth sufficient pam_succeed_if.so user ingroup dialout
@@ -117,7 +117,7 @@ auth required pam_deny.so
 Nótese que también se le permite el acceso al usuario root. También se hubiera podido utilizar @pam_listfile@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 auth required pam_unix.so
 auth required pam_listfile.so item=group sense=allow file=/etc/groups.allow
@@ -131,7 +131,7 @@ h3. Acceso ldap
 Si tienes configurado un control de acceso basado en LDAP, utilizarlo en PAM es tan sencillo como el siguiente ejemplo:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 auth required pam_ldap.so
 auth required pam_listfile.so item=user sense=deny file=/etc/user.deny

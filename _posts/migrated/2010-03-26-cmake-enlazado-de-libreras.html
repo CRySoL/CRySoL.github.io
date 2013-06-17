@@ -14,7 +14,7 @@ tags:
 <h2>Linkado básico</h2>
 A estas alturas ya conocemos cómo construir archivos binarios y librerías en CMake. Ahora supón que la librería dummy que se viene utilizando en los ejemplos está instalada en un path accesible y que el programa hello.cpp hace uso de la librería de forma dinámica. Una posible implementación de este escenario sería la siguiente:
 
-<temp-div>
+<div>
 {% highlight text %}
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(hello)
@@ -52,7 +52,7 @@ CMake proporciona un módulo llamado FindPkgConfig que incluye comandos útiles 
 Supón que el programa <tt>hello</tt> utiliza glib. Podríamos comprobar que está instalado y enlazarlo como sigue:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 #Carga del módulo
 include(FindPkgConfig)

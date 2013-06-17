@@ -21,7 +21,7 @@ En el mundo de las ciencias de la computación es una técnica de diseño de alg
 El pseudocódigo del algoritmo Divide y Vencerás en versión recursiva es el siguiente:
 
 
-<temp-div>
+<div>
 {% highlight text %}
     DYV(int tamaño){
          if(facil(tamaño))
@@ -40,7 +40,7 @@ El pseudocódigo del algoritmo Divide y Vencerás en versión recursiva es el si
 El pseudocódigo del algoritmo Divide y Vencerás en versión iterativa es el siguiente (yo personalmente he visto muchas más veces implementada la versión recursiva que esta iterativa):
 
 
-<temp-div>
+<div>
 {% highlight text %}
     DYV(int tamaño){
          while(tamaño >= 1){

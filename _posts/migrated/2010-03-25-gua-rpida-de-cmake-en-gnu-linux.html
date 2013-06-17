@@ -22,7 +22,7 @@ En primer lugar, CMake necesita como entrada un fichero llamado <b>CMakeLists.tx
 El lenguaje que se utiliza para crear este programa es propio de CMake. Se trata de un lenguaje imperativo, que se ejecuta de forma secuencial y cuya sintaxis es bastante regular y simple:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 comando1 (arg1 arg2)
 comando2 (arg1 arg2 arg3 ...)
@@ -44,7 +44,7 @@ Para obtener CMake:
 Si en el CMakeLists.txt se describe un programa, entonces debe ser posible hace un "Hola Mundo", ¿verdad?. Efectivamente, se puede. Crea el archivo CMakeLists.txt con el siguiente contenido:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 SET(saludo "Hola Mundo")
 MESSAGE(${saludo})
@@ -103,7 +103,7 @@ Hola Mundo
 
 Ahora supón el siguiente ejemplo:
 
-<temp-div>
+<div>
 {% highlight text %}
 SET(saludo1 "Hola Mundo")
 SET(saludo2 Hola Mundo)
@@ -130,7 +130,7 @@ Hola;Mundo
 La primera salida corresponde con una cadena de caracteres y, por tanto, MESSAGE toma un sólo argumento. La segunda es la salida de una lista y MESSAGE toma como entrada 2 argumentos (Hola y Mundo). En la tercera se produce una conversión de lista a cadena, por lo que el tercer comando sólo tiene un parámetro de entrada. En CMake, cada elemento de la lista se separa con un ';'. Por tanto, el siguiente código sería equivalente:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 SET(saludo2 Hola;Mundo) # Lo mismo que SET(saludo2 Hola Mundo)
 {% endhighlight %}

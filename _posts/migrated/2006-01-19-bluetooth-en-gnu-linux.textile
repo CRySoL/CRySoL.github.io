@@ -221,7 +221,7 @@ Para indicarle al ordenador que vamos a usar ese servicio necesitas editar el ar
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 rfcomm1 {
         bind no;

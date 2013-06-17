@@ -8,7 +8,7 @@ category: receta
 tags:
 - control de versiones
 ---
-bq. Cómo montar un repositorio subversion, con Apache,  para que sea accesible remotamente
+Cómo montar un repositorio subversion, con Apache,  para que sea accesible remotamente
 <!--break-->
 
 h2. Ingredientes
@@ -60,7 +60,7 @@ Hay que permitir que Apache pueda leer y escribir en el repositorio:
 
 <div class="console">
 
-<temp-div>
+<div>
 {% highlight text %}
 # chown -R root.www-data /var/svn
 # chmod -R g+rw /var/svn
@@ -97,7 +97,7 @@ Si lo que quieres es que solo unos usuarios concretos puedan acceder al reposito
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 <Location /svn/myrepo>
   DAV svn
@@ -130,7 +130,7 @@ Otra posibilidad (muy común en el mundo del software libre) es tener un reposit
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 <Location /svn/myrepo>
   DAV svn

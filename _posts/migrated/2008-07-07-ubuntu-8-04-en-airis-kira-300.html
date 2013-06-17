@@ -37,7 +37,7 @@ Una vez que descargas el kernel para el airis kira: <a href="http://service.one.
 3) Editamos el archivo /boot/grub/menu.lst y añadimos las siguientes líneas:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 title Kernel para el Kira
 root (hd0,0)
@@ -48,7 +48,7 @@ kernel /boot/bzImage root=/dev/hdc1 ro locale=es_ES lang=es
 4) Editamos el archivo /etc/modules y añadimos la siguientes líneas:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 r8187
 vcrdrm
@@ -71,7 +71,7 @@ $ ./vinstall
 Finalmente, sustituimos el archivo /etc/X11/xorg.conf por este otro:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 # xorg.conf (X.Org X Window System server configuration file)
 #

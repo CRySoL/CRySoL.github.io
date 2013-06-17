@@ -23,7 +23,7 @@ Si te has instalado cscope en Debian/Ubuntu se te habrá instalado la interfaz d
 
 El siguiente paso es editar el archivo <code>~/.emacs</code> añadiendo lo siguiente:
 
-<temp-div>
+<div>
 {% highlight text %}
 (require 'xcscope)
 {% endhighlight %}
@@ -31,7 +31,7 @@ El siguiente paso es editar el archivo <code>~/.emacs</code> añadiendo lo sigui
 
 Si deseas añadir atajos para hacer más comoda la introducción de algunas órdenes puedes añadir los siguiente también el el archivo <code>~/.emacs</code>:
 
-<temp-div>
+<div>
 {% highlight text %}
 (define-key global-map [(control f3)]  'cscope-set-initial-directory)
 (define-key global-map [(control f4)]  'cscope-unset-initial-directory)

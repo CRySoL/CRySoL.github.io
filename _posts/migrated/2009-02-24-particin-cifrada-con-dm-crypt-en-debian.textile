@@ -9,7 +9,7 @@ tags:
 - seguridad
 - Debian
 ---
-bq. Esta receta explica como utilizar @dm-crypt@ para cifrar una partición completa y montarla/desmontarla cómodamente.
+Esta receta explica como utilizar @dm-crypt@ para cifrar una partición completa y montarla/desmontarla cómodamente.
 <!--break-->
 Me voy a basar en la receta "Pendrive cifrado con dm-crypt en Debian":node/866 dado el evidente parecido. Para ver los pasos en detalle, tenla a mano.
 
@@ -47,7 +47,7 @@ h2. Montaje automático
 Escribe esto en el fichero @/etc/crypttab@
 
 
-<temp-div>
+<div>
 {% highlight text %}
 cifrado /dev/hda4 none luks
 {% endhighlight %}
@@ -56,7 +56,7 @@ cifrado /dev/hda4 none luks
 Y esto en el fichero @/etc/fstab@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 /dev/mapper/cifrado  /mnt/cifrado  ext3  rw,user  0 0
 {% endhighlight %}
@@ -67,7 +67,7 @@ Con esto, durante el proceso de arranque se te pedirá la clave para abrir el co
 Si no vas usar siempre esa partición, es bastante latazo tener que poner la password cada vez que reinicias. Si quieres "abrirlo" bajo demanda añade @noauto@ a la línea de antes en el @/etc/crypttab@ para que quede así:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 cifrado /dev/hda4 none luks,noauto
 {% endhighlight %}
@@ -109,7 +109,7 @@ h2. cryptmount
 Fichero @/etc/cryptmount/cmtab@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 cifrado {  
   dev=/dev/hda4

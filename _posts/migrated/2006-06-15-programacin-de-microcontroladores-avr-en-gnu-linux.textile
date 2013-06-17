@@ -39,7 +39,7 @@ Para instalarlos, si usas Debian ya sabes:
 El siguiente ejemplo de Makefile sería para poder compilar un programa dividido en varios ficheros fuente para un AT90S8515. Se trata de un micro con 512 Bytes de RAM, 8 K de Flash y 512 Bytes de EEPROM. Éste modelo ya está un poco obsoleto y ha sido sustituido por el ATMEGA8515, que es totalmente compatible pero ofrece varias mejoras. Aunque este ejemplo servirá para ilustrar la creación de un Makefile:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 MCU=at90s8515
 CC=avr-gcc

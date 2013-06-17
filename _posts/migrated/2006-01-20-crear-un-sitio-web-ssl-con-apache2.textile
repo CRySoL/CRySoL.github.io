@@ -6,7 +6,7 @@ created: 1137714954
 author: david_villa
 category: receta
 ---
-bq. Cómo activar el soporte SSL de apache-2 para utilizar HTTPS y navegación segura. Los pasos que se describen son para una Debian o sucedaneos, pero supongo que no será muy distinto  a otra distro.
+Cómo activar el soporte SSL de apache-2 para utilizar HTTPS y navegación segura. Los pasos que se describen son para una Debian o sucedaneos, pero supongo que no será muy distinto  a otra distro.
 <!--break-->
 h2. Ingredientes
 
@@ -29,10 +29,10 @@ Crea un fichero nuevo en @/etc/apache2/sites-available@ que representa un nuevo 
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 <VirtualHost *:443>
-    ServerName <a href="http://www.example.com">www.example.com</a>
+    ServerName www.example.com
     ServerAlias example
 
     SSLEngine on
@@ -83,7 +83,7 @@ En ese caso, lo más fácil es crear un VirtualHost no-SSL que redireccione toda
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 <VirtualHost *:80>
     RewriteEngine on

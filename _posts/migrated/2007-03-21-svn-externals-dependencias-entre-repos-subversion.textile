@@ -44,7 +44,7 @@ Tiene algunas limitaciones: no se pueden colocar rutas relativas, ni usar ficher
 En los enlaces externos que usan ssh, por defecto determina que el nombre de usuario sea el local (igual que si haces <em>ssh host</em> sin especificar el nombre de usuario). Puedes modificar este comportamiento añadiendo los nuevos hosts en el archivo @~/.ssh/config@ y especificando ahí el nombre de usuario para el servidor concreto al que se refieres el "external":
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Host repo.example.com
      User Pepito.Grillo

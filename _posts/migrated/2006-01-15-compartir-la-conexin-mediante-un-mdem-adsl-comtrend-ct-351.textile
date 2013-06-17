@@ -6,7 +6,7 @@ created: 1137331276
 author: david_villa
 category: receta
 ---
-bq. Esta receta trata únicamente de las peculiaridades de este módem a la hora de compartir la conexión. Quizá te interese nuestra receta sobre "Compartir la conexión s Internet con GNU/Linux":http://crysol.inf-cr.uclm.es/node/96 para cuestiones más generales.
+Esta receta trata únicamente de las peculiaridades de este módem a la hora de compartir la conexión. Quizá te interese nuestra receta sobre "Compartir la conexión s Internet con GNU/Linux":http://crysol.inf-cr.uclm.es/node/96 para cuestiones más generales.
 
 Estaba volviéndome loco intentando montar un router utilizando una conexión ADSL con el módem Comtrend, en una Debian con los drivers eagle-usb 2.1.1-2. Gracias a la inestimable y oportuna ayuda de F.Sancho, he sabido que  hay un problema con el MSS(Maximum Segment Size) usando PPPoE para este módem concreto, que hace que se descarten los segmentos mayores de 1412 bytes. Este problema también ocurre con algunos módems que usan PPPoA.
 
@@ -28,7 +28,7 @@ Curioseando un poco, he visto que en el fichero @/etc/ppp/peers/dsl-provider@ qu
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 # Use the pppoe program to send the ppp packets over the Ethernet link
 # This line should work fine if this computer is the only one accessing

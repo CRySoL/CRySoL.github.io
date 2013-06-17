@@ -9,7 +9,7 @@ tags:
 - networking
 - Debian
 ---
-bq. El "fit-PC":http://<a href="http://www.fit-pc.com/new/about-fit-pc.html">www.fit-pc.com/new/about-fit-pc.html</a> es un computador basado en el chip <a href="http://en.wikipedia.org/wiki/Geode_(processor)">Geode</a> con un tamaño realmente pequeño (12x12x4 cm) pero con características muy interesantes. Esta receta explica como instalar Debian para sacarle el máximo rendimiento al pequeño de la casa.
+El "fit-PC":http://<a href="http://www.fit-pc.com/new/about-fit-pc.html">www.fit-pc.com/new/about-fit-pc.html</a> es un computador basado en el chip <a href="http://en.wikipedia.org/wiki/Geode_(processor)">Geode</a> con un tamaño realmente pequeño (12x12x4 cm) pero con características muy interesantes. Esta receta explica como instalar Debian para sacarle el máximo rendimiento al pequeño de la casa.
 <!--break-->
 h2. Características
 
@@ -80,7 +80,7 @@ h2. Sensores
 Añade al fichero @etc/modules@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 lm90
 scx200_acb
@@ -126,7 +126,7 @@ El último comando es para bloquear el paquete y evitar que se actualice cuando 
 El siguiente fichero @xorg.conf@ funciona razonablemente:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Section "InputDevice"
         Identifier      "Generic Keyboard"

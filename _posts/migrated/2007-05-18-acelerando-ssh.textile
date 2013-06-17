@@ -28,7 +28,7 @@ Host example.com
 
 Otra cosa que hace SSH y que puede influir mucho en la duración del «login» es la opción «UseDNS». Según dice el manual: 
 
-bq. UseDNS specifies whether sshd should look up the remote host name and check that the resolved host name for the remote IP address maps back to the very same IP address. The default is "yes".
+UseDNS specifies whether sshd should look up the remote host name and check that the resolved host name for the remote IP address maps back to the very same IP address. The default is "yes".
 
 Y claro, si trata de hacer la resolución inversa de una IP de una conexión ADSL puede tardar bastante (suponiendo que pueda). De modo que una buena forma de ahorrar unos valiosos segundos es poner lo siguiente en el @/etc/ssh/ssd_config@:
 
@@ -54,7 +54,7 @@ h3. ControlMaster
 Si sueles abrir varias sesiones (login, repos, sftp, etc) hacia el mismo servidor, SSH permite reutilizar una conexión establecida para sesiones adicionales. Eso supone un ahorro de tiempo considerable ya que no necesita establecer una nueva conexión. Para ello, simplemente escribe esto en un @~/.ssh/config@
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Host *
    ControlMaster auto

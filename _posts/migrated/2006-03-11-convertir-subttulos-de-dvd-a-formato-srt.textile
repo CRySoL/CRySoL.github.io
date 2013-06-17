@@ -8,7 +8,7 @@ category: receta
 tags:
 - ripping
 ---
-bq. Esta receta explica cómo extraer los subtítulos de un DVD y convertirlos en formato "SRT":http://<a href="http://www.matroska.org/technical/specs/subtitles/srt.html">www.matroska.org/technical/specs/subtitles/srt.html</a>.
+Esta receta explica cómo extraer los subtítulos de un DVD y convertirlos en formato "SRT":http://<a href="http://www.matroska.org/technical/specs/subtitles/srt.html">www.matroska.org/technical/specs/subtitles/srt.html</a>.
 <!--break-->
 h3. Nota Legal
 
@@ -98,7 +98,7 @@ Los diccionarios disponibles están en @/usr/lib/aspell@.
 h2. Todo en un @Makefile@
 
 
-<temp-div>
+<div>
 {% highlight text %}
 TITLE=lovestory
 TRACK=1

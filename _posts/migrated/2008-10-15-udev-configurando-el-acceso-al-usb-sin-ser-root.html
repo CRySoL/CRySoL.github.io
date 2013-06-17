@@ -29,7 +29,7 @@ javieralso@rigoberto:~$ sudo emacs /etc/udev/rules.d/99-dfu-programmer.rules
 En este archivo, deberemos escribir algo tal que así:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 SUBSYSTEM=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="2ffb", MODE="660", GROUP="plugdev", SYMLINK+="at90usb-%k"
 BUS=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="2ffb", MODE="660", GROUP="plugdev" 
