@@ -200,15 +200,26 @@ left: -80px;
 height: 140px;
 }
 
+.navbar {
+  margin-bottom: 80px;
+}
+
+.navbar .brand {
+  display: none;
+}
+
 @media screen and (max-width: 800px) {
   .brand-image {
     display: none;
   }
+  .navbar {
+	  margin-bottom: 20px;
+	}
+	.navbar .brand {
+    display: block;
+	}
 }
 
-.navbar {
-  margin-bottom: 80px;
-}
 
 .author-details ul {
   list-style: none;
