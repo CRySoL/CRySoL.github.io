@@ -10,6 +10,9 @@ tags:
 ---
 Llegados a este punto, sabemos como crear una pequeña aplicación, bastante sencilla, que use Gstreamer para las tareas multimedia (evidentemente, doy por hecho que has leido el mini-tutorial que dejé. Si todavía no lo has leido, y no sabes de que estoy hablando... ¡a que esperas!).
 
+<!--break-->
+
+
 <h3>gst.parse_launch()</h3>
 Cuando creamos la tubería, usamos una función de la API de gstreamer llamada <code>parse_launch().</code> Esta se encargaba de leer una descripción de la tubería que queríamos y la creaba para nosotros. Es una forma muy rápida de probar combinaciones de elementos y además nos permite introducirnos en el mundo de Gstreamer sin tener que preocuparnos por los Elementos o los enlaces entre estos. Esta utilidad (que además esta disponible para ejecutar desde la línea de comandos, cosa que pronto veremos) tiene sus limitaciones, evidentemente. Para nuestro propósito, que es docente, la mayor limitación es que nos oculta la estructura interna de la tubería. Así pues, si queremos analizarla tomando los elementos que la forman, sus enlaces, etc. tendremos que hacerla de otro modo. Aquí es donde entran en juego las alternativas a <code>parse_launch()</code>
 

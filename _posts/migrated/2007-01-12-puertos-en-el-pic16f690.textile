@@ -10,6 +10,9 @@ tags:
 ---
 A ver, después de tres días de peleas con el PIC16F690 ¡¡¡por fin he conseguido un echo del puerto serie!!!. :-P :-P :-P Los puertos de éste micro son como los de cualquier otro PIC, excepto PORTB, que por lo visto se utiliza también como entrada analógica para los (creo que) cuatro canales analógicos de entrada que tiene el micro.
 
+<!--break-->
+
+
 El caso es que por lo que he averiguado en algún que otro foro, para poder utilizar el puerto PORTB con normalidad, hay que borrar el registro ANSHEL, vamos, algo tal que así 
 <pre>	BANKSEL ANSELH
 	clrf ANSELH	; Desactivación de los puertos analógicos.</pre>

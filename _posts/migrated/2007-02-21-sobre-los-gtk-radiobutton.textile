@@ -8,6 +8,9 @@ category: consulta
 ---
 Recientemente tuve una conversación muy interesante sobre la idoneidad de los widgets "gtk.RadioButton":http://<a href="http://www.pygtk.org/pygtk2reference/class-gtkradiobutton.html">www.pygtk.org/pygtk2reference/class-gtkradiobutton.html</a>. Vamos a ver... ¿por qué no son más intuitivos?  ¿Qué piensas sobre ellos?
 
+<!--break-->
+
+
 * tiene pocos métodos?
 * es perfecta tal como está?
 * es un toogle disfrazado?

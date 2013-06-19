@@ -8,6 +8,9 @@ category: receta
 ---
 Cómo escribir caracteres «especiales» en GNU, tanto en consola como en las aplicaciones.
 
+<!--break-->
+
+
 h2. Intro
 
 Hoy en día la mayoría de las distribuciones GNU utilizan UTF-8 como codificación por defecto, y es lo más recomendable. Unicode define literalmente miles de caracteres, pero lamentablemente el teclado que usamos es bastante precario y apenas nos permite escribir un par de cientos. ¿Cómo escribimos todos los demás?

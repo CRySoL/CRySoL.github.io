@@ -10,6 +10,9 @@ tags:
 ---
 Esta receta es una pequeña introducción al soporte de Python para diseño orientado a objetos. Para programadores noveles, se aconseja primero la lectura de nuestra ya veterana receta "Mini tutorial de Python":/node/43.
 
+<!--break-->
+
+
 h2. Introducción
 
 Se dice que Python es un lenguaje multi-paradigma ya que incorpora facilidades para enfoques muy distintos a la hora de implementar un diseño. En esta ocasión voy a comentar el soporte de Python para el veterano paradigma de la "orientación a objetos". Para el programador Python novel puede resultar chocante algunas de las cosas que permite Python, por ejemplo, no hay mecanismos de protección en las clases. 

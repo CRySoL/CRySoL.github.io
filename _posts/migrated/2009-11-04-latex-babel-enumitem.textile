@@ -10,6 +10,9 @@ tags:
 ---
 Hay un pequeño bug en @babel@ que da la lata si usas también el paquete @enumitem@. El error dice algo como:
 
+<!--break-->
+
+
 
 <div>
 {% highlight text %}

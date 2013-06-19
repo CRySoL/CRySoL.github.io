@@ -8,6 +8,9 @@ category: historia
 ---
 ¡Hola amiguetes!
 
+<!--break-->
+
+
 Veréis, llevo como un mes con mi recién comprado amd64 intentando instalarle alguna distro que me de los mínimos problemas posibles ... y bueno, empecé a pegarme con Ubuntu, porque la conozco bien lo primero, y porque vi que tenían un CD específico para mi arquitectura.
 
 El caso es que la instalo, y aparte de que no arranque el entorno gráfico por la tarjeta (una Ati), me da problemas raros ... todo empezó con no quererse poner el entorno gráfico en castellano ... teniendo todo instalado, todos los paquetes de language-pack-es y demás que vi. Me dí cuenta entonces que cada vez que hacía un apt-get o similar, o sencillamente dpkg-reconfigure locales obtenía un mensaje de error (un segmentation fault) proveniente del script locale-gen. Al abrir el script para buscar el problema, encontré que lo daba en una línea en la que invocaba a localedef, un ejecutable ... el cual, al ejecutarlo yo manualmente (por si acaso el script pasara mal argumentos o algo así), me siguió dando el mismo segmentation fault.

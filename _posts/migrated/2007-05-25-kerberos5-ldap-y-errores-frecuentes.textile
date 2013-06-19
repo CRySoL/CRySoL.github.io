@@ -9,6 +9,9 @@ tags:
 ---
 h2. Autenticación Kerberos o ActiveDirectory
 
+<!--break-->
+
+
 En /etc/krb5.conf modificar el realm por defecto y añadir los datos de nuestro realm.  En el caso de la UCLM basta declarar el controlador del dominio y el servidor de administración.  Ambos coinciden, deben ser alarcos.uclm.es.
 
 
