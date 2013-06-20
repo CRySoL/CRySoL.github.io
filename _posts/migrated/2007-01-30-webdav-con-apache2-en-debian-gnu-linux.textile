@@ -8,7 +8,7 @@ category: receta
 tags:
 - Arco
 ---
-Cómo configurar Apache2 para disponer de un directorio  WebDAV, accesible para lectura/escritura desde GNOME VFS, konqueror, cadaver o como una "web folder" desde el "sistema operativo más rentable de todos los tiempos". 
+bq. Cómo configurar Apache2 para disponer de un directorio  WebDAV, accesible para lectura/escritura desde GNOME VFS, konqueror, cadaver o como una "web folder" desde el "sistema operativo más rentable de todos los tiempos". 
 <!--break-->
 
 h2. Ingredientes
@@ -31,7 +31,7 @@ h2. Carpeta DAV
 Lo habitual es 'compartir' un directorio del sistema de ficheros, y para eso se usa la directiva "Alias":
 
 
-<div>
+<temp-div>
 {% highlight text %}
 <VirtualHost *>
    ....
@@ -52,7 +52,7 @@ h2. Escritura restringida
 Con la siguiente configuración cualquiera podrá ver el contenido del directorio pero sólo los usuarios autorizados podrán modificar su contenido:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 <Location /webdav>
    Dav On
@@ -76,7 +76,7 @@ h2. DAV privado
 Y si lo que quieres es que sólo los usuarios autorizados pueden acceder a la carpeta (incluso para lectura) simplemente hay que eliminar la excepción:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 <Location /webdav>
    Dav On
@@ -104,7 +104,7 @@ Instala los siguientes paquetes:
 Edita el fichero @/etc/pam.d/apache2@ para que queda tal que:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 auth required pam_ldap.so try_first_pass
 auth required pam_permit.so
@@ -116,7 +116,7 @@ account required pam_permit.so
 Edita @/etc/pam_ldap.conf@ y modifica las líneas que se indican:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 host 192.168.1.1         # servidor LDAP
 base dc=example,dc=net   # base de búsqueda
@@ -127,7 +127,7 @@ base dc=example,dc=net   # base de búsqueda
 Edita @/libnss_ldap.conf@:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 base dc=example,dc=net
 uri ldap://192.168.1.1
@@ -144,7 +144,7 @@ pam_min_uid 1000
 Edita el fichero @/etc/nsswitch.conf@
 
 
-<div>
+<temp-div>
 {% highlight text %}
 passwd:         compat ldap
 group:          compat ldap
@@ -155,7 +155,7 @@ hosts:          files dns
 La configuración para la carpeta DAV pero usando LDAP sería algo como:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 <Location /webdav>
    Dav On

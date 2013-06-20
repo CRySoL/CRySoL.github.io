@@ -11,10 +11,6 @@ tags:
 ---
 <blockquote>Hola majetes! Supongo que todos vosotros tendréis webcams y quizá hayáis probado a enchufarlas en vuestras distros y... ohhh... desilusión... el linux no la pilla! (Si tenemos Debian es peor todavía porque de serie apenas tenemos módulos adecuados). No hay que preocuparse... vamos a hablar de unos cuantos módulos que hay por ahí con los que, en total, tendremos soporte para varios cientos de cámaras. No quiero decir que estén todos los que hay, pero al menos sí algunos de los más importantes.</blockquote>
 
-<!--break-->
-
-
-
 <h1>Notas sobre el hardware</h1>
 Bien, las webcams normalitas (las <em>no</em> motorizadas) suelen tener un hardware bastante sencillo: un sensor <a href="http://es.wikipedia.org/wiki/CCD">CCD</a> <em>on-chip</em> (también las hay con sensores CMOS o <a href="http://es.wikipedia.org/wiki/Sensor_CMOS">APS</a>) y un <em>bridge</em> USB que conecta el sensor con el  <em>host</em>.
 Y esto para qué nos sirve? muy sencillo: buscar drivers para nuestras webcams implica conocer qué sensor y que <em>bridge</em> lleva nuestra cámara. Otra forma de buscar los drivers es conociendo el <em>VendorId</em> y <em>ProductId</em> y haciendo la búsqueda en <em>google</em>. La mejor forma de averiguar el <em>chipset</em> es destripar la webcam con destornillador en mano, pero si alguno quiere ser más "fino" puede examinar los drivers de <em>hassefroch</em> (que <em>SI</em> incluye el fabricante... lo hay con suerte! :-P). Por ejemplo, sirva el archivo <em>.inf</em> de mi webcam:

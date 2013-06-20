@@ -8,7 +8,7 @@ category: receta
 tags:
 - multimedia
 ---
-Como añadir un margen para el renderizado de subtítulos en mplayer
+bq. Como añadir un margen para el renderizado de subtítulos en mplayer
 <!--break-->
 h2. Introducción
 
@@ -40,7 +40,7 @@ h2. Configuración
 Si vas a utilizar siempre los mismos valores (o quieres tener unos por defecto) puedes usar el fichero de configuración (@~/.mplayer/config@).
 
 
-<div>
+<temp-div>
 {% highlight text %}
 ass-color = ffff0000
 ass-border-color = 00000000

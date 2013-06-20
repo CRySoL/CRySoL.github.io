@@ -8,7 +8,7 @@ category: receta
 tags:
 - Arco
 ---
-Hacer funcionar jabber en debian es tarea sencilla. En primer lugar, hay que instalar el paquete jabber.
+bq. Hacer funcionar jabber en debian es tarea sencilla. En primer lugar, hay que instalar el paquete jabber.
 <!--break-->
 h2. Ingredientes
 
@@ -31,7 +31,7 @@ h2. Habilitando SSL
 Si quieres una mínima seguridad en jabber, puedes activar encriptación sobre SSL. Para ello necesitas, en primer lugar generar una clave publica y una privada. Este proceso se puede realizar de forma sencilla mediante este script:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 #!/bin/sh
 
@@ -53,7 +53,7 @@ rm privkey.pem
 Un vez generada la clave edita el archivo de configuración de jabber @/etc/jabber/jabber.xml@ y añade la siguiente configuración.
 
 
-<div>
+<temp-div>
 {% highlight text %}
 <pthcsock>
   ...
@@ -67,7 +67,7 @@ Un vez generada la clave edita el archivo de configuración de jabber @/etc/jabb
 y:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 <io>
   ...

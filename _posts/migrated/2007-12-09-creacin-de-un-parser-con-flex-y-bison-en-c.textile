@@ -10,10 +10,6 @@ tags:
 ---
 <blockquote>La siguiente receta explica como construir un analizador léxico con Flex y un analizador sintáctico con Bison, utilizando C++. Además, incluye un pequeño Makefile para el enlazado de todos los archivos y un ejemplo mínimo de uso.</blockquote>
 
-<!--break-->
-
-
-
 <h2>Requisitos</h2>
 <ul><li>bison++</li></ul>
 El paquete <em>bison++</em> instalará también lo necesario de flex.
@@ -134,7 +130,7 @@ Para compilar y enlazar todo es necesario seguir un orden específico. Como mues
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 all: test
 

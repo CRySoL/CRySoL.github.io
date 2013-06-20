@@ -8,7 +8,7 @@ category: receta
 tags:
 - drivers
 ---
-Como acceder al "Creative Zen":http://es.store.creative.com/products/product.aspx?catid=213&pid=16999 desde un PC con Debian para mover todo tipo de ficheros, playlists, etc.
+bq. Como acceder al "Creative Zen":http://es.store.creative.com/products/product.aspx?catid=213&pid=16999 desde un PC con Debian para mover todo tipo de ficheros, playlists, etc.
 <!--break-->
 h2. Ingredientes
 
@@ -58,7 +58,7 @@ h2. Más fácil
 Para hacerlo un poco más fácil y no tener que escribir comanditos puedes añadirlo en el @/etc/fstab@. En este caso puedes poner el directorio de montaje en @/mnt/ZEN@ y así además le vale a otros usuarios del mismo PC.
 
 
-<div>
+<temp-div>
 {% highlight text %}
 [...]
 mtpfs    /mnt/ZEN   fuse    user,noauto    0    0

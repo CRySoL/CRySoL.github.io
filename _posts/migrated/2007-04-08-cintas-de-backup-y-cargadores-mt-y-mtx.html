@@ -11,17 +11,9 @@ tags:
 ---
 <blockquote>Tal vez, antes de hablar en recetas anteriores de <em>bacula</em> hubiese sido conveniente hablar sobre el manejo de cintas de backup <em>a pelo</em>. Esto nos puede ser útil en caso de querer almacenar datos en cinta de forma esporádica o para limpieza de las mismas... o simplemente por saber un poco cómo funciona esto de las cintas SCSI.</blockquote>
 
-<!--break-->
-
-
-
 <h1>Cargadores</h1>
 Primero vamos a hablar un poco de los cargadores de cintas. En el caso de que contemos con una unidad de backup que lleve integrado el cargador (como por ejemplo una HP-DDS4) hemos de saber que controlaremos toda la unidad mediante dos dispositivos lógicos.
 <blockquote>Para su funcionamiento en <em>linux</em> debéis saber que se debe activar en la BIOS de la controladora SCSI la posibilidad de contar con dos dispositivos SCSI con el mismo ID. Esto no se soportó correctamente en linux hasta la versión 2.6.18.</blockquote>
-
-<!--break-->
-
-
 
 Nos referiremos al cargador mediante <tt>/dev/sg*</tt> y a la cinta cargada con <tt>/dev/st*</tt> o <tt>/dev/nst*</tt>. Con una configuración correcta en <tt>udev</tt> se nos creará <tt>/dev/changer</tt> como enlace a <tt>/dev/sg*</tt>. Nosotros vamos a suponer que sólo tenemos un cargador de cintas y una unidad de cinta (todo ello puede o no estar en el mismo dispositivo físico). Por tanto tendremos nuestro cargador en <tt>/dev/sg0</tt> y la unidad de cinta será <tt>/dev/st0</tt> y <tt>/dev/nst0</tt>.
 

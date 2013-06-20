@@ -10,9 +10,6 @@ tags:
 ---
 <a href="http://www.washington.edu/pine/">Alpine</a> es una herramienta desarrollada por la Universidad de Washington que permite consultar noticias y el correo electrónico desde un terminal. En esta receta se describen los pasos necesarios para configurar tu cuenta Gmail.
 
-<!--break-->
-
-
 h2. Instalación
 
 
@@ -45,7 +42,7 @@ h3. Configuración SMTP
 
 h3. Importación de contactos
 
-* Descargar el script <s href="http://gist.github.com/477698">pull_contacts.py</a> en <a href="http://gist.github.com/477698">http://gist.github.com/477698</a>
+* Descargar el script <a href="http://gist.github.com/477698">pull_contacts.py</a> en <a href="http://gist.github.com/477698">http://gist.github.com/477698</a>
 * Ejecutar en un terminal: python pull_contacts.py  usuario >> /home/usuario/.addressbook
 
 h3. Importar firma

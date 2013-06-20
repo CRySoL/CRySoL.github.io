@@ -11,9 +11,6 @@ tags:
 ---
 bq(head). Mercurial es otro sistema de control de versiones distribuido (otro más) que no tiene nada que envidiar a git  (en lo referente a prestaciones) pero tan fácil de usar como versión. Esta recetilla incluye unas nociones de su uso básico y algunas buenas referencias.
 
-<!--break-->
-
-
 h2. Introducción
 
 Al igual que git, mercurial está muy influenciado por las ideas de monotone, pero al contrario que git, la gente de mercurial ha hecho algo de esfuerzo por no complicar demasiado su uso. Es resultado es una mezcla de la facilidad de subversion con la potencia y posibilidades de git.
@@ -159,7 +156,7 @@ Después debes darle los permisos necesarios para que todos los usuarios del gru
 También es muy importante que el @umask@ de los usuarios sea 002 o menos restrictivo. Puedes añadir la siguiente línea al @/etc/profile@:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 umask 002
 {% endhighlight %}

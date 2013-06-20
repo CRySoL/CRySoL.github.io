@@ -9,11 +9,7 @@ tags:
 - Ice
 ---
 <blockquote>Cómo parsear un archivo Slice (el lenguaje de especificación de interfaces de <a href="http://en.wikipedia.org/wiki/Internet_Communications_Engine"><acronym title="Internet Communications Engine">ICE</acronym></a>) para obtener toda la información semántica que contiene utilizando libSlice (el Parser proporcionado por <a href="www.zeroc.com">ZeroC</a>)</blockquote>
-
-
-
-
-
+<!--break-->
 <h2>Introducción</h2>
 
 Los archivos <b>slice</b> todos sabemos lo que son: Archivos que proporcionan una descripción de  las clases, módulos, interfaces y operaciones que implementará un sistema distribuido basado en <b>ICE</b>.

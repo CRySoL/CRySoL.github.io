@@ -9,11 +9,7 @@ tags:
 - linux (el kernel, qué si no?)
 ---
 <blockquote>A estas alturas, con tantas recetas como existen, hay todavía muchas cosas que no podemos hacer o que intentamos rodear para evitar lo inevitable: una compilación del núcleo. Existen por internet muchísimas recetas sobre compilaciones y tal, yo no pretendo hacer una receta completísima, ni tan siquiera completa, sólo pretendo hacer una miniguía del núcleo linux, que sirva como base para recetas más completas o que crezca (con la ayuda de todos) hasta convertirse en una guía útil de compilación de Linux. Así pues, los que no sepáis espero que lo encontréis interesante y no demasiado aburrido y los que ya sabéis leedlo para corregirlo y aportar nuevos apartados y trucos.</blockquote>
-
-
-
-
-
+<!--break-->
 <h2>Añadir nuevos módulos/drivers</h2>
 Bueno, este título es incorrecto (intencionadamente). Para los usuarios de sistemas tipo <em>hasefroch 95, XP</em>, etc. os puede resultar más cómodo pensar en los módulos del linux como en los drivers de los dispositivos. Esto no es del todo correcto ya que existen módulos que no hacen la función de drivers. A partir de ahora eliminaremos el calificativo de "drivers" y usaremos "módulos" (más correcto).
 

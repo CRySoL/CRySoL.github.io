@@ -116,7 +116,7 @@ But we want to improve this procedure. We want to get a basic but fully function
 
 [ "preseed.cfg":https://bitbucket.org/DavidVilla/libvirt-toys/raw/tip/debian-pressed/preseed.cfg ]
 
-<div>
+<temp-div>
 {% highlight text %}
 d-i debian-installer/locale string es_ES
 d-i console-keymaps-at/keymap select es

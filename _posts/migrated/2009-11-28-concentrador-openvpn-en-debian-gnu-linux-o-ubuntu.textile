@@ -10,7 +10,7 @@ tags:
 - seguridad
 - networking
 ---
-Cómo interconectar dos redes inaccesibles entre sí ya sea porque ambas están detrás de NAT o por consecuencias de las nuevas e incomprensibles «políticas de seguridad» de la empresa.
+bq. Cómo interconectar dos redes inaccesibles entre sí ya sea porque ambas están detrás de NAT o por consecuencias de las nuevas e incomprensibles «políticas de seguridad» de la empresa.
 <!--break-->
 h2. Ingredientes
 
@@ -88,7 +88,7 @@ En el servidor crea el fichero @/etc/openvpn/mivpn.conf@ y escribe esto:
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 port 1194
 proto udp
@@ -193,7 +193,7 @@ Imagina que el servidor tiene acceso a la red 120.20.30.0/24 pero que es inacces
 En fichero de configuración del servidor (el que escribiste antes) añade esto:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 push "route 120.20.30.0 255.255.255.0"
 {% endhighlight %}
@@ -204,7 +204,7 @@ Esa ruta se añadirá automáticamente a los clientes para que ruten el tráfico
 Y por último es necesario activar el reenvío (forwarding) y el NAT, dado que el servidor actuará como router entre la red privada y una red pública. Para ello escribe lo siguiente en @/etc/sysctl.conf@:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 net.ipv4.ip_forward=1
 {% endhighlight %}
@@ -225,7 +225,7 @@ Y añade la siguiente regla iptables:
 Para que esta regla se aplique automáticamente aunque se reinicie el servidor modifica @/etc/network/interfaces@ para que quede así:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 iface eth0 inet static
         [...]

@@ -8,7 +8,7 @@ category: receta
 tags:
 - LaTeX
 ---
-Un par de trucos para conseguir ayuda sobre comandos y paquetes LaTeX desde GNU Emacs.
+bq. Un par de trucos para conseguir ayuda sobre comandos y paquetes LaTeX desde GNU Emacs.
 <!--break-->
 h2. Documentación de paquetes
 
@@ -23,7 +23,7 @@ Sin embargo, hay una alternativa a la búsqueda googlera, directamente desde el 
 Emacs pregunta:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 Package, command, or document: 
 {% endhighlight %}

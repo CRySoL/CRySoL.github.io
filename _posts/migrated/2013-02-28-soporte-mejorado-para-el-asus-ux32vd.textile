@@ -10,9 +10,6 @@ tags:
 ---
 Las recetas anteriores sobre este portátil aún dejaban algunos problemas sin resolver:
 
-<!--break-->
-
-
 * Al arrancar la pantalla se queda en negro, y hay que suspender. Al despertar funciona. Una lata.
 * Las X soportan solo 16 bits de profundidad de color. Muy evidente y feo con el fondo de pantalla por defecto de Debian testing. Decepcionante.
 * Las techas de control del brillo de la pantalla (f5/f6) no funcionan. Otra lata.
@@ -24,7 +21,7 @@ Pues todo esto se arregla a día de hoy:
 * En el fichero @/etc/default/grup@ edita:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 GRUB_CMDLINE_LINUX_DEFAULT="quiet acpi_osi="
 {% endhighlight %}
@@ -33,7 +30,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet acpi_osi="
 luego:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 # update-grub
 {% endhighlight %}

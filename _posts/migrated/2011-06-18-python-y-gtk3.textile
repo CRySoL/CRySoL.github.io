@@ -16,7 +16,7 @@ h2. Y cómo se hace ahora?
 Pues realmente no cambia demasiado (un ejemplo sacado de "live.gnome.org::How does PyGI work?":https://live.gnome.org/PyGObject/IntrospectionPorting)
 
 
-<div>
+<temp-div>
 {% highlight text %}
 from gi.repository import Gtk; 
 Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.CLOSE, "Hello World").run()

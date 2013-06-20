@@ -9,7 +9,7 @@ tags:
 - Arco
 - Debian-devel
 ---
-Esta receta muestra cómo crear el directorio debian necesario para empaquetar tu proyecto. Para ello, se utiliza la herramienta dh_make.
+bq. Esta receta muestra cómo crear el directorio debian necesario para empaquetar tu proyecto. Para ello, se utiliza la herramienta dh_make.
 
 *[editado]* Puedes encontrar una versión actualizada de esta receta en <a href="http://barrabash.org/node/6">http://barrabash.org/node/6</a>
 <!--break-->

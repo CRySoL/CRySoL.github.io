@@ -10,11 +10,8 @@ tags:
 ---
 Hay un pequeño bug en @babel@ que da la lata si usas también el paquete @enumitem@. El error dice algo como:
 
-<!--break-->
 
-
-
-<div>
+<temp-div>
 {% highlight text %}
 No file examples.aux.
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)

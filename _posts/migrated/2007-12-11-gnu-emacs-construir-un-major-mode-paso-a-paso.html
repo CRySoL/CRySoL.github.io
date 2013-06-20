@@ -19,7 +19,7 @@ Vamos a utilizar como lenguaje de programación <a href="http://www.gnu.org/soft
 Vamos a suponer que tenemos un lenguaje ya definido y que lo hemos llamado <b>CL</b> (<em>Chorrotronic Language</em>, por aquello del inglés :-)). Un fichero ejemplo de este lenguaje podría ser el siguiente:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 BLOQUE inicio {
      ENTERO valor = 3;
@@ -72,7 +72,7 @@ Lo primero que tenemos que incluir es la configuración básica del modo. Veamos
 Primero definimos la variable <em>cl-mode-hook</em> que todo mode que se precie definir si quiere ejecutar código propio en el entorno de emacs. En un principio toma el valor 'nil' (false).
 
 
-<div>
+<temp-div>
 {% highlight text %}
 (defvar cl-mode-map
   (let ((cl-mode-map (make-keymap)))
@@ -102,7 +102,7 @@ Hasta ahora simplemente hemos configurado nuestro nuevo modo de Emacs. Es hora d
 Definimos el primer nivel de coloreado:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 (defconst cl-font-lock-keywords-1
   (list
@@ -121,7 +121,7 @@ SALIR es una palabra reservada, pero no le vamos a poner ese estilo. Le vamos a 
 Vamos ahora con el segundo nivel:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 (defconst cl-font-lock-keywords-2
   (append cl-font-lock-keywords-1
@@ -141,7 +141,7 @@ Un buen ejercicio sería, intentar pintar el tipo de color verde (font-lock-type
 Por último, dar a conocer los niveles de coloreado de sintaxis que hemos definido:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 (defvar cl-font-lock-keywords cl-font-lock-keywords-2
   "Default highlighting expressions for CL mode")
@@ -159,7 +159,7 @@ La filosofía de la indentación automática es sencilla: cada vez que el usuari
 En el ejemplo se llama 'cl-indent-line()':
 
 
-<div>
+<temp-div>
 {% highlight text %}
 ;Tabulado
   (defun cl-indent-line ()
@@ -174,7 +174,7 @@ La función la definimos como interactiva, esto es, se puede llamar 'M-x funció
 Comenzamos a definir la función:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 ;;;;Implementacion
 
@@ -197,7 +197,7 @@ En el caso de que no estemos al princpio, entonces creamos 2 variables con la fu
 Supongamos que, cuando pulsan el TAB, nos encontramos en una línea que se compone por un }, indicando que se acaba un bloque. Si ocurre esto, entonces esa línea tiene que estar 1 tabulado menos que su línea anterior. Así:
 
 
-<div>
+<temp-div>
 {% highlight text %}
  (if (looking-at "^[ \t]*\\(}\\)")
 	  (progn
@@ -214,7 +214,7 @@ La línea de progn nos sirve para incluír más de una línea en el 'then'. if e
 Tenemos, por tanto, contemplados ya dos casos: al principio del buffer y que sea un fin de bloque. El caso general (que sea lo que sea) lo vamos a tratar como sigue:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 (save-excursion
 	  (while not-indented
@@ -244,7 +244,7 @@ Tenemos, por tanto, contemplados ya dos casos: al principio del buffer y que sea
 Para acabar con la función, debems hacer la tabulación que indique la variable 'cur-indent' de forma efectiva:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 (if cur-indent
 	  (progn
@@ -264,7 +264,7 @@ Si la variable 'cur-indent' no está definida o no tiene un valor positivo es qu
 Ahora debemos definir una tabla sintáctica (o de sintaxis) para aquellas producciones de tu lenguaje que no se puedan definir como una expresión regular. El ejemplo típico son los comentarios del tipo /* */. 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 (defvar cl-mode-syntax-table
   (let ((cl-mode-syntax-table (make-syntax-table)))
@@ -281,7 +281,7 @@ Ahora debemos definir una tabla sintáctica (o de sintaxis) para aquellas produc
 Ya estamos acabando :-). Sólo nos queda la función que se invocará cuando se cargue el modo. Esta tiene una serie de argumentos que se comentan a continuación:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 (defun cl-mode ()
   "Major mode for editing CL specification"

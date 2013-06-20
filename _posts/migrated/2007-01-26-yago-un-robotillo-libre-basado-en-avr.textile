@@ -9,11 +9,7 @@ tags:
 ---
 <blockquote>Os presento un robotillo que estoy haciendo en mis ratos libres. Se trata de un bicho basado en un micro AVR (en concreto usa un AT90USB1287) y que dispone de varios sensores como infrarojos, sensor PIR, ultrasonidos, etc... Tanto el software como el hardware que desarrolle para este proyecto será libre, y además *todo* (incluidos los diseños de PCBs) está hecho con software 100% libre.
 </blockquote>
-
-
-
-
-
+<!--break-->
 
 Mi intención es ir publicando todo lo que vaya haciendo referente a él por aquí, para que a quien le interese pueda meter mano y, ¿por qué no? dar ideas. En cuanto el repo público de ARCO haya sido migrado, haré disponible el código fuente y los esquemas electrónicos.
 

@@ -11,9 +11,6 @@ tags:
 ---
 Bueno, ya metidos con el 16F690, voy a explicar como hacer para poder utilizar el oscilador interno del chip (ahorrando componentes, pines del micro y algo de consumo, aunque de ésto último no estoy del todo seguro) ;)
 
-<!--break-->
-
-
 Veamos, el 16F690 tiene varias fuentes de reloj, XT, LP, HS, etc.... y además tiene un par de osciladores internos que pueden ser utilizados como reloj del sistema. Uno de ellos, llamado <b>HFINTOSC</b>, es un oscilador calibrado a 8MHz, el otro, <b>LFINTOSC</b>, es por contra un oscilador de baja frecuencia (32KHz) y sin calibración. 
 
 Para poder determinar la velocidad del sistema cuando utilicemos el reloj interno, debemos modificar el registro <b>OSSCON</b>. Para ello, los bits <b>IRCF&lt;2:0&gt;</b> de éste mismo registro permiten seleccionar la velocidad. Las posibles combinaciones son:

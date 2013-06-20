@@ -9,11 +9,7 @@ category: receta
 <blockquote>
 Esta receta explica cómo instalar y configurar la herramienta <acronym title="Network UPS Tools">NUT</acronym> para aprovechar al máximo las posibilidades de un <acronym title="Sistema de Alimentación Ininterrumpida">SAI</acronym> en un sistema Debian GNU/Linux. Concretamente, los pasos son para un MGE Pulsar Extreme 1500C
 </blockquote>
-
-
-
-
-
+<!--break-->
 h2. Introducción
 
 Instalar un software de control para un SAI sólo tiene sentido si podemos hablar con él para obtener datos de su estado y funcionamiento. Si el SAI no tiene ningún tipo de conexión de datos (tal como serie o USB) esta receta no te sirve. En cualquier caso, un SAI que no dice nada sobre su estado es de muy poca utilidad. Si estás pensado en comprar un SAI, elige uno con el que puedas hablar. En la <a href="http://www.networkupstools.org/">página de nut</a> hay una <a href="http://www.networkupstools.org/compat/">lista</a> de las marcas y modelos compatibles.
@@ -90,7 +86,7 @@ Lo primero, y antes de que se nos olvide, será cambiar los permisos del puerto 
 En <tt>/etc/nut/ups.conf</tt> habrá que realizar algunos cambios (tanto en cliente como en servidor). Aquí es donde se añade el driver (cada familia de SAIs tiene su propio driver):
 
 
-<div>
+<temp-div>
 {% highlight text %}
 [id]
    driver = (driver)
@@ -102,7 +98,7 @@ En <tt>/etc/nut/ups.conf</tt> habrá que realizar algunos cambios (tanto en clie
 Por ejemplo, para un SAI "MGE Pulsar Extreme" será:</p>
 
 
-<div>
+<temp-div>
 {% highlight text %}
 [mge]
    driver = mge-utalk
@@ -118,7 +114,7 @@ Edita el fichero <tt>/etc/default/nut</tt> modificando la línea <tt>"START_UPSD
 En el fichero <tt>/etc/nut/upsd.conf</tt> tienes que crear la lista de control de acceso (ACL). Para ello incluye (si no existe ya):</p>
 
 
-<div>
+<temp-div>
 {% highlight text %}
 ACL all 0.0.0.0/0
 ACL localhost 127.0.0.1/32                  # host actual
@@ -136,7 +132,7 @@ ACCESS deny all all
 Por último, edita el fichero <tt>/etc/nut/upsd.users</tt>  para dar acceso a los usuarios. Para ello, añade las  líneas:</p>
 
 
-<div>
+<temp-div>
 {% highlight text %}
 [monuser]
         password = [password]
@@ -152,7 +148,7 @@ Edita el fichero <tt>/etc/default/nut</tt> modificando la línea <tt>"START_UPSM
 Lo siguiente será <tt>/etc/nut/upsmon.conf</tt>. Éste es el fichero de configuración del cliente.  La línea obligatoria a añadir es la del monitor:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 MONITOR [id]@[ip] 1 [password] slave|master
 {% endhighlight %}
@@ -161,7 +157,7 @@ MONITOR [id]@[ip] 1 [password] slave|master
 Lo normal para el equipo que tiene la conexión de datos al SAI es que funcione en modo "master". Eso significa que debe esperar a que los "slaves" apaguen antes de hacerlo él. Así que quedará algo como esto:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 MONITOR mge@192.168.0.1 1 [password] master
 {% endhighlight %}

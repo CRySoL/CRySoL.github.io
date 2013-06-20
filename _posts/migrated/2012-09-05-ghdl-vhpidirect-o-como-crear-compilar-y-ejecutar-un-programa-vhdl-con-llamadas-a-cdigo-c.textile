@@ -14,7 +14,7 @@ GHDL ( <a href="http://ghdl.free.fr/">http://ghdl.free.fr/</a> ) es un simulador
 Si no tenemos instalado GHDL en nuestro sistema, procedemos a ello:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 apt-get install ghdl
 {% endhighlight %}
@@ -26,7 +26,7 @@ El ejemplo que vamos a realizar va a consistir en una implementación de un suma
 Empecemos con el componente hardware. La implementación consiste en una suma de dos enteros a la que se le ha introducido un error; cuando el operando A es 10 el resultado de la suma va a ser 5.
 
 
-<div>
+<temp-div>
 {% highlight text %}
 sumador.vhdl
 library ieee;
@@ -72,7 +72,7 @@ El componente software devuelve el resultado correcto de la suma de dos enteros.
 
 suma_software.c
 
-<div>
+<temp-div>
 {% highlight text %}
 int sim_suma_software(int a,int b){
   return a+b;
@@ -84,7 +84,7 @@ Con el objetivo de poder utilizar la función software desde el código VHDL vam
 
 sumaC.vhdl
 
-<div>
+<temp-div>
 {% highlight text %}
 library ieee;
 use ieee.std_logic_1164.all;
@@ -115,7 +115,7 @@ Por último creamos el banco de prueba, encargado de aportar la señales de entr
 
 sumador_tb.vhdl
 
-<div>
+<temp-div>
 {% highlight text %}
 library ieee;
 use ieee.std_logic_1164.all;
@@ -188,7 +188,7 @@ end behaviour;
 Una vez que tenemos todos los ingredientes pasamos a la compilación. Para simplificar el proceso se aporta el siguiente Makefile:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 VHDLFILES = sumador.vhdl sumaC.vhdl sumador_tb.vhdl
 CSRCS = suma_software.c
@@ -220,7 +220,7 @@ Con un simple make obtendremos nuestro fichero binario sumador_tb que lo podremo
 Una de las ventajas de GHDL es que permite crear fichero ejecutables que no requieren ningún simulador extra. Así que procedemos a ejecutar sumador_tb:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 ./sumador_tb 
   Introduciendo error en la suma

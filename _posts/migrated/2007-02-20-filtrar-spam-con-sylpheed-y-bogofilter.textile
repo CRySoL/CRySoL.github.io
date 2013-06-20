@@ -30,7 +30,7 @@ h2. Configurando Sylpheed-Claws
 
 Como vas a modificar los filtros, tendrás que ir a la opción del menú Configuración/filtrado.... Una vez allí puedes configurar tus filtros.
 
-Es muy importante que tus filtros anti-spam se encuentren los primeros, o no llegarán a filtrarse.
+bq. Es muy importante que tus filtros anti-spam se encuentren los primeros, o no llegarán a filtrarse.
 
 Lo primero es crear una carpetita donde mandar el spam. La mía cuelga directamente de "Correo". Si alguien no lo tiene así, que lo tenga en cuenta cuando vaya introduciendo los filtros.
 

@@ -8,7 +8,7 @@ category: receta
 tags:
 - Debian
 ---
-Cómo instalar nuestra querida Debian en el "Acer Aspire ONE":http://es.wikipedia.org/wiki/Aspire_One. Sé que hay varias buenas recetas sobre lo mismo, pero son efímeras y al final nos quedamos sin receta. CRySoL perdura.
+bq. Cómo instalar nuestra querida Debian en el "Acer Aspire ONE":http://es.wikipedia.org/wiki/Aspire_One. Sé que hay varias buenas recetas sobre lo mismo, pero son efímeras y al final nos quedamos sin receta. CRySoL perdura.
 <!--break-->
 h2. Ingredientes
 
@@ -88,7 +88,7 @@ Driver @madwifi@ con module-assistant de toda la vida:
 Un problema con el driver madwifi es que la wifi dejará de funcionar al volver de una hibernación. Para solucionarlo, crea un fichero llamado @/etc/pm/config.d/madwifi@ que contenga lo siguiente:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 SUSPEND_MODULES="ath_pci"
 {% endhighlight %}
@@ -97,7 +97,7 @@ SUSPEND_MODULES="ath_pci"
 Otra cosa, para que funcione el LED que hay encima del interruptor de la WiFi tiene que crear el fichero @/etc/sysctl.d/madwifi.conf@ y escribir esto en él:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 dev.wifi0.ledpin=3
 dev.wifi0.softled=1
@@ -110,7 +110,7 @@ h2. Lector de tarjetas de memoria
 Crea el fichero @/etc/modprobe.d/aspire-blacklist-memstick@ y escribe dentro lo siguiente:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 blacklist jmb38x_ms
 blacklist memstick
@@ -120,7 +120,7 @@ blacklist memstick
 Crea el fichero @/etc/modprobe.d/aspire-fix-sd-slots@ y escribe dentro:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 options pciehp pciehp_force=1 pciehp_slot_with_bus=1
 install sdhci for i in 2381 2382 2383 2384; do /usr/bin/setpci -d 197b:$i AE=47; done; /sbin/modprobe --ignore-install sdhci
@@ -135,7 +135,7 @@ h2. Servidor X
 Modifica el fichero @/etc/X11/xorg.conf@ para que las secciones siguientes queden así:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 Section "Device"
         Identifier   "Configured Video Device"

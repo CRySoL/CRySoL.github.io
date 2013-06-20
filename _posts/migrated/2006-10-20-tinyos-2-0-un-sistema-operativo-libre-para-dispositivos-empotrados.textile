@@ -11,11 +11,7 @@ tags:
 ---
 <blockquote>Por que no sólo de GNU/Linux vive el hombre, vamos a describir brevemente la instalación y el uso de un sistema operativo libre denominado TinyOS. Este sistema operativo esta destinado a redes inalámbricas de sensores por lo que necesitaremos para probarlo alguna de las plataformas soportadas por el sistema operativo  o el simulador TOSSIM.
 </blockquote>
-
-
-
-
-
+<!--break-->
 
 <h2> Instalación TinyOS 2.0 </h2>
 Vamos a aprender su instalación y dejaremos para más adelante la construcción de un pequeño hello world o incluso la instalación del propio simulador. 

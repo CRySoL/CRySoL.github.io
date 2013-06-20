@@ -9,7 +9,7 @@ tags:
 - drivers
 - Debian
 ---
-How to install the device driver for a TDT receiver based on the chipset DVB-T Realtek. In my case, it's the Zaapa ZT- DVBTSTUSB
+bq. How to install the device driver for a TDT receiver based on the chipset DVB-T Realtek. In my case, it's the Zaapa ZT- DVBTSTUSB
 <!--break-->
 Lets see the device identification:
 
@@ -43,7 +43,7 @@ $ sudo make install
 Ready! When you plug the receiver you should see something like that in the @/var/log/sys.log@:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 kernel: [  952.777025] usb 5-1: new high speed USB device using ehci_hcd and address 7
 kernel: [  952.910355] usb 5-1: configuration #1 chosen from 1 choice

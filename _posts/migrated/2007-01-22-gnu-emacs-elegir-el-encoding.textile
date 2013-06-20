@@ -8,7 +8,7 @@ category: receta
 tags:
 - emacs
 ---
-Cómo configurar el _encoding_ de un fichero en emacs.
+bq. Cómo configurar el _encoding_ de un fichero en emacs.
 <!--break-->
 h2. Cambiar el encoding
 
@@ -42,7 +42,7 @@ h2. Ficheros XML
 En el caso de ficheros XML, emacs lee la «instrucción de proceso» inicial, es decir, la primera línea de todo fichero que esté bien escrito. Suele tener esta pinta:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 <?xml version="1.0" encoding="utf-8"?>
 {% endhighlight %}

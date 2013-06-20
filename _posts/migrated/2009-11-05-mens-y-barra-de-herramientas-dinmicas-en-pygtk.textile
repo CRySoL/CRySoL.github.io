@@ -8,7 +8,7 @@ tags:
 - gtk
 - Python
 ---
-Desde hace algunas versiones, GTK incorpora la capacidad para crear menús, barras de herramientas y menús desplegables (alias menú _popup_) a través de descripciones textuales similares a XML.
+bq. Desde hace algunas versiones, GTK incorpora la capacidad para crear menús, barras de herramientas y menús desplegables (alias menú _popup_) a través de descripciones textuales similares a XML.
 <!--break-->
 Esta funcionalidad de GTK nos la proporcionan, en principio, la utilización conjunta de tres clases: por un lado *UIManager*, que es quien tiene la descripción _XML_ de la interfaz y quien, en caso de necesitarlos, nos proporciona los widgets que añadiremos a nuestra interfaz; por otro lado están *ActionGroup* y *Action*.
 

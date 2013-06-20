@@ -5,10 +5,7 @@ title: Metaclase para invocación automática del "constructor" de la superclase
 created: 1182981171
 author: david_villa
 ---
-Esta receta incluye la implementación "comentada" de una metaclase Python para conseguir que el constructor de la superclase se invoque automáticamente.
-
-<!--break-->
-
+bq. Esta receta incluye la implementación "comentada" de una metaclase Python para conseguir que el constructor de la superclase se invoque automáticamente.
 
 h2. Introducción
 

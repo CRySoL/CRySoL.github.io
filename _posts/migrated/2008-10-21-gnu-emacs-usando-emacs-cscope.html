@@ -9,13 +9,9 @@ tags:
 - emacs
 ---
 <blockquote class="head"> 
-Esta receta explica brevemente como configurar <b>emacs</b]> para utilizarlo junto con <b>cscope</b>, una herramienta para navegar a través de código fuente C/C++.
+Esta receta explica brevemente como configurar <b>emacs</b> para utilizarlo junto con <b>cscope</b>, una herramienta para navegar a través de código fuente C/C++.
 </blockquote>
-
-
-
-
-
+<!--break-->
 <h2>Ingredientes</h2>
 <ul>
 <li>emacs</li>
@@ -27,7 +23,7 @@ Si te has instalado cscope en Debian/Ubuntu se te habrá instalado la interfaz d
 
 El siguiente paso es editar el archivo <code>~/.emacs</code> añadiendo lo siguiente:
 
-<div>
+<temp-div>
 {% highlight text %}
 (require 'xcscope)
 {% endhighlight %}
@@ -35,7 +31,7 @@ El siguiente paso es editar el archivo <code>~/.emacs</code> añadiendo lo sigui
 
 Si deseas añadir atajos para hacer más comoda la introducción de algunas órdenes puedes añadir los siguiente también el el archivo <code>~/.emacs</code>:
 
-<div>
+<temp-div>
 {% highlight text %}
 (define-key global-map [(control f3)]  'cscope-set-initial-directory)
 (define-key global-map [(control f4)]  'cscope-unset-initial-directory)

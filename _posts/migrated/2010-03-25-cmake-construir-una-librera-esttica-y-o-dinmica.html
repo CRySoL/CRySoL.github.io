@@ -10,11 +10,7 @@ tags:
 - devel
 ---
 <blockquote>Esta receta explica cómo construir librerías estáticas y dinámicas con CMake.</blockquote>
-
-
-
-
-
+<!--break-->
 <h2>Software necesario</h2>
 
 Los ejemplos que vamos a utilizar puedes descargarlos utilizando subversion desde:
@@ -35,7 +31,7 @@ Los directorios contienen una librería con una definición de la clase Dummy (d
 Para crear una librería estática nada más fácil que lo que sigue:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -60,7 +56,7 @@ De una forma similar a como se añadían ejecutables, para crear una librería s
 A la vista de lo anterior, parece sencillo crear una librería dinámica. ¿Bastará cambiar STATIC por SHARED?. Sí, con eso bastaría. Pero vamos a añadir algo más para hacer que la librería sea más "distribuible":
 
 
-<div>
+<temp-div>
 {% highlight text %}
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -81,7 +77,7 @@ Con el comando SET_PROPERTY se puede modificar las propiedades de las estructura
 Es posible que para una misma librería quieras que pueda ser enlazada de forma estática y también dinámica. Veamos una posible solución:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 

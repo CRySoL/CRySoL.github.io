@@ -9,11 +9,7 @@ category: receta
 <blockquote class="head"> 
    Esta receta pretende dar a conocer al lector en qué consiste la técnica de diseño de algoritmos "divide y vencerás". Para ello se incluyen a continuación unas breves nociones teóricas y un ejemplo práctico sencillo.
 </blockquote>
-
-
-
-
-
+<!--break-->
 
 <h2>¿En qué consiste la técnica "divide y vencerás"?</h2>
 En el mundo de las ciencias de la computación es una técnica de diseño de algoritmos que consiste en resolver un problema a partir de la solución de subproblemas del mismo tipo, pero de menor tamaño. Si los subproblemas son todavía relativamente grandes se aplicará de nuevo esta técnica hasta alcanzar subproblemas lo suficientemente pequeños para ser solucionados directamente. Por último, habrá que combinar las soluciones obtenidas en los subproblemas para obtener la solución del problema inicial.
@@ -25,7 +21,7 @@ En el mundo de las ciencias de la computación es una técnica de diseño de alg
 El pseudocódigo del algoritmo Divide y Vencerás en versión recursiva es el siguiente:
 
 
-<div>
+<temp-div>
 {% highlight text %}
     DYV(int tamaño){
          if(facil(tamaño))
@@ -44,7 +40,7 @@ El pseudocódigo del algoritmo Divide y Vencerás en versión recursiva es el si
 El pseudocódigo del algoritmo Divide y Vencerás en versión iterativa es el siguiente (yo personalmente he visto muchas más veces implementada la versión recursiva que esta iterativa):
 
 
-<div>
+<temp-div>
 {% highlight text %}
     DYV(int tamaño){
          while(tamaño >= 1){

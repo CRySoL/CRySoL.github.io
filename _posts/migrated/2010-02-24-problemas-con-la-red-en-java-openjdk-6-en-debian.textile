@@ -10,11 +10,8 @@ tags:
 ---
 Edita el fichero @/etc/sysctl.d/bindv6only.conf@ para que quede:
 
-<!--break-->
 
-
-
-<div>
+<temp-div>
 {% highlight text %}
 net.ipv6.bindv6only = 0
 {% endhighlight %}

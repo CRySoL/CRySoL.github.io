@@ -10,11 +10,7 @@ tags:
 ---
 <blockquote>Estás en Siberia, sólo tienes acceso a un terminal en modo texto, no tienes ningún cliente de correo y quieres enviar un email. ¿Imposible? Apúntate estos pasos y lo conseguirás. La receta explica cómo enviar correo usando directamente el protocolo que entiende el servidor.
 </blockquote>
-
-
-
-
-
+<!--break-->
 <h2>Encontrando un servidor</h2>
 
 Para poder enviar un email, es necesario hacerlo a través de un servidor. Todos conocemos multitud de ellos (yahoo, hotmail, latinmail, gmail...). Pero no debemos conectar con el servidor en general, si no con una parte de él llamada <b>Mail Exchanger</b> (MX). Para averiguar el nombre del MX de un servidor, utilizaremos <code>nslookup</code>.

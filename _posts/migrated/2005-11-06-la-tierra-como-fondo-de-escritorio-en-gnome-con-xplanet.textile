@@ -6,7 +6,7 @@ created: 1131301891
 author: fsancho
 category: receta
 ---
-Esta receta explica como poner un fondo de pantalla muy resultón que consiste en una imagen realista de la Tierra con iluminación y nubes "reales", que además se va actualizando para representar la situación actual. Todo ello gracias a <a href="http://xplanet.sourceforge.net">xplanet</a>.
+bq. Esta receta explica como poner un fondo de pantalla muy resultón que consiste en una imagen realista de la Tierra con iluminación y nubes "reales", que además se va actualizando para representar la situación actual. Todo ello gracias a <a href="http://xplanet.sourceforge.net">xplanet</a>.
 <!--break-->
 Vamos a necesitar los siguientes ingredientes:
 
@@ -84,7 +84,7 @@ Como el script es sencillo, lo pongo aquí para comentar algunas cosas que nos p
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 #!/bin/bash
 

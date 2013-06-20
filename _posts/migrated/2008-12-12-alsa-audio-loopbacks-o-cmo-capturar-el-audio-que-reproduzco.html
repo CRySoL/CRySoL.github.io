@@ -11,11 +11,7 @@ tags:
 - drivers
 ---
 <blockquote>Llevaba ya mucho tiempo sin escribir por aquí algo... y para desengrasarme un poco voy con una recetilla muy simple pero que puede ser de mucha utilidad: supongamos que entras en una página que reproduce audio mediante <em>streaming</em> y que quieres capturar ese audio. Si abres un programa de captura comprobarás que no se captura ese sonido... necesitamos algún tipo de tarjeta "virtual" que nos permita capturar lo que reproduce, esto es: <b>audio loopback</b>.</blockquote>
-
-
-
-
-
+<!--break-->
 <h2>Instalando (<em>quick'n'dirty</em>)</h2>
 Los señores de <a href="http://www.alsa-project.org">ALSA</a> crearon hace tiempo un modulito que permitía justamente esto, el <b>aloop</b>, pero lamentáblemente no se compila por defecto, esto hace que distribuciones como <em>Debian</em> no lo traigan de serie, por tanto, nuestro primer paso es compilar el modulito.
 

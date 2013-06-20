@@ -8,7 +8,7 @@ category: receta
 tags:
 - networking
 ---
-Esta receta explica cómo utilizar SAMBA para servir ficheros y cómo acceder a ellos desde otro ordenador. Supondremos que en ambos equipos tienes Debian o sucedáneos.
+bq. Esta receta explica cómo utilizar SAMBA para servir ficheros y cómo acceder a ellos desde otro ordenador. Supondremos que en ambos equipos tienes Debian o sucedáneos.
 <!--break-->
 h2. Introducción
 
@@ -83,7 +83,7 @@ La utilidad @testparm@ compueba posibles fallos en el fichero @smb.conf@.
 
 <div class="console">
 
-<div>
+<temp-div>
 {% highlight text %}
 $ testparm
 Load smb config files from /etc/samba/smb.conf
@@ -157,7 +157,7 @@ h5. Ver los recursos compartidos por otra máquina:
 
 <div class="console">
 
-<div>
+<temp-div>
 {% highlight text %}
 $ smbclient -L medusa
 Password:

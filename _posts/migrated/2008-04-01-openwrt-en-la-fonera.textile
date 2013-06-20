@@ -222,7 +222,7 @@ Para permitir SSH en la interfaz Ethernet escribe (o des-comenta) esto al final 
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 accept:proto=tcp dport=22
 {% endhighlight %}
@@ -233,7 +233,7 @@ Para que la interfaz Ethernet (eth0) pida una IP por DHCP cambia el fichero @/et
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 config interface loopback
 	option ifname	lo
@@ -253,7 +253,7 @@ Y para activar la interfaz WiFI, elimina la siguiente línea del fichero @/etc/c
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 	option disabled 1
 {% endhighlight %}

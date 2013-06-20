@@ -9,9 +9,6 @@ tags:
 - embedded
 ---
 <backquote>Cómo hacer arrancar nuestro Kernel desde una tarjeta SD en nuestra querida <em>FriendlyARM</em>.
-
-<!--break-->
-
 <h2>Introducción</h2>
 Después de haber <a href="http://crysol.org/es/node/1241">compilado e instalado uBoot</a> en nuestra tarjeta de desarrollo <a href="http://www.friendlyarm.net/products/mini2440">mini2440</a> y de haberle <a htef="http://crysol.org/es/node/1273">compilado una imágen Linux</a> ahora nos proponemos configurar uBoot para el arranque de dicho kernel.
 uBoot permite mucha flexibilidad a la hora de instalar y arrancar imágenes desde la memoria. Aún así, aquí sólo explicaré el procedimiento que he utilizado yo para poder cargar y ejecutar Linux desde una tarjeta SD, ya que además de parecerme los mas fácil y cómodo a la hora de actualizar (tan solo hay que copiar la nueva imagen a la SD), mantendremos intacta la NAND interna de nuestra tarjeta, que sabemos que tiene vida limitada, y aunque muy larga, no deja de ser eso, limitada.

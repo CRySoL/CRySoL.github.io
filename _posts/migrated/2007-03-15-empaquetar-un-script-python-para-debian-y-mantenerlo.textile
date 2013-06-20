@@ -8,7 +8,7 @@ category: receta
 tags:
 - Debian-devel
 ---
-Esta receta explica de forma muy resumida los pasos más importantes para crear y mantener un paquetillo Debian, y cumpliendo la política de Debian.
+bq. Esta receta explica de forma muy resumida los pasos más importantes para crear y mantener un paquetillo Debian, y cumpliendo la política de Debian.
 <!--break-->
 * "Otras recetas de CRySoL sobre empaquetado Debian":http://crysol.org/node/751
 
@@ -107,7 +107,7 @@ El fichero @control@ dice *qué* es el paquete. A continuación puedes ver como 
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 Source: pyhello
 Section: utils
@@ -142,7 +142,7 @@ El fichero @rules@ es realmente un @Makefile@ e indica *cómo* hacer todas las t
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 #!/usr/bin/make -f
 

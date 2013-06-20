@@ -7,9 +7,6 @@ author: brue
 ---
 En el repo de Mesa hay un bug temporal. El que quiera compilar en debian, tras enfrentarse con los apt-get's pertinentes de desarrollo (importante x11proto*, libnurbs, libxmu, libxi, libmesa...etc -dev), tendrá que definir la contante DRM_VBLANK_SECONDARY en algún sitio visible para vblank.c.
 
-<!--break-->
-
-
 Así, por ejemplo podemos añadir:
 
 <pre>

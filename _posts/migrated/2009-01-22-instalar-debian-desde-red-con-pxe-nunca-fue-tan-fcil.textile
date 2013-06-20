@@ -51,7 +51,7 @@ h2. Instalar el servidor DHCP + TFTP
 Instala @dnsmasq@ en <b>fileserver</b> y suponiendo que la dirección IP de tu router fuese 192.168.0.1, edita el fichero @/etc/dnsmasq.conf@ para que quede así (es posible que las líneas existan, pero comentadas):
 
 
-<div>
+<temp-div>
 {% highlight text %}
 listen-address=192.168.0.1
 bind-interfaces

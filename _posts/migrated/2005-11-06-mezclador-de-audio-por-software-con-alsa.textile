@@ -6,7 +6,7 @@ created: 1131306700
 author: fsancho
 category: receta
 ---
-A veces el servidor de sonido esound es un latazo porque impide que otras aplicaciones que hacen uso del hardware de sonido puedan funcionar. De modo que para jugar a algunos juegos necesitamos apagar el servidor de sonido y siempre resulta algo tedioso.
+bq. A veces el servidor de sonido esound es un latazo porque impide que otras aplicaciones que hacen uso del hardware de sonido puedan funcionar. De modo que para jugar a algunos juegos necesitamos apagar el servidor de sonido y siempre resulta algo tedioso.
 <!--break-->
 h1. Ingredientes
 
@@ -23,13 +23,13 @@ Pues bien, tan solo necesitas instalar el paquete @alsa-oss@, editar el fichero 
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 # .asoundrc for use with ALSA and the dmix plugin, for ALSA-level
 # software mixing across all apps.
 #
-# http://alsa.opensrc.org/index.php?page=AlsaSharing
-# http://alsa.opensrc.org/index.php?page=DmixPlugin
+# <a href="http://alsa.opensrc.org/index.php?page=AlsaSharing">http://alsa.opensrc.org/index.php?page=AlsaSharing</a>
+# <a href="http://alsa.opensrc.org/index.php?page=DmixPlugin">http://alsa.opensrc.org/index.php?page=DmixPlugin</a>
 pcm.card0 {
     type hw
     card 0
@@ -81,7 +81,7 @@ Si usas @esound@ tendrás que instalar el paquete @libesd-alsa0@ y editar el fic
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 [esd]
 auto_spawn=1
@@ -97,7 +97,7 @@ Si tienes @libao@ edita además el fichero @/etc/libao.conf@ para poner lo sigui
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 default_driver=esd
 {% endhighlight %}

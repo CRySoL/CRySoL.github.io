@@ -10,11 +10,7 @@ tags:
 - devel
 ---
 <blockquote>Esta receta explica cómo utilizar, fundamentalmente, el comando INSTALL de CMake para crear objetivos de instalación.</blockquote>
-
-
-
-
-
+<!--break-->
 <h2>El comando INSTALL</h2>
 CMake proporciona <a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#command:install">el comando INSTALL</a> que facilita en gran medida seleccionar los componentes de nuestro proyecto que queremos instalar y dónde.
 
@@ -24,7 +20,7 @@ En esta receta nos vamos a centrar en un uso básico del comando. Para algo más
 
 Supongamos que queremos instalar un binario y dos versiones de una misma librería: una estática y otra dinámica. El código CMake para este caso podría ser el siguiente:
 
-<div>
+<temp-div>
 {% highlight text %}
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT
@@ -45,7 +41,7 @@ ADD_EXECUTABLE(hello hello.cpp)
 Inicialmente, podrías añadir un comando por cada uno de los componentes que queremos instalar indicando el directorio destino. Sin embargo, como es habitual necesitar instalar varios objetivos, el comando INSTALL proporciona una forma más compacta:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 # ... el código anterior aquí
 

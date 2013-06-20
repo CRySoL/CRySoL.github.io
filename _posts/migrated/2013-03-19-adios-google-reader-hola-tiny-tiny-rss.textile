@@ -218,7 +218,7 @@ Debes ir al menú Preferences que se encuentra arriba a la derecha, dentro del m
 
 En ese menú hay que marcar las opciones.
 
-<div>
+<temp-div>
 {% highlight text %}
 "Marcar como leídos los artículos automáticamente"
 "Despliegue combinado de la fuente"
@@ -304,7 +304,7 @@ Este es el aspecto que tendrá. Como veis bastante parecido a Google Reader.
 
 Por cierto, si queréis utilizar alguna aplicación externa para conectaros a ttRSS, como por ejemplo alguna de las que existen para "Android":https://play.google.com/store/search?q=tiny+tiny+rss , deberéis marcar la opción
 
-<div>
+<temp-div>
 {% highlight text %}
 Habilitar API externa
 {% endhighlight %}

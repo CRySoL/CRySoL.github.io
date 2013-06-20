@@ -8,7 +8,7 @@ category: receta
 tags:
 - emacs
 ---
-Cómo definir, guardar y utilizar macros de teclado en emacs.
+bq. Cómo definir, guardar y utilizar macros de teclado en emacs.
 <!--break-->
 h2. Introducción
 
@@ -29,7 +29,7 @@ h2. Ponle un nombre
 Esto asigna un nombre a la macro, que tendrá validez durante la sesión de emacs en curso, después se perderá. Crea la macro como se ha explicado en la sección anterior y después ejecuta:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 C-x C-k n
 {% endhighlight %}
@@ -38,7 +38,7 @@ C-x C-k n
 o esto:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 M-x kmacro-name-last-macro
 {% endhighlight %}
@@ -47,7 +47,7 @@ M-x kmacro-name-last-macro
 Te pedirá el nombre de la macro, que debería ser una cadena de texto (recomendable sin espacios). Para ejecutar una macro, pulsa M-x y escribe su nombre -- funciona como un comando convencional.  Aquí tienes un ejemplo completo y bastante absurdo: insertar el número PI al comienzo de la línea actual:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 F3 C-a 3.1415927 F4
 C-X C-k n PI
@@ -61,7 +61,7 @@ h2. Asígnale  una combinación de teclas
 De nuevo volvemos al punto en el que acabos de definir una macro con F3/F4, no importa si tiene nombre o no. Pues ahora ejecuta:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 C-x C-k b
 {% endhighlight %}
@@ -76,7 +76,7 @@ Y si le has cogido cariño a la macro probablemente te gustará poder ponerla a 
 Pues una vez tengas tu macro con su nombre y (opcionalmente) su combinación, ejecuta:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 M-x insert-kbd-macro <RET> nombre-de-la-macro <RET>
 {% endhighlight %}

@@ -10,7 +10,7 @@ tags:
 - drivers
 - Debian
 ---
-Veamos como instalar el driver que da soporte a los dispositivos que utilizan los chipsets de la familia stk11xx, de Syntek Semicon, en concreto, para el EasyCAP USB.
+bq. Veamos como instalar el driver que da soporte a los dispositivos que utilizan los chipsets de la familia stk11xx, de Syntek Semicon, en concreto, para el EasyCAP USB.
 <!--break-->
 Hace poco necesité adquirir vídeo de una fuente analógica. Buscando por internet, me encontré con un chisme que parecía suplir mis necesidades. Se llamaba concretamente "EasyCAP 4-Channel 4-Input USB 2.0 DVR Video Capture/Surveillance Dongle" (EasyCAP para los amigos ;-)), pero no había mucha más información sobre él. Lo encontré en "dealextreme.com":http://<a href="http://www.dealextreme.com/">www.dealextreme.com/</a>, y terminé comprándolo, porque de lejos, era la opción más barata (me salió por unos 11 €, portes gratuitos). No esperaba mucho del chisme, simplemente con que funcionara... 
 Y funcionó... bueno, más o menos. :p
@@ -134,9 +134,9 @@ h3. Paquete Debian
 Para no recompilar el driver en cada máquina que pueda usar este trasto, y para aquellos que lo deseen, lo he empaquetado para Debian. Está disponible en mi repositorio personal, que se puede utilizar añadiendo la siguiente línea en el fichero <em>/etc/apt/sources.list</em>:
 
 
-<div>
+<temp-div>
 {% highlight text %}
-deb http://lamport.mine.nu/debian binary/
+deb <a href="http://lamport.mine.nu/debian">http://lamport.mine.nu/debian</a> binary/
 {% endhighlight %}
 </div>
 

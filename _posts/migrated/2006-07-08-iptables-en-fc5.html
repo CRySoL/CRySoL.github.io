@@ -7,9 +7,6 @@ author: jsarthou
 category: consulta
 ---
 En un servidor Fedora Core 5, que hace de Proxy, quiero darle tambien el servicio de Web, pero, me encontre con el inconveniente que tengo una regla que direcciono todo el port 80 al 8080, por lo tanto la web local del proxy no funcionaba hasta que en la misma regla incluí un -d ! proxy y todo de maravillas.
-
-<!--break-->
-
 Pero... siempre hay contingencias que uno no prevee, dicha red LAN/WAN, tiene 2 Ips en cada placa, una para la LAN y la otra para la WAN.
 Hasta ahora no he podido establecer una regla que me permita no redireccionar al port 8080 los pedidos hacia las 2 Ips por el port 80, solo es posible una.
 

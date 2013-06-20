@@ -11,7 +11,7 @@ tags:
 Haz un archivo <b>/etc/cups/client.conf</b> con el siguiente contenido:
 
 
-<div>
+<temp-div>
 {% highlight text %}ServerName cupspro.esi.uclm.es
 Encryption IfRequested{% endhighlight %}
 </div>

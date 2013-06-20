@@ -130,7 +130,7 @@ Ahora toca la parte más jugosa :-). Creo (y si no llevo razón, por favor, quit
 Ahora es buen momento para configurar la instalación. Entra en el directorio de Ice. En el fichero <i>config/Make.rules</i> tienes algunos parámetros con los que jugar. Aquí dependerá de tus necesidades en concreto. Yo, personalmente, he dejado las siguientes variables así:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 prefix                  = /usr/icee
 OPTIMIZE_SPEED          = yes

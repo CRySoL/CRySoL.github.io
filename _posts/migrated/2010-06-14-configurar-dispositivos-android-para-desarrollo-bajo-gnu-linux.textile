@@ -33,7 +33,7 @@ El siguiente paso en el debemos editar las reglas de *udev* para que, al conecta
 Para ello, utiliza el comando @lsusb@. Cada una de las líneas que aparecen tiene la siguiente estructura:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 Bus XXX Device YYY: ID aaaa:bbbb Description{% endhighlight %}
 </div>
@@ -53,7 +53,7 @@ Si no lo sacas, una buena técnica es desenchufarlo, hacer @lsusb@, y volver a e
 Una vez tengamos ambos datos (recordemos, _vender id_ y _product id_), crearemos un fichero en @/etc/udev/rules.d@ con el nombre @50-androiddev.rules@ que contenga, como podéis ver en la otra receta, lo siguiente:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="aaaa", ATTRS{idProduct}=="bbbb", GROUP="androiddev", SYMLINK+="android%n"
 {% endhighlight %}

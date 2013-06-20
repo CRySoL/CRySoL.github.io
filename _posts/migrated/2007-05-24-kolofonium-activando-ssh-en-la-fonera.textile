@@ -11,9 +11,6 @@ tags:
 ---
 Si tenéis un router "La Fonera", con versión del firmware 0.7.1 r2, esto te interesa. Hasta esta versión era muy sencillo acceder al shell por diferentes maneras, pero los de Fon se lo han currado y en la revisión 2 han cerrado muchos agujeros.
 
-<!--break-->
-
-
 De todos modos, como siempre, hay gente que se lo curra más :-P, por lo que sigue siendo posible habilitar el SSH. Si te interesa: <a href="http://stefans.datenbruch.de/lafonera/">web de stefans</a>. Ahí tienes una explicación muy chula de como va el tema, y de lo sencillo que es hacer el arreglo esta vez. 
 
 IMPORTANTE: La fonera tiene el firmware 0.7.1 r2. Para evitar que se actualice automáticamente no la conectes a Internet. Si ya viene con 0.7.2 puedes _resetarla_ a la versión anterior pulsado durante 5 segundos el botoncito rojo que hay debajo.

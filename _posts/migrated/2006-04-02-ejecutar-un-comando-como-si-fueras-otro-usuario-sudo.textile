@@ -9,11 +9,7 @@ category: receta
 <blockquote>
 Esta receta explica cómo ejecutar comandos del sistema con los permisos de otro usuario.
 </blockquote>
-
-
-
-
-
+<!--break-->
 <h2> Introducción </h2>
 
 El principal objetivo de <tt>sudo</tt> es reemplazar al comando <tt>su</tt>. En algunas situaciones puede reemplazar al SUID. La principal ventaja de utilizar sudo es que no es necesario conocer la password de otro usuario para ejecutar comandos con permisos "especiales".
@@ -23,7 +19,7 @@ El principal objetivo de <tt>sudo</tt> es reemplazar al comando <tt>su</tt>. En 
 Lo primero será editar el fichero <tt>/etc/sudoers</tt>. Existe un comando llamado <tt>visudo</tt> que directamente edita el fichero con vi. Pero si alguno no sabe utilizar vi, puede utilizar cualquier otro editor. El fichero tiene el formato siguiente:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 # Host alias specification
 
@@ -50,7 +46,7 @@ El fichero se divide en tres secciones:
 La sección más importante son las reglas de acceso, que tienen esta forma:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 usuario host = (usuario_privilegiado) comando
 {% endhighlight %}
@@ -63,7 +59,7 @@ Otro punto a comentar es que cuando se ejecuta cualquier comando con sudo, al us
 Por ejemplo, la siguiente línea permite al usuario <tt>webmaster</tt> parar y reiniciar el servidor web sin tener que poner su clave:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 webmaster ALL= (root) NOPASSWD: /etc/init.d/apache2  
 {% endhighlight %}
@@ -73,7 +69,7 @@ Para evitar esto lo mejor es añadir al usuario en cuestión al grupo sudo. Eso 
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 sudo:x:27:fulanito
 {% endhighlight %}

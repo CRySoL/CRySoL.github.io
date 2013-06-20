@@ -11,11 +11,7 @@ tags:
 <blockquote>
 Esta receta pretende ser un pequeño tutorial de uso de Bluetooth en GNU/Linux
 </blockquote>
-
-
-
-
-
+<!--break-->
 
 Usaremos básicamente las utilidades instaladas por el paquete bluez-utils empleadas en el desarrollo de aplicaciones bluetooth.
 
@@ -225,7 +221,7 @@ Para indicarle al ordenador que vamos a usar ese servicio necesitas editar el ar
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 rfcomm1 {
         bind no;

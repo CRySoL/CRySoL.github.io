@@ -10,11 +10,7 @@ tags:
 - Debian
 ---
 <blockquote>El desarrollo de Hurd continúa avanzando... lentamente... aún así ya empieza a ser usable por intrépidos usuarios como nosotros que deseamos aprender más y más. Por eso me he decidido a intentar crear una serie de recetas sobre Hurd. La primera de ellas es ésta: probar hurd en una máquina virtual.</blockquote>
-
-
-
-
-
+<!--break-->
 <h2>¿Qué es GNU/Hurd?</h2>
 Desde sus inicios, el objetivo del proyecto <a href="http://www.gnu.org/">GNU</a> ha sido crear un sistema operativo <em>completo</em> y libre. En sus inicios el proyecto contaba con diversas herramientas de desarrollo, aplicaciones de sistema, etc. Pero carecían de un elemento bastante importante: un kernel que ejecutase todo eso. Decidieron crear uno: <b>Hurd</b>, pero lamentáblemente eso es un proceso lento y costoso; por ello decidieron adoptar <em>temporalmente</em> el conocido kernel <em>linux</em>. 
 
@@ -31,10 +27,6 @@ En parte, la lentitud del desarrollo de <em>hurd</em> se debe a que éste modelo
 
 Pues instalado en el sistema: <em>qemu</em> (evidentemente).
 <blockquote>A la hora de probar <em>hurd</em> me he encontrado con que al usar la aceleración de <em>kqemu</em> el sistema no arrancaba en la máquina virtual, por tanto no recomiendo instalarlo.</blockquote>
-
-
-
-
 
 Aparte, necesitaremos una ISO (o el CD ya quemado) con una live que tenga <em>grub</em>, por ejemplo: <em>molinux</em>, <em>gnesis</em>, <em>debian netinstall</em>, etc. Finalmente necesitamos el CD de instalación de <em>hurd</em>, yo he usado:
 <a href="http://ftp.gnuab.org/pub/debian-cd/current/hurd-i386/debian-K14-hurd-i386-mini.iso">http://ftp.gnuab.org/pub/debian-cd/current/hurd-i386/debian-K14-hurd-i386-mini.iso</a>
@@ -124,10 +116,6 @@ $ qemu -hda hd0.img -std-vga -no-acpi -net none
 </div>
 </blockquote>
 
-
-
-
-
 Y ahora, para empezar a usar nuestro nuevo sistema, debemos configurarlo primero: se tienen que crear los nodos para los dispositivos, configurar los paquetes base, etc. Arrancaremos el sistema en modo <em>single</em>, esto lo podemos hacer con los siguientes comandos en la <em>shell</em> de <em>grub</em> (a la que accedemos pulsando <b>c</b> estando en el menú de arranque):
 
 
@@ -149,10 +137,6 @@ Donde <em>D</em> es el disco duro, empezando por 0 como primario maestro y 3 com
 <pre>hdDsP</pre>
 
 Donde <em>D</em> es igual que en <em>grub</em> y <em>P</em> también es la partición pero comenzando desde 1 (igual que en <em>grub</em> pero sumando 1).</blockquote>
-
-
-
-
 
 ¡Y ahí va! comienza el arranque de nuestro sistema <b>GNU</b>. Ahora sólo nos queda ejecutar el script de autoconfiguración:
 
@@ -253,10 +237,6 @@ Este paquete nos permite realizar una instalación <em>cross-system</em> de dive
 Esto nos pedirá el punto de montaje, introducimos <tt>/mnt/hurd</tt> o el que hayamos usado y seleccionamos el tipo de instalación, <b>gnu</b> en nuestro caso. Esto copiará todos los archivos necesarios en esa partición. Una vez terminado añadimos los <em>items</em> en el archivo <tt>/boot/grub/menu.lst</tt> del apéndice A y realizamos el proceso de configuración de la misma forma que lo hacíamos en la máquina virtual.
 
 <blockquote>Es muy normal que <em>hurd</em> no arranque y se quede colgado en el inicio, esto se debe a que aún no está implementada la capacidad de cargar/descargar módulos del núcleo, por tanto se compilan todos de forma estática, esto provoca que en determinados <em>hardwares</em> se quede colgado, la única solución es recompilar <em>hurd</em> para la máquina específica... que esto puede ser motivo para una nueva receta :P</blockquote>
-
-
-
-
 
 <h2>Enlaces</h2>
 

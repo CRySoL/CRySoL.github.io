@@ -8,7 +8,7 @@ category: receta
 tags:
 - networking
 ---
-Pequeña receta para montar un proxy SOCKS en tu PC para salir a internet a través de un túnel SSH.
+bq. Pequeña receta para montar un proxy SOCKS en tu PC para salir a internet a través de un túnel SSH.
 <!--break-->
 h2. Ingredientes
 
@@ -94,7 +94,7 @@ Se basa en interceptar la invocación a la llamada @connect()@  de la librería 
 Después de instalar el paquete @tsocks@ tienes que configurar el proxy SOCKS que debe usar. Si has seguido las instrucciones anteriores, edita el fichero @/etc/tsocks.conf@ y cambia el valor de la opción «server»  para que quede así (se muestran las últimas líneas del fichero):
 
 
-<div>
+<temp-div>
 {% highlight text %}
 server = 127.0.0.1
 server_type = 5

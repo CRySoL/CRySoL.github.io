@@ -8,7 +8,7 @@ category: receta
 tags:
 - ripping
 ---
-Esta receta explica cómo convertir subtítulos de un DVD a formato VobSub con herramientas libres.
+bq. Esta receta explica cómo convertir subtítulos de un DVD a formato VobSub con herramientas libres.
 <!--break-->
 
 h3. Nota Legal
@@ -117,7 +117,7 @@ h2. Todo en un @Makefile@
 
 
 
-<div>
+<temp-div>
 {% highlight text %}
 TITLE=lovestory
 TRACK=1

@@ -8,7 +8,7 @@ category: receta
 tags:
 - Arco
 ---
-Cómo leer y escribir en un puerto paralelo desde un programa C utilizando el driver @ppdev@ y la llamada al sistema @ioctl@
+bq. Cómo leer y escribir en un puerto paralelo desde un programa C utilizando el driver @ppdev@ y la llamada al sistema @ioctl@
 <!--break-->
 h2. Módulos necesarios
 

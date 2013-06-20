@@ -11,11 +11,7 @@ tags:
 <blockquote>
 Esta receta explica <b>cómo instalar y preparar bacula</b> para posteriormente montar un servicio completo de backup. Quizá lo que buscas es <a href="/node/549">cómo configurar bacula para hacer backups</a>.
 </blockquote>
-
-
-
-
-
+<!--break-->
 Muchos de nosotros tenemos en nuestros discos duros información que valoramos de <em>valiosa</em> (otros sólo tienen fotos de choteras y cosas de esas :-P ). Aunque confiemos plenamente en nuestra <b>ext3</b> y todas esas cosas puede ser que el día menos pensado nuestro <em>HDD</em> decida jubilarse sin consultarnos (¿Hace falta una receta sobre <em>S.M.A.R.T.</em> para conocer de antemano cuando va a decidir jubilarse un HDD?). En fin, me dejaré de tonterías y empezamos con el meollo.
 
 <h2>Qué es bacula</h2>
@@ -104,16 +100,12 @@ Ahora sólo nos faltará configurar todo esto para que se comuniquen entre sí..
 <blockquote>Atención: Debian unstable instala la versión 1.38.11-7 (a fecha de 6 de feb, 2007) y el paquete no consigue configurar correctamente su base de datos. Pasa lo mismo con los paquetes 2.0.1 de la página de bácula. Consulta los apéndices de la receta para más información.</blockquote>
 
 
-
-
-
-
 <h2>Configurando bacula-fd</h2>
 
 Por ser más simple será el primero que configuremos, echemos un vistazo a su archivo de configuración (<tt>/etc/bacula/bacula-fd.conf</tt>):
 
 
-<div>
+<temp-div>
 {% highlight text %}
 Director {
   Name = director_admitido1
@@ -146,7 +138,7 @@ Messages {
 Vemos que los archivos de configuración tienen una estructura que se repite:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 nombre_resource {
   opcion = valor
@@ -256,7 +248,7 @@ Este es el archivo más complicado... pero que sólo veremos "a medias", la "otr
 Veamos la parte que nos interesa ahora, tenemos esto en el fichero <tt>/etc/bacula/bacula-dir.conf</tt>:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 Director {
   Name = director_admitido1
@@ -397,10 +389,6 @@ Si todo ha ido bien podremos ejecutar <em>bconsole</em> como <em>root</em> o com
 El asterisco es el prompt de la consola de bacula, ejecutamos <em>status</em> y le decimos que <em>all</em> cuando nos pregunte de qué queremos el estado. Si algún componente no puede contactarse, se notificará con el error correspondiente. Si no obtenemos ninguno de esos errores tenemos el bácula funcionando. Ahora sólo nos queda indicarle qué archivos hay que respaldar y cuando.
 
 <blockquote>Existe un problema que no puede detectarse así y que es muy peligroso: puede suceder que el director pueda comunicarse con el storage daemon y con el file daemon, por tanto dirá que todo esta funcionando; sin embargo, el storage daemon y el file daemon no puedan conectarse entre sí; esto provocará que los backups darán siempre error y no se realizarán. Esto sucede porque cuando el director va a hacer una copia, conecta al file daemon con el storage daemon directamente y ellos dos realizan las transferencias de datos. Debéis tener esto en cuenta cuando pongáis vuestro bacula a funcionar.</blockquote>
-
-
-
-
 
 
 <h2>Apéndice A: Preparar la base de datos bacula en MySQL</h2>

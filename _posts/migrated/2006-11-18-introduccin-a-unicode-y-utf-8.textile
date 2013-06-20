@@ -6,7 +6,7 @@ created: 1163867572
 author: david_villa
 category: receta
 ---
-Pequeña introducción sobre Unicode y la codificación UTF-8.
+bq. Pequeña introducción sobre Unicode y la codificación UTF-8.
 <!--break-->
 h2. Introducción
 
@@ -19,7 +19,7 @@ h2. UTF-8
 
 Pues bien:
 
-"UTF-8":http://<a href="http://www.ietf.org/rfc/rfc3629.txt">www.ietf.org/rfc/rfc3629.txt</a> es un formato para codificar caracteres UCS (o Unicode) utilizando secuencias de bytes.
+bq. "UTF-8":http://<a href="http://www.ietf.org/rfc/rfc3629.txt">www.ietf.org/rfc/rfc3629.txt</a> es un formato para codificar caracteres UCS (o Unicode) utilizando secuencias de bytes.
 
 UTF-8 es una invención de "Ken Thompson":http://en.wikipedia.org/wiki/Ken_Thompson (sí, sí, el creador de Unix) como medio para resolver el problema de utilizar Unicode en sistemas tipo Unix. Cuando a Thompson se le ocurrió la idea de UTF-8 (septiembre 1992) trabajaba en el desarrollo de "Plan 9":http://plan9.bell-labs.com/plan9dist/ en Bell Labs. Una semana más tarde Plan 9 se convertía en el primer sistema operativo en tener soporte para UTF-8. 
 

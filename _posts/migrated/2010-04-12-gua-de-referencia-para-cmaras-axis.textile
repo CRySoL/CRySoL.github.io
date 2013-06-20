@@ -29,17 +29,17 @@ Si la cámara se ha configurado correctamente, @arping@ te mostrará la IP que e
 
 Obtener una imagen con un tamaño determinado:
 
-<div>
+<temp-div>
 {% highlight text %}
-http://81.201.204.198/axis-cgi/jpg/image.cgi?resolution=640x480
+<a href="http://81.201.204.198/axis-cgi/jpg/image.cgi?resolution=640x480">http://81.201.204.198/axis-cgi/jpg/image.cgi?resolution=640x480</a>
 {% endhighlight %}
 </div>
 
 Obtener el vídeo MPEG a una calidad determinada (y en blanco y negro):
 
-<div>
+<temp-div>
 {% highlight text %}
-http://146.186.123.229/axis-cgi/mjpg/video.cgi?resolution=320x240&camera=1&compression=25&color=0
+<a href="http://146.186.123.229/axis-cgi/mjpg/video.cgi?resolution=320x240&camera=1&compression=25&color=0">http://146.186.123.229/axis-cgi/mjpg/video.cgi?resolution=320x240&camera=1&compression=25&color=0</a>
 {% endhighlight %}
 </div>
 <h3>RTSP</h3>

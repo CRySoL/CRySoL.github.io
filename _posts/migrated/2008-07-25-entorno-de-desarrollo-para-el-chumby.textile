@@ -10,11 +10,7 @@ tags:
 ---
 <blockquote>Se pretende construir un entorno de desarrollo para crear aplicaciones en diferentes lenguajes (c/c++ y flash mayormente) para el <a href="http://www.chumby.com">Chumby</a>
 </blockquote>
-
-
-
-
-
+<!--break-->
 <h2>Ingredientes</h2>
 
 <ol>
@@ -203,7 +199,7 @@ class Test {
 }
 {% endhighlight %}
 </div>
-<div>
+<temp-div>
 {% highlight text %}
 # compile.hxml
 -swf test.swf
@@ -245,7 +241,7 @@ Tenemos dos formas de automatizar el montado: usando un PenDrive o modificando l
 La opción más sencilla sin duda es la del PenDrive, pero un tanto incómoda. Hacemos uso de una característica del GNU que lleva el cacharro: cuando arranca, comprueba si hay un fichero en el Pen, llamado <i>debugchumby</i> con permisos de ejecución. Si lo hay, lo ejecuta. Obviamente, lo que hacemos es crearlo y meter el comando pertinente:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 #!/usr/bin/env sh
 
@@ -262,7 +258,7 @@ Si quieres hacer esto mismo sin usar el pen, tienes que seguir estas recomendaci
 Hay una tercera, que no deja de ser un hack chapucero, pero que es menos peligroso. Se trata de editar el fichero <i>/psp/.profile</i> que se ejecuta cada vez que inicias sesión en el sistema. Tiene el inconveniente de que no se montará automáticamente, a menos que entres por SSH al Chumby. Si te vale, edita el fichero <i>/psp/.profile</i> y añade estas lineas (o algo análogo):
 
 
-<div>
+<temp-div>
 {% highlight text %}
 # Mount nfs partitions (oscarah)
 if [ ! -d /mnt/nfs ]; then

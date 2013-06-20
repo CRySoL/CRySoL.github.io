@@ -9,7 +9,7 @@ tags:
 - emacs
 - devel
 ---
-Cómo cambiar rápida y cómodamente entre el fichero de implementación (.c, .cc, .cpp) y el de cabecera (.h, hpp) cuando se trabaja con un proyecto C o C++ (por lo visto también funciona con Ada y VHDL).
+bq. Cómo cambiar rápida y cómodamente entre el fichero de implementación (.c, .cc, .cpp) y el de cabecera (.h, hpp) cuando se trabaja con un proyecto C o C++ (por lo visto también funciona con Ada y VHDL).
 <!--break-->
 h2. Introducción
 
@@ -20,7 +20,7 @@ h2. Configuración
 El comando en cuestión se llama @ff-find-other-file@. Pon el siguiente código en tu @.emacs@ para asociar la combinación @C-c o@:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 (add-hook 'c-mode-common-hook
     (lambda()
@@ -35,7 +35,7 @@ Con la configuración por defecto Emacs busca en los directorios definidos en la
 Afortunadamente se pueden definir directorios adicionales donde buscar. Añade esto a tu @.emacs@:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 (setq ff-search-directories (quote ("." "../include/*" "../../*")))
 {% endhighlight %}
@@ -44,7 +44,7 @@ Afortunadamente se pueden definir directorios adicionales donde buscar. Añade e
 Esto suponiendo que en tu proyecto tienes una estructura de directorios del tipo:
 
 
-<div>
+<temp-div>
 {% highlight text %}
 proyecto
 +- src

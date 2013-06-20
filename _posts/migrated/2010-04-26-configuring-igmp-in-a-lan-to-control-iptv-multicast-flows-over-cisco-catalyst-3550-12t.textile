@@ -13,11 +13,7 @@ tags:
 In this article a scheme with one device <i>Cisco Catalyst 3550-12T</i> [1] that combines the functions of both a switch and an IGMP querier is described. Catalyst 3550-12T switch has 10 Gigabit Ethernet ports and two ports for GBIC modules. Peak performance is 17 billion 
 packets per second that allows transmitting data at a 24 Gbps rate.
 </blockquote>
-
-
-
-
-
+<!--break-->
 <h2>Configuring IGMP snooping and IGMP querier</h2> 
  
 <p> 
@@ -25,7 +21,7 @@ It is required to have an IP address configured on the Vlan 1 interface of the s
 </p> 
  
 
-<div>
+<temp-div>
 {% highlight text %}
 !
 interface Vlan1
@@ -39,7 +35,7 @@ IGMP snooping is enabled by using the command (in global configuration mode):
 </p> 
  
 
-<div>
+<temp-div>
 {% highlight text %}
 ip igmp snooping
 {% endhighlight %}
@@ -50,7 +46,7 @@ IGMP querier is enabled by using the command (in global configuration mode):
 </p> 
  
 
-<div>
+<temp-div>
 {% highlight text %}
 ip igmp snooping querier
 {% endhighlight %}
@@ -76,7 +72,7 @@ use the following commands (the output is provided):
 </p> 
  
 
-<div>
+<temp-div>
 {% highlight text %}
 c3550#show ip igmp snooping querier
 Vlan      IP Address        IGMP Version   Port
@@ -97,7 +93,7 @@ command:
 </p> 
  
 
-<div>
+<temp-div>
 {% highlight text %}
 c3550#show interfaces GigabitEthernet 0/2 | include 5 minute
   5 minute input rate 0 bits/sec, 0 packets/sec
@@ -113,7 +109,7 @@ that is around 50 TV channels):
  
 
 
-<div>
+<temp-div>
 {% highlight text %}
 c3550#show interfaces GigabitEthernet 0/1 | include 5 minute
   5 minute input rate 125753000 bits/sec, 11558 packets/sec
@@ -128,7 +124,7 @@ to this TV channel. To check this let's request a TV program on the client's dev
 </p> 
  
 
-<div>
+<temp-div>
 {% highlight text %}
 vlc udp://@226.2.0.5:1234
 {% endhighlight %}
@@ -139,7 +135,7 @@ The requested TV channel appears on the client's TV screen. And on the switch in
 </p> 
  
 
-<div>
+<temp-div>
 {% highlight text %}
 c3550#show ip igmp snooping groups
 Vlan      Group             Version     Port List
@@ -154,7 +150,7 @@ the client port (Gi0/2). To check this we can check the rate of data transfer to
 </p> 
  
 
-<div>
+<temp-div>
 {% highlight text %}
 c3550#show interfaces GigabitEthernet 0/2 | include 5 minute
   5 minute input rate 0 bits/sec, 0 packets/sec
@@ -172,7 +168,7 @@ multicast packets are processed at the hardware level.
 </p> 
  
 
-<div>
+<temp-div>
 {% highlight text %}
 c3550#show processes cpu history
  
