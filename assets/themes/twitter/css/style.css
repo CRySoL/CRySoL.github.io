@@ -246,11 +246,20 @@ code, pre, kbd {
   font-family: Consolas,"Liberation Mono",Courier,monospace;
 }
 
-pre, kbd  {
+code {
+  background: white;
+  color: black;
+}
+
+pre, kbd {
   display: block;
 
   padding: 12px 10px 8px 30px;
+
+/*
   margin: 10px 0px 20px 20px;
+*/
+
 
   line-height: 110%;
 
@@ -261,13 +270,17 @@ pre, kbd  {
   word-wrap: normal;
   white-space: pre;
 
-  border: solid thin #dedede;
-
   background:#f9f9f9 url(/assets/images/file.gif) 4px 4px no-repeat;
+  border: solid thin #dedede;
 }
 
 pre:hover {
   overflow: auto;
+}
+
+.highlight pre code {
+  word-wrap: normal;
+  white-space: pre;
 }
 
 pre.console,  kbd, .console .highlight pre {
@@ -275,52 +288,70 @@ pre.console,  kbd, .console .highlight pre {
   border: solid thin #999;
 }
 
-code {
-  background: white;
-  color: black;
+/*
+.highlight pre code.console {
+	color: blue;
+	overflow: hidden;
 }
+*/
+
 
 .highlight pre {
   line-height: 110%;
 }
 
+
+/*
+
 .gist pre {
   overflow: hidden;
-}
-
-.gist {
-  margin-left: 20px;
 }
 
 .gist-file {
   overflow: hidden;
 }
+*/
 
+/*
+.gist {
+  margin-left: 20px;
+}
+*/
+
+
+/*
 .gist-data .file-data {
   padding-left: 22px;
   padding-top: 10px;
   background:#f9f9f9 url(/assets/images/file.gif) 4px 4px no-repeat;
 }
+*/
+
+/*
+pre.line-pre {
+  background: transparent;
+  border:none;
+}
+*/
 
 table.highlight {
   width: 100%;
+  background: transparent;
 }
 
 .line-numbers {
   display: none;
 }
 
-table.highlight {
-  background: transparent;
-}
-
 .gist-meta {
   display: none;
+	font-size: 80%;
 }
 
 .gist:hover .gist-meta {
   display: block;
 }
+
 
 /* pygments */
 
