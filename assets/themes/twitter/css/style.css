@@ -244,9 +244,6 @@ height: 140px;
 
 code, pre, kbd {
   font-family: Consolas,"Liberation Mono",Courier,monospace;
-}
-
-code {
   background: white;
   color: black;
 }
@@ -259,7 +256,6 @@ pre, kbd {
 /*
   margin: 10px 0px 20px 20px;
 */
-
 
   line-height: 110%;
 
@@ -300,17 +296,11 @@ pre.console,  kbd, .console .highlight pre {
   line-height: 110%;
 }
 
+/*** gist */
 
-/*
-
-.gist pre {
+.gist pre:hover {
   overflow: hidden;
 }
-
-.gist-file {
-  overflow: hidden;
-}
-*/
 
 /*
 .gist {
@@ -318,34 +308,27 @@ pre.console,  kbd, .console .highlight pre {
 }
 */
 
-
-/*
 .gist-data .file-data {
   padding-left: 22px;
   padding-top: 10px;
   background:#f9f9f9 url(/assets/images/file.gif) 4px 4px no-repeat;
 }
-*/
 
-/*
-pre.line-pre {
-  background: transparent;
-  border:none;
+.gist pre.line-pre {
+  background: none;
 }
-*/
 
-table.highlight {
+.gist table.highlight {
   width: 100%;
   background: transparent;
 }
 
-.line-numbers {
+.gist .line-numbers {
   display: none;
 }
 
 .gist-meta {
   display: none;
-	font-size: 80%;
 }
 
 .gist:hover .gist-meta {
