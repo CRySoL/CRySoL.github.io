@@ -1,0 +1,71 @@
+---
+layout: post
+title: "Configurar tarjeta Realtek 8723AE en Debian"
+author: isaac_lacoba
+description: "Instalación de drivers rtl8723ae en Debian"
+category: receta
+tags: Debian
+permalink: node/1
+sticky: true
+---
+
+Esta receta explica cómo configurar una tarjeta rtl8723AE en una distribución Debian.
+
+<!--break-->
+
+
+h2. Pasos
+
+	1. Instale el paquete firmware-realtek:
+	
+<pre class="console">
+$sudo apt-get install firmware-realtek
+</pre>             
+
+
+	<p> Teóricamente, esto debería instalar el driver correctamente. Pero como vemos en el siguiente <a href="http://packages.debian.org/jessie/firmware-realtek">link</a>, el firmware de la tarjeta rtl8723ae no se encuentra entre los drivers listados. </p>
+	
+
+        2. Descargue los drivers oficiales:
+
+<pre class="console">
+$ cd ~/Descargas      
+$ wget -O- http://dl.dropbox.com/u/57056576/DRIVERS/REALTEK/rtl_92ce_92se_92de_8723ae_linux_mac80211_0006.0514.2012.tar.gz | tar -xz
+</pre>
+
+	Por alguna razón que desconozco, Realtek no distribuye los drivers oficiales de esta tarjeta en la web oficial. Lo hace a través de ese 	enlace de Dropbox. Parece sospechoso, pero yo he podido comprobar que lo contiene ese link son efectivamente los drivers de las tarjetas 		realtek.
+
+
+	3. Copie los ficheros rtl8723fw_B.bin  y rtl8723fw.bin que se encuentran en la carpeta firmware/rtlwifi en la carpeta que ha creado a 		instalar el paquete firmware-realtek (/lib/firmware/rtlwifi):
+
+<pre class="console">
+$cd ~/Descargas
+$cd rtl_92ce_92se_92de_8723ae_linux_mac80211_0006.0514.2012/firmware/rtlwifi/
+$cp rtl8723fw* /lib/firmware/rtlwifi/
+</pre>
+
+Reinicie el ordenador y compruebe que la tarjeta funciona correctamente.
+
+h2. Referencias
+
+<p>Para ampliar información acerca de este mismo tema, visite el post original gracias al cuál pude encontrar la solución: <a href="http://askubuntu.com/questions/139632/wireless-card-realtek-rtl8723ae-bt-is-not-recognized">post original</a>
+</p>
+
+En particular, son interesantes el segundo y el último comentario. Fue el último comentario el que me ayudó a resolver el problema, ya que no fui capaz de compilar los drivers, al igual que le ocurre a otros usuarios del foro anterior.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
