@@ -2,11 +2,8 @@
 layout: post
 title: "Configurar tarjeta Realtek 8723AE en Debian"
 author: isaac_lacoba
-description: "Instalación de drivers rtl8723ae en Debian"
 category: receta
 tags: Debian
-permalink: node/1
-sticky: true
 ---
 
 Esta receta explica cómo configurar una tarjeta rtl8723AE en una distribución Debian.
@@ -17,19 +14,19 @@ Esta receta explica cómo configurar una tarjeta rtl8723AE en una distribución 
 h2. Pasos
 
 	1. Instale el paquete firmware-realtek:
-	
+
 <pre class="console">
 $sudo apt-get install firmware-realtek
-</pre>             
+</pre>
 
 
 	<p> Teóricamente, esto debería instalar el driver correctamente. Pero como vemos en el siguiente <a href="http://packages.debian.org/jessie/firmware-realtek">link</a>, el firmware de la tarjeta rtl8723ae no se encuentra entre los drivers listados. </p>
-	
+
 
         2. Descargue los drivers oficiales:
 
 <pre class="console">
-$ cd ~/Descargas      
+$ cd ~/Descargas
 $ wget -O- http://dl.dropbox.com/u/57056576/DRIVERS/REALTEK/rtl_92ce_92se_92de_8723ae_linux_mac80211_0006.0514.2012.tar.gz | tar -xz
 </pre>
 
@@ -52,20 +49,3 @@ h2. Referencias
 </p>
 
 En particular, son interesantes el segundo y el último comentario. Fue el último comentario el que me ayudó a resolver el problema, ya que no fui capaz de compilar los drivers, al igual que le ocurre a otros usuarios del foro anterior.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
