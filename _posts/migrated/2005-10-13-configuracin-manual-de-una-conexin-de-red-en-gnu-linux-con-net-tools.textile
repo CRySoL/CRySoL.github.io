@@ -12,6 +12,10 @@ tags:
 
 Hay otras posibilidades (como <tt>etherconf</tt>) pero la finalidad de esta receta es utilizar los comandos básicos disponibles en los sistemas GNU/Linux, en concreto con @ipconfig@ y @route@ del paquete @net-tools@.
 </blockquote>
+
+<!--break-->
+
+
 <!--break -->
 
 h2. Preinstalación
@@ -144,7 +148,7 @@ h2. El fichero <tt>/etc/network/interfaces</tt>
 Todo lo anterior se puede dejar escrito en el fichero de configuración <tt>/etc/network/interfaces</tt>, para que al reiniciar se mantengan esos valores. El contenido de dicho fichero para la configuración equivalente a la anterior sería:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 auto lo
 iface lo inet loopback
@@ -163,7 +167,7 @@ h2. Configuración del DNS
 Modifica el archivo <tt>/etc/resolv.conf</tt> o lo crearemos, si no existe, con la siguiente información:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 ### Comentarios varios
 domain inf-cr.uclm.es  
@@ -175,7 +179,7 @@ nameserver 161.67.27.4
 Si queremos acceder a una máquina por medio de un nombre que no está en el DNS, podemos editar el archivo <tt>/etc/hosts</tt> e incluir en él una línea del tipo:
    
 
-<temp-div>
+<div>
 {% highlight text %}
 161.67.27.132 arco.inf-cr.uclm.es arco
 {% endhighlight %}

@@ -13,7 +13,11 @@ tags:
 <blockquote>
 Proyecto de un juego libre programado un python en el que puedes competir contra ti mismo o contra un compañero, pudiendo tocar una guitarra o una batería.
 </blockquote>
-<!--break-->
+
+
+
+
+
 
 Hola chicos y chicas...
 
@@ -25,9 +29,9 @@ El proyecto consiste en un juego arcade donde un jugador puede controlar una gui
 
 h2. El primer hito a conseguir es el siguiente, los demás hitos se discutirán cuando se termine este:
 
-bq. (1) Tener un programa en python, modular y extensible, que dado un ogg y un archivo de texto o XML con un formato determinado, reproduzca un sonido al pulsar una tecla (o botón de un pad), un sonido distinto por cada una de las 5 posibles teclas, y que diga si se ha pulsado en el momento correcto según el archivo asociado.
+(1) Tener un programa en python, modular y extensible, que dado un ogg y un archivo de texto o XML con un formato determinado, reproduzca un sonido al pulsar una tecla (o botón de un pad), un sonido distinto por cada una de las 5 posibles teclas, y que diga si se ha pulsado en el momento correcto según el archivo asociado.
 
-bq. (2) Tener un editor de dichos archivos dado un determinado OGG.
+(2) Tener un editor de dichos archivos dado un determinado OGG.
 
 
 El archivo asociado debería contener la siguiente información:

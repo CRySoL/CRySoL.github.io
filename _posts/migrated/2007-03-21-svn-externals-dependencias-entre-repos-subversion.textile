@@ -12,7 +12,11 @@ tags:
 <blockquote class="head">
 Los svn:external son una _feature_ muy interesante de subversion, que permite que cuando descargas o actualizas una copia de un modulo automáticamente 'tire' de otros módulos que pueden estar en otros repositorios. Una especie de gestión automática de dependencias entre repos.
 </blockquote>
-<!--break-->
+
+
+
+
+
 Es algo bastante sencillo, usaremos las propiedades de SubVersioN. En concreto "externals". Los externals de svn son un conjunto de mappings entre un directorio local y una url que puede ser de cualquier cosa que se pueda traer mediante svn. 
 
 Esto puede serte útil si, por ejemplo, necesitas construirte una copia de trabajo que contenga directorios de diferentes repositorios, o del mismo repositorio, pero de diferentes localizaciones.
@@ -44,7 +48,7 @@ Tiene algunas limitaciones: no se pueden colocar rutas relativas, ni usar ficher
 En los enlaces externos que usan ssh, por defecto determina que el nombre de usuario sea el local (igual que si haces <em>ssh host</em> sin especificar el nombre de usuario). Puedes modificar este comportamiento añadiendo los nuevos hosts en el archivo @~/.ssh/config@ y especificando ahí el nombre de usuario para el servidor concreto al que se refieres el "external":
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Host repo.example.com
      User Pepito.Grillo

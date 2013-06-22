@@ -1,48 +1,92 @@
 ---
 layout: post
-title: pruebas de estilo en listados de código
+title: Pruebas de estilo en listados de código
 author: david_villa
+frontpage: false
 ---
 
-Probando el estilo de los listados de código, consola y gist.
+Pruebas de estilo de los distintos tipos de listados de la web. Se muestran etiquetas HTML, soporte de liquid con @highlight@ y @gist@. Echa un vistado al <a href="https://github.com/CRySoL/web.source/raw/master/{{page.path}}">fuente de este post</a>.
+
 
 <!--break-->
 
+h2. {% raw %}{% highlight python %}{% endraw %}
+
 {% highlight python %}
-highlight python
 class Thing:
     def method(args):
         return None
 {% endhighlight %}
 
+
+h2. {% raw %}{% highlight html %}{% endraw %}
+
+{% highlight html %}
+<div class="cls">
+</div>
+{% endhighlight %}
+
+
+h2. {% raw %}{% highlight text %}{% endraw %}
+
+{% highlight text %}
+<div class="cls">
+</div>
+{% endhighlight %}
+
+
+h2. {% raw %}{% highlight console %}{% endraw %}
+
 {% highlight console %}
-highlight console
 $ ls
 {% endhighlight %}
 
-{% highlight html %}
-highlight html
-<div class="cls">
-</div>
-{% endhighlight %}
 
+h2. &lt;pre&gt;
 
-{% highlight text %}
-highlight text
-<div class="cls">
-</div>
-{% endhighlight %}
-
-<pre class="console">
-$ pre class="console"
+<pre>
+file contents
 </pre>
 
 
+h2. &lt;code&gt;
+
+Inline <code>code</code> in text
+
+
+h2. &lt;kbd&gt;
+
+<kbd>keyboard input</kbd>
+
+
+h2. &lt;pre class="console"&gt;
+
+<pre class="console">
+$ uname -a
+Linux kiff 3.8-1-amd64 #1 SMP Debian 3.8.12-1 x86_64 GNU/Linux
+</pre>
+
+
+h2. &lt;div class="console"&gt; {% raw %}{% highlight text %}{% endraw %}
+
 <div class="console">
 {% highlight text %}
-$ div class="console" highlight console
+$ uname -a
+Linux kiff 3.8-1-amd64 #1 SMP Debian 3.8.12-1 x86_64 GNU/Linux
 {% endhighlight %}
 </div>
 
+
+h2. &lt;div class="console"&gt; {% raw %}{% highlight console %}{% endraw %}
+
+<div class="console">
+{% highlight console %}
+$ uname -a
+Linux kiff 3.8-1-amd64 #1 SMP Debian 3.8.12-1 x86_64 GNU/Linux
+{% endhighlight %}
+</div>
+
+
+h2. {% raw %}{% gist 5764837 %}{% endraw %}
 
 {% gist 5764837 %}

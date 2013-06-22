@@ -44,7 +44,7 @@ We will use the next network definition. Write it in a file named @net-grid.xml@
 [ "net-grid.xml":https://bitbucket.org/DavidVilla/libvirt-toys/src/tip/grid/net-grid.xml ]
 
 
-<temp-div>
+<div>
 {% highlight text %}
 <network>
   <name>grid</name>
@@ -89,7 +89,7 @@ We make a minimal debian installation and then we will make 5 clones. Next scrip
 [ "install.sh":https://bitbucket.org/DavidVilla/libvirt-toys/src/tip/grid/install.sh ]
 
 
-<temp-div>
+<div>
 {% highlight text %}
 #!/bin/bash --
 export LIBVIRT_DEFAULT_URI=qemu:///system
@@ -106,11 +106,11 @@ virt-install \
   --name=$name \
   --ram=512 \
   --disk ./$name.img,size=1.2,sparse=true \
-  --location=<a href="http://babel.esi.uclm.es/debian/dists/testing/main/installer-i386">http://babel.esi.uclm.es/debian/dists/testing/main/installer-i386</a> \
+  --location=http://babel.esi.uclm.es/debian/dists/testing/main/installer-i386 \
   --network=network=grid,mac=00:AA:00:00:00:11 \
   --extra-args="\
     auto=true priority=critical vga=normal hostname=$name \
-    url=<a href="http://192.168.122.1/preseed.cfg">http://192.168.122.1/preseed.cfg</a>"
+    url=http://192.168.122.1/preseed.cfg"
 {% endhighlight %}
 </div>
 
@@ -201,7 +201,7 @@ Our initial manifest is pretty simple. We want to install some packages: ice34-s
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 package {'ice34-services':
   ensure => present,

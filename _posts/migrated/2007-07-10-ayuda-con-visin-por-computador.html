@@ -10,7 +10,11 @@ category: consulta
 <blockquote class="head"> 
    Intento realizar la reconstrucción 3D a partir de la visión estereo (dos imágenes o más) he llegado a un punto en el que me he quedado atascado. A ver si alguno de ustedes me puede orientar. 
  </blockquote>
-<!--break-->
+
+
+
+
+
 
 <h2>Aclaraciones:</h2>
    La reconstrucción 3D lo que pretende  es obtener las dimensiones 3D de un objeto a partir de varias imágenes tomadas del mismo desde diferentes posiciones(mínimo dos imágenes).
@@ -33,7 +37,7 @@ Para ello yo estoy utilizando dos cámaras.
    cvFindFundamentalMatrix( points1, points2,8,0, fund_matrix);
  points1 corresponde a los puntos de la imagen de la izquierda, y points2 corresponde a los puntos de la imagen de la derecha, la matriz fundamental queda almacenada  en fund_matrix.
  </blockuote>
-<!--break-->
+
 </li>
 
 <li> calcular la matriz esencial a partir de la matriz fundamental y la matriz de cámara de ambas cámaras 
@@ -47,7 +51,7 @@ Para ello yo estoy utilizando dos cámaras.
            F la matriz fundamental.
              
  </blockuote>
-<!--break-->
+
 </li>
 <li> calcular la descomposición SVD de la matriz esencial 
 <blockquote class="head"> 
@@ -61,7 +65,7 @@ Para ello yo estoy utilizando dos cámaras.
            A=U*W*VT
 
  </blockuote>
-<!--break-->
+
 </li>
 <li> Calculamos la matriz de rotación(R)
 <blockquote class="head"> 
@@ -77,7 +81,7 @@ donde P es :
  | 0 0 1|
                        
  </blockuote>
-<!--break-->
+
 </li>
 <li> Calculamos la matriz de traslacion(T)
 <blockquote class="head"> 
@@ -100,7 +104,7 @@ En uno de los documentos lo que hacen es formar esta matriz de 3 X 1, a partir d
                  |a02|
                  |a02|                  
  </blockuote>
-<!--break-->
+
 </li>
 
   <li> Con todas las matrices halladas anteriormente resolver las siguientes dos ecuaciones independientes
@@ -118,7 +122,7 @@ T es una matriz de 3X1 (vector de traslacion)
 M es el punto 3D que quiero obtener.
 
  </blockuote>
-<!--break-->
+
 </li>
 </ol>
 

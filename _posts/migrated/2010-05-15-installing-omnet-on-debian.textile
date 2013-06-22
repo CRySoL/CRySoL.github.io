@@ -10,6 +10,9 @@ tags:
 ---
 h2. Ingredients
 
+<!--break-->
+
+
 Install next Debian packages:
 
 * tcl8.5-dev
@@ -34,7 +37,7 @@ $ make
 You need to put the omnet @bin@ directory in you path. Write this in your @.bashrc@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 export PATH=$PATH:/home/user/repos/omnetpp-4.0p1/bin
 {% endhighlight %}

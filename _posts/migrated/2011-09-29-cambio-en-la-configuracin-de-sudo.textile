@@ -24,7 +24,7 @@ Note: root's PATH should usually contain /usr/local/sbin, /usr/sbin and /sbin.
 Para arreglarlo añade lo siguiente:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 {% endhighlight %}

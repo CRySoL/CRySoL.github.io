@@ -1,5 +1,5 @@
 <div class="header">
-   <span class="submitted">
+  <span class="submitted">
     {{ page.date | date: "%Y-%m-%d" }}
     {% include custom/page_author %}
   </span>
@@ -7,8 +7,8 @@
    <span class="source">
      —
      [
-      <a href="https://github.com/CRySoL/CRySoL.github.io/edit/master/{{page.path}}">edit</a> |
-      <a href="https://github.com/CRySoL/CRySoL.github.io/raw/master/{{page.path}}">raw</a>
+      <a href="https://github.com/CRySoL/web.source/edit/master/{{page.path}}">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/{{page.path}}">raw</a>
       ]
    </span>
 

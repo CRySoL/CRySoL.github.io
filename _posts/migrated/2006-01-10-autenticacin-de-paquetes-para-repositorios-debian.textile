@@ -6,7 +6,7 @@ created: 1136847600
 author: david_villa
 category: receta
 ---
-bq. Cómo configurar adecuadamente la autenticación de repositorios en Debian, Ubuntu y derivados.
+Cómo configurar adecuadamente la autenticación de repositorios en Debian, Ubuntu y derivados.
 <!--break-->
 Cuando instalas paquetes binarios desde Internet tu sistema puede quedar comprometido si los descargas de sitios poco fiables. Incluso utilizando sitios oficiales puede ser un grave problema de seguridad si alguien consigue hacerse pasar por el servidor o introduce paquetes maliciosamente modificados.
 

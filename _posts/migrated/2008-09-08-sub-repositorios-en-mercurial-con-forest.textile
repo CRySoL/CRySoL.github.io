@@ -9,7 +9,7 @@ tags:
 - control de versiones
 - mercurial
 ---
-bq. Cómo manejar conjuntos de repositorios mercurial al estilo de los directorios de subversion o los subrepositorios de git.
+Cómo manejar conjuntos de repositorios mercurial al estilo de los directorios de subversion o los subrepositorios de git.
 <!--break-->
 h2. Introducción
 
@@ -70,7 +70,7 @@ pepe@box:~/repos/WorldDomination$ hg init
 Edita @.hg/hgrc@ y añade esto:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 [extensions]
 hgext.forest=/home/pepe/repos/hgforest/forest.py

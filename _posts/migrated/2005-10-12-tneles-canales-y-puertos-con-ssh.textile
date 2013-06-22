@@ -8,7 +8,7 @@ category: receta
 tags:
 - networking
 ---
-bq. @ssh@ (entre otras muchas cosas) también sirve para crear túneles entre máquinas o simplemente redireccionar puertos en un misma máquina.
+@ssh@ (entre otras muchas cosas) también sirve para crear túneles entre máquinas o simplemente redireccionar puertos en un misma máquina.
 <!--break-->
 h2. Redirigir conexiones a esta máquina hacia otra (<em>local forwarding</em>)
 

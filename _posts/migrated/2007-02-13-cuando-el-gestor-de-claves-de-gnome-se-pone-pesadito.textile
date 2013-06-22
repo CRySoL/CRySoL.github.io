@@ -6,6 +6,9 @@ created: 1171397966
 author: david_villa
 ---
 
+
+<!--break-->
+
 Como supongo que sabrás, nautilus tiene un soporte VFS bastante apañado, que permite acceder fácilmente a ficheros remotos por sftp, webdav, samba, etc. El gestor de claves te da la posibilidad de almacenar temporal o permanentemente el usuario y la clave correspondiente, pero... por algún motivo, algunas aplicaciones GTK de pronto te empiezan a preguntar (muchas veces) por esas claves aunque no venga a cuento, por ejemplo: glade-2 o gthumb.
 
 Solución: borra o edita el fichero @.gtk-bookmarks@ que debe andar en tu HOME.

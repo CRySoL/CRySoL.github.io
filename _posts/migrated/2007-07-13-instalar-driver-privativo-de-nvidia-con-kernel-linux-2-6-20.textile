@@ -10,6 +10,9 @@ tags:
 ---
 bq(head). Si tienes una tarjeta gráfica de Nvidia y usas GNU normalmente usarás los drivers privativos y gratuitos para la misma. Como sabrás, hace falta compilar el módulo "nvidia" para cada nueva versión de kernel que instales. El problema ha surgido a partir de la versión del kernel linux 2.6.20, en el que se activó algo sobre la paravirtualización que hace que la compilación del módulo nvidia falle.
 
+<!--break-->
+
+
 h2. Introducción
 
 La principal motivación de esta receta es explicar como tener aceleración hardware para gráficos 3D en las tarjetas Nvidia, ya que el driver libre "nv" no nos lo proporciona. La receta básicamente consistirá en añadir unas líneas al Makefile del instalador de Nvidia, así que vamos al lío.

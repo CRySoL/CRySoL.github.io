@@ -6,7 +6,7 @@ created: 1167743401
 author: david_villa
 category: receta
 ---
-bq. Cómo configurar CUPS para que sirva una impresora a toda una red sin que los clientes la conozcan de antemano.
+Cómo configurar CUPS para que sirva una impresora a toda una red sin que los clientes la conozcan de antemano.
 <!--break-->
 Ya sé que es una chorrada y que hay miles de recetas sobre esto, además de la propia documentación de CUPS. Pero siempre que lo necesito pierdo más tiempo del necesario, así que pongo aquí lo imprescindible, que para eso son las recetas.
 
@@ -21,7 +21,7 @@ h2. Servidor
 Edita el fichero @/etc/cups/cups.conf@, para que incluya estas líneas:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Port 631
 Listen 192.168.0.1:631         # dónde escucha el servidor
@@ -43,7 +43,7 @@ h2. Cliente
 Edita el fichero @/etc/cups/cups.conf@ y asegúrate que incluya estas líneas:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Browsing On                  # atender anuncios de impresoras remotas
 BrowseAllow 192.168.0.0/24   # atender anuncios que procedan de la red local

@@ -8,7 +8,7 @@ category: receta
 tags:
 - networking
 ---
-bq. Esta receta es muy similar a esta otra de "SSHfs + FUSE":node/99. La diferencia es que aquí se usa un driver específico llamado *SHFS*. Igualmente se trata de acceder a ficheros de una máquina remota a través de SSH.
+Esta receta es muy similar a esta otra de "SSHfs + FUSE":node/99. La diferencia es que aquí se usa un driver específico llamado *SHFS*. Igualmente se trata de acceder a ficheros de una máquina remota a través de SSH.
 <!--break-->
 h2. Instalación
 

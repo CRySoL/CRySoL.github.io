@@ -9,7 +9,7 @@ tags:
 - Arco
 - control de versiones
 ---
-bq. "Mercurial":http://mercurial.selenic.com/, como ya vimos en la receta  "«Mercurial, por favor»":http://crysol.org/es/node/919 es un sistema de control de versiones distribuido y demás info que podéis encontrar en los enlaces. En esta receta quiero explicar algo sobre el uso un poco más avanzado: los llamados _hooks_
+"Mercurial":http://mercurial.selenic.com/, como ya vimos en la receta  "«Mercurial, por favor»":http://crysol.org/es/node/919 es un sistema de control de versiones distribuido y demás info que podéis encontrar en los enlaces. En esta receta quiero explicar algo sobre el uso un poco más avanzado: los llamados _hooks_
 <!--break-->
 Los _hooks_ son ejecutables en los que indicamos al repositorio que tiene que ejecutar eso ante un determinado evento. Esta es una lista de los eventos disponibles:
 

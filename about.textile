@@ -1,0 +1,51 @@
+---
+layout: page
+title: About
+tagline: ¿Qué es CRySoL?
+group: navigation
+---
+{% include JB/setup %}
+
+
+*CRySoL* es un grupo independiente de gente interesada en usar y difundir todo tipo de SOFTWARE LIBRE (así, en mayúsculas).  Entendemos el "software libre":http://www.fsfeurope.org/documents/whyfs.es.html en los términos en los que lo definió Richard Stallman y con los objetivos de su proyecto GNU. No nos da miedo utilizar la palabra <b>libertad</b> y aborrecemos eufemismos comerciales del tipo _Open Source_, _fuentes abiertas_ y otros eufemismos que evitan hablar de lo importante.
+
+Por eso, CRySoL es un "Grupo de Usuarios de Software Libre":http://www.gnu.org/gnu/fs-user-groups.html, y no un <acronym title="Linux User Group">LUG</acronym> convencional. Por supuesto, muchos usamos el popular y estupendo núcleo Linux, pero también sabemos que hay vida más allá y no cerramos la puerta a otras posibilidades, de ahí que sea absurdo decir que CRySoL es un LUG. Por todo eso está bien que llames «Linux» a Linux, pero por favor, no llames «Linux» a todo lo demás. Si lo haces no te sorprendas si hieres sensibilidades dentro de CRySoL.
+
+Vemos el *software libre* como un medio para conseguir que la sociedad pueda acceder a la tecnología y evitar que el software privativo convierta a la gente en esclavos de sus computadores, encerrados en un mercado de consumo. El *software libre* es un _regalo_ de la _comunidad_ a la sociedad, es un bien de todos y para todos, es *tecnología social*, y no es gratis (si el autor no quiere).
+
+También somos afines a los movimientos de cultura libre, conocidos como *copyleft*, y a todo tipo de distribución universal de la cultura siempre que se respeten las atribuciones y licencia de los autores. Cualquier evento, noticia o discusión sobre cultura libre, contenidos, etc también es bienvenido en nuestro portal.
+
+Si compartes nuestro punto de vista sobre el *software libre*, entonces tú también eres de CRySoL, ¡Bienvenido/a! Si no lo compartes, busca otro grupo de usuarios más afín con tus ideales linuxeros (hay miles). No nos gustan los _trolls_ ni las discusiones estériles...
+
+
+h3. Historia
+
+CRySoL se forjó en octubre de 2000, gracias al apoyo de unos cuantos alumnos y profesores de los grupos "ARCO":http://arco.esi.uclm.es y "ORETO":http://oreto.esi.uclm.es de la <acronym title="Escuela Superior de Informática">ESI</acronym> de Ciudad Real. Pero hoy día somos casi 200 personas y ni mucho menos son todos universitarios, ni de Ciudad Real.
+
+
+h3. Agradecimientos
+
+Entre noviembre de 2005 hasta junio de 2013, la página web de CRySoL estuvo alojada en el servidor del grupo de investigación <a href="http://arco.esi.uclm.es"><acronym title="Arquitectura y Redes de Computadores">ARCO</acronym></a> de la <a href="http://www.esi.uclm.es"><acronym title="Escuela Superior de Informática">ESI</acronym></a> de Ciudad Real.
+
+
+h3. Logo y mascota
+
+Nuestro "logo":https://arco.inf-cr.uclm.es/svn/public/prj/crysol/logo/crysollogo.svg es obra de Carlos González "Morcillo":http://morcy.org y la mascota (el baby gnu) es parte de un diseño libre de "Nicolas Rougier":http://www.loria.fr/~rougier/artwork/gnu-tux/ disponible en la página de "GNU":http://www.gnu.org/graphics/3dbabygnutux.html.
+
+
+h3. Cómo funciona la web
+
+La web de CRySoL es una especie de «planet», es decir, todos los miembros de CRySoL tienen un blog en el que pueden poner sus _posts_ (envíos). Los editores deciden cuales de esos envíos aparecen en portada y cuales no. De modo que lo que ves en la página principal es una mezcla de las últimas aportaciones que los miembros han hecho a sus blogs. La mayoría de esos envíos son "recetas":/recetas, una especie de guías rápidas para conseguir que algo concreto funcione.
+
+Los editores también pueden retirar envíos de portada, corregirlos, editarlos o des-publicarlos si lo consideran oportuno. Solo en situaciones graves los editores borrarán envíos. El conjunto de administradores y editores no es un coto cerrado, CRySoL es una «currocracia», cualquiera que aporte, participe activamente y encaje en la línea ideológica básica (que está explicada arriba) puede optar a editor o incluso a administrador.
+
+Happy hacking!
+
+
+<!--
+.. Local Variables:
+..  coding: utf-8
+..  mode: flyspell
+..  ispell-local-dictionary: "castellano8"
+.. End:
+-->

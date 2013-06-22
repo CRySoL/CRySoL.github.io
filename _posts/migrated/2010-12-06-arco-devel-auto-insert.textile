@@ -11,11 +11,14 @@ tags:
 ---
 @auto-insert@ es un modo estándar de GNU Emacs, al menos de emacs-23, que permite incluir contendido en el buffer de forma automática/asistida. A partir de la versión 60 de arco-devel se incluye un sencillo de fichero de configuración para @auto-insert@ y tres plantillas. Con el tiempo iremos añadiendo otras y, por supuesto, os animamos a que propongáis también las vuestras:
 
+<!--break-->
+
+
 Al crear un fichero nuevo con la extensión correspondiente se copia el contenido de la plantilla. Las 3 que hay ahora mismo son:
 * Cabecera «estándar» para scripts Python, es decir:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 #!/usr/bin/python
 # -*- coding:utf-8; tab-width:4; mode:python -*-
@@ -25,7 +28,7 @@ Al crear un fichero nuevo con la extensión correspondiente se copia el contenid
 * Cabecera «estándar» para scripts shell, es decir:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 #!/bin/bash --
 # -*- coding:utf-8; tab-width:4; mode:shell-script -*-

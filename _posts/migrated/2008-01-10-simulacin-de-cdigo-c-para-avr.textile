@@ -9,7 +9,11 @@ tags:
 - embedded
 ---
 <blockquote>Cómo depurar un programa en C para AVR en GNU/Linux con <b>avr-gdb</b></blockquote>
-<!--break-->
+
+
+
+
+
 <h2>Introducción</h2>
 Después de haberlo intentado varias veces, habiéndome dado por vencido siempre, he vuelto a las andadas, ésta vez para no parar hasta conseguir depurar un programa escrito que utiliza <a href="http://www.nongnu.org/avr-libc"><b>avr-libc</b></a> (se puede consultar la receta sobre  <a href="http://crysol.org/node/530">instalar la toolchain para AVR</a> en éste mismo blog).
 

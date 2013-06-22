@@ -9,6 +9,9 @@ tags:
 ---
 Algunos atajos útiles en bash, vía variables de entorno.
 
+<!--break-->
+
+
 h2. Último comando ejecutado:
 
 La variable <tt>$!!</tt> almacena el último comando ejecutado, con todos sus argumentos:

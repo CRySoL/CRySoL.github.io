@@ -25,7 +25,7 @@ Para la creación de un nuevo componente sigue estos pasos:
 # A continuación selecciona la capa silk y con la herramienta line dibuja el contorno que quieres que tenga tu componente.
 # Una vez hecho ésto vuelve a seleccionar la capa component y con la herramienta via coloca los pads de tu componente.
 
-bq. Para seleccionar el ancho del pad y el grosor del agujero ve a Edit-->change board size... y modifica los campos via size y via hole.
+Para seleccionar el ancho del pad y el grosor del agujero ve a Edit-->change board size... y modifica los campos via size y via hole.
 
 Esto debes hacerlo antes de colocar los pads del componente.
 

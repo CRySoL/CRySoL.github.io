@@ -9,7 +9,11 @@ tags:
 - networking
 ---
 <blockquote>Hola buenas! todos nosotros somos adictos en mayor/menor medida a las redes P2P, de ellas descargamos películas, discos y algunos <em>delincuentes</em> programas y juegos. No es ningún secreto que la mayoría de los <em>internautas</em> españoles usan su conexión a internet para esto, las ISP's lo saben y como pasan de que su red se colapse realizan un filtro de protocolo a <em>emule</em> y <em>torrents</em> (las compañías evidentemente te lo negarán). No vale cambiar el puerto de escucha porque no se hace un filtro de puertos, se realiza filtro de protocolo. Se sospecha que Telefónica y Ono lo hacen; si es verdad que lo hacen deberían por lo menos avisar, así que nosotros vamos a intentar hacerles la pirula.</blockquote>
-<!--break-->
+
+
+
+
+
 <h1>Conexiones ofuscadas</h1>
 Nuestro problema está en que si un <em>router</em> de nuestro ISP <em>sabe</em> qué protocolo está transportando, podrá aplicar unas reglas de <em>QoS</em> (calidad de servicio) que probablemente a nosotros no nos haga ninguna gracia. La solución es más o menos sencilla: <em>ofuscar</em> el protocolo. Ofuscar una conexión es "desbaratar" el paquete saliente de forma que sea irreconocible, cuando llega a su destino, el receptor conoce la forma de recomponer el paquete. Hasta lo que sé, por ahora es la propia aplicación la que debe ofuscar el protocolo.
 
@@ -25,6 +29,10 @@ Pues bien, el <em>emule</em> funciona bastante bien con <em>wine</em> pero exist
 </div>
 
 <blockquote>Hay que advertir que esto es <em>PELIGROSO</em>, para paliar un poco los problemas, podríamos crear una jaula <em>chroot</em> o algo así, si alguno lo hace que mande un post o modifique la receta :-P.</blockquote>
+
+
+
+
 
 Una vez arrancado la mula, nos vamos a <em>Preferencias > Seguridad > Activar la Ofuscación de Protocolo</em> y listo!. El <em>único</em> problema de todo esto es que no hay mucha gente que use ofuscación, por ese motivo sólo descargaréis a máxima velocidad de clientes que usen también ofuscación.
 

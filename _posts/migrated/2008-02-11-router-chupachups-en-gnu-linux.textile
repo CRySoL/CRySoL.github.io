@@ -28,7 +28,7 @@ El fichero @/etc/network/interfaces@ queda tal que:
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 auto lo
 iface lo inet loopback
@@ -50,7 +50,7 @@ h2. DNS y DHCP
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 dhcp-range=192.168.0.2,192.168.0.254,12h
 dhcp-option=3,192.168.0.1

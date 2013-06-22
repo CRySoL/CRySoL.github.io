@@ -107,23 +107,24 @@ footer {
   border: thin solid #ddd;
 }
 
-.node h2, .node h1 {
-  font-size: 140%;
-  line-height: 26px;
-  margin-bottom: 0;
-  border-bottom: solid thin #ccc;
-}
-
-.node h2 {
-  margin-top: 15px;
-}
-
-.node .header {
+.header {
   margin-bottom: 8pt;
 }
 
 .teaser {
   border-style: outset;
+}
+
+.page-header h1, .teaser h2 {
+  font-size: 160%;
+  line-height: 26px;
+  margin-bottom: 0;
+  border-bottom: solid thin #ccc;
+}
+
+.content h2 {
+  font-size: 130%;
+  margin-top: 15px;
 }
 
 .teaser .source {
@@ -242,13 +243,17 @@ height: 140px;
 
 /** listados de código **/
 
-code, pre, kbd {
+kbd {
+  word-wrap:break-word;
+}
+
+code, pre {
   font-family: Consolas,"Liberation Mono",Courier,monospace;
   background: white;
   color: black;
 }
 
-pre, kbd {
+pre {
   display: block;
 
   padding: 12px 10px 8px 30px;
@@ -279,18 +284,10 @@ pre:hover {
   white-space: pre;
 }
 
-pre.console,  kbd, .console .highlight pre {
+pre.console, .console .highlight pre {
   background:#ccc url(/assets/images/shell.gif) 3px 3px no-repeat;
-  border: solid thin #999;
+  border-color: #999;
 }
-
-/*
-.highlight pre code.console {
-	color: blue;
-	overflow: hidden;
-}
-*/
-
 
 .highlight pre {
   line-height: 110%;

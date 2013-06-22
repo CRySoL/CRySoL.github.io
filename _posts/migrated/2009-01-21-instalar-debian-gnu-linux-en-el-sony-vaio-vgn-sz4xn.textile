@@ -159,7 +159,7 @@ Para el caso de la _nvidia_ ya sabes como tener aceleración con los drivers pro
 Los parámetros de configuración de @xorg.conf@ relacionados son:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Section "Module"
         Load    "i2c"
@@ -193,7 +193,7 @@ h2. Touchpad
 Funciona bien con el driver "synaptic" pero requiere afinar los parámetros. Pon esto en el @/etc/X11/xorg.conf@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Section "InputDevice"
 	Identifier	"Synaptics Touchpad"

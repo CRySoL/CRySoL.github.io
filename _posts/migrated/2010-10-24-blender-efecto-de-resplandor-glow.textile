@@ -9,7 +9,11 @@ tags:
 - blender
 ---
 <blockquote>En esta receta veremos cómo añadir un efecto de resplandor a un objeto, gracias a los nodos de composición.</blockquote>
-<!--break-->
+
+
+
+
+
 <h2>Preparación de la Escena</h2>
 Seleccionamos el objeto que queremos que brille y le aplicamos un material de color blanco, y activamos la opción *Shadeless*. En la pestaña de propiedades del objeto, localizaremos el deslizador *Pass Index* y le asignaremos un número que lo distinga de todos los demás objetos que no brillen. Normalmente los objetos tienen índice 0, así que podemos utilizar el 1, por ejemplo.
 

@@ -8,6 +8,9 @@ category: receta
 ---
 El siguiente fichero <tt>.jedrc</tt> resuelve dos cosas que suelen ser bastante latazo en JED:
 
+<!--break-->
+
+
 * Modifica la "columna" en que JED divide (trunk) las líneas automáticamente, de forma que lo hará sólo si la línea tiene 100 caracteres o más, en lugar de 72 que es el valor por defecto.
 * Permite usar las teclas "Inicio" y "Fin" para ir al principio y fin de línea.
 
@@ -15,7 +18,7 @@ El siguiente fichero <tt>.jedrc</tt> resuelve dos cosas que suelen ser bastante 
 Fichero ~/.jedrc
 
 
-<temp-div>
+<div>
 {% highlight text %}
 () = evalfile("emacs");
 WRAP = 100;

@@ -186,7 +186,7 @@ Lo único que he hecho es deshabilitar libhal y habilitar libusb para que funcio
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 --- orig/pcsc-lite-1.5.3/debian/rules	2009-06-06 19:54:49.000000000 +0200
 +++ new/pcsc-lite-1.5.3/debian/rules	2009-05-18 21:35:38.000000000 +0200
@@ -210,7 +210,7 @@ Lo único que he hecho es deshabilitar libhal y habilitar libusb para que funcio
 +Build-Depends: debhelper (>= 6.0.7~), flex, autotools-dev, libusb-dev
  Standards-Version: 3.8.1
  Vcs-Svn: svn://svn.debian.org/svn/collab-maint/deb-maint/pcsc-lite/trunk
- Vcs-Browser: <a href="http://svn.debian.org/viewsvn/collab-maint/deb-maint/pcsc-lite/trunk/">http://svn.debian.org/viewsvn/collab-maint/deb-maint/pcsc-lite/trunk/</a>
+ Vcs-Browser: http://svn.debian.org/viewsvn/collab-maint/deb-maint/pcsc-lite/trunk/
 --- orig/pcsc-lite-1.5.3/debian/changelog	2009-06-06 19:54:49.000000000 +0200
 +++ new/pcsc-lite-1.5.3/debian/changelog	2009-05-18 21:33:03.000000000 +0200
 @@ -1,3 +1,9 @@

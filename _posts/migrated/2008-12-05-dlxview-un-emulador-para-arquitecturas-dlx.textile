@@ -9,5 +9,8 @@ tags:
 - embedded
 ---
 Quien haya intentado hacer alguna práctica para alguna asignatura de <em>Arquitectura de Computadoras</em> o similares utilizando éste simulador, habrá observado que es una auténtica pesadilla utilizarlo: NO FUNCIONA. De ninguna de las maneras.
+
+<!--break-->
+
 El caso es que buscando y buscando alguna implementación que funcionase correctamente (incluso me bajé los fuentes, los intenté compilar, los modifiqué... total, una historia...) encontré, por fin, en la página del <a href="http://datsi.fi.upm.es">DATSI</a> un binario ejecutable en GNU que funciona bastante bien. Así que nada, aquí lo dejo como adjunto.
 &lt;sarcastic-mode&gt;ale, a disfrutarlo con salud&lt;/sarcastic-mode&gt;

@@ -6,7 +6,7 @@ created: 1155199344
 author: paco
 category: receta
 ---
-bq. Esta receta cuenta mis experimentos con el Active Directory de la universidad. Está en construcción porque todavía estoy experimentando, así que paciencia.  Aprovecho para decir que me parece una kk el drupal éste, que no permite tener documentos en modo Draft, sin que sea visible.
+Esta receta cuenta mis experimentos con el Active Directory de la universidad. Está en construcción porque todavía estoy experimentando, así que paciencia.  Aprovecho para decir que me parece una kk el drupal éste, que no permite tener documentos en modo Draft, sin que sea visible.
 <!--break-->
 h2. Ingredientes
 
@@ -76,7 +76,7 @@ klist
 Que saca algo parecido a:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Ticket cache: FILE:/tmp/krb5cc_1000
 Default principal: francisco.moya@UCLM.ES

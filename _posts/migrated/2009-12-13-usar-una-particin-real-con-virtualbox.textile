@@ -8,6 +8,9 @@ category: receta
 ---
 Virtualbox permite crear un fichero .vmdk especial que «apunta» a una partición real de un disco duro. De ese modo es posible arrancar un sistema operativo instalado realmente en la máquina pero virtualizado dentro de otro S.O. El comando para lograrlo es:
 
+<!--break-->
+
+
 
 <div class="console">
 {% highlight console %}

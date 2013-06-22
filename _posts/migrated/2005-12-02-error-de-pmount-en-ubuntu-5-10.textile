@@ -7,6 +7,9 @@ author: aledelgal
 ---
 Escribo esto porque al parecer en la nueva Ubuntu 5.10 hay un error de pmount. Por lo que se ve no le sucede a todo el mundo (a mi si) pero si ocurre no deja montar la disquetera y te dice : el UDI introducido no es un volumen montable.
 
+<!--break-->
+
+
 Después de mucho mirar he encontrado "aqui":<a href="http://www.ubuntu-es.org">www.ubuntu-es.org</a> esto:
 
    wget <a href="http://archive.ubuntu.com/ubuntu/pool/main/p/pmount/pmount_0.9.6-1_i386.deb">http://archive.ubuntu.com/ubuntu/pool/main/p/pmount/pmount_0.9.6-1_i386.deb</a>

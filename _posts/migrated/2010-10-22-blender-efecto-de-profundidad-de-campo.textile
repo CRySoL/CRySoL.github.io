@@ -9,7 +9,11 @@ tags:
 - blender
 ---
 <blockquote>La profundidad de campo (DoF por sus siglas en inglés, _depth of field_) es un efecto que se produce cuando se enfoca un punto concreto, y el resto de elementos, tanto los que están más lejos como los que están más cerca, aparecen desenfocados, en una cantidad proporcional a la distancia del punto de enfoque. Puede sirve para dar un efecto artístico a la imagen, o para centrar la antención en un elemento concreto. En esta receta veremos cómo simular este efecto en Blender 2.54</blockquote>
-<!--break-->
+
+
+
+
+
 <h2>Ajustes de Cámara</h2>
 Normalmente, al renderizar una escena, todos los elementos de la imagen aparecen enfocados, ya que no hay definido ningún punto de enfoque. Lo primero que hay que hacer para conseguir este efecto es definir el punto en el que la imagen será completamente nítida y estará perfectamente enfocada.
 

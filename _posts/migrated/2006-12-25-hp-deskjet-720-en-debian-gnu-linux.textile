@@ -22,7 +22,7 @@ Modelo: HP Deskjet 720C Foomatic/pnm2ppa
 Fichero /etc/pnm2ppa.conf
 
 
-<temp-div>
+<div>
 {% highlight text %}
 version  720
 {% endhighlight %}

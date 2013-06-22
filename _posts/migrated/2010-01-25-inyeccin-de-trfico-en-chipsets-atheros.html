@@ -9,7 +9,11 @@ tags:
 - drivers
 ---
 <blockquote>Hace mucho tiempo los usuarios de madwifi contábamos con un driver maravilloso que nos permitía hacer casi cualquier cosa con nuestra tarjeta WiFi. El driver pasó al <em>mainstream</em> de Linux y de repente, en una aciaga versión 2.6.18 (o por ahí) el driver dejó de inyectar. Muchos pensábamos que sería cuestión de tiempo que reparasen este <em>bug</em>... versión tras versión no hemos podido volver a inyectar y en los foros sobre el driver nadie parece haberse dado cuenta... y eso es porque el driver <em>internamente</em> <b>nunca dejó de inyectar</b>. Esta receta explica cómo hacer que el driver funcione como antaño, cuando todos éramos felices inyectando.</blockquote>
-<!--break-->
+
+
+
+
+
 <h2>El problema</h2>
 Bueno, como decíamos en la introducción, el driver <b>nunca</b> dejó de inyectar, sin embargo, las aplicaciones que hacen uso de esta <em>feature</em> no funcionan o dicen que el <em>chipset</em> no es capaz de inyectar. ¿Cómo es esto posible?. Para responder a esta pregunta quizás primero debamos saber qué características tiene el driver y el tráfico wifi.
 
@@ -90,6 +94,10 @@ Con esto habremos instalado los programas y paquetes necesarios para compilar m�
 
 <h3>Parcheado</h3>
 <blockquote><b>ATENCIÓN:</b> estas modificaciones parecen ser motivos de cuelgues en núcleos con versiones 2.6.27 y similares.</blockquote>
+
+
+
+
 Antes disponíamos de parches oficiales de <em>madwifi</em> pero ahora no hay (o no los encuentro) así que a manita... según el módulo que use nuestro chipset (con <em>lsmod</em> podemos ver cuál es):
 <ul><li><b>ath5k</b> Modificamos la siguiente línea del fichero <tt>drivers/net/wireless/ath/ath5k/base.c</tt>:
 

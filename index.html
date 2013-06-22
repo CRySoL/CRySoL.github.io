@@ -14,7 +14,7 @@ layout: default
 {% endfor %}
 
 {% for page in paginator.posts %}
-  {% unless page.sticky %}
+  {% unless page.sticky or page.frontpage == false %}
     {% include custom/post_teaser %}
   {% endunless %}
 {% endfor %}

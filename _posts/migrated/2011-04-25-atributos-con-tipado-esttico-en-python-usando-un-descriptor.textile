@@ -8,7 +8,7 @@ category: receta
 tags:
 - Python
 ---
-bq. En esta receta voy a contar cómo utilizar los «descriptores» de Python para poder crear atributos (variables de instancia) que no puedan cambiar de tipo durante la vida del objeto. Por supuesto, también es una excusa para aprender algo sobre los descriptores en sí.
+En esta receta voy a contar cómo utilizar los «descriptores» de Python para poder crear atributos (variables de instancia) que no puedan cambiar de tipo durante la vida del objeto. Por supuesto, también es una excusa para aprender algo sobre los descriptores en sí.
 <!--break-->
 h2. Requisitos 
 

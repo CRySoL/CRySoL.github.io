@@ -8,10 +8,13 @@ category: receta
 ---
 h2. Cambiar la URL del servidor
 
+<!--break-->
+
+
 roperly configure your add_virtualhost directives in mm_cfg.py. E.g.
 
 
-<temp-div>
+<div>
 {% highlight text %}
 add_virtual_host(mailman.yyy.com, xxx.com)
 {% endhighlight %}

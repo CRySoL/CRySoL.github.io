@@ -8,10 +8,13 @@ category: receta
 ---
 h2. Interfaces de red
 
+<!--break-->
+
+
 Fichero @/etc/network/interfaces@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 auto lo
 iface lo inet loopback
@@ -32,7 +35,7 @@ h2. Servidor X
 Fichero @/etc/X11/xorg.conf@:
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Section "Files"
 	FontPath	"/usr/share/X11/fonts/misc"

@@ -10,6 +10,10 @@ tags:
 ---
 <blockquote>Esta receta no se si tendrá muchas aplicaciones "domésticas", en ella vamos a tratar de crear <em>n</em> máquinas virtuales en una única máquina física. Esto permitirá crear (por ejemplo) <em>n</em> servidores, cada uno con unos servicios determinados en una misma máquina física. Con ello se consigue (entre otras cosas) proteger unos servicios mas "críticos" de otros más "vulnerables" (lo que pase en una máquina es independiente al resto).</blockquote>
 
+<!--break-->
+
+
+
 <h1>Qué es Xen</h1>
 Xen es un sistema de virtualización similar a <em>VM-Ware</em> o <em>QEmu</em>, pero tiene una difirecia bastante notable: mientras que <em>VM-Ware</em> degrada alrededor de un 30% el rendimiento de la máquina emulada, Xen lo hace entre un 2% y un 3% (es increible pero cierto!), pero claro... no va a ser todo de color de rosa: es necesario parchear tanto el núcleo del sistema real como el núcleo de los sistemas que se emularán (esto debería impedir ejecutar sistemas hasefroch 95, XP, etc. bajo un linux ya que no podemos parchear, a priori, el núcleo de estos sistemas privativos... se comenta por ahí que <b>sí</b> existen estos parches, aunque yo no los he visto).
 
@@ -85,6 +89,10 @@ Un problema que ha aparecido en esta versión de Xen (coincidiendo con la sustit
 # modprobe loop max_loop=64
 {% endhighlight %}
 </div></blockquote>
+
+<!--break-->
+
+
 
 Finalmente, la instalación añade dos servicios nuevos en <em>init.d</em> pero, en cambio, no actualiza los enlaces simbólicos de los servicios según el <em>runlevel</em>, así que lo hacemos nosotros y en paz:
 

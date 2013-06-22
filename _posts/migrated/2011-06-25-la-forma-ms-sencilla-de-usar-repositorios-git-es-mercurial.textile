@@ -22,7 +22,7 @@ Si utilizas Debian o sucedáneos (Ubuntu), instala el paquete @mercurial-git@. E
 
 Ahora modifica tu @~/.hgrc@ para que quede así:
 
-<temp-div>
+<div>
 {% highlight text %}
 [extensions]
 git=

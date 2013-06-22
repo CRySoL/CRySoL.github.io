@@ -13,7 +13,11 @@ tags:
 <blockquote>
 Configurar la tarjeta gráfica ATI radeon HD 3870 con dos monitores
 </blockquote>
-<!--break-->
+
+
+
+
+
 h2. Ingredientes
 
 * module-assistant
@@ -56,7 +60,7 @@ Lo único que tienes que añadir, al final del archivo:
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Section "Extensions"
           Option "XVideo" "Enable"
@@ -98,7 +102,7 @@ Con el @xorg.conf@ que te genera, tienes dos escritorios distintos en cada monit
 
 
 
-<temp-div>
+<div>
 {% highlight text %}
 Section "ServerLayout"
         Identifier     "aticonfig Layout"
