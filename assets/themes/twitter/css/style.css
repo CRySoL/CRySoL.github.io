@@ -89,6 +89,7 @@ h3 {
 }
 
 footer {
+  margin-top: 10px;
   text-align: center;
 }
 
@@ -238,6 +239,14 @@ height: 140px;
 
 .migrated a {
   color: black;
+}
+
+table.recetas {
+  width: 100%;
+}
+
+table.recetas td {
+  padding: 0px 10px;
 }
 
 

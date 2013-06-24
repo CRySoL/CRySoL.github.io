@@ -1,0 +1,7 @@
+{% if site.authors[page.author] %}
+  <a href="/users.html#{{page.author}}">
+   {{ site.authors[page.author].nick }}
+  </a>
+{% else %}
+  <span title="(unknown author)">{{ page.author }}?</span>
+{% endif %}

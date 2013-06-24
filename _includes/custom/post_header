@@ -1,7 +1,9 @@
 <div class="header">
   <span class="submitted">
     {{ page.date | date: "%Y-%m-%d" }}
-    {% include custom/page_author %}
+    {% if page.author %}
+      {% include custom/page_author_link %}
+    {% endif %}
   </span>
 
    <span class="source">
