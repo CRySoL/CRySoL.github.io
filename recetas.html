@@ -1,6 +1,7 @@
 ---
 layout: page
-title: recetas
+title: Recetas
+group: navigation
 ---
 
 <table class="recetas">
@@ -11,10 +12,9 @@ title: recetas
   </tr>
 {% for page in site.posts %}
   {% unless page.category == receta %}
-    <tr>
+      <tr class="{% cycle 'odd', 'even' %}">
+      <td class="date">{{ page.date | date: "%y-%m-%d" }}</td>
       <td>
-        {{ page.date | date: "%Y-%m-%d" }}
-      </td><td>
         <a href="">{{ page.title }}</a>
       </td><td>
        {% include custom/page_author_link %}

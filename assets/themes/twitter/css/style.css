@@ -245,8 +245,18 @@ table.recetas {
   width: 100%;
 }
 
+table.recetas td.date {
+  width: auto;
+  word-wrap: normal;
+  white-space: pre;
+}
+
 table.recetas td {
   padding: 0px 10px;
+}
+
+table.recetas tr.odd {
+  background: #eee;
 }
 
 
