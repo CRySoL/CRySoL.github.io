@@ -1,7 +1,8 @@
 /* Custom container */
 .container-narrow {
   margin: 0 auto;
-  max-width: 700px; }
+  max-width: 1000px;
+}
 
 /*
 .container-narrow > hr {
@@ -195,6 +196,8 @@ hr {
   background: red;
 }
 
+/*
+
 a.brand-image img {
 position:absolute;
 top: -115px;
@@ -203,9 +206,11 @@ height: 140px;
 }
 
 .navbar {
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
+*/
 
+/*
 .navbar .brand {
   display: none;
 }
@@ -221,7 +226,23 @@ height: 140px;
     display: block;
 	}
 }
+*/
 
+.sidebar {
+}
+
+#wrap img {
+  display: block;
+  height: 60%;
+  width: auto;
+}
+
+@media (min-width: 980px) {
+  body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+}
 
 .author-details ul {
   list-style: none;

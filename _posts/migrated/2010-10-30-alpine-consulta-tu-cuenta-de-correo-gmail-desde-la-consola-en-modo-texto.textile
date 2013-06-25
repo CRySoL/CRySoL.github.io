@@ -45,7 +45,7 @@ h3. Configuración SMTP
 
 h3. Importación de contactos
 
-* Descargar el script <s href="http://gist.github.com/477698">pull_contacts.py</a> en <a href="http://gist.github.com/477698">http://gist.github.com/477698</a>
+* Descargar el script <a href="http://gist.github.com/477698">pull_contacts.py</a> en <a href="http://gist.github.com/477698">http://gist.github.com/477698</a>
 * Ejecutar en un terminal: python pull_contacts.py  usuario >> /home/usuario/.addressbook
 
 h3. Importar firma

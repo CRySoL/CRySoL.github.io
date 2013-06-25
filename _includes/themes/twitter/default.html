@@ -41,7 +41,7 @@
   </head>
 
   <body>
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-narrow">
 <!--
@@ -59,18 +59,31 @@
 
     <div class="container-narrow">
 
+<!--
       <div style="position:relative">
 	<a class="brand-image" href="{{ HOME_PATH }}">
 	  <img class="brand-image" src="/assets/images/logo.png"/>
 	</a>
       </div>
+-->
 
-      <div class="content">
-        {{ content }}
+      <div class="row-fluid">
+	<div class="span3 sidebar">
+	  <div id="logo">
+	    <a href="{{ HOME_PATH }}">
+	      <img src="/assets/images/logo.png" alt="logo"/>
+	    </a>
+	  </div>
+	</div>
+
+	<div class="content span9">
+          {{ content }}
+	</div>
       </div>
-      <hr>
 
-      <footer>
+      <hr/>
+
+      <footer class="span12">
         <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
