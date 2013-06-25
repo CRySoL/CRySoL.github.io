@@ -36,9 +36,7 @@ $ wget -O- http://dl.dropbox.com/u/57056576/DRIVERS/REALTEK/rtl_92ce_92se_92de_8
 	3. Copie los ficheros rtl8723fw_B.bin  y rtl8723fw.bin que se encuentran en la carpeta firmware/rtlwifi en la carpeta que ha creado a 		instalar el paquete firmware-realtek (/lib/firmware/rtlwifi):
 
 <pre class="console">
-$cd ~/Descargas
-$cd rtl_92ce_92se_92de_8723ae_linux_mac80211_0006.0514.2012/firmware/rtlwifi/
-$cp rtl8723fw* /lib/firmware/rtlwifi/
+$ cp ~/Descargas/rtl_92ce_92se_92de_8723ae_linux_mac80211_0006.0514.2012/firmware/rtlwifi/rtl8723fw* /lib/firmware/rtlwifi/
 </pre>
 
 Reinicie el ordenador y compruebe que la tarjeta funciona correctamente.
