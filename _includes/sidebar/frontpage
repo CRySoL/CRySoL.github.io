@@ -1,5 +1,12 @@
-<h2>Categories</h2>
+<h2>recent</h2>
+<ul>
+{% for page in site.posts limit: 5%}
+  <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
+{% endfor %}
+</ul>
 
+
+<h2>Categories</h2>
 
 <table class="categories">
 {% tablerow category in site.categories cols: 2 %}

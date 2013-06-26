@@ -2,7 +2,7 @@
 # -*- mode:shell-script; coding:utf-8; tab-width:4 -*-
 
 git --git-dir=_site/.git --work-tree=$(pwd)/_site pull
-jekyll build
+# jekyll build
 date >> history.html
 echo "<br/>" >> history.html
 touch _site/.nojekyll

@@ -124,7 +124,12 @@ footer {
   border-style: outset;
 }
 
-.page-header h1, .teaser h2 {
+.page-header h1 {
+  font-size: 160%;
+  line-height: 26px;
+}
+
+.teaser h2 {
   font-size: 160%;
   line-height: 26px;
   margin-bottom: 0;
@@ -240,6 +245,10 @@ height: 140px;
   margin-bottom: 0;
 }
 
+.sidebar li {
+  font-size: 90%;
+}
+
 .sidebar td {
   padding-left: 12px;
   font-size: 90%;
@@ -294,12 +303,17 @@ table.recetas tr.odd {
   background: #eee;
 }
 
+/*
 q {
   font-style:italic;
 	font-size: 120%;
 	font-weight:bold;
 }
+*/
 
+.author-photo {
+  float: right;
+}
 
 /** listados de código **/
 

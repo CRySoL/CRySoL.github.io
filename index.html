@@ -3,20 +3,28 @@ layout: default
 ---
 {% include JB/setup %}
 
-{% if paginator.page > 1 %}
-  {% include custom/pagination %}
-{% endif %}
 
-{% for page in site.posts %}
-  {% if page.sticky and paginator.previous_page == nil %}
-    {% include custom/post_teaser %}
+<div class="sidebar span3">
+  {% include custom/logo %}
+  {% include sidebar/frontpage %}
+</div>
+
+<div class="span9">
+  {% if paginator.page > 1 %}
+    {% include custom/pagination %}
   {% endif %}
-{% endfor %}
 
-{% for page in paginator.posts %}
-  {% unless page.sticky or page.frontpage == false %}
-    {% include custom/post_teaser %}
-  {% endunless %}
-{% endfor %}
+  {% for page in site.posts %}
+    {% if page.sticky and paginator.previous_page == nil %}
+      {% include custom/post_teaser %}
+    {% endif %}
+  {% endfor %}
 
-{% include custom/pagination %}
+  {% for page in paginator.posts %}
+    {% unless page.sticky or page.frontpage == false %}
+      {% include custom/post_teaser %}
+    {% endunless %}
+  {% endfor %}
+
+  {% include custom/pagination %}
+</div>
