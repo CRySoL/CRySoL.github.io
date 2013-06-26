@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Testing deterministic behavior with doublex"
-category: receta
+category: recipe
 tags: Python doublex
 author: david_villa
 lang: en

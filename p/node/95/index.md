@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: //2005-11-12/aprender-a-escribir-en-la-web
+refresh_to_post_id: /2005-11-12/aprender-a-escribir-en-la-web
 ---

@@ -4,7 +4,7 @@ layout: post
 title: Cambio en la configuración de sudo
 created: 1317303855
 author: david_villa
-category: receta
+category: recipe
 ---
 Con la versión 1.8.2-1 de @sudo@ es necesario añadir las rutas «seguras» al fichero @/etc/sudoers@.
 <!--break-->

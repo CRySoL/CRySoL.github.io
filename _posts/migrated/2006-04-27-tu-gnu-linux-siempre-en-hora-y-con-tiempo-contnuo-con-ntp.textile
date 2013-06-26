@@ -4,7 +4,7 @@ layout: post
 title: Tu GNU/Linux siempre en hora (y con tiempo contínuo) con NTP
 created: 1146133279
 author: magmax
-category: receta
+category: recipe
 ---
 <blockquote>
 Ciertas tareas dependen del tiempo para funcionar (por ejemplo, el salvapantallas, make, cron, ...). Es interesante no tener que preocuparse de la hora del sistema, así como que la hora no cambie bruscamente. ¡Y es muy fácil!

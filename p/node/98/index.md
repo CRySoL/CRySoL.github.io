@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /receta/2005-11-15/manipulacin-de-ficheros-pdf
+refresh_to_post_id: /recipe/2005-11-15/manipulacin-de-ficheros-pdf
 ---

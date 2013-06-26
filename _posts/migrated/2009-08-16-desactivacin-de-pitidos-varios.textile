@@ -4,7 +4,7 @@ layout: post
 title: Desactivación de pitidos varios
 created: 1250417248
 author: david_villa
-category: receta
+category: recipe
 ---
 * Consola: Añadir @set bell-style none@ al fichero @$HOME/.inputrc@
 

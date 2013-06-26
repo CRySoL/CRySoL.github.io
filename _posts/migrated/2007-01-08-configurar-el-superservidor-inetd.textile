@@ -4,7 +4,7 @@ layout: post
 title: Configurar el superservidor inetd
 created: 1168289159
 author: int-0
-category: receta
+category: recipe
 ---
 Los servicios que ofrece inetd se configuran en @/etc/inetd.conf@.
 

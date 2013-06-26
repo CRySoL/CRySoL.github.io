@@ -1,0 +1,19 @@
+---
+layout: post
+title: "unfriendly commands: git dealing with a repository in other directory"
+author: david_villa
+tags: git
+---
+
+mercurial
+
+<pre class="console">
+$ hg -R foo/bar st
+</pre>
+
+
+git
+
+<pre class="console">
+$ git --git-dir=foo/bar/.git --work-tree=foo/bar status
+</pre>

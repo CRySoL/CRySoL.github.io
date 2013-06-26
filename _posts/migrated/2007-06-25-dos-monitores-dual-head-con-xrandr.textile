@@ -4,7 +4,7 @@ layout: post
 title: Dos monitores (dual-head) con xrandr
 created: 1182761919
 author: david_villa
-category: receta
+category: recipe
 ---
 bq(head). Esta receta trata algunas prestaciones interesantes que ofrece el driver intel (para tarjetas nuevas) por medio de la utilidad @xrandr@. Lo realmente interesante es que puedes activar y desactivar la salida externa y cambiar la resolución de ambos monitores sin tener que reiniciar el servidor X.
 <!--break-->

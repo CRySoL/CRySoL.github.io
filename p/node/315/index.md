@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: //2006-05-30/mini-tutorial-sobre-la-recursividad
+refresh_to_post_id: /2006-05-30/mini-tutorial-sobre-la-recursividad
 ---
