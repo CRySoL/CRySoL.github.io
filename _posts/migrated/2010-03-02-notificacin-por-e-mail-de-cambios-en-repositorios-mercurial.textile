@@ -11,7 +11,11 @@ tags:
 - Arco
 ---
 Cómo notificar de los cambios ocurridos en un repositorio "Mercurial":http://mercurial.selenic.com/ por correo electrónico.
+
+
 <!--break-->
+
+
 Puede que en algún proyecto necesites tener un control exhaustivo sobre quien y cuando hace _pushes_ en el repositorio. Para ello, Mercurial proporciona unos "_*hooks*_":http://crysol.org/es/node/1329 predefinidos para configurarlo de forma rápida y sencilla.
 
 Toda la configuración que hace falta estará en el fichero habitual: *.hg/hgrc*. El soporte para notificaciones se añade de la siguiente forma:

@@ -9,7 +9,11 @@ tags:
 - Debian
 ---
 Con propósitos docentes he generado un paquetillo Debian que contiene <a href="http://www.devkitpro.org/">DevkitPro</a> 23b para ARM EABI, PPC y PSP completo, con las herramientas de manipulación de imágenes, generación de ROMs, depuración, etc.
+
+
 <!--break-->
+
+
 Nuestro objetivo es utilizarlos en la docencia de la asignatura de <em>Estructura de Computadores</em>, de primero de Ingeniería Informática, para hacer las prácticas con videoconsolas Nintendo DS.  En un futuro ampliaremos la oferta a Sony PSP y Nintendo GameCube o Wii.
 
 Si quieres instalarlo en tu Debian/Ubuntu/Molinux usa estas fuentes apt:

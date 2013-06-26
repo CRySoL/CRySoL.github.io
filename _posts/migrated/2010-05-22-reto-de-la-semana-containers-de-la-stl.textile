@@ -9,7 +9,11 @@ tags:
 - C++
 ---
 El tema es sencillo (o lo parece). Cuando utilizamos un contenedor de la STL (@vector@ por ejemplo) ¿qué pasa con el contenido cuando se destruye el contenedor?
+
+
 <!--break-->
+
+
 Sirva este código para ilustrar la cuestión:
 
 

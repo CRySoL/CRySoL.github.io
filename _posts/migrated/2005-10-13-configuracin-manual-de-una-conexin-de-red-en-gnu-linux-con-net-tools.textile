@@ -8,7 +8,7 @@ category: recipe
 tags:
 - networking
 ---
-Cómo configurar «a mano», es decir, sin DHCP, los parámetros más importantes de una tarjeta de red en Debian GNU/Linux, Ubuntu o similar. 
+<blockquote>Cómo configurar «a mano», es decir, sin DHCP, los parámetros más importantes de una tarjeta de red en Debian GNU/Linux, Ubuntu o similar. 
 
 Hay otras posibilidades (como <tt>etherconf</tt>) pero la finalidad de esta receta es utilizar los comandos básicos disponibles en los sistemas GNU/Linux, en concreto con @ipconfig@ y @route@ del paquete @net-tools@.
 </blockquote>

@@ -11,7 +11,11 @@ tags:
 - Debian
 ---
 En esta micro-receta voy a explicar que hay que hacer para que Debian y, en concreto, Xorg, detecte el _stylus_ de esta tablet PC
+
+
 <!--break-->
+
+
 h2. El problema
 
 En Debian unstable, y por lo visto, desde que Debian integró "Udev":http://es.wikipedia.org/wiki/Udev, dicha tablet PC (y todas las que son soportadas como tabletas digitalizadoras *wacom* por puerto serie) dejaron de ser detectadas.

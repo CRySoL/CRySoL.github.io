@@ -9,7 +9,11 @@ tags:
 - Python
 ---
 "pyPdf":http://pybrary.net/pyPdf/ es un modulo muy interesante para manipular páginas y contenido de documentos PDF, en la receta pongo algún ejemplo
+
+
 <!--break-->
+
+
 Un ejemplo para poner la páginas en orden inverso:
 
 "reverse.py":http://arco.esi.uclm.es/svn/public/samples/pypdf/reverse.py

@@ -10,7 +10,11 @@ tags:
 - security
 ---
 Cómo utilizar PAM para conseguir la autenticación de usuarios de un sitio Drupal
+
+
 <!--break-->
+
+
 h2. Introducción 
 
 PAM permite desacoplar los mecanismos de autenticación y autorización de usuarios de los «clientes» que los requieren. De ese modo es posible cambiar una autenticación basada en cuentas UNIX a un sistema Kerberos o LDAP sin tener que modificar nada en la configuración de las aplicaciones. Únicamente hay que cambiar la configuración de PAM.

@@ -8,7 +8,7 @@ category: recipe
 tags:
 - networking
 ---
-
+<blockquote>
 <?php
 $ip = $_SERVER['REMOTE_ADDR'];
 echo "Tu dirección IP externa: <b>$ip</b>";
@@ -16,10 +16,6 @@ echo "Tu dirección IP externa: <b>$ip</b>";
 <br/>
 Esta receta explica formas de conocer la IP pública con la que te estás concectando a Internet
 </blockquote>
-
-
-
-
 
 Si utilizas un router o algo del estilo que incorpore un servidor DHCP, la dirección asignada a tu ordenador con toda seguridad será una <b>dirección IP privada</b> Pero a veces, es necesario conocer cuál es la IP pública con la que sales a Internet, con el fin de configurar un <a href="/node/25">cliente DNS dinámico</a> u otro tipo de aplicación específica.
 

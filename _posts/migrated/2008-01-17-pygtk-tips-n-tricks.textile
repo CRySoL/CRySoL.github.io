@@ -10,12 +10,8 @@ tags:
 - gtk
 - Arco
 ---
-Esta receta pretende recoger una colección sobre pequeños 'trucos' de GTK que siempre viene bien tener a mano. 
+<blockquote>Esta receta pretende recoger una colección sobre pequeños 'trucos' de GTK que siempre viene bien tener a mano. 
 </blockquote>
-
-
-
-
 
 <h2>GtkkTreeview</h2>
 
@@ -186,7 +182,7 @@ if __name__ == '__main__':
 {% endhighlight %}
 </div>
 <u>Resultado</u>
-<center><img src="http://crysol.org/files/window.png"/></center>
+<center><img src="/assets/files/window.png"/></center>
 </ul>
 
 <h2>GtkPixbuf</h2>

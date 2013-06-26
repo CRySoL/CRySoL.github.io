@@ -9,7 +9,11 @@ tags:
 - mercurial
 ---
 En esta receta veremos cómo hacer un script «hook» que impide a los usuarios puedan subir ficheros que no cumplan los criterios que decidamos. En concreto, vamos a evitar que puedan subir ficheros binarios al repositorio.
+
+
 <!--break-->
+
+
 Los repositorios están destinados principalmente al desarrollo de software, lo que generalmente implica el uso de ficheros de texto plano. Están optimizados para llevar un control sobre los cambios que se realizan, ocupando el mínimo espacio posible para ello. Sin embargo, incluir ficheros binarios rompe los esquemas. ¿Solución? Los hooks de mercurial.
 
 h2. Creando el repo

@@ -9,7 +9,11 @@ tags:
 - Python
 ---
 bq(head). Esta receta explica cómo añadir de una forma muy fácil títulos a tu colección (gestionada con GCStar) mediante un scriptillo hecho en Python + amara. (menudo combo! :-))
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Hoy me hablaba MagMax acerca de "GCStar":http://<a href="http://www.gcstar.org/">www.gcstar.org/</a>, un programilla bastante decente para gestionar colecciones de cosas: libros, películas, juegos, vinos... Como me da mucha pereza tener que abrir el programa sólo para añadir un título y el catálogo lo guarda en un XML he pensado que podía aprovechar para escribir una receta de amara y en esas estamos. Por lo que parece, el programa permite importar títulos desde un fichero de texto pero no he dado con la forma de hacerlo desde línea de comandos.

@@ -18,7 +18,11 @@ $ pinta_num 1234567890
    \/  /     / \/    \/  / \/
 {% endhighlight %}
 </div>
+
+
 <!--break-->
+
+
 Debe evitarse el uso de secuencias de escape del terminal tipo "gotoxy". Si se redirige la salida a un fichero, debe escribir lo mismo que en consola. Se valora la legibilidad y brevedad del código por encima de cualquier otra consideración.
 
 *[EDITADO]*

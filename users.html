@@ -5,8 +5,8 @@ group: navigation
 js: [filter_by_url]
 ---
 
-
-{% for item in site.authors %}
+<table>
+{% tablerow item in site.authors cols: 3 %}
   {% assign author = item[1] %}
 <div class="user item" id="{{ item[0] }}">
   <h2>
@@ -39,4 +39,5 @@ js: [filter_by_url]
     </ul>
   </div>
 </div>
-{% endfor %}
+{% endtablerow %}
+</table>

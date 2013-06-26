@@ -10,7 +10,11 @@ tags:
 - Debian-devel
 ---
 Si eres un administrador de una máquina debian/ubuntu con un poco de amor propio seguramente no harás @configure/make/make install@ o al menos te lo pensarás dos veces.
+
+
 <!--break-->
+
+
 La razón (si no lo sabías) es que esto copia ficheros en cualquier parte de tu sistema de ficheros con pocas garantías de poder desinstalar todo eso limpiamente, y te puedes imaginar que puede ocurrir después de hacer eso durante cierto tiempo... Una solución para eso es utilizar "stow": aunque lo mejor con diferencia sería hacer un paquete debian e instalarlo con dpkg. Eso no siempre es sencillo..
 
 Con Python pasa algo parecido, si te bajas los fuentes de un programa o modulo la forma de instalarlo suele ser algo como:

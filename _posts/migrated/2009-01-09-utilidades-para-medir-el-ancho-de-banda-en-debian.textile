@@ -9,7 +9,11 @@ tags:
 - uclmwifi
 ---
 Esta receta es una lista de programas de análisis de tráfico de red que están disponibles como paquetes Debian oficiales y que pueden resultar muy útiles
+
+
 <!--break-->
+
+
 h2. Contabilidad de tráfico
 
 Se trata de programas que contabilizan la cantidad total de tráfico de subida o bajada en un periodo de tiempo dado. Son útiles para saber el uso que hacemos de la red, dimensionar adecuadamente el hardware que requiere un servidor o detectar problemas de todo tipo.

@@ -7,7 +7,11 @@ author: david_villa
 category: recipe
 ---
 That recipe shows how to configure "redmine":http://<a href="http://www.redmine.org/">www.redmine.org/</a> to use PAM authentication. It includes the PAM authentication plugin code.
+
+
 <!--break-->
+
+
 h2. Ingredients
 
 * a working redmine installation

@@ -11,7 +11,11 @@ tags:
 - patterns
 ---
 Una pequeña receta sobre el patrón ThreadPool y su implementación en Python.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 ThreadPool es un patrón de diseño habitual en aplicaciones concurrentes y de comunicaciones. La idea es tener un «pool» de hilos (workers) que pueden realizar trabajos. Estos trabajos se le dan por medio de una cola FIFO. El usuario añade trabajos a la cola y cuando un hilo está libre extrae y procesa un trabajo de la cola. 

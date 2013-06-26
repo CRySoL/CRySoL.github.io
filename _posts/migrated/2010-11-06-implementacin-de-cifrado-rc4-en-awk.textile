@@ -9,7 +9,11 @@ tags:
 - shell
 ---
 El algoritmo "RC4":http://es.wikipedia.org/wiki/RC4 se usa para codificar información usando una clave. Es muy sencillo, aunque no es de los más seguros. Sin embargo, para muchas ocasiones es suficiente. Hay implementaciones disponibles en C, C++, C#, Python o incluso JavaScript. Sin embargo, no encontré nada en AWK. Si el sistema es reducido (por ejemplo, una Fonera o un RouterStation), es posible que no quieras instalarte la toolchain para C o no puedas usar un intérprete de Python.
+
+
 <!--break-->
+
+
 Aquí propongo una alternativa rápida.
 
 

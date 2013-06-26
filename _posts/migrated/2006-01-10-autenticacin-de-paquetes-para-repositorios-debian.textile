@@ -7,7 +7,11 @@ author: david_villa
 category: recipe
 ---
 Cómo configurar adecuadamente la autenticación de repositorios en Debian, Ubuntu y derivados.
+
+
 <!--break-->
+
+
 Cuando instalas paquetes binarios desde Internet tu sistema puede quedar comprometido si los descargas de sitios poco fiables. Incluso utilizando sitios oficiales puede ser un grave problema de seguridad si alguien consigue hacerse pasar por el servidor o introduce paquetes maliciosamente modificados.
 
 Para evitar todo esto, los repositorios disponen de una firma PGP que garantiza la autenticidad de sus paquetes. El programa @apt-get@ comprueba que los paquetes vienen firmados por quien dice ser, accediendo en un servidor público de claves.

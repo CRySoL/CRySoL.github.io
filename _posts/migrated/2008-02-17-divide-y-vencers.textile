@@ -11,10 +11,6 @@ category: recipe
 </blockquote>
 
 
-
-
-
-
 <h2>¿En qué consiste la técnica "divide y vencerás"?</h2>
 En el mundo de las ciencias de la computación es una técnica de diseño de algoritmos que consiste en resolver un problema a partir de la solución de subproblemas del mismo tipo, pero de menor tamaño. Si los subproblemas son todavía relativamente grandes se aplicará de nuevo esta técnica hasta alcanzar subproblemas lo suficientemente pequeños para ser solucionados directamente. Por último, habrá que combinar las soluciones obtenidas en los subproblemas para obtener la solución del problema inicial.
 

@@ -9,7 +9,11 @@ tags:
 - gnome
 ---
 En las últimas versiones los chicos de GNOME han decidido que eliminar los iconos de menús y botones mejora la usabilidad. Si no estás de acuerdo, ésta es tu receta.
+
+
 <!--break-->
+
+
 Esto se soluciona con un poco de _gconftooling_. Concretamente:
 
 

@@ -8,11 +8,7 @@ category: recipe
 tags:
 - linux (the kernel of course)
 ---
-Imaginemos que tenemos un sistema con 20 procesadores. Nuestro <em>linux</em> (si, el <em>kernel</em>) tiene un planificador (o <em>scheduler</em>) muy majo que reparte todos los procesos entre los procesadores de forma que todos se queden más o menos equiparados en cuanto a carga. Ahora supongamos que algunos procesos consumen de vez en cuando mucha CPU y no queremos que esta sobrecarga afecte a algunas CPU's (vale, es un escenario muy específico, pero os aseguro que se da ;)). ¿Cómo podemos alterar esta planificación para algunos casos? pues fácil, con esta receta :).</blockquote>
-
-
-
-
+<blockquote>Imaginemos que tenemos un sistema con 20 procesadores. Nuestro <em>linux</em> (si, el <em>kernel</em>) tiene un planificador (o <em>scheduler</em>) muy majo que reparte todos los procesos entre los procesadores de forma que todos se queden más o menos equiparados en cuanto a carga. Ahora supongamos que algunos procesos consumen de vez en cuando mucha CPU y no queremos que esta sobrecarga afecte a algunas CPU's (vale, es un escenario muy específico, pero os aseguro que se da ;)). ¿Cómo podemos alterar esta planificación para algunos casos? pues fácil, con esta receta :).</blockquote>
 
 <h2>La herramienta <em>taskset</em></h2>
 Este programilla en Debian lo podemos encontrar en <em>util-linux</em>:

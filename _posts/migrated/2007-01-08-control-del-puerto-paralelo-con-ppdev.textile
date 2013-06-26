@@ -9,7 +9,11 @@ tags:
 - Arco
 ---
 Cómo leer y escribir en un puerto paralelo desde un programa C utilizando el driver @ppdev@ y la llamada al sistema @ioctl@
+
+
 <!--break-->
+
+
 h2. Módulos necesarios
 
 Necesitaremos tener instalados los módulos @parport@, @parport_pc@ y @ppdev@. Estos módulos ya vienen incluidos a partir del Linux 2.4.x y superiores.

@@ -9,7 +9,11 @@ tags:
 - emacs
 ---
 bq(head). Esta receta explica cómo usar las utilidades de comprobación de ortografía «mientras escribe» que trae GNU Emacs en su distribución oficial. Por mucho que insistas, no tienes excusa para escribir mal.
+
+
 <!--break-->
+
+
 h2. El modo @flyspell@
 
 *flyspell* básicamente resalta y colorea los errores ortográficos detectados en el buffer actual. Las dos órdenes básicas son:

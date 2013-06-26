@@ -9,7 +9,11 @@ tags:
 - security
 ---
 Cómo programar una shell code para utilizar en tus xploits (Parte 1)
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Cuando se produce un overflow en un programa, podemos sobreescribir EIP "Instruction Pointer" (entre otras cosas). Si sobreescribimos este registro con una dirección que contiene código propio, se ejecutará. Esto es, podemos ejecutar código con los permisos que tiene el programa ejecutado. ¿Qué pasa si el programa tiene el bit de suid activado? Lo dejo a vuestra imaginación.

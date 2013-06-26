@@ -12,7 +12,11 @@ tags:
 - Arco
 ---
 Esto va sobre "Ice-E":http://zeroc.com/icee/index.html, que es simplemente Ice para dispositivos empotrados. Veamos como configurar el entorno de desarrollo necesario para compilar aplicaciones con Ice-E que funcionen en OpenWRT, concretamente en un MIPS: el de la fonera.
+
+
 <!--break-->
+
+
 <h2>Ingredientes</h2>
 <ol>
 <li>Una fonera (o cualquier hardware donde se pueda instalar OpenWRT y derivados)</li>

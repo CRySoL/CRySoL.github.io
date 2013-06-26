@@ -10,7 +10,11 @@ tags:
 - multimedia
 ---
 Como algunos que me conocen saben, soy seguidor de la scene desde hace muchísimos años. Quizá últimamente no tengo tiempo de estar al día, pero me sigue gustando escuchar la música que sale de ese mundillo. Para los que lo conocen, el sitio <a href="http://modarchive.org">http://modarchive.org</a> es un buen punto donde descargar "mods" de todas las épocas.
+
+
 <!--break-->
+
+
 Tengo una buena colección de mods pero está un poco gastada de tanto escucharla, así que ante la inmensidad de modarchive, busqué la manera de reproducir los archivos de esa página de una forma continua sin tener que descargarlos uno por uno, por eso me puse manos a la obra para hacer un script que hiciese el trabajo sucio por mi.
 
 Al principio era algo muy sencillo pero poco a poco ha ido creciendo y ahora creo que ya puedo enseñarlo. No esperéis nada espectacular, ya que está hecho en bash usando las herramientas de procesamiento sed, grep, cut, etc.

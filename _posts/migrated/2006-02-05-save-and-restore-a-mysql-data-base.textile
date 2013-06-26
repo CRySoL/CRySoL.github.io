@@ -9,7 +9,11 @@ tags:
 - MySQL
 ---
 This recipe explain how to make a backup of a complete database in a easy way. Then, the backup file can be restored when a disaster occurs.
+
+
 <!--break-->
+
+
 h2. Make a backup
 
 The required command is @mysqldump@ that has the next syntax:

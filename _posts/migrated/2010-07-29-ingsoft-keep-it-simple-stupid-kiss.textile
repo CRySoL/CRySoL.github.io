@@ -8,7 +8,11 @@ tags:
 - INGSOFT
 ---
 El principio "KISS":http://en.wikipedia.org/wiki/KISS_principle es uno de los principios de programación y diseño más conocidos y a la vez más difíciles de seguir. Como supongo que sabéis, KISS dice que *«el objetivo principal de todo diseño debe ser la simplicidad»*.
+
+
 <!--break-->
+
+
 O mejor dicho, evitar en todo lo posible la complejidad innecesaria. Claro, uno piensa, «qué bien!, complejidad innecesaria, se ha matao el colega que lo ha pensado». En realidad el principio se refiere al modo en el que debe enfrentarse la solución de los problemas más que al resultado en sí mismo.
 
 Una de las causas que lleva a código y diseños complicados tiene que ver con la tentación de añadir características nuevas a nuestros desarrollos sólo porque «es fácil hacerlo» sin considerar los efectos colaterales que eso seguro va a implicar en el sistema completo. Para alguien (incluso tú mismo unas semanas o meses después) necesite entender cómo funciona el programa (para añadir una funcionalidad o arreglar un bug) puede llevarle mucho más tiempo si el que lo escribió no tuvo el suficiente criterio y cuidado en «mantenerlo sencillo». 

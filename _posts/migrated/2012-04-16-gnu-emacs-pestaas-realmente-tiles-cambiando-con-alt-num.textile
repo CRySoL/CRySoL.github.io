@@ -9,7 +9,11 @@ tags:
 - emacs
 ---
 Hace tiempo que quería afinar la configuración del modo tabbar de emacs para poder cambiar entre pestañas usando la típica combinación de teclas alt-&lt;número> cual si fuera navegador o emulador de terminal. Como mis conocimientos de elisp son principalmente anecdóticos, traté de buscar algo parecido de lo que poder sacar factor común, pero nada... hasta ahora.
+
+
 <!--break-->
+
+
 Por fin encontré algo prometedor: Aquamacs, la versión de Emacs para Mac OSX. Aunque Aquamacs también es libre, tiene dos inconvenientes: no es «standard emacs» y sobre todo, que solo funciona en OSX, y claro, es un precio demasiado bajo para que uno se plantee vender su alma :-)
 
 <center>
@@ -23,7 +27,7 @@ No sin esfuerzo he conseguido sacar el mínimo código imprescindible (creo) par
 
 <center>
 GNU Emacs-24 estándar con sus bonitas pestañas también :-D
-<img src="http://crysol.org/files/emacs-tabbar.png" alt="emacs-tabbar"/>
+<img src="/assets/files/emacs-tabbar.png" alt="emacs-tabbar"/>
 </center>
 
 Funciona con emacs23 y emacs24.

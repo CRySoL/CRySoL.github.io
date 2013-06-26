@@ -10,7 +10,11 @@ tags:
 - gtk
 ---
 Una breve referencia sobre gtk.UIManager y gtk.Action
+
+
 <!--break-->
+
+
 h2. ActionGroup
 
 Tal como indica su nombre, el @ActionGroup@ es un conjunto de gtk.Action.

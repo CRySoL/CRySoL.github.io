@@ -13,10 +13,6 @@ A veces se necesita ejecutar un programa con interfaz gráfica que reside en una
 </blockquote>
 
 
-
-
-
-
 <h2>Método 1: Exportar display</h2>
 
 El método 'clásico' cuando queremos ejecutar un programa en una máquina remota y ver su interfaz en nuestro cliente X local es:

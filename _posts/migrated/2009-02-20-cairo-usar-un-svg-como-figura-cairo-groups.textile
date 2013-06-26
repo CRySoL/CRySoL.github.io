@@ -11,7 +11,11 @@ tags:
 - gtk
 ---
 En esta receta, crearemos una figura, o un Surface usando la nomenclatura de Cairo, a partir de una imagen en formato SVG.
+
+
 <!--break-->
+
+
 h2. Ingredientes
 
 * python
@@ -98,17 +102,17 @@ Take a look into the method _on_expose()_:
 
 As you can see, there are three drawn things. The first one is the SVG as is, using a plain _paint()_ method. Easy. The result may be:
 
-<center><img src="http://crysol.org/files/sc1.png" /></center>
+<center><img src="/assets/files/sc1.png" /></center>
 
 Of course, without the border and the shadows... :p The second item we see is more interesting. I'm going to use the alpha channel in the original SVG as a mask: where the image is transparent, nothing is drawn, so only the opaque pixels are used to paint. To achieve this, I'm using a feature of Cairo called *groups*. A group is like a layer where you can draw things. The difference is that this 'layer' can be used later as a pattern or as a surface. 
 
 This time, I'll only paint in black, which gives this: 
 
-<center><img src="http://crysol.org/files/sc2.png" /></center>
+<center><img src="/assets/files/sc2.png" /></center>
 
 ¡Voilá! As you can imagine, if you use other color, blue for example, and paint with alpha enabled, you could get something like a shinning effect, like this:
 
-<center><img src="http://crysol.org/files/sc3.png" /></center>
+<center><img src="/assets/files/sc3.png" /></center>
 
 which is the third item in our example. :) And that's all, folks! 
 Thanks for reading. 

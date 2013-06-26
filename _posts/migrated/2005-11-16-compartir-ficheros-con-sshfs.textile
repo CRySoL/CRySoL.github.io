@@ -9,7 +9,11 @@ tags:
 - networking
 ---
 Cómo montar un directorio de otra máquina que tenga un servidor de SSH utilizando el paquete sshfs
+
+
 <!--break-->
+
+
 Se puede obtener una funcionalidad similar a NFS pero con algunas ventajas.
 
 * No necesitas nada especial en el servidor, sólo el omnipresente servidor de SSH. Ni portmap ni nada por el estilo, como ocurre con NFS

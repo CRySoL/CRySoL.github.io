@@ -10,7 +10,11 @@ tags:
 - INGSOFT
 ---
 Sometimes interaction among your "SUT":http://en.wikipedia.org/wiki/System_under_test class and their collaborators does not meet a synchronous behavior. That may happen when the SUT perform collaborator invocations in a different thread, or when the invocation pass across a message queue, publish/subscribe service, etc.
+
+
 <!--break-->
+
+
 Something like that:
 
 

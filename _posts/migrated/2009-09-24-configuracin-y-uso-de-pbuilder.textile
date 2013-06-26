@@ -10,7 +10,11 @@ tags:
 - Debian-devel
 ---
 bq(head). *Pbuilder* es un sistema de construcción automática de paquetes Debian. El principal objetivo de este sistema es poder generar paquetes Debian (o Ubuntu) sin "ensuciar" nuestro sistema con las dependencias de los paquetes que estemos generando.
+
+
 <!--break-->
+
+
 h2. Instalación
 
 Lo primero de todo, como es natural, es instalar el paquete *pbuilder*. Para ello, como ya sabes, usa apt-get/aptitude/synaptics/tu-sistema-de-paquetes-favorito para hacerlo. Por ejemplo, con @aptitude@:

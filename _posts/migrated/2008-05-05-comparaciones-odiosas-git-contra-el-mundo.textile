@@ -11,7 +11,11 @@ h2. Restaurar ficheros borrados:
 * svn: @svn up@
 * mercurial: @hg reset --all@
 * git: @git ls-files -d | xargs git checkout --@ &nbsp;&nbsp;#<em>(no es broma)</em>
+
+
 <!--break-->
+
+
 h2. Aviso de que tu repo está desactualizado al intentar subir tus cambios
 
 <p>

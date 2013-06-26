@@ -6,7 +6,7 @@ created: 1161296142
 author: LaEspiral
 category: recipe
 ---
-
+<blockquote>
 Supongamos que tenemos 60 archivos con nombres "ficheroXXX.JPEG" y queremos cambiarles el nombre a todos para que queden "ficheroXXX.jpg" (XXX quiere decir tres dígitos cualquiera; cualquier otro significado de XXX será pura coincidencia :-) Se puede escribir un comando shell que busque todos los archivos y les cambie el nombre uno a uno. Pero más fácil aún es usar el programa mmv que viene en el paquete @mmv@ de Debian.
 </blockquote>
 

@@ -9,7 +9,11 @@ tags:
 - INGSOFT
 ---
 Los principios FIRST son propiedades que deberían tener las pruebas unitarias.
+
+
 <!--break-->
+
+
 *FIRST* es un acrónimo de:
 
 * *Fast*: El conjunto completo de las pruebas unitarias de un proyecto, o al menos las del módulo en el que se está trabajando, deberían poder ejecutarse en unos pocos segundos. El motivo es evitar que al programador le dé pereza ejecutarlas. Cuanto más frecuentemente se ejecuten, antes se detectarán problemas. Algunas herramientas  permiten ejecutar automáticamente las pruebas cada vez que algún fichero del proyecto cambia (auto-testing) que podríamos decir que es la situación extrema e ideal.

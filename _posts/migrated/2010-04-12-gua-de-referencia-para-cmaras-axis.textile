@@ -10,7 +10,11 @@ tags:
 - multimedia
 ---
 Este artículo es una guía de referencia para el uso básico de cámaras AXIS 214 Pam-Tilt-Zoom (PTZ). No obstante,  es posible que para otros modelos de AXIS sea útil.
+
+
 <!--break-->
+
+
 <h2>Instalación</h2>
 Por defecto, las cámara obtiene IP por DHCP. Para saber qué IP ha sido asignada puedes utilizar la herramienta <a href="https://arco.inf-cr.uclm.es/svn/public/misc/scapy-utils/arping.py">arping.py</a>.
 

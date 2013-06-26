@@ -9,7 +9,11 @@ tags:
 - emacs
 ---
 En esta receta explico un par de opciones muy útiles para configurar la forma que tiene Emacs de realizar la indentación. Por ejemplo, Emacs indenta el código C con dos espacios, pero quizá a tí te gusta más con 4. También permite cambiar la forma de indentar las llaves, paréntesis, etc.
+
+
 <!--break-->
+
+
 h2. Las Opciones
 
 La primera de ellas es <tt>c-default-style</tt>, e indica el *estilo de indentación* que queremos que siga Emacs. Hay varios estilos, entre ellos k&r, gnu, bsd y linux. Podéis ver una lista entera con la _completion_ al ejecutar el comando en el minibuffer de Emacs.

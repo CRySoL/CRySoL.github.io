@@ -11,7 +11,11 @@ tags:
 - networking
 ---
 bq(head). Esta receta es una pequeña introducción a la programación de sockets «raw».
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Los sockets son el API por excelencia para programación de aplicaciones de red en prácticamente todos los sistemas operativos. Los sockets más "famosos" son los de la familia de Internet, concretamente aquellos para programación de servidores y clientes TCP y UDP, aunque hay muchos otros tipos de sockets para muchos otros protocolos, como por ejemplo BlueTooth. 

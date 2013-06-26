@@ -12,7 +12,11 @@ tags:
 Os dejo aquí un script que permite ejecutar comandos predefinidos en un conjunto de máquinas. En realidad es un @fabfile@, es decir, un script para ejecutar con "fabric":http://docs.fabfile.org/en/1.2.0/index.html.
 
 El script que aparece en esta receta lo estoy usando para instalar un mismo paquete (debian) en varios servidores a la vez (lo cual es un latazo hacer una por una). Así que los comandos que tiene definidos son los recurrentes update, install y remove de aptitude. Obviamente se puede utilizar para ejecutar cualquier comando imaginable.
+
+
 <!--break-->
+
+
 h2. Ingredientes
 
 * fabric

@@ -9,11 +9,7 @@ tags:
 - Arco
 - security
 ---
-A pesar de que en anteriores recetas explicamos cómo realizar y recuperar backups en bacula, esto no es suficiente en el caso de querer recuperar un sistema completo. En caso de desastre total deberíamos volver a crear particiones, instalar un sistema base en el que recuperar los backups y, si no hicimos backup de la configuración del sistema, tendríamos que volver a configurarlo todo. Deberíamos separar backups del sistema y backups de los datos del sistema. Así podremos encontrar un método mejor para realizar nuestros respaldos.</blockquote>
-
-
-
-
+<blockquote>A pesar de que en anteriores recetas explicamos cómo realizar y recuperar backups en bacula, esto no es suficiente en el caso de querer recuperar un sistema completo. En caso de desastre total deberíamos volver a crear particiones, instalar un sistema base en el que recuperar los backups y, si no hicimos backup de la configuración del sistema, tendríamos que volver a configurarlo todo. Deberíamos separar backups del sistema y backups de los datos del sistema. Así podremos encontrar un método mejor para realizar nuestros respaldos.</blockquote>
 
 <h2>Backup de los datos</h2>
 Bien... hay mucho que explicar... pero está todo en las recetas sobre bácula:
@@ -124,15 +120,11 @@ TMP_DIR="/root/mondo/temp"</pre>
 
 Si ahora ejecutamos <em>automondo</em> se nos crearán automáticamente las imágenes del sistema ;).
 
-Nota: Existe un "pequeño" problema que no se muy bien como arreglar. Resulta que aunque las imágenes las crea bien y funcionan (doy fe) da un "error" al final del proceso y pide la pulsación de <em>intro</em> para continuar. Cleto me ha sugerido el siguiente cambio en la última línea del script:
+<blockquote>Nota: Existe un "pequeño" problema que no se muy bien como arreglar. Resulta que aunque las imágenes las crea bien y funcionan (doy fe) da un "error" al final del proceso y pide la pulsación de <em>intro</em> para continuar. Cleto me ha sugerido el siguiente cambio en la última línea del script:
 
 <pre>echo -e \n | /usr/sbin/mondoarchive -O -d $IMG_DESTINATION -p $IMG_PREFIX -i -E "$BCK_EXCLUDE" -N -s $IMG_SIZE -9 -T "$TMP_DIR" -S "$TMP_DIR"</pre>
 
 Es pasar un <em>intro</em> al programa para que se pulse... pero no termina de convencerme el asunto... ¿qué opináis?</blockquote>
-
-
-
-
 
 <h2>Enlaces</h2>
 Las recetas sobre bácula que menciono al principio.

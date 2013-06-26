@@ -9,7 +9,11 @@ tags:
 - gnome
 ---
 Hoy, al configurar mi "layout" de escritorio en un PC con doble monitor, he descubierto algo desagradable: la configuración de paneles gráfica que proporciona Gnome (en su versión de Debian Sid) no permite seleccionar en que monitor aparece el panel. Esto hace imposible colocar  paneles en el monitor secundario.
+
+
 <!--break-->
+
+
 En esta receta pretendo explicar como solucionarlo usando *gconf*.
 
 Lo primero de todo debes crear el panel. Para ello, sobre un panel de los existentes pulsa el botón derecho del ratón y selecciona "Panel nuevo".

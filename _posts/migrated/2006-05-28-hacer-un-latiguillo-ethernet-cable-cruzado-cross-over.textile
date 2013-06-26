@@ -7,7 +7,11 @@ author: david_villa
 category: recipe
 ---
 Esta receta indica cuál es la configuración de los hilos de un cable UTP para construir una cable directo o cruzado, tal como mandan los estándares.
+
+
 <!--break-->
+
+
 h2. Cable directo
 
 Este cable se utiliza conectar un PC a un switch o un switch a un router. En el cable directo *ambos* extremos tienen una clavija RJ-45 montada según la configuración T568-B.

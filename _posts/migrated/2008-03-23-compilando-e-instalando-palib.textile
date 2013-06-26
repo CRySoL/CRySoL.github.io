@@ -9,7 +9,11 @@ tags:
 - embedded
 ---
 <blocquote>Cómo compilar e instalar <b>PAlib</b> para compilar aplicaciones para NDS.</blocquote>
+
+
 <!--break-->
+
+
 
 <h1>Introducción</h1>
 <b>PAlib</b> es una librería de desarrollo para NDS que está por encima de <a href="http://devkitpro.sourceforge.net/devkitProWiki/libnds/index.html">libnds</a> y que nos permite escribir aplicaciones para nuestra videoconsola abstrayendonos de los detalles a bajo nivel que maneja esta librería.

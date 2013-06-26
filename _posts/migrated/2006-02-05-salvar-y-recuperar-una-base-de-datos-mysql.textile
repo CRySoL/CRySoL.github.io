@@ -9,7 +9,11 @@ tags:
 - MySQL
 ---
 Esta receta explica una forma sencilla de hacer una copia de seguridad de una base de datos MySQL completa para poderla restaurar en caso de catástrofe o mudanza.
+
+
 <!--break-->
+
+
 h2. Hacer una copia de seguridad
 
 El comando a utilizar es @mysqldump@ que tiene la siguiente sintaxis:

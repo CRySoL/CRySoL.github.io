@@ -10,7 +10,11 @@ tags:
 - Debian-devel
 ---
 Esta receta explica cómo montar un repositorio de paquetes medianamente decente, que se pueda manejar con las herramientas estándares de Debian y se puedan utilizar firmas PGP tanto para el repo como para los paquetes.
+
+
 <!--break-->
+
+
 h2. Ingredientes
 
 El ingrediente principal de esta receta es *reprepro* (aka mirrorer). Esta herramienta permite crear y gestionar un repositorio official (no trivial) de una forma trivial :-). Hay "más herramientas para la gestión de repositorios":http://wiki.debian.org/HowToSetupADebianRepository.

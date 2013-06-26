@@ -7,7 +7,11 @@ author: david_villa
 category: recipe
 ---
 bq(head). Esta receta explica los usos más habituales de @iptables@. No trata de ser un manual de uso, sólo son unos cuantos comandos que solucionan problemas frecuentes.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Lo más normal para un usuario medio es utilizar @iptables@ para definir reglas de firewall en su router. Para simplificar la explicación de los ejemplos que aparecen en la receta voy a suponer una configuración concreta. Es importante tenerla en cuenta cuando tengas que hacer los cambios pertinentes para aplicarla a tu configuración concreta. Es ésta:

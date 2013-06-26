@@ -9,7 +9,11 @@ tags:
 - networking
 ---
 Esta receta explica cómo utilizar SAMBA para servir ficheros y cómo acceder a ellos desde otro ordenador. Supondremos que en ambos equipos tienes Debian o sucedáneos.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Samba es una implementación libre del protocolo SMB(Server Message Block)/CIFS(Common Internet File System). Normalmente se utiliza como medio para interoperar con recursos (ficheros e impresoras) compartidos por máquinas Microsoft y también como servidor de dominio sin los problemas de seguridad y coste típicos de los sistemas Windows. 

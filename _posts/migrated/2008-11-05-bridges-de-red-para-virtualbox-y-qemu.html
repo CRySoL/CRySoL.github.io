@@ -8,14 +8,10 @@ category: recipe
 tags:
 - networking
 ---
-Si alguna vez habéis utilizado VirtualBox, QEMU, VMWare o similares, puede que os hayáis encontrado con el problema de que no podéis acceder a servidores que se ejecutan en el <acronym title=Sistema Operativo>SO</acronym> huésped desde otros equipos externos.
+<blockquote>Si alguna vez habéis utilizado VirtualBox, QEMU, VMWare o similares, puede que os hayáis encontrado con el problema de que no podéis acceder a servidores que se ejecutan en el <acronym title=Sistema Operativo>SO</acronym> huésped desde otros equipos externos.
 
 Eso es porque estas máquinas virtuales suelen traer soporte para <a href="http://es.wikipedia.org/wiki/NAT">NAT</a> pero no siempre para <a href="http://en.wikipedia.org/wiki/Ethernet_bridge"><em>bridging</em></a>. Una solución es crear un dispositivo que haga de puente entre el interfaz de red del SO huésped y el del SO anfitrión. En esta receta veremos cómo hacerlo.
 </blockquote>
-
-
-
-
 
 <h2>Ingredientes</h2>
 <ul>
@@ -72,8 +68,8 @@ Set 'tap0' persistent and owned by uid 1000
 Si volvemos a mirar las interfaces de red, además del <tt>br0</tt> encontraremos también el <tt>tap0</tt>. Cuando vayamos a arrancar la máquina virtual, hay que configurarla para que utilice el dispositivo tap0 como interfaz de red. Las siguientes imágenes muestran cómo hacerlo en VirtualBox y QEMU:
 
 <center>
-<img src="http://crysol.org/files/vbox.jpg"/>
-<img src="http://crysol.org/files/qemu.jpg"/>
+<img src="/assets/files/vbox.jpg"/>
+<img src="/assets/files/qemu.jpg"/>
 </center>
 
 En ambos programas hay un campo de texto que pide el nombre de un script. Si hemos colocado las instrucciones anteriores de creación y configuración de los dispositivos br0 y tap0 en un script, podemos poner aquí el nombre del mismo. Así, supuestamente, se ejecutará el script antes de arrancar la máquina virtual, aunque a mí no me ha funcionado muy bien y he tenido que ejecutar el script manualmente.

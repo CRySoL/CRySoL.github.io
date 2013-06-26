@@ -10,7 +10,11 @@ tags:
 - Chumby
 ---
 bq(head). Cuando tienes un dispositivo con pantalla táctil y quieres programar algo para él siempre puede ser de ayuda tener un método de entrada tan fácil como la propia pantalla del dispositivo. Si nuestro aparato tiene, como en el caso del Chumby, un Linux metido dentro y tienes forma de compilar software para él, *Tslib* es tu respuesta.
+
+
 <!--break-->
+
+
 *Tslib* se suele utilizar en muchos dispositivos embebidos para proporcionar la funcionalidad de la pantalla táctil a los programadores. Se utiliza en muchos dispositivos de este tipo, entre ellos el TomTom, el Nokia 770 o el que nos ocupará en esta receta: el "Chumby":http://<a href="http://www.chumby.com">www.chumby.com</a>
 
 h2. Preparándolo todo
@@ -190,6 +194,6 @@ Para probar si hemos compilado/instalado todo correctamente necesitarías crear 
 
 Cuando lo ejecutes deberá aparecerte en la pantalla del Chumby algo como esto:
 
-!<a href="http://crysol.org/files/capture1.jpg">http://crysol.org/files/capture1.jpg</a>!
+!<a href="/assets/files/capture1.jpg">/assets/files/capture1.jpg</a>!
 
 Simplemente tienes que pulsar en la cruz tantas veces como va cambiando de sitio. En la terminal SSH podrśa ver cuando termina el proceso. Es importante que cuando termines compruebes que se ha creado un fichero llamado *pointercal* en el directorio _/etc_ de tu directorio NFS/pincho USB.

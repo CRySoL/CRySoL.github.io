@@ -9,7 +9,11 @@ tags:
 - ocio
 ---
 Como todos sabréis a estas alturas, Google ha decidido dispararse en el pie otra vez. El próximo 1 de Julio cerrará el servicio Google Reader sin dar muchas mas explicaciones. No es este el sitio para entrar en las razones que pueda tener Google para cerrar este estupendo servicio. Las cosas que gratis vienen sin mas explicaciones se van, de manera que va siendo el momento de buscar una alternativa.
+
+
 <!--break-->
+
+
 La solución mas directa sería volver al lector RSS de escritorio, y ahí Liferea es una opción mas que interesante. Si quieres seguir utilizando un lector en la nube y salvar así las restricciones de un proxy fascista, tienes estupendas alternativas como "Feedly":http://feedly.com o "TheOldReader":http://theoldreader.com, aunque ninguna, en mi opinión, consiguen devolver la experiencia de Google Reader, uno por exceso y el otro por defecto.
 
 Tras mucho trasegar (mentira, que fui a tiro hecho mas o menos), he encontrado una opción de Lector RSS en la nube que además es autogestionado . Es decir, lo montas es un servidor web y lo administras a tu gusto. Se trata de Tiny Tiny RSS. 
@@ -300,7 +304,7 @@ div.cdmHeader .title .titleAuthor {
 </div>
 
 Este es el aspecto que tendrá. Como veis bastante parecido a Google Reader. 
-<img src="http://crysol.org/files/Selección_001.png" width="750" />
+<img src="/assets/files/Selección_001.png" width="750" />
 
 Por cierto, si queréis utilizar alguna aplicación externa para conectaros a ttRSS, como por ejemplo alguna de las que existen para "Android":https://play.google.com/store/search?q=tiny+tiny+rss , deberéis marcar la opción
 

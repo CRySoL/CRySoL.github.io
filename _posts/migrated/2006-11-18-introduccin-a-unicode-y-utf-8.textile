@@ -7,7 +7,11 @@ author: david_villa
 category: recipe
 ---
 Pequeña introducción sobre Unicode y la codificación UTF-8.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 UCS _Universal Character Set_ es un sistema *universal* de codificación de caracteres definido por la norma ISO 10646. Su objetivo es acabar de una vez con tantos sistemas de codificación incompatibles entre sí (ASCII, latin-1, euc*, cp* y cientos más) de modo que para cualquier carácter del mundo, sea chino, cirílico o bengalí, haya un número que lo identifique unívocamente.

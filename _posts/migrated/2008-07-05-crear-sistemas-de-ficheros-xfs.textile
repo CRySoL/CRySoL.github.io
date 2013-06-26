@@ -9,7 +9,11 @@ tags:
 - Arco
 ---
 bq(head). Todos estamos acostumbrados a utilizar en nuestros sistemas GNU particiones Extended3 (ext3). Sin embargo existen otras muchas alternativas. En esta receta voy a explicar cómo usar una muy interesante: *XFS*.
+
+
 <!--break-->
+
+
 
 *XFS* es un sistema de archivos desarrollado inicialmente por SGI (Sillicon Graphics) para Irix (su implementación de UNIX). Sus principales características son:
 

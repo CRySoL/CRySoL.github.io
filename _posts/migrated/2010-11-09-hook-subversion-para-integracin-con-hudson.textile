@@ -11,7 +11,11 @@ tags:
 - VCS
 ---
 Esta receta explica cómo configurar un repositorio subversion para lanzar una proyecto Hudson al hacer _commit_.
+
+
 <!--break-->
+
+
 h2. Antecedentes
 
 "Hudson":http://hudson-ci.org/ es un sistema para realizar "integración continua":http://en.wikipedia.org/wiki/Continuous_integration. La integración es una de las «patas» del TDD y los métodos ágiles en general y consiste básicamente en descargar y compilar un programa o conjunto de programas y librerías relacionados, y después ejecutar baterías de pruebas, ya sean unitarias, de sistema, aceptación, etc. También se puede utilizar para comprobar otras cosas como cobertura u otras métricas de calidad del código. Lo importante e interesante de esto es que sea completamente automático y desatendido. 

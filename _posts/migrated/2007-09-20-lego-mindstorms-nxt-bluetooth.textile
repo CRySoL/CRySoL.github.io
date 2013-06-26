@@ -10,7 +10,11 @@ tags:
 - embedded
 ---
 bq(head). Comunicar el NXT con el PC por medio de Bluetooth. Se explica brevemente el protocolo de comunicaciones y se presenta un ejemplo: un servidor de <i>echo</i>.
+
+
 <!--break-->
+
+
 <h2>Introducción</h2>
 
 Como sabes, el NXT es capaz de comunicarse con otros dispositivos mediante Bluetooth. Puede 'hablar' con otros NXT's pero también con móviles, PDA's, PC's, etc. El único requisito para establecer un enlace con el NXT es que el dispositivo implemente el perfil SP (Serial Profile), que emula una conexión serie inalámbrica. De momento, probaremos usando un PC con Bluetooth.

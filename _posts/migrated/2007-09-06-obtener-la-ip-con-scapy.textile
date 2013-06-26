@@ -10,7 +10,11 @@ tags:
 - networking
 ---
 bq(head). Un pequeño script para averiguar "la IP del equipo"
+
+
 <!--break-->
+
+
 h2. Introducción
 
 De todos es sabido que eso de «la IP del equipo» es una cuestión peliaguda. Siendo puristas, la IP es un dato que sólo tiene pleno sentido durante una conexión. Un equipo puede tener varias interfaces de red conectadas a distintas redes, cada una con su IP; incluso es más que posible tener varias IPs por interface y además pueden cambiar en cualquier momento.

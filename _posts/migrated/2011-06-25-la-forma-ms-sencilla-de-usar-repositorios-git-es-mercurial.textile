@@ -11,7 +11,11 @@ tags:
 - VCS
 ---
 Cómo usar repositorios git utilizando mercurial como cliente gracias a la extensión "hggit":http://hg-git.github.com/.
+
+
 <!--break-->
+
+
 «hg vs git» va camino de convertirse en otro _flamewar_, al nivel de «gnome vs kde», «emacs vs vi» o el clásico entre clásicos: «tabuladores vs espacios». Los partidarios de git hablan de rendimiento, los de mercurial hablan de facilidad de uso. Si tú eres de mercurial. la extensión hggit te interesa. 
 
 La extensión hggit permite utilizar la mayoría de las características de git usando el cliente mercurial estándar y ni siquiera necesitas tener git instalado. Gracias a ella, ya no tienes que descartar github como una opción para alojar tu código. Por cierto, que los creadores de hggit son precisamente los chicos de github.

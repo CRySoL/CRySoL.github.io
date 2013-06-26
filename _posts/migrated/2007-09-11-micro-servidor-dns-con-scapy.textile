@@ -10,7 +10,11 @@ tags:
 - networking
 ---
 bq(head). Cómo crear un sencillo servidor DNS con scapy.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Entre las muchas herramientas que incorpora scapy hay un pequeño "servidor" DNS implementado como un "answer machine", es decir, como una función capaz de leer peticiones DNS y generar respuestas coherentes. Scapy da soporte para hacer este tipo de cosas de forma muy simple. Mira en "Network packet forgery with Scapy":http://<a href="http://www.secdev.org/conf/scapy_pacsec05.pdf">www.secdev.org/conf/scapy_pacsec05.pdf</a> para más info sobre esto.

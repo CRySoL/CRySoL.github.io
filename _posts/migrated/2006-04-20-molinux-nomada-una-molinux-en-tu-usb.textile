@@ -11,7 +11,11 @@ tags:
 Tengo casi a punto un nuevo "sabor" de Molinux. En esta ocasión he conseguido meter la distribución en un "pendrive". Por ahora es la distribución Live estándar, por lo que hacen falta 620MB de espacio para hacerlo funcionar.
 
 La particularidad de esta versión es que no se limita a ejecutar la distribución Live desde un pendrive sino que permite además que nuestros datos personales permanezcan archivados en el de forma que esta manera de llevar Molinux es algo mas funcional.
+
+
 <!--break-->
+
+
 Muchos me preguntareis si además se puede personalizar la distribución y ya os adelanto que por ahora no. Por varios motivos:
 
 # Molinux Nomada está pensada para dispositivos del tipo pendrive, es decir, memorias USB de estado sólido. Este tipo de memorias tienen una vida limitada a unos miles de escrituras por cada byte. Si empleo un sistema de archivos de lectura escritura, el soporte físico se vería demasiado "estresado" y la vida del dispositivo se acortaría bastante.

@@ -14,10 +14,6 @@ tags:
 </blockquote>
 
 
-
-
-
-
     Estas librerías permiten recuperar la información de los sensores internos de aceleración y rotación del wiimando, reproducir pequeños samples de sonido en el altavoz e incluso acceder a la información guardada en los slots de memoria... Y además son muy sencillas. 
   
     Como ejemplo de uso os dejo este pequeño video de ejemplo que hice ayer, que representa un objeto en OpenGL según la rotación del mando, junto con el código fuente. 

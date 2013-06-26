@@ -11,7 +11,11 @@ tags:
 - patterns
 ---
 Esta receta incluye una implementación «comentada» del patrón de diseño «<a href="http://es.wikipedia.org/wiki/Flyweight_%28patr%C3%B3n_de_dise%C3%B1o%29">Flyweight</a>» (peso mosca) usando una metaclase Python.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Para una mejor comprensión y máximo aprovechamiento, se recomienda al lector no iniciado en las metaclases, leer la receta "Ahí va la virgen! Metaclases! (con Python)":metaprogramacion-con-python antes de proceder con ésta.

@@ -10,7 +10,11 @@ tags:
 - patterns
 ---
 Esta receta incluye la implementación «comentada» del patrón de diseño «Singleton» usando una metaclase Python.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Para una mejor comprensión y máximo aprovechamiento, se recomienda al lector no iniciado en las metaclases, leer la receta "Ahí va la virgen! Metaclases! (con Python)":node/600 antes de proceder con ésta.

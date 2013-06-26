@@ -9,7 +9,11 @@ tags:
 - Debian
 ---
 Ya vimos <a href="http://crysol.inf-cr.uclm.es/node/506">como montar un repositorio trivial de paquetes Debian</a>. Ahora vamos a hacer un repositorio general de paquetes, algo más avanzado y general que lo anterior pero se basa en la misma filosofía. 
+
+
 <!--break-->
+
+
 
 <h1>Estructura de directorios</h1>
 Primeramente, debemos crear la estructura de nuestro nuevo repositorio, que vamos a llamar <em>mirepo</em> como ejemplo. El lugar donde lo debemos crear la estructura puede ser cualquiera, por ejemplo en <em>/var/</em>:

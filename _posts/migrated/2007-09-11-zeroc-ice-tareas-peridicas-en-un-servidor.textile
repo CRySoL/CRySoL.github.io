@@ -10,7 +10,11 @@ tags:
 - Arco
 ---
 bq(head). Cómo ejecutar una (o varias) funciones periódicas en un servidor Ice.
+
+
 <!--break-->
+
+
 Crear un servidor Ice es muy fácil con ayuda de la clase _Ice.Application_. El _communicator()_ corre en un hilo distinto dejando libre el flujo actual para realizar otras tareas. Lo habitual después de configurar el adaptador y arrancar el comunicador, es invocar el método _waitForShutdown()_ en espera de que el servidor acabe. Este es un servidor mínimo en Python aplicando esa idea:
 
 

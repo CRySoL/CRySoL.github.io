@@ -9,7 +9,11 @@ tags:
 - security
 ---
 En esta receta se explica como cambiar la contraseña de una partición cifrada utilizando *dm-crypt*. Si has utilizado las recetas "Partición cifrada con dm-crypt en Debian":http://crysol.org/es/node/1094 o "Pendrive cifrado con dm-crypt en Debian":http://crysol.org/es/node/866, esta es tu nueva receta :-D
+
+
 <!--break-->
+
+
 *El autor elude toda responsabilidad sobre la que puedas liar sobre tus preciados datos cifrados. Si no estás seguro, NO LO HAGAS.*
 
 h2. Ingredientes

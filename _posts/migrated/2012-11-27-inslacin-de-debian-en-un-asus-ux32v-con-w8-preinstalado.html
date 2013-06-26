@@ -10,7 +10,11 @@ tags:
 - Debian
 ---
 Si habéis adquirido un nuevo equipo que venga con Windows 8 preinstalado habréis podido comprobar que aunque la instalación de vuestra debian se realiza sin problema, incluída la instalación del grub, a la hora de arrancar el grub éste no aparece.
+
+
 <!--break-->
+
+
 Dependiendo de la versión de la BIOS que tengáis instalada, algunas de ellas te permiten deshabilitar el gestor de arranque EFI con lo cual esto  debería ser suficiente para que el grub pueda arrancar. Sin embargo, en la versión del ASUS UX32V esta opción no aparece disponible.
 
 Suponiendo que tenemos instalado el sistema, tendremos que reiniciar en modo rescate (text-mode rescue (64-bit, EFI)). Tened en cuenta que en mi caso tengo dos particiones, una para el raíz / y otra para el /home, por lo que en mi caso será suficiente con montar la partición en la que está el raíz. Si éste no fuera vuestro caso, tendréis que montar también la partición donde tengáis /boot. Una vez dicho esto, habrá que hacer lo siguiente:

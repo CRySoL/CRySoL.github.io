@@ -9,7 +9,11 @@ tags:
 - Debian
 ---
 That recipe explains how to perform an unattended Debian GNU/Linux installation (thanks to *preseeds*) on a virtual machine using @libvirt@.
+
+
 <!--break-->
+
+
 "libvirt":http://libvirt.org/ is a virtualization tool/library providing a common API to manage virtual machines over KVM, qemu, LXC, Xen, OpenVZ and many others. A interesting feature of libvirt is @virsh@, an application that allows to perform most of virtual machine operations from command line. That is good because... you can script virtual machine deployments!
 
 h2. @libvirt@ packages

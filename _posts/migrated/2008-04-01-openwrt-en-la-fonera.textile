@@ -10,9 +10,17 @@ tags:
 - networking
 ---
 bq(head). Esta receta es un resumen _quick & dirty_ de los pasos necesarios para instalar un sistema OpenWRT estándar en La Fonera. Básicamente es una traducción simplificada de las dos recetas que aparecen en las referencias.
+
+
 <!--break-->
+
+
 *IMPORTANTE*: Algunos comandos de esta receta pueden bloquear (brick) tu fonera (con erótico resultado). Así que queda bajo tu responsabilidad, luego no me llores :-)
+
+
 <!--break-->
+
+
 
 h2. Ingredientes
 

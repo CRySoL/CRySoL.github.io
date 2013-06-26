@@ -10,7 +10,11 @@ tags:
 - VCS
 ---
 bq(head). svn-buildpackage es una herramienta para construir y mantener paquetes Debian utilizando un repositorio subversion.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Aunque se trata de una herramienta pensada para Debian _maintainers_ te puede venir bien saber utilizarla para poder construir paquetes a partir del repositorio si por cualquier motivo un paquete no está disponible en un momento dado. En principio para eso es la receta, pero no descarto ampliarla si en el futuro lo uso para hacer y mantener paquetes. Si algún otro se anima a completarla, perfecto también.

@@ -12,7 +12,11 @@ Más de una vez (y de dos) he oído hablar sobre extrañas normas no escritas (o
 * Usar el <tt>continue</tt> es un pecado capital, al infierno de cabeza.
 * El <tt>return</tt> solo puede ir en la última línea de una función o método, y únicamente para retornar algo. De lo contrario sufrirás indecible tormento.
 * Y la clásica: Usar el <tt>goto</tt> está penado con sufrimiento eterno.
+
+
 <!--break-->
+
+
 Por curiosidad le he estado echando un vistazo a "OpenJDK":https://openjdk.dev.java.net/, que es la implementación de Java que liberó Sun no hace tanto (y de la que sigue siendo propietario). El código es en su mayoría Java, C y C++. He sacado unos números (no me atrevo a decir métricas) sobre el directorio <tt>source/openjdk/jdk/src</tt>. Conste que esto es muy burdo y que no he hecho ningún tipo de filtrado, así que los números reales pueden variar bastante, aunque creo que sirven para hacerse una idea aproximada.
 
 Primero un cálculo de LOC, para saber de qué cantidad de código estamos hablando.

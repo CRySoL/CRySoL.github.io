@@ -10,7 +10,11 @@ tags:
 - gtk
 ---
 bq(head). Esta receta explica cómo usar la clase GladeWrapper para hacer programas PyGTK + glade del modo más sencillo jamás visto.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 La clase GladeWrapper que propongo aquí es una forma de simplificar la carga y acceso de widgets GTK con glade. No es la única ni la primera pero creo que es lo suficientemente potente a la vez que sencilla comparada con otras implementaciones similares. 

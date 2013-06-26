@@ -11,7 +11,11 @@ tags:
 - networking
 ---
 Veamos una forma de compilar ZeroC-IceE para usarlo en el Chumby.
+
+
 <!--break-->
+
+
 Esta receta se parecerá mucho a su análoga de <a href="http://crysol.org/node/698">Ice en la fonera: Ice-E en OpenWRT</a>. La diferencia estriba en que la plataforma destino, en vez de ser MIPS es ARM. Realmente, esta vez creo que va a ser más sencillo :-p
 
 

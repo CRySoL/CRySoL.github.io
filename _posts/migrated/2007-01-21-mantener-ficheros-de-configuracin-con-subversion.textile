@@ -10,7 +10,11 @@ tags:
 - VCS
 ---
 bq(head). Se trata de usar subversion para controlar los cambios en un directorio, normalmente ficheros de configuración, para que si metes la pata, puedes saber qué demonios has cambiado.
+
+
 <!--break-->
+
+
 <blockquote class="warning">
 Esta maniobra puede resultar peligrosa. El autor de este documento elude toda responsabilidad. :-D
 </blockquote>

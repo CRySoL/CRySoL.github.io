@@ -11,7 +11,11 @@ tags:
 - C++
 ---
 Añadir nueva funcionalidad a ZeroC Ice es fácil: usando plugins. Ice provee una interfaz local, Ice::Plugin, que podemos usar para crearlos. Veamos un ejemplo sencillo. <b>Probado en Ice 3.3.</b>
+
+
 <!--break-->
+
+
 Puesto que un plugin no es lo primero que se suele hacer al trabajar con Ice, deduzco que ya tienes experiencia, y que tienes Ice instalado correctamente, las herramientas de compilación necesarias, etc. 
 
 h3. Interfaz

@@ -10,7 +10,11 @@ tags:
 - NDS
 ---
 Os presento una pequeña utilidad para la Nintendo DS que permite bajar y subir todo tipo de archivos a cualquiera de los dos slots y hacer copias de seguridad o restaurar las memorias EEPROM de los cartuchos de juegos.  En el lado del PC no necesitas nada especial, solo netcat.
+
+
 <!--break-->
+
+
 Ahora, desde la nueva versión 3.0 soporta libnds-1.3 o posterior, permite editar la configuración directamente desde el propio programa, e incluye un pequeño browser de archivos con capacidad de crear directorios y borrar.  La recepción de archivos se produce en el directorio en el que se encuentra el browser.
 
 Inspirada en wifiloader y en savsender, pero mucho más simple. Leed el README para más detalles.  Podeis bajarlo de aquí: <a href="http://arco.inf-cr.uclm.es/~francisco.moya/nds/sends-3.0.tar.gz">sends-3.0.tar.gz</a>.  Y la versión ya compilada en <a href="http://arco.inf-cr.uclm.es/~francisco.moya/nds/sends.nds">sends.nds</a>.

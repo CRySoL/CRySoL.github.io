@@ -10,7 +10,11 @@ tags:
 - Debian
 ---
 bq(head). La receta describe cómo preparar un servidor DHCP para instalar Debian (por PXE o Etherboot) en otras máquinas de la misma red ("netboot" lo llaman). Esto es especialmente útil cuando el PC en el que quieres instalar Debian no tiene lector de CD-ROM, como pasa en los netbooks (EeePC, Aspire One, etc) y otras cosas más "raras" como el fit-PC. Si lo pruebas verás que es más sencillo, cómodo y rápido que recurrir al arranque por USB.
+
+
 <!--break-->
+
+
 h2. Requisitos
 
 * (Temporalmente) otra máquina --con Debian-- en la misma red que haga de servidor de ficheros (la llamaremos *fileserver*). Alternativamente se podría usar el router si tiene Debian al estilo  "router doméstico con GNU/Linux":/node/96. En la receta voy a contar cómo hacerlo con otra máquina, no con el router, pero las diferencias son mínimas. Si tienes dudas, pregunta.

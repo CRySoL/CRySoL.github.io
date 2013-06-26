@@ -7,7 +7,11 @@ author: david_villa
 category: recipe
 ---
 bq(head). Esta receta trata algunas prestaciones interesantes que ofrece el driver intel (para tarjetas nuevas) por medio de la utilidad @xrandr@. Lo realmente interesante es que puedes activar y desactivar la salida externa y cambiar la resolución de ambos monitores sin tener que reiniciar el servidor X.
+
+
 <!--break-->
+
+
 <div class="messages error" style="width:90%; margin:auto; padding:10px">
 <center><b>Importante</b>
 <p>

@@ -10,7 +10,11 @@ tags:
 - Debian
 ---
 bq(head). Esta receta explica como utilizar @dm-crypt@ para cifrar el sistema de ficheros de un pendrive o disco USB externo y luego montarlo cómodamente.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Si llevas tus claves o tus prácticas de "operativos" en el pendrive, lo último que quieres es perderlo y que alguien se lo pase bomba mandando mensajes de "calvorota" y tal con tu cuenta de la uni. Para evitarlo nada mejor que cifrarlo y asunto resuelto. Verás que fácil...

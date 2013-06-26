@@ -9,7 +9,11 @@ tags:
 - networking
 ---
 Pequeña receta para montar un proxy SOCKS en tu PC para salir a internet a través de un túnel SSH.
+
+
 <!--break-->
+
+
 h2. Ingredientes
 
 * openssh

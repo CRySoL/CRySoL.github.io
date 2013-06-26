@@ -11,7 +11,11 @@ tags:
 Una de las cosas que más chocan al empezar a utilizar un lenguaje dinámico (Python, Ruby, Lua, etc.) es que las variables no se declaran o definen con un tipo concreto. Eso normalmente no es un problema y de hecho resulta bastante cómodo. Pero cuando un programa adquiere cierta envergadura empiezan a surgir problemas. 
 
 Poder forzar la interfaz de un método, sobre todo de un constructor es más que conveniente. Permite detectar muchos usos inadecuados cuando el usuario de una clase y su programador son personas distintas (o uno mismo si ha pasado demasiado tiempo). Esto es básico para cosas como el "Diseño por contrato":http://en.wikipedia.org/wiki/Design_by_contract y otras metodologías en las que es imprescindible tener comprobación estricta de tipos.
+
+
 <!--break-->
+
+
 h2. Tipado estático
 
 El propio Guido sorprendió en su momento a propios y extraños con su propuesta "Adding Optional Static Typing to Python":http://<a href="http://www.artima.com/weblogs/viewpost.jsp?thread=85551">www.artima.com/weblogs/viewpost.jsp?thread=85551</a> hace ya unos años. A pesar de todo (al menos por lo que yo sé) nada de esto ha sido incluido aún en las últimas versiones de Python. Sí se han incluido en Python 3 las "Function Annotations":http://<a href="http://www.python.org/dev/peps/pep-3107/">www.python.org/dev/peps/pep-3107/</a> que ofrecen soporte para implementar tipado estático, aunque la distribución estándar no lo hace.

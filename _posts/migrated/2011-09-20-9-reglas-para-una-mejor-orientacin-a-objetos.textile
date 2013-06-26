@@ -8,7 +8,11 @@ tags:
 - INGSOFT
 ---
 En las conferencias de la "XPWeek":http://xpweek.es/?page_id=2, Sebastián Hermida nos explicaba los nueve reglas o (pasos) de Jeff Bay para conseguir mejores diseños orientados a objetos y, en general, código más limpio. Al loro, porque algunas te pueden sorprender:
+
+
 <!--break-->
+
+
 # *Solo un nivel de indentación por método.* Es decir, un solo nivel de if, for, etc. Por tanto no puede haber if anidados ni un if dentro de un for, ni esas cosas que solemos hacer y que huelen tan mal.
 # *No uses @else@*. Pues eso, lo que oyes.
 # *Envuelve todos tus tipos primitivos y strings*. Todos tus tipos de datos deben ser clases relacionadas con el dominio del problema.

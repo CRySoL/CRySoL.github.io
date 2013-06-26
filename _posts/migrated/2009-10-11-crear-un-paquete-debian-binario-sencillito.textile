@@ -10,7 +10,11 @@ tags:
 - Debian-devel
 ---
 En esta receta se muestran los pasos básicos para crear un paquete binario Debian de forma que puedas empaquetar tu programa de forma fácil y sencilla.
+
+
 <!--break-->
+
+
 h2. Asunciones
 
 En este ejemplo voy a suponer que partes de una estructura de directorios como la siguiente:

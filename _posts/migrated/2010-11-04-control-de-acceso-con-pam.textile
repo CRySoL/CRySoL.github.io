@@ -10,7 +10,11 @@ tags:
 - security
 ---
 Esta receta se muestra cómo crear un servicio PAM para discriminar el acceso entre diferentes usuarios y grupos.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Pluggable Authentication Modules (PAM) es el sistema de autenticación centralizada que se utiliza en sistemas como Debian GNU/Linux y, fundamentalmente, se caracteriza porque se compone de módulos que permiten realizar diferentes tareas para realizar el proceso de autenticación de usuarios.

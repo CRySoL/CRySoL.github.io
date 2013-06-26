@@ -6,7 +6,11 @@ created: 1251557234
 author: david_villa
 ---
 You need evidences, not just beliefs.
+
+
 <!--break-->
+
+
 @Athest@ is a simple framework for running test cases. You write small files in Python language using a set of predefined functions and classes (a "DSL":http://en.wikipedia.org/wiki/Domain-specific_language). In many senses, the concept is quite similar to @make@ or @SCons@ frameworks although Atheist isn’t a building system at all.
 
 h2. Project

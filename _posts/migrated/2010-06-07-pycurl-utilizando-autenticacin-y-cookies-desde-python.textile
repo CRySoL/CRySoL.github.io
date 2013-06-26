@@ -11,7 +11,11 @@ tags:
 - devel
 ---
 bq(head). Esta receta explicará a través de ejemplos mínimos como utilizar cookies para autenticarnos en una página y poder realizar sucesivas consultas con esa misma autenticación.
+
+
 <!--break-->
+
+
 El contenido de esta receta te será muy útil si estás haciendo pruebas para alguna página web o bien si quieres automatizar tareas que requieres autenticarse en una página. Empecemos.
 
 h2. Ejemplo mínimo de uso

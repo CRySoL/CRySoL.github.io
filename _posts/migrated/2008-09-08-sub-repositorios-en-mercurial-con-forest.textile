@@ -10,7 +10,11 @@ tags:
 - mercurial
 ---
 Cómo manejar conjuntos de repositorios mercurial al estilo de los directorios de subversion o los subrepositorios de git.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 En mercurial, como en casi todos los VCS de última generación, no existe la posibilidad de descargar un directorio arbitrario dentro de la jerarquía de un repositorio. En mercurial, o te bajas todo el repositorio o no te bajas nada. Esto obliga a modularizar más y crear un repositorio por cada desarrollo individual. Así, cada uno se baja solo los módulos en los que trabaja y no toooodo el mogollón.

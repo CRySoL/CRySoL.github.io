@@ -9,7 +9,11 @@ tags:
 - MySQL
 ---
 O lo que es lo mismo, cómo editar el valor de un registro en MySQL
+
+
 <!--break-->
+
+
 
 En Drupal, el primer usuario que se crea es el administrador del sitio, de modo que tiene el identificador de usuario 1. Así que sólo hace falta un poco de SQL:
 

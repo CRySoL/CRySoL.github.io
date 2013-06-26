@@ -11,7 +11,11 @@ tags:
 En el pasado post nos quedamos a medias. Vimos como hacer algunas cosillas con el ratón, pero no hicimos nada con el teclado. Intentémoslo ahora.
 
 <b>Entrada en el blog de <a href="http://gexter-project.blogspot.com">Gexter</a></b>
+
+
 <!--break-->
+
+
 Con la misma función, fake_input(), es posible enviar eventos del teclado. Cambiamos el ButtonPress/ButtonRelease por KeyPress/KeyRelease, y como parámetro, el código de la tecla que queremos. He te aquí el problema. ¿Qué es ese "código" y de donde lo sacamos?
 
 Sería interesante disponer de documentación sobre esto, pero esta es bastante escasa. Así que nos toca ver el código fuente o los ejemplos que encontremos. Tampoco es que haya muchos... pero algunos si que hay. En mi búsqueda me encontré con xautomation, una herramienta de la que puedo sacar muchas cosas :p

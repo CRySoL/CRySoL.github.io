@@ -12,7 +12,11 @@ tags:
 This recipe explain how to build a grid composed by 6 debian virtual machines running IceGrid. Once the setup is done, the whole process may be executed with absolutelly no user interaction. The process takes advantage from libvirt (for virtual machine installation), debian preseds (for unattended installation) and puppet (for configuration management).
 
 The resulting virtual grid is suitable to make tesing and continuous integration for distributed applications (using ZeroC IceGrid in this case).
+
+
 <!--break-->
+
+
 WARNING: there is pending work in this post.
 
 h2. ingredients

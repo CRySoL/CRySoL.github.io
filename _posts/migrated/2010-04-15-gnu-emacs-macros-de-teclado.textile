@@ -9,7 +9,11 @@ tags:
 - emacs
 ---
 Cómo definir, guardar y utilizar macros de teclado en emacs.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 La macro de teclado, como es de suponer, consiste en asociar una pulsación de teclas a un trozo de texto arbitrario y/o comandos de emacs cualesquiera, que puede insertarse/ejecutarse después cuando se necesite.

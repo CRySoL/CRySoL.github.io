@@ -7,7 +7,11 @@ author: fsancho
 category: recipe
 ---
 A veces el servidor de sonido esound es un latazo porque impide que otras aplicaciones que hacen uso del hardware de sonido puedan funcionar. De modo que para jugar a algunos juegos necesitamos apagar el servidor de sonido y siempre resulta algo tedioso.
+
+
 <!--break-->
+
+
 h1. Ingredientes
 
 * alsa-oss

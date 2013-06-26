@@ -9,14 +9,22 @@ tags:
 - drivers
 ---
 Publico esta mini receta aquí por si a alguien mas está pasando por lo mismo. El problema lo he detectado en Ubuntu, pero creo que el resto de distribuciones mas o menos modernas no están exentas.
+
+
 <!--break-->
+
+
 
 Quien tenga una tarjeta Nvidia relativamente antigua y utilice los drivers "legacy" para poder tener aceleración gráfica, habrá podido comprobar como dicha aceleración ha desaparecido. Es posible que al ejecutar el comando "glxinfo" aparezcan muchos mensajes del tipo
 
 <pre>
 Xlib: extension "GLX" missing on display ":0.0".
 </pre>
+
+
 <!--break-->
+
+
 El motivo se debe a que se produce un conflicto entre las X y el driver. Las últimas versiones de Xorg cargan por defecto al extensión "Composite", necesaria para utilizar los gestores de ventanas 3D como <em>compiz-fusion</em>. Esta extensión necesita de soporte DRI, del que carecen los drivers de Nvidia inferiores a la versión 9xxx, como los drivers "legacy" son de la version 7184, tenemos el conflicto servido. La aceleración gráfica desaparece.
 
 <h2>Solución</h2>

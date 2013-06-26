@@ -10,7 +10,11 @@ tags:
 - VCS
 ---
 Cómo usar el servidor subversion para ejecutar automáticamente programas personalizados. Como ejemplo, la receta explica cómo actualizar una página web mantenida en un repositorio.
+
+
 <!--break-->
+
+
 h2. Introducción
 
 Subversion tiene una 'feature' muy interesante que permite al administrador del repositorio incluir scripts o programas (llamados _hooks_) que se ejecutarán cuando los usuarios utilicen el repo. Lo más habitual es usar esto para enviar un correo a todos los miembros del equipo cada vez que alguien hace un 'commit', pero se puede hacer cualquier otra cosa, y no sólo para los 'commit's

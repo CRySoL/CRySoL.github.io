@@ -10,7 +10,11 @@ tags:
 - Python
 ---
 Cómo enviar correo con cuerpo o cabeceras no-ASCII desde un programa Python
+
+
 <!--break-->
+
+
 h2. Lo fácil
 
 Enviar un correo ASCII es algo trivial gracias al módulo "smtplib":http://docs.python.org/lib/module-smtplib.html:
