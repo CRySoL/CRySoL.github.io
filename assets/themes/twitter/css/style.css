@@ -228,7 +228,14 @@ height: 140px;
 }
 */
 
-.sidebar {
+.sidebar h2 {
+  font-size: 100%;
+  margin-bottom: 0;
+}
+
+.sidebar td {
+  padding-left: 12px;
+  font-size: 90%;
 }
 
 #wrap img {
