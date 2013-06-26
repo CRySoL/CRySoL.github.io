@@ -15,5 +15,5 @@ $ hg -R foo/bar st
 git
 
 <pre class="console">
-$ git --git-dir=foo/bar/.git --work-tree=foo/bar status
+$ git --git-dir=foo/bar/.git --work-tree=$(pwd)/foo/bar status
 </pre>

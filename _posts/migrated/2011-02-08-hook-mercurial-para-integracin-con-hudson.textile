@@ -8,7 +8,7 @@ category: recipe
 tags:
 - INGSOFT
 - mercurial
-- control de versiones
+- VCS
 ---
 En esta receta se explica como configurar un _hook_ de *Mercurial* para lanzar un proyecto en Hudson al enviar un conjunto de cambios (_push_).
 <!--break-->

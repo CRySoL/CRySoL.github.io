@@ -7,7 +7,7 @@ author: david_villa
 category: recipe
 tags:
 - Debian-devel
-- control de versiones
+- VCS
 ---
 bq(head). Esta receta explica cómo usar la herramienta @svn-buildpackage@ para mantener un paquete Debian existente.
 <!--break-->

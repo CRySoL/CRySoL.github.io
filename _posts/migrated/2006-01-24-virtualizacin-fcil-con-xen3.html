@@ -8,7 +8,7 @@ category: recipe
 tags:
 - Arco
 ---
-<blockquote>Esta receta no se si tendrá muchas aplicaciones "domésticas", en ella vamos a tratar de crear <em>n</em> máquinas virtuales en una única máquina física. Esto permitirá crear (por ejemplo) <em>n</em> servidores, cada uno con unos servicios determinados en una misma máquina física. Con ello se consigue (entre otras cosas) proteger unos servicios mas "críticos" de otros más "vulnerables" (lo que pase en una máquina es independiente al resto).</blockquote>
+Esta receta no se si tendrá muchas aplicaciones "domésticas", en ella vamos a tratar de crear <em>n</em> máquinas virtuales en una única máquina física. Esto permitirá crear (por ejemplo) <em>n</em> servidores, cada uno con unos servicios determinados en una misma máquina física. Con ello se consigue (entre otras cosas) proteger unos servicios mas "críticos" de otros más "vulnerables" (lo que pase en una máquina es independiente al resto).</blockquote>
 
 <!--break-->
 
@@ -81,7 +81,7 @@ Un problema que ha aparecido en esta versión de Xen (coincidiendo con la sustit
 {% endhighlight %}
 </div>
 
-<blockquote>Nota: cuando se carga el módulo, por defecto no deja montar más de 8 dispositivos <em>loopback</em>, esto puede ser problemático en sistemas donde querámos montar más de 4 dominios y no queramos usar particiones reales. Podemos pasar un parámetro a la carga del módulo:
+Nota: cuando se carga el módulo, por defecto no deja montar más de 8 dispositivos <em>loopback</em>, esto puede ser problemático en sistemas donde querámos montar más de 4 dominios y no queramos usar particiones reales. Podemos pasar un parámetro a la carga del módulo:
 
 
 <div class="console">

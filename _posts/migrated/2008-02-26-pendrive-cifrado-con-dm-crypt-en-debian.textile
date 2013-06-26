@@ -6,7 +6,7 @@ created: 1203989693
 author: david_villa
 category: recipe
 tags:
-- seguridad
+- security
 - Debian
 ---
 bq(head). Esta receta explica como utilizar @dm-crypt@ para cifrar el sistema de ficheros de un pendrive o disco USB externo y luego montarlo cómodamente.

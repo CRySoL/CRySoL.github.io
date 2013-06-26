@@ -7,7 +7,7 @@ author: oscarah
 category: recipe
 tags:
 - Arco
-- control de versiones
+- VCS
 ---
 <blockquote class="head">
 Los svn:external son una _feature_ muy interesante de subversion, que permite que cuando descargas o actualizas una copia de un modulo automáticamente 'tire' de otros módulos que pueden estar en otros repositorios. Una especie de gestión automática de dependencias entre repos.

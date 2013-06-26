@@ -6,7 +6,7 @@ created: 1235434253
 author: david_villa
 category: recipe
 tags:
-- seguridad
+- security
 - Debian
 ---
 Esta receta explica como utilizar @dm-crypt@ para cifrar una partición completa y montarla/desmontarla cómodamente.

@@ -8,7 +8,7 @@ category: recipe
 tags:
 - emacs
 ---
-<blockquote>Si usas el @.emacs@ para definir algunos aspectos de Emacs le obligas a usar el intérprete de lisp. Algunas cosas, como las propiedades de las fuentes, colores, barras ... se pueden modificar en el @.Xresources@ , lo que consigue que el arranque de Emacs sea más rápido
+Si usas el @.emacs@ para definir algunos aspectos de Emacs le obligas a usar el intérprete de lisp. Algunas cosas, como las propiedades de las fuentes, colores, barras ... se pueden modificar en el @.Xresources@ , lo que consigue que el arranque de Emacs sea más rápido
 </blockquote>
 
 

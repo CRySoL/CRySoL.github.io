@@ -9,6 +9,14 @@ tags:
 - Arco
 - emacs
 ---
+<blockquote class="warning">
+<b>ATENCIÓN:</b> Esta receta está OBSOLETA. Ver "emacs-pills":https://bitbucket.org/arco_group/emacs-pills
+</blockquote>
+
+<!--break-->
+
+
+
 The new version of the "arco-devel":/arco-devel package (0.66-1)  includes an emacs command (@toggle-window-split@) and keybinding (C-x 4) for toggle between vertical and horizontal two-buffer layouts. To use that, just add the next lines to your @.emacs@:
 
 

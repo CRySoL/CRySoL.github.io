@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /arte/2007-02-28/arte
+refresh_to_post_id: /art/2007-02-28/arte
 ---

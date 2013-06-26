@@ -6,7 +6,7 @@ created: 1184317104
 author: Lk2
 category: recipe
 tags:
-- linux (el kernel, qué si no?)
+- linux (the kernel of course)
 ---
 bq(head). Si tienes una tarjeta gráfica de Nvidia y usas GNU normalmente usarás los drivers privativos y gratuitos para la misma. Como sabrás, hace falta compilar el módulo "nvidia" para cada nueva versión de kernel que instales. El problema ha surgido a partir de la versión del kernel linux 2.6.20, en el que se activó algo sobre la paravirtualización que hace que la compilación del módulo nvidia falle.
 

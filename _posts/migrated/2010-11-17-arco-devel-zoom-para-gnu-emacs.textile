@@ -9,6 +9,14 @@ tags:
 - Arco
 - emacs
 ---
+<blockquote class="warning">
+<b>ATENCIÓN:</b> Esta receta está OBSOLETA. Ver "emacs-pills":https://bitbucket.org/arco_group/emacs-pills
+</blockquote>
+
+<!--break-->
+
+
+
 La nueva versión del paquete <a href="/arco-devel"><tt>arco-devel</tt></a> (la 0.56-1) incluye keybindings para poder cambiar el tamaño de la fuente de forma similar a firefox u otros muchos programas: C-+, C--, C-rueda_del_ratón y C-0 para restaurar el tamaño por defecto. Para usarla, simplemente añade lo siguiente a tu @.emacs@:
 
 
@@ -18,4 +26,4 @@ La nueva versión del paquete <a href="/arco-devel"><tt>arco-devel</tt></a> (la 
 (load "zoom.cfg")
 {% endhighlight %}
 </div>
-
+<!--break-->

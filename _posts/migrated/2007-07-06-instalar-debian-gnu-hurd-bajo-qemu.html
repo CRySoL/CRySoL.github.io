@@ -9,7 +9,7 @@ tags:
 - Hurd
 - Debian
 ---
-<blockquote>El desarrollo de Hurd continúa avanzando... lentamente... aún así ya empieza a ser usable por intrépidos usuarios como nosotros que deseamos aprender más y más. Por eso me he decidido a intentar crear una serie de recetas sobre Hurd. La primera de ellas es ésta: probar hurd en una máquina virtual.</blockquote>
+El desarrollo de Hurd continúa avanzando... lentamente... aún así ya empieza a ser usable por intrépidos usuarios como nosotros que deseamos aprender más y más. Por eso me he decidido a intentar crear una serie de recetas sobre Hurd. La primera de ellas es ésta: probar hurd en una máquina virtual.</blockquote>
 
 
 
@@ -30,7 +30,7 @@ En parte, la lentitud del desarrollo de <em>hurd</em> se debe a que éste modelo
 <h2>Qué necesitamos</h2>
 
 Pues instalado en el sistema: <em>qemu</em> (evidentemente).
-<blockquote>A la hora de probar <em>hurd</em> me he encontrado con que al usar la aceleración de <em>kqemu</em> el sistema no arrancaba en la máquina virtual, por tanto no recomiendo instalarlo.</blockquote>
+A la hora de probar <em>hurd</em> me he encontrado con que al usar la aceleración de <em>kqemu</em> el sistema no arrancaba en la máquina virtual, por tanto no recomiendo instalarlo.</blockquote>
 
 
 
@@ -115,7 +115,7 @@ $ qemu -hda hd0.img
 {% endhighlight %}
 </div>
 
-<blockquote>Para conseguir una mayor estabilidad de <em>hurd</em> dentro de <em>qemu</em> yo utilizo las siguientes opciones:
+Para conseguir una mayor estabilidad de <em>hurd</em> dentro de <em>qemu</em> yo utilizo las siguientes opciones:
 
 <div class="console">
 {% highlight console %}
@@ -140,7 +140,7 @@ grub> boot
 {% endhighlight %}
 </div>
 
-<blockquote>En cuanto a la notación de unidades de <em>grub</em> es la siguiente:
+En cuanto a la notación de unidades de <em>grub</em> es la siguiente:
 
 <pre>(hdD,P)</pre>
 
@@ -252,7 +252,7 @@ Este paquete nos permite realizar una instalación <em>cross-system</em> de dive
 
 Esto nos pedirá el punto de montaje, introducimos <tt>/mnt/hurd</tt> o el que hayamos usado y seleccionamos el tipo de instalación, <b>gnu</b> en nuestro caso. Esto copiará todos los archivos necesarios en esa partición. Una vez terminado añadimos los <em>items</em> en el archivo <tt>/boot/grub/menu.lst</tt> del apéndice A y realizamos el proceso de configuración de la misma forma que lo hacíamos en la máquina virtual.
 
-<blockquote>Es muy normal que <em>hurd</em> no arranque y se quede colgado en el inicio, esto se debe a que aún no está implementada la capacidad de cargar/descargar módulos del núcleo, por tanto se compilan todos de forma estática, esto provoca que en determinados <em>hardwares</em> se quede colgado, la única solución es recompilar <em>hurd</em> para la máquina específica... que esto puede ser motivo para una nueva receta :P</blockquote>
+Es muy normal que <em>hurd</em> no arranque y se quede colgado en el inicio, esto se debe a que aún no está implementada la capacidad de cargar/descargar módulos del núcleo, por tanto se compilan todos de forma estática, esto provoca que en determinados <em>hardwares</em> se quede colgado, la única solución es recompilar <em>hurd</em> para la máquina específica... que esto puede ser motivo para una nueva receta :P</blockquote>
 
 
 
