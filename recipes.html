@@ -15,7 +15,7 @@ group: navigation
       <tr class="{% cycle 'odd', 'even' %}">
       <td class="date">{{ page.date | date: "%y-%m-%d" }}</td>
       <td>
-        <a href="">{{ page.title }}</a>
+        <a href="{{page.url}}">{{ page.title }}</a>
       </td><td>
        {% include custom/page_author_link %}
       </td>
