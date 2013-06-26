@@ -6,7 +6,7 @@
 </ul>
 
 
-<h2>Categories</h2>
+<h2>categories</h2>
 
 <table class="categories">
 {% tablerow category in site.categories cols: 2 %}
@@ -15,7 +15,7 @@
 </table>
 
 
-<h2>Tags</h2>
+<h2>tags</h2>
 
 <table class="tags">
 {% tablerow tag in site.tags cols: 2 %}
