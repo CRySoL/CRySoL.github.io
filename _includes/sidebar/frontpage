@@ -11,6 +11,7 @@
 <table class="categories">
 {% tablerow category in site.categories cols: 2 %}
   <a href="javascript:window.location.href='/categories.html#{{ category[0] }}-ref'; hide_others()"
+     title="{{category[1].size}} posts"
      >{{ category[0] }}</a>
 {% endtablerow %}
 </table>
@@ -21,6 +22,7 @@
 <table class="tags">
 {% tablerow tag in site.tags cols: 2 %}
   <a href="javascript:window.location.href='/tags.html#{{ tag[0] }}-ref'; hide_others()"
+     title="{{tag[1].size}} posts"
      >{{ tag[0] }}</a>
 {% endtablerow %}
 </table>
