@@ -20,3 +20,8 @@ Mock, the second time verify the same behaviour.
 An example:
 
 {% gist 5728565 %}
+
+
+h2. References
+
+* "python-doublex":https://bitbucket.org/DavidVilla/python-doublex
