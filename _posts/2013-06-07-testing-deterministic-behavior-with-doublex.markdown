@@ -2,7 +2,7 @@
 layout: post
 title: "Testing deterministic behavior with doublex"
 category: recipe
-tags: Python doublex
+tags: Python doublex agile
 author: david_villa
 lang: en
 ---
@@ -20,3 +20,8 @@ Mock, the second time verify the same behaviour.
 An example:
 
 {% gist 5728565 %}
+
+
+## References
+
+* "python-doublex":https://bitbucket.org/DavidVilla/python-doublex

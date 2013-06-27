@@ -1,0 +1,49 @@
+<h2>this</h2>
+<ul>
+  {% if page.author %}
+    <li>author: {% include custom/page_author_link %}
+      {% assign author = site.authors[page.author] %}
+      {% include custom/author_photo %}
+    </li>
+  {% endif %}
+
+  <li>created: {{ page.date | date: "%Y-%m-%d" }} </li>
+
+  <li><a href="https://github.com/CRySoL/web.source/raw/master/{{page.path}}">source / <a href="https://github.com/CRySoL/web.source/edit/master/{{page.path}}">edit</a></li>
+
+{% unless page.categories == empty %}
+  <li>categories:
+  {% for category in page.categories %}
+    <a href="/categories.html#{{ category }}-ref">{{ category }}</a>
+  {% endfor %}
+  </li>
+{% endunless %}
+
+{% unless page.tags == empty %}
+  <li>tags:
+  {% for tag in page.tags %}
+    <a href="/tags.html#{{ tag }}-ref">{{ tag }}</a>
+  {% endfor %}
+  </li>
+{% endunless %}
+
+{% if page.migrated %}
+    <li>migrated&nbsp;from&nbsp;<a href="http://crysol.org/{{page.migrated}}">{{page.migrated}}</a></li>
+{% endif %}
+</ul>
+
+
+<h2>related</h2>
+<ul>
+  {% for page in site.related_posts limit:5 %}
+  <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
+  {% endfor %}
+</ul>
+
+
+<h2>recent</h2>
+<ul>
+{% for page in site.posts limit: 5%}
+  <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
+{% endfor %}
+</ul>

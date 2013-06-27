@@ -59,34 +59,15 @@
 
     <div class="container-narrow">
 
-<!--
-      <div style="position:relative">
-	<a class="brand-image" href="{{ HOME_PATH }}">
-	  <img class="brand-image" src="/assets/images/logo.png"/>
-	</a>
-      </div>
--->
-
       <div class="row-fluid">
-	<div class="span3 sidebar">
-	  <div id="logo">
-	    <a href="{{ HOME_PATH }}">
-	      <img src="/assets/images/logo.png" alt="logo"/>
-	    </a>
-	  </div>
-
-	  {% include custom/sidebar %}
-
-	</div>
-
-	<div class="content span9">
+	<div class="content">
           {{ content }}
 	</div>
       </div>
 
       <hr/>
 
-      <footer class="span12">
+      <footer>
         <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.

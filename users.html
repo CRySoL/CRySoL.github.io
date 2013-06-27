@@ -10,15 +10,7 @@ js: [filter_by_url]
   {% assign author = item[1] %}
 <div class="user item" id="{{ item[0] }}">
   <h2>
-    {% if author.gravatar %}
-    <img src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=30" alt="gravatar"/>
-    {% else %}
-      {% if author.picture %}
-         <img src="/assets/{{author.picture}}" width="30" alt="picture"/>
-      {% else %}
-         <img src="https://securecdn.disqus.com/1372120184/images/noavatar32.png" width="30" alt="no-picture"/>
-      {% endif %}
-    {% endif %}
+    {% include custom/author_photo %}
     <span class="author-name">{{ author.name }}</span>
   </h2>
 
