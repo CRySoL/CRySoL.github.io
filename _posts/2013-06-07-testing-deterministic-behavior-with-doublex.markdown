@@ -22,6 +22,6 @@ An example:
 {% gist 5728565 %}
 
 
-h2. References
+## References
 
 * "python-doublex":https://bitbucket.org/DavidVilla/python-doublex
