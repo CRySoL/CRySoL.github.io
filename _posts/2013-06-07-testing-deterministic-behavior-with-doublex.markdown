@@ -2,7 +2,7 @@
 layout: post
 title: "Testing deterministic behavior with doublex"
 category: recipe
-tags: Python doublex TDD
+tags: Python doublex agile
 author: david_villa
 lang: en
 ---
