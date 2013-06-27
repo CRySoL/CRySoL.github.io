@@ -315,6 +315,12 @@ q {
   float: right;
 }
 
+.tag-icon img {
+  display: block;
+  max-height: 50px;
+  width: auto;
+}
+
 /** listados de código **/
 
 kbd {

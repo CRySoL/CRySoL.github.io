@@ -19,6 +19,11 @@
   </li>
 {% endunless %}
 
+
+{% if page.migrated %}
+    <li>migrated&nbsp;from&nbsp;<a href="http://crysol.org/{{page.migrated}}">{{page.migrated}}</a></li>
+{% endif %}
+
 {% unless page.tags == empty %}
   <li>tags:
   {% for tag in page.tags %}
@@ -26,12 +31,23 @@
   {% endfor %}
   </li>
 {% endunless %}
-
-{% if page.migrated %}
-    <li>migrated&nbsp;from&nbsp;<a href="http://crysol.org/{{page.migrated}}">{{page.migrated}}</a></li>
-{% endif %}
 </ul>
 
+{% for category in page.categories %}
+   {% if site.category_icons[category] %}
+   <a class="category-icon" href="/categories#{{category}}-ref">
+      <img src="{{ site.category_icons[category] }}" title="{{category}}" alt="{{category}}-icon"/>
+   </a>
+   {% endif %}
+{% endfor %}
+
+{% for tag in page.tags %}
+   {% if site.tag_icons[tag] %}
+   <a class="tag-icon" href="/tags.html#{{tag}}-ref">
+      <img src="{{ site.tag_icons[tag] }}" title="{{tag}}" alt="{{tag}}-icon"/>
+   </a>
+   {% endif %}
+{% endfor %}
 
 <h2>related</h2>
 <ul>
