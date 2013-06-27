@@ -8,6 +8,7 @@ category:
 tagline:
 
 author:
-sticky:
+sticky: bool(default:false)
 js: filename in js/
 frontpage: bool(default:true)
+lang: es|en
