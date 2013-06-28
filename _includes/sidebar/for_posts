@@ -5,6 +5,11 @@
       {% assign author = site.authors[page.author] %}
       {% include custom/author_photo %}
     </li>
+    {% if author.twitter %}
+    <li>follow:
+      {% include custom/follow_author %}
+    </li>
+    {% endif %}
   {% endif %}
 
   <li>created: {{ page.date | date: "%Y-%m-%d" }} </li>
@@ -34,20 +39,24 @@
 </ul>
 
 {% for category in page.categories %}
-   {% if site.category_icons[category] %}
+   {% assign name = category|downcase %}
+   {% if site.category_icons[name] %}
    <a class="category-icon" href="/categories#{{category}}-ref">
-      <img src="{{ site.category_icons[category] }}" title="{{category}}" alt="{{category}}-icon"/>
+      <img src="{{ site.category_icons[name] }}" title="{{category}}" alt="{{category}}-icon"/>
    </a>
    {% endif %}
 {% endfor %}
 
 {% for tag in page.tags %}
-   {% if site.tag_icons[tag] %}
+   {% assign name = tag|downcase %}
+   {% if site.tag_icons[name] %}
    <a class="tag-icon" href="/tags.html#{{tag}}-ref">
-      <img src="{{ site.tag_icons[tag] }}" title="{{tag}}" alt="{{tag}}-icon"/>
+      <img src="{{ site.tag_icons[name] }}" title="{{tag}}" alt="{{tag}}-icon"/>
    </a>
    {% endif %}
 {% endfor %}
+
+{% include custom/share %}
 
 <h2>related</h2>
 <ul>
