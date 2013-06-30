@@ -6,7 +6,7 @@
       {% include custom/author_photo %}
     </li>
     {% if author.twitter %}
-    <li>follow:
+    <li>
       {% include custom/follow_author %}
     </li>
     {% endif %}
