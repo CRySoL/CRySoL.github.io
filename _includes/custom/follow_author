@@ -1,8 +1,8 @@
 <!-- AddThis Follow BEGIN -->
-<div class="addthis_toolbox addthis_default_style">
+<span class="addthis_toolbox addthis_default_style">
 {% if author.twitter %}
 <a class="addthis_button_twitter_follow" addthis:userid="{{author.twitter}}"></a>
 {% endif %}
-</div>
+</span>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51cdd0d57c014017"></script>
 <!-- AddThis Follow END -->

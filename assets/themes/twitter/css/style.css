@@ -321,6 +321,10 @@ q {
   width: auto;
 }
 
+.share {
+  margin: 10px 0;
+}
+
 /** listados de código **/
 
 kbd {
