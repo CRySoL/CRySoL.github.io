@@ -1,11 +1,13 @@
+<div class="recent">
 <h2>recent</h2>
 <ul>
 {% for page in site.posts limit: 5%}
   <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
 {% endfor %}
 </ul>
+</div>
 
-
+<div class="categories">
 <h2>categories</h2>
 
 <table class="categories">
@@ -15,8 +17,10 @@
      >{{ category[0] }}</a>
 {% endtablerow %}
 </table>
+</div>
 
 
+<div class="tags">
 <h2>tags</h2>
 
 <table class="tags">
@@ -26,3 +30,4 @@
      >{{ tag[0] }}</a>
 {% endtablerow %}
 </table>
+</div>

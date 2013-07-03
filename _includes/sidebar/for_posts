@@ -1,74 +1,78 @@
-<h2>this</h2>
-<ul>
-  {% if page.author %}
-    <li>author: {% include custom/page_author_link %}
-      {% assign author = site.authors[page.author] %}
-      {% include custom/author_photo %}
-    </li>
-    {% if author.twitter %}
-    <li>
-      {% include custom/follow_author %}
-    </li>
+<div class="metadata">
+  <h2>this</h2>
+  <ul>
+    {% if page.author %}
+      <li>author: {% include custom/page_author_link %}
+        {% assign author = site.authors[page.author] %}
+        {% include custom/author_photo %}
+      </li>
+      {% if author.twitter %}
+      <li>
+        {% include custom/follow_author %}
+      </li>
+      {% endif %}
     {% endif %}
+
+    <li>created: {{ page.date | date: "%Y-%m-%d" }} </li>
+
+    <li><a href="https://github.com/CRySoL/web.source/raw/master/{{page.path}}">source / <a href="https://github.com/CRySoL/web.source/edit/master/{{page.path}}">edit</a></li>
+
+  {% unless page.categories == empty %}
+    <li>categories:
+    {% for category in page.categories %}
+      <a href="/categories.html#{{ category }}-ref">{{ category }}</a>
+    {% endfor %}
+    </li>
+  {% endunless %}
+
+  {% if page.migrated %}
+      <li>migrated&nbsp;from&nbsp;<a href="http://crysol.org/{{page.migrated}}">{{page.migrated}}</a></li>
   {% endif %}
 
-  <li>created: {{ page.date | date: "%Y-%m-%d" }} </li>
+  {% unless page.tags == empty %}
+    <li>tags:
+    {% for tag in page.tags %}
+      <a href="/tags.html#{{ tag }}-ref">{{ tag }}</a>
+    {% endfor %}
+    </li>
+  {% endunless %}
+  </ul>
 
-  <li><a href="https://github.com/CRySoL/web.source/raw/master/{{page.path}}">source / <a href="https://github.com/CRySoL/web.source/edit/master/{{page.path}}">edit</a></li>
-
-{% unless page.categories == empty %}
-  <li>categories:
   {% for category in page.categories %}
-    <a href="/categories.html#{{ category }}-ref">{{ category }}</a>
+     {% assign name = category|downcase %}
+     {% if site.category_icons[name] %}
+     <a class="category-icon" href="/categories#{{category}}-ref">
+        <img src="{{ site.category_icons[name] }}" title="{{category}}" alt="{{category}}-icon"/>
+     </a>
+     {% endif %}
   {% endfor %}
-  </li>
-{% endunless %}
 
-
-{% if page.migrated %}
-    <li>migrated&nbsp;from&nbsp;<a href="http://crysol.org/{{page.migrated}}">{{page.migrated}}</a></li>
-{% endif %}
-
-{% unless page.tags == empty %}
-  <li>tags:
   {% for tag in page.tags %}
-    <a href="/tags.html#{{ tag }}-ref">{{ tag }}</a>
+     {% assign name = tag|downcase %}
+     {% if site.tag_icons[name] %}
+     <a class="tag-icon" href="/tags.html#{{tag}}-ref">
+        <img src="{{ site.tag_icons[name] }}" title="{{tag}}" alt="{{tag}}-icon"/>
+     </a>
+     {% endif %}
   {% endfor %}
-  </li>
-{% endunless %}
-</ul>
 
-{% for category in page.categories %}
-   {% assign name = category|downcase %}
-   {% if site.category_icons[name] %}
-   <a class="category-icon" href="/categories#{{category}}-ref">
-      <img src="{{ site.category_icons[name] }}" title="{{category}}" alt="{{category}}-icon"/>
-   </a>
-   {% endif %}
-{% endfor %}
+  {% include custom/share %}
+</div>
 
-{% for tag in page.tags %}
-   {% assign name = tag|downcase %}
-   {% if site.tag_icons[name] %}
-   <a class="tag-icon" href="/tags.html#{{tag}}-ref">
-      <img src="{{ site.tag_icons[name] }}" title="{{tag}}" alt="{{tag}}-icon"/>
-   </a>
-   {% endif %}
-{% endfor %}
+<div class="related">
+  <h2>related</h2>
+  <ul>
+    {% for page in site.related_posts limit:5 %}
+    <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
 
-{% include custom/share %}
-
-<h2>related</h2>
-<ul>
-  {% for page in site.related_posts limit:5 %}
-  <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
+<div class="recent">
+  <h2>recent</h2>
+  <ul>
+  {% for page in site.posts limit: 5%}
+    <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
   {% endfor %}
-</ul>
-
-
-<h2>recent</h2>
-<ul>
-{% for page in site.posts limit: 5%}
-  <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
-{% endfor %}
-</ul>
+  </ul>
+</div>

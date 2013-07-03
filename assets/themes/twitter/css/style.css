@@ -321,6 +321,23 @@ q {
   width: auto;
 }
 
+
+/***** sidebar **/
+.recent ul, .related ul {
+  list-style-type: none;
+	margin-left: 0;
+}
+
+.recent li, .related li {
+  padding: 5px 2px;
+  display: block;
+}
+
+.recent li:hover, .related li:hover {
+	background: #efefef;
+}
+
+
 .share {
   margin: 10px 0;
 }
