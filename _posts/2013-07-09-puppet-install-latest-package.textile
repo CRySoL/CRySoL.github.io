@@ -1,0 +1,36 @@
+---
+layout: post
+title: Ensuring last version of a package with puppet
+author: david_villa
+category: recipe
+tags: puppet
+lang: en
+---
+
+Puppet is a powerful software infrastructure manager. That is, a program that enable you to specify what is installed and running in each computer of your network.
+
+<!--break-->
+
+Puppet is a big and complex network application with servers (masters), clients (agent), certificates, encryption and so on. However puppet may be used in a easier way for easier problems. In this recipe we want to ensure that a specific debian package is installed in the last available version.
+
+The things we want to happen (resources) are specified in a "manifest" file. In this case our very simplified manifest is:
+
+{% highlight ruby %}
+package {'openssh-server':
+  ensure => latest,
+}
+{% endhighlight %}
+
+To apply this "resource" we need to use the puppet agent. Usually the puppet agent is a daemon polling a remote master for manifest changes to apply. But here we run the agent just to apply the manifest and terminate.
+
+<pre class="console">
+$ sudo puppet apply --verbose site.pp
+Warning: Could not retrieve fact fqdn
+Info: Applying configuration version '1373396905'
+Notice: /Stage[main]//Package[openssh-server]/ensure: ensure changed '1:6.2p2-5' to '1:6.2p2-6'
+Notice: Finished catalog run in 18.93 seconds
+</pre>
+
+The interesting thing is the "Notice:" line that says the installed package openssh-server version has changed.
+
+If you want to really ensure at any time, put that command in a file placed in @/etc/cron.hourly@ or similar.

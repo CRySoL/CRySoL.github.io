@@ -1,6 +1,8 @@
 #!/bin/bash --
 # -*- mode:shell-script; coding:utf-8; tab-width:4 -*-
 
+set -e
+
 rake migrate_on
 git --git-dir=_site/.git --work-tree=$(pwd)/_site pull
 jekyll build
