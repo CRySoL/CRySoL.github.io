@@ -10,7 +10,7 @@
 
 <table class="categories">
 {% tablerow category in site.categories cols: 2 %}
-  <a href="/categories.html#{{ category[0] }}-ref">{{ category[0] }}</a>
+  <a href="/categories.html#{{ category[0] }}-ref" title="{{category[1].size}} posts">{{ category[0] }}</a>
 {% endtablerow %}
 </table>
 
@@ -19,6 +19,6 @@
 
 <table class="tags">
 {% tablerow tag in site.tags cols: 2 %}
-  <a href="/tags.html#{{ tag[0] }}-ref">{{ tag[0] }}</a>
+  <a href="/tags.html#{{ tag[0] }}-ref" title="{{tag[1].size}} posts">{{ tag[0] }}</a>
 {% endtablerow %}
 </table>
