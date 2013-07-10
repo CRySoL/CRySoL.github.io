@@ -1,0 +1,27 @@
+---
+layout: post
+title: "How to get a shell for a non-shell user"
+author: david_villa
+category: recipe
+tags: shell
+---
+
+Non shell unix users are useful to run services or daemons, but sometimes you may need a shell to test something failing...
+
+<!--break-->
+
+When a user do login on a system a program is executed. This program is usualy a shell, but it may be any other. That program is specified in last column in the file @/etc/passwd@:
+
+<pre>
+root:x:0:0:root:/root:/bin/bash
+bacula:x:104:106:Bacula:/var/lib/bacula:/bin/false
+</pre>
+
+Here, the user @bacula@ has @/bin/false@ as shell. So when @bacula@ do login, the system execute @false@ and imediatly is log out.
+
+@root@ can use open a shell for the specified user just with:
+
+<pre class="console">
+root@example:~# su bacula -s /bin/bash
+bacula@example:/root$
+</pre>

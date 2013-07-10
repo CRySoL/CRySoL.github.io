@@ -1,24 +1,41 @@
+<div class="recent">
 <h2>recent</h2>
 <ul>
 {% for page in site.posts limit: 5%}
   <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
 {% endfor %}
 </ul>
+</div>
 
-
+<div class="categories">
 <h2>categories</h2>
 
 <table class="categories">
 {% tablerow category in site.categories cols: 2 %}
+<<<<<<< HEAD
   <a href="/categories.html#{{ category[0] }}-ref" title="{{category[1].size}} posts">{{ category[0] }}</a>
+=======
+  <a href="javascript:window.location.href='/categories.html#{{ category[0] }}-ref'; hide_others()"
+     title="{{category[1].size}} posts"
+     >{{ category[0] }}</a>
+>>>>>>> 5c4c59bdd27f4b68df9c56501ef7f46013155832
 {% endtablerow %}
 </table>
+</div>
 
 
+<div class="tags">
 <h2>tags</h2>
 
 <table class="tags">
 {% tablerow tag in site.tags cols: 2 %}
+<<<<<<< HEAD
   <a href="/tags.html#{{ tag[0] }}-ref" title="{{tag[1].size}} posts">{{ tag[0] }}</a>
+=======
+  <a href="javascript:window.location.href='/tags.html#{{ tag[0] }}-ref'; hide_others()"
+     title="{{tag[1].size}} posts"
+     >{{ tag[0] }}</a>
+>>>>>>> 5c4c59bdd27f4b68df9c56501ef7f46013155832
 {% endtablerow %}
 </table>
+</div>

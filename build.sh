@@ -1,6 +1,12 @@
 #!/bin/bash --
 # -*- mode:shell-script; coding:utf-8; tab-width:4 -*-
 
+set -e
+
+if [  -d _migrate ]; then
+	rake migrate_on
+fi
+
 git --git-dir=_site/.git --work-tree=$(pwd)/_site pull
 jekyll build
 date >> history.html

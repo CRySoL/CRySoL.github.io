@@ -2,7 +2,7 @@
 layout: post
 title: "Testing deterministic behavior with doublex"
 category: recipe
-tags: Python doublex
+tags: Python doublex agile
 author: david_villa
 lang: en
 ---
@@ -22,6 +22,6 @@ An example:
 {% gist 5728565 %}
 
 
-h2. References
+## References
 
 * "python-doublex":https://bitbucket.org/DavidVilla/python-doublex

@@ -1,4 +1,4 @@
-$(document).ready(function() {{
+function hide_others() {
     $('div.item').hide();
     selected = location.hash.slice(1);
     if (selected) {
@@ -7,4 +7,6 @@ $(document).ready(function() {{
     else {
 	$('div.item').show();
     }
-}});
+}
+
+$(document).ready(hide_others);
