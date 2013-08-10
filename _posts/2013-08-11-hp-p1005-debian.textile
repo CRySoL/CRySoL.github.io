@@ -1,0 +1,57 @@
+---
+layout: post
+title: "How to get a shell for a non-shell user"
+author: david_villa
+category: recipe
+tags: shell
+---
+
+Seting up the HP LaserJet P1005 printer with the free driver (Debian way)
+
+<!--break-->
+
+1. Install package @printer-driver-foo2zjs@.
+
+2. Download firmware:
+
+<pre class="console">
+$ sudo getweb P1005
+sihpP1005.img
+
+(c) Copyright Hewlett-Packard 2009
+</pre>
+
+The firmware file will be converted and stored at @/lib/firmware/hp/sihpP1005.dl@.
+
+
+3. Upload firmware to printer
+
+<pre class="console">
+$ sudo /usr/sbin/hpljP1005
+/usr/sbin/hpljP1005: foo2zjs: loading HP LaserJet P1005 firmware /lib/firmware/hp/sihpP1005.dl to CUPS USB device ...
+/usr/sbin/hpljP1005: foo2zjs: usb://HP/LaserJet%20P1005?serial=BB07MTJ... download successful.
+</pre>
+
+If the firware is ok you will get:
+
+<pre class="console">
+$ usb_printerid /dev/usb/lp0
+GET_DEVICE_ID string:
+MFG:Hewlett-Packard;MDL:HP LaserJet P1005;CMD:HBS,PJL,ACL;CLS:PRINTER;DES:HP LaserJet P1005;FWVER:20090916;
+</pre>
+
+
+4. Add printer
+
+You may use the GNOME control center o CUPS web interface (http://localhost:631). For the latter set:
+
+* driver: HP LaserJet P1005 Foomatic/foo2xqx (recommended) (grayscale, duplex)
+* conection: usb://HP/LaserJet%20P1005?serial=...
+
+
+5. Turn off printer and turn on again to check the firmware is automatically uploaded.
+
+
+h2. References
+
+* http://foo2zjs.rkkda.com/INSTALL
