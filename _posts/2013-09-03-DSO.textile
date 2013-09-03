@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Undertanding the DSO Link Change"
+author: david_villa
+category: recipe
+tags: devel
+---
+
+Why (in the new GNU distros) we get "missing symbol" linking error on programs that before compile without any problem?
+
+<!--break-->
+
+A good and brief explanation (with sample) here: "UnderstandingDSOLinkChange":http://fedoraproject.org/wiki/UnderstandingDSOLinkChange
