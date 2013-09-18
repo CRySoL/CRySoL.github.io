@@ -80,3 +80,7 @@ h2. incron
 "incron":http://inotify.aiken.cz/?section=incron&page=about&lang=en es un servicio (@incrond@) similar al clásico «cron» pero en el que se definen las acciones en base a eventos del sistema de ficheros en lugar de eventos temporales. También dispone de un comando @incrontab@ similar a @crontab@ para que los usuarios puedan añadir sus propios eventos.
 
 Resulta muy útil para labores de gestión o monitorización: enviar un email cuando se añade o modifica cierto fichero, reiniciar (o recargar) un servicio cuando cambia su fichero de configuración, etc.
+
+h2. Referencias
+
+* <a href="http://www.debian-administration.org/articles/581">http://www.debian-administration.org/articles/581</a>
