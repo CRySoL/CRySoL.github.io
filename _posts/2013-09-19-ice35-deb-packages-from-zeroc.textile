@@ -1,0 +1,34 @@
+---
+layout: post
+title: "Installing the Ice-3.5 packages from ZeroC on Debian"
+author: david_villa
+category: recipe
+tags: devel Ice Debian
+---
+
+ZeroC provides their own Ubuntu/Debian packages for the "version 3.5":http://www.zeroc.com/download.html. This recipe includes all steps for a successful installation.
+
+<!--break-->
+
+Some new features (like the icegrid-gui metric graphics) requires JavaFX, that is only available in the Oracle Java SDK.
+
+To install it, execute:
+
+<pre class="console">
+$ sudo su
+# echo “deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main” > /etc/apt/sources.list.d/webudp8-java-list
+# apt-key adv —keyserver keyserver.ubuntu.com —recv-keys EEA14886
+# apt-get update
+# apt-get install oracle-java7-installer
+# apt-get install oracle-java7-set-default
+</pre>
+
+To install Ice packages, execute:
+
+<pre class="console">
+$ sudo su
+# wget http://www.zeroc.com/download/Ice/3.5/ubuntu/ice3.5-raring.list O > /etc/apt/sources.list.d/ice3.5-raring.list
+# wget http://www.zeroc.com/download/RPM-GPG-KEY-zeroc-release O | apt-key add -
+# apt-get update
+# apt-get install ice ice-dev
+</pre>
