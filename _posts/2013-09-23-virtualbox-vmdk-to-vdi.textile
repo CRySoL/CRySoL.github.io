@@ -6,6 +6,8 @@ category: recipe
 tags: devel virtualbox shell
 ---
 
+When you have a functional virtual machine but you want to have the virtual disk in a different format.
+
 Something like this should be enough. You must known the name of the virtual disk controller ("SATA" in the example):
 
 <pre class="console">
