@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Convert .vmdk virtual disk to .vdi format from command line"
+author: david_villa
+category: recipe
+tags: devel virtualbox shell
+---
+
+Something like this should be enough. You must known the name of the virtual disk controller ("SATA" in the example):
+
+<pre class="console">
+$ VBoxManage storageattach NAME --storagectl SATA --port 0 --device 0 --type hdd --medium none
+$ VBoxManage clonehd --format vdi OLD_DISK.vmdk NEW_DISK.vdi
+$ VBoxManage storageattach NAME --storagectl SATA --port 0 --device 0 --type hdd --medium NEW_DISK.vdi
+</pre>
