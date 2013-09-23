@@ -16,7 +16,7 @@ To install it, execute:
 
 <pre class="console">
 $ sudo su
-# echo “deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main” > /etc/apt/sources.list.d/webudp8-java-list
+# echo deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main > /etc/apt/sources.list.d/webupd8-java.list
 # apt-key adv —keyserver keyserver.ubuntu.com —recv-keys EEA14886
 # apt-get update
 # apt-get install oracle-java7-installer
