@@ -12,7 +12,9 @@ ZeroC provides their own Ubuntu/Debian packages for the "version 3.5":http://www
 
 Some new features (like the icegrid-gui metric graphics) requires JavaFX, that is only available in the Oracle Java SDK.
 
-*Important*: With debian you need the repositories of testing (codename: "jessie":https://wiki.debian.org/DebianJessie) or newer.
+*Important*: I you have debian, you need the repositories of testing flavor (codename: "jessie":https://wiki.debian.org/DebianJessie) or newer.
+
+*Important*: I you have ubuntu, you need the repositories of the "Raring Ringtail":http://releases.ubuntu.com/raring/ release.
 
 To install it, execute:
 
