@@ -1,0 +1,54 @@
+---
+layout: post
+title: "VirtualBox: import/export and cloning machines"
+author: david_villa
+category: recipe
+tags: virtualbox
+---
+
+VirtualBox supports the OVF (Open Virtualization Format) and the OVA package (an single archive format).
+
+<!--break-->
+
+h2. Import
+
+You can import a .ova archive through File -> Import Applicance (C-i). The wizard allows to discard attached peripherals and "reinitialize the MAC address of all networks cards". This latter option is important in the case you are importing in the same VirtualBox the .ova comes.
+
+The same can be achieved with command line with:
+
+<pre class="console">
+$ vboxmanage import <file>.ova
+</pre>
+
+This does not require to previously start the @virtualbox@ application.
+
+
+h2. Export
+
+Click File -> Export Appliance (C-e) and choose the machine you want. If you click the "Hide Description" button then several metadata may be edited and set destination path.
+
+And the same can be done with command line:
+
+<pre class="console">
+$ vboxmanage export <machine-name> -o <file>.ova
+</pre>
+
+
+h2. Cloning
+
+To clone an existing virtual machine, select it in the main window and click Machine -> Clone (C-o). In the wizard, set the destination machine name, choose if you want a independent machine (full clone) or create a virtual disk only with differences (linked clone). Source machine snapshots can be cloned too. Do not forget to set "reinitialize the MAC address of all network cards".
+
+And the command line way:
+
+<pre class="console">
+$ vboxmanage clonevm <source-machine-name> --name <target-machine-name> --register
+</pre>
+
+
+<!--
+-- Local Variables:
+--  coding: utf-8
+--  mode: flyspell
+--  ispell-local-dictionary: "american"
+-- End:
+-->
