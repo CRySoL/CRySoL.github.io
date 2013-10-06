@@ -12,9 +12,9 @@ VirtualBox supports the OVF (Open Virtualization Format) and the OVA package (an
 
 h2. Import
 
-You can import a .ova archive through File -> Import Applicance (C-i). The wizard allows to discard attached peripherals and "reinitialize the MAC address of all networks cards". This latter option is important in the case you are importing in the same VirtualBox the .ova comes.
+You can import an .ova archive through File -> Import Applicance (C-i). The wizard allows to discard attached peripherals and "reinitialize the MAC address of all networks cards". This latter option is important in the case you are importing to the same VirtualBox the .ova comes.
 
-The same can be achieved with command line with:
+The same can be achieved from command line with:
 
 <pre class="console">
 $ vboxmanage import <file>.ova
@@ -27,7 +27,7 @@ h2. Export
 
 Click File -> Export Appliance (C-e) and choose the machine you want. If you click the "Hide Description" button then several metadata may be edited and set destination path.
 
-And the same can be done with command line:
+And the same can be done from command line:
 
 <pre class="console">
 $ vboxmanage export <machine-name> -o <file>.ova
