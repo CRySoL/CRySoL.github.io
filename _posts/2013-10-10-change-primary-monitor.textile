@@ -1,0 +1,37 @@
+---
+layout: post
+title: "Changing primary monitor"
+author: david_villa
+category: recipe
+tags: drivers
+lang: en
+---
+
+When you have a dual head display one of them is the "primary monitor". Usually, window manager put special panels or content in that monitor (gnome-shell).
+
+To see which are your connected monitors (and their names) run:
+
+<pre class="console">
+$ xrandr | grep connected
+DVI-I-0 disconnected (normal left inverted right x axis y axis)
+VGA-0 disconnected (normal left inverted right x axis y axis)
+DVI-I-1 connected primary 1920x1200+0+0 (normal left inverted right x axis y axis) 530mm x 300mm
+HDMI-0 connected 1920x1200+1920+0 (normal left inverted right x axis y axis) 530mm x 300mm
+</pre>
+
+In this case my primary monitor is DVI-I-1. To change to the other available monitor, run:
+
+<pre class="console">
+$ xrandr --output HDMI-0 --primary
+</pre>
+
+Cheers
+
+
+<!--
+-- Local Variables:
+--  coding: utf-8
+--  mode: flyspell
+--  ispell-local-dictionary: "american"
+-- End:
+-->

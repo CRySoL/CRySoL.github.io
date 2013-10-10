@@ -4,6 +4,7 @@ title: "How to get a shell for a non-shell user"
 author: david_villa
 category: recipe
 tags: shell
+lang: en
 ---
 
 Non shell unix users are useful to run services or daemons, but sometimes you may need a shell to test something failing...

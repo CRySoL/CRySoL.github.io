@@ -4,6 +4,7 @@ title: "Converting .vmdk virtual disk to .vdi format from command line"
 author: david_villa
 category: recipe
 tags: devel virtualbox shell
+lang: en
 ---
 
 When you have a functional virtual machine but you want to have the virtual disk in a different format.
