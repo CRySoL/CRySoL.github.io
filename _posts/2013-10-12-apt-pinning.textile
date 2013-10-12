@@ -1,0 +1,70 @@
+---
+layout: post
+title: "Debian apt pinning"
+tags: Debian
+category: recipe
+author: david_villa
+lang: es
+---
+
+Configuración mínima para apt-pinning
+
+<!--break-->
+
+h2. Configuración
+
+Filchero @/etc/apt/sources.list@:
+
+<pre>
+deb http://ftp.fi.debian.org/debian stable main non-free contrib
+deb http://ftp.fi.debian.org/debian stable main non-free contrib
+deb http://ftp.fi.debian.org/debian unstable main non-free contrib
+</pre>
+
+Fichero @/etc/apt/preferences@:
+
+<pre>
+Package: *
+Pin: release a=stable
+Pin-Priority: 700
+
+Package: *
+Pin: release a=testing
+Pin-Priority: 650
+
+Package: *
+Pin: release a=unstable
+Pin-Priority: 600
+</pre>
+
+Esto fija el orden de preferencia en orden stable, testing y unstable.
+
+
+h2. Instalando paquetes
+
+No olvidar actualizar indices de paquetes:
+
+<pre class="console">
+$ sudo apt-get update
+</pre>
+
+El comando @apt-get@ instalará la versión disponible con mayor prioridad, aunque sea una
+versión inferior. Para cambiar este compartamiento debe indicarlo explícitamente:
+
+<pre class="console">
+$ sudo apt-get install mplayer/unstable
+</pre>
+
+
+h2. Referencias
+
+* https://wiki.debian.org/AptPreferences
+
+<!--
+-- Local Variables:
+--  coding: utf-8
+--  mode: flyspell
+--  ispell-local-dictionary: "castellano"
+-- fill-column: 90
+-- End:
+-->
