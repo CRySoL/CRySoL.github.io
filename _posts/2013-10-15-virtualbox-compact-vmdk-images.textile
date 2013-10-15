@@ -9,7 +9,7 @@ lang: en
 
 VirtualBox is able to compact (reduce the size) .vdi images, but it is not possible with .vmdk disk images. So...
 
-<!-break->
+<!--break-->
 
 ...we can compact .vmdk files if we detach, convert to .vdi, compact, convert back to .vmdk and attack again to the original vitual machine:
 
