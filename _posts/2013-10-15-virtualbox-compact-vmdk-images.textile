@@ -1,0 +1,26 @@
+---
+layout: post
+title: "Compacting .vmdk virtual disk with VirtualBox"
+author: david_villa
+category: recipe
+tags: virtualbox shell
+lang: en
+---
+
+VirtualBox is able to compact (reduce the size) .vdi images, but it is not possible with .vmdk disk images. So...
+
+<!-break->
+
+...we can compact .vmdk files if we detach, convert to .vdi, compact, convert back to .vmdk and attack again to the original vitual machine:
+
+<pre class="console">
+$ vboxmanage storageattach VM --storagectl SATA --port 0 --device 0 --type hdd --medium none
+$ vboxmanage clonehd --format vdi ~/VMs/VM-disk1.vmdk /tmp/VM-disk1.vdi
+$ vboxmanage closemedium disk ~/VMs/VM-disk1.vmdk --delete
+$ vboxmanage modifyhd /tmp/VM-disk1.vdi --compact
+$ vboxmanage clonehd --format vmdk /tmp/VM-disk1.vdi ~/VMs/VM-disk1.vmdk
+$ vboxmanage closemedium disk /tmp/VM-disk1.vdi --delete
+$ vboxmanage storageattach VM --storagectl SATA --port 0 --device 0 --type hdd --medium 4/VMs/VM-disk1.vmdk
+</pre>
+
+CLI power again...
