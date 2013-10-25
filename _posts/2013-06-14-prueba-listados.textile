@@ -3,7 +3,7 @@ layout: post
 title: Pruebas de estilo en listados de código
 author: david_villa
 frontpage: false
-tags: recipe
+category: recipe
 ---
 
 Pruebas de estilo de los distintos tipos de listados de la web. Se muestran etiquetas HTML, soporte de liquid con @highlight@ y @gist@. Echa un vistado al <a href="https://github.com/CRySoL/web.source/raw/master/{{page.path}}">fuente de este post</a>.

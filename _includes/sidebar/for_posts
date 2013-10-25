@@ -8,7 +8,12 @@
       </li>
       {% if author.twitter %}
       <li>
-        {% include custom/follow_author %}
+        {% include custom/twitter_follow_author %}
+      </li>
+      {% endif %}
+      {% if author.plusone %}
+      <li>
+        {% include custom/plusone_follow_author %}
       </li>
       {% endif %}
     {% endif %}
@@ -61,18 +66,27 @@
 
 <div class="related">
   <h2>related</h2>
+
   <ul>
-    {% for page in site.related_posts limit:5 %}
-    <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
-    {% endfor %}
+   {% assign count = '0' %}
+   {% for tag in page.tags %}
+      {% for post in site.tags[tag] %}
+        {% if count < '5' and page.url != post.url %}
+          {% capture count %}{{ count | plus: '1' }}{% endcapture %}
+          <li><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
+        {% endif %}
+      {% endfor %}
+   {% endfor %}
   </ul>
+
+  {% assign count = nil %}
 </div>
 
 <div class="recent">
   <h2>recent</h2>
   <ul>
-  {% for page in site.posts limit: 5%}
-    <li><a href="{{ BASE_PATH }}{{ page.url }}">{{ page.title }}</a></li>
+  {% for post in site.posts limit: 5%}
+    <li><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
   {% endfor %}
   </ul>
 </div>

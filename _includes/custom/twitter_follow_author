@@ -3,9 +3,6 @@
 {% if author.twitter %}
 <a class="addthis_button_twitter_follow" addthis:userid="{{author.twitter}}"></a>
 {% endif %}
-{% if author.plusone %}
-<a class="addthis_button_google_plusone_badge" g:plusone:href="https://plus.google.com/{{author.plusone}}/"></a>
-{% endif %}
 </span>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51cdd0d57c014017"></script>
 <!-- AddThis Follow END -->
