@@ -1,0 +1,44 @@
+---
+layout: post
+title: "Fine-grain sudo"
+author: david_villa
+category: recipe
+tags: sudo shell
+lang: en
+---
+
+@sudo@ lets a user run commands as she was a different user (usually root). The common configuration of @sudo@ requests your password before run the command. As that is annoying, you may be tempted to write something like this in your @/etc/sudoers@:
+
+<pre>
+john   ALL = ALL, NOPASSWD: APT
+</pre>
+
+But this may be a big security issue.
+
+h2. Fine grain
+
+Something more convenient is to specifically set which commands can be executed without password. Next sudo configuration makes this possible:
+
+<pre>
+Defaults        env_reset, insults
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Defaults        timestamp_timeout=15
+
+Cmnd_Alias APT = /usr/bin/apt-get, /usr/bin/dpkg
+%sudo   ALL = ALL, NOPASSWD: APT
+</pre>
+
+The commands in the "alias" @APT@ can be executed by users in the group @sudo@ without a password. For all other commands, @sudo@ take the usual behavior.
+
+Also, with that configuration:
+
+* It insults you if you type a wrong password.
+* It caches the password during 15 minutes.
+
+<!--
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "american"
+;; End:
+-->
