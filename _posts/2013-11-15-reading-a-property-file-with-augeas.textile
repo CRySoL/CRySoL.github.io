@@ -1,0 +1,51 @@
+---
+layout: post
+title: "Reading a properties file with augeas"
+author: david_villa
+category: recipe
+tags: shell augeas
+lang: en
+---
+
+@augeas@ is a command line generic tool to manage configuration text files. @augeas@ comes with many "lenses". The lenses are files that specify rules to read and write each kind of file. This is a very good to for scripting or automatic configuration management (like @pupet@ does).
+
+Here I want to read a simple properties file (compound by key=value lines) without define a specific "lens". In particular, it is an Ice configuration file.
+
+I need to write an augeas script (called @ice-locator.augeas@) like this:
+
+<pre>
+set /augeas/load/IniFile/lens simplevars.lns
+set /augeas/load/IniFile/incl /etc/icegridnode.conf
+load
+get /files/etc/icegridnode.conf/Ice.Default.Locator
+quit
+</pre>
+
+I using the a lens called "IniFile" and say to augeas that is good to read the file @/etc/icegridnode.conf@. That file looks like this:
+
+<pre>
+#!/usr/bin/augtool -f
+
+Ice.Default.Locator=IceGrid/Locator -t:tcp -h master.example.net -p 4061
+IceGrid.Node.Name=node1
+IceGrid.Node.Data=/var/lib/ice/icegrid/node1
+IceGrid.Node.Endpoints=tcp
+</pre>
+
+Running the augeas script:
+
+<pre class="console">
+$ chmod +x ice-locator.augeas
+$ ./ice-locator.augeas
+/files/etc/icegridnode.conf/Ice.Default.Locator = IceGrid/Locator -t:tcp -h master.example.net -p 4061
+</pre>
+
+:bye
+
+<!--
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "american"
+;; End:
+-->
