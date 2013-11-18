@@ -9,7 +9,7 @@ lang: en
 
 That deletes the given files from all the changesets along all the repository history, as they never were commited.
 
-It is not a very friendly command (it's the git style), but at least yit can be done.
+It is not a very friendly command (it's the git style!), but at least it can be done.
 
 <pre class="console">
 $ git filter-branch --index-filter 'git rm -r --cached --ignore-unmatch <file/dir>' --prune-empty --tag-name-filter cat -- --all

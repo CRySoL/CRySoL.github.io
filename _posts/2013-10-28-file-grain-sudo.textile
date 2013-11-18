@@ -13,7 +13,9 @@ lang: en
 john   ALL = ALL, NOPASSWD: APT
 </pre>
 
-But this may be a big security issue.
+But this may be a big security issue...
+
+<!--break-->
 
 h2. Fine grain
 

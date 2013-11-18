@@ -7,7 +7,9 @@ tags: shell augeas
 lang: en
 ---
 
-@augeas@ is a command line generic tool to manage configuration text files. @augeas@ comes with many "lenses". The lenses are files that specify rules to read and write each kind of file. This is a very good to for scripting or automatic configuration management (like @pupet@ does).
+@augeas@ is a command line generic tool to manage configuration text files. @augeas@ comes with many "lenses". The lenses are files that specify rules to read and write each kind of file. This is a very good to for scripting or automatic configuration management (like @puppet@ does).
+
+<!--break-->
 
 Here I want to read a simple properties file (compound by key=value lines) without define a specific "lens". In particular, it is an Ice configuration file.
 
