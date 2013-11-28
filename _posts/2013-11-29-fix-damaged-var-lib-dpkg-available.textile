@@ -1,0 +1,35 @@
+---
+layout: post
+title: "Fix damaged /var/lib/dpkg/available"
+author: david_villa
+category: recipe
+tags: debian
+lang: en
+---
+
+Sometimes the file @/var/lib/dpkg/available@ is corrupted. When you use the package managing tools you get messages similar to these:
+
+<pre class="console">
+dpkg: warning: parsing file '/var/lib/dpkg/available' near line 1128 package 'dash':
+ missing description
+dpkg: warning: parsing file '/var/lib/dpkg/available' near line 2687 package 'login':
+ missing description
+</pre>
+
+Usually this is not a big issue but it may be annoying. To fix it, just execute next commands:
+
+<pre class="console">
+# mv /var/lib/dpkg/available /root/
+# touch /var/lib/dpkg/available
+# sh -c 'for i in /var/lib/apt/lists/*_Packages; do dpkg --merge-avail "$i"; done'
+</pre>
+
+Seen at http://askubuntu.com/questions/109994/dpkg-error-parsing-file-var-lib-dpkg-status-near-line-6449
+
+<!--
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "american"
+;; End:
+-->
