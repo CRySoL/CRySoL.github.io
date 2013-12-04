@@ -1,0 +1,52 @@
+---
+layout: post
+title: "¿Cómo proporcionar un mecanismo de autenticación a IceGrid?"
+author: isaaclacoba
+category: recipe
+tags: Ice
+sticky: true
+#refs:
+# - "Blogging with git, emacs and jekyll":http://metajack.im/2009/01/23/blogging-with-git-emacs-and-jekyll
+---
+
+Esta receta muestra cómo proporciona, de una forma sencilla, un mecanismo de autenticación a IceGrid.
+
+<!--break-->
+
+El Registry de IceGrid es un elemento crítico, porque el acceso al Registry implica acceso a todos los nodos del grid. Por tanto necesitamos una forma de autenticar a los usuarios.
+
+Esta receta explica el mecanismo más simple de autenticación que proporciona Ice. Se basa en un simple fichero de texto con líneas de pares "usuario contraseña" (separado por un espacio). La contraseña está cifrada con DES.
+
+Para ello, hemos elegido utilizar la siguiente propiedad de IceGrid:
+
+<pre>
+IceGrid.Registry.AdminCryptPasswords=admin-passwords
+</pre>
+
+Esta propiedad se debe escribir en el fichero de cofiguración del nodo que va a contener el Registry. Esta propiedad acepta un fichero con la siguiente estructura:
+
+<pre>
+usuario Clave_encriptada
+</pre>
+
+Este fichero tiene la misma estructura que el fichero de claves que utiliza Glacier2 para las sesioes seguras a los routers que define.
+Las contraseñas del fichero se pueden encriptan mediante ssl. Por ejemplo:
+
+<pre class="console">
+$ openssl passwd >> admin-passwords
+</pre>
+
+h2. Referencias:
+cifrado por defecto de openssl:
+http://stackoverflow.com/questions/7402230/what-is-default-cipher-for-pem-format-in-openssl
+Fichero de claves para Glacier2:
+http://doc.zeroc.com/display/Ice/Getting+Started+with+Glacier2#GettingStartedwithGlacier2-WritingaPasswordFile
+Propiedad AdminCryptPasswords:
+http://doc.zeroc.com/display/Ice/IceGrid+Properties#IceGridProperties-IceGrid.Registry.AdminCryptPasswords
+<!-
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "castellano8"
+;; End:
+-->
