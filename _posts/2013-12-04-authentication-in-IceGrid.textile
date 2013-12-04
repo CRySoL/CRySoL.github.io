@@ -4,9 +4,6 @@ title: "¿Cómo proporcionar un mecanismo de autenticación a IceGrid?"
 author: isaaclacoba
 category: recipe
 tags: Ice
-sticky: true
-#refs:
-# - "Blogging with git, emacs and jekyll":http://metajack.im/2009/01/23/blogging-with-git-emacs-and-jekyll
 ---
 
 Esta receta muestra cómo proporciona, de una forma sencilla, un mecanismo de autenticación a IceGrid.
@@ -36,13 +33,12 @@ Las contraseñas del fichero se pueden encriptan mediante ssl. Por ejemplo:
 $ openssl passwd >> admin-passwords
 </pre>
 
-h2. Referencias:
-cifrado por defecto de openssl:
-http://stackoverflow.com/questions/7402230/what-is-default-cipher-for-pem-format-in-openssl
-Fichero de claves para Glacier2:
-http://doc.zeroc.com/display/Ice/Getting+Started+with+Glacier2#GettingStartedwithGlacier2-WritingaPasswordFile
-Propiedad AdminCryptPasswords:
-http://doc.zeroc.com/display/Ice/IceGrid+Properties#IceGridProperties-IceGrid.Registry.AdminCryptPasswords
+h2. Referencias
+
+* Cifrado por defecto de openssl: http://stackoverflow.com/questions/7402230/what-is-default-cipher-for-pem-format-in-openssl
+* Fichero de claves para Glacier2: http://doc.zeroc.com/display/Ice/Getting+Started+with+Glacier2#GettingStartedwithGlacier2-WritingaPasswordFile
+* Propiedad AdminCryptPasswords: http://doc.zeroc.com/display/Ice/IceGrid+Properties#IceGridProperties-IceGrid.Registry.AdminCryptPasswords
+
 <!-
 ;; Local Variables:
 ;;  coding: utf-8
