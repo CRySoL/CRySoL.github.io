@@ -16,6 +16,8 @@ Here I want to read a simple properties file (compound by key=value lines) witho
 I need to write an augeas script (called @ice-locator.augeas@) like this:
 
 <pre>
+#!/usr/bin/augtool -f
+
 set /augeas/load/IniFile/lens simplevars.lns
 set /augeas/load/IniFile/incl /etc/icegridnode.conf
 load
@@ -26,8 +28,6 @@ quit
 I using the a lens called "IniFile" and say to augeas that is good to read the file @/etc/icegridnode.conf@. That file looks like this:
 
 <pre>
-#!/usr/bin/augtool -f
-
 Ice.Default.Locator=IceGrid/Locator -t:tcp -h master.example.net -p 4061
 IceGrid.Node.Name=node1
 IceGrid.Node.Data=/var/lib/ice/icegrid/node1
