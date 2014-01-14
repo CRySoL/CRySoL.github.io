@@ -1,17 +1,12 @@
 ---
 migrated: node/643
 layout: post
-title: !binary |-
-  R05VIEVtYWNzOiBBY2VsZXJhbmRvIGVsIGFycmFucXVlLCBjb24gLlhyZXNv
-  dXJjZXM=
+title: ! 'GNU Emacs: Acelerando el arranque, con .Xresources'
 created: 1176389673
-author: !binary |-
-  YnJ1ZQ==
-category: !binary |-
-  cmVjaXBl
+author: brue
+category: recipe
 tags:
-- !binary |-
-  ZW1hY3M=
+- emacs
 ---
 <blockquote>Si usas el @.emacs@ para definir algunos aspectos de Emacs le obligas a usar el intérprete de lisp. Algunas cosas, como las propiedades de las fuentes, colores, barras ... se pueden modificar en el @.Xresources@ , lo que consigue que el arranque de Emacs sea más rápido
 </blockquote>

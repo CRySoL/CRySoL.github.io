@@ -1,18 +1,13 @@
 ---
 migrated: node/1317
 layout: post
-title: !binary |-
-  Q3JlYW5kbyB0w7puZWxlcyBUQ1AvSVAgKHBvcnQgZm9yd2FyZGluZykgY29u
-  IFNTSDogTG9zIDggZXNjZW5hcmlvcyBwb3NpYmxlcyB1c2FuZG8gT3BlblNT
-  SA==
+title: ! 'Creando túneles TCP/IP (port forwarding) con SSH: Los 8 escenarios posibles
+  usando OpenSSH'
 created: 1262544530
-author: !binary |-
-  Q1J5U29M
-category: !binary |-
-  cmVjaXBl
+author: CRySoL
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 Esta receta es una copia (gracias a su licencia CC) de un post del blog de "Vicente Navarro":http://<a href="http://www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh">www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh</a> (un blog con un contenido estupendo por cierto). La pongo aquí porque me parece un material muy bueno y en previsión de que (FSM no lo quiera) dicho blog desaparezca repentinamente.
 

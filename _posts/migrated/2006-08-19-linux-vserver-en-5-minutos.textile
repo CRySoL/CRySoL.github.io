@@ -1,13 +1,10 @@
 ---
 migrated: node/378
 layout: post
-title: !binary |-
-  TGludXggVnNlcnZlciBlbiA1IG1pbnV0b3M=
+title: Linux Vserver en 5 minutos
 created: 1156007811
-author: !binary |-
-  cGFjbw==
-category: !binary |-
-  cmVjaXBl
+author: paco
+category: recipe
 ---
 bq(head). Linux-Vserver es similar a las zonas de Solaris 9 o a las jaulas de FreeBSD.  Permite ejecutar procesos de forma totalmente aislada respecto a los demás, lo que lo convierte en una especie de máquina virtual ultra-rápida.
 

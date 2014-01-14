@@ -1,16 +1,12 @@
 ---
 migrated: node/730
 layout: post
-title: !binary |-
-  VGNwc3RhdCwgZXN0YWTDrXN0aWNhcyBkZSBsYSByZWQ=
+title: Tcpstat, estadísticas de la red
 created: 1182967374
-author: !binary |-
-  ZGllZ28=
-category: !binary |-
-  cmVjaXBl
+author: diego
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 <blockquote class="head"> 
 Tcpstat es un programa que nos da distintas estadísticas sobre la red. Estas estadísticas las puede obtener monitorizando una interfaz de red, o leyéndolas de una captura previa desde un fichero.

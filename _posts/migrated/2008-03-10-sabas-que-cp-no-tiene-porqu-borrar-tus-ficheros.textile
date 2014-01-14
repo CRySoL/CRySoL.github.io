@@ -1,17 +1,12 @@
 ---
 migrated: node/881
 layout: post
-title: !binary |-
-  U2Fiw61hcyBxdWUuLi4gImNwIiBubyB0aWVuZSBwb3JxdcOpIGJvcnJhciB0
-  dXMgZmljaGVyb3Mu
+title: Sabías que... "cp" no tiene porqué borrar tus ficheros.
 created: 1205133257
-author: !binary |-
-  bWFnbWF4
-category: !binary |-
-  cmVjaXBl
+author: magmax
+category: recipe
 tags:
-- !binary |-
-  c2hlbGw=
+- shell
 ---
 <blockquote>Minirreceta sobre cómo evitar que CP sobreescriba tus ficheros.
 </blockquote>

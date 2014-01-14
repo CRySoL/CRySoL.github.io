@@ -1,20 +1,14 @@
 ---
 migrated: node/618
 layout: post
-title: !binary |-
-  UG9ydC1rbm9ja2luZzogImxsYW1hIGFudGVzIGRlIGVudHJhciI=
+title: ! 'Port-knocking: "llama antes de entrar"'
 created: 1174174905
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
-- !binary |-
-  c2VjdXJpdHk=
-- !binary |-
-  QXJjbw==
+- networking
+- security
+- Arco
 ---
 bq(head). Cómo instalar y configurar @knockd@, un demonio de _port-knocking_
 

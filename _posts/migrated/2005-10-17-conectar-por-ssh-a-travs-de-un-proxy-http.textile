@@ -1,16 +1,12 @@
 ---
 migrated: node/42
 layout: post
-title: !binary |-
-  Q29uZWN0YXIgcG9yIFNTSCBhIHRyYXbDqXMgZGUgdW4gcHJveHkgSFRUUA==
+title: Conectar por SSH a través de un proxy HTTP
 created: 1129540982
-author: !binary |-
-  ZnNhbmNobw==
-category: !binary |-
-  cmVjaXBl
+author: fsancho
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 <blockquote>
 Esta receta es para todos aquellos que estais en un entorno restrictivo en el que solo hay acceso al exterior a través de un proxy HTTP, como es mi caso actualmente.

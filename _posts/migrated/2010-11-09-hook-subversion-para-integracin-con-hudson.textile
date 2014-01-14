@@ -1,20 +1,14 @@
 ---
 migrated: node/1429
 layout: post
-title: !binary |-
-  aG9vayBzdWJ2ZXJzaW9uIHBhcmEgaW50ZWdyYWNpw7NuIGNvbiBIdWRzb24=
+title: hook subversion para integración con Hudson
 created: 1289342263
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  SU5HU09GVA==
-- !binary |-
-  ZGV2ZWw=
-- !binary |-
-  VkNT
+- INGSOFT
+- devel
+- VCS
 ---
 Esta receta explica cómo configurar un repositorio subversion para lanzar una proyecto Hudson al hacer _commit_.
 

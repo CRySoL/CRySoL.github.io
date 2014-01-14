@@ -1,17 +1,12 @@
 ---
 migrated: node/1376
 layout: post
-title: !binary |-
-  SW5zdGFsYWNpw7NuIHkgcHVlc3RhIGVuIG1hcmNoYSBkZSBIWURSQSBkZXNk
-  ZSByZXBv
+title: Instalación y puesta en marcha de HYDRA desde repo
 created: 1278954987
-author: !binary |-
-  bmFjaG8=
-category: !binary |-
-  cmVjaXBl
+author: nacho
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
+- Arco
 ---
 En esta receta se explican los pasos a seguir para poner en marcha un sistema HYDRA desde cero, utilizando la versión SID (Still in Development) del repositorio.
 

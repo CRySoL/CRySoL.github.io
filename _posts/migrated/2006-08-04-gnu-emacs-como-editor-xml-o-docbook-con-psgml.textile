@@ -1,17 +1,12 @@
 ---
 migrated: node/368
 layout: post
-title: !binary |-
-  R05VIEVtYWNzIGNvbW8gZWRpdG9yIFhNTCAobyBEb2NCb29rKSwgY29uIHBz
-  Z21s
+title: GNU Emacs como editor XML (o DocBook), con psgml
 created: 1154727214
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  ZW1hY3M=
+- emacs
 ---
 GNU Emacs puede ser un excelente editor (como no?) también para SGML, XML, o derivados tan populares com XHTML o DocBook. Esta receta concretamente introduce el uso del paquete *psgml*, aunque hay otros.
 

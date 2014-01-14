@@ -1,16 +1,12 @@
 ---
 migrated: node/490
 layout: post
-title: !binary |-
-  Q29udHJvbCBkZWwgcHVlcnRvIHBhcmFsZWxvIGNvbiBwcGRldg==
+title: Control del puerto paralelo con ppdev
 created: 1168289582
-author: !binary |-
-  VmljdG9y
-category: !binary |-
-  cmVjaXBl
+author: Victor
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
+- Arco
 ---
 Cómo leer y escribir en un puerto paralelo desde un programa C utilizando el driver @ppdev@ y la llamada al sistema @ioctl@
 

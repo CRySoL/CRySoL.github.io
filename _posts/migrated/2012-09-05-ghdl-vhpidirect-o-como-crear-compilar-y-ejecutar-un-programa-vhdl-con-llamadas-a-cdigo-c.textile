@@ -1,18 +1,13 @@
 ---
 migrated: node/1686
 layout: post
-title: !binary |-
-  R0hETCArIFZIUElESVJFQ1QgbyBjb21vIGNyZWFyLCBjb21waWxhciB5IGVq
-  ZWN1dGFyIHVuIHByb2dyYW1hIFZIREwgY29uIGxsYW1hZGFzIGEgY8OzZGln
-  byBD
+title: GHDL + VHPIDIRECT o como crear, compilar y ejecutar un programa VHDL con llamadas
+  a código C
 created: 1346869691
-author: !binary |-
-  cHNtMTk4NA==
-category: !binary |-
-  cmVjaXBl
+author: psm1984
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
+- Arco
 ---
 GHDL ( <a href="http://ghdl.free.fr/">http://ghdl.free.fr/</a> ) es un simulador open-source para VHDL, que permite la compilación y ejecución del código VHDL directamente en PC. Otra característica avanzada es la capacidad de utilizar funciones C desde el código VHDL.
 

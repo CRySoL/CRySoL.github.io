@@ -1,16 +1,12 @@
 ---
 migrated: node/1561
 layout: post
-title: !binary |-
-  VmVyIGV2ZW50b3MgZGVwb3J0aXZvcyB1c2FuZG8gU29wY2FzdCB5IFhCTUM=
+title: Ver eventos deportivos usando Sopcast y XBMC
 created: 1326804542
-author: !binary |-
-  ZnNhbmNobw==
-category: !binary |-
-  cmVjaXBl
+author: fsancho
+category: recipe
 tags:
-- !binary |-
-  bXVsdGltZWRpYQ==
+- multimedia
 ---
 Que XBMC es el mejor software para media-centers es algo que poca gente discute. La receta que os traigo os permitirá ver todo tipo de eventos deportivos usando XBMC desde vuestra GNU/Linux usando el protocolo Sopcast.
 

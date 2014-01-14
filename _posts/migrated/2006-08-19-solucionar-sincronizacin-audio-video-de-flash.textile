@@ -1,14 +1,10 @@
 ---
 migrated: node/377
 layout: post
-title: !binary |-
-  U29sdWNpb25hciBzaW5jcm9uaXphY2nDs24gYXVkaW8vdmlkZW8gZGUgZmxh
-  c2g=
+title: Solucionar sincronización audio/video de flash
 created: 1155943639
-author: !binary |-
-  ZnNhbmNobw==
-category: !binary |-
-  cmVjaXBl
+author: fsancho
+category: recipe
 ---
 <blockquote>
 Pululando por el <a href="http://blogs.adobe.com/penguin.swf/">blog de desarrollo</a> de la próxima versión del plugin de flash para GNU/Linux, he visto una recetilla que explica cómo solucionar el problema de desincronización de audio y video que sufrimos los que usamos el plugin de flash en GNU/Linux, sobre todo aquellos que no disponen de un ordenador muy potente.

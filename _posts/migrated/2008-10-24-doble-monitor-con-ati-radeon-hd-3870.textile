@@ -1,20 +1,14 @@
 ---
 migrated: node/1033
 layout: post
-title: !binary |-
-  RG9ibGUgTW9uaXRvciBjb24gQVRJIFJhZGVvbiBIRCAzODcwIA==
+title: ! 'Doble Monitor con ATI Radeon HD 3870 '
 created: 1224867086
-author: !binary |-
-  ZmVsaXg=
-category: !binary |-
-  cmVjaXBl
+author: felix
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  ZHJpdmVycw==
-- !binary |-
-  RGViaWFu
+- Arco
+- drivers
+- Debian
 ---
 <blockquote>
 Configurar la tarjeta gráfica ATI radeon HD 3870 con dos monitores

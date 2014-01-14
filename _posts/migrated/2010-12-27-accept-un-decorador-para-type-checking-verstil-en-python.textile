@@ -1,17 +1,12 @@
 ---
 migrated: node/1443
 layout: post
-title: !binary |-
-  YWNjZXB0OiB1biBkZWNvcmFkb3IgcGFyYSB0eXBlLWNoZWNraW5nIHZlcnPD
-  oXRpbCBlbiBQeXRob24=
+title: ! 'accept: un decorador para type-checking versátil en Python'
 created: 1293417643
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
+- Python
 ---
 Una de las cosas que más chocan al empezar a utilizar un lenguaje dinámico (Python, Ruby, Lua, etc.) es que las variables no se declaran o definen con un tipo concreto. Eso normalmente no es un problema y de hecho resulta bastante cómodo. Pero cuando un programa adquiere cierta envergadura empiezan a surgir problemas. 
 

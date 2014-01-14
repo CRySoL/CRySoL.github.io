@@ -1,18 +1,13 @@
 ---
 migrated: node/505
 layout: post
-title: !binary |-
-  UHJvZ3JhbWFuZG8gdW5hIE1JQ0Ey
+title: Programando una MICA2
 created: 1169208182
-author: !binary |-
-  ZmVsaXg=
-category: !binary |-
-  cmVjaXBl
+author: felix
+category: recipe
 tags:
-- !binary |-
-  ZW1iZWRkZWQ=
-- !binary |-
-  QXJjbw==
+- embedded
+- Arco
 ---
 <blockquote>Vamos a tratar de describir el proceso de programación de un nodo Mica2 con un ejemplo mínimo. Para ello vamos a usar el equivalente para sistemas empotrados del hola mundo que es la aplicación Blink para el tinyOS. Adicionalmente iremos ampliando este tema con las herramientas que nos proporciona la toolchain.</blockquote>
 

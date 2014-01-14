@@ -1,17 +1,12 @@
 ---
 migrated: node/806
 layout: post
-title: !binary |-
-  UGF0cm9uZXM6IFRvZG8gbG8gcXVlIG51bmNhIHF1aXNpc3RlIHNhYmVyIHkg
-  c2llbXByZSBldml0YXN0ZSBwcmVndW50YXI=
+title: ! 'Patrones: Todo lo que nunca quisiste saber y siempre evitaste preguntar'
 created: 1195237731
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  cGF0dGVybnM=
+- patterns
 ---
 bq(head). Primera de una serie de recetas sobre patrones de diseño.
 

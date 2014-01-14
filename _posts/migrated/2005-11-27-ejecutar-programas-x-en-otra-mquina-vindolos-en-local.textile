@@ -1,17 +1,12 @@
 ---
 migrated: node/119
 layout: post
-title: !binary |-
-  RWplY3V0YXIgcHJvZ3JhbWFzIFggZW4gb3RyYSBtw6FxdWluYSB2acOpbmRv
-  bG9zIGVuIGxvY2Fs
+title: Ejecutar programas X en otra máquina viéndolos en local
 created: 1133085770
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 <blockquote class="head">
 A veces se necesita ejecutar un programa con interfaz gráfica que reside en una máquina distinta y queremos verlo en la máquina que estamos. Esta receta explica cómo conseguirlo sin tener que abrir una sesión X ni tener que utilizar un "escritorio remoto" como <tt>vnc</tt>.

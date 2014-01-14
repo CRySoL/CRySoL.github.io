@@ -1,16 +1,12 @@
 ---
 migrated: node/28
 layout: post
-title: !binary |-
-  TmV0Y2F0LCBsYSBuYXZhamEgc3VpemEgZGUgVENQL0lQ
+title: Netcat, la navaja suiza de TCP/IP
 created: 1128948352
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 <blockquote>
 Netcat es una de las herramientas más potentes y flexibles que existen en el campo de la programación, depuración, análisis y manipulación de redes y servicios TCP/IP. Es un recurso imprescindible tanto para expertos en seguridad de redes como para hackers. Esta receta incluye varios ejemplos de uso de  <b>GNU netcat</b>.

@@ -1,13 +1,10 @@
 ---
 migrated: node/1213
 layout: post
-title: !binary |-
-  RGVzYWN0aXZhY2nDs24gZGUgcGl0aWRvcyB2YXJpb3M=
+title: Desactivación de pitidos varios
 created: 1250417248
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 ---
 * Consola: Añadir @set bell-style none@ al fichero @$HOME/.inputrc@
 

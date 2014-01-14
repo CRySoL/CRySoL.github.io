@@ -1,17 +1,12 @@
 ---
 migrated: node/1090
 layout: post
-title: !binary |-
-  QWN0aXZhciAiY29tcG9zaXRpbmciIGVuIEdOT01FIChzaW4gdXRpbGl6YXIg
-  Q29tcGl6IG5pIGRlcml2YWRvcyk=
+title: Activar "compositing" en GNOME (sin utilizar Compiz ni derivados)
 created: 1234525898
-author: !binary |-
-  TGsy
-category: !binary |-
-  cmVjaXBl
+author: Lk2
+category: recipe
 tags:
-- !binary |-
-  Z25vbWU=
+- gnome
 ---
 Desde hace algunas versiones *metacity* incluye un _compositing manager_ que viene desactivado por defecto. Este _compositing manager_ sirve para cosas como tener transparencias reales o para añadir sombras a las ventanas.
 

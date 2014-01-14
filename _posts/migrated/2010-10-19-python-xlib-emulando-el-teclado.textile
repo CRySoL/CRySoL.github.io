@@ -1,16 +1,12 @@
 ---
 migrated: node/1413
 layout: post
-title: !binary |-
-  cHl0aG9uLXhsaWI6IGVtdWxhbmRvIGVsIHRlY2xhZG8=
+title: ! 'python-xlib: emulando el teclado'
 created: 1287489245
-author: !binary |-
-  b3NjYXJhaA==
-category: !binary |-
-  cmVjaXBl
+author: oscarah
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
+- Python
 ---
 En el pasado post nos quedamos a medias. Vimos como hacer algunas cosillas con el ratón, pero no hicimos nada con el teclado. Intentémoslo ahora.
 

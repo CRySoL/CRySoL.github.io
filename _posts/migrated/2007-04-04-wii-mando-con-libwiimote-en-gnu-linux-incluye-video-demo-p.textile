@@ -1,19 +1,13 @@
 ---
 migrated: node/636
 layout: post
-title: !binary |-
-  V2lpLU1hbmRvIGNvbiBMaWJ3aWltb3RlIGVuIEdOVS9MaW51eCAoSW5jbHV5
-  ZSB2aWRlby1kZW1vIDstUCk=
+title: Wii-Mando con Libwiimote en GNU/Linux (Incluye video-demo ;-P)
 created: 1175678303
-author: !binary |-
-  bW9yY3k=
-category: !binary |-
-  cmVjaXBl
+author: morcy
+category: recipe
 tags:
-- !binary |-
-  b2Npbw==
-- !binary |-
-  Z3JhcGhpY3M=
+- ocio
+- graphics
 ---
 <blockquote class="head">
  Ampliando la información de Cleto sobre el Wiimando... De lo mejor que he visto son las librerías nativas de C libwiimote (paquete debian en su versión muy antigua), aunque a la fecha de escritura de este post van por la 0.4. Pueden descargarse en <a href="http://libwiimote.sourceforge.net/">http://libwiimote.sourceforge.net/</a>. Para compilarlas necesitarás tener libbluetooth y bluez. 

@@ -1,13 +1,10 @@
 ---
 migrated: node/1454
 layout: post
-title: !binary |-
-  UmVkbWluZSBQQU0gYXV0aGVudGljYXRpb24gcGx1Z2lu
+title: Redmine PAM authentication plugin
 created: 1296269544
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 ---
 That recipe shows how to configure "redmine":http://<a href="http://www.redmine.org/">www.redmine.org/</a> to use PAM authentication. It includes the PAM authentication plugin code.
 

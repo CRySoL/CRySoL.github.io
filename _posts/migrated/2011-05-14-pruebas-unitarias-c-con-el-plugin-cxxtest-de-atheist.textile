@@ -1,18 +1,12 @@
 ---
 migrated: node/1512
 layout: post
-title: !binary |-
-  UHJ1ZWJhcyB1bml0YXJpYXMgQyBjb24gZWwgcGx1Z2luIEN4eFRlc3QgZGUg
-  QXRoZWlzdA==
+title: Pruebas unitarias C con el plugin CxxTest de Atheist
 created: 1305400435
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  Qysr
-- !binary |-
-  SU5HU09GVA==
+- C++
+- INGSOFT
 ---
 En el blog de magmax: "Atheist: Probando módulos C":http://magmax.org/drupal/es/node/175

@@ -1,18 +1,13 @@
 ---
 migrated: node/898
 layout: post
-title: !binary |-
-  TGxhbWFkYXMgVm9JUCBkZXNkZSBORFM=
+title: Llamadas VoIP desde NDS
 created: 1207061498
-author: !binary |-
-  bWpzYW50b2Y=
-category: !binary |-
-  cmVjaXBl
+author: mjsantof
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  TkRT
+- Arco
+- NDS
 ---
 bq(head). Si ya podemos conectar nuestra NDS a "la  Fonera" ¿por qué no utilizar esa conexión para hacer algo más? Podemos hacer llamadas por VoIP a números fijos, sin ningún coste, y lo mejor de todo, DESDE NUESTRA NDS!  gracias a SVSIP.
 

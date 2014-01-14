@@ -1,19 +1,13 @@
 ---
 migrated: node/889
 layout: post
-title: !binary |-
-  VHJhbnNmZXJlbmNpYSB2w61hIFdpRmkgcGFyYSBOaW50ZW5kbyBEUzogc2Vu
-  RFMgMy4w
+title: ! 'Transferencia vía WiFi para Nintendo DS: senDS 3.0'
 created: 1206313054
-author: !binary |-
-  cGFjbw==
-category: !binary |-
-  c2NyaXB0
+author: paco
+category: script
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  TkRT
+- Arco
+- NDS
 ---
 Os presento una pequeña utilidad para la Nintendo DS que permite bajar y subir todo tipo de archivos a cualquiera de los dos slots y hacer copias de seguridad o restaurar las memorias EEPROM de los cartuchos de juegos.  En el lado del PC no necesitas nada especial, solo netcat.
 

@@ -1,20 +1,14 @@
 ---
 migrated: node/796
 layout: post
-title: !binary |-
-  U29ja2V0cyDCq3Jhd8K7IGNvbiBQeXRob24=
+title: Sockets «raw» con Python
 created: 1193744489
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  UHl0aG9u
-- !binary |-
-  bmV0d29ya2luZw==
+- Arco
+- Python
+- networking
 ---
 bq(head). Esta receta es una pequeña introducción a la programación de sockets «raw».
 

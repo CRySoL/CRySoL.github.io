@@ -1,17 +1,12 @@
 ---
 migrated: node/1485
 layout: post
-title: !binary |-
-  SW50ZWdyYWNpw7NuIENvbnRpbnVhIGRlIGFwbGljYWNpb25lcyBQeXRob24g
-  Y29uIEh1ZHNvbi9KZW5raW5z
+title: Integración Continua de aplicaciones Python con Hudson/Jenkins
 created: 1300812805
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
+author: david_villa
 tags:
-- !binary |-
-  UHl0aG9u
-- !binary |-
-  SU5HU09GVA==
+- Python
+- INGSOFT
 ---
 Os dejo un enlace a un buen tutorial para sacarle todo el jugo a Hudson (o Jenkins) para integrar aplicaciones y módulos Python.
 

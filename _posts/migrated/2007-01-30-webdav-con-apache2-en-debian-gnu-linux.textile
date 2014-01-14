@@ -1,16 +1,12 @@
 ---
 migrated: node/541
 layout: post
-title: !binary |-
-  V2ViREFWIGNvbiBBcGFjaGUyIGVuIERlYmlhbiBHTlUvTGludXg=
+title: WebDAV con Apache2 en Debian GNU/Linux
 created: 1170169629
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
+- Arco
 ---
 Cómo configurar Apache2 para disponer de un directorio  WebDAV, accesible para lectura/escritura desde GNOME VFS, konqueror, cadaver o como una "web folder" desde el "sistema operativo más rentable de todos los tiempos". 
 

@@ -1,13 +1,10 @@
 ---
 migrated: node/366
 layout: post
-title: !binary |-
-  UHVibGljYXIgbG9zICJob21lcyIgY29uIEFwYWNoZTI=
+title: Publicar los "homes" con Apache2
 created: 1154462658
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 ---
 Cómo configurar Apache para que todos los usuarios de la máquina sobre la que se ejecuta puedan tener su propio espacio web.
 

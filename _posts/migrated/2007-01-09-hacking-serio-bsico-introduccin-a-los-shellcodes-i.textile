@@ -1,17 +1,12 @@
 ---
 migrated: node/493
 layout: post
-title: !binary |-
-  SGFja2luZyBzZXJpbyBiw6FzaWNvOiBJbnRyb2R1Y2Npw7NuIGEgbG9zICJz
-  aGVsbGNvZGVzIiAoSSk=
+title: ! 'Hacking serio básico: Introducción a los "shellcodes" (I)'
 created: 1168368811
-author: !binary |-
-  YnJ1ZQ==
-category: !binary |-
-  cmVjaXBl
+author: brue
+category: recipe
 tags:
-- !binary |-
-  c2VjdXJpdHk=
+- security
 ---
 Cómo programar una shell code para utilizar en tus xploits (Parte 1)
 

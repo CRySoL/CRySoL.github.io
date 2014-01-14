@@ -1,20 +1,14 @@
 ---
 migrated: node/1278
 layout: post
-title: !binary |-
-  UGF0csOzbiBGbHl3ZWlnaHQgZW4gUHl0aG9uIGNvbW8gbWV0YWNsYXNl
+title: Patrón Flyweight en Python como metaclase
 created: 1261760070
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  UHl0aG9u
-- !binary |-
-  cGF0dGVybnM=
+- Arco
+- Python
+- patterns
 ---
 Esta receta incluye una implementación «comentada» del patrón de diseño «<a href="http://es.wikipedia.org/wiki/Flyweight_%28patr%C3%B3n_de_dise%C3%B1o%29">Flyweight</a>» (peso mosca) usando una metaclase Python.
 

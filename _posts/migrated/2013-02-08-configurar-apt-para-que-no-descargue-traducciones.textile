@@ -1,17 +1,12 @@
 ---
 migrated: node/1696
 layout: post
-title: !binary |-
-  Q29uZmlndXJhciBhcHQgcGFyYSBxdWUgbm8gZGVzY2FyZ3VlIHRyYWR1Y2Np
-  b25lcw==
+title: Configurar apt para que no descargue traducciones
 created: 1360363294
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  RGViaWFu
+- Debian
 ---
 Desde que los indices de paquetes en los repositorios incluyen traducciones, las actualizaciones son aún más lentas. Esos ficheros pueden tener tamaños de varios megabytes. Pero como estas traducciones no son muy necesarias que digamos podemos configurar @apt@ para indicarle qué traducciones queremos. Para eso, escribe un fichero @/etc/apt/apt.conf.d/99Translations@ con el siguiente contenido:
 

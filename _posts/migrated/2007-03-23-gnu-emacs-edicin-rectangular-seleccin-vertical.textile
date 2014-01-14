@@ -1,17 +1,12 @@
 ---
 migrated: node/627
 layout: post
-title: !binary |-
-  R05VIEVtYWNzOiBFZGljacOzbiDCq3JlY3Rhbmd1bGFywrsgKHNlbGVjY2nD
-  s24gdmVydGljYWwp
+title: ! 'GNU Emacs: Edición «rectangular» (selección vertical)'
 created: 1174690694
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  ZW1hY3M=
+- emacs
 ---
 bq(head). Cómo utilizar los comandos de manipulación de rectángulos de Emacs, que facilitan enormemente ciertas tareas repetitivas.
 

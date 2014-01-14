@@ -1,17 +1,12 @@
 ---
 migrated: node/1578
 layout: post
-title: !binary |-
-  Q29uZmlndXJhciBsYXMgaW1wcmVzb3JhcyBkZSBsYSBFU0kgZW4gdHUgRGVi
-  aWFuIEdOVS9MaW51eA==
+title: Configurar las impresoras de la ESI en tu Debian GNU/Linux
 created: 1337798566
-author: !binary |-
-  cGFjbw==
-category: !binary |-
-  cmVjaXBl
+author: paco
+category: recipe
 tags:
-- !binary |-
-  RGViaWFu
+- Debian
 ---
 Haz un archivo <b>/etc/cups/client.conf</b> con el siguiente contenido:
 

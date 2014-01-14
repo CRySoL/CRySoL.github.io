@@ -1,18 +1,13 @@
 ---
 migrated: node/1022
 layout: post
-title: !binary |-
-  R1RLIFVJTWFuYWdlcg==
+title: GTK UIManager
 created: 1223661395
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
-- !binary |-
-  Z3Rr
+- Python
+- gtk
 ---
 Una breve referencia sobre gtk.UIManager y gtk.Action
 

@@ -1,16 +1,12 @@
 ---
 migrated: node/1127
 layout: post
-title: !binary |-
-  QmFjdWxhOiBjb21hbmRvcyBkZSBiYWpvIG5pdmVs
+title: ! 'Bacula: comandos de bajo nivel'
 created: 1247073651
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  c2VjdXJpdHk=
+- security
 ---
 Comandos de bajo nivel para pruebas, uso del cargador y el carrusel. Todo esto se ha probado con una unidad HP DSS-4.
 

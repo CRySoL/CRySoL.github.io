@@ -1,16 +1,12 @@
 ---
 migrated: node/766
 layout: post
-title: !binary |-
-  R05VIEVtYWNzOiBNb2RvIHBhcmEgcHJvZ3JhbWFjacOzbiBlbiBDIw==
+title: ! 'GNU Emacs: Modo para programación en C#'
 created: 1188063713
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  ZW1hY3M=
+- emacs
 ---
 bq(head). Cómo instalar un modo para editar C# con GNU Emacs.
 

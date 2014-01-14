@@ -1,17 +1,12 @@
 ---
 migrated: node/1368
 layout: post
-title: !binary |-
-  Q29uZmlndXJhY2nDs24gbWFudWFsIGRlIHVuYSBjb25leGnDs24gZGUgcmVk
-  IGVuIERlYmlhbiAoY29uIGlwcm91dGUyKQ==
+title: Configuración manual de una conexión de red en Debian (con iproute2)
 created: 1277521860
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 Cómo configurar «a mano» (sin DHCP) los parámetros más importantes de una tarjeta de red en GNU/Linux, utilizando el comando @ip@ del paquete @iproute2@.
 

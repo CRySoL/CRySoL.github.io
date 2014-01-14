@@ -1,16 +1,12 @@
 ---
 migrated: node/1542
 layout: post
-title: !binary |-
-  R05VIEVtYWNzOiBDb25maWd1cmFyIGluZGVudGFjacOzbg==
+title: ! 'GNU Emacs: Configurar indentación'
 created: 1314773332
-author: !binary |-
-  bmFjaG8=
-category: !binary |-
-  cmVjaXBl
+author: nacho
+category: recipe
 tags:
-- !binary |-
-  ZW1hY3M=
+- emacs
 ---
 En esta receta explico un par de opciones muy útiles para configurar la forma que tiene Emacs de realizar la indentación. Por ejemplo, Emacs indenta el código C con dos espacios, pero quizá a tí te gusta más con 4. También permite cambiar la forma de indentar las llaves, paréntesis, etc.
 

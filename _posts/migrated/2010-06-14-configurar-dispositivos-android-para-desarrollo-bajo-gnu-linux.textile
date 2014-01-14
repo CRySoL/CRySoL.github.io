@@ -1,21 +1,14 @@
 ---
 migrated: node/1362
 layout: post
-title: !binary |-
-  Q29uZmlndXJhciBkaXNwb3NpdGl2b3MgQW5kcm9pZCBwYXJhIGRlc2Fycm9s
-  bG8gYmFqbyBHTlUvTGludXg=
+title: Configurar dispositivos Android para desarrollo bajo GNU/Linux
 created: 1276502542
-author: !binary |-
-  TGsy
-category: !binary |-
-  cmVjaXBl
+author: Lk2
+category: recipe
 tags:
-- !binary |-
-  ZHJpdmVycw==
-- !binary |-
-  RGViaWFu
-- !binary |-
-  QXJjbw==
+- drivers
+- Debian
+- Arco
 ---
 bq(head). ¿Tienes un teléfono con Android? ¿Quieres desarrollar aplicaciones desde tu Debian? Esta es tu receta :)
 

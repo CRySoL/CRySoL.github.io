@@ -1,17 +1,12 @@
 ---
 migrated: node/325
 layout: post
-title: !binary |-
-  RW1wYXF1ZXRhciB1biBzY3JpcHQgUHl0aG9uIHBhcmEgRGViaWFuICh5IG1h
-  bnRlbmVybG8p
+title: Empaquetar un script Python para Debian (y mantenerlo)
 created: 1173995531
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  RGViaWFuLWRldmVs
+- Debian-devel
 ---
 Esta receta explica de forma muy resumida los pasos más importantes para crear y mantener un paquetillo Debian, y cumpliendo la política de Debian.
 

@@ -1,17 +1,12 @@
 ---
 migrated: node/1240
 layout: post
-title: !binary |-
-  TWFuaXB1bGFjacOzbiBkZSBkb2N1bWVudG9zIFBERiBkZXNkZSBQeXRob24s
-  IGNvbiBweVBkZg==
+title: Manipulación de documentos PDF desde Python, con pyPdf
 created: 1256293712
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
+- Python
 ---
 "pyPdf":http://pybrary.net/pyPdf/ es un modulo muy interesante para manipular páginas y contenido de documentos PDF, en la receta pongo algún ejemplo
 

@@ -1,19 +1,13 @@
 ---
 migrated: node/939
 layout: post
-title: !binary |-
-  QmluZGluZ3MgUHl0aG9uIGRlIGxpYnJlcsOtYXMgQysrIGNvbiBCb29zdC5Q
-  eXRob24=
+title: Bindings Python de librerías C++ con Boost.Python
 created: 1214171220
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
-- !binary |-
-  Qysr
+- Python
+- C++
 ---
 bq(head). Ejemplos mínimos para empezar con Boost.Python, probablemente la mejor libreŕia de generación de bindings Python para C++.
 

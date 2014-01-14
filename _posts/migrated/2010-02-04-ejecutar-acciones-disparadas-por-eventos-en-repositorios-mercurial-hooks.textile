@@ -1,19 +1,13 @@
 ---
 migrated: node/1329
 layout: post
-title: !binary |-
-  RWplY3V0YXIgYWNjaW9uZXMgZGlzcGFyYWRhcyBwb3IgZXZlbnRvcyBlbiBy
-  ZXBvc2l0b3Jpb3MgTWVyY3VyaWFsIChob29rcyk=
+title: Ejecutar acciones disparadas por eventos en repositorios Mercurial (hooks)
 created: 1265281146
-author: !binary |-
-  TGsy
-category: !binary |-
-  cmVjaXBl
+author: Lk2
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  VkNT
+- Arco
+- VCS
 ---
 "Mercurial":http://mercurial.selenic.com/, como ya vimos en la receta  "«Mercurial, por favor»":http://crysol.org/es/node/919 es un sistema de control de versiones distribuido y demás info que podéis encontrar en los enlaces. En esta receta quiero explicar algo sobre el uso un poco más avanzado: los llamados _hooks_
 

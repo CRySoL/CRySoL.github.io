@@ -1,18 +1,13 @@
 ---
 migrated: node/1325
 layout: post
-title: !binary |-
-  QXV0ZW50aWNhY2nDs24gUEFNIGVuIERydXBhbA==
+title: Autenticación PAM en Drupal
 created: 1264625470
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  c2VjdXJpdHk=
+- Arco
+- security
 ---
 Cómo utilizar PAM para conseguir la autenticación de usuarios de un sitio Drupal
 

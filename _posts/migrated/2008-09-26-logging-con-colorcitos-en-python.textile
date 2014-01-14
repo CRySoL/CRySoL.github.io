@@ -1,16 +1,12 @@
 ---
 migrated: node/1013
 layout: post
-title: !binary |-
-  bG9nZ2luZyBjb24gY29sb3JjaXRvcyBlbiBQeXRob24=
+title: logging con colorcitos en Python
 created: 1222424469
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
+- Python
 ---
 <a href="http://docs.python.org/lib/module-logging.html">@logging@</a> es un módulo de la librería estándar de Python para "imprimir" mensajes de log. En esta receta se explica cómo conseguir que cada tipo de mensaje aparezca en consola con un color diferente.
 

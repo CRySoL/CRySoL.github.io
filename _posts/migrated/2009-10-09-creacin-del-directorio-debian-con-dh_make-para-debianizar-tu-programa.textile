@@ -1,19 +1,13 @@
 ---
 migrated: node/1231
 layout: post
-title: !binary |-
-  Q3JlYWNpw7NuIGRlbCBkaXJlY3RvcmlvICdkZWJpYW4nIGNvbiBkaF9tYWtl
-  IHBhcmEgZGViaWFuaXphciB0dSBwcm9ncmFtYQ==
+title: Creación del directorio 'debian' con dh_make para debianizar tu programa
 created: 1255048790
-author: !binary |-
-  Y2xldG8=
-category: !binary |-
-  cmVjaXBl
+author: cleto
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  RGViaWFuLWRldmVs
+- Arco
+- Debian-devel
 ---
 Esta receta muestra cómo crear el directorio debian necesario para empaquetar tu proyecto. Para ello, se utiliza la herramienta dh_make.
 

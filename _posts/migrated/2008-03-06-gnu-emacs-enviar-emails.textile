@@ -1,16 +1,12 @@
 ---
 migrated: node/878
 layout: post
-title: !binary |-
-  R05VIEVtYWNzOiBFbnZpYXIgZW1haWxz
+title: ! 'GNU Emacs: Enviar emails'
 created: 1204765769
-author: !binary |-
-  VmlnaWxhbnRl
-category: !binary |-
-  cmVjaXBl
+author: Vigilante
+category: recipe
 tags:
-- !binary |-
-  ZW1hY3M=
+- emacs
 ---
 <blockquote class="head"> 
    Esta receta explica como configurar GNU Emacs para poder enviar emails desde cuentas de Gmail.

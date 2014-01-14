@@ -1,16 +1,12 @@
 ---
 migrated: node/1350
 layout: post
-title: !binary |-
-  R05VIEVtYWNzOiBNYWNyb3MgZGUgdGVjbGFkbw==
+title: ! 'GNU Emacs: Macros de teclado'
 created: 1271367381
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  ZW1hY3M=
+- emacs
 ---
 Cómo definir, guardar y utilizar macros de teclado en emacs.
 

@@ -1,18 +1,13 @@
 ---
 migrated: node/1439
 layout: post
-title: !binary |-
-  RW11bGFkb3IgcmVtb3RvIHBhcmEgQW5kcm9pZA==
+title: Emulador remoto para Android
 created: 1292010099
-author: !binary |-
-  b3NjYXJhaA==
-category: !binary |-
-  cmVjaXBl
+author: oscarah
+category: recipe
 tags:
-- !binary |-
-  YW5kcm9pZA==
-- !binary |-
-  ZGV2ZWw=
+- android
+- devel
 ---
 Si desarrollas con Eclipse aplicaciones para Android, y no tienes una máquina muy potente, te habrás dado cuenta de que usar el emulador y Eclipse al mismo tiempo, puede ser un problema. ¿Tienes una segunda máquina a tu disposición? Esta es tu receta entonces.
 

@@ -1,16 +1,12 @@
 ---
 migrated: node/758
 layout: post
-title: !binary |-
-  R2VzdGlvbmFuZG8gcHJlZmVyZW5jaWFzIGNvbiBHQ29uZiB5IFB5dGhvbg==
+title: Gestionando preferencias con GConf y Python
 created: 1186751470
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
+- Python
 ---
 bq(head). Esta receta es un pequeña introducción al uso de GConf desde un programa Python.
 

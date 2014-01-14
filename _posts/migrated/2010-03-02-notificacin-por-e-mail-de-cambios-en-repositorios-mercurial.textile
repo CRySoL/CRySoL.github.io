@@ -1,21 +1,14 @@
 ---
 migrated: node/1339
 layout: post
-title: !binary |-
-  Tm90aWZpY2FjacOzbiBwb3IgZS1tYWlsIGRlIGNhbWJpb3MgZW4gcmVwb3Np
-  dG9yaW9zIE1lcmN1cmlhbA==
+title: Notificación por e-mail de cambios en repositorios Mercurial
 created: 1267555944
-author: !binary |-
-  TGsy
-category: !binary |-
-  cmVjaXBl
+author: Lk2
+category: recipe
 tags:
-- !binary |-
-  bWVyY3VyaWFs
-- !binary |-
-  VkNT
-- !binary |-
-  QXJjbw==
+- mercurial
+- VCS
+- Arco
 ---
 Cómo notificar de los cambios ocurridos en un repositorio "Mercurial":http://mercurial.selenic.com/ por correo electrónico.
 

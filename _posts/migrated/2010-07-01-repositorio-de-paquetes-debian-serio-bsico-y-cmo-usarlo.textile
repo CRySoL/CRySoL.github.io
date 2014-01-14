@@ -1,19 +1,13 @@
 ---
 migrated: node/1370
 layout: post
-title: !binary |-
-  UmVwb3NpdG9yaW8gZGUgcGFxdWV0ZXMgRGViaWFuIMKrc2VyaW8gYsOhc2lj
-  b8K7IHkgY8OzbW8gdXNhcmxv
+title: Repositorio de paquetes Debian «serio básico» y cómo usarlo
 created: 1278013348
-author: !binary |-
-  Y2xldG8=
-category: !binary |-
-  cmVjaXBl
+author: cleto
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  RGViaWFuLWRldmVs
+- Arco
+- Debian-devel
 ---
 Esta receta explica cómo montar un repositorio de paquetes medianamente decente, que se pueda manejar con las herramientas estándares de Debian y se puedan utilizar firmas PGP tanto para el repo como para los paquetes.
 

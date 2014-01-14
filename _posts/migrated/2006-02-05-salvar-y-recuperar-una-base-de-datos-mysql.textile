@@ -1,16 +1,12 @@
 ---
 migrated: node/219
 layout: post
-title: !binary |-
-  U2FsdmFyICh5IHJlY3VwZXJhcikgdW5hIGJhc2UgZGUgZGF0b3MgTXlTUUw=
+title: Salvar (y recuperar) una base de datos MySQL
 created: 1139170422
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  TXlTUUw=
+- MySQL
 ---
 Esta receta explica una forma sencilla de hacer una copia de seguridad de una base de datos MySQL completa para poderla restaurar en caso de catástrofe o mudanza.
 

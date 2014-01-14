@@ -1,17 +1,12 @@
 ---
 migrated: node/1694
 layout: post
-title: !binary |-
-  VmlydHVhbCBtYWNoaW5lIHVuYXR0ZW5kZWQgRGViaWFuIGluc3RhbGxhdGlv
-  bnMgd2l0aCBsaWJ2aXJ0IGFuZCBkLWkgcHJlc2VlZGluZw==
+title: Virtual machine unattended Debian installations with libvirt and d-i preseeding
 created: 1356470125
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  RGViaWFu
+- Debian
 ---
 That recipe explains how to perform an unattended Debian GNU/Linux installation (thanks to *preseeds*) on a virtual machine using @libvirt@.
 

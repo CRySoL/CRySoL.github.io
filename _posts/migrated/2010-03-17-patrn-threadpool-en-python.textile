@@ -1,20 +1,14 @@
 ---
 migrated: node/1340
 layout: post
-title: !binary |-
-  UGF0csOzbiBUaHJlYWRQb29sIGVuIFB5dGhvbg==
+title: Patrón ThreadPool en Python
 created: 1268850285
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  UHl0aG9u
-- !binary |-
-  cGF0dGVybnM=
+- Arco
+- Python
+- patterns
 ---
 Una pequeña receta sobre el patrón ThreadPool y su implementación en Python.
 

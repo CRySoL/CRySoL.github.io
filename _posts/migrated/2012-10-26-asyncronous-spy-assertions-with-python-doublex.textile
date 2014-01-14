@@ -1,19 +1,13 @@
 ---
 migrated: node/1688
 layout: post
-title: !binary |-
-  IEFzeW5jcm9ub3VzIHNweSBhc3NlcnRpb25zIHdpdGggcHl0aG9uLWRvdWJs
-  ZXg=
+title: ! ' Asyncronous spy assertions with python-doublex'
 created: 1351259360
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
-- !binary |-
-  SU5HU09GVA==
+- Python
+- INGSOFT
 ---
 Sometimes interaction among your "SUT":http://en.wikipedia.org/wiki/System_under_test class and their collaborators does not meet a synchronous behavior. That may happen when the SUT perform collaborator invocations in a different thread, or when the invocation pass across a message queue, publish/subscribe service, etc.
 

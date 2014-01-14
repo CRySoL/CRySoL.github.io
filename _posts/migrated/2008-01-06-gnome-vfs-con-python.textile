@@ -1,18 +1,13 @@
 ---
 migrated: node/831
 layout: post
-title: !binary |-
-  R05PTUUgVkZTIGNvbiBQeXRob24=
+title: GNOME VFS con Python
 created: 1199649522
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  Z25vbWU=
-- !binary |-
-  UHl0aG9u
+- gnome
+- Python
 ---
 bq(head). GNOME <aconym title="Virtual FIle System">VFS </a> es una librería para realizar todo tipo de operaciones sobre ficheros independientemente del método de acceso necesario para llegar a ellos (FTP, HTTP, WebDAV, SMB, etc). Esta receta muestra ejemplos de lo sencilla y potente que puede llegar a ser esta pequeña maravilla.
 

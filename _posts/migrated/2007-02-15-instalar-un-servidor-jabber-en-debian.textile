@@ -1,16 +1,12 @@
 ---
 migrated: node/558
 layout: post
-title: !binary |-
-  SW5zdGFsYXIgdW4gc2Vydmlkb3IgamFiYmVyIGVuIERlYmlhbg==
+title: Instalar un servidor jabber en Debian
 created: 1171554095
-author: !binary |-
-  ZnNhbmNobw==
-category: !binary |-
-  cmVjaXBl
+author: fsancho
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
+- Arco
 ---
 Hacer funcionar jabber en debian es tarea sencilla. En primer lugar, hay que instalar el paquete jabber.
 

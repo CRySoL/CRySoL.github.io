@@ -1,18 +1,13 @@
 ---
 migrated: node/770
 layout: post
-title: !binary |-
-  T2J0ZW5lciBsYSBJUCBjb24gc2NhcHk=
+title: Obtener la IP con scapy
 created: 1189104346
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  c2NhcHk=
-- !binary |-
-  bmV0d29ya2luZw==
+- scapy
+- networking
 ---
 bq(head). Un pequeño script para averiguar "la IP del equipo"
 

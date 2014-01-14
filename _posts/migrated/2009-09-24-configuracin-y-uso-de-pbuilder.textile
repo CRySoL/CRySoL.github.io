@@ -1,18 +1,13 @@
 ---
 migrated: node/1227
 layout: post
-title: !binary |-
-  Q29uZmlndXJhY2nDs24geSB1c28gZGUgUGJ1aWxkZXI=
+title: Configuración y uso de Pbuilder
 created: 1253788799
-author: !binary |-
-  TGsy
-category: !binary |-
-  cmVjaXBl
+author: Lk2
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  RGViaWFuLWRldmVs
+- Arco
+- Debian-devel
 ---
 bq(head). *Pbuilder* es un sistema de construcción automática de paquetes Debian. El principal objetivo de este sistema es poder generar paquetes Debian (o Ubuntu) sin "ensuciar" nuestro sistema con las dependencias de los paquetes que estemos generando.
 

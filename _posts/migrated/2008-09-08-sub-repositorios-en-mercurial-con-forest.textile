@@ -1,18 +1,13 @@
 ---
 migrated: node/1002
 layout: post
-title: !binary |-
-  U3ViLXJlcG9zaXRvcmlvcyBlbiBtZXJjdXJpYWwgY29uIEZvcmVzdA==
+title: Sub-repositorios en mercurial con Forest
 created: 1220890863
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  VkNT
-- !binary |-
-  bWVyY3VyaWFs
+- VCS
+- mercurial
 ---
 Cómo manejar conjuntos de repositorios mercurial al estilo de los directorios de subversion o los subrepositorios de git.
 

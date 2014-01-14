@@ -1,14 +1,10 @@
 ---
 migrated: node/308
 layout: post
-title: !binary |-
-  SGFjZXIgdW4gwqtsYXRpZ3VpbGxvwrsgRXRoZXJuZXQgLSBjYWJsZSBjcnV6
-  YWRvIC0gY3Jvc3Mgb3Zlcg==
+title: Hacer un «latiguillo» Ethernet - cable cruzado - cross over
 created: 1148828629
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 ---
 Esta receta indica cuál es la configuración de los hilos de un cable UTP para construir una cable directo o cruzado, tal como mandan los estándares.
 

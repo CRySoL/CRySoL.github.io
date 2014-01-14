@@ -1,18 +1,13 @@
 ---
 migrated: node/1330
 layout: post
-title: !binary |-
-  TWFuaXB1bGFjacOzbiBkZSBmaWNoZXJvcyBNUDM=
+title: Manipulación de ficheros MP3
 created: 1266079577
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  c2hlbGw=
-- !binary |-
-  bXVsdGltZWRpYQ==
+- shell
+- multimedia
 ---
 Un pequeño catálogo de herramientas (de consola) para manipulación de ficheros .mp3. Muy útiles para usar en scripts y automatizar como Dios manda.
 

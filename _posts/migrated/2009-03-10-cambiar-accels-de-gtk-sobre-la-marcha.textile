@@ -1,16 +1,12 @@
 ---
 migrated: node/1101
 layout: post
-title: !binary |-
-  Q2FtYmlhciAiYWNjZWxzIiBkZSBHVEsgc29icmUgbGEgbWFyY2hh
+title: Cambiar "accels" de GTK sobre la marcha
 created: 1236696505
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  Z3Rr
+- gtk
 ---
 Permite asignar combinaciones de teclas personalizadas a cualquier opción de un menú solo con pulsarla mientras está seleccionado. Siempre me pareció una gran <em>feature</em>.
 

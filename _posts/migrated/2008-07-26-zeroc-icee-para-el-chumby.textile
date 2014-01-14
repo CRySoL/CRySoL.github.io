@@ -1,20 +1,14 @@
 ---
 migrated: node/960
 layout: post
-title: !binary |-
-  WmVyb0MtSWNlRSBwYXJhIGVsIENodW1ieQ==
+title: ZeroC-IceE para el Chumby
 created: 1217092359
-author: !binary |-
-  b3NjYXJhaA==
-category: !binary |-
-  cmVjaXBl
+author: oscarah
+category: recipe
 tags:
-- !binary |-
-  Q2h1bWJ5
-- !binary |-
-  SWNl
-- !binary |-
-  bmV0d29ya2luZw==
+- Chumby
+- Ice
+- networking
 ---
 Veamos una forma de compilar ZeroC-IceE para usarlo en el Chumby.
 

@@ -1,18 +1,13 @@
 ---
 migrated: node/1414
 layout: post
-title: !binary |-
-  YXJjby1kZXZlbDogc3BlZWRiYXI=
+title: ! 'arco-devel: speedbar'
 created: 1287575697
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  bmV3
+author: david_villa
+category: new
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  ZW1hY3M=
+- Arco
+- emacs
 ---
 La nueva versión del paquete <a href="/arco-devel"><tt>arco-devel</tt></a> (la 0.46-1) incluye una configuración básica para el modo *speedbar* de emacs. Para usarla, simplemente añade lo siguiente a tu @.emacs@:
 

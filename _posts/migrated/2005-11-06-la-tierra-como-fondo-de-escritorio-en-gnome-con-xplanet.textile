@@ -1,14 +1,10 @@
 ---
 migrated: node/84
 layout: post
-title: !binary |-
-  TGEgVGllcnJhIGNvbW8gZm9uZG8gZGUgZXNjcml0b3JpbyBlbiBnbm9tZSwg
-  Y29uIFhwbGFuZXQ=
+title: La Tierra como fondo de escritorio en gnome, con Xplanet
 created: 1131301891
-author: !binary |-
-  ZnNhbmNobw==
-category: !binary |-
-  cmVjaXBl
+author: fsancho
+category: recipe
 ---
 Esta receta explica como poner un fondo de pantalla muy resultón que consiste en una imagen realista de la Tierra con iluminación y nubes "reales", que además se va actualizando para representar la situación actual. Todo ello gracias a <a href="http://xplanet.sourceforge.net">xplanet</a>.
 

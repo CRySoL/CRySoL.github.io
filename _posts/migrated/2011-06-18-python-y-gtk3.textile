@@ -1,18 +1,13 @@
 ---
 migrated: node/1524
 layout: post
-title: !binary |-
-  UHl0aG9uIHkgR1RLMw==
+title: Python y GTK3
 created: 1308394477
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
-- !binary |-
-  Z3Rr
+- Python
+- gtk
 ---
 Seguro que más de uno se ha dado cuenta de que con la llegada de GTK3 no han aparecido los habituales python-gtk3 y compañía. Esto se debe a que ahora se utiliza un "sistema de introspección":https://live.gnome.org/GObjectIntrospection de objetos que proporciona GObject (para que luego digan que no se puede hacer OO en C). Con este sistema se pueden crear «bindings al vuelo» de cualquier librería hecha con GObject con el consiguiente ahorro que implica no tener que hacer y mantener bindings. El sistema de introspección si que necesita bindings claro (PyGI), pero están integrados en python-gobject.
 

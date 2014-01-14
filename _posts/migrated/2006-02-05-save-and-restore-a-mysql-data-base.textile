@@ -1,16 +1,12 @@
 ---
 migrated: node/1097
 layout: post
-title: !binary |-
-  U2F2ZSAoYW5kIHJlc3RvcmUpIGEgTXlTUUwgZGF0YSBiYXNl
+title: Save (and restore) a MySQL data base
 created: 1139170422
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  TXlTUUw=
+- MySQL
 ---
 This recipe explain how to make a backup of a complete database in a easy way. Then, the backup file can be restored when a disaster occurs.
 

@@ -1,13 +1,10 @@
 ---
 migrated: node/492
 layout: post
-title: !binary |-
-  U2Vydmlkb3IgVEZUUCBjb24gaW5ldGQgZW4gRGViaWFu
+title: Servidor TFTP con inetd en Debian
 created: 1168343517
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 ---
 Cómo instalar y configurar servidor y cliente en Debian GNU/Linux y derivados
 

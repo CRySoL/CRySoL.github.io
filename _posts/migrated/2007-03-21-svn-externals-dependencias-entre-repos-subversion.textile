@@ -1,19 +1,13 @@
 ---
 migrated: node/624
 layout: post
-title: !binary |-
-  U1ZOIEV4dGVybmFsczogZGVwZW5kZW5jaWFzIGVudHJlIHJlcG9zIHN1YnZl
-  cnNpb24=
+title: ! 'SVN Externals: dependencias entre repos subversion'
 created: 1174497407
-author: !binary |-
-  b3NjYXJhaA==
-category: !binary |-
-  cmVjaXBl
+author: oscarah
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  VkNT
+- Arco
+- VCS
 ---
 <blockquote class="head">
 Los svn:external son una _feature_ muy interesante de subversion, que permite que cuando descargas o actualizas una copia de un modulo automáticamente 'tire' de otros módulos que pueden estar en otros repositorios. Una especie de gestión automática de dependencias entre repos.

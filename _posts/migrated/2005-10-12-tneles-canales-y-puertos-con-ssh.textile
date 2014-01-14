@@ -1,16 +1,12 @@
 ---
 migrated: node/32
 layout: post
-title: !binary |-
-  VMO6bmVsZXMsIGNhbmFsZXMgeSBwdWVydG9zIGNvbiBTU0g=
+title: Túneles, canales y puertos con SSH
 created: 1129146141
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 @ssh@ (entre otras muchas cosas) también sirve para crear túneles entre máquinas o simplemente redireccionar puertos en un misma máquina.
 

@@ -1,19 +1,13 @@
 ---
 migrated: node/725
 layout: post
-title: !binary |-
-  ZWR1cm9hbSAxLjA6IENvbmVjdGFyIGEgbGEgbnVldmEgV2lGaSBkZSBsYSB1
-  bml2ZXJzaWRhZA==
+title: ! 'eduroam 1.0: Conectar a la nueva WiFi de la universidad'
 created: 1182694062
-author: !binary |-
-  Y2xldG8=
-category: !binary |-
-  cmVjaXBl
+author: cleto
+category: recipe
 tags:
-- !binary |-
-  R05FU0lT
-- !binary |-
-  dWNsbXdpZmk=
+- GNESIS
+- uclmwifi
 ---
 Acabo de subir al repositorio de GNESIS un nuevo paquete para la conexión con la nueva red WiFi de la universidad: <b>eduroam</b>. El programa está basado, como se puede apreciar, en el funcionamiento de UCLM-WiFi y es muy fácil de utilizar. En principio debería funcionar sin problema en Debian, Ubuntu y otras distros derivadas. 
 

@@ -1,18 +1,13 @@
 ---
 migrated: node/1236
 layout: post
-title: !binary |-
-  Q3JlYXIgdW4gcGFxdWV0ZSBEZWJpYW4gYmluYXJpbyBzZW5jaWxsaXRv
+title: Crear un paquete Debian binario sencillito
 created: 1255287836
-author: !binary |-
-  Y2xldG8=
-category: !binary |-
-  cmVjaXBl
+author: cleto
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  RGViaWFuLWRldmVs
+- Arco
+- Debian-devel
 ---
 En esta receta se muestran los pasos básicos para crear un paquete binario Debian de forma que puedas empaquetar tu programa de forma fácil y sencilla.
 

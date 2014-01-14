@@ -1,21 +1,14 @@
 ---
 migrated: node/1035
 layout: post
-title: !binary |-
-  U2VydmlyIHVuIHJlcG8gbWVyY3VyaWFsIHBvciBodHRwIChzb2xvIGxlY3R1
-  cmEp
+title: Servir un repo mercurial por http (solo lectura)
 created: 1225108691
-author: !binary |-
-  b3NjYXJhaA==
-category: !binary |-
-  cmVjaXBl
+author: oscarah
+category: recipe
 tags:
-- !binary |-
-  bWVyY3VyaWFs
-- !binary |-
-  VkNT
-- !binary |-
-  QXJjbw==
+- mercurial
+- VCS
+- Arco
 ---
 El objetivo es simple, pero útil. Tenemos un repositorio de mercurial (hg), al que accedemos por SSH. Queremos compartirlo con el mundo, pero no queremos abrirle cuanta ssh al mundo en nuestro servidor. ¿Solución? Compartirlo por HTTP.
 

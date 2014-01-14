@@ -1,15 +1,11 @@
 ---
 migrated: node/1546
 layout: post
-title: !binary |-
-  OSByZWdsYXMgcGFyYSB1bmEgbWVqb3Igb3JpZW50YWNpw7NuIGEgb2JqZXRv
-  cw==
+title: 9 reglas para una mejor orientación a objetos
 created: 1316552224
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
+author: david_villa
 tags:
-- !binary |-
-  SU5HU09GVA==
+- INGSOFT
 ---
 En las conferencias de la "XPWeek":http://xpweek.es/?page_id=2, Sebastián Hermida nos explicaba los nueve reglas o (pasos) de Jeff Bay para conseguir mejores diseños orientados a objetos y, en general, código más limpio. Al loro, porque algunas te pueden sorprender:
 

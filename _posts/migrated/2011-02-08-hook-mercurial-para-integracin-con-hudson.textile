@@ -1,20 +1,14 @@
 ---
 migrated: node/1459
 layout: post
-title: !binary |-
-  SG9vayBNZXJjdXJpYWwgcGFyYSBpbnRlZ3JhY2nDs24gY29uIEh1ZHNvbg==
+title: Hook Mercurial para integración con Hudson
 created: 1297170060
-author: !binary |-
-  TGsy
-category: !binary |-
-  cmVjaXBl
+author: Lk2
+category: recipe
 tags:
-- !binary |-
-  SU5HU09GVA==
-- !binary |-
-  bWVyY3VyaWFs
-- !binary |-
-  VkNT
+- INGSOFT
+- mercurial
+- VCS
 ---
 En esta receta se explica como configurar un _hook_ de *Mercurial* para lanzar un proyecto en Hudson al enviar un conjunto de cambios (_push_).
 

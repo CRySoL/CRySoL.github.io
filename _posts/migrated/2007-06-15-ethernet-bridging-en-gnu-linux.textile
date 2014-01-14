@@ -1,16 +1,12 @@
 ---
 migrated: node/717
 layout: post
-title: !binary |-
-  RXRoZXJuZXQgQnJpZGdpbmcgZW4gR05VL0xpbnV4
+title: Ethernet Bridging en GNU/Linux
 created: 1181942813
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 bq(head). Cómo hacer un bridge o switch software en GNU/Linux
 

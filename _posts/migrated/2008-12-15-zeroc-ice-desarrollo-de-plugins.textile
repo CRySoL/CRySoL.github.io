@@ -1,20 +1,14 @@
 ---
 migrated: node/1066
 layout: post
-title: !binary |-
-  WmVyb0MgSWNlOiBEZXNhcnJvbGxvIGRlIHBsdWdpbnM=
+title: ! 'ZeroC Ice: Desarrollo de plugins'
 created: 1229364459
-author: !binary |-
-  b3NjYXJhaA==
-category: !binary |-
-  cmVjaXBl
+author: oscarah
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  SWNl
-- !binary |-
-  Qysr
+- Arco
+- Ice
+- C++
 ---
 Añadir nueva funcionalidad a ZeroC Ice es fácil: usando plugins. Ice provee una interfaz local, Ice::Plugin, que podemos usar para crearlos. Veamos un ejemplo sencillo. <b>Probado en Ice 3.3.</b>
 

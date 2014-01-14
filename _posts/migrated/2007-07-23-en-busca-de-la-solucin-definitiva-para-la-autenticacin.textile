@@ -1,14 +1,10 @@
 ---
 migrated: node/743
 layout: post
-title: !binary |-
-  RW4gYnVzY2EgZGUgbGEgc29sdWNpw7NuIGRlZmluaXRpdmEgcGFyYSBsYSBh
-  dXRlbnRpY2FjacOzbg==
+title: En busca de la solución definitiva para la autenticación
 created: 1185206489
-author: !binary |-
-  cGFjbw==
-category: !binary |-
-  cmVjaXBl
+author: paco
+category: recipe
 ---
 bq(head). Los usuarios de cualquier variante de GNU o de Unix buscan desde siempre el Santo Grial de la administración de sistemas: autenticación flexible y centralizada, backup flexible y sencillo, homes compartidos facilitos.  En esta receta nos ocupamos del primer ingrediente, la autenticación.
 

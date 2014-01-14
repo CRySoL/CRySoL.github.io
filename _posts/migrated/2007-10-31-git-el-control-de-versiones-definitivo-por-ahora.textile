@@ -1,17 +1,12 @@
 ---
 migrated: node/797
 layout: post
-title: !binary |-
-  Z2l0LCBlbCBjb250cm9sIGRlIHZlcnNpb25lcyBkZWZpbml0aXZvIChwb3Ig
-  YWhvcmEp
+title: git, el control de versiones definitivo (por ahora)
 created: 1193859244
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  VkNT
+- VCS
 ---
 bq(head). Una pequeña introducción a *git*, el sistema de control de versiones de moda.
 

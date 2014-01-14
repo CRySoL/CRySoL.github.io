@@ -1,20 +1,14 @@
 ---
 migrated: node/1103
 layout: post
-title: !binary |-
-  RWFzeUNBUCBlbiBHTlUvTGludXg=
+title: EasyCAP en GNU/Linux
 created: 1237401159
-author: !binary |-
-  b3NjYXJhaA==
-category: !binary |-
-  cmVjaXBl
+author: oscarah
+category: recipe
 tags:
-- !binary |-
-  bXVsdGltZWRpYQ==
-- !binary |-
-  ZHJpdmVycw==
-- !binary |-
-  RGViaWFu
+- multimedia
+- drivers
+- Debian
 ---
 Veamos como instalar el driver que da soporte a los dispositivos que utilizan los chipsets de la familia stk11xx, de Syntek Semicon, en concreto, para el EasyCAP USB.
 

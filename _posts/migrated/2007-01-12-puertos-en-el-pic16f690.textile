@@ -1,16 +1,12 @@
 ---
 migrated: node/497
 layout: post
-title: !binary |-
-  UHVlcnRvcyBlbiBlbCBQSUMxNkY2OTA=
+title: Puertos en el PIC16F690
 created: 1168603563
-author: !binary |-
-  amF2aWVyYWxzbw==
+author: javieralso
 tags:
-- !binary |-
-  ZW1iZWRkZWQ=
-- !binary |-
-  QXJjbw==
+- embedded
+- Arco
 ---
 A ver, después de tres días de peleas con el PIC16F690 ¡¡¡por fin he conseguido un echo del puerto serie!!!. :-P :-P :-P Los puertos de éste micro son como los de cualquier otro PIC, excepto PORTB, que por lo visto se utiliza también como entrada analógica para los (creo que) cuatro canales analógicos de entrada que tiene el micro.
 

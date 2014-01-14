@@ -1,16 +1,12 @@
 ---
 migrated: node/833
 layout: post
-title: !binary |-
-  U2ltdWxhY2nDs24gZGUgY8OzZGlnbyBDIHBhcmEgQVZS
+title: Simulación de código C para AVR
 created: 1199971932
-author: !binary |-
-  amF2aWVyYWxzbw==
-category: !binary |-
-  cmVjaXBl
+author: javieralso
+category: recipe
 tags:
-- !binary |-
-  ZW1iZWRkZWQ=
+- embedded
 ---
 <blockquote>Cómo depurar un programa en C para AVR en GNU/Linux con <b>avr-gdb</b></blockquote>
 

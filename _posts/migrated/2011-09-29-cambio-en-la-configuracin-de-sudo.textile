@@ -1,13 +1,10 @@
 ---
 migrated: node/1548
 layout: post
-title: !binary |-
-  Q2FtYmlvIGVuIGxhIGNvbmZpZ3VyYWNpw7NuIGRlIHN1ZG8=
+title: Cambio en la configuración de sudo
 created: 1317303855
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 ---
 Con la versión 1.8.2-1 de @sudo@ es necesario añadir las rutas «seguras» al fichero @/etc/sudoers@.
 

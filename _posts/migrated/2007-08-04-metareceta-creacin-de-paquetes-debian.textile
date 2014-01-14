@@ -1,16 +1,12 @@
 ---
 migrated: node/751
 layout: post
-title: !binary |-
-  TWV0YVJlY2V0YTogQ3JlYWNpw7NuIGRlIHBhcXVldGVzIERlYmlhbg==
+title: ! 'MetaReceta: Creación de paquetes Debian'
 created: 1186238945
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  RGViaWFuLWRldmVs
+- Debian-devel
 ---
 bq(head). Una colección de recetas, tutoriales y enlaces sobre cómo hacer y mantener paquetes Debian. La iré completando con el tiempo. Si encuentras algún otro enlace interesante, por favor, deja un comentario.
 

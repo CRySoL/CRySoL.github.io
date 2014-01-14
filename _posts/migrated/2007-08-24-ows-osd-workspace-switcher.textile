@@ -1,13 +1,10 @@
 ---
 migrated: node/764
 layout: post
-title: !binary |-
-  T1dTOiBPU0QgV29ya3NwYWNlIFN3aXRjaGVy
+title: ! 'OWS: OSD Workspace Switcher'
 created: 1187955512
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  bmV3
+author: david_villa
+category: new
 ---
 Por si alguien quiere probarlo, os comento que he puesto en el repo de GNESIS una utilidad a la que hace mucho que le tenía ganas. Es un applet para GNOME que indica en pantalla el nombre del escritorio actual (<em>workspace</em> en la jerga _gnomera_). 
 

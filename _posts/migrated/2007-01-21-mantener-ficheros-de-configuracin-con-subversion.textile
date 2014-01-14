@@ -1,19 +1,13 @@
 ---
 migrated: node/516
 layout: post
-title: !binary |-
-  TWFudGVuZXIgZmljaGVyb3MgZGUgY29uZmlndXJhY2nDs24gY29uIFN1YnZl
-  cnNpb24=
+title: Mantener ficheros de configuración con Subversion
 created: 1169405340
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  VkNT
+- Arco
+- VCS
 ---
 bq(head). Se trata de usar subversion para controlar los cambios en un directorio, normalmente ficheros de configuración, para que si metes la pata, puedes saber qué demonios has cambiado.
 

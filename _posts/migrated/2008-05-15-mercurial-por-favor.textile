@@ -1,18 +1,13 @@
 ---
 migrated: node/919
 layout: post
-title: !binary |-
-  TWVyY3VyaWFsLCBwb3IgZmF2b3I=
+title: Mercurial, por favor
 created: 1210856708
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bWVyY3VyaWFs
-- !binary |-
-  VkNT
+- mercurial
+- VCS
 ---
 Mercurial es otro sistema de control de versiones distribuido (otro más) que no tiene nada (o poco) que envidiar a git  (en lo referente a prestaciones) pero casi tan fácil de usar como subversion. Esta recetilla incluye unas nociones de su uso básico y algunas buenas referencias.
 

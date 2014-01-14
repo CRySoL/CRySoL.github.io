@@ -1,16 +1,12 @@
 ---
 migrated: node/852
 layout: post
-title: !binary |-
-  Um91dGVyIMKrY2h1cGFjaHVwc8K7IGVuIEdOVS9MaW51eA==
+title: Router «chupachups» en GNU/Linux
 created: 1202686004
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 bq(head). Un "router chupachups" (más conocido como "router on a stick":http://en.wikipedia.org/wiki/One-armed_router) es una máquina que ruta tráfico entre dos o más redes que coexisten en la misma red física. Eso se consigue normalmente por medio de <a href="http://en.wikipedia.org/wiki/Virtual_LAN">VLAN</a>es (aunque éste no es el caso). Es decir, es un router con una única interfaz de red.
 

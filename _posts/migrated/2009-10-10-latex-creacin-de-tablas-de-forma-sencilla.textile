@@ -1,16 +1,12 @@
 ---
 migrated: node/1235
 layout: post
-title: !binary |-
-  TGFUZVg6IENyZWFjacOzbiBkZSB0YWJsYXMgZGUgZm9ybWEgc2VuY2lsbGE=
+title: ! 'LaTeX: Creación de tablas de forma sencilla'
 created: 1255165520
-author: !binary |-
-  amFsYnVzYWM=
-category: !binary |-
-  cmVjaXBl
+author: jalbusac
+category: recipe
 tags:
-- !binary |-
-  TGFUZVg=
+- LaTeX
 ---
 Como bien sabéis la creación de tablas en latex es una tarea un tanto tediosa y, en algunas ocasiones, desesperante (sobre todo si la estructura de la tabla se escapa un poco de lo cotidiano); nada que ver con la construcción de tablas en aplicaciones como OpenOffice Writer donde existen herramientas que facilitan esta tarea enormemente.
 

@@ -1,18 +1,13 @@
 ---
 migrated: node/866
 layout: post
-title: !binary |-
-  UGVuZHJpdmUgY2lmcmFkbyBjb24gZG0tY3J5cHQgZW4gRGViaWFu
+title: Pendrive cifrado con dm-crypt en Debian
 created: 1203989693
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  c2VjdXJpdHk=
-- !binary |-
-  RGViaWFu
+- security
+- Debian
 ---
 bq(head). Esta receta explica como utilizar @dm-crypt@ para cifrar el sistema de ficheros de un pendrive o disco USB externo y luego montarlo cómodamente.
 

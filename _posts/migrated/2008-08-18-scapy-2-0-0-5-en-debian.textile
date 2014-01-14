@@ -1,14 +1,11 @@
 ---
 migrated: node/985
 layout: post
-title: !binary |-
-  c2NhcHkgMi4wLjAuNSBlbiBEZWJpYW4=
+title: scapy 2.0.0.5 en Debian
 created: 1219076382
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
+author: david_villa
 tags:
-- !binary |-
-  c2NhcHk=
+- scapy
 ---
 Hace tan solo unos días, Phil (el autor de scapy) "anunciaba en la lista de correo":http://article.gmane.org/gmane.comp.security.scapy.general/3179 una nueva (y muy remodelada versión de scapy): la 2.0.0.0. Y como es menester, ya está empaquetada para Debian y disponible en los repos oficiales de Debian con el nombre "python-scapy":http://packages.debian.org/unstable/net/python-scapy.
 

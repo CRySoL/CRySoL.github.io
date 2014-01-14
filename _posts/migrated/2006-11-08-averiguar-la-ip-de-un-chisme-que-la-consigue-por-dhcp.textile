@@ -1,21 +1,14 @@
 ---
 migrated: node/435
 layout: post
-title: !binary |-
-  QXZlcmlndWFyIGxhIElQIGRlIHVuICdjaGlzbWUnLCBxdWUgbGEgY29uc2ln
-  dWUgcG9yIERIQ1A=
+title: Averiguar la IP de un 'chisme', que la consigue por DHCP
 created: 1162980083
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  c2NhcHk=
-- !binary |-
-  bmV0d29ya2luZw==
+- Arco
+- scapy
+- networking
 ---
 Cómo averiguar la IP asignada a un dispositivo empotrado, conocida su MAC.
 

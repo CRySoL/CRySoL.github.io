@@ -1,16 +1,12 @@
 ---
 migrated: node/1222
 layout: post
-title: !binary |-
-  UHl0aG9uIHRpbWU=
+title: Python time
 created: 1253382118
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
+- Python
 ---
 Una pequeña reseña sobre las funciones de manipulación de la hora en Python mediante el módulo @time@.
 

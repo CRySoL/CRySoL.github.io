@@ -1,17 +1,12 @@
 ---
 migrated: node/835
 layout: post
-title: !binary |-
-  VHJhY2VhbmRvIGPDs2RpZ28gQyBlbiBsb3MgQVZSICJpbiBjaXJjdWl0Ijog
-  YXZhcmljZQ==
+title: ! 'Traceando código C en los AVR "in circuit": avarice'
 created: 1200060109
-author: !binary |-
-  amF2aWVyYWxzbw==
-category: !binary |-
-  cmVjaXBl
+author: javieralso
+category: recipe
 tags:
-- !binary |-
-  ZW1iZWRkZWQ=
+- embedded
 ---
 <blockquote>Cómo tracear un programa en C para AVR en GNU/Linux con <b>avarice</b> "in circuit"</blockquote>
 

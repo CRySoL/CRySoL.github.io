@@ -1,16 +1,12 @@
 ---
 migrated: node/1383
 layout: post
-title: !binary |-
-  R05VIEVtYWNzOiBUaGUga2lsbCByaW5n
+title: ! 'GNU Emacs: The kill ring'
 created: 1144586890
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  ZW1hY3M=
+- emacs
 ---
 Aunque parece el título de una película de miedo, el «kill ring» es la peculiar manera que tiene emacs de entender el 'portapapeles'. En lugar de tener un único espacio de almacenamiento donde cortar y pegar, emacs tiene *una pila*; la verdad es que de entrada sí que acojona un poco... :-P
 

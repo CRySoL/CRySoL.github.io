@@ -1,19 +1,13 @@
 ---
 migrated: node/405
 layout: post
-title: !binary |-
-  VGlueU9TIDIuMCwgdW4gc2lzdGVtYSBvcGVyYXRpdm8gbGlicmUgcGFyYSBk
-  aXNwb3NpdGl2b3MgZW1wb3RyYWRvcw==
+title: TinyOS 2.0, un sistema operativo libre para dispositivos empotrados
 created: 1161333603
-author: !binary |-
-  ZmVsaXg=
-category: !binary |-
-  cmVjaXBl
+author: felix
+category: recipe
 tags:
-- !binary |-
-  ZW1iZWRkZWQ=
-- !binary |-
-  QXJjbw==
+- embedded
+- Arco
 ---
 <blockquote>Por que no sólo de GNU/Linux vive el hombre, vamos a describir brevemente la instalación y el uso de un sistema operativo libre denominado TinyOS. Este sistema operativo esta destinado a redes inalámbricas de sensores por lo que necesitaremos para probarlo alguna de las plataformas soportadas por el sistema operativo  o el simulador TOSSIM.
 </blockquote>

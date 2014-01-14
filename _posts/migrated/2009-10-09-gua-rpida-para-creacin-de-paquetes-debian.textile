@@ -1,19 +1,13 @@
 ---
 migrated: node/1230
 layout: post
-title: !binary |-
-  R3XDrWEgcsOhcGlkYSBwYXJhIGNyZWFjacOzbiBkZSBwYXF1ZXRlcyBEZWJp
-  YW4=
+title: Guía rápida para creación de paquetes Debian
 created: 1255045156
-author: !binary |-
-  Y2xldG8=
-category: !binary |-
-  cmVjaXBl
+author: cleto
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  RGViaWFuLWRldmVs
+- Arco
+- Debian-devel
 ---
 Empaquetar un programa, librería o cualquier otro elemento software en Debian puede ser una tarea complicada, sobre todo si queremos añadirlo a Debian donde es necesario que cumpla muchos requisitos (concretamente, la conocida "Debian Policy":http://<a href="http://www.debian.org/doc/debian-policy/">www.debian.org/doc/debian-policy/</a>).
 

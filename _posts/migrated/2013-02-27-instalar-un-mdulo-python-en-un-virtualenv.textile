@@ -1,16 +1,12 @@
 ---
 migrated: node/1701
 layout: post
-title: !binary |-
-  SW5zdGFsYXIgdW4gbcOzZHVsbyBQeXRob24gZW4gdW4gdmlydHVhbGVudg==
+title: Instalar un módulo Python en un virtualenv
 created: 1361958455
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
+- Python
 ---
 Generando el .tgz de distribución de un paquete "sample" e instalándolo con @pip@. Esto puede servir para comprobar que un paquete Python se puede instalar y desinstalar correctamente.
 

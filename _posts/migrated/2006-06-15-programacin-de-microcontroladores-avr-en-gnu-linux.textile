@@ -1,17 +1,12 @@
 ---
 migrated: node/333
 layout: post
-title: !binary |-
-  UHJvZ3JhbWFjacOzbiBkZSBtaWNyb2NvbnRyb2xhZG9yZXMgQVZSIGVuIEdO
-  VS9MaW51eA==
+title: Programación de microcontroladores AVR en GNU/Linux
 created: 1150328107
-author: !binary |-
-  amF2aWVyYWxzbw==
-category: !binary |-
-  cmVjaXBl
+author: javieralso
+category: recipe
 tags:
-- !binary |-
-  ZW1iZWRkZWQ=
+- embedded
 ---
 <blockquote>
 Los microcontroladores AVR de ATMEL son una familia bastante potente y asequible. Son RISC y ofrecen características como la programación ISP (en el propio circuito), temporizadores, comparadores analógicos, PWM, RS232 y un largo etcétera. Aquí se explica qué se necesita para poder escribir programas en C y C++

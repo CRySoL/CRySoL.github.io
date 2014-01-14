@@ -1,21 +1,14 @@
 ---
 migrated: node/1526
 layout: post
-title: !binary |-
-  TGEgZm9ybWEgbcOhcyBzZW5jaWxsYSBkZSB1c2FyIHJlcG9zaXRvcmlvcyBn
-  aXQgZXMuLi4gbWVyY3VyaWFs
+title: La forma más sencilla de usar repositorios git es... mercurial
 created: 1309030496
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bWVyY3VyaWFs
-- !binary |-
-  Z2l0
-- !binary |-
-  VkNT
+- mercurial
+- git
+- VCS
 ---
 Cómo usar repositorios git utilizando mercurial como cliente gracias a la extensión "hggit":http://hg-git.github.com/.
 

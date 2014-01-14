@@ -1,16 +1,12 @@
 ---
 migrated: node/1527
 layout: post
-title: !binary |-
-  QXBwbGUgV2lyZWxlc3MgS2V5Ym9hcmQgY29uIERlYmlhbg==
+title: Apple Wireless Keyboard con Debian
 created: 1309529376
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  ZHJpdmVycw==
+- drivers
 ---
 Cómo configurar "este estupendo teclado inalámbrico":http://<a href="http://www.apple.com/es/keyboard/">www.apple.com/es/keyboard/</a> bluetooth en Debian.
 

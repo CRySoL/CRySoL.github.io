@@ -1,19 +1,13 @@
 ---
 migrated: node/1695
 layout: post
-title: !binary |-
-  Q3JlYXRpbmcgYSB2aXJ0dWFsIGdyaWQgd2l0aCBsaWJ2aXJ0ICsgZGViaWFu
-  IHByZXNlZWRzICsgcHVwcGV0ICsgSWNlR3JpZA==
+title: Creating a virtual grid with libvirt + debian preseeds + puppet + IceGrid
 created: 1363721158
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  SWNl
-- !binary |-
-  RGViaWFu
+- Ice
+- Debian
 ---
 This recipe explain how to build a grid composed by 6 debian virtual machines running IceGrid. Once the setup is done, the whole process may be executed with absolutelly no user interaction. The process takes advantage from libvirt (for virtual machine installation), debian preseds (for unattended installation) and puppet (for configuration management).
 

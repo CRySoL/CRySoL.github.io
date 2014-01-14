@@ -1,16 +1,12 @@
 ---
 migrated: node/691
 layout: post
-title: !binary |-
-  QWNlbGVyYW5kbyBTU0g=
+title: Acelerando SSH
 created: 1179478556
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 <blockquote class="head">Si usas con frecuencia ssh, habrás notado que muchas veces tarda muchísimo en conectar incluso aunque utilices autenticación por clave pública. Estos son algunos ajustes de configuración que pueden hacer que la conexión sea mucho más rápida.</blockquote>
 

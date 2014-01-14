@@ -1,19 +1,13 @@
 ---
 migrated: node/471
 layout: post
-title: !binary |-
-  RW52aWFyIGNvcnJlbyBuby1BU0NJSSBkZXNkZSB1biBwcm9ncmFtYSBQeXRo
-  b24=
+title: Enviar correo no-ASCII desde un programa Python
 created: 1166118585
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  UHl0aG9u
+- Arco
+- Python
 ---
 Cómo enviar correo con cuerpo o cabeceras no-ASCII desde un programa Python
 

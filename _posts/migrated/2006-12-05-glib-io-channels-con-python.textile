@@ -1,16 +1,12 @@
 ---
 migrated: node/465
 layout: post
-title: !binary |-
-  R0xpYiBJTyBDaGFubmVscyBjb24gUHl0aG9u
+title: GLib IO Channels con Python
 created: 1165334344
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
+- Python
 ---
 Cómo utilizar los IO-Channels de "GLib":http://developer.gnome.org/doc/API/glib/ desde Python para implementar el patrón _reactor_.
 

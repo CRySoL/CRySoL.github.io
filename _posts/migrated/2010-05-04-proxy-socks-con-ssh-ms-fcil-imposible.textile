@@ -1,16 +1,12 @@
 ---
 migrated: node/1355
 layout: post
-title: !binary |-
-  UHJveHkgU09DS1MgY29uIFNTSDogbcOhcyBmw6FjaWwgaW1wb3NpYmxl
+title: ! 'Proxy SOCKS con SSH: más fácil imposible'
 created: 1272988274
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
+- networking
 ---
 Pequeña receta para montar un proxy SOCKS en tu PC para salir a internet a través de un túnel SSH.
 

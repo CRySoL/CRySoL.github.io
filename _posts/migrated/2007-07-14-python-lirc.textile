@@ -1,18 +1,13 @@
 ---
 migrated: node/740
 layout: post
-title: !binary |-
-  UHl0aG9uICsgTElSQw==
+title: Python + LIRC
 created: 1184447006
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  c2NyaXB0
+author: david_villa
+category: script
 tags:
-- !binary |-
-  UHl0aG9u
-- !binary |-
-  ZHJpdmVycw==
+- Python
+- drivers
 ---
 bq(head). Se trata de un ejemplo mínimo de cómo hacer un cliente de "LIRC":http://<a href="http://www.lirc.org/">www.lirc.org/</a> en Python usando "pyLirc":http://pylirc.mccabe.nu/.
 

@@ -1,19 +1,13 @@
 ---
 migrated: node/389
 layout: post
-title: !binary |-
-  Q29tcGlsYWNpw7NuIGRlIHBhcXVldGVzIERlYmlhbiBjb24gc3ZuLWJ1aWxk
-  cGFja2FnZQ==
+title: Compilación de paquetes Debian con svn-buildpackage
 created: 1157052173
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  RGViaWFuLWRldmVs
-- !binary |-
-  VkNT
+- Debian-devel
+- VCS
 ---
 bq(head). svn-buildpackage es una herramienta para construir y mantener paquetes Debian utilizando un repositorio subversion.
 

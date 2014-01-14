@@ -1,18 +1,13 @@
 ---
 migrated: node/1425
 layout: post
-title: !binary |-
-  Q29udHJvbCBkZSBhY2Nlc28gY29uIFBBTQ==
+title: Control de acceso con PAM
 created: 1288883942
-author: !binary |-
-  Y2xldG8=
-category: !binary |-
-  cmVjaXBl
+author: cleto
+category: recipe
 tags:
-- !binary |-
-  QXJjbw==
-- !binary |-
-  c2VjdXJpdHk=
+- Arco
+- security
 ---
 Esta receta se muestra cómo crear un servicio PAM para discriminar el acceso entre diferentes usuarios y grupos.
 

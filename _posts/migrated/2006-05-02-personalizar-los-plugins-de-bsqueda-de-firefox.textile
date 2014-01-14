@@ -1,14 +1,10 @@
 ---
 migrated: node/295
 layout: post
-title: !binary |-
-  UGVyc29uYWxpemFyIGxvcyBwbHVnaW5zIGRlIGLDunNxdWVkYSBkZSBGaXJl
-  Zm94
+title: Personalizar los plugins de búsqueda de Firefox
 created: 1146566975
-author: !binary |-
-  TGsy
-category: !binary |-
-  cmVjaXBl
+author: Lk2
+category: recipe
 ---
 Mozilla-Firefox tiene un gran conjunto de extensiones y plugins para gran variedad de cosas. Entre ellos están los plugins de búsqueda. Aquí explico como añadir nuevos buscadores (aunque sea trivial) y sobre todo, como eliminar los que añadas o los que vienen por defecto y que no puedes borrar de forma tan trivial.
 

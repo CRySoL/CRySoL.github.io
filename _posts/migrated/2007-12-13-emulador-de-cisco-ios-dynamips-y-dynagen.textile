@@ -1,18 +1,13 @@
 ---
 migrated: node/821
 layout: post
-title: !binary |-
-  RW11bGFkb3IgZGUgQ2lzY28gSU9TOiBEeW5hbWlwcyB5IER5bmFnZW4=
+title: ! 'Emulador de Cisco IOS: Dynamips y Dynagen'
 created: 1197568700
-author: !binary |-
-  ZmVsaXg=
-category: !binary |-
-  cmVjaXBl
+author: felix
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
-- !binary |-
-  QXJjbw==
+- networking
+- Arco
 ---
 <blockquote>
 Esta receta es una introducción al uso de los programas libres dynamips y dynagen que nos permiten emular Cisco IOS. Las posibilidades son infinitas, aqui damos los pasos para poder empezar a trabajar de una forma básica.

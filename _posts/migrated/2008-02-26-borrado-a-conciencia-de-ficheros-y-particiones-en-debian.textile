@@ -1,14 +1,10 @@
 ---
 migrated: node/867
 layout: post
-title: !binary |-
-  Qm9ycmFkbyBhIGNvbmNpZW5jaWEgZGUgZmljaGVyb3MgeSBwYXJ0aWNpb25l
-  cyBlbiBEZWJpYW4=
+title: Borrado a conciencia de ficheros y particiones en Debian
 created: 1204044893
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 ---
 El objetivo es borrar ficheros, directorios o incluso particiones de modo que sea imposible recuperar los ficheros originales. Eso se consigue a base de escribir datos aleatorios y normalmente ceros después. La utilidad de esto es, obviamente, que ningún listillo pueda recuperar datos sensibles de tu disco duro, disco externo, etc.
 

@@ -1,17 +1,12 @@
 ---
 migrated: node/610
 layout: post
-title: !binary |-
-  R05VIEVtYWNzOiBPcnRvZ3JhZsOtYSDCq2FsIHZ1ZWxvwrsgY29uIGZseXNw
-  ZWxs
+title: ! 'GNU Emacs: Ortografía «al vuelo» con flyspell'
 created: 1173799298
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  ZW1hY3M=
+- emacs
 ---
 bq(head). Esta receta explica cómo usar las utilidades de comprobación de ortografía «mientras escribe» que trae GNU Emacs en su distribución oficial. Por mucho que insistas, no tienes excusa para escribir mal.
 

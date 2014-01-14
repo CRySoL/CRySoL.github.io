@@ -1,19 +1,13 @@
 ---
 migrated: node/1481
 layout: post
-title: !binary |-
-  VW4gcGVxdWXDsW8gc2NyaXB0IHBhcmEgdGVuZXIgdW4gSnVrZWJveCBkZSBN
-  b2RhcmNoaXZlLm9yZw==
+title: Un pequeño script para tener un Jukebox de Modarchive.org
 created: 1300365371
-author: !binary |-
-  ZnNhbmNobw==
-category: !binary |-
-  c2NyaXB0
+author: fsancho
+category: script
 tags:
-- !binary |-
-  c2hlbGw=
-- !binary |-
-  bXVsdGltZWRpYQ==
+- shell
+- multimedia
 ---
 Como algunos que me conocen saben, soy seguidor de la scene desde hace muchísimos años. Quizá últimamente no tengo tiempo de estar al día, pero me sigue gustando escuchar la música que sale de ese mundillo. Para los que lo conocen, el sitio <a href="http://modarchive.org">http://modarchive.org</a> es un buen punto donde descargar "mods" de todas las épocas.
 

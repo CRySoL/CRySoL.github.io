@@ -1,16 +1,12 @@
 ---
 migrated: node/1488
 layout: post
-title: !binary |-
-  R05VIEVtYWNzOiBlbC1nZXQsIHVuIGFwdC1nZXQgcGFyYSBFbWFjcw==
+title: ! 'GNU Emacs: el-get, un apt-get para Emacs'
 created: 1301177019
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  ZW1hY3M=
+- emacs
 ---
 Si utilizas Emacs y tienes varios PCs ¿cómo te apañas para que todos se comporten igual? Las mismas fuentes, los mismos colores, las mismas combinaciones de teclas... Realmente todo eso no es un gran problema; basta con tener tu ficherito @.emacs@ en un repositorio personal para que todos los PCs tengan la misma configuración.
 

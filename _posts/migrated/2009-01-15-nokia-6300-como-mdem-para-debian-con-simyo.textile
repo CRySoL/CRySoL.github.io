@@ -1,19 +1,13 @@
 ---
 migrated: node/934
 layout: post
-title: !binary |-
-  Tm9raWEgNjMwMCBjb21vIG3Ds2RlbSBwYXJhIERlYmlhbiAoY29uIHNpbXlv
-  KQ==
+title: Nokia 6300 como módem para Debian (con simyo)
 created: 1231987480
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
-- !binary |-
-  RGViaWFu
+- networking
+- Debian
 ---
 Esta receta explica cómo utilizar un móvil "Nokia 6300":http://nds1.nokia.com/phones/files/guides/Nokia_6300_UG_en.pdf  como módem para conectar un ordenador a Internet.
 

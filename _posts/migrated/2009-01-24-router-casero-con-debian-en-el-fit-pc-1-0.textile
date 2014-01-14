@@ -1,18 +1,13 @@
 ---
 migrated: node/1081
 layout: post
-title: !binary |-
-  Um91dGVyIGNhc2VybyBjb24gRGViaWFuIGVuIGVsIGZpdC1QQyAxLjA=
+title: Router casero con Debian en el fit-PC 1.0
 created: 1232768261
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  bmV0d29ya2luZw==
-- !binary |-
-  RGViaWFu
+- networking
+- Debian
 ---
 El "fit-PC":http://<a href="http://www.fit-pc.com/new/about-fit-pc.html">www.fit-pc.com/new/about-fit-pc.html</a> es un computador basado en el chip <a href="http://en.wikipedia.org/wiki/Geode_(processor)">Geode</a> con un tamaño realmente pequeño (12x12x4 cm) pero con características muy interesantes. Esta receta explica como instalar Debian para sacarle el máximo rendimiento al pequeño de la casa.
 

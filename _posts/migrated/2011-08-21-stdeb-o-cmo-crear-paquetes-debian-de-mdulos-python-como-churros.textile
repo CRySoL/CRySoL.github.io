@@ -1,19 +1,13 @@
 ---
 migrated: node/1541
 layout: post
-title: !binary |-
-  c3RkZWIsIG8gY8OzbW8gY3JlYXIgcGFxdWV0ZXMgZGViaWFuIGRlIG3Ds2R1
-  bG9zIFB5dGhvbiBjb21vIGNodXJyb3M=
+title: stdeb, o cómo crear paquetes debian de módulos Python como churros
 created: 1313888642
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
-category: !binary |-
-  cmVjaXBl
+author: david_villa
+category: recipe
 tags:
-- !binary |-
-  UHl0aG9u
-- !binary |-
-  RGViaWFuLWRldmVs
+- Python
+- Debian-devel
 ---
 Si eres un administrador de una máquina debian/ubuntu con un poco de amor propio seguramente no harás @configure/make/make install@ o al menos te lo pensarás dos veces.
 

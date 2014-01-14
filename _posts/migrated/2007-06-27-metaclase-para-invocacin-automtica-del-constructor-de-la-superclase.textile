@@ -1,12 +1,9 @@
 ---
 migrated: node/1018
 layout: post
-title: !binary |-
-  TWV0YWNsYXNlIHBhcmEgaW52b2NhY2nDs24gYXV0b23DoXRpY2EgZGVsICJj
-  b25zdHJ1Y3RvciIgZGUgbGEgc3VwZXJjbGFzZQ==
+title: Metaclase para invocación automática del "constructor" de la superclase
 created: 1182981171
-author: !binary |-
-  ZGF2aWRfdmlsbGE=
+author: david_villa
 ---
 Esta receta incluye la implementación "comentada" de una metaclase Python para conseguir que el constructor de la superclase se invoque automáticamente.
 

@@ -1,14 +1,10 @@
 ---
 migrated: node/1442
 layout: post
-title: !binary |-
-  Rm9ybWF0b3Mgc2ltcGxlczogWE1MLCBZYW1sLCBKc29uLCBQcm9wZXJ0aWVz
-  IGUgSU5JJ3M=
+title: ! 'Formatos simples: XML, Yaml, Json, Properties e INI''s'
 created: 1293394716
-author: !binary |-
-  Q1J5U29M
-category: !binary |-
-  cmVjaXBl
+author: CRySoL
+category: recipe
 ---
 Cuando queremos transmitir datos entre dos máquinas, almacenar la configuración o guardar datos para un uso posterior, tenemos que decidir el formato del archivo que estamos usando.
 
