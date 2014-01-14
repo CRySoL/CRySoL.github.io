@@ -1,13 +1,18 @@
 ---
 migrated: node/1017
 layout: post
-title: Patrón Singleton en Python como metaclase
+title: !binary |-
+  UGF0csOzbiBTaW5nbGV0b24gZW4gUHl0aG9uIGNvbW8gbWV0YWNsYXNl
 created: 1182981171
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Python
-- patterns
+- !binary |-
+  UHl0aG9u
+- !binary |-
+  cGF0dGVybnM=
 ---
 Esta receta incluye la implementación «comentada» del patrón de diseño «Singleton» usando una metaclase Python.
 

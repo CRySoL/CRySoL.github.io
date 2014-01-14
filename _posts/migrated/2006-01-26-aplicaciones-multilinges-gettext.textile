@@ -1,10 +1,13 @@
 ---
 migrated: node/203
 layout: post
-title: ! 'Aplicaciones multilingües: gettext'
+title: !binary |-
+  QXBsaWNhY2lvbmVzIG11bHRpbGluZ8O8ZXM6IGdldHRleHQ=
 created: 1138294905
-author: magmax
-category: recipe
+author: !binary |-
+  bWFnbWF4
+category: !binary |-
+  cmVjaXBl
 ---
 <blockquote>
 A menudo se piensa que una aplicación estaría mucho mejor si se encontrara en varios idiomas. Podemos pensar en distintas formas de soportar esto, pero otros ya lo han pensado por nosotros y han creado las fabulosas herramientas <i>gettext</i>. Este documento pretende ser una guía para el uso rápido (rápido de verdad) de estas herramientas.

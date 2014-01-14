@@ -1,10 +1,13 @@
 ---
 migrated: node/970
 layout: post
-title: Lo único seguro es que no lo es
+title: !binary |-
+  TG8gw7puaWNvIHNlZ3VybyBlcyBxdWUgbm8gbG8gZXM=
 created: 1218672487
-author: david_villa
-category: opinion
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  b3Bpbmlvbg==
 ---
 Con esta paradoja se puede resumir la situación de la seguridad informática últimamente. Empezamos con la "clave privada predecible":http://<a href="http://www.debian.org/security/2008/dsa-1571">www.debian.org/security/2008/dsa-1571</a> de SSL en Debian (y Ubuntu y derivados, que son muchos), seguramente la cagada *más grande* en materia  de seguridad de su historia.
 

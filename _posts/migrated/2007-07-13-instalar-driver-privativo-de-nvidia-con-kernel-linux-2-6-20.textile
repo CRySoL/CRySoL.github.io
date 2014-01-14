@@ -1,12 +1,17 @@
 ---
 migrated: node/737
 layout: post
-title: Instalar driver privativo de Nvidia con kernel Linux >= 2.6.20
+title: !binary |-
+  SW5zdGFsYXIgZHJpdmVyIHByaXZhdGl2byBkZSBOdmlkaWEgY29uIGtlcm5l
+  bCBMaW51eCA+PSAyLjYuMjA=
 created: 1184317104
-author: Lk2
-category: recipe
+author: !binary |-
+  TGsy
+category: !binary |-
+  cmVjaXBl
 tags:
-- linux (the kernel of course)
+- !binary |-
+  bGludXggKHRoZSBrZXJuZWwgb2YgY291cnNlKQ==
 ---
 bq(head). Si tienes una tarjeta gráfica de Nvidia y usas GNU normalmente usarás los drivers privativos y gratuitos para la misma. Como sabrás, hace falta compilar el módulo "nvidia" para cada nueva versión de kernel que instales. El problema ha surgido a partir de la versión del kernel linux 2.6.20, en el que se activó algo sobre la paravirtualización que hace que la compilación del módulo nvidia falle.
 

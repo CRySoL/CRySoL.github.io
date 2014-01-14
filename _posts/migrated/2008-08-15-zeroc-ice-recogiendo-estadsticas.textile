@@ -1,14 +1,20 @@
 ---
 migrated: node/984
 layout: post
-title: ! 'ZeroC Ice: recogiendo estadísticas.'
+title: !binary |-
+  WmVyb0MgSWNlOiByZWNvZ2llbmRvIGVzdGFkw61zdGljYXMu
 created: 1218808567
-author: KO_mOd_O
-category: recipe
+author: !binary |-
+  S09fbU9kX08=
+category: !binary |-
+  cmVjaXBl
 tags:
-- C++
-- Ice
-- networking
+- !binary |-
+  Qysr
+- !binary |-
+  SWNl
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 <blockquote class="head"> 
 Esta receta describe cómo recoger estadísticas de uso de red mediante la interfaz <em>Ice::Stats</em> en una aplicación que utilice ZeroC ICE.

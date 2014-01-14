@@ -1,12 +1,17 @@
 ---
 migrated: node/1406
 layout: post
-title: ! 'Mercurial: hacer un hook para prohibir ficheros «incorrectos»'
+title: !binary |-
+  TWVyY3VyaWFsOiBoYWNlciB1biBob29rIHBhcmEgcHJvaGliaXIgZmljaGVy
+  b3MgwqtpbmNvcnJlY3Rvc8K7
 created: 1286268229
-author: oscarah
-category: recipe
+author: !binary |-
+  b3NjYXJhaA==
+category: !binary |-
+  cmVjaXBl
 tags:
-- mercurial
+- !binary |-
+  bWVyY3VyaWFs
 ---
 En esta receta veremos cómo hacer un script «hook» que impide a los usuarios puedan subir ficheros que no cumplan los criterios que decidamos. En concreto, vamos a evitar que puedan subir ficheros binarios al repositorio.
 

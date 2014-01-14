@@ -1,13 +1,18 @@
 ---
 migrated: node/1082
 layout: post
-title: DVB-T Realtek 2831U on Debian
+title: !binary |-
+  RFZCLVQgUmVhbHRlayAyODMxVSBvbiBEZWJpYW4=
 created: 1232847048
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- drivers
-- Debian
+- !binary |-
+  ZHJpdmVycw==
+- !binary |-
+  RGViaWFu
 ---
 How to install the device driver for a TDT receiver based on the chipset DVB-T Realtek. In my case, it's the Zaapa ZT- DVBTSTUSB
 

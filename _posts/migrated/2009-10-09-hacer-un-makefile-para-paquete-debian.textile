@@ -1,13 +1,18 @@
 ---
 migrated: node/1234
 layout: post
-title: Hacer un Makefile para paquete Debian
+title: !binary |-
+  SGFjZXIgdW4gTWFrZWZpbGUgcGFyYSBwYXF1ZXRlIERlYmlhbg==
 created: 1255109251
-author: cleto
-category: recipe
+author: !binary |-
+  Y2xldG8=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
-- Debian-devel
+- !binary |-
+  QXJjbw==
+- !binary |-
+  RGViaWFuLWRldmVs
 ---
 En la siguiente receta se exponen algunas ideas y recomendaciones a la hora de crear un Makefile de tal forma que sea sencillo el proceso de creación de los paquetes Debian.
 

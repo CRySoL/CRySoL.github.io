@@ -1,12 +1,16 @@
 ---
 migrated: node/494
 layout: post
-title: Apache2 como frontal "seguro" para Zope/Plone
+title: !binary |-
+  QXBhY2hlMiBjb21vIGZyb250YWwgInNlZ3VybyIgcGFyYSBab3BlL1Bsb25l
 created: 1168599137
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
+- !binary |-
+  QXJjbw==
 ---
 Cómo configurar Apache para mejorar la seguridad de un sitio Zope, utilizando _mod_proxy_ y _VirtualHostMonster_.
 

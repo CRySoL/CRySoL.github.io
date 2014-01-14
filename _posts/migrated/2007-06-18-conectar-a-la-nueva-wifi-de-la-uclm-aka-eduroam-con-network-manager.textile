@@ -1,12 +1,17 @@
 ---
 migrated: node/719
 layout: post
-title: Conectar a la nueva WiFi de la UCLM (aka. eduroam) con network-manager
+title: !binary |-
+  Q29uZWN0YXIgYSBsYSBudWV2YSBXaUZpIGRlIGxhIFVDTE0gKGFrYS4gZWR1
+  cm9hbSkgY29uIG5ldHdvcmstbWFuYWdlcg==
 created: 1182179925
-author: Lk2
-category: recipe
+author: !binary |-
+  TGsy
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 bq(head). Como el otro día avisé, en la facultad ya se divisa la nueva red wifi de la Universidad. Su SSID es "eduroam" y para conectarnos desde GNU podemos seguir varios métodos.
 

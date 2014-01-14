@@ -1,12 +1,16 @@
 ---
 migrated: node/1416
 layout: post
-title: Blender -  Efecto de Profundidad de Campo
+title: !binary |-
+  QmxlbmRlciAtICBFZmVjdG8gZGUgUHJvZnVuZGlkYWQgZGUgQ2FtcG8=
 created: 1287777844
-author: nacho
-category: recipe
+author: !binary |-
+  bmFjaG8=
+category: !binary |-
+  cmVjaXBl
 tags:
-- blender
+- !binary |-
+  YmxlbmRlcg==
 ---
 <blockquote>La profundidad de campo (DoF por sus siglas en inglés, _depth of field_) es un efecto que se produce cuando se enfoca un punto concreto, y el resto de elementos, tanto los que están más lejos como los que están más cerca, aparecen desenfocados, en una cantidad proporcional a la distancia del punto de enfoque. Puede sirve para dar un efecto artístico a la imagen, o para centrar la antención en un elemento concreto. En esta receta veremos cómo simular este efecto en Blender 2.54</blockquote>
 

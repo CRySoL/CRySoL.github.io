@@ -1,12 +1,17 @@
 ---
 migrated: node/1422
 layout: post
-title: Alpine, consulta tu cuenta de correo Gmail desde la consola en modo texto
+title: !binary |-
+  QWxwaW5lLCBjb25zdWx0YSB0dSBjdWVudGEgZGUgY29ycmVvIEdtYWlsIGRl
+  c2RlIGxhIGNvbnNvbGEgZW4gbW9kbyB0ZXh0bw==
 created: 1288432946
-author: jalbusac
-category: recipe
+author: !binary |-
+  amFsYnVzYWM=
+category: !binary |-
+  cmVjaXBl
 tags:
-- shell
+- !binary |-
+  c2hlbGw=
 ---
 <a href="http://www.washington.edu/pine/">Alpine</a> es una herramienta desarrollada por la Universidad de Washington que permite consultar noticias y el correo electrónico desde un terminal. En esta receta se describen los pasos necesarios para configurar tu cuenta Gmail.
 

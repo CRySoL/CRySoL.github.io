@@ -1,14 +1,21 @@
 ---
 migrated: node/349
 layout: post
-title: Gstreamer + Python = tu propio reproductor multimedia en minutos
+title: !binary |-
+  R3N0cmVhbWVyICsgUHl0aG9uID0gdHUgcHJvcGlvIHJlcHJvZHVjdG9yIG11
+  bHRpbWVkaWEgZW4gbWludXRvcw==
 created: 1153305036
-author: oscarah
-category: recipe
+author: !binary |-
+  b3NjYXJhaA==
+category: !binary |-
+  cmVjaXBl
 tags:
-- gstreamer
-- Arco
-- Python
+- !binary |-
+  Z3N0cmVhbWVy
+- !binary |-
+  QXJjbw==
+- !binary |-
+  UHl0aG9u
 ---
 <blockquote>Es muy sencillo construirse un reproductor/codificador/decodificador multimedia usando Gstreamer y Python. Aquí, haremos un reproductor de Ogg Vorbis básico.
 </blockquote>

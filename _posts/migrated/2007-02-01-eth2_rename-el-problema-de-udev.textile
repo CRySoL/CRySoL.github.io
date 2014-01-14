@@ -1,12 +1,16 @@
 ---
 migrated: node/542
 layout: post
-title: ! 'Eth2_rename: el problema de udev ...'
+title: !binary |-
+  RXRoMl9yZW5hbWU6IGVsIHByb2JsZW1hIGRlIHVkZXYgLi4u
 created: 1170298213
-author: brue
-category: enquiry
+author: !binary |-
+  YnJ1ZQ==
+category: !binary |-
+  ZW5xdWlyeQ==
 tags:
-- drivers
+- !binary |-
+  ZHJpdmVycw==
 ---
 Los que tengan problemas con los nombre de los dispositivos de red, que le echen un vistazo al fichero:
 

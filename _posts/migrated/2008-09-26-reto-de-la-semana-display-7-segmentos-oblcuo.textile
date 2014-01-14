@@ -1,10 +1,14 @@
 ---
 migrated: node/1014
 layout: post
-title: ! 'Reto de la semana: "display 7 segmentos oblícuo"'
+title: !binary |-
+  UmV0byBkZSBsYSBzZW1hbmE6ICJkaXNwbGF5IDcgc2VnbWVudG9zIG9ibMOt
+  Y3VvIg==
 created: 1222425384
-author: david_villa
-category: challenge
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  Y2hhbGxlbmdl
 ---
 Pues nada, se trata de escribir un programilla en el lenguaje que quieras, que tome por línea de comandos un número de cualquier tamaño (menor que un googolplex) y lo represente como en el siguiente ejemplo:
 

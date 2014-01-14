@@ -1,12 +1,16 @@
 ---
 migrated: node/441
 layout: post
-title: Enviando correo «a golpe de protocolo»
+title: !binary |-
+  RW52aWFuZG8gY29ycmVvIMKrYSBnb2xwZSBkZSBwcm90b2NvbG/Cuw==
 created: 1163372709
-author: nacho
-category: recipe
+author: !binary |-
+  bmFjaG8=
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 <blockquote>Estás en Siberia, sólo tienes acceso a un terminal en modo texto, no tienes ningún cliente de correo y quieres enviar un email. ¿Imposible? Apúntate estos pasos y lo conseguirás. La receta explica cómo enviar correo usando directamente el protocolo que entiende el servidor.
 </blockquote>

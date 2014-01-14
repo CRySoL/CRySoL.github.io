@@ -1,10 +1,14 @@
 ---
 migrated: node/35
 layout: post
-title: Descargar las ISO de los DVD de Debian, con jigdo
+title: !binary |-
+  RGVzY2FyZ2FyIGxhcyBJU08gZGUgbG9zIERWRCBkZSBEZWJpYW4sIGNvbiBq
+  aWdkbw==
 created: 1129280874
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 Cómo utilizar la herramienta *jigdo* para descargar las ISO de los CDs y DVDs de Debian.
 

@@ -1,14 +1,21 @@
 ---
 migrated: node/1092
 layout: post
-title: ! 'Cairo: using a SVG as a shape (or Cairo Groups)'
+title: !binary |-
+  Q2Fpcm86IHVzaW5nIGEgU1ZHIGFzIGEgc2hhcGUgKG9yIENhaXJvIEdyb3Vw
+  cyk=
 created: 1234900749
-author: oscarah
-category: recipe
+author: !binary |-
+  b3NjYXJhaA==
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
-- Python
-- gtk
+- !binary |-
+  QXJjbw==
+- !binary |-
+  UHl0aG9u
+- !binary |-
+  Z3Rr
 ---
 In this recipe, we will create a shape, or a Surface using Cairo verbs, from an image in SVG format.
 

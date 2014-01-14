@@ -1,13 +1,18 @@
 ---
 migrated: node/1319
 layout: post
-title: Escaneando a PDF con Python y SANE
+title: !binary |-
+  RXNjYW5lYW5kbyBhIFBERiBjb24gUHl0aG9uIHkgU0FORQ==
 created: 1262647880
-author: david_villa
-category: script
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  c2NyaXB0
 tags:
-- Python
-- drivers
+- !binary |-
+  UHl0aG9u
+- !binary |-
+  ZHJpdmVycw==
 ---
 Aquí os dejo un scriptillo muy resultón para escanear documentos de una o varías páginas y guardar el resultado directamente en PDF.
 

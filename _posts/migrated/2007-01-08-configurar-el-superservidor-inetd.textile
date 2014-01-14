@@ -1,10 +1,13 @@
 ---
 migrated: node/489
 layout: post
-title: Configurar el superservidor inetd
+title: !binary |-
+  Q29uZmlndXJhciBlbCBzdXBlcnNlcnZpZG9yIGluZXRk
 created: 1168289159
-author: int-0
-category: recipe
+author: !binary |-
+  aW50LTA=
+category: !binary |-
+  cmVjaXBl
 ---
 Los servicios que ofrece inetd se configuran en @/etc/inetd.conf@.
 

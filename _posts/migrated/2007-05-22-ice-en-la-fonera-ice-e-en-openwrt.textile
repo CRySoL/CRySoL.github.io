@@ -1,15 +1,22 @@
 ---
 migrated: node/698
 layout: post
-title: ! 'Ice en la fonera: Ice-E en OpenWRT'
+title: !binary |-
+  SWNlIGVuIGxhIGZvbmVyYTogSWNlLUUgZW4gT3BlbldSVA==
 created: 1179787395
-author: oscarah
-category: recipe
+author: !binary |-
+  b3NjYXJhaA==
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
-- embedded
-- Ice
-- Arco
+- !binary |-
+  bmV0d29ya2luZw==
+- !binary |-
+  ZW1iZWRkZWQ=
+- !binary |-
+  SWNl
+- !binary |-
+  QXJjbw==
 ---
 Esto va sobre "Ice-E":http://zeroc.com/icee/index.html, que es simplemente Ice para dispositivos empotrados. Veamos como configurar el entorno de desarrollo necesario para compilar aplicaciones con Ice-E que funcionen en OpenWRT, concretamente en un MIPS: el de la fonera.
 

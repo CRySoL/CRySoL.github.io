@@ -1,12 +1,16 @@
 ---
 migrated: node/338
 layout: post
-title: Compartir ficheros con Samba/CIFS
+title: !binary |-
+  Q29tcGFydGlyIGZpY2hlcm9zIGNvbiBTYW1iYS9DSUZT
 created: 1151241270
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 Esta receta explica cómo utilizar SAMBA para servir ficheros y cómo acceder a ellos desde otro ordenador. Supondremos que en ambos equipos tienes Debian o sucedáneos.
 

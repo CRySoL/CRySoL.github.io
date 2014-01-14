@@ -1,13 +1,19 @@
 ---
 migrated: node/1056
 layout: post
-title: ! 'Tslib: librería para la pantalla táctil del Chumby'
+title: !binary |-
+  VHNsaWI6IGxpYnJlcsOtYSBwYXJhIGxhIHBhbnRhbGxhIHTDoWN0aWwgZGVs
+  IENodW1ieQ==
 created: 1228321891
-author: Lk2
-category: recipe
+author: !binary |-
+  TGsy
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
-- Chumby
+- !binary |-
+  QXJjbw==
+- !binary |-
+  Q2h1bWJ5
 ---
 bq(head). Cuando tienes un dispositivo con pantalla táctil y quieres programar algo para él siempre puede ser de ayuda tener un método de entrada tan fácil como la propia pantalla del dispositivo. Si nuestro aparato tiene, como en el caso del Chumby, un Linux metido dentro y tienes forma de compilar software para él, *Tslib* es tu respuesta.
 

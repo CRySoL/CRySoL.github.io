@@ -1,9 +1,11 @@
 ---
 migrated: node/932
 layout: post
-title: Aviso a los autores de recetas
+title: !binary |-
+  QXZpc28gYSBsb3MgYXV0b3JlcyBkZSByZWNldGFz
 created: 1213546355
-author: admin
+author: !binary |-
+  YWRtaW4=
 ---
 Con la reciente actualización del drupal de CRySoL hemos podido hacer el necesario upgrade a PHP5, y eso nos ha permitido instalar un módulo bastante decente para colorear listados de código con <a href="http://drupal.org/project/geshifilter">GeSHi</a>. 
 

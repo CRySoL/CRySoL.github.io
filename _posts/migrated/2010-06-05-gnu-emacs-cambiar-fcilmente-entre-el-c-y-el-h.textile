@@ -1,13 +1,19 @@
 ---
 migrated: node/1360
 layout: post
-title: ! 'GNU Emacs: Cambiar fácilmente entre el .c y el .h'
+title: !binary |-
+  R05VIEVtYWNzOiBDYW1iaWFyIGbDoWNpbG1lbnRlIGVudHJlIGVsIC5jIHkg
+  ZWwgLmg=
 created: 1275742176
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- emacs
-- devel
+- !binary |-
+  ZW1hY3M=
+- !binary |-
+  ZGV2ZWw=
 ---
 Cómo cambiar rápida y cómodamente entre el fichero de implementación (.c, .cc, .cpp) y el de cabecera (.h, hpp) cuando se trabaja con un proyecto C o C++ (por lo visto también funciona con Ada y VHDL).
 

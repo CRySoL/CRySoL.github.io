@@ -1,12 +1,17 @@
 ---
 migrated: node/733
 layout: post
-title: SAI "MGE Pulsar Ellipse 600" en Debian con NUT
+title: !binary |-
+  U0FJICJNR0UgUHVsc2FyIEVsbGlwc2UgNjAwIiBlbiBEZWJpYW4gY29uIE5V
+  VA==
 created: 1183577268
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
+- !binary |-
+  QXJjbw==
 ---
 bq(head). Esta receta explica cómo instalar y configurar dicho SAI en un sistema Debian GNU/Linux o derivado para sacarle el máximo partido. Te recomiendo que leas al menos la introducción de "Configuración y disfrute de un SAI":node/82 para que tengas una idea de lo que se puede hacer y lo que necesitas, ya que no lo voy a repetir aquí.
 

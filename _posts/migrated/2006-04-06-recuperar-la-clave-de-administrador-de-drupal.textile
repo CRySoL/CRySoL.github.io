@@ -1,12 +1,16 @@
 ---
 migrated: node/278
 layout: post
-title: Recuperar la clave de administrador de Drupal
+title: !binary |-
+  UmVjdXBlcmFyIGxhIGNsYXZlIGRlIGFkbWluaXN0cmFkb3IgZGUgRHJ1cGFs
 created: 1144354157
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- MySQL
+- !binary |-
+  TXlTUUw=
 ---
 O lo que es lo mismo, cómo editar el valor de un registro en MySQL
 

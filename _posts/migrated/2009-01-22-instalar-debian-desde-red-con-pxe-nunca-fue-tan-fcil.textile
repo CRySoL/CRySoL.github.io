@@ -1,13 +1,19 @@
 ---
 migrated: node/1080
 layout: post
-title: Instalar Debian desde red con PXE (nunca fue tan fácil)
+title: !binary |-
+  SW5zdGFsYXIgRGViaWFuIGRlc2RlIHJlZCBjb24gUFhFIChudW5jYSBmdWUg
+  dGFuIGbDoWNpbCk=
 created: 1232664390
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
-- Debian
+- !binary |-
+  bmV0d29ya2luZw==
+- !binary |-
+  RGViaWFu
 ---
 bq(head). La receta describe cómo preparar un servidor DHCP para instalar Debian (por PXE o Etherboot) en otras máquinas de la misma red ("netboot" lo llaman). Esto es especialmente útil cuando el PC en el que quieres instalar Debian no tiene lector de CD-ROM, como pasa en los netbooks (EeePC, Aspire One, etc) y otras cosas más "raras" como el fit-PC. Si lo pruebas verás que es más sencillo, cómodo y rápido que recurrir al arranque por USB.
 

@@ -1,10 +1,13 @@
 ---
 migrated: node/829
 layout: post
-title: Configuración básica para jed
+title: !binary |-
+  Q29uZmlndXJhY2nDs24gYsOhc2ljYSBwYXJhIGplZA==
 created: 1199392497
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 El siguiente fichero <tt>.jedrc</tt> resuelve dos cosas que suelen ser bastante latazo en JED:
 

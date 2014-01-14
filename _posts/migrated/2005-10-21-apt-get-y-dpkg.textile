@@ -1,10 +1,13 @@
 ---
 migrated: node/59
 layout: post
-title: apt-get y dpkg
+title: !binary |-
+  YXB0LWdldCB5IGRwa2c=
 created: 1129904471
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 <blockquote>
 Algunas posibilidades de las herramientas <tt>apt-get</tt> y <tt>dpkg</tt> de Debian GNU/Linux

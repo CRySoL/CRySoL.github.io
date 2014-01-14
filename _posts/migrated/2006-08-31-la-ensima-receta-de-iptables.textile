@@ -1,10 +1,13 @@
 ---
 migrated: node/339
 layout: post
-title: La enésima receta de iptables
+title: !binary |-
+  TGEgZW7DqXNpbWEgcmVjZXRhIGRlIGlwdGFibGVz
 created: 1156975200
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 bq(head). Esta receta explica los usos más habituales de @iptables@. No trata de ser un manual de uso, sólo son unos cuantos comandos que solucionan problemas frecuentes.
 

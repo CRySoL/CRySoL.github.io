@@ -1,12 +1,17 @@
 ---
 migrated: node/1256
 layout: post
-title: Menús y barra de herramientas dinámicas en PyGTK
+title: !binary |-
+  TWVuw7pzIHkgYmFycmEgZGUgaGVycmFtaWVudGFzIGRpbsOhbWljYXMgZW4g
+  UHlHVEs=
 created: 1257422733
-author: Lk2
+author: !binary |-
+  TGsy
 tags:
-- gtk
-- Python
+- !binary |-
+  Z3Rr
+- !binary |-
+  UHl0aG9u
 ---
 Desde hace algunas versiones, GTK incorpora la capacidad para crear menús, barras de herramientas y menús desplegables (alias menú _popup_) a través de descripciones textuales similares a XML.
 

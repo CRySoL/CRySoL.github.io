@@ -1,13 +1,18 @@
 ---
 migrated: node/738
 layout: post
-title: LIRC con la WinFast TV  2000 en Debian
+title: !binary |-
+  TElSQyBjb24gbGEgV2luRmFzdCBUViAgMjAwMCBlbiBEZWJpYW4=
 created: 1184445226
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Debian
-- drivers
+- !binary |-
+  RGViaWFu
+- !binary |-
+  ZHJpdmVycw==
 ---
 bq(head). Cómo configurar y usar el control remoto de la Leadtek Winfast TV 2000 en un sistema Debian GNU/Linux.
 

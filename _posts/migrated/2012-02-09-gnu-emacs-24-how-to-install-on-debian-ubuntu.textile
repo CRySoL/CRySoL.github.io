@@ -1,12 +1,16 @@
 ---
 migrated: node/1567
 layout: post
-title: ! 'GNU Emacs 24: How to install on Debian/Ubuntu'
+title: !binary |-
+  R05VIEVtYWNzIDI0OiBIb3cgdG8gaW5zdGFsbCBvbiBEZWJpYW4vVWJ1bnR1
 created: 1328801439
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- emacs
+- !binary |-
+  ZW1hY3M=
 ---
 GNU Emacs 24 is now available for debian/ubuntu in an unofficial package repository. You can install running that:
 

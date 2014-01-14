@@ -1,13 +1,19 @@
 ---
 migrated: node/514
 layout: post
-title: Crear y editar huellas para componentes con PCB
+title: !binary |-
+  Q3JlYXIgeSBlZGl0YXIgaHVlbGxhcyBwYXJhIGNvbXBvbmVudGVzIGNvbiBQ
+  Q0I=
 created: 1171963284
-author: javieralso
-category: recipe
+author: !binary |-
+  amF2aWVyYWxzbw==
+category: !binary |-
+  cmVjaXBl
 tags:
-- embedded
-- Arco
+- !binary |-
+  ZW1iZWRkZWQ=
+- !binary |-
+  QXJjbw==
 ---
 bq(head). Tutorial sobre cómo crear desde cero o editar huellas para el diseño de Circuitos Impresos con la herramienta libre PCB.
 

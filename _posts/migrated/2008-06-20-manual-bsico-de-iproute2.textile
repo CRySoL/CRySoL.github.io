@@ -1,12 +1,16 @@
 ---
 migrated: node/935
 layout: post
-title: Manual básico de iproute2
+title: !binary |-
+  TWFudWFsIGLDoXNpY28gZGUgaXByb3V0ZTI=
 created: 1213926802
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 bq(head). Esta recetilla incluye algunos comandos sencillos para comprender y empezar a manejar el famoso pero desconocido comando @ip@.
 

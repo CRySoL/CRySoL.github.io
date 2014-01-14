@@ -1,13 +1,19 @@
 ---
 migrated: node/1534
 layout: post
-title: Ejecutando un mismo comando en varias máquinas (con fabric)
+title: !binary |-
+  RWplY3V0YW5kbyB1biBtaXNtbyBjb21hbmRvIGVuIHZhcmlhcyBtw6FxdWlu
+  YXMgKGNvbiBmYWJyaWMp
 created: 1310925880
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- shell
-- Python
+- !binary |-
+  c2hlbGw=
+- !binary |-
+  UHl0aG9u
 ---
 Os dejo aquí un script que permite ejecutar comandos predefinidos en un conjunto de máquinas. En realidad es un @fabfile@, es decir, un script para ejecutar con "fabric":http://docs.fabfile.org/en/1.2.0/index.html.
 

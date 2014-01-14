@@ -1,12 +1,17 @@
 ---
 migrated: node/1075
 layout: post
-title: Utilidades para medir el ancho de banda en Debian
+title: !binary |-
+  VXRpbGlkYWRlcyBwYXJhIG1lZGlyIGVsIGFuY2hvIGRlIGJhbmRhIGVuIERl
+  Ymlhbg==
 created: 1231463460
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- uclmwifi
+- !binary |-
+  dWNsbXdpZmk=
 ---
 Esta receta es una lista de programas de análisis de tráfico de red que están disponibles como paquetes Debian oficiales y que pueden resultar muy útiles
 

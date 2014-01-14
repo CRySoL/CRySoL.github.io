@@ -1,12 +1,16 @@
 ---
 migrated: node/287
 layout: post
-title: Molinux Nomada, una molinux en tu USB
+title: !binary |-
+  TW9saW51eCBOb21hZGEsIHVuYSBtb2xpbnV4IGVuIHR1IFVTQg==
 created: 1145520631
-author: fsancho
-category: new
+author: !binary |-
+  ZnNhbmNobw==
+category: !binary |-
+  bmV3
 tags:
-- Molinux
+- !binary |-
+  TW9saW51eA==
 ---
 Tengo casi a punto un nuevo "sabor" de Molinux. En esta ocasión he conseguido meter la distribución en un "pendrive". Por ahora es la distribución Live estándar, por lo que hacen falta 620MB de espacio para hacerlo funcionar.
 

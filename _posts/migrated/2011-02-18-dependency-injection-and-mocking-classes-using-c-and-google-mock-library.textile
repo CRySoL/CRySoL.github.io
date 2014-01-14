@@ -1,17 +1,27 @@
 ---
 migrated: node/1473
 layout: post
-title: Dependency injection and mocking classes using C++ and google-mock library
+title: !binary |-
+  RGVwZW5kZW5jeSBpbmplY3Rpb24gYW5kIG1vY2tpbmcgY2xhc3NlcyB1c2lu
+  ZyBDKysgYW5kIGdvb2dsZS1tb2NrIGxpYnJhcnk=
 created: 1298049769
-author: cleto
-category: recipe
+author: !binary |-
+  Y2xldG8=
+category: !binary |-
+  cmVjaXBl
 tags:
-- devel
-- C++
-- Arco
-- C++
-- devel
-- Arco
+- !binary |-
+  ZGV2ZWw=
+- !binary |-
+  Qysr
+- !binary |-
+  QXJjbw==
+- !binary |-
+  Qysr
+- !binary |-
+  ZGV2ZWw=
+- !binary |-
+  QXJjbw==
 ---
 Currently I am building tests for an existing implementation of IDM. I am using "google-mock":http://code.google.com/p/googlemock, a mocking library for C++ classes. Let's see an example of "dependency injection":http://en.wikipedia.org/wiki/Dependency_injection. This basic technique is used when you are mocking your classes and, thus, obtain non-fragile tests.
 

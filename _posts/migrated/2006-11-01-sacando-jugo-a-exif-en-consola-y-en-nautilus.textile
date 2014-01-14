@@ -1,10 +1,14 @@
 ---
 migrated: node/429
 layout: post
-title: Sacando jugo a EXIF, en consola (y en nautilus)
+title: !binary |-
+  U2FjYW5kbyBqdWdvIGEgRVhJRiwgZW4gY29uc29sYSAoeSBlbiBuYXV0aWx1
+  cyk=
 created: 1162384820
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 Esta receta recoge algunas herramientas que pueden resultar interesantes para trabajar con las cabeceras EXIF de los JPEG. Si lo que buscas es modificar la imagen propiamente dicha, mira la receta titulada "Edición de imágenes en consola, con ImageMagick":http://crysol.inf-cr.uclm.es/node/280.
 

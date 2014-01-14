@@ -1,10 +1,14 @@
 ---
 migrated: node/46
 layout: post
-title: Cambiar la dirección MAC de una tarjeta de red
+title: !binary |-
+  Q2FtYmlhciBsYSBkaXJlY2Npw7NuIE1BQyBkZSB1bmEgdGFyamV0YSBkZSBy
+  ZWQ=
 created: 1129656126
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 En determinadas «circunstancias especiales» puede ser necesario que un PC tenga una tarjeta de red con una dirección MAC específica. Esta receta explica cómo conseguirlo con @ifconfig@, @iproute@ o @macchanger@
 

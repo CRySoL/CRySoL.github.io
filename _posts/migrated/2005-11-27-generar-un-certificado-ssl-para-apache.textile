@@ -1,10 +1,13 @@
 ---
 migrated: node/122
 layout: post
-title: Generar un certificado SSL para apache
+title: !binary |-
+  R2VuZXJhciB1biBjZXJ0aWZpY2FkbyBTU0wgcGFyYSBhcGFjaGU=
 created: 1133086402
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 <blockquote>
 Cómo generar el certificado que utiliza el servidor web Apache para el servicio SSL a través de HTTPS.

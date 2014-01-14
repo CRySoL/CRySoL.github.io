@@ -1,13 +1,18 @@
 ---
 migrated: node/779
 layout: post
-title: ! 'Lego Mindstorms NXT: BlueTooth'
+title: !binary |-
+  TGVnbyBNaW5kc3Rvcm1zIE5YVDogQmx1ZVRvb3Ro
 created: 1190290394
-author: oscarah
-category: recipe
+author: !binary |-
+  b3NjYXJhaA==
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
-- embedded
+- !binary |-
+  QXJjbw==
+- !binary |-
+  ZW1iZWRkZWQ=
 ---
 bq(head). Comunicar el NXT con el PC por medio de Bluetooth. Se explica brevemente el protocolo de comunicaciones y se presenta un ejemplo: un servidor de <i>echo</i>.
 

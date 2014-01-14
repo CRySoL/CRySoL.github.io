@@ -1,10 +1,13 @@
 ---
 migrated: node/86
 layout: post
-title: Mezclador de audio por software, con ALSA
+title: !binary |-
+  TWV6Y2xhZG9yIGRlIGF1ZGlvIHBvciBzb2Z0d2FyZSwgY29uIEFMU0E=
 created: 1131306700
-author: fsancho
-category: recipe
+author: !binary |-
+  ZnNhbmNobw==
+category: !binary |-
+  cmVjaXBl
 ---
 A veces el servidor de sonido esound es un latazo porque impide que otras aplicaciones que hacen uso del hardware de sonido puedan funcionar. De modo que para jugar a algunos juegos necesitamos apagar el servidor de sonido y siempre resulta algo tedioso.
 

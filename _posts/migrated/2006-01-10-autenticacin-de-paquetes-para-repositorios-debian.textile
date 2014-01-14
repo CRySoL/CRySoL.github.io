@@ -1,10 +1,14 @@
 ---
 migrated: node/169
 layout: post
-title: Autenticación de paquetes para repositorios Debian
+title: !binary |-
+  QXV0ZW50aWNhY2nDs24gZGUgcGFxdWV0ZXMgcGFyYSByZXBvc2l0b3Jpb3Mg
+  RGViaWFu
 created: 1136847600
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 Cómo configurar adecuadamente la autenticación de repositorios en Debian, Ubuntu y derivados.
 

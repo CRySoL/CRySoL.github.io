@@ -1,14 +1,21 @@
 ---
 migrated: node/1395
 layout: post
-title: X.org con el stylus de la tablet HP Compaq TC1100 en Debian
+title: !binary |-
+  WC5vcmcgY29uIGVsIHN0eWx1cyBkZSBsYSB0YWJsZXQgSFAgQ29tcGFxIFRD
+  MTEwMCBlbiBEZWJpYW4=
 created: 1283854882
-author: Lk2
-category: recipe
+author: !binary |-
+  TGsy
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
-- drivers
-- Debian
+- !binary |-
+  QXJjbw==
+- !binary |-
+  ZHJpdmVycw==
+- !binary |-
+  RGViaWFu
 ---
 En esta micro-receta voy a explicar que hay que hacer para que Debian y, en concreto, Xorg, detecte el _stylus_ de esta tablet PC
 

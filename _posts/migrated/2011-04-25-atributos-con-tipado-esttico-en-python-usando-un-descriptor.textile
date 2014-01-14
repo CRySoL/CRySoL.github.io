@@ -1,12 +1,17 @@
 ---
 migrated: node/1500
 layout: post
-title: Atributos con tipado estático en Python (usando un descriptor)
+title: !binary |-
+  QXRyaWJ1dG9zIGNvbiB0aXBhZG8gZXN0w6F0aWNvIGVuIFB5dGhvbiAodXNh
+  bmRvIHVuIGRlc2NyaXB0b3Ip
 created: 1303767336
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Python
+- !binary |-
+  UHl0aG9u
 ---
 En esta receta voy a contar cómo utilizar los «descriptores» de Python para poder crear atributos (variables de instancia) que no puedan cambiar de tipo durante la vida del objeto. Por supuesto, también es una excusa para aprender algo sobre los descriptores en sí.
 

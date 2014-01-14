@@ -1,13 +1,18 @@
 ---
 migrated: node/700
 layout: post
-title: Kolofonium, activando SSH en "la fonera"
+title: !binary |-
+  S29sb2Zvbml1bSwgYWN0aXZhbmRvIFNTSCBlbiAibGEgZm9uZXJhIg==
 created: 1180016165
-author: CRySoL
-category: recipe
+author: !binary |-
+  Q1J5U29M
+category: !binary |-
+  cmVjaXBl
 tags:
-- embedded
-- networking
+- !binary |-
+  ZW1iZWRkZWQ=
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 Si tenéis un router "La Fonera", con versión del firmware 0.7.1 r2, esto te interesa. Hasta esta versión era muy sencillo acceder al shell por diferentes maneras, pero los de Fon se lo han currado y en la revisión 2 han cerrado muchos agujeros.
 

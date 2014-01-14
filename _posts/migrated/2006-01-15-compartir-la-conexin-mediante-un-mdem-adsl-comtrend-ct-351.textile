@@ -1,10 +1,14 @@
 ---
 migrated: node/188
 layout: post
-title: Compartir la conexión mediante un módem ADSL Comtrend CT-351
+title: !binary |-
+  Q29tcGFydGlyIGxhIGNvbmV4acOzbiBtZWRpYW50ZSB1biBtw7NkZW0gQURT
+  TCBDb210cmVuZCBDVC0zNTE=
 created: 1137331276
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 Esta receta trata únicamente de las peculiaridades de este módem a la hora de compartir la conexión. Quizá te interese nuestra receta sobre "Compartir la conexión s Internet con GNU/Linux":http://crysol.inf-cr.uclm.es/node/96 para cuestiones más generales.
 

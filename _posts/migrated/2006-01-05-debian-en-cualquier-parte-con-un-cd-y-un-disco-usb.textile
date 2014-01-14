@@ -1,10 +1,14 @@
 ---
 migrated: node/170
 layout: post
-title: Debian en cualquier parte con un CD y un disco USB?
+title: !binary |-
+  RGViaWFuIGVuIGN1YWxxdWllciBwYXJ0ZSBjb24gdW4gQ0QgeSB1biBkaXNj
+  byBVU0I/
 created: 1136497650
-author: david_villa
-category: tale
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  dGFsZQ==
 ---
 Algunas de las miles de distribuciones _live_ que ruedan por ahí tienen una característica muy interesante; consiste en montar tu _home_ desde un disco USB. De ese modo vayas donde vayas puedes tener un sistema decente. Pero a esto le veo varios problemas.
 

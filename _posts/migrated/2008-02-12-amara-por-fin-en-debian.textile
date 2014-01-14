@@ -1,13 +1,18 @@
 ---
 migrated: node/853
 layout: post
-title: ! '"Amara" por fin en Debian'
+title: !binary |-
+  IkFtYXJhIiBwb3IgZmluIGVuIERlYmlhbg==
 created: 1202810624
-author: david_villa
-category: new
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  bmV3
 tags:
-- Debian
-- Python
+- !binary |-
+  RGViaWFu
+- !binary |-
+  UHl0aG9u
 ---
 bq(head). Desde el pasado día 8 de febrero, y con la inestimable ayuda de nuestro developer local (Paco Moya), "amara":http://packages.debian.org/hu/source/sid/amara ya es paquete Debian oficial. Amara es un toolkit sencillísimo para tratamiento de XML, con soporte de DOM, SAX, XPath, etc y todo de una manera muy "pythonica". Nunca fue tan fácil tratar documentos XML.
 

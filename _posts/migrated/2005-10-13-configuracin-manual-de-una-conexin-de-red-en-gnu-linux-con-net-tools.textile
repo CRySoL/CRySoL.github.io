@@ -1,12 +1,17 @@
 ---
 migrated: node/33
 layout: post
-title: Configuración manual de una conexión de red en GNU/Linux (con net-tools)
+title: !binary |-
+  Q29uZmlndXJhY2nDs24gbWFudWFsIGRlIHVuYSBjb25leGnDs24gZGUgcmVk
+  IGVuIEdOVS9MaW51eCAoY29uIG5ldC10b29scyk=
 created: 1129197469
-author: CRySoL
-category: recipe
+author: !binary |-
+  Q1J5U29M
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 <blockquote>Cómo configurar «a mano», es decir, sin DHCP, los parámetros más importantes de una tarjeta de red en Debian GNU/Linux, Ubuntu o similar. 
 

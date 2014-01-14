@@ -1,10 +1,13 @@
 ---
 migrated: node/1253
 layout: post
-title: Escribir caracteres Unicode en GNU/Linux
+title: !binary |-
+  RXNjcmliaXIgY2FyYWN0ZXJlcyBVbmljb2RlIGVuIEdOVS9MaW51eA==
 created: 1257249117
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 Cómo escribir caracteres «especiales» en GNU, tanto en consola como en las aplicaciones.
 

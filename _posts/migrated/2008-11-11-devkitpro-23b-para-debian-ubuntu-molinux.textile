@@ -1,12 +1,16 @@
 ---
 migrated: node/1044
 layout: post
-title: DevkitPro 23b para Debian/Ubuntu/Molinux
+title: !binary |-
+  RGV2a2l0UHJvIDIzYiBwYXJhIERlYmlhbi9VYnVudHUvTW9saW51eA==
 created: 1226394606
-author: paco
-category: new
+author: !binary |-
+  cGFjbw==
+category: !binary |-
+  bmV3
 tags:
-- Debian
+- !binary |-
+  RGViaWFu
 ---
 Con propósitos docentes he generado un paquetillo Debian que contiene <a href="http://www.devkitpro.org/">DevkitPro</a> 23b para ARM EABI, PPC y PSP completo, con las herramientas de manipulación de imágenes, generación de ROMs, depuración, etc.
 

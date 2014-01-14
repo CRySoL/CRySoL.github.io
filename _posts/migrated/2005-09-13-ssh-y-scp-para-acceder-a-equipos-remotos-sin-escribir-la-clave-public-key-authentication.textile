@@ -1,13 +1,17 @@
 ---
 migrated: node/6
 layout: post
-title: SSH y SCP para acceder a equipos remotos sin escribir la clave (public key
-  authentication)
+title: !binary |-
+  U1NIIHkgU0NQIHBhcmEgYWNjZWRlciBhIGVxdWlwb3MgcmVtb3RvcyBzaW4g
+  ZXNjcmliaXIgbGEgY2xhdmUgKHB1YmxpYyBrZXkgYXV0aGVudGljYXRpb24p
 created: 1126634557
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 Cómo configurar SSH para poder usar @ssh@ y @scp@ para acceder a otras máquinas autorizadas sin necesidad de indicar la clave de usuario cada vez que se conecta. También muy útil cuando se usan repositorios remotos que se acceden por SSH.
 

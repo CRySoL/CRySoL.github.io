@@ -1,14 +1,21 @@
 ---
 migrated: node/631
 layout: post
-title: ! 'FreeBand: guitarra y batería ¡más arcade que nunca!'
+title: !binary |-
+  RnJlZUJhbmQ6IGd1aXRhcnJhIHkgYmF0ZXLDrWEgwqFtw6FzIGFyY2FkZSBx
+  dWUgbnVuY2Eh
 created: 1175250980
-author: brue
-category: new
+author: !binary |-
+  YnJ1ZQ==
+category: !binary |-
+  bmV3
 tags:
-- ocio
-- gstreamer
-- Python
+- !binary |-
+  b2Npbw==
+- !binary |-
+  Z3N0cmVhbWVy
+- !binary |-
+  UHl0aG9u
 ---
 <blockquote>
 Proyecto de un juego libre programado un python en el que puedes competir contra ti mismo o contra un compañero, pudiendo tocar una guitarra o una batería.

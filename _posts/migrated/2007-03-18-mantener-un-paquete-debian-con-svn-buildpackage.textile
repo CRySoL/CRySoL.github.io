@@ -1,13 +1,19 @@
 ---
 migrated: node/620
 layout: post
-title: Mantener un paquete Debian con svn-buildpackage
+title: !binary |-
+  TWFudGVuZXIgdW4gcGFxdWV0ZSBEZWJpYW4gY29uIHN2bi1idWlsZHBhY2th
+  Z2U=
 created: 1174242079
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Debian-devel
-- VCS
+- !binary |-
+  RGViaWFuLWRldmVs
+- !binary |-
+  VkNT
 ---
 bq(head). Esta receta explica cómo usar la herramienta @svn-buildpackage@ para mantener un paquete Debian existente.
 

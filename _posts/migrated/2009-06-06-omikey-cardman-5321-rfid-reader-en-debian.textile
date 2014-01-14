@@ -1,13 +1,18 @@
 ---
 migrated: node/1122
 layout: post
-title: Omikey Cardman 5321 RFID reader en Debian
+title: !binary |-
+  T21pa2V5IENhcmRtYW4gNTMyMSBSRklEIHJlYWRlciBlbiBEZWJpYW4=
 created: 1244312922
-author: paco
-category: recipe
+author: !binary |-
+  cGFjbw==
+category: !binary |-
+  cmVjaXBl
 tags:
-- Debian
-- security
+- !binary |-
+  RGViaWFu
+- !binary |-
+  c2VjdXJpdHk=
 ---
 bq(head). ¿Harto de teclear la clave cuando te salta el salvapantallas? ¿Harto de que el vecino de cubículo cotillee to correo cuando se te olvida bloquear el escritorio?  Tenemos una solución. El Omnikey Cardman 5321 es un lector de tarjetas RFID y de tarjetas de contactos bastante barato, pero el fabricante no proporciona información :-( .  Esta recetilla explica como usarlo en Debian usando el driver binario que distribuyen ellos.
 

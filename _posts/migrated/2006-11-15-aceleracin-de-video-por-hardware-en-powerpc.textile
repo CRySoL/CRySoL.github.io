@@ -1,10 +1,13 @@
 ---
 migrated: node/445
 layout: post
-title: Aceleración de video por hardware en PowerPC
+title: !binary |-
+  QWNlbGVyYWNpw7NuIGRlIHZpZGVvIHBvciBoYXJkd2FyZSBlbiBQb3dlclBD
 created: 1163588906
-author: nacho
-category: recipe
+author: !binary |-
+  bmFjaG8=
+category: !binary |-
+  cmVjaXBl
 ---
 Sencillos pasos para tener aceleración 3D en tu PPC con GNU/Linux.
 

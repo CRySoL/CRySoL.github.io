@@ -1,11 +1,14 @@
 ---
 migrated: node/538
 layout: post
-title: Yago, un robotillo libre basado en AVR
+title: !binary |-
+  WWFnbywgdW4gcm9ib3RpbGxvIGxpYnJlIGJhc2FkbyBlbiBBVlI=
 created: 1169838036
-author: javieralso
+author: !binary |-
+  amF2aWVyYWxzbw==
 tags:
-- embedded
+- !binary |-
+  ZW1iZWRkZWQ=
 ---
 <blockquote>Os presento un robotillo que estoy haciendo en mis ratos libres. Se trata de un bicho basado en un micro AVR (en concreto usa un AT90USB1287) y que dispone de varios sensores como infrarojos, sensor PIR, ultrasonidos, etc... Tanto el software como el hardware que desarrolle para este proyecto será libre, y además *todo* (incluidos los diseños de PCBs) está hecho con software 100% libre.
 </blockquote>

@@ -1,10 +1,13 @@
 ---
 migrated: node/1454
 layout: post
-title: Redmine PAM authentication plugin
+title: !binary |-
+  UmVkbWluZSBQQU0gYXV0aGVudGljYXRpb24gcGx1Z2lu
 created: 1296269544
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 That recipe shows how to configure "redmine":http://<a href="http://www.redmine.org/">www.redmine.org/</a> to use PAM authentication. It includes the PAM authentication plugin code.
 
@@ -73,7 +76,7 @@ h2. The plugin
 
 Following the instruction of <a href="http://www.redmine.org/projects/redmine wiki/Alternativecustom_authentication_HowTo">Alternative (custom) Authentication HowTo</a>, I wrote that trivial (but working) plugin:
 
-[ "auth_source_pam.rb":https://arco.esi.uclm.es/svn/public/prj/redmine-auth-pam/auth_source_pam.rb ]
+[ "auth_source_pam.rb":https://bitbucket.org/DavidVilla/redmine-auth-pam/raw/36d852ffda479de65afa12947511045bc0348f74/auth_source_pam.rb]
 
 
 <div>

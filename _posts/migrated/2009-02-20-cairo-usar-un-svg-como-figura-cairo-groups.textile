@@ -1,14 +1,21 @@
 ---
 migrated: node/1093
 layout: post
-title: ! 'Cairo: usar un SVG como figura ("Cairo Groups")'
+title: !binary |-
+  Q2Fpcm86IHVzYXIgdW4gU1ZHIGNvbW8gZmlndXJhICgiQ2Fpcm8gR3JvdXBz
+  Iik=
 created: 1235150843
-author: oscarah
-category: recipe
+author: !binary |-
+  b3NjYXJhaA==
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
-- Python
-- gtk
+- !binary |-
+  QXJjbw==
+- !binary |-
+  UHl0aG9u
+- !binary |-
+  Z3Rr
 ---
 En esta receta, crearemos una figura, o un Surface usando la nomenclatura de Cairo, a partir de una imagen en formato SVG.
 

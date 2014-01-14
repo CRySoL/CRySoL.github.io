@@ -1,12 +1,16 @@
 ---
 migrated: node/533
 layout: post
-title: Creación de Plugins para Freevo
+title: !binary |-
+  Q3JlYWNpw7NuIGRlIFBsdWdpbnMgcGFyYSBGcmVldm8=
 created: 1169642364
-author: fsancho
-category: recipe
+author: !binary |-
+  ZnNhbmNobw==
+category: !binary |-
+  cmVjaXBl
 tags:
-- ocio
+- !binary |-
+  b2Npbw==
 ---
 En esta recetilla cuento los pasos que he seguido para crear un pequeño _plugin_ para Freevo, con el que poder lanzar el juego "Stepmania":http://<a href="http://www.stepmania.com/">www.stepmania.com/</a>. Como tengo la intención de incorporar más juegos al menú de Freevo, he intentado no hacer el plugin demasiado específico. 
 

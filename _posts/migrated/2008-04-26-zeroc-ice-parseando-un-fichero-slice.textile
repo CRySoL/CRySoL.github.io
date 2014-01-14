@@ -1,12 +1,16 @@
 ---
 migrated: node/913
 layout: post
-title: ! 'ZeroC Ice: Parseando un fichero Slice'
+title: !binary |-
+  WmVyb0MgSWNlOiBQYXJzZWFuZG8gdW4gZmljaGVybyBTbGljZQ==
 created: 1209211741
-author: javieralso
-category: recipe
+author: !binary |-
+  amF2aWVyYWxzbw==
+category: !binary |-
+  cmVjaXBl
 tags:
-- Ice
+- !binary |-
+  SWNl
 ---
 <blockquote>Cómo parsear un archivo Slice (el lenguaje de especificación de interfaces de <a href="http://en.wikipedia.org/wiki/Internet_Communications_Engine"><acronym title="Internet Communications Engine">ICE</acronym></a>) para obtener toda la información semántica que contiene utilizando libSlice (el Parser proporcionado por <a href="www.zeroc.com">ZeroC</a>)</blockquote>
 

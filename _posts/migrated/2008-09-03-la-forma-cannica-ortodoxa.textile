@@ -1,13 +1,18 @@
 ---
 migrated: node/999
 layout: post
-title: La Forma Canónica Ortodoxa
+title: !binary |-
+  TGEgRm9ybWEgQ2Fuw7NuaWNhIE9ydG9kb3hh
 created: 1220477348
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- patterns
-- C++
+- !binary |-
+  cGF0dGVybnM=
+- !binary |-
+  Qysr
 ---
 La Forma Canónica Ortodoxa u <em>Orthodox Canonical Form</em> (OCF) es un modismo muy utilizado en C++ y definido por James Coplien en su libro <em> Advanced C++: Programming Styles and Idioms</em>. Este modismo permite que un tipo(clase) definido por el programador se comporte como un «tipo concreto de dato», es decir, tenga las mismas características que un tipo proporcionado por el lenguaje.
 
@@ -216,7 +221,7 @@ private:
 
 h2. Download
 
-Este ejemplo está disponible en el "repo público":https://arco.esi.uclm.es/svn/public/patterns/OCF/String.cc
+Este ejemplo está disponible en el "repo público":https://bitbucket.org/arco_group/patterns/src/tip/OCF/String.cc
 
 h2. Referencias
 

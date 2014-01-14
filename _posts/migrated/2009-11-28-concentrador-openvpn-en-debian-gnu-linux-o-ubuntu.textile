@@ -1,14 +1,21 @@
 ---
 migrated: node/1266
 layout: post
-title: Concentrador OpenVPN en Debian GNU/Linux (o Ubuntu)
+title: !binary |-
+  Q29uY2VudHJhZG9yIE9wZW5WUE4gZW4gRGViaWFuIEdOVS9MaW51eCAobyBV
+  YnVudHUp
 created: 1259374431
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
-- security
-- networking
+- !binary |-
+  QXJjbw==
+- !binary |-
+  c2VjdXJpdHk=
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 Cómo interconectar dos redes inaccesibles entre sí ya sea porque ambas están detrás de NAT o por consecuencias de las nuevas e incomprensibles «políticas de seguridad» de la empresa.
 

@@ -1,13 +1,19 @@
 ---
 migrated: node/911
 layout: post
-title: GladeWrapper, o cómo hacer una aplicación GTK con Python en 7 líneas
+title: !binary |-
+  R2xhZGVXcmFwcGVyLCBvIGPDs21vIGhhY2VyIHVuYSBhcGxpY2FjacOzbiBH
+  VEsgY29uIFB5dGhvbiBlbiA3IGzDrW5lYXM=
 created: 1208987690
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Python
-- gtk
+- !binary |-
+  UHl0aG9u
+- !binary |-
+  Z3Rr
 ---
 bq(head). Esta receta explica cómo usar la clase GladeWrapper para hacer programas PyGTK + glade del modo más sencillo jamás visto.
 

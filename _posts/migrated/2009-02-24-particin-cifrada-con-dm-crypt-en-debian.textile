@@ -1,13 +1,18 @@
 ---
 migrated: node/1094
 layout: post
-title: Partición cifrada con dm-crypt en Debian
+title: !binary |-
+  UGFydGljacOzbiBjaWZyYWRhIGNvbiBkbS1jcnlwdCBlbiBEZWJpYW4=
 created: 1235434253
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- security
-- Debian
+- !binary |-
+  c2VjdXJpdHk=
+- !binary |-
+  RGViaWFu
 ---
 Esta receta explica como utilizar @dm-crypt@ para cifrar una partición completa y montarla/desmontarla cómodamente.
 

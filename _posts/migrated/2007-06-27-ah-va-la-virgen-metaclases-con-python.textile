@@ -1,12 +1,16 @@
 ---
 migrated: node/600
 layout: post
-title: Ahí va la virgen! Metaclases! (con Python)
+title: !binary |-
+  QWjDrSB2YSBsYSB2aXJnZW4hIE1ldGFjbGFzZXMhIChjb24gUHl0aG9uKQ==
 created: 1182981171
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Python
+- !binary |-
+  UHl0aG9u
 ---
 bq(head). Esta receta es una pequeña introducción a la meta-programación, concretamente voy a contar algunas cosillas sobre uno de los mecanismos más populares y potentes: las metaclases.
 

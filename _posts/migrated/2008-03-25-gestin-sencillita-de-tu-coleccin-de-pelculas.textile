@@ -1,12 +1,17 @@
 ---
 migrated: node/890
 layout: post
-title: Gestión sencillita de tu colección de películas
+title: !binary |-
+  R2VzdGnDs24gc2VuY2lsbGl0YSBkZSB0dSBjb2xlY2Npw7NuIGRlIHBlbMOt
+  Y3VsYXM=
 created: 1206401152
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Python
+- !binary |-
+  UHl0aG9u
 ---
 bq(head). Esta receta explica cómo añadir de una forma muy fácil títulos a tu colección (gestionada con GCStar) mediante un scriptillo hecho en Python + amara. (menudo combo! :-))
 

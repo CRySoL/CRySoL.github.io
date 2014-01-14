@@ -1,13 +1,18 @@
 ---
 migrated: node/1705
 layout: post
-title: Fallo de pdflatex en debian sid
+title: !binary |-
+  RmFsbG8gZGUgcGRmbGF0ZXggZW4gZGViaWFuIHNpZA==
 created: 1369224387
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Debian
-- LaTeX
+- !binary |-
+  RGViaWFu
+- !binary |-
+  TGFUZVg=
 ---
 Si tienes Debian sid y has actualizado hace poco probablemente pdflatex ha empezado a fallar:
 

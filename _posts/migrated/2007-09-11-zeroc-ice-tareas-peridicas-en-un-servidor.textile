@@ -1,13 +1,18 @@
 ---
 migrated: node/773
 layout: post
-title: ! 'ZeroC Ice: Tareas periódicas en un servidor'
+title: !binary |-
+  WmVyb0MgSWNlOiBUYXJlYXMgcGVyacOzZGljYXMgZW4gdW4gc2Vydmlkb3I=
 created: 1189532974
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Ice
-- Arco
+- !binary |-
+  SWNl
+- !binary |-
+  QXJjbw==
 ---
 bq(head). Cómo ejecutar una (o varias) funciones periódicas en un servidor Ice.
 

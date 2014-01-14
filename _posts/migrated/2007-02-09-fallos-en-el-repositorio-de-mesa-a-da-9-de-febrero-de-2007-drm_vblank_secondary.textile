@@ -1,9 +1,12 @@
 ---
 migrated: node/550
 layout: post
-title: Fallos en el repositorio de Mesa (a día 9 de Febrero de 2007) DRM_VBLANK_SECONDARY
+title: !binary |-
+  RmFsbG9zIGVuIGVsIHJlcG9zaXRvcmlvIGRlIE1lc2EgKGEgZMOtYSA5IGRl
+  IEZlYnJlcm8gZGUgMjAwNykgRFJNX1ZCTEFOS19TRUNPTkRBUlk=
 created: 1171042335
-author: brue
+author: !binary |-
+  YnJ1ZQ==
 ---
 En el repo de Mesa hay un bug temporal. El que quiera compilar en debian, tras enfrentarse con los apt-get's pertinentes de desarrollo (importante x11proto*, libnurbs, libxmu, libxi, libmesa...etc -dev), tendrá que definir la contante DRM_VBLANK_SECONDARY en algún sitio visible para vblank.c.
 

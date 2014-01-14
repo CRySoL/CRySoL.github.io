@@ -1,10 +1,14 @@
 ---
 migrated: node/697
 layout: post
-title: Recuperar un disco duro con dd_rhelp (o intentarlo al menos)
+title: !binary |-
+  UmVjdXBlcmFyIHVuIGRpc2NvIGR1cm8gY29uIGRkX3JoZWxwIChvIGludGVu
+  dGFybG8gYWwgbWVub3Mp
 created: 1182264234
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 bq(head). Como ya sabrás, los discos duros no son perfectos, y cuando hacen "crash!" no hay mucho que se pueda hacer. ¿o sí? Esta receta explica cómo recuperar datos de un disco duro durante su agonía, o intentarlo al menos.
 

@@ -1,14 +1,21 @@
 ---
 migrated: node/1361
 layout: post
-title: ! 'PycURL: utilizando autenticación y cookies desde Python'
+title: !binary |-
+  UHljVVJMOiB1dGlsaXphbmRvIGF1dGVudGljYWNpw7NuIHkgY29va2llcyBk
+  ZXNkZSBQeXRob24=
 created: 1275925652
-author: Lk2
-category: recipe
+author: !binary |-
+  TGsy
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
-- Python
-- devel
+- !binary |-
+  QXJjbw==
+- !binary |-
+  UHl0aG9u
+- !binary |-
+  ZGV2ZWw=
 ---
 bq(head). Esta receta explicará a través de ejemplos mínimos como utilizar cookies para autenticarnos en una página y poder realizar sucesivas consultas con esa misma autenticación.
 

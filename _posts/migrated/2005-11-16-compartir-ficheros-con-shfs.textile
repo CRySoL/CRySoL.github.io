@@ -1,12 +1,16 @@
 ---
 migrated: node/100
 layout: post
-title: Compartir ficheros con SHFS
+title: !binary |-
+  Q29tcGFydGlyIGZpY2hlcm9zIGNvbiBTSEZT
 created: 1132131507
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 Esta receta es muy similar a esta otra de "SSHfs + FUSE":node/99. La diferencia es que aquí se usa un driver específico llamado *SHFS*. Igualmente se trata de acceder a ficheros de una máquina remota a través de SSH.
 

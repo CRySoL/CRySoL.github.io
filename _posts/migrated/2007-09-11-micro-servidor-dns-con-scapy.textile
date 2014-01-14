@@ -1,13 +1,18 @@
 ---
 migrated: node/772
 layout: post
-title: Micro servidor DNS con scapy
+title: !binary |-
+  TWljcm8gc2Vydmlkb3IgRE5TIGNvbiBzY2FweQ==
 created: 1189528316
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- scapy
-- networking
+- !binary |-
+  c2NhcHk=
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 bq(head). Cómo crear un sencillo servidor DNS con scapy.
 

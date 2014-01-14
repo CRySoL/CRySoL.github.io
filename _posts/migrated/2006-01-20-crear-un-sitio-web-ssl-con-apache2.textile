@@ -1,10 +1,13 @@
 ---
 migrated: node/198
 layout: post
-title: Crear un sitio web SSL con Apache2
+title: !binary |-
+  Q3JlYXIgdW4gc2l0aW8gd2ViIFNTTCBjb24gQXBhY2hlMg==
 created: 1137714954
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 Cómo activar el soporte SSL de apache-2 para utilizar HTTPS y navegación segura. Los pasos que se describen son para una Debian o sucedaneos, pero supongo que no será muy distinto  a otra distro.
 

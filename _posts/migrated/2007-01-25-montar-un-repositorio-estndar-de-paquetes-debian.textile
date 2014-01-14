@@ -1,12 +1,17 @@
 ---
 migrated: node/534
 layout: post
-title: Montar un repositorio estándar de paquetes Debian
+title: !binary |-
+  TW9udGFyIHVuIHJlcG9zaXRvcmlvIGVzdMOhbmRhciBkZSBwYXF1ZXRlcyBE
+  ZWJpYW4=
 created: 1169751701
-author: cleto
-category: recipe
+author: !binary |-
+  Y2xldG8=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Debian
+- !binary |-
+  RGViaWFu
 ---
 Ya vimos <a href="http://crysol.inf-cr.uclm.es/node/506">como montar un repositorio trivial de paquetes Debian</a>. Ahora vamos a hacer un repositorio general de paquetes, algo más avanzado y general que lo anterior pero se basa en la misma filosofía. 
 

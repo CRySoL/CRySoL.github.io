@@ -1,12 +1,17 @@
 ---
 migrated: node/162
 layout: post
-title: Servir un repositorio subversion con Apache-2.0
+title: !binary |-
+  U2VydmlyIHVuIHJlcG9zaXRvcmlvIHN1YnZlcnNpb24gY29uIEFwYWNoZS0y
+  LjA=
 created: 1135465200
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- VCS
+- !binary |-
+  VkNT
 ---
 Cómo montar un repositorio subversion, con Apache,  para que sea accesible remotamente
 

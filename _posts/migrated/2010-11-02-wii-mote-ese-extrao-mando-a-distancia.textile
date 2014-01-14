@@ -1,12 +1,16 @@
 ---
 migrated: node/1424
 layout: post
-title: ! 'wii-mote: ese extraño mando a distancia'
+title: !binary |-
+  d2lpLW1vdGU6IGVzZSBleHRyYcOxbyBtYW5kbyBhIGRpc3RhbmNpYQ==
 created: 1288708735
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- drivers
+- !binary |-
+  ZHJpdmVycw==
 ---
 Esta receta explica (a modo de recordatorio) cómo configurar wminput para usar el mando de la Wii como mando a distancia para PC.
 

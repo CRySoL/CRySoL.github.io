@@ -1,10 +1,13 @@
 ---
 migrated: node/26
 layout: post
-title: Grabar CDs y DVDs fácilmente desde consola
+title: !binary |-
+  R3JhYmFyIENEcyB5IERWRHMgZsOhY2lsbWVudGUgZGVzZGUgY29uc29sYQ==
 created: 1128716589
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 Uso básico de @mkisofs@ y @cdrecord@ para copiar y grabar CDs desde consola.
 

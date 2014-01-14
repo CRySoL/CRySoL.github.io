@@ -1,12 +1,16 @@
 ---
 migrated: node/901
 layout: post
-title: Instalar X-Wrt en La Fonera
+title: !binary |-
+  SW5zdGFsYXIgWC1XcnQgZW4gTGEgRm9uZXJh
 created: 1207357890
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 bq(head). "X-Wrt":http://x-wrt.org/install.html (a.k.a Webif<sup>2</sup>) es una interfaz web que facilita la administración y configuración de La Fonera y otros routers que usen "OpeWrt":http://wiki.openwrt.org. Webif<sup>2</sup> está disponible como paquete @ipkg@, así que su instalación resulta tremendamente simple.
 

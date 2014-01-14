@@ -1,10 +1,14 @@
 ---
 migrated: node/273
 layout: post
-title: ! 'Ejecutar un comando como si fueras otro usuario: sudo'
+title: !binary |-
+  RWplY3V0YXIgdW4gY29tYW5kbyBjb21vIHNpIGZ1ZXJhcyBvdHJvIHVzdWFy
+  aW86IHN1ZG8=
 created: 1144008393
-author: arturo
-category: recipe
+author: !binary |-
+  YXJ0dXJv
+category: !binary |-
+  cmVjaXBl
 ---
 <blockquote>
 Esta receta explica cómo ejecutar comandos del sistema con los permisos de otro usuario.

@@ -1,12 +1,17 @@
 ---
 migrated: node/182
 layout: post
-title: Configurar, parchear, cacharrear y compilar un Linux FÁCILMENTE
+title: !binary |-
+  Q29uZmlndXJhciwgcGFyY2hlYXIsIGNhY2hhcnJlYXIgeSBjb21waWxhciB1
+  biBMaW51eCBGw4FDSUxNRU5URQ==
 created: 1137080133
-author: int-0
-category: recipe
+author: !binary |-
+  aW50LTA=
+category: !binary |-
+  cmVjaXBl
 tags:
-- linux (the kernel of course)
+- !binary |-
+  bGludXggKHRoZSBrZXJuZWwgb2YgY291cnNlKQ==
 ---
 <blockquote>A estas alturas, con tantas recetas como existen, hay todavía muchas cosas que no podemos hacer o que intentamos rodear para evitar lo inevitable: una compilación del núcleo. Existen por internet muchísimas recetas sobre compilaciones y tal, yo no pretendo hacer una receta completísima, ni tan siquiera completa, sólo pretendo hacer una miniguía del núcleo linux, que sirva como base para recetas más completas o que crezca (con la ayuda de todos) hasta convertirse en una guía útil de compilación de Linux. Así pues, los que no sepáis espero que lo encontréis interesante y no demasiado aburrido y los que ya sabéis leedlo para corregirlo y aportar nuevos apartados y trucos.</blockquote>
 

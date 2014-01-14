@@ -1,10 +1,14 @@
 ---
 migrated: node/272
 layout: post
-title: ATI Radeon 9600 en Debian GNU/Linux, con el driver privativo fglrx
+title: !binary |-
+  QVRJIFJhZGVvbiA5NjAwIGVuIERlYmlhbiBHTlUvTGludXgsIGNvbiBlbCBk
+  cml2ZXIgcHJpdmF0aXZvIGZnbHJ4
 created: 1143832232
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 Esta receta explica cómo instalar el driver fglrx en una Debian etch o sid
 

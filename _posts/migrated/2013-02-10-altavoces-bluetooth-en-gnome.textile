@@ -1,13 +1,18 @@
 ---
 migrated: node/1697
 layout: post
-title: Altavoces bluetooth en GNOME
+title: !binary |-
+  QWx0YXZvY2VzIGJsdWV0b290aCBlbiBHTk9NRQ==
 created: 1360525856
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- gnome
-- drivers
+- !binary |-
+  Z25vbWU=
+- !binary |-
+  ZHJpdmVycw==
 ---
 Algunos altavoces, auriculares u otras cosas, como el Belkin Music Receiver (belkin U15) no funcionan directamente con GNOME (al menos en Debian). La solución es simple, aunque no es fácil de encontrar. Basta con:
 

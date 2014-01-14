@@ -1,12 +1,16 @@
 ---
 migrated: node/257
 layout: post
-title: Convertir subtítulos de DVD a formato .srt
+title: !binary |-
+  Q29udmVydGlyIHN1YnTDrXR1bG9zIGRlIERWRCBhIGZvcm1hdG8gLnNydA==
 created: 1142110446
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- ripping
+- !binary |-
+  cmlwcGluZw==
 ---
 Esta receta explica cómo extraer los subtítulos de un DVD y convertirlos en formato "SRT":http://<a href="http://www.matroska.org/technical/specs/subtitles/srt.html">www.matroska.org/technical/specs/subtitles/srt.html</a>.
 

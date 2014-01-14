@@ -1,10 +1,13 @@
 ---
 migrated: node/481
 layout: post
-title: Compartir una impresora CUPS automágicamente
+title: !binary |-
+  Q29tcGFydGlyIHVuYSBpbXByZXNvcmEgQ1VQUyBhdXRvbcOhZ2ljYW1lbnRl
 created: 1167743401
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 Cómo configurar CUPS para que sirva una impresora a toda una red sin que los clientes la conozcan de antemano.
 

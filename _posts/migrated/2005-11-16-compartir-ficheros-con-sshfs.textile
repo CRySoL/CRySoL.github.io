@@ -1,12 +1,16 @@
 ---
 migrated: node/99
 layout: post
-title: Compartir ficheros con SSHfs
+title: !binary |-
+  Q29tcGFydGlyIGZpY2hlcm9zIGNvbiBTU0hmcw==
 created: 1132096066
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 Cómo montar un directorio de otra máquina que tenga un servidor de SSH utilizando el paquete sshfs
 

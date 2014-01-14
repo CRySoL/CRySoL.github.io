@@ -1,12 +1,17 @@
 ---
 migrated: node/1374
 layout: post
-title: ! 'inotify: acciones disparadas por cambios en el sistema de ficheros'
+title: !binary |-
+  aW5vdGlmeTogYWNjaW9uZXMgZGlzcGFyYWRhcyBwb3IgY2FtYmlvcyBlbiBl
+  bCBzaXN0ZW1hIGRlIGZpY2hlcm9z
 created: 1278367083
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Python
+- !binary |-
+  UHl0aG9u
 ---
 Esta receta explica cómo incorporar a tus programas la posibilidad de realizar acciones cuando se crean, borran, cambian, etc. ficheros o directorios concretos.
 

@@ -1,12 +1,17 @@
 ---
 migrated: node/850
 layout: post
-title: Configurar adaptador inalámbrico de red USB con ndiswrapper
+title: !binary |-
+  Q29uZmlndXJhciBhZGFwdGFkb3IgaW5hbMOhbWJyaWNvIGRlIHJlZCBVU0Ig
+  Y29uIG5kaXN3cmFwcGVy
 created: 1202259472
-author: manueldavid
-category: recipe
+author: !binary |-
+  bWFudWVsZGF2aWQ=
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 <blockquote class="head"> 
        Esta receta lo que pretende es mostrar cómo se puede configurar un adaptador inalámbrico de red USB  mediante el programa ndiswrapper. Dicho programa se debe utilizar cuando el adaptador de red USB carece de drivers para GNU/Linux.

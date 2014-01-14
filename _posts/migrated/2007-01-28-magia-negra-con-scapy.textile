@@ -1,14 +1,20 @@
 ---
 migrated: node/540
 layout: post
-title: Magia negra con scapy
+title: !binary |-
+  TWFnaWEgbmVncmEgY29uIHNjYXB5
 created: 1169996638
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- security
-- scapy
-- networking
+- !binary |-
+  c2VjdXJpdHk=
+- !binary |-
+  c2NhcHk=
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 Esta receta en realidad es una traducción de un artículo de Rob Klein titulado "Packet Wizardry: Ruling the Network with Python":http://hackaholic.org/papers/blackmagic.txt usando la magnífica herramienta "scapy":http://<a href="http://www.secdev.org/projects/scapy/">www.secdev.org/projects/scapy/</a>. Igual es un poco largo para receta, pero bueno, no tiene desperdicio.
 

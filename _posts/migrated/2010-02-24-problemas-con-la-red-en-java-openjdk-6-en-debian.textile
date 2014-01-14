@@ -1,12 +1,17 @@
 ---
 migrated: node/1335
 layout: post
-title: Problemas con la red en Java openjdk-6 en Debian
+title: !binary |-
+  UHJvYmxlbWFzIGNvbiBsYSByZWQgZW4gSmF2YSBvcGVuamRrLTYgZW4gRGVi
+  aWFu
 created: 1267025288
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Java
+- !binary |-
+  SmF2YQ==
 ---
 Edita el fichero @/etc/sysctl.d/bindv6only.conf@ para que quede:
 

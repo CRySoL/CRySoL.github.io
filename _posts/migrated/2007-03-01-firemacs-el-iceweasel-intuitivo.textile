@@ -1,11 +1,14 @@
 ---
 migrated: node/595
 layout: post
-title: ! 'Firemacs: el iceweasel intuitivo'
+title: !binary |-
+  RmlyZW1hY3M6IGVsIGljZXdlYXNlbCBpbnR1aXRpdm8=
 created: 1172787600
-author: david_villa
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
 tags:
-- emacs
+- !binary |-
+  ZW1hY3M=
 ---
 ¿Estás harto de que las solapas de Iceweasel(Firefox) se cierren cada vez que intentas cortar un trozo de texto pulsando "C-w"? Si te pasa eso es porque eres un honorable usuario de emacs y la extensión "Firemacs":http://<a href="http://www.mew.org/~kazu/proj/firemacs/">www.mew.org/~kazu/proj/firemacs/</a> es la solución a tus problemas. 
 

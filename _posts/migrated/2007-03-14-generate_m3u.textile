@@ -1,10 +1,13 @@
 ---
 migrated: node/611
 layout: post
-title: generate_m3u
+title: !binary |-
+  Z2VuZXJhdGVfbTN1
 created: 1173885893
-author: david_villa
-category: script
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  c2NyaXB0
 ---
 Esto es tan chorra que casi me da pena ponerlo, pero bueno, igual a alguien le sirve. Pues eso, se trata de un "script" (una línea de shell) para general un fichero .m3u a partir de los ficheros .mp3 que haya en un directorio, o sea:
 

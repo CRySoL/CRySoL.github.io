@@ -1,10 +1,13 @@
 ---
 migrated: node/518
 layout: post
-title: Impresora HP LaserJet 1000 USB
+title: !binary |-
+  SW1wcmVzb3JhIEhQIExhc2VySmV0IDEwMDAgVVNC
 created: 1169410799
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 bq(head). Cómo configurar la impresora HP LaserJet 1000 USB en GNU/Linux
 

@@ -1,12 +1,16 @@
 ---
 migrated: node/1254
 layout: post
-title: ! 'LaTeX: babel + enumitem'
+title: !binary |-
+  TGFUZVg6IGJhYmVsICsgZW51bWl0ZW0=
 created: 1257365043
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- LaTeX
+- !binary |-
+  TGFUZVg=
 ---
 Hay un pequeño bug en @babel@ que da la lata si usas también el paquete @enumitem@. El error dice algo como:
 

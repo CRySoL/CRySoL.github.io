@@ -1,13 +1,18 @@
 ---
 migrated: node/1437
 layout: post
-title: ! 'arco-devel: auto-insert'
+title: !binary |-
+  YXJjby1kZXZlbDogYXV0by1pbnNlcnQ=
 created: 1291672016
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
-- emacs
+- !binary |-
+  QXJjbw==
+- !binary |-
+  ZW1hY3M=
 ---
 <blockquote class="warning">
 <b>ATENCIÓN:</b> Esta receta está OBSOLETA. Ver "emacs-pills":https://bitbucket.org/arco_group/emacs-pills

@@ -1,14 +1,21 @@
 ---
 migrated: node/842
 layout: post
-title: ! 'ZeroC Ice: Persistencia de sirvientes con Freeze Evictor'
+title: !binary |-
+  WmVyb0MgSWNlOiBQZXJzaXN0ZW5jaWEgZGUgc2lydmllbnRlcyBjb24gRnJl
+  ZXplIEV2aWN0b3I=
 created: 1201085851
-author: oscarah
-category: recipe
+author: !binary |-
+  b3NjYXJhaA==
+category: !binary |-
+  cmVjaXBl
 tags:
-- C++
-- Ice
-- Arco
+- !binary |-
+  Qysr
+- !binary |-
+  SWNl
+- !binary |-
+  QXJjbw==
 ---
 Cómo integrar Freeze en aplicaciones existentes para obtener persistencia en los sirvientes.
 

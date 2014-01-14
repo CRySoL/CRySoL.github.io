@@ -1,13 +1,18 @@
 ---
 migrated: node/840
 layout: post
-title: OpenWRT en La Fonera
+title: !binary |-
+  T3BlbldSVCBlbiBMYSBGb25lcmE=
 created: 1207079925
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 tags:
-- Arco
-- networking
+- !binary |-
+  QXJjbw==
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 bq(head). Esta receta es un resumen _quick & dirty_ de los pasos necesarios para instalar un sistema OpenWRT estándar en La Fonera. Básicamente es una traducción simplificada de las dos recetas que aparecen en las referencias.
 

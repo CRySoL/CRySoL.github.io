@@ -1,12 +1,16 @@
 ---
 migrated: node/959
 layout: post
-title: Entorno de desarrollo para el Chumby
+title: !binary |-
+  RW50b3JubyBkZSBkZXNhcnJvbGxvIHBhcmEgZWwgQ2h1bWJ5
 created: 1216943461
-author: oscarah
-category: recipe
+author: !binary |-
+  b3NjYXJhaA==
+category: !binary |-
+  cmVjaXBl
 tags:
-- Chumby
+- !binary |-
+  Q2h1bWJ5
 ---
 <blockquote>Se pretende construir un entorno de desarrollo para crear aplicaciones en diferentes lenguajes (c/c++ y flash mayormente) para el <a href="http://www.chumby.com">Chumby</a>
 </blockquote>

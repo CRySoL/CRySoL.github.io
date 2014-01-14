@@ -1,10 +1,13 @@
 ---
 migrated: node/135
 layout: post
-title: Generar libros para devhelp
+title: !binary |-
+  R2VuZXJhciBsaWJyb3MgcGFyYSBkZXZoZWxw
 created: 1134071192
-author: david_villa
-category: recipe
+author: !binary |-
+  ZGF2aWRfdmlsbGE=
+category: !binary |-
+  cmVjaXBl
 ---
 "devhelp":http://developer.imendio.com/wiki/Devhelp es un _brower_ de documentación técnica. Hay disponibles libros para instalar en devhelp. Un libro es la documentación empaquetada de algún programa o herramienta concreta. Esta receta explica como hacer tus propios libros.
 

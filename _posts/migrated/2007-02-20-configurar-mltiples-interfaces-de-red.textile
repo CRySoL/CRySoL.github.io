@@ -1,12 +1,16 @@
 ---
 migrated: node/521
 layout: post
-title: Configurar múltiples interfaces de red
+title: !binary |-
+  Q29uZmlndXJhciBtw7psdGlwbGVzIGludGVyZmFjZXMgZGUgcmVk
 created: 1172006084
-author: int-0
-category: recipe
+author: !binary |-
+  aW50LTA=
+category: !binary |-
+  cmVjaXBl
 tags:
-- networking
+- !binary |-
+  bmV0d29ya2luZw==
 ---
 bq(head). Esta receta explica cómo evitar que las interfaces de red cambien arbitrariamente de nombre.
 
