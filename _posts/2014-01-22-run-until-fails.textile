@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Keep repeting a command until it fails"
+title: "Keep repeating a command until it fails"
 author: david_villa
 category: recipe
 tags: shell
 ---
 
-That may be useful to make some kind of stress testing or ensure the command is doing "right".
+That may be useful to make some kind of stress testing or to "ensure" the command is doing right.
 
 Pretty simple:
 
