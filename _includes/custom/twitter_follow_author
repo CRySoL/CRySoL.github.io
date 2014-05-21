@@ -1,8 +1,2 @@
-<!-- AddThis Follow BEGIN -->
-<span class="addthis_toolbox addthis_default_style">
-{% if author.twitter %}
-<a class="addthis_button_twitter_follow" addthis:userid="{{author.twitter}}"></a>
-{% endif %}
-</span>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51cdd0d57c014017"></script>
-<!-- AddThis Follow END -->
+<a href="https://twitter.com/{{author.twitter}}" class="twitter-follow-button" data-show-count="false">Follow @{{author.twitter}}</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

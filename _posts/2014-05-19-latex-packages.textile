@@ -10,8 +10,25 @@ tags: latex
 ** @\singlespacing@
 ** @\onehalfspacing@
 ** @\doublespacing@
+
 * *"textpos":http://www.ctan.org/pkg/textpos* -- absolute positioning of text on the page
 ** @\textbox@
+
+
+* *"geometry":http://www.ctan.org/pkg/geometry*    	-- flexible and complete interface to document dimensions
+* *"enumitem":http://www.ctan.org/pkg/enumitem*	   	-- Control layout of itemize, enumerate, description
+* *"titlesec":http://www.ctan.org/pkg/titlesec*	   	-- Select alternative section titles
+* *"titletoc":http://www.ctan.org/pkg/titletoc*	   	-- alternative headings for toc/lof/lot (better than fancyhdr)
+* *"listings":http://www.ctan.org/pkg/listings*	   	-- typeset source code listings using LaTeX
+* *"versions":http://www.ctan.org/pkg/versions*	   	-- optionally omit pieces of text
+* *"acronym":http://www.ctan.org/pkg/acronym* 	   	-- expand acronyms at least once
+* *"crop":http://www.ctan.org/pkg/crop*    	   	-- support for cropmarks
+* *"hyperref":http://www.ctan.org/pkg/hyperref*	   	-- extensive support for hypertext in LaTeX
+* *"multicol":http://www.ctan.org/pkg/multicol*	   	-- intermix single and multiple columns
+* *"tocbibind":http://www.ctan.org/pkg/tocbibind*  	-- add bibliography/index/contents to Table of Contents
+* *"caption / caption2":http://www.ctan.org/pkg/caption* -- customising captions in floating environments
+* *"xcolor":http://www.ctan.org/pkg/xcolor*	        -- driver-independent color extensions for LATEX and pdfLaTeX
+
 
 [under construction]
 

@@ -6,10 +6,10 @@ category: recipe
 tags: veewee
 ---
 
-{% highlight console %}
+<pre class="console">
 # apt-get install ruby-nokogiri libxml2-dev
 # gem install veewee
-{% endhighlight %}
+</pre>
 
 <!--
 ;; Local Variables:

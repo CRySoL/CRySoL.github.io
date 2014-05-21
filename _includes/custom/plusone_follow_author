@@ -1,8 +1,6 @@
-<!-- AddThis Follow BEGIN -->
-<span class="addthis_toolbox addthis_default_style">
+<span>
 {% if author.plusone %}
-<a class="addthis_button_google_plusone_badge" g:plusone:href="https://plus.google.com/{{author.plusone}}/"></a>
+Follow on <a title="Follow on G+" href="//plus.google.com/u/0/{{author.plusone}}?prsrc=3" rel="publisher" target="_top" style="text-decoration:none;">
+<img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
 {% endif %}
 </span>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51cdd0d57c014017"></script>
-<!-- AddThis Follow END -->
