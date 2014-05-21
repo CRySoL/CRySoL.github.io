@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Installing veewee on Debian sid"
+author: david_villa
+category: recipe
+tags: veewee
+---
+
+{% highlight console %}
+# apt-get install ruby-nokogiri libxml2-dev
+# gem install veewee
+{% endhighlight %}
+
+<!--
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "american"
+;; End:
+-->

@@ -1,0 +1,24 @@
+---
+layout: post
+title: "Useful LaTeX packages and their main commands"
+author: david_villa
+category: recipe
+tags: latex
+---
+
+* *"setspace":http://www.ctan.org/pkg/setspace* -- set space between lines
+** @\singlespacing@
+** @\onehalfspacing@
+** @\doublespacing@
+* *"textpos":http://www.ctan.org/pkg/textpos* -- absolute positioning of text on the page
+** @\textbox@
+
+[under construction]
+
+<!--
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "american"
+;; End:
+-->
