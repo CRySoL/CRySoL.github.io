@@ -1,0 +1,22 @@
+---
+layout: post
+title: "multi machine Vagrantfile"
+author: david_villa
+category: recipe
+tags: vagrant
+---
+
+A @Vagrantfile@ to generate several machines:
+
+{% gist davidvilla/a085ee4b18be14654733 %}
+
+Each machine has a different configuration via salt provision.
+
+
+<!--
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "american"
+;; End:
+-->
