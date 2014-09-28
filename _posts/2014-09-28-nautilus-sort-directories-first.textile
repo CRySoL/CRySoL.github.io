@@ -1,0 +1,24 @@
+---
+layout: post
+title: "Nautilus: list folder before files"
+author: david_villa
+category: recipe
+tags: nautilus
+---
+
+Current nautilus Debian version (3.14) has a bug in preferences. It is not possible to set
+the option "put folders before files".
+
+That command sets it:
+
+<pre class="console">
+$ gsettings set org.gnome.nautilus.preferences sort-directories-first true
+</pre>
+
+<!--
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "american"
+;; End:
+-->
