@@ -10,23 +10,23 @@ Esta receta se explicara de forma breve que es Ogre3D.
 
 <!--break-->
 
-Ogre3D es un motor de renderizado en tiempo real para graficos en3D. Fue creado por Steve Steering en 2001 y utiliza C++ como lenguaje de programacion. El codigo fuente del proyecto esta disponible en el siguiente repositorio (https://bitbucket.org/sinbad/ogre), el cual se distribuye bajo licencia LGPL. La razon fue permitir la compatibilidad de la licencia con el mayor numero de tipos de licencia.
+Ogre3D es un motor de renderizado en tiempo real para gráficos en 3D. Fue creado por Steve Steering en 2001 y utiliza C++ como lenguaje de programación. El código fuente del proyecto está disponible en el siguiente repositorio (https://bitbucket.org/sinbad/ogre), y se distribuye bajo licencia LGPL.
 
-Existen una serie de proyectos comerciales, entre los cueles destaca la saga Torchlight. Un proyecto que, personalmente, creo que es muy es prometedor es Planet3 el cual ha conseguido recaudar en KickStarter 310.708$(fecha en la que se creo esta receta). El motor de renderizado usado en este proyecto es Ogre3D y si vemos la planificacion del proyecto, los videos y el trailer, vemos que no tiene nada que envidiarle a cualquier otro videojuegos AAA.
+Existen una serie de proyectos comerciales que utilizan este motor de renderizado, entre los cuales destaca la saga Torchlight. Por otro lado, buscando encontré un proyecto que a mi parecer es muy es prometedor: Planet3. Los creadores de dicho proyecto consiguieron recaudar mediante una campaña de crowdfounding en KickStarter 310.708$.
 
-He querido mostrar un par de casos de exito para demostrar que Ogre3D es una herramienta seria, con la que se pueden hacer proyectos comerciales al nivel de los mas punteros.
+He querido mostrar un par de casos de exito para demostrar que Ogre3D es una herramienta seria, con la que se pueden crear proyectos profesionales de la misma calidad que los mas punteros.
 
-Si quieres saber mas acerca de Ogre3D, he creado un tutorial donde trato de explicar los conceptos basicos de Ogre. Podeis encontrarlo en: https://bitbucket.org/IsaacLacoba/intro-ogre/overview
+Si sientes curiosidad por conocer un poco mas mas acerca de Ogre3D, he creado un tutorial donde trato de explicar los conceptos básicos de Ogre. Puedes encontrarlo en: https://bitbucket.org/IsaacLacoba/intro-ogre/overview
 
-Cualquier comentario o sugerencia, no dudeis en dejar mensaje.
+Cualquier comentario o sugerencia, no dudes en dejar un mensaje.
 
 h2. Referencias
+* Página oficial del proyecto Ogre3D:
+http://www.ogre3d.org/
 * Wikipedia Torchlight:
 http://es.wikipedia.org/wiki/Torchlight
 * Kitstarter del proyecto Planet3:
 https://www.kickstarter.com/projects/1247991467/planets3
-* Pagina del proyecto Planet3:
-http://www.planets-cube.com/
 
 <!--
 ;; Local Variables:
