@@ -7,6 +7,8 @@ tags: devel Ice Debian
 lang: en
 ---
 
+**WARNING**: This recipe is unnecessary in an current "Debian jessie":https://packages.debian.org/jessie/zeroc-ice35 or "Ubuntu trusty":http://packages.ubuntu.com/uk/trusty/zeroc-ice35.
+
 ZeroC provides their own Ubuntu/Debian packages for the "version 3.5":http://www.zeroc.com/download.html. This recipe includes all steps for a successful installation.
 
 <!--break-->
