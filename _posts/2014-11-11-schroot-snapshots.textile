@@ -1,0 +1,89 @@
+---
+layout: post
+title: "schroot: snapshot chroots"
+author: david_villa
+category: recipe
+tags: schroot
+---
+
+According to its manual page "@schroot@ allows the user to run a command or a login shell in a chroot environment". As many others (chroot, lxc, docker, vserver) it is a OS virtualizer. Often, these "chroot environments" are known as "jails". A jail is much faster that a full virtualizer as vmware, virtualbox, etc.
+
+In that recipe we explore a interesting feature: jail snapshoting
+
+<!--break-->
+
+Specifically, @schroot@ is a file-system virtualizer. That means you may have a separate decoupled root file system. It allows you can have a different release of your OS (a sid chroot in a stable system) or even a different distro. A fedora jail in an ubuntu system.
+
+Usually chroot files are contained in a directory in the native file system. But @schroot@ support other "types" of storage: a tarball (called "file"), a lvm volume, etc.
+
+Some of these types ("file" type included) provide an interesting feature: snapshoting. That means you may have a "base" jail that is automatically cloned when the jail is used. You can modify files or install packages in the clone, but, when you close the jail, all that changes will be lost.
+
+That feature is very good for testing purposes because is warranted that you begin with a clean environment. For example, it is usually used by package maintainers because it allows to detect missing dependencies or environment inconsistencies. In fact, in debian systems, there is a package build system called @sbuild@ that run over @schroot@.
+
+
+h2. Create the jail
+
+To create a "snapshotable" jail, write down these lines in a file on
+@/etc/schroot/chroot.d/sample@:
+
+<pre>
+[sid-jail]
+description=Debian sid jail
+type=file
+file=/var/jails/sid-jail.tar
+setup.fstab=default/fstab
+</pre>
+
+Then, create a base system:
+
+<pre class="console">
+$ tmp=$(mktemp -d)
+$ sudo debootstrap --variant=buildd sid $tmp http://ftp.debian.org/debian
+$ sudo tar cf /var/jails/sid-jail.tar -C $tmp .
+</pre>
+
+You could use a compressed tarball to save disk space, but then the jail would be much slower.
+
+
+h2. Enter the jail
+
+<pre class="console">
+$ sudo schroot -c sid-jail
+(sid-jail)root@eckert:~#
+</pre>
+
+
+h2. Update the "source" jail
+
+The base jail can be permanently modified just login in the "source", for example to upgrade its packages, to install base packages or customize something:
+
+<pre class="console">
+$ sudo schroot -c source:sid-jail
+(sid-jail)root@eckert:~# apt-get update
+Get:1 http://ftp.debian.org sid InRelease [242 kB]
+Get:2 http://ftp.debian.org sid/main Translation-en [4815 kB]
+Get:3 http://ftp.debian.org sid/main amd64 Packages [7093 kB]
+Fetched 12.2 MB in 14s (827 kB/s)
+(sid-jail)root@eckert:~# apt-get upgrade
+Reading package lists... Done
+Building dependency tree... Done
+Calculating upgrade... Done
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+</pre>
+
+h2. References
+
+* man pages: schroot, schroot-setup, schroot-faq, schroot.conf
+* "Óscar Aceña":/blogs.html#oscarah
+
+<!--
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "american"
+;; End:
+-->
+
+<!--
+LocalWords:  debian virtualbox vmware virtualizer schroot chroot sudo sid
+-->

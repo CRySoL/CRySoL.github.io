@@ -10,12 +10,9 @@ Esta receta muestra cómo proporciona, de una forma sencilla, un mecanismo de au
 
 <!--break-->
 
-El Registry de IceGrid es un elemento crítico, porque el acceso al Registry implica acceso
-a todos los nodos del grid. Por tanto necesitamos una forma de autenticar a los usuarios.
+El Registry de IceGrid es un elemento crítico, porque el acceso al Registry implica acceso a todos los nodos del grid. Por tanto necesitamos una forma de autenticar a los usuarios.
 
-Esta receta explica el mecanismo más simple de autenticación que proporciona Ice. Se basa
-en un simple fichero de texto con líneas de pares "usuario contraseña" (separado por un
-espacio). La contraseña está cifrada con DES.
+Esta receta explica el mecanismo más simple de autenticación que proporciona Ice. Se basa en un simple fichero de texto con líneas de pares "usuario contraseña" (separado por un espacio). La contraseña está cifrada con DES.
 
 Para ello, hemos elegido utilizar la siguiente propiedad de IceGrid:
 
@@ -23,16 +20,13 @@ Para ello, hemos elegido utilizar la siguiente propiedad de IceGrid:
 IceGrid.Registry.AdminCryptPasswords=admin-passwords
 </pre>
 
-Esta propiedad se debe escribir en el fichero de cofiguración del nodo que va a contener
-el Registry. Esta propiedad acepta un fichero con la siguiente estructura:
+Esta propiedad se debe escribir en el fichero de cofiguración del nodo que va a contener el Registry. Esta propiedad acepta un fichero con la siguiente estructura:
 
 <pre>
 usuario Clave_encriptada
 </pre>
 
-Este fichero tiene la misma estructura que el fichero de claves que utiliza Glacier2 para
-las sesioes seguras a los routers que define.  Las contraseñas del fichero se pueden
-encriptan mediante ssl. Por ejemplo:
+Este fichero tiene la misma estructura que el fichero de claves que utiliza Glacier2 para las sesioes seguras a los routers que define.  Las contraseñas del fichero se pueden encriptan mediante ssl. Por ejemplo:
 
 <pre class="console">
 $ openssl passwd >> admin-passwords
