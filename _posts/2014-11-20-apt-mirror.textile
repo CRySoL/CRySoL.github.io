@@ -1,0 +1,107 @@
+---
+layout: post
+title: "apt-mirror: the debian mirror that just works"
+author: david_villa
+category: recipe
+tags: apt-mirror debian
+---
+
+Have a local debian package mirror may be helpful when you frequently perform recurring instalations: virtual machines, continuous integration, isolated integration testing, docker containers and so on. @apt-mirror@ is a program that can make a perfect mirror clon in a very easy way.
+
+<!--break-->
+
+h2. Ingredients
+
+* apt-mirror package
+* a working debian based distro
+
+h2. Configuring apt-mirror
+
+@apt-mirror@ program has not command line options or argument at all. The only configuration feature is the file @/etc/apt/mirror@. Assuming default values for all options the minimal configuration could be something as simple as:
+
+<pre>
+deb http://ftp.debian.org/debian unstable main
+</pre>
+
+This is the same syntax of the file @/etc/apt/source.list@ and is the mirror that the program will use as "source".
+
+h2. Mirroring
+
+The mirroring process is absolutely trivial. Just it need run the program. However the download files do not go to an user home and at same time it is not recommended to use root. The solution is to run the program as the "apt-mirror" user (created by the package installation):
+
+<pre class="console">
+$ sudo su apt-mirror -c apt-mirror
+Downloading 14 index files using 14 threads...
+Begin time: Thu Nov 20 12:01:36 2014
+[14]... [13]... [12]... [11]... [10]... [9]... [8]... [7]... [6]... [5]... [4]... [3]... [2]... [1]... [0]...
+End time: Thu Nov 20 12:02:24 2014
+
+Processing tranlation indexes: [T]
+
+Downloading 36 translation files using 20 threads...
+Begin time: Thu Nov 20 12:02:24 2014
+[20]... [19]... [18]... [17]... [16]... [15]... [14]... [13]... [12]... [11]... [10]... [9]... [8]... [7]... [6]... [5]... [4]... [3]... [2]... [1]... [0]...
+End time: Thu Nov 20 12:02:30 2014
+
+Processing indexes: [P]
+
+9.2 GiB will be downloaded into archive.
+Downloading 3440 archive files using 20 threads...
+Begin time: Thu Nov 20 12:03:40 2014
+[20]... [19]... [18]... [17]... [16]... [15]... [14]... [13]... [12]... [11]... [10]... [9]... [8]... [7]... [6]... [5]... [4]... [3]... [2]... [1]... [0]...
+End time: Thu Nov 20 12:29:04 2014
+
+0 bytes in 0 files and 0 directories can be freed.
+Run /var/spool/apt-mirror/var/clean.sh for this purpose.
+
+Running the Post Mirror script ...
+(/var/spool/apt-mirror/var/postmirror.sh)
+
+Post Mirror script has completed. See above output for any possible errors.
+</pre>
+
+Debian mirror requires a lot of disk space, about 50GB per flavor and architecture...
+
+
+h2. How to use my mirror
+
+The files are (by default) stored in your @/var/spool/apt-mirror/mirror/<source>@. So, if you want to get packages from it for you local system, just add this line to your @/etc/apt/sources.list@ (in the case of this recipe):
+
+<pre>
+deb file:///var/spool/apt-mirror/mirror/ftp.debian.org/debian/ unstable main
+</pre>
+
+
+h2. Mirror maintaining
+
+You want to keep your mirror updated and synced, so you need run @apt-mirror@ periodically. The @apt-mirror@ package itself comes with a cron template. Just edit the file @/etc/cron.d/apt-mirror@ and uncomment the line:
+
+<pre>
+0 4     * * *   apt-mirror      /usr/bin/apt-mirror > /var/spool/apt-mirror/var/cron.log
+</pre>
+
+This cron job runs @apt-mirror@ at 4h00 in a daily basis.
+
+
+h2. Sharing the mirror
+
+If you share the mirror directory by a web server, your host will be a compliant debian mirror that can be used by others.
+
+<pre class="console">
+$ sudo apt-get install apache2
+$ sudo ln -s /var/spool/apt-mirror/mirror/ftp.fi.debian.org/debian /var/www/html/debian
+</pre>
+
+So, it must be accessible with http in your @/etc/apt/sources.list@:
+
+<pre>
+deb http://localhost/debian/ unstable main
+</pre>
+
+<!--
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "american"
+;; End:
+-->
