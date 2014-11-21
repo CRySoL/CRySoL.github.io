@@ -4,6 +4,7 @@ title: "apt-mirror: the debian mirror that just works"
 author: david_villa
 category: recipe
 tags: apt-mirror debian
+lang: en
 ---
 
 Have a local debian package mirror may be helpful when you frequently perform recurring instalations: virtual machines, continuous integration, isolated integration testing, docker containers and so on. @apt-mirror@ is a program that can make a perfect mirror clon in a very easy way.

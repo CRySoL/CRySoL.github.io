@@ -4,6 +4,7 @@ title: "schroot: snapshot chroots"
 author: david_villa
 category: recipe
 tags: schroot
+lang: en
 ---
 
 According to its manual page "@schroot@ allows the user to run a command or a login shell in a chroot environment". As many others (chroot, lxc, docker, vserver) it is a OS virtualizer. Often, these "chroot environments" are known as "jails". A jail is much faster that a full virtualizer as vmware, virtualbox, etc.
