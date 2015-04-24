@@ -1,0 +1,46 @@
+---
+layout: post
+title: "passwd/shadow inconsistencies"
+author: david_villa
+category: recipe
+tags: debian sudo cron
+lang: en
+---
+
+If your system issues messages of this type:
+
+<pre class="console">
+su: Authentication failure
+(Ignored)
+</pre>
+
+<pre class="console">
+Authentication service cannot retrieve authentication info
+</pre>
+
+Also in @/var/log/syslog@:
+
+<pre>
+CRON[12591]: Authentication failure
+</pre>
+
+
+and @su@ and @sudo@ continue working but @cron@ fails, probably you have a @/etc/passwd@ inconsistency respect to @/etc/shadow@.
+
+Just execute:
+
+<pre class="console">
+$ pwconv
+$ grpconv
+</pre>
+
+..to fix them.
+
+
+<!--
+;; Local Variables:
+;;  coding: utf-8
+;;  mode: flyspell
+;;  ispell-local-dictionary: "american"
+;; End:
+-->
