@@ -28,7 +28,7 @@ The firmware file will be converted and stored at @/lib/firmware/hp/sihpP1005.dl
 3. Upload firmware to printer
 
 <pre class="console">
-$ sudo /usr/sbin/hpljP1005
+$ sudo /lib/udev/hpljP1005
 /usr/sbin/hpljP1005: foo2zjs: loading HP LaserJet P1005 firmware /lib/firmware/hp/sihpP1005.dl to CUPS USB device ...
 /usr/sbin/hpljP1005: foo2zjs: usb://HP/LaserJet%20P1005?serial=BB07MTJ... download successful.
 </pre>
