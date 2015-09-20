@@ -1,0 +1,42 @@
+---
+layout: post
+title: "Installing the Ice-3.6 packages from ZeroC on Debian"
+author: david_villa
+category: recipe
+tags: devel Ice Debian
+lang: en
+---
+
+ZeroC provides their own (non-official) Ubuntu packages for the "version 3.6":http://www.zeroc.com/download.html. This recipe includes all steps for a successful installation on Debian jessie.
+
+<!--break-->
+
+Some new features (like the icegrid-gui metric graphics) requires JavaFX, that is only available in the Oracle Java SDK.
+
+To install packages you must setup some additional repositories. Execute the following commands:
+
+
+
+<pre class="console">
+$ sudo su
+# wget -qO- http://babel.esi.uclm.es/arco/key.asc | apt-key add -
+# echo "deb http://babel.esi.uclm.es/arco sid main" > /etc/apt/sources.list.d/babel.list
+# wget -O- https://zeroc.com/download/GPG-KEY-zeroc-release | apt-key add -
+# echo "deb http://zeroc.com/download/apt/ubuntu15.04 stable main" > /etc/apt/sources.list.d/zeroc.list
+</pre>
+
+To install Ice packages, execute:
+
+<pre class="console">
+# apt-get update
+# apt-get -y install zeroc-ice36 python-zeroc-ice
+</pre>
+
+All this may be done just running this "script":https://gist.githubusercontent.com/davidvilla/bd4c69af93e28b7f3881/raw/e1d9df5260cc8a3623dec2fd6e5b4657a9fcc467/install-ice36
+
+A simple way to make the same is:
+
+<pre class="console">
+$ sudo su
+# wget -qO- https://goo.gl/gjbjxC | sh
+</pre>
