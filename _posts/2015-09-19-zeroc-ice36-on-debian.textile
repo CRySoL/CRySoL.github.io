@@ -21,8 +21,8 @@ To install packages you must setup some additional repositories. Execute the fol
 $ sudo su
 # wget -qO- http://babel.esi.uclm.es/arco/key.asc | apt-key add -
 # echo "deb http://babel.esi.uclm.es/arco sid main" > /etc/apt/sources.list.d/babel.list
-# wget -O- https://zeroc.com/download/GPG-KEY-zeroc-release | apt-key add -
-# echo "deb http://zeroc.com/download/apt/ubuntu15.04 stable main" > /etc/apt/sources.list.d/zeroc.list
+# wget -qO- https://zeroc.com/download/GPG-KEY-zeroc-release | apt-key add -
+# echo "deb http://zeroc.com/download/apt/ubuntu14.04 stable main" > /etc/apt/sources.list.d/zeroc.list
 </pre>
 
 To install Ice packages, execute:
@@ -32,11 +32,11 @@ To install Ice packages, execute:
 # apt-get -y install zeroc-ice36 python-zeroc-ice
 </pre>
 
-All this may be done just running this "script":https://gist.githubusercontent.com/davidvilla/bd4c69af93e28b7f3881/raw/e1d9df5260cc8a3623dec2fd6e5b4657a9fcc467/install-ice36
+All this may be done just running this "script":https://gist.githubusercontent.com/davidvilla/bd4c69af93e28b7f3881/raw/d40b9e32efd238f15c62afb95fb5c3037ed210a1/install-ice36
 
 A simple way to make the same is:
 
 <pre class="console">
 $ sudo su
-# wget -qO- https://goo.gl/gjbjxC | sh
+# wget -qO- https://goo.gl/SzWdYN | sh
 </pre>
