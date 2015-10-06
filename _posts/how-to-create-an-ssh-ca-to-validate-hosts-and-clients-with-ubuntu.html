@@ -1,0 +1,848 @@
+https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How To Create an SSH CA to Validate Hosts and Clients with Ubuntu | DigitalOcean</title>
+
+
+<meta name="description" content="When dealing with an extensive infrastructure and many team members, managing SSH keys for authentication can become unwieldy. However, SSH can utilize certificates in order to sign and validate user and host credentials to allow a seamless experience">
+<meta name="keywords" content="Security">
+
+<meta name="og:title" content="How To Create an SSH CA to Validate Hosts and Clients with Ubuntu | DigitalOcean">
+<meta name="og:description" content="When dealing with an extensive infrastructure and many team members, managing SSH keys for authentication can become unwieldy. However, SSH can utilize certificates in order to sign and validate user and host credentials to allow a seamless experience">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:title" content="How To Create an SSH CA to Validate Hosts and Clients with Ubuntu | DigitalOcean">
+<meta name="twitter:description" content="When dealing with an extensive infrastructure and many team members, managing SSH keys for authentication can become unwieldy. However, SSH can utilize certificates in order to sign and validate user and host credentials to allow a seamless experience">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:card" content="photo" />
+<meta name="twitter:url" content="https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu"/>
+
+<meta property='og:image' content="https://www.digitalocean.com/assets/community/default_social_sharing-4c803c152c4cc1974dfac71a69fdab63.png">
+<meta name="twitter:image" content="https://www.digitalocean.com/assets/community/default_social_sharing-4c803c152c4cc1974dfac71a69fdab63.png">
+
+  <link rel='canonical' href='https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu'>
+
+
+    <link rel="stylesheet" media="all" href="/assets/community/application-08d9a368f61ff6cf2e1bba47d5915f0d.css" />
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="HVIVKbSLlRtdEU4F4i24KlRuTDl9Nptz051/IyGTbxaGZ2UQxV/aKSnlZqICCk8K7cjbrK1JMWYDojgo+cV9Zg==" />
+    <script type="text/javascript" src="//use.typekit.net/njm7orv.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script src="//cdn.optimizely.com/js/701281621.js"></script>
+    <script type="text/javascript">
+      if(window.analytics=window.analytics||[],window.analytics.included)window.console&&console.error&&console.error("analytics.js included twice");else{window.analytics.included=!0,window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(a){return function(){var n=Array.prototype.slice.call(arguments);return n.unshift(a),window.analytics.push(n),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(a){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+a+"/analytics.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)},window.analytics.SNIPPET_VERSION="2.0.9",
+      window.analytics.load("puo3uv968t")}
+      window.analytics.page();
+    </script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/community/tutorials/feed">
+    <script src="/assets/community/application-071850c22e04f165ceeb5e4a89d2d994.js"></script>
+  </head>
+  <body class="tutorials-controller tutorial-single" data-env="production", data-prefix="/community" data-user-id="" data-facebook-app-id="694818843983011">
+    <script>
+//<![CDATA[
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+
+
+    <div class='outside_viewport'>
+        <div class='table-of-contents '></div>
+  <div id='share-modal' class='modal fade mini-modal' style="display: none;">
+    <div class='modal-dialog'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <h1>Share</h1>
+          <a class='close-button' data-dismiss='modal' href=''><span class='icon icon-close-light'></span></a>
+        </div>
+        <div class='modal-body'>
+
+          <div class='social-sharing social-sharing-container'>
+            <ul class='bottom '>
+              <li class='shareBtn' id='sbTwitter'>
+                <a href='http://twitter.com/share?text=How To Create an SSH CA to Validate Hosts and Clients with Ubuntu&amp;url=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=twshare' class='share-icon share-popup' title='Share on Twitter' >
+                  <span class='sIcon icon-bird'></span>
+                </a>
+
+                <a href='http://twitter.com/share?text=How To Create an SSH CA to Validate Hosts and Clients with Ubuntu&amp;url=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=twshare' class='share-link share-popup' title='Share on Twitter' >
+                  Twitter
+                </a>
+
+              </li>
+
+              <li class='shareBtn' id='sbFacebook'>
+                <a class='share-icon facebook-share' href='https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=fbshare' onclick='' title='Share on Facebook'>
+                  <span class='sIcon icon-facebook-B'></span>
+                </a>
+
+                <a class='share-link facebook-share' href='https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=fbshare' onclick='' title='Share on Facebook'>
+                  Facebook
+                </a>
+              </li>
+              <li class='shareBtn' id='sbGoogle'>
+                <a href='https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=gpshare' class='share-icon share-popup' title='Share on Google+'>
+                  <span class='sIcon icon-google-plus-B'></span>
+                </a>
+
+                <a href='https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=gpshare' class='share-link share-popup' title='Share on Google+'>
+                  Google+
+                </a>
+              </li>
+              <li class='shareBtn' id='sbYC'>
+                <a href='https://news.ycombinator.com/submitlink?t=How To Create an SSH CA to Validate Hosts and Clients with Ubuntu&amp;u=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=hnshare' class='share-icon share-popup ' target='_blank' title='Submit to Hacker News'>
+                  <span class='sIcon icon-hacker-news'></span>
+                </a>
+
+                <a href='https://news.ycombinator.com/submitlink?t=How To Create an SSH CA to Validate Hosts and Clients with Ubuntu&amp;u=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=hnshare' class='share-link share-popup' target='_blank' title='Submit to Hacker News'>
+                  Hacker News
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id='contents-modal' class='modal fade mini-modal' style="display: none;">
+    <div class='modal-dialog'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <h1>Contents</h1>
+          <a class='close-button' data-dismiss='modal' href=''><span class='icon icon-close-light'></span></a>
+        </div>
+        <div class='modal-body'>
+
+          <div class='table-of-contents-modal open'></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id='share-modal' class='modal fade mini-modal' style="display: none;">
+    <div class='modal-dialog'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <h1>Share</h1>
+          <a class='close-button' data-dismiss='modal' href=''><span class='icon icon-close-light'></span></a>
+        </div>
+        <div class='modal-body'>
+
+          <div class='social-sharing social-sharing-container'>
+            <ul class='top '>
+              <li class='shareBtn' id='sbTwitter'>
+                <a href='http://twitter.com/share?text=How To Create an SSH CA to Validate Hosts and Clients with Ubuntu&amp;url=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=twshare' class='share-icon share-popup' title='Share on Twitter' >
+                  <span class='sIcon icon-bird'></span>
+                </a>
+
+                <a href='http://twitter.com/share?text=How To Create an SSH CA to Validate Hosts and Clients with Ubuntu&amp;url=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=twshare' class='share-link share-popup' title='Share on Twitter' >
+                  Twitter
+                </a>
+
+              </li>
+
+              <li class='shareBtn' id='sbFacebook'>
+                <a class='share-icon facebook-share' href='https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=fbshare' onclick='' title='Share on Facebook'>
+                  <span class='sIcon icon-facebook-B'></span>
+                </a>
+
+                <a class='share-link facebook-share' href='https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=fbshare' onclick='' title='Share on Facebook'>
+                  Facebook
+                </a>
+              </li>
+              <li class='shareBtn' id='sbGoogle'>
+                <a href='https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=gpshare' class='share-icon share-popup' title='Share on Google+'>
+                  <span class='sIcon icon-google-plus-B'></span>
+                </a>
+
+                <a href='https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=gpshare' class='share-link share-popup' title='Share on Google+'>
+                  Google+
+                </a>
+              </li>
+              <li class='shareBtn' id='sbYC'>
+                <a href='https://news.ycombinator.com/submitlink?t=How To Create an SSH CA to Validate Hosts and Clients with Ubuntu&amp;u=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=hnshare' class='share-icon share-popup ' target='_blank' title='Submit to Hacker News'>
+                  <span class='sIcon icon-hacker-news'></span>
+                </a>
+
+                <a href='https://news.ycombinator.com/submitlink?t=How To Create an SSH CA to Validate Hosts and Clients with Ubuntu&amp;u=https://www.digitalocean.com/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu?utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu&amp;utm_medium=community&amp;utm_source=hnshare' class='share-link share-popup' target='_blank' title='Submit to Hacker News'>
+                  Hacker News
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    <div id="newsletter-signup-dialog" class="newsletter-signups-dialog" data-newsletter-signup-dialog data-article-target=".content-body">
+  <div class="pull-right">
+  <a href="javascript:;" class="newsletter-signups-dialog-dismiss" data-newsletter-signup-dismiss>&times;</a>
+
+</div>
+<h4 class="newsletter-signups-dialog-title">
+  Sign up for our newsletter.
+</h4>
+<p class="newsletter-signups-dialog-description">
+  Get the latest tutorials on SysAdmin and open source topics.
+</p>
+<form class="newsletter-signup" id="new_newsletter_signup" data-newsletter-signup="true" action="/community/newsletter_signup" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+  <input data-newsletter-signup-field="url" type="hidden" name="newsletter_signup[url]" id="newsletter_signup_url" />
+  <input data-newsletter-signup-field="title" type="hidden" name="newsletter_signup[title]" id="newsletter_signup_title" />
+
+  <div class="newsletter-signup-ajax-error" data-newsletter-signup-ajax-error></div>
+
+
+  <div class="form-group">
+    <input placeholder="email@example.com" required="required" class="field" type="email" name="newsletter_signup[email]" id="newsletter_signup_email" />
+  </div>
+
+  <button data-disable-with="Sign Up" class="button blue-button">
+    Sign Up
+  </button>
+
+</form>
+
+</div>
+
+
+    </div>
+
+      <div class="mobile-nav">
+
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+
+  <a class="close-panel icon-close" href="javascript:void(0);"></a>
+
+  <form class="mobile-search" action="/community/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <span class='icon icon-search-thin'></span>
+    <input type="text" name="q" id="q" placeholder="Search" />
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form>
+
+<nav>
+
+  <ul>
+    <li><a href="/community/tutorials">Tutorials</a></li>
+    <li><a href="/community/questions">Questions</a></li>
+    <li><a href="/community/projects">Projects</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+
+</div>
+
+
+
+    	<header>
+  <div class='main-menu-container'>
+    <div class='wrapper'>
+      <div class='logo'>
+        <a class="" href="https://www.digitalocean.com/">
+          <span class='icon icon-cloud'></span>
+</a>
+        <a class="" href="/community">
+          <span class='logo-community-text'>Community</span>
+</a>      </div>
+
+      <a class="mobile-nav-toggle icon-menu-thin" data-role="left">
+        <span>Menu</span>
+      </a>
+
+
+<nav>
+
+  <ul>
+    <li><a href="/community/tutorials">Tutorials</a></li>
+    <li><a href="/community/questions">Questions</a></li>
+    <li><a href="/community/projects">Projects</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+
+
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+      <div class='header-search open'>
+  <form action="/community/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <span class='icon icon-search-thin'></span>
+    <input type="text" name="q" id="q" placeholder="Search" autocomplete="off" spellcheck="off" class="header-search-input" data-algolia-application-id="6ZHEUVKJ88" data-algolia-api-key="c5470567eae7fa1177d43222e18ba086" />
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form></div>
+
+<div class="search-results-dropdown dropdown" data-root-path="https://www.digitalocean.com/community">
+  <div class="container">
+    <div class='header-search-results-list'></div>
+
+    <div id="btn-wrap">
+      <a class="more-search-results" data-search-path="/community/search" href="/community/search">
+        <span class='icon-mag'></span>
+        View All Results
+</a>    </div>
+  </div>
+</div>
+
+<script type='text/template' id='autocomplete-hits-template'>
+  <div class="inner-search">
+    <ul>
+        {{#hits}}
+          <li>
+            <span class='icon icon-{{type}}'></span>
+            <a href='{{url}}'>{{{_highlightResult.title.value}}}</a>
+          </li>
+        {{/hits}}
+    </ul>
+  </div>
+</script>
+      <div class='clearfix'></div>
+    </div>
+  </div>
+
+
+  <div class='wrapper'>
+
+  </div>
+</header>
+
+        <div class="flash-container"></div>
+
+
+
+
+      <div class='wrapper layout-wrapper'>
+
+
+
+
+
+
+
+
+<div class='section-content section-content-growable content'>
+  <div class='postable-info-bar-container'>
+  <div class='postable-info-bar'>
+    <div class='left-section'>
+        <div class='tutorial-author-avatar'>
+          <a href="/community/users/jellingwood"><div class="mod-avatar mod-avatar-small"><img alt="jellingwood" class="avatar avatar-small" src="https://secure.gravatar.com/avatar/60d901f61a6146e14a3e989bc1f4ef11?secure=true&d=identicon" width="80" height="80" /><span class="mod-star" title="MOD" data-toggle="tooltip" data-container="body"><span class="mod-star-icon" /></span></div></a>
+        </div>
+
+        <div class='author-and-date'>
+          <div class='tutorial-author'>
+            <div class='by'>By: </div>
+            <a href="/community/users/jellingwood">Justin Ellingwood</a>
+          </div>
+        </div>
+
+      <div class="upvotes upvoted tutorial-upvote"><form data-upvotable="tutorial_1095" data-upvotable-type="tutorial" class="upvote-form upvote signed-out-upvote" action="/community/upvotes/toggle?upvote%5Bupvotable_id%5D=1095&amp;upvote%5Bupvotable_type%5D=Tutorial" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="patch" /><input type="hidden" name="authenticity_token" value="RXXYudIjslGppxKHXmNmHvL8uKpLn0cXHqh8aW7UZlfeQKiAo/f9Y91TOiC+RJE+S1ovP5vg7QLOlztitoJ0Jw==" />
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class='icon-upvote-heart-small upvote-heart' data-toggle="modal" data-target="#sign-in-modal" data-return-url= "" title="Do you find this tutorial helpful? Show the author by Hearting it!" data-placement="bottom"></span></button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">4</div></div>
+
+        <div class='tutorial-comments-count'>
+          <span class='icon icon-new-comment'></span>
+          10
+        </div>
+
+
+    </div>
+
+    <div class='right-section'>
+      <div class='section-item social-sharing-item'>
+        <div class='sharing'>
+  <a class='share-button' href='#' data-toggle="modal" data-target="#share-modal">
+    <span class='icon icon-share-square'></span>
+    Share
+  </a>
+</div>
+
+
+      </div>
+
+        <div class='section-item table-of-contents-triggers'><div class='toc-trigger '>
+  <a href='javascript:void(0);'>
+    <span class='title'>Contents</span>
+    <span class='icon icon-close-light'></span>
+    <span class='icon icon-arrow-down'></span>
+  </a>
+</div>
+
+
+
+<div class='toc-trigger-mobile' data-toggle="modal" data-target="#contents-modal">
+  <a href='javascript:void(0);'>
+    <span class='title'>Contents</span>
+    <span class='icon icon-arrow-down'></span>
+  </a>
+</div>
+
+
+</div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="container">
+
+        <div class='info-cta'>
+    <a class="icon-close-light" href="javascript:void();"></a>
+    We hope you find this tutorial helpful. In addition to guides like this one, we provide simple cloud infrastructure for developers. <a href="https://www.digitalocean.com/?utm_medium=community&amp;utm_source=community_gencta&amp;utm_campaign=needaserver&amp;utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu">
+        Learn more &rarr;
+</a>  </div>
+
+
+      <h1 class='content-title'>How To Create an SSH CA to Validate Hosts and Clients with Ubuntu</h1>
+
+      <span class='meta-section tags'>
+        <span class='meta-value'><span class="tutorial-date">Mar 20, 2014</span> <span class="hashtag-icon"></span> <a class="" href="/community/tags/security?type=tutorials">Security</a> <a class="" href="/community/tags/ubuntu?type=tutorials">Ubuntu</a></span>
+      </span>
+    </div>
+
+  <div class="container">
+
+  </div>
+
+    <div class='content-body tutorial-content tutorial-content-legacy' data-growable-markdown>
+      <h3 id="introduction">Introduction</h3>
+
+<p>When configuring a large amount of servers that have many users, keeping SSH access in line for your infrastructure can get complicated.  There are quite a few ways of implementing a centralized authentication authority, such as LDAP, but these are sometimes overkill.</p>
+
+<p>SSH actually has the functionality to use a certificate authority to authenticate servers and clients.  This works both ways.  Using this system, you can authenticate a host to a client, avoiding confusing messages about being unable to validate the authenticity of the host.  You can also validate the client to the host, allowing you to register a new SSH key in one place and allow access across your organization.</p>
+
+<p>We'll discuss how to leverage these certificates in both of the ways discussed above.  We'll be demoing this on three Ubuntu 12.04 VPS instances.  One will serve as the host, another as the client, and the third will function as the certificate authority.</p>
+
+<h2 id="how-to-configure-host-certificates">How To Configure Host Certificates</h2>
+
+<p>We will start by configuring certificates that will authenticate our servers to our clients.  This will allow our clients to connect to our servers without needing to question the authenticity of the server.</p>
+
+<p>We begin on the machine that we will be using as the certificate authority.  In this example, we'll refer to this as "<code>auth.example.com</code>".</p>
+
+<h3 id="generating-signing-keys">Generating Signing Keys</h3>
+
+<p>First, we need to generate some RSA keys that will function as the signing keys.  Use any user you'd like, but the root user is probably a good idea.  We will be creating keys called "<code>server_ca</code>" and "<code>server_ca.pub</code>" since these will be used to authenticate our servers.</p>
+
+<p>Let's create these keys in our home directory:</p>
+<pre class="code-pre "><code langs="">cd ~
+ssh-keygen -f server_ca
+</code></pre>
+<p>You will be asked if you'd like to create a passphrase.  This will add an additional layer of protection to your key in the event that it falls into the wrong hands.  Once this is finished, you'll have a private and public key in your home directory:</p>
+<pre class="code-pre "><code langs="">ls
+</code></pre>
+<hr>
+<pre class="code-pre "><code langs="">server_ca   server_ca.pub
+</code></pre>
+<h3 id="signing-host-keys">Signing Host Keys</h3>
+
+<p>Now that we have our keys, we can begin signing our host keys.</p>
+
+<p>We should start  by signing the host key of the certificate authority itself.  We can do this using the following syntax:</p>
+
+<pre>
+ssh-keygen -s <span class="highlight">signing_key</span> -I <span class="highlight">key_identifier</span> -h -n <span class="highlight">host_name</span> -V +52w <span class="highlight">host_rsa_key</span>
+</pre>
+
+<p>Let's go over what all of this means.</p>
+
+<ul>
+<li><strong>-s</strong>: This is the private key that we just created that we will use to sign all of the other keys.</li>
+<li><strong>-I</strong>: This is a name that is used to identify the certificate.  It is used for logging purposes when the certificate is used for authentication.</li>
+<li><strong>-h</strong>: This marks the resulting certificate as a host key, as opposed to a client key.</li>
+<li><strong>-n</strong>: This is used to identify the name (user or host) that is associated with this certificate.</li>
+<li><strong>-V</strong>: This specifies how long the certificate is valid for.  In this instance, we specify that the certificate will expire in one year (52 weeks).</li>
+</ul>
+
+<p>Afterwards we specify the key that we want to sign.</p>
+
+<p>In our case, to sign our own host RSA key, we will use a line that looks like this.  We are going to identify this server as "<code>host_auth_server</code>".  We will be prompted for the passphrase we used when creating the signing key:</p>
+<pre class="code-pre "><code langs="">ssh-keygen -s server_ca -I host_auth_server -h -n auth.example.com -V +52w /etc/ssh/ssh_host_rsa_key.pub
+</code></pre>
+<hr>
+<pre class="code-pre "><code langs="">Signed host key /etc/ssh/ssh_host_rsa_key-cert.pub: id "host_auth_server" serial 0 for auth.example.com valid from 2014-03-20T12:25:00 to 2015-03-19T12:26:05
+</code></pre>
+<p>As you can see from the output, our certificate is valid for one year.  It has been created in the same directory as our server host key (<code>/etc/ssh/</code>) and is called "<code>ssh_host_rsa_key-cert.pub</code>".</p>
+
+<p>Now that we have signed our host key on the certificate authority itself, we can sign the host key for the separate SSH server we're trying to authenticate to clients.</p>
+
+<p>Copy the host key from our SSH server.  We'll refer to this machine as "<code>sshserver.example.com</code>".  You can do this using <code>scp</code>:</p>
+<pre class="code-pre "><code langs="">cd ~
+scp root@sshserver.example.com:/etc/ssh/ssh_host_rsa_key.pub .
+</code></pre>
+<p>Now, we can create a certificate from this file using the same method we used above.  We'll need to change some values to refer to the new host we're signing:</p>
+<pre class="code-pre "><code langs="">ssh-keygen -s server_ca -I host_sshserver -h -n sshserver.example.com -V +52w ssh_host_rsa_key.pub
+</code></pre>
+<hr>
+<pre class="code-pre "><code langs="">Signed host key ssh_host_rsa_key-cert.pub: id "host_sshserver" serial 0 for sshserver.example.com valid from 2014-03-20T12:40:00 to 2015-03-19T12:41:48
+</code></pre>
+<p>Now, we need to copy the generated certificate file back onto the host.  Again, we can use <code>scp</code> for this:</p>
+<pre class="code-pre "><code langs="">scp ssh_host_rsa_key-cert.pub root@sshserver.example.com:/etc/ssh/
+</code></pre>
+<p>Afterwards, we can delete both the SSH server's public key and certificate from our authentication server:</p>
+<pre class="code-pre "><code langs="">rm ssh_host_rsa_key.pub ssh_host_rsa_key-cert.pub
+</code></pre>
+<p>We now have the signed certificates in place, we just need to configure our components to use them.</p>
+
+<h3 id="configuring-components-to-use-host-certs">Configuring Components to Use Host Certs</h3>
+
+<p>First, we need to continue with both of our servers (auth.example.com and sshserver.example.com) to make them aware of the certificate files we created.</p>
+
+<p>On both of these machines, we'll have to edit the main SSH daemon configuration file.  Make sure you are editing the <code>sshd_config</code> file, not the <code>ssh_config</code> file:</p>
+<pre class="code-pre "><code langs="">sudo nano /etc/ssh/sshd_config
+</code></pre>
+<p>If you can find a <code>HostCertificate</code> line, modify it.  Otherwise, add this to the bottom of the file.  We need to establish to path to our host certificate file:</p>
+<pre class="code-pre "><code langs="">HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub
+</code></pre>
+<p>Save and close the file when you are finished.</p>
+
+<p>Now, restart the SSH daemon to make these changes happen:</p>
+<pre class="code-pre "><code langs="">sudo service ssh restart
+</code></pre>
+<p>Do this on all of the servers you are configuring host certificates for.</p>
+
+<p>Now, our servers are configured to use the certificate, but our client does not know how to check the certificate that the server will present.</p>
+
+<p>On our client machine, which we'll be referring to as "<code>client.example.com</code>", open or create the "<code>~/.ssh/known_hosts</code>" file:</p>
+<pre class="code-pre "><code langs="">nano ~/.ssh/known_hosts
+</code></pre>
+<p>We need to remove any entries that have to do with the servers we're configuring for certificate entry.  It may be best to delete everything.</p>
+
+<p>Afterwards, we need to add a special entry that specifies the public key that we should use to check the certificate that our hosts will give us during login.  Start it off with <code>@cert-authority</code>.  Afterwards, it can include a domain restriction where the key will be applied, followed by the public certificate authority key that we've been signing everything with.</p>
+
+<p>On your certificate authority machine, you can get the public certificate signing key by typing:</p>
+<pre class="code-pre "><code langs="">cat ~/server_ca.pub
+</code></pre>
+<hr>
+<pre class="code-pre "><code langs="">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxC+gikReZlWEnZhKkGzhcNeRD3dKh0L1opw4/LQJcUPfRj07E3ambJfKhX/+G4gfrKZ/ju0nanbq+XViNA4cpTIJq6xVk1uVvnQVOi09p4SIyqffahO9S+GxGj8apv7GkailNyYvoMYordMbIx8UVxtcTR5AeWZMAXJM6GdIyRkKxH0/Zm1r9tsVPraaMOsKc++8isjJilwiQAhxdWVqvojPmXWE6V1R4E0wNgiHOZ+Wc72nfHh0oivZC4/i3JuZVH7kIDb+ugbsL8zFfauDevuxWeJVWn8r8SduMUVTMCzlqZKlhWb4SNCfv4j7DolKZ+KcQLbAfwybVr3Jy5dSl root@auth
+</code></pre>
+<p>Using this information, the line in your <code>~/.ssh/known_hosts</code> file should look like:</p>
+<pre class="code-pre "><code langs="">@cert-authority *.example.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxC+gikReZlWEnZhKkGzhcNeRD3dKh0L1opw4/LQJcUPfRj07E3ambJfKhX/+G4gfrKZ/ju0nanbq+XViNA4cpTIJq6xVk1uVvnQVOi09p4SIyqffahO9S+GxGj8apv7GkailNyYvoMYordMbIx8UVxtcTR5AeWZMAXJM6GdIyRkKxH0/Zm1r9tsVPraaMOsKc++8isjJilwiQAhxdWVqvojPmXWE6V1R4E0wNgiHOZ+Wc72nfHh0oivZC4/i3JuZVH7kIDb+ugbsL8zFfauDevuxWeJVWn8r8SduMUVTMCzlqZKlhWb4SNCfv4j7DolKZ+KcQLbAfwybVr3Jy5dSl root@auth
+</code></pre>
+<p>Save and close the file when you're done.</p>
+
+<p>Now, when you visit the SSH server for the first time from your client (using the full hostname), you should not be asked whether you trust the remote host.  This is because the host has presented its host certificate to you, signed by the certificate authority.  You've checked your <code>known_hosts</code> file and verified that the certificate is legitimate.</p>
+
+<h2 id="how-to-configure-user-keys">How To Configure User Keys</h2>
+
+<p>Now that we've learned how to authenticate servers to our users, we can also configure our certificate authority to authenticate our users to our servers.</p>
+
+<p>As before, this process will start on our certificate authority server.  We will need to generate a new set of keys, this time, to sign user certificates:</p>
+<pre class="code-pre "><code langs="">ssh-keygen -f users_ca
+</code></pre>
+<p>Again, select a passphrase so that your key will be protected if someone gains access.</p>
+
+<h3 id="configuring-servers-to-accept-logins-with-the-user-certification">Configuring Servers to Accept Logins with the User Certification</h3>
+
+<p>When you are done, you will need to copy the public key onto each of your SSH servers that need to validate user authenticity.  We will do this using <code>scp</code> as usual:</p>
+<pre class="code-pre "><code langs="">scp users_ca.pub root@sshserver.example.com:/etc/ssh/
+</code></pre>
+<p>We need to modify our SSH daemon configuration on our SSH server to look for this key.</p>
+
+<p>On our "<code>sshserver.example.com</code>" host, open the configuration file:</p>
+<pre class="code-pre "><code langs="">sudo nano /etc/ssh/sshd_config
+</code></pre>
+<p>At the bottom, below our <code>HostCertificate</code> line, we need to add another line that references the file we just copied over:</p>
+<pre class="code-pre "><code langs="">TrustedUserCAKeys /etc/ssh/users_ca.pub
+</code></pre>
+<p>Again, we'll need to restart the SSH daemon for these changes to take place:</p>
+<pre class="code-pre "><code langs="">sudo service ssh restart
+</code></pre>
+<h3 id="signing-user-login-keys">Signing User Login Keys</h3>
+
+<p>Now that the servers are configured to trust keys signed by the <code>users_ca</code> key, we need to actually sign the users' authentication keys so that this scheme will work.</p>
+
+<p>First, we need to get our client key onto the certificate authority server with <code>scp</code>.  From the cert server, type:</p>
+
+<pre>
+cd ~
+scp <span class="highlight">username</span>@client.example.com:/home/<span class="highlight">username</span>/.ssh/id_rsa.pub .
+</pre>
+
+<p>Now that we have the key on the cert machine, we can sign it using our <code>users_ca</code> key.  This will be very similar to last time we signed keys using the <code>server_ca</code> keys, only now, we don't include the <code>-h</code> parameter, because these are user keys.</p>
+
+<p>The command we want is something like this.  Change the "username" value to reflect the name of the user you're signing for easier management:</p>
+
+<pre>
+ssh-keygen -s users_ca -I user_<span class="highlight">username</span> -n <span class="highlight">username</span> -V +52w id_rsa.pub
+</pre>
+
+<pre>
+Signed user key id_rsa-cert.pub: id "user_username" serial 0 for username valid from 2014-03-20T14:45:00 to 2015-03-19T14:46:52
+</pre>
+
+<p>You will be prompted for the <code>users_ca</code> passphrase that set during the key's creation.  Now, we have an <code>id_rsa-cert.pub</code> file in our directory that we need to transfer back onto our client machine:</p>
+
+<pre>
+scp id_rsa-cert.pub <span class="highlight">username</span>@client.example.com:/home/<span class="highlight">username</span>/.ssh/
+</pre>
+
+<p>Now, when you log into <code>sshserver.example.com</code> from your client computer, you should not be asked for your authentication details, even if you've never before logged into this server as this user.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>By signing your host and user keys, you can create a more flexible system for user and server validation.  This allows you to set up one centralized authority for your entire infrastructure, in order to validate your servers to your user, and your users to your servers.</p>
+
+<p>While perhaps not the most powerful way of creating centralized authentication, it is easy to set up and leverages existing tools without requiring a lot of time and configuration.  It also has the advantage of not requiring the CA server to be online to check the certificates.</p>
+
+<div class="author">By Justin Ellingwood</div>
+
+    </div>
+</div>
+
+<div class='tutorial-footer'>
+  <div class='tutorial-footer-details'>
+  <div class='section-content tutorial-public-actions'>
+    <div class="upvotes upvoted tutorial-upvote large-upvotes"><form data-upvotable="tutorial_1095" data-upvotable-type="tutorial" class="upvote-form upvote signed-out-upvote" action="/community/upvotes/toggle?upvote%5Bupvotable_id%5D=1095&amp;upvote%5Bupvotable_type%5D=Tutorial" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="patch" /><input type="hidden" name="authenticity_token" value="8SITIORONKajXm8SFmbwmek9Fsr/JsqDjugXy1TqVhdqF2MZlZp7lNeqR7X2QQe5UJuBXy9ZYJZe11DAjLxEZw==" />
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class='icon-upvote-heart-small upvote-heart' data-toggle="modal" data-target="#sign-in-modal" data-return-url= "" title="Do you find this tutorial helpful? Show the author by Hearting it!" data-placement="top"></span></button>
+
+</form><span class="upvote-text"><span class="hearted-text">Hearted</span><span class="heart-text">Heart</span></span><div class="upvote-count ">4</div></div>
+
+    <div class='share-subscribe-actions'>
+      <span class="meta-section opt-in-switch off signed-out-subscribe">
+  <span class="meta-label subscribe-label">
+    <span class='subscription-label subscribe'>Subscribe</span>
+    <span class='subscription-label subscribed'>Subscribed</span>
+  </span>
+  <span class="meta-value"><a data-toggle="modal" data-target="#sign-in-modal" class="mini-switch-container" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a></span>
+</span>
+
+      <div class='sharing'>
+  <a class='share-button' href='#' data-toggle="modal" data-target="#share-modal">
+    <span class='icon icon-share-square'></span>
+    Share
+  </a>
+</div>
+
+
+    </div>
+  </div>
+
+  <div class='section-content tutorial-contributors one'>
+      <div class='tutorial-footer-user'>
+        <div class='tutorial-footer-user-avatar-container'>
+          <a href="/community/users/jellingwood"><div class="mod-avatar mod-avatar-small"><img alt="jellingwood" class="avatar avatar-small" src="https://secure.gravatar.com/avatar/60d901f61a6146e14a3e989bc1f4ef11?secure=true&d=identicon" width="80" height="80" /><span class="mod-star" title="MOD" data-toggle="tooltip" data-container="body"><span class="mod-star-icon" /></span></div></a>
+        </div>
+        <div class='user-info'>
+          <div class='tutorial-user-type'>Author:</div>
+          <a href="/community/users/jellingwood">Justin Ellingwood</a>
+        </div>
+      </div>
+
+
+  </div>
+</div>
+
+
+  <div class='tutorial-ctas'>
+  <div class='section-content'>
+    <div class='cta-description'>
+      <h2>Spin up an SSD cloud server in under a minute.</h2>
+
+      <p>Simple setup. Full root access. Straightforward pricing.</p>
+
+      <a class="cloud-tutorial-cta" href="https://www.digitalocean.com/?utm_medium=community&amp;utm_source=community_gencta&amp;utm_campaign=needaserver&amp;utm_content=how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu">Deploy Server</a>
+    </div>
+  </div>
+</div>
+    <div class='related-tutorials'>
+    <div class='section-content'>
+      <h2>Related Tutorials</h2>
+
+      <ul>
+        <li><a class="related-link" href="/community/tutorials/how-to-protect-your-linux-server-against-the-ghost-vulnerability">How To Protect your Linux Server Against the GHOST Vulnerability</a></li>
+<li><a class="related-link" href="/community/tutorials/how-to-protect-your-server-against-the-shellshock-bash-vulnerability">How to Protect your Server Against the Shellshock Bash Vulnerability</a></li>
+<li><a class="related-link" href="/community/tutorials/how-to-protect-your-server-against-the-heartbleed-openssl-vulnerability">How to Protect your Server Against the Heartbleed OpenSSL Vulnerability</a></li>
+<li><a class="related-link" href="/community/tutorials/how-to-install-truecrypt-cli-on-linux">How To Install TrueCrypt (CLI) On Linux</a></li>
+<li><a class="related-link" href="/community/tutorials/how-to-use-wpscan-to-test-for-vulnerable-plugins-and-themes-in-wordpress">How To Use WPScan to Test for Vulnerable Plugins and Themes in Wordpress</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class='content-comments'>
+  <div class='section-content'>
+    <div class="tutorial commentable" id="tutorial_1095">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>10 Comments</span></h4>
+  </div>
+
+  <div class="response no-avatar  response-form">
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form class="content-form disabled-form" id="new_comment" action="/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+    <textarea name="comment[content]" id="comment_content" placeholder="Leave a comment..." class="js-comment-content tutorial-comment-field" data-markdown="true">
+</textarea>
+
+      <div class="log-in-notice "><a href="/community/auth/digitalocean">Log In to Comment</a></div>
+
+    <div class='clearfix'></div>
+</form></div>
+
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="js-click-on-load hidden" rel="nofollow" data-remote="true" href="/community/tutorials/how-to-create-an-ssh-ca-to-validate-hosts-and-clients-with-ubuntu/comments">Load</a>
+    </ul>
+
+      <div class='comments-spinner'><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+
+</div>
+</div>
+  </div>
+
+  <div class='load-more-container'></div>
+</div>
+
+
+  </div>
+</div>
+
+<div class='creative-commons'>
+  <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img rel="license" alt="Creative Commons License" src="/assets/community/creativecommons-654928f5ebfbb75f4543af8903eabfe4.png" /></a>
+    <div class='license-text'>This work is licensed under a <a rel='license' href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</div>
+</div>
+
+
+
+
+
+        <div class="clearfix"></div>
+    	</div>
+
+    	<footer class='footer'>
+  <div class='footer-icon'>
+    <span class='icon icon-sammy'></span>
+  </div>
+
+  <div class='copyright'>
+    Copyright &copy; 2015 DigitalOcean&trade; Inc.
+  </div>
+
+  <ul class='main-nav-links'>
+    <li><a href="/community">Community</a></li>
+    <li><a href="/community/tutorials">Tutorials</a></li>
+    <li><a href="/community/questions">Questions</a></li>
+    <li><a href="/community/projects">Projects</a></li>
+    <li><a href="/community/tags">Tags</a></li>
+    <li>
+      <a href="/community/tutorials/feed">
+        RSS <span class="icon-rss"></span>
+</a>    </li>
+  </ul>
+
+  <br />
+
+  <ul class='secondary-nav-links'>
+
+    <li><a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a></li>
+    <li><a href="https://www.digitalocean.com/security/">Security</a></li>
+      <li><a data-toggle="modal" data-target="#sign-in-modal" href="#">Report a Bug</a></li>
+    <li><a href="/community/get-paid-to-write">Get Paid to Write</a></li>
+  </ul>
+</footer>
+
+
+
+
+
+    <div id='sign-in-modal' class='modal fade mini-modal' style="display: none;">
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h1>Sign Up</h1>
+        <a class='close-button' data-dismiss='modal' href=''><span class='icon icon-close-light'></span></a>
+      </div>
+      <div class='modal-body'>
+        <div class='sign-in-message'>Not so fast, you must have an account before you can do that.</div>
+
+        <div class='sign-in-modal-actions'>
+          <a class="sign-in-link button blue-button" data-default-url="/community/auth/digitalocean" href="/community/auth/digitalocean">Log In</a>
+          <a class="sign-up-link button green-button" data-default-url="/community/auth/digitalocean?display=sessionless+register" href="/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script>
+    $(function() {
+      init_sharing();
+      new NewsletterSignup();
+      new GrowableMarkdown({ target: '[data-growable-markdown]' });
+    });
+  </script>
+
+  <div id='report-a-bug-modal' class='modal fade mini-modal' style="display: none;">
+    <div class='modal-dialog'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <h1>Report a Bug</h1>
+          <a class='close-button' data-dismiss='modal' href=''><span class='icon icon-close-light'></span></a>
+        </div>
+        <div class='modal-body'>
+          <div class='report-a-bug-message text-center'>Use this form to report bugs related to the Community</div>
+          <div class='report-a-bug-actions do-form'>
+            <div class='form-wrap'>
+              <form class="new_bug_report" id="new_bug_report" action="/community/bug_reports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="DDNPuQ65xvT4WWQCQsIHQ8HmbctbI2pZX5LPSi0wLuKXBj+Af22JxoytTKWi5fBjeED6XotcwEyPrYhB9WY8kg==" />
+                <fieldset>
+                  <div class="field">
+                    <input placeholder="Name" type="text" name="bug_report[name]" id="bug_report_name" />
+                  </div>
+                  <div class="field">
+                    <input placeholder="Email" required="required" type="text" name="bug_report[email]" id="bug_report_email" />
+                  </div>
+                  <div class="field">
+                      <textarea placeholder="Message" required="required" name="bug_report[message]" id="bug_report_message">
+</textarea>
+                  </div>
+
+                  <div class="field actions">
+                    <input type="submit" name="commit" value="Submit" class="button" />
+                  </div>
+                </fieldset>
+</form>            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </body>
+</html>
