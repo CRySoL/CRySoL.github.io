@@ -29,14 +29,14 @@ To install Ice packages, execute:
 
 <pre class="console">
 # apt-get update
-# apt-get -y install zeroc-ice36 python-zeroc-ice
+# apt-get -y install zeroc-ice36
 </pre>
 
-All this may be done just running this "script":https://gist.github.com/davidvilla/bd4c69af93e28b7f3881
+All this may be done just running this "script":https://gist.githubusercontent.com/davidvilla/bd4c69af93e28b7f3881/raw/223ded8ebf6910eafc26d7277a836bbf0448cc20/install-ice36
 
 A simple way to make the same is:
 
 <pre class="console">
 $ sudo su
-# wget -qO- https://goo.gl/SzWdYN | sh
+# wget -qO- https://goo.gl/8V3LcX | sh
 </pre>
