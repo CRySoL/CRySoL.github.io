@@ -1,0 +1,43 @@
+---
+layout: post
+title: "Creating a VDI virtual disks for Virtualbox machines (with Vagrant)"
+author: david_villa
+category: recipe
+tags: vagrant virtualbox
+lang: en
+---
+
+When vagrant create Virtualbox machines, disks are created with VMDK format. Therefore, the VDI format has some interesting advantages. This recipe shows a setup to create VDI disks instead VMDK.
+
+<!--break-->
+
+The process requires two steps: create and attach disk to the virtual controller. In the @Vagrantfile@ we need to do it in the @up@ if the disk file not exists yet.
+
+The following is a working @Vagrantfile@ using the described setup:
+
+<pre>
+VAGRANTFILE_API_VERSION = "2"
+HOME_DISK = "/var/home.vdi"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "deb/jessie-i386"
+
+  config.vm.provider :virtualbox do |vb|
+    if ARGV[0] == "up" && ! File.exist?(HOME_DISK)
+      vb.customize ['createhd',
+                    '--filename', HOME_DISK,
+                    '--format', 'VDI',
+                    '--size', 50000]
+
+      vb.customize ['storageattach', :id,
+                    '--storagectl', 'SATA Controller',
+                    '--port', 0,
+		    '--device', 0,
+                    '--type', 'hdd',
+		    '--medium', HOME_DISK]
+    end
+  end
+end
+</pre>
+
+*WARNING*: Vagrant will delete attacked virtual disk when you issue command @vagrant destroy@!.

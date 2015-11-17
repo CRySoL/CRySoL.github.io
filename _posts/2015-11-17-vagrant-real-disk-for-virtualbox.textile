@@ -1,0 +1,49 @@
+---
+layout: post
+title: "Using an actual partition as «virtual» disk for Virtualbox with Vagrant"
+author: david_villa
+category: recipe
+tags: vagrant virtualbox
+lang: en
+---
+
+Virtualbox can use actual partitios for its disks. This task may be simple using the virtual GUI, but in this case, we want automatize the process with Vagrant.
+
+<!--break-->
+
+We will use the real partition for uses homes (@/dev/sdb1@). The partition must be formated and ready to be mounted.
+
+The first step is to create a VMDK file to describe the logical disk. The command for that is a little bit tricky:
+
+<pre class="console">
+$ vboxmanage internalcommands createrawvmdk -filename /var/home.vmdk -rawdisk /dev/sdb1"
+</pre>
+
+This file is only text and may be re-created at any time. This is important because vagrant delete virtual disks (this included) when you issue @vagrant destroy@.
+
+The second step is to attach the disk to be accesible from the virtual machine. This require the command virtualbox @storageattach@ but can be executed with @customize@ vagrant function.
+
+The following is a working @Vagrantfile@ using the described setup:
+
+<pre>
+VAGRANTFILE_API_VERSION = "2"
+HOME_DISK = "/var/home.vmdk"
+HOME_PARTITION = "/dev/sdb1"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "deb/jessie-i386"
+
+ if ARGV[0] == "up" && ! File.exist?(HOME_DISK)
+    system("vboxmanage internalcommands createrawvmdk -filename '#{HOME_DISK}' -rawdisk #{HOME_PARTITION}")
+ end
+
+  config.vm.provider :virtualbox do |vb|
+     vb.customize ['storageattach', :id,
+                   '--storagectl', 'SATA Controller',
+		   '--port' , 1,
+		   '--device', 0,
+		   '--type', 'hdd',
+		   '--medium', HOME_DISK]
+  end
+end
+</pre>
