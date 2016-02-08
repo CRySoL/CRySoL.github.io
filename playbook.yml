@@ -1,16 +1,22 @@
 #!/usr/local/bin/ansible-playbook -v
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6393ac703f8112c6ef44948fb6ff931cf45712e3
 ---
 - hosts: localhost
   become: yes
 
   tasks:
-  - apt: name=ruby2.1-dev update_cache=yes
-  - apt: name=ruby-redcloth
-  - apt: name=git
-  - apt: name=gem
-  - gem: name=jekyll version=2.5.3
-  - git: repo=https://github.com/CRySoL/drupal-import dest=/home/vagrant/
+  - name: system depends
+    apt: name=ruby2.1-dev update_cache=yes
+    apt: name=ruby-redcloth
+    apt: name=git
+    apt: name=gem
+    gem: name=jekyll version=2.5.3
+
+  - repos:
+    git: repo=https://github.com/CRySoL/drupal-import dest=/home/vagrant/drupal-import
 
 
 #  - git: repo=https://github.com/CRySoL/web.source
