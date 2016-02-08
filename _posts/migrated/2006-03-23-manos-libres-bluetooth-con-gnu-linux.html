@@ -1,0 +1,71 @@
+---
+migrated: node/266
+layout: post
+title: Manos libres Bluetooth con GNU/Linux
+created: 1143140892
+author: felix
+category: recipe
+tags:
+- Arco
+---
+<blockquote> Una de las aplicaciones más útiles a realizar con los móviles Bluetooth es poder atender una llamada mediante el micrófono y los altavoces del PC o portátil. Lo que vulgarmente se denomina un "manos libres". En esta receta vamos a configurar nuestro GNU/Linux para poder ser utilizado de esta forma.
+</blockquote>
+
+<h2>Compilando el servicio</h2>
+
+Lo primero que hay que reconocer es que el servicio está un poco verde y no va a sonar todo lo bien que esperais, con paciencia y buceando en el código supongo que se puede ajustar, pero eso, simplemente supongo..
+
+Bueno, lo primero que hay que hacer es bajarse el servicio handsfree de su página <a href="http://www.pervasive.jku.at/_wiki/tiki-index.php?page=ProjectBluezHandsfree&PHPSESSID=750e8b3b616e60670dfe548d248f09eb">web</a>.
+
+Básicamente hay que seguir las instrucciones de la página web para compilar el servicio y como pre-requisitos :
+<ul>
+<li>Tener instalada la pila bluez y las herramientas asociadas. En la <a href="http://crysol.inf-cr.uclm.es/drupal/node/197"> anterior receta</a> ya se daban unas nociones básicas de cómo usar estas herramientas.
+<li> Tenemos que tener instalado las librerias de desarrollo. En debian el paquete es libbluetooth1-dev.
+<li> Otra cosa a tener correctamente configurado es el sistema alsa así como sus librerías de desarrollo (libsound2-dev) para el tema del sonido.
+</ul>
+
+La aplicacion handsfree viene con un Makefile por lo que salvo errores de librerias y rutas con un simple make deberíais tener el servicio compilado.
+
+<h2> Ejecutando el servicio </h2>
+
+Bueno, ahora viene la parte de ejecución del servicio, lo primero es asociar el móvil con el PC, generalmente te pedirá el pin. Este paso no es necesario y siempre puedes introducir el pin cada vez que uses el servicio, pero vamos, lo más cómodo es asociarlo (bluez-pin es la herramienta para gestionar los PIN desde la parte del PC).
+
+A continuación es necesario añadir dos servicios al registro de servicios del PC, el serial port y el handsfree. Esto se realiza con sdptool, por lo tanto:
+<pre class="console">
+felix#:sdptool add SP
+felix#:sdptool add HF
+</pre>
+
+A continuación ejecutamos el servicio con:
+
+<pre class="console">
+felix#:./handsfree ADDR 3
+</pre>
+
+ADDR es la dirección de tu móvil y 3 el canal del handsfree.
+
+Para ver cuales son tus parámetros lo mejor es realizar un escaneo:
+
+<pre class="console">
+felix:hcitool scan
+Scanning ...
+        00:15:A0:42:34:8D       Nokia 6680
+</pre>
+
+En cuanto al canal, pues mostrar todos los servicios de tu móvil y fijarnos en el canal (Channel) con:
+<pre class="console">
+felix:~# sdptool browse 00:15:A0:42:34:8D
+
+Browsing 00:15:A0:42:34:8D ...
+
+...todos los servicios
+</pre> 
+
+y ya esta todo, en teoría cuando recibas una llamada descuelgas y se escucha por los altavoces y hablas por el micro. Eso si, como dije al principio y dependiendo de la tarjeta de sonido puede sonar como los teleñecos :-).
+
+Es posible descolgar mediante comandos AT directamente desde el PC y utilizando el propio  programa. 
+
+Con esto y un poquito de shell puedes tener tu GNU/Linux siempre listo para atender llamadas.
+
+
+un saludo

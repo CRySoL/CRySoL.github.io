@@ -1,0 +1,38 @@
+---
+migrated: node/477
+layout: post
+title: HP Deskjet 720 en Debian GNU/Linux
+created: 1167041265
+author: david_villa
+category: recipe
+---
+h2. Ingredientes
+
+* cupsys
+* foomatic-filters-ppds
+* pnm2ppa
+
+
+h2. cups
+
+localhost:631
+
+Modelo: HP Deskjet 720C Foomatic/pnm2ppa
+
+Fichero /etc/pnm2ppa.conf
+
+
+<div>
+{% highlight text %}
+version  720
+{% endhighlight %}
+</div>
+
+
+
+<div class="console">
+{% highlight console %}
+
+# /etc/init.d/cups restart
+{% endhighlight %}
+</div>

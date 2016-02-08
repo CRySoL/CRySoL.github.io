@@ -1,0 +1,24 @@
+---
+migrated: node/1275
+layout: post
+title: Usar una partición real con Virtualbox
+created: 1260669931
+author: david_villa
+category: recipe
+---
+Virtualbox permite crear un fichero .vmdk especial que «apunta» a una partición real de un disco duro. De ese modo es posible arrancar un sistema operativo instalado realmente en la máquina pero virtualizado dentro de otro S.O. El comando para lograrlo es:
+
+<!--break-->
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ VBoxManage internalcommands createrawvmdk -filename /path/to/file.vmdk -rawdisk /dev/sda -relative -register
+{% endhighlight %}
+</div>
+
+h2. Referencias
+
+* "Using a raw host hard disk from a guest":http://<a href="http://www.virtualbox.org/manual/UserManual.html#rawdisk">www.virtualbox.org/manual/UserManual.html#rawdisk</a>

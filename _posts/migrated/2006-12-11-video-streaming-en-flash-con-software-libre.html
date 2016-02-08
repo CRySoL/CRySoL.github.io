@@ -1,0 +1,69 @@
+---
+migrated: node/468
+layout: post
+title: Video Streaming en Flash con Software Libre
+created: 1165853396
+author: morcy
+category: recipe
+---
+<blockquote>
+Una forma sorprendentemente sencilla de hacer streaming de video tipo YouTube, pero usando sólo software libre.
+</blockquote>
+
+
+Quién no conoce el streaming de video en flash. Páginas tan famosas como <a href="http://www.youtube.com">YouTube</a> o la versión de google <a href="http://video.google.com/">video.google.com</a> son capaces de reproducir videos en formato FLV de Flash. El formato Flash en si es una especificación libre de la que han salido algunos proyectos interesantes, como Flowplayer; un reproductor libre de formato FLV, con lo que podremos añadir videos a nuestras páginas empleando herramientas libres!! Veamos cómo...
+
+Lo primero que necesitamos es convertir nuestro video original en formato FLV. Para ello, haremos uso de ffmpeg, con una orden similar a la siguiente (os pego directamente la orden del video de ejemplo):
+
+
+<div class="console">
+{% highlight console %}
+$ ffmpeg -i video.avi -acodec mp3 -ar 22050 -ab 32 -f flv -s 288×144 dest.flv
+{% endhighlight %}
+</div>
+
+Naturalmente, tendréis que cambiar la resolución del video destino (en este caso 288x144). Bien, tenemos un video en formato FLV. Para que el reproductor pueda saber la duración del video, permitir avanzar o retroceder en el video, etc... el fichero necesita unos metadatos que en la version actual de ffmpeg no añade. Suerte que tenemos un programa hecho en Ruby para estas marranadas llamado flvtool2:
+
+
+<div class="console">
+{% highlight console %}
+$ flvtool2 -U dest.flv 
+{% endhighlight %}
+</div>
+
+Con esa sencilla orden, flvtool2 añade los metadatos escribiendo sobre el propio fichero que le pasamos como parámetros. Bien, ya casi hemos terminado... Sólo falta descargarnos el fichero swf del FlowPlayer e incluir en nuestro html un objeto como el siguiente:
+
+
+<div>
+{% highlight html %}
+<object type="application/x-shockwave-flash" data="FlowPlayer.swf" width="480" height="312" id="FlowPlayer">
+  <param name="allowScriptAccess" value="sameDomain" />
+  <param name="movie" value="FlowPlayer.swf" />
+  <param name="quality" value="high" />
+  <param name="scale" value="noScale" />
+  <param name="wmode" value="transparent" />
+  <param name="flashvars" value="videoFile=jura.flv&autoPlay=false&loop=false&autoBuffering=false&splashImageFile=clicktoplay.jpg"/>
+</object>
+{% endhighlight %}
+</div>
+
+Os recomiendo echar un vistazo a todas las opciones que soporta FlowPlayer, ya que se pueden poner thumbnails para videos largos, personalizar la imagen de "clicktoplay" (como he hecho en el ejemplo), cambiar el aspecto del reproductor mediante skins, etc...
+
+La resolución de reproducción del video, como veis en el html es en realidad el doble de la del fichero de video. Esto permite que el video se vea más grande, y la pérdida de calidad por el aumento de la resolución no se aprecia demasiado (en las escenas rápidas se ve peor, pero no es problema de la resolución, sino por el algoritmo de codificación). Fijaos en el principio del video...
+
+Bueno, pues os dejo con el video de presentación del festival de cortos Annecy del 2002 titulado "Jurannessic"... o cómo se descubrió el fenómeno de la persistencia de la visión. Bye!!
+
+<center>
+<object type="application/x-shockwave-flash" data="/assets/files/FlowPlayerDark.swf" width="480" height="312" id="FlowPlayer"><param name="allowScriptAccess" value="sameDomain" />
+<param name="movie" value="/assets/files/FlowPlayerDark.swf" />
+<param name="quality" value="high" />
+<param name="scale" value="noScale" />
+<param name="wmode" value="transparent" />
+<param name="flashvars" value="videoFile=http://arco.esi.uclm.es/~josel.segura/enjuto_test.flv&autoPlay=false&loop=false&autoBuffering=false&splashImageFile=http://arco.esi.uclm.es/~josel.segura/enjuto_test.png" /></object>
+</center>
+
+<h2> Referencias </h2>
+
+<ul>
+  <li><a href="http://boxel.info/morcy/index.php?m=12&y=06&entry=entry061205-200831">Video Streaming en Flash con Software Libre</a></li>
+</ul>

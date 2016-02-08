@@ -1,0 +1,35 @@
+---
+migrated: node/1277
+layout: post
+title: Manipulación de ficheros PostScript
+created: 1261756536
+author: david_villa
+---
+Esta receta es un compendio de pequeños trucos y utilidades para manipular ficheros PostScript con los programas libres habituales en un sistema GNU
+
+
+
+En realidad pienso ir apuntando aquí las soluciones que voy encontrando a problemas que me surgen cuando tengo que hacer ciertas «operaciones imprevistas» con ficheros PS. Se admiten sugerencias para ir incorporando a la receta.
+
+<h2>Convertir un documento a formato de varias páginas por hoja</h2>
+
+Utilizando el programa <tt>psnup</tt> del paquete <tt>psutils</tt>:
+
+
+<div class="console">
+{% highlight console %}
+$ psnup -2 original.ps salida.ps
+
+{% endhighlight %}
+</div>
+
+
+<h2>Seleccionar algunas páginas</h2>
+
+
+<div class="console">
+{% highlight console %}
+ $ psselect -p 3,7,12-23,34 original.ps resultado.ps
+
+{% endhighlight %}
+</div>

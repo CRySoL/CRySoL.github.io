@@ -1,0 +1,143 @@
+---
+migrated: node/1236
+layout: post
+title: Crear un paquete Debian binario sencillito
+created: 1255287836
+author: cleto
+category: recipe
+tags:
+- Arco
+- Debian-devel
+---
+En esta receta se muestran los pasos básicos para crear un paquete binario Debian de forma que puedas empaquetar tu programa de forma fácil y sencilla.
+
+
+<!--break-->
+
+
+h2. Asunciones
+
+En este ejemplo voy a suponer que partes de una estructura de directorios como la siguiente:
+
+
+
+<div>
+{% highlight text %}
+/home/pepito/proyecto
+- Makefile
+- ejemplo.c
+- debian/
+   - control
+   - [...]
+{% endhighlight %}
+</div>
+
+
+El objetivo es empaquetar el binario "ejemplo" generado por el Makefile. El Makefile debe tener un objetivo "install" para que debhelper construya el paquete correctamente. Dicha regla debería tener una acción como esta (consulta cómo "hacer un Makefile para un paquete Debian":http://crysol.org/es/node/1234 para más información):
+
+
+
+<div>
+{% highlight text %}
+[...]
+install:
+     mkdir -p $(DESTDIR)/usr/bin/
+     -cp ejemplo $(DESTDIR)/usr/bin/
+     [...]
+{% endhighlight %}
+</div>
+
+
+Si no tienes el directorio "debian" "es necesario que lo crees":http://crysol.org/es/node/1231. Además, también voy a suponer que el paquete fuente se llama "ejemplo" y el paquete binario "ejemplo-package"; y que para construir "ejemplo.c" es necesaria la librería "libslab-dev". Además, el paquete binario dependerá del programa "sl".
+
+h2. Archivo debian/control
+
+Para empaquetar este programa, el archivo "debian/control" debería quedar más o menos así:
+
+<div>
+{% highlight text %}
+Source: ejemplo
+Section: misc
+Priority: extra
+Maintainer: Pepito de Mengano <pep@mengano.com>
+Build-Depends: debhelper (>= 7), libslab-dev
+Standards-Version: 3.8.3
+Homepage: http://ejemplos.org
+
+Package: ejemplo-package
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, sl
+Description: Un paquete de ejemplo
+ Esto es un ejemplo de paquete Debian. Puede ayudar a otros a entender
+ el proceso de empaquetación y, así, que cada uno cree sus paquetes
+ cuando quiera.
+ .
+ Ya no hay nada más que decir, pero este párrafo es una excusa para
+ mostrar cómo poner distintos párrafos en la descripción larga del
+ paquete.
+{% endhighlight %}
+</div>
+
+En el campo Maintainer deben ir los datos del mantenedor del paquete y deben coincidir con los datos del cierre de una entrada en el fichero "debian/changelog".
+
+El campo Architecture del paquete binario indica en para qué plataforma el paquete es compatible. Con el valor "any" se asegura que, al menos, funciona para la plataforma de construcción y que para el resto debe compilarse. 
+
+Si te fijas en las dependencias del paquete binario verás que hay dependencias especiales encerradas con llaves. Estas dependencias serán resueltas por debhelper al finalizar el proceso de creación del paquete y, en función de lo que él decida, incluirá las referencias a los paquetes o no. Por ejemplo, "shlibs:Depends" son las librerías compartidas que necesita "ejemplo-package" tener instaladas. La fase "dh_shlibdeps" se encarga de detectarlas y de añadirlas, automáticamente, al control.
+
+h2. Archivo debian/changelog
+
+En este archivo se registran los cambios que se hacen sobre el paquete Debian fuente. En otras palabras, es un changelog para los archivos del directorio debian.
+
+
+<div>
+{% highlight text %}
+ejemplo (1.0-1) unstable; urgency=low
+
+  * Initial version.
+
+ -- Cleto Martin Angelina <cleto.martin@example.com>  Thu, 05 Aug 3010 25:50:25 +1200
+{% endhighlight %}
+</div>
+
+La versión del programa es 1.0 y la del paquete Debian la 1, de ahí 1.0-1. Si se cambian sólo cosas del paquete Debian, se incrementa la versión del paquete (ej. 1.0-2, 1.0-34). Si cambia la versión del programa, pues se cambia convenientemente y se reinicia la del paquete (ej. 2.1-1).
+
+h2. Archivo debian/rules
+
+Con debhelper 7 y dado que lo que se pretende empaquetar es símplemente un binario, este archivo archivo queda de la siguiente forma:
+
+<div>
+{% highlight text %}
+%:
+	dh  $@
+{% endhighlight %}
+</div>
+
+h2. Archivo debian/copyright
+
+Asegúrate de que existe y que contiene los datos requeridos. 
+
+h2. Construcción
+
+Una vez tengamos todo en orden basta con realizar lo siguiente:
+
+<div class="console">
+{% highlight console %}
+
+~/proyecto $ dpkg-buildpackage -us -uc -rfakeroot
+{% endhighlight %}
+</div>
+
+La orden anterior construye el paquete binario y nos deja el resultado en "..", o sea, en /home/pepito. También puedes construirlo con "pbuilder":http://crysol.org/es/node/1227.
+
+h2. Referencias
+
+* "Control files and their fields":http://<a href="http://www.debian.org/doc/debian-policy/ch-controlfields.html">www.debian.org/doc/debian-policy/ch-controlfields.html</a>: donde se explican cada uno de los campos del archivo control y cuales son obligatorios.
+
+
+<div class="console">
+{% highlight console %}
+
+$ man dh
+$ man dpkg-buildpackage
+{% endhighlight %}
+</div>

@@ -1,0 +1,188 @@
+---
+migrated: node/38
+layout: post
+title: Instalación de eDonkey2000
+created: 1129309135
+author: arturo
+category: recipe
+---
+<blockquote> En esta receta explico como instalar eDonkey2000. La idea es instalar el core en un PC y el cliente <a href="http://ed2k-gtk-gui.sourceforge.net/">ed2k-gui</a> en otro PC distinto.</blockquote>
+
+
+<h1> Instalar el core </h1>
+
+Después de bajar el <em>core</em> desde <a href="http://forum.edonkey.com/viewtopic.php?t=69313">ed2k</a>, lo siguiente es instalarlo:
+
+
+<div class="console">
+{% highlight console %}
+# dpkg -i el_core_que_sea.deb 
+{% endhighlight %}
+</div>
+
+Y después configurarlo:
+
+<pre class="console">$ edonkeyclc
+[--- Storing settings in '/XXXXX/XXXX/.eDonkey2000' ---]
+
+Welcome to eDonkey2000 command line client 1.3.0
+Enter commands at any time (type '?' for help)
+>
+</pre>
+
+Ahora se nos abre el shell del core. Lo primero será crearnos un usuario del core:
+
+
+<div class="console">
+{% highlight console %}
+> name fulanito
+{% endhighlight %}
+</div>
+
+Ahora vamos a establecer la velocidad máxima de bajada (20 KB/sec) y de subida (7 KB/sec), por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+> dumax 20 7
+{% endhighlight %}
+</div>
+
+Lo siguiente será crear un usuario y una contraseña para poder conectar desde los clientes gráficos a nuestro core (o cliente en modo texto):
+
+
+<div class="console">
+{% highlight console %}
+> pass usuario passwd
+{% endhighlight %}
+</div>
+
+Ten en cuenta que el passwd no se cifra ni nada por el estilo, por eso es aconsejable usarlo bajo una red segura.
+
+Veamos lo que hemos creado:
+
+<pre class="console">
+> vo
+Name:                   fulanito
+Max Download Speed:     20.00
+Max Upload Speed:       7.00
+Line Speed Down:        0.00
+TCP Port:               0
+UDP Port:               3620
+Admin Port:             4663
+Admin Name:             usuario
+Admin Pass:             passwd
+Verbose:                0
+SaveCorrupted:          1
+MaxConnections:         45
+ScreenLines:            24
+Allow Private Messages:         0
+Allow Viewing of Files:         0
+</pre>
+
+Una vez configurado el core, salimos guardando la configuración introducida.
+
+
+<div class="console">
+{% highlight console %}
+> q
+Are you sure wanna quit (Y/n)?
+y
+
+{% endhighlight %}
+</div>
+
+Y ahora lo que hacemos es volver a lanzar el mismo programa pero indicandole que espere conexiones del cliente gráfico:
+
+
+<div class="console">
+{% highlight console %}
+$ edonkeyclc -g 
+{% endhighlight %}
+</div>
+
+<h1> Instalar el gui </h1>
+
+En el otro PC nos tendremos que bajar el <acronym title="Graphic User Interface">GUI</acronym> <a href="http://ed2k-gtk-gui.sourceforge.net/download.shtml">ed2k-gui</a>.
+
+Al igual que antes, lo instalamos como <b>root</b> con:
+
+
+<div class="console">
+{% highlight console %}
+# dpkg -i paquetito_gui.deb
+{% endhighlight %}
+</div>
+
+Ahora lo lanzamos mediante el comando "ed2k_gui" o en el menú Aplicaciones -> Internet -> Controlador central eDonkey2000 GTK+.
+
+Al iniciar el gui saldrá un ventana "Connect to...", pues bien, elegimos la segunda opción "Connect to a core running on another computer". Ahora hay que rellenar los siguientes datos:
+
+<pre>
+Hostname or IP: 1.2.3.4
+Admin Port: 4663
+Admin Username: usuario
+Admin Password: passwd
+</pre>
+
+Pulsamos aceptar y si todo ha ido bien deberiamos acceder al gui sin ningún problema. Una vez dentro hay que cambiar una opción importante para que el core siga corriendo en la otra máquina aunque cerremos el gui.  Esta opción se encuentra en la pestaña "Opciones" -> "GUI1". Hay que desmarcar la opción que pone "apagar el núcleo al salir". Las demás opciones a gusto del cosumidor :-).
+
+<h1>Script de inicio</h1>
+
+Este es el script que he incluido en /etc/init.d/ para que cuando se encienda la máquina el core se ejecute,
+yo lo he llamado "core-ed2k":
+
+<pre>
+#!/bin/bash
+
+PROGRAM=edonkeyclc
+PROGRAM_DIR=/home/tu_usuario
+PROGRAM_LOG=/tmp
+
+case "$1" in
+  start)
+     cd $PROGRAM_DIR
+     su - tu_usuario -c "$PROGRAM -g -l" >> $PROGRAM_LOG/edonkey.log &
+     sleep 5
+     echo -e "¡¡¡¡¡¡¡ CORE ejecutandose !!!!!!!\n"
+  ;;
+  stop)
+     sync
+     kill -9 `pidof $PROGRAM`
+     echo -e "¡¡¡¡¡¡¡ Parando el CORE !!!!!!!\n"
+     sleep 2
+  ;;
+  *)
+     echo "Uso: /etc/init.d/core-ed2k {start|stop}"
+     exit 1
+  ;;
+esac
+
+exit 0
+</pre>
+
+Este script se copia en /etc/init.d/ y ahora nos hace falta crear los enlaces init correspondientes. Mi equipo se ejcuta en el nivel 2, asi que:
+
+
+<div class="console">
+{% highlight console %}
+ # update-rc.d core-ed2k start 99 2 . stop 99 0 2 . 
+{% endhighlight %}
+</div>
+
+Si por alguna razón el core deja de ejecutarse o queremos pararlo hacemos:
+
+
+<div class="console">
+{% highlight console %}
+ /etc/init.d/core-ed2k {start|stop} 
+{% endhighlight %}
+</div>
+
+dependiendo de lo que queramos hacer.
+
+<h1>Enlaces</h1>
+<ul>
+  <li><a href="http://edonkey.com/">eDonkey</a></li>
+  <li><a href="http://ed2k-gtk-gui.sourceforge.net">ed2k-gtk-gui</a></li>
+</ul>

@@ -1,0 +1,36 @@
+---
+migrated: node/1325
+layout: post
+title: Autenticación PAM en Drupal
+created: 1264625470
+author: david_villa
+category: recipe
+tags:
+- Arco
+- security
+---
+Cómo utilizar PAM para conseguir la autenticación de usuarios de un sitio Drupal
+
+
+<!--break-->
+
+
+h2. Introducción 
+
+PAM permite desacoplar los mecanismos de autenticación y autorización de usuarios de los «clientes» que los requieren. De ese modo es posible cambiar una autenticación basada en cuentas UNIX a un sistema Kerberos o LDAP sin tener que modificar nada en la configuración de las aplicaciones. Únicamente hay que cambiar la configuración de PAM.
+
+h2. PAM Auth
+
+El módulo "PAM Authentication":http://drupal.org/project/pam_auth permite delegar la autenticación de usuarios de Drupal, a excepción de _admin_ por razones obvias. El módulo es en realidad bastante sencillo porque delega todo el trabajo a la extencsón @php_pam@. Por eso, la configuración específica debería estar en el fichero @/etc/pam.d/php@.
+
+Este es un ejemplo que utiliza Kerberos como primera opción, si falla utiliza una servidor LDAP. Además exige que el usuario autentificado pertenezca al grupo «research»:
+
+
+<div>
+{% highlight text %}
+auth [success=1 default=ignore] pam_krb5.so minimum_uid=5000
+auth required pam_ldap.so try_first_pass
+auth required pam_succeed_if.so user ingroup research
+auth required pam_permit.so
+{% endhighlight %}
+</div>

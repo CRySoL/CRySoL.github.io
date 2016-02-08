@@ -1,0 +1,22 @@
+---
+migrated: node/497
+layout: post
+title: Puertos en el PIC16F690
+created: 1168603563
+author: javieralso
+tags:
+- embedded
+- Arco
+---
+A ver, después de tres días de peleas con el PIC16F690 ¡¡¡por fin he conseguido un echo del puerto serie!!!. :-P :-P :-P Los puertos de éste micro son como los de cualquier otro PIC, excepto PORTB, que por lo visto se utiliza también como entrada analógica para los (creo que) cuatro canales analógicos de entrada que tiene el micro.
+
+<!--break-->
+
+
+El caso es que por lo que he averiguado en algún que otro foro, para poder utilizar el puerto PORTB con normalidad, hay que borrar el registro ANSHEL, vamos, algo tal que así 
+<pre>	BANKSEL ANSELH
+	clrf ANSELH	; Desactivación de los puertos analógicos.</pre>
+
+En realidad, y por lo que he podido leer en el "datasheet del 16f690":http://ww1.microchip.com/downloads/en/DeviceDoc/41262C.pdf, éste registro deshabilita los buffers de entrada digitales para evitar corrientes excesivas cuando se éstos pines se utilizan como entradas analógicas.
+
+Bueno, parece evidente que estén activas por defecto ya que así se evita que si se tiene el micro en una aplicación analógica, pueda sufrir daños al encenderse, ya que tardaría tiempo en inicializarse y desactivar los buffers para permitir entradas analógicas (digo yo....)

@@ -1,0 +1,150 @@
+---
+migrated: node/496
+layout: post
+title: GP2X, primer contacto
+created: 1168518435
+author: int-0
+category: recipe
+tags:
+- Arco
+---
+<blockquote>
+Esta receta describe la consola portátil GP2X y da una primera idea de sus posibilidades dentro del mundo del software libre
+</blockquote>
+
+
+<h1>Introducción </h1>
+
+Antes de empezar con la receta diré que esto no es en realidad una receta... :-P es algo así como un <em>review</em>. El soft libre tiene un mercado que avanza muy rápidamente y prueba de ello está en que cada vez más dispositivos vienen con un Linux integrado y se basa en soft libre. Hace tiempo, la empresa koreana <a href="http://www.gp2x.com/">Game Park Holdings</a> sacó una consola portátil llamada <a href="http://es.wikipedia.org/wiki/GP32">GP32</a>.
+
+Esa consola vio muy pocos juegos comerciales porque la gente se dedicó a desarrollar <a href="http://es.wikipedia.org/wiki/Homebrew">homebrew</a> para dicha consola. Viendo el "éxito" especial que tuvo esta consola, meses después se decidió a sacar una nueva consola, la <a href="http://es.wikipedia.org/wiki/GP2X">GP2X</a>, mucho más potente que su antecesora (de hecho se compara con la <em>Nintendo DS</em>) y directamente para que la gente desarrolle para ella.
+
+Se ha denominado "la portátil opensource" (aunque en realidad GamePark Holdings apuesta muy poco por el GPL y el soft en general... como veremos a continuación...). Sea como fuere aquí pretendo contar un poco mis primeras experiencias con esta consolilla para dejar esta receta como "introducción" a una serie de recetas que, espero, sean más "divertidas" que ésta...
+
+<h1>El hardware</h1>
+Bueno, básicamente disponemos de un sistema basado en dos procesadores ARM, 32M de RAM y otros 32M de flash interna, socket para tarjetas SD, puerto USB 2.0, pantalla LCD de 320x240, joystick digital, 10 botones y unos cuantos puertos interesantes como son el de TV-OUT o el <a href="http://es.wikipedia.org/wiki/JTAG">JTAG</a>.
+
+El <em>main core</em> (llamado <em>MagicEyes</em> o <em>MP2520F</em>) tiene como núcleo dos CPU's que van a 200MHz (<em>dopables</em>):
+<ul><li>ARM920T (Rev 1)</li>
+<li>ARM940T (Rev 2)</li></ul>
+El que <em>ejecuta la chicha</em>, (o <em>host</em>) es el ARM920, el otro se emplea para el tratamiento de gráficos 2D y "cierta" aceleración 3D. Antes de que alguno pregunte porqué no se usan los dos en modo SMP hay que decir que el ARM940 viene sin MMU y tiene algunas instrucciones especiales para el acceso a la memoria, por eso no se ha portado un núcleo SMP para este micro.
+
+El controlador de USB es un <em>NET2272</em> con soporte para Microsoft’s Media Transfer Protocol (MTP), es decir: <em>DRM</em> (nos han chuleao!!).
+
+Para la salida de TV dispone de un <em>CX25784</em>, que genera señales PAL y NTSC de hasta 720x480. Hay que decir que la consola no tiene un conector para enchufar directamente la <em>tele</em>, hay que comprarse un cable...
+
+En cuanto al audio... un chip AC'97 llamado <em>WM9711L</em> bastante chulo.
+
+<h1>El software</h1>
+Pues un Linux de <em>toda la vida</em>, concretamente un 2.4.25 compilado con gcc 2.95.3, es el núcleo que ejecuta la maquinita. Viene con una mínima cantidad de módulos. En el gestor de eventos encontramos a <em>hotplug</em>.
+
+En cuanto a librerías, tenemos unas cuantas: libSDL (incluyendo SDL_image, SDL_mixer y SDL_ttf), libjpeg, libncurses (¿para qué?), libogg, libpng, libvorbisdec, a parte de librerías típicas del sistema.
+
+Tenemos unas cuantas utilidades <em>GNU</em> como grep, fgrep, egrep, doexec, fdisk, ftp, hostname, ipcalc, netstat, nohup, who, etc...
+
+Viene con servidores típicos como <em>telnetd</em> (q miedo!), <em>ftpd</em>, samba, thttpd, etc.
+
+Una utilidad interesante que trae es el <em>mplayer</em> de toda la vida, portado y GPL (no tienen más remedio, les obliga la licencia...). Después viene un reproductor de música y un visualizador de imágenes y texto y los... <em>impresentables</em> de GPH no lo tienen liberado (al igual que el menú de la consola)... me parece una cutrez pero bueno.
+
+<h1>Cómo funciona</h1>
+Muy simple, dispone de un cargador del núcleo (tipo <em>lilo</em> o <em>grub</em>) llamado <em>U-BOOT</em> que soporta múltiples plataformas. El cargador arranca el <em>linux</em> y comienza un arranque como el de cualquier otro sistema basado en <em>GNU/Linux</em>, salvo que no hay más que un <em>runlevel</em> y un único usuario. El último comando del script de arranque es el menú de la GP2X (que no es más que un ejecutable como otro cualquiera).
+
+<h1>Primeros cacharreos</h1>
+Lo más básico que podemos hacer: conectarnos por puerto serie y ver "qué hace" la consola. Fácil: utilizad algún programa como <em>minicom</em> (paquete Debian) y configurad el puerto de la siguiente forma:
+<pre>115200 8N1</pre>
+
+Ahora encendéis la consola y (con el último fw, 2.1.1 a fecha de hoy) saldrá:
+<pre>U-Boot 1.0.0 (Apr 20 2006 - 12:51:09)
+
+U-Boot code: 03E00000 -> 03E49610  BSS: -> 03E82208
+IRQ Stack: 03ea3204
+FIQ Stack: 03ea4204
+DRAM Configuration:
+Bank #0: 00100000 63 MB
+Flash:  0 kB
+NAND:Probing at 0x9c000000
+Flash chip found:
+         Manufacturer ID: 0xEC, Chip ID: 0x76 (Samsung K9F1208 64Mb)
+1 flash chips found. Total nand_chip size: 64 MB
+Get Environment from NAND offset 0x70000 ...
+*** Warning - bad CRC, using default environment
+
+In:    serial
+Out:   serial
+Err:   serial
+
+NAND read: device 0 offset 0x1a0000, size 0x40000 ...  262144 bytes read: OK
+
+NAND read: device 0 offset 0x80000, size 0xb0000 ...  720896 bytes read: OK
+### main_loop: bootcmd="bootm"
+Hit any key to stop autoboot:  0
+## Booting image at 01000000 ...
+   Image Name:   GP2X-F100 2.1.1
+   Created:      2006-10-30   8:12:53 UTC
+   Image Type:   ARM Linux Kernel Image (gzip compressed)
+   Data Size:    618462 Bytes = 604 kB
+   Load Address: 00008000
+   Entry Point:  00008000
+   Verifying Checksum ... OK
+   Uncompressing Kernel Image ... OK
+
+Starting kernel ...
+
+MMC/SD Card Detected
+MMC/SD Slot initialized
+Partition check:
+ mmcsda: p1
+Register SD: 976MsB
+mount...1
+mount...2:
+Reading data from NAND FLASH without ECC is not recommended
+Freeing init memory: 280K
+INIT:  version 2.84 booting
+\<7\>**\>\>ecc error unfixed on chunk 3268:0
+ Started device management daemon v1.3.25 for /dev
+\<7\>**\>\>ecc error unfixed on chunk 3844:0
+Mount image directory, if not mounted...
+You must set heads sectors and cylinders.
+You can do this from the extra functions menu.
+You must set heads sectors and cylinders.
+You can do this from the extra functions menu.
+Partition table size is 4096
+Loopback device setup...
+losetup: ioctl: LOOP_CLR_FD: No such device or address
+MSDOS FS: IO charset utf8
+MSDOS FS: IO charset utf8
+Apply LCD Timing
+Using /lib/modules/2.4.25/kernel/drivers/usb/gadget/net2272.o
+net2272: Set 2272 bus timing
+USB SUSPEND MODE
+net2272: PLX NET2272 USB Peripheral Controller
+net2272: irq 222, mapped mem c280c000, chip rev 0011
+net2272: running in 16-bit, byte normal bus mode
+net2272: version: 2006 April 5, v3
+net2272: unbind</pre>
+
+Si estamos conectados por el puerto serie, podemos usar las siguientes teclas para controlar la consolilla:
+<pre>I --> Joy UP
+J --> Joy LEFT
+K --> Joy DOWN
+L --> Joy RIGHT
+Intro --> Joy CENTER
+D --> Vol -
+F --> Vol +
+Q --> L
+E --> R
+W --> Y
+A --> A
+S --> B
+Z --> X
+C --> Select
+V --> Start</pre>
+
+<h1>Conclusiones</h1>
+Pues, aunque tiene muchas cosas mejorables (sobre todo en la parte soft), este dispositivo parece muy interesante y puede tenernos muchas horas y horas entretenidos cacharreando con él... hay hasta un X11 para la consola;y si no nos gusta cacharrear hay que decir que tiene muchísimos emuladores portados al sistema y cómo no... el mplayer en el bolsillo ;-).
+
+<h1>Enlaces</h1>
+<a href="http://www.gp2x.com/index.asp">Página oficial GP2X</a>
+<a href="http://wiki.gp2x.org/wiki/Main_Page">Wiki GP2X: dónde empezar, datasheets, etc.</a>
+<a href="http://www.gp2x.de/">Comunidad alemana GP2X: todo tipo de descargas</a>
+

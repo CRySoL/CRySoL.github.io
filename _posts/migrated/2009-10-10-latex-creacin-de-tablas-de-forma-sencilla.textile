@@ -1,0 +1,25 @@
+---
+migrated: node/1235
+layout: post
+title: 'LaTeX: Creación de tablas de forma sencilla'
+created: 1255165520
+author: jalbusac
+category: recipe
+tags:
+- LaTeX
+---
+Como bien sabéis la creación de tablas en latex es una tarea un tanto tediosa y, en algunas ocasiones, desesperante (sobre todo si la estructura de la tabla se escapa un poco de lo cotidiano); nada que ver con la construcción de tablas en aplicaciones como OpenOffice Writer donde existen herramientas que facilitan esta tarea enormemente.
+
+
+<!--break-->
+
+
+Pues bien, existe una forma sencilla de convertir el contenido de un documento creado en Openoffice Writer a formato latex (incluido las tablas), haciendo uso del conversor <a href="http://sourceforge.net/projects/rtf2latex2e/">rtf2latex2e</a>. Tengo que decir que lo he probado con tablas que no son nada sencillas y funciona a la perfección. La instalación es muy sencilla:
+
+1) ./configure
+2) make
+3) make install
+
+Para hacer uso del conversor es necesario que el documento que contiene las tablas se encuentre en formato RTF, para ello, en OpenOffice Writer nos dirigimos al menú <b>Archivo > Guardar como</b> y guardamos el archivo con extensión rtf. 
+
+El último paso es tan sencillo como escribir en un terminal <b>rtf2latex2e nombre_archivo.rtf</b> y se generará un nuevo archivo con el mismo nombre y extensión .tex.

@@ -1,0 +1,31 @@
+---
+migrated: node/611
+layout: post
+title: generate_m3u
+created: 1173885893
+author: david_villa
+category: script
+---
+Esto es tan chorra que casi me da pena ponerlo, pero bueno, igual a alguien le sirve. Pues eso, se trata de un "script" (una línea de shell) para general un fichero .m3u a partir de los ficheros .mp3 que haya en un directorio, o sea:
+
+<!--break-->
+
+
+
+<div class="console">
+{% highlight console %}
+$ ls -1 *.mp3 > "$(basename "$(pwd)")".m3u
+{% endhighlight %}
+</div>
+
+Y el g-script para nautilus:
+
+<pre>
+#!/bin/bash
+cd "$1"
+ls -1 *.{mp3,ogg} > "$(basename "$(pwd)")".m3u
+</pre>
+
+Es para "nautilus-actions-config":http://packages.debian.org/unstable/gnome/nautilus-actions, usando el parámetro %M y marcando la opción "sólo carpetas". En nautilus, el menú contextual mostrará la nueva opción para directorios.
+
+Está claro que con esto no gano el "summer of code"... :-P

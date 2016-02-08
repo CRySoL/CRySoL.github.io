@@ -1,0 +1,84 @@
+---
+migrated: node/272
+layout: post
+title: ATI Radeon 9600 en Debian GNU/Linux, con el driver privativo fglrx
+created: 1143832232
+author: david_villa
+category: recipe
+---
+Esta receta explica cómo instalar el driver fglrx en una Debian etch o sid
+
+
+<!--break-->
+
+
+
+h1. Instalar @headers@ de tu versión de Linux
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install linux-headers-$(uname -r) 
+{% endhighlight %}
+</div>
+
+h1. Instalar y compilar el driver
+
+Con:
+
+
+<div class="console">
+{% highlight console %}
+ # apt-get install module-assistant fglrx-driver
+{% endhighlight %}
+</div>
+
+y un poco de magia _module-assistant_ está hecho.
+
+
+<div class="console">
+{% highlight console %}
+ # m-a a-i fglrx
+{% endhighlight %}
+</div>
+
+h1. Configuración de Xorg
+
+Modifica la @Section "Device"@ para que quede algo como:
+
+<pre>
+Section "Device"
+       Identifier "ATI"
+       Driver "fglrx"
+       BusID "PCI:1:0:0"
+       Option "VideoOverlay" "on"
+       Option "OpenGLOverlay" "off"
+       Option "UseInternalAGPGART" "no"
+EndSection
+</pre> 
+
+Y asegurate de que en la sección @"Screen"@ el campo @Device@ corresponde con el @Identifier@, en el ejemplo de arriba sería @"ATI"@.
+
+h1. Módulos
+
+Si por cualquier razón no se carga el módulo @fglrx@ automáticamente, modifica el fichero @/etc/modules@ y añade estas dos líneas.
+
+<pre>
+agpgart
+fglrx
+</pre>
+
+h1. Y listo
+
+Ya sólo te queda reiniciar el gestor de inicio de sesión:
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/gdm restart 
+{% endhighlight %}
+</div>
+
+h1. Referencias
+
+* "Aceleración 3D para tarjetas gráficas en Ubuntu Linux":http://<a href="http://www.genbeta.com/archivos/2005/04/29-aceleracion-3d-para-tarjetas-.php">www.genbeta.com/archivos/2005/04/29-aceleracion-3d-para-tarjetas-.php</a>

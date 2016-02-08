@@ -1,0 +1,76 @@
+---
+migrated: node/1456
+layout: post
+title: Cambiar contraseña en partición cifrada
+created: 1296545903
+author: Lk2
+category: recipe
+tags:
+- security
+---
+En esta receta se explica como cambiar la contraseña de una partición cifrada utilizando *dm-crypt*. Si has utilizado las recetas "Partición cifrada con dm-crypt en Debian":http://crysol.org/es/node/1094 o "Pendrive cifrado con dm-crypt en Debian":http://crysol.org/es/node/866, esta es tu nueva receta :-D
+
+
+<!--break-->
+
+
+*El autor elude toda responsabilidad sobre la que puedas liar sobre tus preciados datos cifrados. Si no estás seguro, NO LO HAGAS.*
+
+h2. Ingredientes
+
+* Una partición cifrada, ya sea en disco duro o en memoria USB
+* Las herramientas *dm-crypt* instaladas
+* Una consola
+* Y, por supuesto, saber la contraseña actual de la partición cifrada :-P
+
+h2. Consultar el _slot_ de contraseñas ocupado
+
+Desde una terminal como _superusuario_ o con privilegios _sudo_, haz lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+
+# cryptsetup luksDump /dev/sdXY
+{% endhighlight %}
+</div>
+
+Dónde X e Y serán la letra y número de la partición cifrada. Este comando tan solo muestra información sobre los _slots_. Si nunca antes habías cambiado la contraseña, verás que aparecerá una lista de las "key slot" dónde en la posición 0 tendrás varios datos y en el resto la palabra *DISABLED*. Lo importante de este paso es apuntarnos mentalmente (o en papel si tienes mala memoria) en que _slot_ tenemos almacenada la contraseña.
+
+h2. Cambiar la contraseña
+
+Para este paso previamente deberás desmontar tu unidad cifrada (en algunos tutoriales por ahí dicen que no hace falta, pero nunca se sabe...). Tras hacer los *umount* correspondientes:
+
+
+<div class="console">
+{% highlight console %}
+
+# cryptsetup luksClose /dev/mapper/udisk-luks-.........
+{% endhighlight %}
+</div>
+
+Si tienes varias particiones cifradas en el sistema, usas LVM o cualquier vicisitud que ahora no se me pase por la cabeza, puede que en @/dev/mapper@ tengas más de un enlace simbólico. Necesitas echarlo ingenio al tema y, si no sabes seguro cual de los enlaces es el tuyo, vuelve a montarlo de tu forma habitual y compruébalo mirando con *mount*
+
+
+<div class="console">
+{% highlight console %}
+
+# cryptsetup luksAddKey /dev/sdXY
+{% endhighlight %}
+</div>
+
+Al ejecutar el comando anterior os pedirá, literalmente, que introduzcáis "cualquier" contraseña. Aunque a mi no me pareció muy lógico al principio, tenéis que introducir la contraseña que usáis *actualmente* para montar la partición. Tras eso, ya os pedirá la nueva contraseña.
+
+Si en este momento repetimos el primer paso de la receta (el de _luksDump_), verás que tienes varios _slots_ de contraseñas ocupados. En principio puedes tener varias contraseñas activas a la vez y cualquiera de ellas te valdría para montar la partición... pero entonces esto no sería una receta etiquetada como "seguridad".
+
+Para eliminar la vieja contraseña tendrás que tirar de memoria (o de lo que apuntaste al principio en un papel) y recordar en qué _slot_ estaba nuestra contraseña antigua. Para la receta supondré que es el *0*, ya que será lo habitual.
+
+
+<div class="console">
+{% highlight console %}
+
+# cryptsetup luksKillSlot /dev/sdXY 0
+{% endhighlight %}
+</div>
+
+Si vuelves a ejecutar @cryptsetup luksDump /dev/sdXY@ verás que, ahora si, solo tienes una contraseña activa.

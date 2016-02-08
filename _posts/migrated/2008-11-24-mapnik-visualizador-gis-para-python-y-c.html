@@ -1,0 +1,226 @@
+---
+migrated: node/1051
+layout: post
+title: Mapnik - Visualizador GIS para Python y C++
+created: 1227559424
+author: toledanus
+category: recipe
+tags:
+- Python
+- C++
+- Arco
+---
+<blockquote class="head"> 
+Mapnik es una librería que permite generar y manipular mapas obteniendo los datos de diferentes fuentes (archivos .shp, PostGIS, .tif). En esta receta se muestra como utilizar mapnik en Python.
+</blockquote>
+
+<h2>Ingredientes</h2>
+
+<ul>
+<li>mapnik (por ahora nos vale con el paquete debian)</li>
+<li>libmapnik0.5</li>
+<li>mapnik-plugins</li>
+<li>mapnik-utils</li>
+<li>python-mapnik</li>
+<li>postgis</li>
+<li>postgresql</li>
+<li>ogr2ogr (opcional)</li>
+</ul>
+
+<h2>Map</h2>
+
+Mapnik permite crear y manejar mapas a partir de diferentes fuentes de datos. Esta librería se basa en el objeto Map que contiene varios atributos que permiten personalizarlo. Los atributos mas relevantes son:
+<ul>
+<li><b>background</b> - Establece el color de fondo del mapa.</li>
+<li><b>height</b> - Ancho del mapa.</li>
+<li><b>width </b>- Alto del mapa.</li>
+<li><b>style</b> - Define cómo se visualizan de los distintos componentes del mapa.</li>
+<li><b>layers</b> - Capas que contiene el mapa. Es decir cada una de las fuentes de datos que queramos que muestre el mapa.</li>
+</ul>
+
+Además esta clase permite manejar el mapa por medio de diversos métodos.
+
+<ul>
+<li><b>pan</b> - centra el mapa en la posicion indicada (x,y).</li>
+<li><b>pan_and_zoom</b> - centra el mapa en la posicion indicada y hace zoom sobre ella.</li>
+<li><b>zoom_all</b> - realiza el zoom a todas las capas, es decir, visualiza el mapa entero.</li>
+<li><b>zoom_to_box</b> - realiza el zoom a todas las capas en un determinado area.</li>
+<li><b>envelope</b> - obtiene el area de las capas del mapa.</li>
+</ul>
+
+También existen algunas funciones que no pertenecen a ningún objeto en concreto.
+
+<ul>
+<li><b>render_to_file(Map, archivoConExtension)</b> - Renderiza el mapa a un archivo.</li>
+<li><b>render(Map, CairoContext)</b> - Gracias a este método se puede integrar con GTK. No disponible via paquete debian, solo bajando el .tgz y compilando.</li>
+<li><b>save_map(Map, archivoConExtension)</b> - Almacena el mapa en un archivo.</li>
+</ul>
+
+
+<div>
+{% highlight python %}
+from mapnik import *
+
+#Creacion del Mapa
+width = 790
+height = 590
+map = Map(width,height,'+proj=latlong +datum=WGS84')
+map.background = Color('white')
+{% endhighlight %}
+</div>
+
+<h2>Style</h2>
+Para visualizar el objeto Map se le debe asociar una serie de objetos Style que permiten definir como se debe representar cada elemento del mapa.
+
+Un Objeto Style se compone de reglas (Rules) para elementos del mapa, siendo posible definir filtros para cada una de dichas reglas. Por ejemplo podemos crear dos Rules en las que en una los puntos que cumplen una determinada condición se vean de color rojo mientras que los demás se vean de otro color. Para ello se debe asociar a la regla un objeto Filter que realize el filtrado deseado.
+
+Elementos del mapa:
+<ul>
+<li><b>PolygonSymbolizer</b> - Establece el estilo de los poligonos.</li>
+<li><b>LineSymbolizer</b> - Establece el estilo de las lineas.</li>
+<li><b>PointSymbolizer</b>- Establece el estilo de los puntos.</li>
+<li><b>RasterSymbolizer</b> - Permite que se visualizen las imagenes raster.</li>
+</ul>
+
+
+<div>
+{% highlight python %}
+#Creacion del Estilo del Mapa
+styleShp = Style()
+r = Rule()
+r.symbols.append(PolygonSymbolizer(Color('#f2eff9')))
+r.symbols.append(LineSymbolizer(Color('rgb(50%,50%,50%)'),0.1))
+r.symbols.append(RasterSymbolizer())
+styleShp.rules.append(r)
+
+#Filter
+# Acepta <, >, <>, not, or, and
+# En teoria tambien puede filtrar por expresiones regulares
+# pero tras probarlo no he obtenido resultados satisfactorios
+# Ej.- [id].match('^ascensor')
+
+style = Style()
+rVerde = Rule()
+rVerde.symbols.append(PointSymbolizer('img/puntoVerde.png','png',10,10))
+rVerde.filter = Filter("not [id]='escalera0_up' or not [id]='escalera1_up'")
+
+rRojo = Rule()
+rRojo.symbols.append(PointSymbolizer('img/puntoRojo.png','png',10,10))
+rRojo.filter = Filter("[id]='escalera0_up' or [id]='escalera1_up'")
+
+style.rules.append(rRojo)
+style.rules.append(rVerde)
+
+map.append_style('styleShp',styleShp)
+map.append_style('style',style)
+{% endhighlight %}
+</div>
+
+<h2>Layers</h2>
+
+Hasta el momento puede obtener datos de diferentes fuentes, para ello se crean
+objetos Layer con la fuente de datos necesaria (datasource) a partir de varias clases.
+
+<ul>
+<li><b>Raster</b> - Permite crear una layer a partir de imagenes (.tif). Puede ser util la herramienta ogr2ogr para convertir imagenes normales a imagenes con formato geográfico.</li>
+<li><b>Shapefile</b> - Crea una layer a partir de un archivo .shp de descripción de figuras geométricas.</li>
+<li><b>PostGIS</b> - Crea una layer a partir de la información de una tabla de una base de datos Postgres con campos PostGIS (geometry). Es posible realizar un pequeño filtrado de la tabla pero solo se puede trabajar con la tabla en cuestión nada de hacer joins ni comparaciones con campos de otras tablas.</li>
+<li><b>Gdal</b> - Todavia no lo he probado :-)</li>
+</ul>
+
+
+<div>
+{% highlight python %}
+#Layers del Mapa
+#---------------
+#A cada layer hay que asociarle:
+# Una fuente de datos
+# Un Style para representar la informacion
+# Finalmente hay que asociarla al mapa
+
+lyrImg = Layer('raster')
+lyrImg.datasource = Raster(file='img/pbaja.tif',lox='0', loy='0', hix='50', hiy='50')
+lyrImg.styles.append('styleShp')
+
+lyrGeo = Layer('GIS')
+lyrGeo.datasource = PostGIS(host='localhost',
+                            user='mapnik',
+                            password='mapnik',
+                            dbname='mapnik',
+                            table='mapnik')
+lyrGeo.styles.append('style')
+
+lyrShp = Layer('shape')
+lyrShp.datasource = Shapefile(file='shp/salas')
+lyrShp.styles.append('styleShp')
+
+#El orden de aplicacion de las capas es relevante
+map.layers.append(lyrImg)
+map.layers.append(lyrShp)
+map.layers.append(lyrGeo)
+
+#Importante ajustar el zoom para ver el mapa
+map.zoom_all()
+
+render_to_file(map, "MapNik", "png")
+{% endhighlight %}
+</div>
+
+<h2>Anexo - Crear una base de datos con soporte GIS</h2>
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo su - postgres
+$ createuser -s -P -e usuario
+$ createdb -O dueño databasename
+$ createlang plpgsql -d databasename
+$ psql databasename -f /usr/share/postgresql-8.3-postgis/lwpostgis.sql
+$ psql databasename -f /usr/share/postgresql-8.3-postgis/spatial ref sys.sql
+$ psql -d databasename -f db-schema.sql
+{% endhighlight %}
+</div>
+
+Ejemplo de esquema SQL.
+
+
+<div>
+{% highlight sql %}
+CREATE TABLE mapnik (
+    id    varchar(100) PRIMARY KEY,
+);
+
+SELECT AddGeometryColumn('mapnik', 'geom', -1, 'GEOMETRY', 3);
+
+CREATE INDEX mapnik_idx ON mapnik USING GIST(geom);
+{% endhighlight %}
+</div>
+
+Finalmente hay que poblar la base de datos:
+
+
+<div>
+{% highlight sql %}
+INSERT INTO mapnik (id, geom)
+VALUES ('escalera0_up', GeomFromEWKT('POINT(45 56 0)'));
+
+INSERT INTO mapnik (id, geom)
+VALUES ('escalera1_up', GeomFromEWKT('POINT(66 59 0)'));
+
+INSERT INTO mapnik (id, geom)
+VALUES ('entrada', GeomFromEWKT('POINT(32 45 0)'));
+
+INSERT INTO mapnik (id, geom)
+VALUES ('salida', GeomFromEWKT('POINT(30 43 0)'));
+{% endhighlight %}
+</div>
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://www.mapnik.org">Página principal mapnik</a></li>
+<li><a href="http://mapnik-utils.googlecode.com/svn/trunk/tutorials/">Tutoriales</a></li>
+<li><a href="http://trac.mapnik.org/wiki">Trac mapnik</a></li>
+<li><a href="http://postgis.refractions.net/">Home PostGIS</a></li>
+<li><a href="http://postgis.refractions.net/documentation/postgis-spanish.pdf">Documentación PostGIS en Castellano</a></li>
+</ul>

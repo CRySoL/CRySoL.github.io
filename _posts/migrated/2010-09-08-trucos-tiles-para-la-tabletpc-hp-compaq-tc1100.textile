@@ -1,0 +1,88 @@
+---
+migrated: node/1396
+layout: post
+title: Trucos útiles para la TabletPC HP Compaq TC1100
+created: 1283936690
+author: Lk2
+category: recipe
+tags:
+- Arco
+- Debian
+---
+En esta receta pretendo contar como configurar algunas cosas de esta _tablet PC_ para funcionar en Debian.
+
+
+<!--break-->
+
+
+h2. Rotar el escritorio
+
+Con una _tablet_ en las manos muchas veces es más cómodo sujetarla de forma vertical. En esos casos, si girásemos el escritorio acorde a nuestra posición (usando @xrandr@ o la configuración del entorno gráfico), tendríamos un problema, ya que el detector del _stylus_ no tiene ni idea de en que posición estamos y manda los eventos como si estuviéramos en horizontal. Para solucionarlo, puedes usar este _script_:
+
+
+<div>
+{% highlight bash %}#!/bin/sh
+if [ -n "$(xrandr | grep 768x1024)" ]; then
+        xrandr -o normal
+        xsetwacom set "Serial Wacom Tablet" Rotate NONE
+        xsetwacom set "Serial Wacom Tablet eraser" Rotate NONE
+else
+        xrandr -o left
+        xsetwacom set "Serial Wacom Tablet" Rotate CCW
+        xsetwacom set "Serial Wacom Tablet eraser" Rotate CCW
+fi
+{% endhighlight %}
+</div>
+
+Guárdalo y hazlo ejecutable con @chmod +x@. Un buen sitio para el fichero sería en el directorio @/usr/local/bin@, pero para gustos...
+
+h2. Utilizar las teclas laterales de la _tablet_
+
+Esta _tablet_ tiene 4 teclas laterales y una rueda. Dos de las teclas laterales son "Esc" y "tab", que son "clones" de las teclas escape y tabulador del teclado, respectivamente. Sobre la rueda hablaré un poco más adelante, pero para poder usar los dos botones restantes (Q y los dos "cuadrados concéntricos", por llamarlo de alguna forma), puedes usar @xbindkeys@. 
+
+Este comando está en su paquete homónimo, por lo que no debería ser problema para instalarlo si no lo tienes. Con él podemos asignar teclas o combinaciones de éstas a acciones (ejecución de comandos).
+
+Si quieres ver un ejemplo de fichero de configuración puede usar @xbindkeys --defaults@. Para saber los _keycodes_ de las dos teclas que queremos configurar, puedes usar @xev@, pero por rapidez te las "chivo": *156* la de los cuadraditos y *157* la de la Q.
+
+el fichero de configuración se debe guardar en @$HOME/.xbindkeysrc@. Un ejemplo utilizando esos botones sería:
+
+
+<div>
+{% highlight text %}
+"rotate_tablet"
+  c:157
+
+"iceweasel"
+  c:156
+{% endhighlight %}
+</div>
+
+En lugar de Iceweasel, sería un lujo lanzar un teclado virtual del estilo de @matchbox-keyboard@ o similares. Solo es una idea :P
+
+También es importante recordar que debes añadir @xbindkeys@ a tus aplicaciones al inicio de Gnome (o de tu entorno gráfico).
+
+h2. Rueda lateral
+
+Dicha rueda tan solo puede hacer tres cosas: darle hacia arriba, hacia abajo y pulsarla. Podríamos modificar su comportamiento con @xbindkeys@, sabiendo que sus _keycodes_ son *112*, *117* y 36. Éste último recomiendo *encarecidamente* no utilizarlo, ya que es el _keycode_ del intro.
+
+Por el contrario, si quieres lo que "se supone" que deben hacer (subir y bajar el brillo, según parece), tendrás que cargar un módulo y cambiar el valor de un fichero. Al lío:
+
+
+<div class="console">
+{% highlight console %}
+# modprobe tc1100-wmi
+# echo tc1100-wmi >> /etc/modules
+{% endhighlight %}
+</div>
+
+Con este par de líneas ya has cargado el módulo y has hecho que se vuelve a cargar solo a partir del próximo arranque.
+
+Ahora, si añades
+
+<pre>echo 0 > /sys/devices/platform/tc1100-wmi/jogdial</pre>
+
+en el fichero @/etc/rc.local@ justo antes de la línea que pone @exit 0@, conseguirás que las direcciones de la rueda cambien el brillo del monitor.
+
+h2. Asuntos pendientes
+
+El más "grave" es un problema con el driver Wacom que no manda ningún tipo de evento al servidor X cuando se pulsa en los tres botones alojados en el marco de la pantalla. Si se pulsan con el _stylus_ se activan sus LEDs de fondo, pero no aparece ningún evento en X para poder utilizarlos de alguna forma con @xbindkeys@

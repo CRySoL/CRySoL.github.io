@@ -1,0 +1,103 @@
+---
+migrated: node/25
+layout: post
+title: ddclient, cliente de DNS dinámico para todos
+created: 1128670064
+author: david_villa
+category: recipe
+---
+<blockquote>
+Tienes tarifa plana en casa pero tu IP es dinámica.  A pesar de eso te gustaría tener un servidor web y tus "cosillas" accesibles desde cualquier sitio. La solución a tus problemas es un servicio de DNS dinámico.
+</blockquote>
+
+
+
+<h2> Ingredientes </h2>
+
+<ul>
+<li> Una conexión a internet</li>
+<li> Debian GNU/Linux o derivados</li>
+<li> ddclient</li>
+</ul>
+
+<h2> Servidor de DNS dinámico </h2>
+
+Lo primero es crearte una cuenta en uno de los muchos sitios que tienen un servicio de DNS dinámico, muchos son gratuitos. Por ejemplo, <a href="http://www.dyndns.org">DynDNS.org</a>.
+
+Hay otros:
+
+<ul>
+<li> <a href="http://www.easydns.com">www.easydns.com</a></li>
+<li> <a href="http://www.dslreports.com">www.dslreports.com</a></li>
+<li> <a href="http://www.zoneedit.com">www.zoneedit.com</a></li>
+<li> <a href="http://hn.org/">hn.org</a></li>
+<li> etc</li>
+</ul>
+
+Al crear tu cuenta tendrás que indicar cómo se va a llamar tu máquina, por ejemplo, <tt>miservidor.dyndns.org</tt>.
+ 
+<h2> Instalar <tt>ddclient</tt> </h2>
+
+Simplemente:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install ddclient
+{% endhighlight %}
+</div>
+
+
+<h2> Configuración </h2>
+
+El propio sistema de instalación de paquetes de Debian te preguntará los parámetros de configuración. A continuación se ponen unos valores de ejemplo figurados.
+
+<ul>
+<li><b> servidor?</b> <a href="http://www.dyndns.org">www.dyndns.org</a> </b>
+<li><b> host?</b> miservidor.dyndns.org </b>
+<li><b> usuario?</b> dnsuser </b>
+<li><b> clave?</b> miclave </b>
+<li><b> interface?</b> eth0 </b>
+<li><b> ppp?</b> no </b>
+<li><b> daemon?</b> sí </b>
+<li><b> intervalo?</b> 300 </b>
+</ul>
+
+Cuando lo quieras reconfigurar puedes usar:
+
+
+<div class="console">
+{% highlight console %}
+# dpkg-reconfigure ddclient
+{% endhighlight %}
+</div>
+
+o editar directamente el fichero <tt>/etc/ddclient.conf</tt>:
+
+<pre>
+pid=/var/run/ddclient.pid
+protocol=dyndns2
+use=if, if=eth0
+server=members.dyndns.org
+login=pepito_grillo
+password=clave_de_pepito
+pepito.dyndns.org
+</pre>
+
+Recuerda reiniciar el demonio para activar los cambios:
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/ddclient restart
+{% endhighlight %}
+</div>
+
+Y eso es todo, cada cierto tiempo, tu demonio <tt>ddclient</tt> se conectará al servidor y le indicará tu nueva IP, así que no importa que cambie.
+
+<h2> Referencias </h2>
+
+<ul>
+<li> <a href="http://ddclient.sourceforge.net/">ddclient</a></li>
+<li> <a href="http://www.dyndns.org/">DynDNS</a></li>
+</ul>

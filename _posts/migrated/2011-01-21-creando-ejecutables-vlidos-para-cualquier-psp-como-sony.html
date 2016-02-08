@@ -1,0 +1,41 @@
+---
+migrated: node/1451
+layout: post
+title: Creando ejecutables válidos para cualquier PSP... ¡como Sony!
+created: 1295641280
+author: int-0
+tags:
+- embedded
+---
+<blockquote>Buenas, os traigo algo calentito y <em>en fase de pruebas</em>. Es una utilidad que acabo de portar y que es capaz de cifrar los <em>elf</em> que compilamos para que cualquier PSP los tome por archivos "oficiales". A partir de ahora podremos crear nuestros propios programas con herramientas libres y ejecutarlos en consolas con <em>firmware</em> oficiales o customizados. También deberían funcionar en cualquier modelo de consola. En fin, ya no necesitamos a Sony ;) .</blockquote>
+
+<h2>Qué necesitamos</h2>
+Bueno, evidentemente es necesario el <em>toolchain</em> y algunas bibliotecas así que echad un vistazo a las recetas <a href="http://crysol.org/es/node/216">Kit de desarrollo completo para PSP</a> y <a href="http://crysol.org/es/node/848">Desarrollo de aplicaciones para PSP-Slim y PSP-Fat con FW actuales</a>. Los ejecutables a firmar se tienen que hacer como en ésta última receta.
+
+<h2>La aplicación de firmado</h2>
+Bueno, tenemos la aplicación en <a href="http://github.com/int-0/ebootsigner">http://github.com/int-0/ebootsigner</a>. Ahí tenemos las instrucciones para descargarlo, pero básicamente son:
+
+<div class="console">
+{% highlight console %}
+$ git clone http://github.com/int-0/ebootsigner
+$ cd ebootsigner
+$ make
+$ make install
+{% endhighlight %}
+</div>
+
+Para firmar un <em>EBOOT.PBP</em> simplemente debemos hacer:
+
+<div class="console">
+{% highlight console %}
+$ ebootsign EBOOT.PBP EBOOT_signed.PBP
+{% endhighlight %}
+</div>
+Y <em>voilá</em>, ahora podemos llevarnos el <em>EBOOT_signed.PBP</em> a cualquier PSP para probarlo.
+
+<h2>Makefiles</h2>
+Podemos añadir el siguiente <em>target</em> en nuestros <em>makefiles</em> para generar directamente los archivos firmados:
+<pre>EBOOT_signed.PBP: EBOOT.PBP
+     ebootsign $^ $@</pre>
+
+Y bueno, eso es todo... la aplicación está en pruebas y el código es bastante feo puesto que tiene partes de aquí y de allá. Además principalmente es un <em>port</em> de otra aplicación de PSP. En fin, agradecería <em>testers</em>, parches, críticas, etc. ;)

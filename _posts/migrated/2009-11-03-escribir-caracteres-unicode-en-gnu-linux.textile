@@ -1,0 +1,43 @@
+---
+migrated: node/1253
+layout: post
+title: Escribir caracteres Unicode en GNU/Linux
+created: 1257249117
+author: david_villa
+category: recipe
+---
+Cómo escribir caracteres «especiales» en GNU, tanto en consola como en las aplicaciones.
+
+<!--break-->
+
+
+h2. Intro
+
+Hoy en día la mayoría de las distribuciones GNU utilizan UTF-8 como codificación por defecto, y es lo más recomendable. Unicode define literalmente miles de caracteres, pero lamentablemente el teclado que usamos es bastante precario y apenas nos permite escribir un par de cientos. ¿Cómo escribimos todos los demás?
+
+h2. Input method
+
+Esto funciona en muchas aplicaciones de GNOME: iceweasel, chromium, en consola, OpenOpeffice.org, ... Debes pulsar C-S-u (es decir, Control-Mayúscula-u). Si la cosa va bien aparecerá «<u>u</u>». A continuación debes escribir el número que corresponde al carácter UTF-8 que quieres insertar. Por ejemplo:
+
+* <u>u1d160</u>: corchea
+* <u>u2015</u>: guión largo
+* <u>u221E</u>: infinito
+* <u>u2122</u>: trademark
+
+
+h2. En GNU emacs
+
+C-x 8 RET
+M-x ucs-insert
+
+*[ToDo: extend]*
+
+h2. Asignando caracteres a teclas reales
+
+*[ToDo]*
+
+
+h2. Referencias
+
+* "Unicode 5.2 Character Code Charts":http://unicode.org/charts/
+* "GNOME UTF-8 input method and reference table":http://doc.infosnel.nl/utf-8_symbols.html

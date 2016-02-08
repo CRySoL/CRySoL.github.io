@@ -1,0 +1,38 @@
+---
+migrated: node/192
+layout: post
+title: Arranque remoto de un ordenador con Debian, usando Wake On LAN
+created: 1137496717
+author: bati
+category: recipe
+---
+<blockquote>
+Aprovechando que los ordenadores de hoy en día no están realmente apagados mientras sigan teniendo alimentación, podemos arrancarlos por red.
+</blockquote>
+
+<h2> Requisitos </h2>
+  
+  Necesitamos que el ordenador que va a ser arrancado via red tenga una tarjeta de red con Wake-On-Lan (WOL) o Boot-On-Lan (BOL), una placa que soporte este modo de arranque, y activar dicha opción en la BIOS.
+
+<h2> Despertando al durmiente </h2>
+
+  Necesitamos instalar el paquete debian <b> etherwake </b> tanto en el ordenador a despertar como en el ordenador "despertador". Este paquete incluye un comando para activar el WOL a la tarjeta del ordenador que vamos a arrancar.
+
+
+<div class="console">
+{% highlight console %}
+# ethtool -s eth0 wol g
+{% endhighlight %}
+</div>
+
+  Con esto activamos el encendido en red de la tarjeta eth0 de nuestro ordenador mediante la técnica del <b> magic packet </b>.
+ Sólamente necesitamos saber la MAC de nuestra tarjeta, que la podemos obtener con el comando <b> ifconfig </b> y luego, desde el ordenador "despertador" ejecuta:
+    
+
+<div class="console">
+{% highlight console %}
+# etherwake 00:11:9B:20:21:F6
+{% endhighlight %}
+</div>
+
+Recordad que la MAC debe tener las letras en mayúsculas para funcionar.

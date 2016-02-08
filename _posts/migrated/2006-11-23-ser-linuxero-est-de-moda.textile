@@ -1,0 +1,37 @@
+---
+migrated: node/458
+layout: post
+title: Ser "linuxero" está de moda
+created: 1164304703
+author: david_villa
+category: opinion
+---
+Cuesta mucho hacer entender a un neófito "de Linux" cuáles son los motivos por los que vale la pena sufrir el software libre. Lo habitual hace un par de años era que sólo los que estaban dispuestos a currárselo se acercaran a este mundillo. Pero todo eso ha cambiado, gracias a (o por culpa de) cosas como Ubuntu o Beryl, una nueva horda ávida de nuevas experiencias (o cansada de las experiencias de su Windows) se lanza de cabeza a probar la última y supermolona live de Ubuntu. ¡La informática chachi (y gratis) ha llegado! pero no borres todavía el XP, que el "Dead or Alive" no tira en Ubuntu.
+
+<!--break-->
+
+
+
+h2. Yo también fui un triste "linuxero"
+
+No trato de ser elitista ni mucho menos. Me parece fantástico que cada día más gente se interese por este mundillo. No pretendo que nadie nazca enseñado ni poner de manifiesto su ignorancia. Todos (y yo el primero) somos y seremos por siempore completos ignorantes de casi todo y cada día se puede aprender de cualquiera (si se quiere). No es que yo esté de vuelta de todo y por eso me permita el lujo de juzgar a propios y extraños, no empecé a usar GNU en serio hasta el 2000 y no evangelicé mi PC de casa hasta 2 años más tarde, y no hace tanto que llamaba "Linux" a lo que es obra de GNU. Sé que es vergonzante, pero todos hemos sido linuxeros no hace tanto. Mi preocupación no es que las hordas de novatos bajen el nivel técnico de la comunidad, ni nada por el estilo, porque la técnica no es lo importante del software libre ni de lejos, aunque eso sea lo que tratan de vendernos con el Open Source de las narices.
+
+Lo que sí me preocupa es que no se conozcan (o no se entiendan) los motivos y objetivos por los que nació todo esto del software libre. Está claro que un novato no tiene porqué saberlo, no lo ignora adrede. En realidad es "la comunidad" la que tiene la culpa, influida por unos cuantos tipejos (tipo ESR, Linus, etc) que van de figuras o "héroes":http://<a href="http://www.time.com/time/europe/hero2006/torvalds.html">www.time.com/time/europe/hero2006/torvalds.html</a> y pretenden forrarse a costa del software libre y del trabajo de todos. Y lo que realmente me preocupa es que las nuevas generaciones maman de esa gente que aún no ha entendido de qué va realmente el software libre. Sí, sí, estos individuos, que se consideran power-users, tienen blogs, portales, incluso programan drivers (y algunos hasta lo hacen bien) y montan LUGs por doquier en los que confunden, desinforman, asolan, destruyen con aire de gran amistad.
+
+
+h2. Calidad
+
+Lo primero que hay que tener claro es que, en términos generales, el software libre va por detrás del privativo. Esta afirmación te puede resultar chocante si al pensar en privativo crees que hablo de Windows. Pero privativo incluye también software profesional, no sólo doméstico. Hay software privativo de excelente calidad (superando al libre) en casi todas las áreas; de nuevo Windows queda *casi* excluido de esa afirmación. Sin embargo, hay mucha gente que piensa que el software libre es una lucha por la supremacía técnica del software. Piensan que si un programa es suficientemente bueno no hace falta que sea libre ni ver su código para demostrarlo. No queremos disponer del fuente para admirarlo como si fuese una buena novela, lo queremos para poder ejercerr las 4 libertades. El software libre es una *mierda* y por eso necesita de gente que sea consciente de lo cutre que es, de lo mal hecho que está y de la cantidad brutal de trabajo que queda por hacer y esté dispuesta a ayudar y sufrir las deficiencias actuales hasta alcanzar un nivel de calidad mínimamente aceptable. Ya sé que exagero un poco, pero hay ser un poco polémico si pretendo que alguién lea este tostón.
+
+
+h2. Todos contra Bill Gates
+
+Otra categoría de usuarios son los que piensa que lo "chachi" es *no* usar Windows. Pero están encantados y orgullosos de usar Nero o Acroread sobre un sistema GNU o instalar Mac OSX en su PC, como si el demonio fuera el botón de "Inicio" y sin él ya estuviera todo arreglado. Este tipo de "usuarios" se maravillan cuando Ubuntu pone repositorios de software privativo, y fomentan y animan a todos sus amigos a instalar esos programas. No nene, no, es mucho mejor para el software libre un tio usando The Gimp en Windows XP que 100 usando Photoshop en GNU/Linux (como piden algunos). 
+
+Piénsalo, ¿qué ganas usando Photoshop (por poner un ejemplo) sobre GNU? Si de verdad quieres usar Photoshop, ponlo en Windows, que seguro que va a ir mejor y te va a costar lo mismo (no hablo de precio). Pero lo más importante, la comunidad pierde cuando las empresas consiguen colar software privativo en los sistemas GNU, porque de nuevo pasamos a depender de ellos y sus caprichos. Controlan lo que podemos y no podemos hacer, por mucho Linux que corra por debajo. Estoy convencido de que esta gente se instalaría el Windows Media Player si estuviera en los repos de Ubuntu o Debian sin pensarlo dos veces y serían felices.
+
+
+h2. "Los de GNU sois unos radicales...
+
+...y especialmente RMS, que es un hippie y está loco". Como ejemplo de lo valiente que es la ignorancia tenemos el culebrón "firefox-iceweasel":. Sobre la cuestión se ha dicho de todo (aunque yo no lo he seguido muy de cerca), pero no es raro encontrar comentarios de gente (que claramente conoce básicamente nada de Debian o incluso de SL), acusando sin rubor de radicales y exagerados a Debian por la que "han montado por la tontería del logo de firefox". Si uno se acerca "mínimamente a la cuestión":http://eldiabloenlosdetalles.net/2006/10/14/firefox-vs-iceweasel-en-defensa-de-debian/ comprobará que no es tan sencillo como parece y que lo que realmente quiere Debian es garantizar la libertad del usuario. Cuando uno rasca un poco en lo que sea, se da cuenta que detrás hay un mundo que desconoce por completo.
+

@@ -1,0 +1,52 @@
+---
+migrated: node/509
+layout: post
+title: afbackup
+created: 1172006755
+author: magmax
+category: recipe
+tags:
+- Arco
+---
+bq(head). Instalar una unidad de Backup con afbackup
+
+
+<!--break-->
+
+
+h2. Ingradientes
+
+* afbackup, para el servidor
+* afbackup-client, para el cliente
+* mtx, cambio de cintas
+
+h2. Módulos a cargar
+
+Será necesario cargar (con modprobe, por ejemplo) los siguientes módulos:
+
+* aic7xxx, si tenemos una tarjeta SCSI como puede ser la AIC-7881U. Puede consultarse mediante lspci.
+* af_packet, para poder utilizar afbackup.
+* sg, para cargar los dispositivos SCSI.
+* st, para que aparezcan los dispositivos de cinta.
+
+
+h2. Configuración
+
+El siguiente paso es configurar el sistema. Podemos comprobar que todo funciona con la orden siguiente:
+
+
+<div class="console">
+{% highlight console %}
+# mt -f /dev/nst0 status
+{% endhighlight %}
+</div>
+
+Si estás utilizando una unidad de cinta con carrusel, asegúrese de haber cargado alguna cinta.
+
+Habrá que configurar el cliente y el servidor, que pueden estar en la misma o distintas máquinas. Los ficheros de configuración se encuentran en /etc/afbackup y están bastante bien comentados, aunque es posible que encontremos problemas con algunas de las opciones.
+
+TODO: Falta explicar las opciones más importantes
+
+h2. Datos
+
+Los datos se almacenan en @/var/lib/afbackup@. Entre otros datos, están el número de cintas utilizadas por el último backup, qué cintas son, el orden, ...

@@ -1,0 +1,161 @@
+---
+migrated: node/710
+layout: post
+title: Instalación de TinyOS 1.x en Debian
+created: 1181057127
+author: felix
+category: recipe
+tags:
+- embedded
+- Arco
+---
+bq(head). Esta receta explica cómo instalar TinyOS 1.1.15
+
+
+<!--break-->
+
+
+
+Parece ser que el "TinyOS 2.0":node/405 está en una Beta 2 por lo que no todo está muy probado, vamos a dar los pasos para la instalación de tinyOS 1.1.15 que parece ser que es la última versión del 1.x.
+
+Si por curiosidad quieres bajarte la version del tinyOS 1.1.15 del CVS (ojo que son 210M !) ejecuta lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+cvs -d:pserver:anonymous@tinyos.cvs.sourceforge.net:/cvsroot/tinyos co -r tos-1-1-15Dec2005cvs-release tinyos-1.x
+{% endhighlight %}
+</div>
+
+a continuación los pasos son mas sencillos  a los dados para el tinyOS 2.0. Quizás un poco mas laborioso por el tema de las versiones.
+
+<h2>El compilador cruzado</h2>
+
+Lo primero es instalarse las herramientas para el procesador de Atmel ya que es lo que tienen las micas que tenemos en el grupo Arco.
+
+Aquí puedes encontrar los paquetes debian:
+<pre>
+http://thomer.com/tinyos/
+</pre>
+
+No te instales los últimos ya que esta versión del tinyOS también tiene problemas con otras versiones, de echo deberías congelar esos paquetes para que no se actualicen.
+
+<pre>
+avr-binutils_2.13.2.1-2_i386.deb
+avr-gcc_3.3tinyos-2_i386.deb
+avr-libc_20030512cvs-2_i386.deb
+nesc_1.1.2a-2_i386.deb
+tinyos-tools_1.1.0-2_i386.deb 
+</pre>
+
+A continuación con dpkg -i, vamos instalando los paquetes.
+
+<h2> El sistema operativo </h2>
+
+Ahora vamos con el tinyOS propiamente dicho, de nuevo , como la gente ha trabajado mas con esta versión nos lo encontramos como paquete debian por lo que añade esto a tu /etc/apt/sources.list
+
+<pre>
+deb http://www.comnets.uni-bremen.de/~mab/debian tinyos/
+</pre>
+
+y luego:
+
+
+<div class="console">
+{% highlight console %}
+apt-get install tinyos-1.x
+{% endhighlight %}
+</div>
+
+Al instalarte el sistema operativo también te instala la versión 1.2.4 de nesc, debes reinstalar la versión 1.1.2 ya que de lo contrario te dan fallos al compilar.
+
+<h2>Temas de java </h2>
+
+Ahora instala el jdk de java. De java se recomienda el de IBM y la versión 1.4, en algunas web que he visitado optan por la de sun en 1.5, yo ni para uno ni para otro la de sun 1.4 y ya veremos si da problemas en el futuro.
+
+Por último falta el tema de las clases de java para conectarse al puerto serie.
+
+Bájate:
+
+<pre>
+http://www.linux.org.uk/~ taj/rxtx-bins.1.tar.gz
+</pre>
+
+te bajas el archivo y copias los archivos al jdk (tiene que ser la versión 1.4)
+
+
+<div class="console">
+{% highlight console %}
+
+$# cp rxtx-bins.1/1.4/i386-pc-linux/libSerial.so /usr/lib/j2sdk1.4-sun/jre/lib/i386/
+$# cp rxtx-bins.1/1.4/i386-pc-linux/libParallel.so /usr/lib/j2sdk1.4-sun/jre/lib/i386/
+$# cp rxtx-bins.1/1.4/jcl.jar /usr/lib/j2sdk1.4-sun/jre/lib/ext/
+
+{% endhighlight %}
+</div>
+
+
+Ahora lo mismo con la versión de solaris de javax.comm:
+
+<pre>
+javashoplm.sun.com/ECom/docs/Welcome.jsp
+</pre>
+
+Tienes que coger la versión 2, con la tres no va.
+
+<div class="console">
+{% highlight console %}
+
+$ tar xvzf javax_comm-2_0_3-solsparc.tar.Z
+$ cp commapi/comm.jar $JDKROOT/jre/lib/ext/
+$ cp commapi/javax.comm.properties  JDKROOT/jre/lib/
+$ /bin/echo Driver=gnu.io.RXTXCommDriver > JDKROOT/jre/lib/javax.comm.properties
+$ cp commapi/libSolarisSerialParallel.so /usr/lib 
+
+{% endhighlight %}
+</div>
+
+<h2> Probando </h2>
+No te olvides del graphviz y de dar permisos a los puertos serie y paralelo. Ahora ponemos las variables de entorno:
+
+<pre>
+export TOSROOT="/opt/tinyos-1.x"
+export JDKROOT="/usr/lib/j2sdk1.4-sun"
+export JAVAXROOT="/usr/lib/j2sdk1.4-sun"
+export CLASSPATH=".:$TOSROOT/tools/java:$JAVAXROOT/jre/lib/ext/comm.jar:$TOSROOT/tools/java/jars/jdom.jar"
+export PATH="$PATH:$JDKROOT/bin"
+export TOSDIR=$TOSROOT/tos
+export MAKERULES="$TOSROOT/tools/make/Makerules"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/:$JAVAXROOT/jre/bin/" 
+</pre>
+
+En teoría ya esta todo, para comprobar que esto rula ejecutamos el script *toscheck* que viene dentro del sistema operativo:
+
+<pre>
+/opt/tinyos-1.x/tools/scripts
+</pre>
+
+Al ejecutarlo te comprueba que todas las versiones sean correctas, y que se encuentran todas las herramientas necesarias. Adicionalmente, vete a:
+
+<pre>
+/opt/tinyos-1.x/apps/Blink
+</pre>
+
+y comprueba que puedes compilar el ejemplo para la plataforma que desees, nosotros tenemos las micas como he dicho anteriormente por lo que:
+
+<pre class="console">
+$ make mica
+mkdir -p build/mica
+    compiling Blink to a mica binary
+ncc -o build/mica/main.exe -Os -finline-limit=100000 -Wall -Wshadow -DDEF_TOS_AM_GROUP=0x7d -Wnesc-all -target=mica -fnesc-cfile=build/mica/app.c -board=micasb -DIDENT_PROGRAM_NAME=\"Blink\" -DIDENT_USER_ID=\"root\" -DIDENT_HOSTNAME=\"homer\" -DIDENT_USER_HASH=0xbc4a9a92L -DIDENT_UNIX_TIME=0x45ae848dL -DIDENT_UID_HASH=0xda163471L Blink.nc -lm
+    compiled Blink to build/mica/main.exe
+            1652 bytes in ROM
+              48 bytes in RAM
+avr-objcopy --output-target=srec build/mica/main.exe build/mica/main.srec
+avr-objcopy --output-target=ihex build/mica/main.exe build/mica/main.ihex
+    writing TOS image
+homer:/opt/tinyos-1.x/apps/Blink# ls
+BlinkM.nc  Blink.nc  build  Makefile  README  SingleTimer.nc
+</pre>
+
+y ya esta, con un poco de paciencia en cuanto al tema de las versiones ya puedes generar aplicaciones para las motas.En la siguiente, hacemos el hola mundo.

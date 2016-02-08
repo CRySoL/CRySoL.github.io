@@ -1,0 +1,125 @@
+---
+migrated: node/1256
+layout: post
+title: Menús y barra de herramientas dinámicas en PyGTK
+created: 1257422733
+author: Lk2
+tags:
+- gtk
+- Python
+---
+Desde hace algunas versiones, GTK incorpora la capacidad para crear menús, barras de herramientas y menús desplegables (alias menú _popup_) a través de descripciones textuales similares a XML.
+
+
+<!--break-->
+
+
+Esta funcionalidad de GTK nos la proporcionan, en principio, la utilización conjunta de tres clases: por un lado *UIManager*, que es quien tiene la descripción _XML_ de la interfaz y quien, en caso de necesitarlos, nos proporciona los widgets que añadiremos a nuestra interfaz; por otro lado están *ActionGroup* y *Action*.
+
+Estas dos últimas son las que representan los elementos de los menús. Podemos tener varios *ActionGroup* s que podemos asociar al *UIManager*. Las *Action* s son añadidas a cada *ActionGroup*. Cada elemento de la descripción _XML_ del *UIManager* tiene que tener su *Action* asociada u obtendremos un precioso *warning* de GTK.
+
+Al principio todo puede parecer un poco lioso... Así que voy a poner un breve ejemplo de como usar todo esto.
+
+h2. Usando *UIManager* y *Action* s (*ActionGroup*): primeros pasos
+
+Lo primero es ver un ejemplo de descripción de interfaz muy sencillo:
+
+
+<div>
+{% highlight python %}
+ui = '''<ui>
+  <menubar name="MenuBar">
+    <menu action="Menu1">
+      <menuitem action="Button1"/>
+    </menu>
+    <menu action="Menu2">
+      <menuitem action="Button2"/>
+    </menu>
+  </menubar>
+  <toolbar name="Toolbar">
+    <toolitem action="Button1"/>
+    <separator/>
+    <toolitem action="Button3"/>
+  </toolbar>
+</ui>
+'''
+{% endhighlight %}
+</div>
+
+En este ejemplo se observa lo siguiente:
+# Todo está en un entorno <ui></ui>
+# Hay dos partes diferenciadas: la _"Menubar"_ y la _"Toolbar"_.
+# Dentro de la _"Menubar"_ tenemos menús, y dentro de estos, _menuitem_ s. En nuestro caso, dos menús con una acción cada uno.
+# Dentro de la _"Toolbar"_ sin embargo tenemos solamente _toolitem_ s. También hay _"separator"_ s, que me imagino que supones que puede ser... En nuestro caso tenemos dos elementos en el *Toolbar* 
+
+Necesitaremos obviamente un *UIManager*, y asociarle a éste la descripción:
+
+
+<div>
+{% highlight python %}
+uimanager = gtk.UIManager()
+uimanager.add_ui_from_string(self.ui)
+{% endhighlight %}
+</div>
+
+La otra parte de este bonito juego es la que tiene que ver con las *Action* s. Para añadirlas, crearemos un *ActionGroup* y a éste le añadiremos *Action* s.
+
+Lo primero es tan sencillo como lo siguiente:
+
+
+<div>
+{% highlight python %}
+actiongroup = gtk.ActionGroup('UIManagerExample') # create the actiongroup
+{% endhighlight %}
+</div>
+
+Para añadir a este *ActionGroup* las *Action* s tenemos multitud de métodos, que nos añadirán un *Action* de forma individual, varios a la vez o de alguno de los tipos predefinidos en lugar de *Action* s vulgares y corrientes. Se pueden añadir de cualquiera de las formas, el resultado es el mismo. Lo que debemos tener en cuenta es que, bien en el constructor, bien en el primer elemento de la tupla en la que se describen las acciones al añadir varias, debe ponerse el nombre de la acción con el que la hemos identificado en la descripción _XML_ anterior. De esa forma, cuando añadas el *ActionGroup* al *UIManager*, éste será capaz de encontrar la acción asociada para una determinada entrada.
+
+Observa como se añaden las acciones de varias formas:
+
+
+<div>
+{% highlight python %}
+actiongroup.add_action(gtk.Action('Button1', 'Button one', 'First button', gtk.STOCK_OK))
+actiongroup.add_actions([
+     ('Menu1', None, 'Menu one', None, 'First menu', None),
+     ('Menu2', None, 'Menu two', None, 'Second menu', None), 
+     ('Button2', gtk.STOCK_QUIT, 'Button two', None, 'Second button', self.button2_cb),
+     ('Button3', gtk.STOCK_OPEN, 'Button three', None, 'Third button', self.button3_cb),
+ ])
+{% endhighlight %}
+</div>
+
+En la primera instrucción añadimos una sola acción y, el argumento de la función por tanto es un *gtk.Action*. Los argumentos son el nombre (identificador por el que se buscará en UIManager la acción), el texto que mostrará el renderizado de la acción. El tercer argumento será el _tooltip_ y, por último, el icono de stock que se usará. si queremos conectar nuestra acción con una función, deberíamos tener la *Action* en una variable y conectar la señal "activate" a un _callback_.
+
+En la segunda, sin embargo, se añaden varias acciones (el argumento único es una lista), y las acciones, en lugar de estar especificadas como en la llamada anterior, se especifica mediante una tupla que tiene, en este orden, el nombre, el icono de stock, la etiqueta que se mostrará, un acelerador (para otra receta), el _tooltip_ y, por último, una función _callback_ que se invocará cuando pulsemos en la acción.
+
+Solamente nos falta añadir el *ActionGroup" al *UIManager*:
+
+
+<div>
+{% highlight python %}
+uimanager.insert_action_group(actiongroup, 0)
+{% endhighlight %}
+</div>
+
+h2. Poniendo todo junto
+
+Para que todo este invento sirva de algo tenemos que pintar todos los widgets que el *UIManager* es capaz de generar en algún sitio. Lo más fácil, útil y obvio es tener una ventana de GTK con un *VBox* y añadirle tanto el _Menubar_ como el _Toolbar_ en la parte superior.
+
+
+<div>
+{% highlight python %}
+menubar = uimanager.get_widget('/MenuBar')
+vbox.pack_start(menubar, False)
+
+toolbar = uimanager.get_widget('/Toolbar')
+vbox.pack_start(toolbar, False)
+{% endhighlight %}
+</div>
+
+Dejo un ejemplo completo y funcional del resultado como adjunto (perdonad que la extensión sea .txt, pero Drupal no deja subir, por seguridad, scripts Python)
+
+h2. Referencias
+
+(La documentación de PyGTK no está on-line en estos momentos. Me comprometo a hacer una buena recopilación de referencia de las clases, del FAQ y el tutorial de PyGTK sobre este tema)

@@ -1,0 +1,55 @@
+---
+migrated: node/189
+layout: post
+title: Módem Comtrend CT-351 con ADSL de Telefónica en Debian GNU/Linux
+created: 1137335330
+author: david_villa
+category: recipe
+---
+No es que sea nada complicado, pero tampoco está de más por si se te olvida algún detalle.
+
+
+<!--break-->
+
+
+h2. Ingredientes
+
+Tienes que instalar los siguiente paquetes
+
+* pppoe
+* psmisc
+* eagle-usb-utils
+* eagle-usb-data
+* eagle-usb-modules-source
+
+h2. Compilar el driver
+
+Lo de siempre, instala los headers de tu versión de Linux y luego el maravilloso module-assistant:
+
+
+<div class="console">
+{% highlight console %}
+
+# apt-get install module-assistant linux-headers-$(uname -r)
+# m-a a-i eagle-usb
+{% endhighlight %}
+</div>
+
+h2. Configuración
+
+Cuando instales @eagle-usb-utils@, el sistema de configuración te hará algunas preguntas:
+
+* *Network configuration*: _Spain  Telefonica dynamic IP_
+* *DSL login*: adslppp@telefonicanetpa
+* *DSL password*: adslppp
+* *Password encription*: Sí
+* *Auto update DNS*: Sí
+
+
+h2. Cometarios
+
+Quizá te interese saber cómo instalar el nuevo "driver ueagle-atm":http://crysol.inf-cr.uclm.es/?q=node/254 y ["2":http://crysol.inf-cr.uclm.es/node/476] para este modem.
+
+h2. Referencias
+
+* "ADSL-usb-Debibian-sarge":<a href="ftp://nauj27.is-a-geek.com/pub/eagle-driver/doc/adslusb-debiansarge-howto.pdf">ftp://nauj27.is-a-geek.com/pub/eagle-driver/doc/adslusb-debiansarge-howto.pdf</a>

@@ -1,0 +1,52 @@
+---
+migrated: node/1257
+layout: post
+title: UIManager con Actions avanzadas en PyGTK
+created: 1257511052
+author: Lk2
+category: recipe
+tags:
+- gtk
+---
+Como ayer pudiste ver en la receta "Menús y barra de herramientas dinámicas en PyGTK":http://crysol.org/es/node/1256 es fácil crear estos menús y barras (incluso menús emergentes) usando *UIManager*, *ÂctionGroup* y *Action* s. En esta receta quiero mostrar como crear elementos diferentes a los vistos en aquella receta para nuestras _Toolbar_, _Menubar_ y _Popup_.
+
+
+<!--break-->
+
+
+En la otra receta me centré en explicar el uso más básico de todas estas herramientas (básicamente, botones sencillos).
+
+En esta voy a adentrarme un poco más en las profundidades de este invento, explicando como añadir otro tipo de acciones definidas por GTK e, incluso, crear las nuestras propias.
+
+h2. Acciones predefinidas en GTK
+
+Además de la ya comentada *gtk.Action*, PyGTK nos proporciona otras cuantas clases que heredan de ella y que son visualmente un poco diferentes. La principal diferencia es el widget que renderizan. Si nos fijamos, cada *Action* puede definir dos tipos de widgets para añadir a la interfaz GTK: un *ToolItem* para la barra de herramientas o un *MenuItem* para añadir tanto a una barra de menú como a un menú emergente (_popup_).
+
+Sabiendo esto, puedes observar que en el ejemplo de la receta que nos precede, un *gtk.Action* se renderiza como un *gtk.ImageMenuItem* si va en una barra de tareas/menú emergente y como un *gtk.ToolButton* en la _toolbar_.
+
+Sin embargo tenemos otros tres tipos de acciones definidas de serie en GTK: *ToggleAction*, *RadioAction* y *RecentAction*:
+
+* *gtk.ToggleAction*: esta acción renderiza un *ToggleToolButton* en las _toolbars_ y un *CheckMenuItem* en los menús. Para añadirla al *ActionGroup* podemos usar el método *add_action* pasándole un objeto de esta clase ya construido o bien usar el método *add_toggle_actions*, el cual se usa de forma similar a como ya expliqué con su análogo para "actions" normales.
+* *gtk.RadioAction*: está acción se renderiza como un *ToggleButton* en las _toolbars_ y como un *RadioMenuItem* en los menús. Para este tipo de acción te recomiendo encarecidamente usar el método de *ActionGroup* *add_radio_actions*, ya que todas las acciones que le pasemos se considerarán que están en el mismo "grupo", por lo que no tendremos que especificar, acción por acción, quien es su grupo. *UIManager* nos permite cosas tan extrañas y peregrinas como, por ejemplo, poner dos menuitems en diferentes menús y que luego ambos estén representados por *RadioAction* s del mismo grupo, lo cual es un tato peculiar, pero posible.
+* *gtk.RecentAction*: de todas las acciones por defecto la más complicada de utilizar. Se renderiza como un *MenuToolItem* en la barra de tareas. El menú asociado al *MenuToolItem* es una lista de los últimos archivos utilizados. El los menús se renderiza como una entrada de menú  con submenú asociado con el mismo contenido (osea, igual que una acción normal definida como "menu" en vez de como "menuitem"). El problema de esta acción es que, en la barra, no tiene asociado ninguna señal posible, y en el _toolbar_ solo tiene como botón. Para que el menú desplegado haga algo cuando elegimos un fichero deberemos pasarle un *RecentManager* y crearlo con un método especial. Eso amigos es harina de otro costal.
+
+Con todo esto ya podemos hacer unas interfaces dinámicas un poco menos uniformes y ganar con ello bastante funcionalidad. Como ejemplo, puedes ver el adjunto uimanager2.py. No he puesto ningún ejemplo del *RecentManager* porque, sinceramente, no lo he conseguido usar de forma satisfactoria nunca.
+
+h2. Crear una acción nueva
+
+¿Qué ocurre si queremos que nuestra _toolbar_ tenga, por ejemplo, un *SpinButton*. En principio con lo que tenemos hasta ahora solo nos quedaría la opción de pedirle al *UIManager* el widget que represente a nuestra _toolbar_ y añadirlo como lo haríamos de toda la vida en GTK. Pero usando acciones ¿sería posible? Claro que si.
+
+El problema que nos plantea este ejemplo (el *Spinbutton*) es que no existe ningún widget que herede de ToolItem para poder añadirlo directamente en la _toolbar_. La forma normal de hacer esto sería a través de crear un *ToolItem* (que a su vez es un *Container* de GTK) y, dentro de éste, meter nuestro *SpinButton*. Tenemos referencias a ambos (el *ToolItem* y el *SpinButton*) por lo que la conexión a sus señales no sería un problema.
+
+Ahora lo que queremos conseguir es una *Action* que, al añadirse a una _toolbar_, se renderice usando un ToolItem que dentro tiene un SpinButton, y a su vez, podernos conectar a alguna señal de ese _ToolItem-Spinbutton_ para enterarnos, al menos, de cuando cambia el valor del *SpinButton*.
+
+Los pasos a seguir para conseguir esto serían los siguientes:
+# Creamos una clase nueva (*SpinAction*) que herede de *gtk.Action*.
+# Creamos una clase nueva, que herede de *gtk.ToolItem* y que, en su constructor (que debe ser sin argumentos o al menos con valores por defecto para estos) cree un *gtk.SpinButton* (o el widget que queramos) y lo añada a si mismo (no te olvides que no deja de ser un gtk.Container).
+# Registramos antes clases para que Gobject las reconozca como tipos y pueda "jugar" con ellas
+# Le indicamos a *SpinAction* que tipo de *ToolItem* queremos que utilice cuando vaya a ser renderizada en una _toolbar_ (usando el __classmethod__ *_set_tool_item_type_*). Exactamente lo mismo podríamos hacer para indicarle como queremos que se renderice en un menú usando en esta ocasión el método *_set_menu_item_type_*
+# Listo para usar: solo tienes que añadir objetos de tu clase *SpinAction* al *ActionGroup* usando la función *_ad_action_* vista en la anterior receta.
+
+Desde luego nos harán falta algunas cosas más avanzadas, como por ejemplo, crear señales para nuestra particularización del *ToolItem* a las que poder conectarnos. Lo suyo sería tener una señal en la particularización de *Action*, pero no se como hacer que se emita una señal cuando se hace "algo" sobre el widget creado... cuando lo descubra actualizaré esta parte de la receta.
+
+Un ejemplo de todo el explico en este apartado es uimanager3.py (en los adjuntos). Tiene detalles de implemetación de algunas cosas que he pensado que sería conveniente omitir de aquí ya que solo hacían la receta más farragosa (aún).

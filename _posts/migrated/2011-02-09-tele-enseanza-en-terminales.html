@@ -1,0 +1,66 @@
+---
+migrated: node/1460
+layout: post
+title: Tele-enseñanza en terminales
+created: 1297259678
+author: int-0
+category: recipe
+tags:
+- shell
+---
+<blockquote>Seguramente alguna vez habréis tenido que explicar a alguien (via pidgin o teléfono) cómo hacer tal o pascual en su terminal, pegando los comandillos para que los ejecute y tal... bueno pues, como siempre, hay una forma más fácil y divertida de hacerlo.</blockquote>
+
+<h2>Qué necesitamos</h2>
+Probablemente ya lo tengáis instalado y si no pues lo instaláis:
+
+<div class="console">
+{% highlight console %}
+ # aptitude install bsdutils
+{% endhighlight %}
+</div>
+
+Este paquetillo tiene algunas herramientas interesantes, entre ellas la que usaremos: <em>script</em>. Esta herramienta está pensada para la teleenseñanza (o aprendizaje) aunque son muchas las aplicaciones que podría tener (como podréis comprobar).
+
+<h2>Al grano</h2>
+Supongamos que nuestro alumno <em>tobias</em> necesita de un empujoncito. Nos conectaremos (via <em>ssh</em> por ejemplo) a la máquina donde esté trabajando y averiguaremos cuantos terminales tiene (para saber con cuál trabajaremos):
+
+<div class="console">
+{% highlight console %}
+$ who
+tobias   tty7         2011-02-09 09:10 (:0)
+tobias   pts/0        2011-02-09 09:11 (:0.0)
+tobias   pts/1        2011-02-09 10:01 (:0.0)
+tobias   pts/2        2011-02-09 10:49 (:0.0)
+{% endhighlight %}
+</div>
+
+Supongamos que queremos "conectarnos" con su terminal 0 (debemos ser el propio usuario o el señor don <em>root</em>):
+
+<div class="console">
+{% highlight console %}
+# script -f /dev/pts/0
+{% endhighlight %}
+</div>
+
+Al almuno <em>tobias</em> le aparecerá lo siguiente por pantalla:
+
+<div class="console">
+{% highlight console %}
+ $ Script iniciado (mié 09 feb 2011 12:38:30 CET)
+$
+{% endhighlight %}
+</div>
+
+Y nosotros entraremos en una nueva <em>shell</em>... <b>su</b> <em>shell</em>... ;) . Ahora ya podemos explicarle en vivo qué comandos tiene que lanzar, etc. Cuando hayamos terminado:
+
+<div class="console">
+{% highlight console %}
+ $ exit
+Script terminado; el fichero es /dev/pts/0
+{% endhighlight %}
+</div>
+
+Y habremos terminado nuestras enseñanzas... :)
+
+<h2>¿Más cosillas?</h2>
+Pues claro, <em>script</em> permite "grabar" las sesiones y reproducirlas después... aunque todo eso os lo dejo a vosotros :P (sólo tenéis que echar un vistazo a la página del manual)

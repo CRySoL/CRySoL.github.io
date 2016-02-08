@@ -1,0 +1,25 @@
+---
+migrated: node/920
+layout: post
+title: '"Fallito" de seguridad en Debian.'
+created: 1211043596
+author: int-0
+category: new
+tags:
+- Debian
+---
+Hola! supongo que ya os habréis enterado del <a href="http://www.debian.org/security/2008/dsa-1571">DSA-1571</a> (aviso de seguridad de Debian), que viene a ser esto: el generador de números aleatorios de <em>openssl</em> que se emplea para generar las claves privadas y públicas de SSH es <b>predecible</b>, lo cual es un grave problema porque ahora, conocida una cable pública, se puede obtener su clave privada. Esto hace que desde el 17 de septiembre de 2006 las claves generadas con Debian (y similares) sean <b>inseguras</b>. Así que ya sabéis: revocad vuestras antiguas claves y generaros unas nuevas!.
+
+<center>
+<img src="/assets/files/debian01.jpg"/>
+</center>
+
+
+
+<!--break-->
+
+
+
+<center>
+<img src="/assets/files/debian02.jpg"/>
+</center>

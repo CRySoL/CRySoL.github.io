@@ -1,0 +1,88 @@
+---
+migrated: node/42
+layout: post
+title: Conectar por SSH a través de un proxy HTTP
+created: 1129540982
+author: fsancho
+category: recipe
+tags:
+- networking
+---
+<blockquote>
+Esta receta es para todos aquellos que estais en un entorno restrictivo en el que solo hay acceso al exterior a través de un proxy HTTP, como es mi caso actualmente.
+</blockquote>
+
+Tan solo os será necesario un programa llamado <a href="http://www.agroman.net/corkscrew/">Corkscrew</a>. Los usuarios de Debian y derivados lo tenemos a tiro de apt-get.
+
+<h2>Explicación</h2>
+¿Qué hace este programa? Pues aprovecha una capacidad del proxy, el método CONNECT que permite hacer una conexión a un puerto TCP usando al proxy como intermediario. Lógicamente esto es de sobra conocido por un administrador de red y lo mas normal es que el proxy esté situado detrás de un firewall que no permitirá al proxy acceder a puertos distintos de los puramente web. Estos puertos son el HTTP:80 y HTTPS:443, cabe la posibilidad de que también tengamos acceso a FTP a través del proxy, lo que significará que éste también puede acceder a los puertos 20 y 21.
+
+Con esta información ya nos vamos haciendo una idea de lo que va a pasar. Vamos a invocar <b>ssh</b> a través de Corkscrew para que se conecte al servidor de destino utilizando el proxy. El servidor de SSH utiliza el puerto 22 y lo normal es que el proxy no pueda acceder a dicho puerto, por este motivo será necesario que en el servidor al que queremos acceder le hayamos hecho un pequeño truco previo. El "truco" consiste en redirigir un puerto web que no esté en uso al puerto 22. Usualmente se utiliza el 443.
+
+Vamos a ver como se cocina todo esto junto.
+
+<h2>Elaboración</h2>
+En primer lugar hay que redirigir el tráfico de nuestro servidor, del puerto 443 al 22. Una opción es lanzar el demonio ssh directamente en el puerto 443, pero eso no parece una solución elegante. No obstante quien quiera hacerlo no tiene más que tocar en <tt>/etc/ssh/sshd_config</tt>.
+
+Lo mas limpio es usar <tt>iptables</tt> para redirigir el trafico. La orden es esta.
+
+
+<div class="console">
+{% highlight console %}
+# iptables -t nat -A PREROUTING -i ippp0 -p tcp --dport 443 -j REDIRECT --to-port 22
+
+{% endhighlight %}
+</div>
+
+Con <tt>corkscrew</tt> instalado vamos al directorio <tt>$HOME/.ssh</tt> y editamos el fichero <tt>config</tt> (si no existe, lo creamos). En su interior ponemos esto:
+
+<pre>
+Host servidor.casa.com
+ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p
+</pre>
+
+Donde <tt>proxy.curro.es</tt> el la dirección del proxy de nuestra red y 8080 es el puerto que usa el proxy. Las variables %h y %p se refieren al host y al port que usaremos para conectar y se le pasan desde el comando ssh como veremos a continuación.
+
+Ahora para conectar a cualquier sitio tan sólo necesitamos ejecutar la orden.
+
+
+<div class="console">
+{% highlight console %}
+$ ssh -p 443 usuario@servidor.casa.com
+
+{% endhighlight %}
+</div>
+
+<h2>Más difícil todavía</h2>
+Si nuestro proxy necesita autenticación tendremos que crear un segundo fichero en <tt>.ssh/autenticacion</tt> con lo siguiente
+
+<pre>usuario:password
+</pre>
+
+y en el fichero anterior (<tt>ssh_proxy</tt>) ponemos:
+
+<pre>ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p $HOME/.ssh/autenticacion
+</pre>
+
+<h2>Un consejo final</h2>
+Si os pasa, además de todo lo anterior, que vuestra conexión se corta cada dos por tres por falta de actividad basta con añadir esto en el fichero <tt>ssh_proxy</tt>
+
+<pre>ServerAliveInterval 60
+ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p 
+</pre>
+
+<h2>¿Utilidad final de todo esto?</h2>
+Vale, ya puedo acceder mediante SSH al ordenador de casa desde el trabajo, ¿y que? Pues si tenéis problemas con el proxy de vuestro trabajo porque os deniega el acceso a algunas páginas web que os son imprescindibles y el departamento de sistemas os ignora completamente, tan solo tenéis que instalar un proxy HTTP en vuestro ordenador, como por ejemplo <tt>squid</tt> (la configuración por defecto de squid en Debian funciona para lo que queremos hacer) y tunelizar las peticiones desde nuestro ordenador con el siguiente comando.
+
+
+<div class="console">
+{% highlight console %}
+$ssh -p 443 usuario@servidor.casa.com -L 3128:localhost:3128
+{% endhighlight %}
+</div>
+
+Estamos suponiendo que el servidor squid casero corre en el puerto por defecto, y redirigimos nuestro puerto local hacia el puerto remoto. Ahora solo tenemos que configurar el programa que queramos para que use como proxy <pre>localhost:3128</pre> y todo listo, ya estamos usando el proxy de casa sin restricciones.
+
+h2. Enlaces relacionados
+
+* "Establecer una sesión SSH a través de Proxy":http://bulma.net/body.phtml?nIdNoticia=2116

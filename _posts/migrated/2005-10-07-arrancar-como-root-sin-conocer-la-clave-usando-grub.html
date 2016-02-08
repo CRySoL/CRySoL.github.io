@@ -1,0 +1,49 @@
+---
+migrated: node/19
+layout: post
+title: Arrancar como root sin conocer la clave (usando GRUB)
+created: 1128669151
+author: david_villa
+category: recipe
+---
+<blockquote>
+Si metes la pata y te cargas la cuenta de root o simplemente has olvidado la clave, esta receta explica cómo recuperar la cuenta de root sin conocer la clave, siempre que uses GRUB como gestor de arranque.
+</blockquote>
+
+
+Cuando aparezca el menu de grub, tras encender la máquina, situate con los cursores en la línea del kernel que quieres usar. Pulsa 'e' para editar la entrada y edita la línea <tt>kernel</tt> (pulsando 'e' de nuevo). Añade al final de la línea lo siguiente:
+
+<pre>
+init=/bin/bash
+</pre>
+
+Esto hace que el sistema arranque una shell root sin pedir password. Es posible que el teclado esté en inglés y no puedas escribir el '=' y la '/', prueba '¡' y '-'. Pulsa 'b' para comenzar el arranque del kernel.
+
+La partición raíz suele montarse como sólo lectura, asi que si olvidaste la clave de <tt>root</tt> y quieres cambiarla primero deberás remontarla como lectura/escritura. Para ello:
+
+
+<div class="console">
+{% highlight console %}
+# mount -o remount,rw /dev/hda3
+{% endhighlight %}
+</div>
+
+suponiendo que <tt>/dev/hda3</tt> es tu partición raíz. Puedes averiguarlo ejecutando simplemente <tt>mount</tt>.
+
+Por último, cambia la clave de <tt>root</tt> ejecutando:
+
+
+<div class="console">
+{% highlight console %}
+# passwd root
+# sync
+# reboot
+
+{% endhighlight %}
+</div>
+
+<h2>Enlaces</h2>
+<ul>
+  <li><a href="http://quark.fe.up.pt/laespiral/recetas/101-200/receta105.html">GRUB Cómo</a>
+  <li><a href="http://www.mcc.ac.uk/grub/grub_3.html#SEC9">Grub Manual</a>
+</ul>

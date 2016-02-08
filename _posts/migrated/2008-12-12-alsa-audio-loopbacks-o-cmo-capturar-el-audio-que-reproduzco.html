@@ -1,0 +1,124 @@
+---
+migrated: node/1063
+layout: post
+title: 'Alsa: audio loopbacks (o cómo capturar el audio que reproduzco)'
+created: 1229084562
+author: int-0
+category: recipe
+tags:
+- Arco
+- multimedia
+- drivers
+---
+<blockquote>Llevaba ya mucho tiempo sin escribir por aquí algo... y para desengrasarme un poco voy con una recetilla muy simple pero que puede ser de mucha utilidad: supongamos que entras en una página que reproduce audio mediante <em>streaming</em> y que quieres capturar ese audio. Si abres un programa de captura comprobarás que no se captura ese sonido... necesitamos algún tipo de tarjeta "virtual" que nos permita capturar lo que reproduce, esto es: <b>audio loopback</b>.</blockquote>
+
+<h2>Instalando (<em>quick'n'dirty</em>)</h2>
+Los señores de <a href="http://www.alsa-project.org">ALSA</a> crearon hace tiempo un modulito que permitía justamente esto, el <b>aloop</b>, pero lamentáblemente no se compila por defecto, esto hace que distribuciones como <em>Debian</em> no lo traigan de serie, por tanto, nuestro primer paso es compilar el modulito.
+
+Empezamos descargándonos el archivo <b>alsa-drivers</b> de <a href="
+ftp://ftp.alsa-project.org/pub/driver/">ALSA FTP</a> (el link es <b>FTP</b> pero el drupal lo cambia a HTTP porque es muy listo). Lo suyo sería que fuese el de la misma versión que tengamos en nuestro sistema. Si no sabéis qué versión usáis, ejecutad lo siguiente:
+
+<div class="console">
+{% highlight console %}
+$ cat /proc/asound/version 
+Advanced Linux Sound Architecture Driver Version 1.0.16.
+{% endhighlight %}
+</div>
+
+De todas formas, yo tengo la versión <em>1.0.16</em> y me he instalado el módulo en su versión <em>1.0.17</em> (porque era la que tenía a mano) y no he tenido <em>warnings</em> ni nada por el estilo...
+
+Una vez descargado, descomprimimos y compilamos:
+
+<div class="console">
+{% highlight console %}
+$ unp alsa-driver-1.0.16.tar.bz2
+$ ./configure --with-cards=loopback --with-sequencer=yes
+$ make
+{% endhighlight %}
+</div>
+
+Ahora podríamos hacer un <tt>make install</tt> pero yo no lo hago por una sencilla razón: instala más módulos de los estrictamente necesarios. Para no "tocar" más de lo necesario hago lo siguiente (como <em>root</em>):
+
+<div class="console">
+{% highlight console %}
+#  cp drivers/snd-aloop.ko /lib/modules/$(uname -r)/kernel/sound/drivers/
+# depmod -ae
+{% endhighlight %}
+</div>
+
+Y ya está... ahora a saber cómo usarlo...
+
+<h2>Instalando(<em>Debian way</em>)</h2>
+<em>[TO-DO]</em>
+
+<h2>Usando <em>aloop</em></h2>
+Lo primero es cargar el módulo:
+
+<div class="console">
+{% highlight console %}
+# modprobe snd-aloop
+{% endhighlight %}
+</div>
+
+Ahora configuramos la tarjeta (realmente este paso no es necesario para ciertas aplicaciones: las que usen <em>alsa-lib</em>, pero nunca está de más), para ello debemos saber qué tarjetas tenemos funcionando (esto ya lo podemos hacer como usuario):
+
+<div class="console">
+{% highlight console %}
+$ cat /proc/asound/cards
+ 0 [A5451          ]: ALI5451 - ALI 5451
+                      ALI 5451 at 0x8400, irq 9
+ 1 [pcsp           ]: PC-Speaker - pcsp
+                      Internal PC-Speaker at port 0x61
+ 2 [Loopback       ]: Loopback - Loopback
+                      Loopback 1
+{% endhighlight %}
+</div>
+
+Como podemos ver, la tarjeta virtual <em>Loopback</em> es la <b>2</b>, esto nos permite escribir lo siguiente en el archivo <tt>~/.asoundrc</tt> (si no existe lo creáis) y añadimos lo siguiente:
+<pre>pcm.aloop {
+	type hw
+	card 2
+}
+
+ctl.aloop {
+	type hw
+	card 2
+}</pre>
+
+Con esto ya tenemos listos dos canales <em>PCM</em>, que en este caso serían (en nomenclatura <em>ALSA</em>): <b>hw2,0</b> y <b>hw2,1</b>. Lo que reproduzcamos por uno de ellos, lo podremos capturar por el otro, lo único que hay que tener en cuenta es que el formato de captura debe coincidir con el del audio que se está reproduciendo.
+
+Si queréis un ejemplo podéis hacer lo siguiente: capturamos uno de los extremos del <em>loopback</em>:
+
+<div class="console">
+{% highlight console %}
+$ arecord -D hw:2,1 -c 2 test.wav
+{% endhighlight %}
+</div>
+
+Y ahora podemos reproducir cualquier archivo (en estéreo, puesto que estamos capturando 2 canales), seleccionando dispositivo de reproducción <b>hw:2,0</b>:
+
+<div class="console">
+{% highlight console %}
+ $ aplay -D hw:2,0 music.wav
+{% endhighlight %}
+</div>
+
+Y ya está.... así de fácil! :)
+
+<h2>Rizando el rizo: múltiples tarjetas <em>loopbacks</em></h2>
+Bien, ya sabemos crear una tarjeta virtual con sus 8 subcanales PCM listos (si, no lo he comentado antes, pero mezcla hasta 8 canales), pero... ¿qué pasa si queremos más de una tarjeta <em>loopback</em>?. La solución es fácil: al cargar el módulo podemos especificar <b>cuántas</b> tarjetas virtuales queremos (hasta un máximo de ocho):
+
+<div class="console">
+{% highlight console %}
+ # rmmod snd-aloop
+# modprobe snd-aloop index=2,3 enable=1,1 pcm_substreams=4
+{% endhighlight %}
+</div>
+
+En el ejemplo anterior primero descargamos el módulo y después lo volvemos a cargar de la siguiente manera:
+<ul><li>index: índices de las nuevas tarjetas a crear, esto es: las tarjetas <em>loopback</em> serán <b>hw:2.x</b> y <b>hw:3.x</b>.</li>
+<li>enable: tarjetas virtuales a habilitar. Un 0 la deja deshabilitada y un 1 la activa (realmente no se para que sirve esto ya que no entiendo porqué alguien va a crear una tarjeta virtual que no pueda usar. Simplemente poned tantos unos como tarjetas vayáis a añadir).</li>
+<li>pcm_substreams: número de subcanales que tendrá cada tarjeta virtual. En este caso serán 4 subcanales por tarjeta.</li></ul>
+
+<h2>Enlaces</h2>
+Aunque está un poco anticuada... la página de <a href="http://www.alsa-project.org/main/index.php/Matrix:Module-aloop">aloop module</a> puede ser útil...

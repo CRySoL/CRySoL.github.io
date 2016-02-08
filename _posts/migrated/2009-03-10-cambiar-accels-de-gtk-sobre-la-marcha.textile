@@ -1,0 +1,18 @@
+---
+migrated: node/1101
+layout: post
+title: Cambiar "accels" de GTK sobre la marcha
+created: 1236696505
+author: david_villa
+category: recipe
+tags:
+- gtk
+---
+Permite asignar combinaciones de teclas personalizadas a cualquier opción de un menú solo con pulsarla mientras está seleccionado. Siempre me pareció una gran <em>feature</em>.
+
+
+<div class="console">
+{% highlight console %}
+$ gconftool-2 -t bool -s /desktop/gnome/interface/can_change_accels true 
+{% endhighlight %}
+</div>

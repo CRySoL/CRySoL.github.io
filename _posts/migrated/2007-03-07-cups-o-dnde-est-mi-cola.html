@@ -1,0 +1,98 @@
+---
+migrated: node/603
+layout: post
+title: CUPS (o dónde está mi cola)
+created: 1173267239
+author: int-0
+category: recipe
+tags:
+- Arco
+---
+<blockquote>Esta receta explica cómo configurar una máquina para utilizar un servidor de impresoras CUPS remoto</blockquote>
+
+
+Configurar la impresora es una tarea tan trivial en <em>GNU</em> que vamos a aprovechar para montar un servicio de impresión decentillo.
+
+<h1>Impresoras locales y remotas</h1>
+Hace falta que explique que es una cosa y otra?. Pues si... que para eso estamos :P.
+
+Una impresora es <em>local</em> o <em>remota</em> si tiene o no un cable que va directamente desde nuestro equipo a la impresora... falso! :jawdrop: Eso depende del equipo donde esté nuestra cola de impresión (de aquí en adelante lo llamaremos <em>spool</em> para evitar suspicacias). Una <em>netprinter</em> es directamente una impresora remota, en eso estamos de acuerdo. Sin embargo, una impresora serie o USB puede ser remota (la impresora se conecta a un equipo y nuestro <em>spool</em> no está en ese equipo) o local (el <em>spool</em> y la impresora residen en el mismo equipo). Gracias a <em>cups</em> podremos imprimir en una impresora local que se encuentre en el otro hemisferio... por ejemplo ;)
+
+<h1><em>Spoolers</em> locales y remotos</h1>
+Aquí las diferencias son evidentes: el <em>spool</em> está en nuestro equipo? si, pues es local; no, pues es remoto.
+
+A partir de aquí tenemos que saber qué clase de organización queremos tener en nuestro servicio de impresión: podemos tener todas las impresoras compartidas por red, cada cliente tiene su propia cola y todos los clientes envían sus trabajos por red a las impresoras que deseen. También podemos tener una única cola remota donde configuremos todas las impresoras que queramos. Los clientes sólo deben conocer la ubicación de esa cola para tener acceso a todas las impresoras.
+
+<h1>Qué instalar y dónde</h1>
+Bien, primero de todo: cualquier máquina que desee imprimir deberá tener instalado el cliente <em>cups</em>:
+
+
+<div class="console">
+{% highlight console %}
+ $ aptitude install cupsys-client
+{% endhighlight %}
+</div>
+
+Y ahora tenemos dos opciones: si la máquina tiene una impresora local que deseamos compartir necesitaremos el servidor cups:
+
+
+<div class="console">
+{% highlight console %}
+ $ aptitude install cupsys-server
+{% endhighlight %}
+</div>
+
+Para las <em>netprinters</em> no es necesario dedicar una máquina, en cualquiera que tengamos ya instalado el servidor de <em>cups</em> podremos añadirlas.
+
+<h2>Configurar la interfaz web administrativa de <em>cups</em></h2>
+Esta interfaz sólo soporta SSL, por tanto debemos crear los certificados oportunos (una receta por aquí indica cómo hacerlo) y los copiaremos en <tt>/etc/cups/ssl</tt> con el nombre de <tt>cups.pem</tt>. Ahora sólo debemos restringir un poco el acceso (malditos hackers :evil:!), en el archivo <tt>/etc/cups/cupsd.conf</tt> tendremos que modificar algo parecido a:
+
+<pre>...
+# Acceso al servicio
+<Location />
+  Order allow,deny
+  Allow @LOCAL
+  # Mi LAN
+  Allow 192.168.0.
+  # Un equipo cualquiera
+  Allow 10.0.0.1
+</Location>
+# Acceso administrativo
+<Location /admin>
+  Encryption Requiered
+  Order allow,deny
+  Allow @LOCAL
+  Allow 192.168.0.
+</Location>
+<Location /admin/conf>
+  AuthType Basic
+  # Requiere un usuario del sistema local
+  Requiere user @SYSTEM
+  Order allow,deny
+  Allow @LOCAL
+  Allow 192.168.0.
+</Location>
+...</pre>
+
+Con esto tendremos acceso a la interfaz administrativa con la que podremos añadir impresoras locales, <em>spoolers</em> remotos y <em>netprinters</em>. Por cada impresora que añadamos podremos indicar políticas de seguridad determinadas: encriptación de documentos, acceso de usuarios y equipos, etc.
+
+<h1>Configurar clientes</h1>
+Bueno, si tenemos el cliente <em>cups</em> instalado y queremos acceder a algún <em>spool</em> remoto con un montón de impresoras ya configuradas y listas para atascarse, creamos/modificamos el archivo <tt>/etc/cups/client.conf</tt> para dejarlo como sigue:
+
+<pre>ServerName 192.168.0.1
+Encryption Never</pre>
+
+Aunque esto es poco seguro ya que nunca usará TSL (incluso estando disponible)... pero podemos indicar <em>IfRequest</em> en otro caso... ;)
+
+Si ahora ejecutáis <em>gnome-cups-manager</em> os aparecerán todas las impresoras configuradas en el <em>spool</em> remoto y marcadas como públicas.
+
+<h1>Apéndice A: Autoconfigurar impresoras locales</h1>
+Como somos muy vaguetes... alguien por ahí hizo un programa que lo hace solito ;) :
+
+
+<div class="console">
+{% highlight console %}
+ $ aptitude install printconf
+$ printconf
+{% endhighlight %}
+</div>

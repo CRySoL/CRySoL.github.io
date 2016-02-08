@@ -1,0 +1,138 @@
+---
+migrated: node/1094
+layout: post
+title: Partición cifrada con dm-crypt en Debian
+created: 1235434253
+author: david_villa
+category: recipe
+tags:
+- security
+- Debian
+---
+Esta receta explica como utilizar @dm-crypt@ para cifrar una partición completa y montarla/desmontarla cómodamente.
+
+
+<!--break-->
+
+
+Me voy a basar en la receta "Pendrive cifrado con dm-crypt en Debian":node/866 dado el evidente parecido. Para ver los pasos en detalle, tenla a mano.
+
+<b>[EL AUTOR ELUDE TODA RESPONSABILIDAD SOBRE LAS CONSECUENCIAS (MALAS CONSECUENCIAS) QUE ESTA RECETA PUEDE PROVOCAR (Y QUE SEGURO PROVOCARÁ) EN EL CONTENIDO DE TU DISCO DURO.]</b> Avisado estás, luego no digas.
+
+h2. Crear y probar la partición cifrada
+
+Esto sólo hay que hacerlo cuando se crea la partición, una vez en la vida. Asumiendo que la partición que vas a cifrar es @/dev/hda4@.
+
+
+<div class="console">
+{% highlight console %}
+
+# cryptsetup luksFormat /dev/hda4
+# cryptsetup luksOpen /dev/hda4 cifrado
+# mkfs.ext3 /dev/mapper/cifrado
+# mount /dev/mapper/cifrado /mnt/cifrado
+{% endhighlight %}
+</div>
+
+Y para desmontar:
+
+
+<div class="console">
+{% highlight console %}
+
+# umount /dev/mapper/cifrado
+# cryptsetup luksClose /dev/mapper/cifrado
+{% endhighlight %}
+</div>
+
+
+h2. Montaje automático
+
+Escribe esto en el fichero @/etc/crypttab@
+
+
+<div>
+{% highlight text %}
+cifrado /dev/hda4 none luks
+{% endhighlight %}
+</div>
+
+Y esto en el fichero @/etc/fstab@:
+
+
+<div>
+{% highlight text %}
+/dev/mapper/cifrado  /mnt/cifrado  ext3  rw,user  0 0
+{% endhighlight %}
+</div>
+
+Con esto, durante el proceso de arranque se te pedirá la clave para abrir el contenedor LUKS. Así que con este invento puedes cifrar la partición de "home", el swap y hasta el raíz, de modo que si tu portátil cae en manos de El Enemigo (a.k.a. Sauron) tendrá que torturarte como a Gollum para que cantes la clave y poder ver tus ficheros. Sí, ya lo sé ¿qué pasa?
+
+Si no vas usar siempre esa partición, es bastante latazo tener que poner la password cada vez que reinicias. Si quieres "abrirlo" bajo demanda añade @noauto@ a la línea de antes en el @/etc/crypttab@ para que quede así:
+
+
+<div>
+{% highlight text %}
+cifrado /dev/hda4 none luks,noauto
+{% endhighlight %}
+</div>
+
+Y cuando quieras abrir el contenedor en cuestión, escribe:
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo cryptdisks_start cifrado
+Starting crypto disk...space (starting).
+Enter passphrase to unlock the disk /dev/hda4 (cifrado): 
+key slot 0 unlocked.
+Command successful.
+cifrado (started)...done.
+{% endhighlight %}
+</div>
+
+Después lo puedes montar del modo habitual, incluyendo las utilidades de GNOME o KDE para estos menesteres.
+
+Para cerrar el container:
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo cryptdisks_stop cifrado
+Stopping crypto disk...cifrado (stopping)...done.
+{% endhighlight %}
+</div>
+
+
+h2. cryptmount
+
+*[ToDo]*
+
+Fichero @/etc/cryptmount/cmtab@:
+
+
+<div>
+{% highlight text %}
+cifrado {  
+  dev=/dev/hda4
+  dir=/mnt/cifrado
+  keyformat=luks
+  keyfile=/dev/hda4
+  fstype=ext3
+}
+{% endhighlight %}
+</div>
+
+
+h2. Comentarios
+
+En previsión de comentarios similares a los que hubo en la receta sobre el _pendrive_, he de decir que estoy convencido de que hay maneras mejores, más baratas y más bonitas de hacer lo mismo con Windows, Macos o cualquier otra movida privativa. En cualquier caso, como muy acertadamente diría Olivas, "me importa tres ***ones". Por favor, ve a dar por saco a otro sitio, gracias. Si no sabes de qué va esto, haz como si no hubieras leído este párrafo. :-)
+
+
+h2. Referencias
+
+* "the dm-crypt wiki":http://<a href="http://www.saout.de/tikiwiki/tiki-index.php">www.saout.de/tikiwiki/tiki-index.php</a>
+* "dm-crypt HOWTO for Debian unstable and testing":http://<a href="http://www.saout.de/tikiwiki/tiki-index.php?page=HOWTO">www.saout.de/tikiwiki/tiki-index.php?page=HOWTO</a>
+* "how to encrypt a single hard disk":http://<a href="http://www.saout.de/tikiwiki/tiki-index.php?page=EncryptedDevice">www.saout.de/tikiwiki/tiki-index.php?page=EncryptedDevice</a>

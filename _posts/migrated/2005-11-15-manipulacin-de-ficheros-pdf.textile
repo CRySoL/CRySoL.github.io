@@ -1,0 +1,261 @@
+---
+migrated: node/98
+layout: post
+title: Manipulación de ficheros PDF
+created: 1132088676
+author: david_villa
+category: recipe
+---
+<blockquote>
+Esta receta es un compendio de pequeños trucos y utilidades para manipular ficheros PDF con los programas libres habituales en un sistema GNU
+</blockquote>
+
+En realidad pienso ir apuntando aquí las soluciones que voy encontrando a problemas que me surgen cuando tengo que hacer ciertas «operaciones imprevistas» con ficheros PDF. Se admiten sugerencias para ir incorporando a la receta.
+
+<h2>Unir varios documentos</h2>
+
+Con <tt>pdfjoin</tt> del paquete <tt>pdfjam</tt> (visto en <a href="http://linuca.org/body.phtml?nIdNoticia=343">Linuca</a>).
+
+
+
+<div class="console">
+{% highlight console %}
+$ pdfjoin --fitpaper true fichero1.pdf fichero2.pdf fichero3.pdf --outfile final.pdf
+{% endhighlight %}
+</div>
+
+
+Con <a href="http://es.wikipedia.org/wiki/Ghostscript">GNU/GhostScript</a> (por  <a href="http://barrapunto.com/~Gufete">Gufete</a>):
+
+
+<div class="console">
+{% highlight console %}
+ $ gs -dColorImageFilter=/LZWEncode -dAutoFilterColorImages=false -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=pre_final.pdf fichero1.pdf fichero2.pdf fichero3.pdf
+$ pdfopt pre_final.pdf final.pdf
+
+{% endhighlight %}
+</div>
+
+<h2>Seleccionar algunas páginas</h2>
+
+Con <tt>pdfjam</tt>
+
+
+
+<div class="console">
+{% highlight console %}
+ $ pdfjam --no-landscape original.pdf  3,7,12-23,34 --outfile resultado.pdf 
+{% endhighlight %}
+</div>
+
+
+Con <tt>pdftk</tt>
+
+
+<div class="console">
+{% highlight console %}
+ $ pdftk original.pdf cat 1-8 output resultado.pdf
+{% endhighlight %}
+</div>
+
+<h2> Rotar páginas </h2>
+
+Con <tt>pdfjam</tt>
+
+
+<div class="console">
+{% highlight console %}
+ $ pdf90 original.pdf
+{% endhighlight %}
+</div>
+
+También hay comandos @pdf180@ y @pdf270@.
+
+Con <tt>pdftk</tt>:
+
+
+<div class="console">
+{% highlight console %}
+ $ pdftk original.pdf cat 1-end<b>X</b> output resultado.pdf
+{% endhighlight %}
+</div>
+
+Donde 'X' puede ser:
+
+<ul>
+<li>N:  0</li>
+<li>E: 90</li>
+<li> S: 180</li>
+<li>W: 270</li>
+<li>L: -90</li>
+<li>R: +90</li>
+<li>D: +180</li>
+</ul>
+
+<h2>Convertir un documento a formato de varias páginas por hoja</h2>
+
+Utilizando el programa <tt>pdfnup</tt> del paquete <tt>pdfjam</tt>:
+
+
+
+<div class="console">
+{% highlight console %}
+$ pdfnup --nup 2x1 --outfile salida.pdf original.pdf
+{% endhighlight %}
+</div>
+
+
+Por ejemplo, para pasar transparencias apaisadas a página completa a formato de 3 páginas por hoja alineadas a la izquierda y con márgenes usa:
+
+
+
+<div class="console">
+{% highlight console %}
+$ pdfnup --nup 1x3 --offset "-3cm 0" --trim "-2cm -2cm -2cm -2cm" original.pdf
+{% endhighlight %}
+</div>
+
+
+<h2> «Escalar» el tamaño de la página </h2>
+
+En realidad se trata de aumentar los márgenes reduciendo el tamaño del área impresa. También con <tt>pdfnup</tt>:
+
+
+
+<div class="console">
+{% highlight console %}
+ $ pdfnup --nup 1x1 --scale 0.9 original.pdf 
+{% endhighlight %}
+</div>
+
+
+<h2> Cambiar el formato de página </h2>
+
+Si tienes que imprimir un .pdf cuyo formato de página no es A4 probablemente acabarás desperdiciando gran parte de la hoja porque por aquí todas las impresoras domesticas son A4. Con los siguientes comandos puedes convertir el formato de página:
+
+
+<div class="console">
+{% highlight console %}
+$  pdftk original.pdf cat output sin_xrefs.pdf
+$ gs -r600 -dDITHERPPI=120 -dNOCIE -dFIXEDMEDIA -sPAPERSIZE=a4 -sDEVICE=pdfwrite -q -dNOPAUSE -dSAFER -dBATCH -dPDFFitPage -sOutputFile=resultado.pdf pdfopt.ps sin_xrefs.pdf
+
+{% endhighlight %}
+</div>
+
+
+<h2> Manipulación de metadatos </h2>
+
+<p>
+
+<h3>Con @pdftk@</h3>
+
+Para leer los metadatos de un PDF:
+
+
+<div class="console">
+{% highlight console %}
+
+$ pdftk original.pdf dump_data output data.txt
+$ cat data.txt
+InfoKey: Creator
+InfoValue: Writer&#0;
+InfoKey: Producer
+InfoValue: OpenOffice.org 3.1&#0;
+InfoKey: CreationDate
+InfoValue: D:20090923135542+02'00'
+PdfID0: e5d831c33f77ac694b32456732f2c86
+PdfID1: e5d831c33f77ac694b32456732f2c86
+NumberOfPages: 1
+{% endhighlight %}
+</div>
+
+Si se omite el @output data.txt@, imprime los datos a la salida estándar (la consola) en lugar de en el fichero.
+
+Para modificar los metadatos se debe escribir un fichero con el mismo formato que el @data.txt@ anterior (o modificar uno generado así) y ejecutar:
+
+
+<div class="console">
+{% highlight console %}
+
+$ pdftk original.pdf update_info data.txt output resultado.pdf
+{% endhighlight %}
+</div>
+
+
+<h3>Con @exiftool@</h3>
+
+Para mostrar los metadatos escribe una cadena con variables tipo-shell (atento a las comillas simples):
+
+
+<div class="console">
+{% highlight console %}
+
+$  exiftool fichero.pdf -p '$Title $Author'
+{% endhighlight %}
+</div>
+
+Para modificarlos utiliza esos mismas claves como opciones:
+
+
+<div class="console">
+{% highlight console %}
+
+$ exiftool fichero.pdf -Title="Algún cuento chino"
+{% endhighlight %}
+</div>
+
+
+<h2> Convertir a escala de grises </h2>
+
+[visto en <a href="http://handyfloss.net/2008.09/making-a-pdf-grayscale-with-ghostscript/">http://handyfloss.net/2008.09/making-a-pdf-grayscale-with-ghostscript/</a>]
+
+
+<div class="console">
+{% highlight console %}
+
+$ gs -sOutputFile=grayscale.pdf -sDEVICE=pdfwrite \
+-sColorConversionStrategy=Gray -dProcessColorModel=/DeviceGray \
+-dCompatibilityLevel=1.4 -dNOPAUSE -dBATCH color.pdf < /dev/null
+{% endhighlight %}
+</div>
+
+<h2> Convertir a «raster»</h2>
+
+<p/>
+
+<h3>Con Ghostscript</h3>
+
+[visto en "commandlinefu.com":http://<a href="http://www.commandlinefu.com/commands/view/4466/convert-pdf-to-jpeg-using-ghostscript">www.commandlinefu.com/commands/view/4466/convert-pdf-to-jpeg-using-ghostscript</a>]
+
+
+<div class="console">
+{% highlight console %}
+$ gs -dNOPAUSE -sDEVICE=jpeg -r144 -sOutputFile=p%03d.jpg file.pdf
+{% endhighlight %}
+</div>
+
+<h3>Con convert</h3>
+
+[visto en "linuxquestions":http://<a href="http://www.linuxquestions.org/questions/linux-software-2/pdf-to-png-converter-57142/">www.linuxquestions.org/questions/linux-software-2/pdf-to-png-converter-57142/</a>]
+
+
+<div class="console">
+{% highlight console %}
+$ convert -density 300x300 file.pdf salida.png
+{% endhighlight %}
+</div>
+
+
+<h2> Crear un PDF con fuentes empotradas</h2>
+
+Si has hecho un .pdf con @pdflatex@ lo más probable es que no incluya las fuentes, de modo que el programa pueda renderizar el documento con las fuentes del sistema. Sin embargo, a veces se requiere disponer de un .pdf auto-contenido para garantizar que se verá del mismo modo en cualquier parte. Para lograrlo ejecuta lo sisguiente:
+
+
+<div class="console">
+{% highlight console %}
+$ pdf2ps original.pdf
+$ ps2pdf14 -dPDFSETTINGS=/prepress -dEmbedAllFonts=true original.ps resultado.pdf
+{% endhighlight %}
+</div>
+
+Como es lógico, el fichero resultante ocupará mucho más que el original (de 5 a 10 veces).

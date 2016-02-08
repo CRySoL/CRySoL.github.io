@@ -1,0 +1,208 @@
+---
+migrated: node/338
+layout: post
+title: Compartir ficheros con Samba/CIFS
+created: 1151241270
+author: david_villa
+category: recipe
+tags:
+- networking
+---
+Esta receta explica cómo utilizar SAMBA para servir ficheros y cómo acceder a ellos desde otro ordenador. Supondremos que en ambos equipos tienes Debian o sucedáneos.
+
+
+<!--break-->
+
+
+h2. Introducción
+
+Samba es una implementación libre del protocolo SMB(Server Message Block)/CIFS(Common Internet File System). Normalmente se utiliza como medio para interoperar con recursos (ficheros e impresoras) compartidos por máquinas Microsoft y también como servidor de dominio sin los problemas de seguridad y coste típicos de los sistemas Windows. 
+
+Sin embargo, Samba puede ser una buena solución como servidor de ficheros entre sistemas operativos libres, ya que ofrece más seguridad que otras alternativas como puede ser NFS(Network File System), aunque menor rendimiento.
+
+Por otro lado, se desaconseja utilizar Samba para publicar impresoras en favor de CUPS(Common Unix Printing System), que es un sistema mucho más especializado y versátil, incluso cuando se requiere interoperar con Windows.
+
+
+h2. Ingredientes
+
+* samba
+* smbfs
+
+
+h2. Para integrar samba en nautilus
+
+* libgnomevfs2-extra
+
+h2. Instalando
+
+Lo habitual:
+
+
+<div class="console">
+{% highlight console %}
+ # apt-get install samba 
+{% endhighlight %}
+</div>
+
+La instalación te hará varias preguntas:
+
+* *Workgroup/Domain Name*: al estilo de Window$. Puedes poner lo que quieras pero recuerda que debería ser conocido por los clientes del mismo grupo.
+* *Encrypted passwords*: Sí
+* *WINS from DHCP*: No
+* *Samba server*: daemons
+* *Create Samba password DB*: Sí
+
+
+h2. Usuarios
+
+Para habilitar un usuario para usar un directorio compartido con Samba dicho usuario ya debe existir y tener una cuenta shell. Lo puedes activar con:
+
+
+<div class="console">
+{% highlight console %}
+ # smbpasswd -a <i>usuario</i> 
+{% endhighlight %}
+</div>
+
+
+h2. Compartir recursos
+
+La manera más fácil es editar el fichero @/etc/samba/smb.conf@ y añadir (al final) un bloque con esta pinta:
+
+<pre>
+[downloads]              # nombre del recurso
+   path = /opt/files     # directorio compartido
+   writable = yes        # el usuario puede borrar y crear ficheros remotamente
+   public = no           # se requiere clave para acceder 
+   browseable = yes      # aparece en el listado de recursos compartidos
+</pre>
+
+Los directorios _home_ de los usuarios están accesibles por defecto (en modo sólo lectura).
+
+
+h2. Comprobando
+
+La utilidad @testparm@ compueba posibles fallos en el fichero @smb.conf@.
+
+
+<div class="console">
+
+<div>
+{% highlight text %}
+$ testparm
+Load smb config files from /etc/samba/smb.conf
+Processing section "[homes]"
+Processing section "[downloads]"
+Loaded services file OK.
+Press enter to see a dump of your service definitions
+
+[global]
+        workgroup = GROUP
+...
+
+[homes]
+        comment = Home Directories
+        create mask = 0700
+        directory mask = 0700
+        browseable = No
+
+[downloads]
+        path = /opt/files
+...
+{% endhighlight %}
+</div>
+</div>
+
+
+
+h2. Cliente
+
+Hay varias formas de acceder a los recursos Samba de otro equipo. Si utilizas Nautilus puedes navegar pon la "Red Windows" o escribir una dirección en la barra de direcciones. Por ejemplo, para acceder al recurso "downloads" de la máquina "medusa" escribe:
+
+<pre> smb://medusa/downloads </pre>
+
+También en Nautilus puedes usar _Archivo->Conectar con el servidor_. A continuación otras formas de acceder a recursos remotos.
+
+
+h3. @smbfs@
+
+Smbfs permite montar un recurso remoto en un directorio, incluso sin ser superusuario. Por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+ $ smbmount //medusa/downloads directorio_local 
+{% endhighlight %}
+</div>
+
+también puedes usar @mount@:
+
+
+<div class="console">
+{% highlight console %}
+ # mount -t smbfs //medusa/downloads directorio_local -o username=richard 
+{% endhighlight %}
+</div>
+
+o meterlo en @/etc/fstab@:
+
+<pre>
+//medusa/downloads    /mnt/files    smbfs    defaults    0 0
+</pre>
+
+Puedes desmontar con @smbumount@ y @umount@ respectivamente.
+
+h3. smbclient
+
+Es similar a un cliente FTP en cuanto a su uso y sirve ara obtener mucha información. 
+
+h5. Ver los recursos compartidos por otra máquina:
+
+
+<div class="console">
+
+<div>
+{% highlight text %}
+$ smbclient -L medusa
+Password:
+Anonymous login successful
+Domain=[GROUP] OS=[Unix] Server=[Samba 3.0.22]
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        downloads       Disk      
+        IPC$            IPC       IPC Service (medusa server (Samba 3.0.22))
+        ADMIN$          IPC       IPC Service (medusa server (Samba 3.0.22))
+Anonymous login successful
+Domain=[GROUP] OS=[Unix] Server=[Samba 3.0.22]
+
+        Server               Comment
+        ---------            -------
+        MEDUSA               medusa server (Samba 3.0.22)
+
+        Workgroup            Master
+        ---------            -------
+        GROUP                MEDUSA
+{% endhighlight %}
+</div>
+</div>
+
+
+
+h2. Seguridad
+
+Si tienes un ordenador que usas como "router":http://crysol.inf-cr.uclm.es/node/96 y quieres utilizarlo como servidor de ficheros con Samba, es buena idea que sólo sea accesible desde la red interna. Para ello edita @/etc/samba/smb.conf@ y en la sección @[global]@ añade (o descomenta) algo como:
+
+<pre>
+interfaces = 127.0.0.1 eth1
+bind interfaces only = true
+</pre>
+
+Cambiando @eth1@ por la interfaz de tu router a la que tengas conectada tu red local.
+
+
+h2. Referencias
+
+* "Los primeros pasos para Instalar Samba":http://bulma.net/body.phtml?nIdNoticia=1123
+* "Servidor Samba":http://guia-ubuntu.org/hoary/doku.php?id=servidor:samba
+* "Ubuntu:Edgy/Networking":http://ubuntuguide.org/wiki/Ubuntu:Edgy/Networking

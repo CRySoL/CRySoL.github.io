@@ -1,0 +1,47 @@
+---
+migrated: node/1388
+layout: post
+title: 'INGSOFT: Keep It Simple, Stupid (KISS)'
+created: 1280419496
+author: david_villa
+tags:
+- INGSOFT
+---
+El principio "KISS":http://en.wikipedia.org/wiki/KISS_principle es uno de los principios de programación y diseño más conocidos y a la vez más difíciles de seguir. Como supongo que sabéis, KISS dice que *«el objetivo principal de todo diseño debe ser la simplicidad»*.
+
+
+<!--break-->
+
+
+O mejor dicho, evitar en todo lo posible la complejidad innecesaria. Claro, uno piensa, «qué bien!, complejidad innecesaria, se ha matao el colega que lo ha pensado». En realidad el principio se refiere al modo en el que debe enfrentarse la solución de los problemas más que al resultado en sí mismo.
+
+Una de las causas que lleva a código y diseños complicados tiene que ver con la tentación de añadir características nuevas a nuestros desarrollos sólo porque «es fácil hacerlo» sin considerar los efectos colaterales que eso seguro va a implicar en el sistema completo. Para alguien (incluso tú mismo unas semanas o meses después) necesite entender cómo funciona el programa (para añadir una funcionalidad o arreglar un bug) puede llevarle mucho más tiempo si el que lo escribió no tuvo el suficiente criterio y cuidado en «mantenerlo sencillo». 
+
+Eso de añadir «características innecesarias» te sonará a repetido si has leído "mi post anterior":node/1377 pero es que tanto YAGNI, como KISS, como muchos otros principios tratan una y otra vez a la misma cuestión: *la creatividad descontrolada/desinformada es la raíz de todo mal*.
+
+La otra causa principal que lleva a código innecesariamente complicado son las prisas, la falta de tiempo. A veces es posible «arreglar el problema» haciendo un pequeño apaño, un parche, un hack-truco, en definitiva ejerciendo algo que habría sido el 8º pecado capital si Dios hubiera sido programador: el "quick and dirty":http://en.wikipedia.org/wiki/Quick-and-dirty (Q&D). Por muy inofensivo que pueda parecer ese pequeño bloque @if@ de 3 o 4 líneas en mitad de una función, las consecuencias acumuladas de su uso como forma de "mantenimiento":http://es.wikipedia.org/wiki/Mantenimiento_de_software son devastadoras. La razón, muy simple: estás añadiendo lógica en una función que no fue concebida para eso. Ni el nombre, ni la documentación, ni el diseño se corresponden con el nuevo «poder» que le acabas de otorgar. Por tanto será difícil de encontrar, de depurar, de extender o generalizar. 
+ 
+KISS no implica que no se puedan hacer cosas sofisticadas. Lo que dice es que las piezas que forman el sistema deben ser fáciles de identificar, con responsabilidades bien definidas y con los mecanismos necesarios para que sea posible extender su funcionalidad escribiendo más código pero sin modificar el que hay. Hay muy buenas formas de conseguir eso, como por ejemplo la herencia, la sobrecarga y/o la aplicación de ciertos patrones de diseño (suponiendo que hablamos de OO). El conjunto debe ser lo más simple posible para el problema objetivo, pero obviamente eso no significa que tenga que ser trivial. Q&D es pan duro para hoy y mucha hambre para mañana, es la principal causa de la "deuda técnica":http://en.wikipedia.org/wiki/Technical_debt y el tiempo que crees ahorrar hoy lo pagarás multiplicado por 10 mañana o la semana que viene. 
+
+Cada nueva «feature», cada nuevo caso de uso implica un cambio en el diseño (no tanto arreglar un bug si es pequeño). Si no se tiene en cuenta, el diseño se ensucia y distorsiona rápidamente. Hay que replantearse el diseño y hacer los cambios necesarios para que todo encaje, pero *ahora*, no luego. No hablamos de rediseñar la aplicación entera, muy malo tendría que ser el diseño si eso ocurre, hablamos de "refactorizar":http://en.wikipedia.org/wiki/Code_refactoring. Resumiendo: añade y *refactoriza*. Sí, esto suena a "TDD":http://en.wikipedia.org/wiki/Test-driven_development, verdad? En efecto, el ciclo es:
+
+* Escribe el ejemplo (la prueba),
+* Añade o cambia lo *mínimo* necesario para que la prueba funcione y
+* Refactoriza.
+
+Vale, lo admito, todo esto era una treta para llegar a TDD, se tenía que descubrir tarde o temprano... Pero lo que pretendo es demostrar que TDD no es un método para escribir pruebas, es mucho más. TDD es *una forma razonable y realista de hacer software* (la más lógica para mi hasta el momento).
+
+La mayoría de los principios de programación y diseño encajan perfectamente con TDD, porque TDD ha sido la consecuencia inevitable de entender y aplicar la naturaleza del proceso de fabricación de software. En otros posts volveré con esto, pero os dejo un libro útil para empezar (y en español):
+
+* "Diseño ágil con TDD":http://<a href="http://www.dirigidoportests.com/el-libro">www.dirigidoportests.com/el-libro</a>
+
+La segunda parte del libro es el desarrollo de un ejemplo _realista_, puesto que los autores pretenden demostrar (o eso me parece a mi) que TDD funciona realmente y no es solo palabrería barata (tan común en _ingsoft_). Si eres de los escépticos (normal al empezar) está bien, pero en cuanto entiendas la dinámica de TDD te puede resultar pesadito. La primera parte está muy bien en cualquier caso y aconsejo su lectura, no hace falta leerla dos veces como dice el autor ;-) aunque ciertamente yo ya era un convencido de las pruebas (por el camino difícil, es decir, «innovando» en lugar de copiar) antes de acercarme a este libro.
+
+<center>
+MENOS ES MÁS
+LA CREATIVIDAD ES LA ESCLAVITUD
+LA EXPERIENCIA ES LA FUERZA
+</center>
+
+</p>
+</p>

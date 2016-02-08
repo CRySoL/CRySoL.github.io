@@ -1,0 +1,139 @@
+---
+migrated: node/637
+layout: post
+title: 'Cintas de backup y cargadores: mt y mtx'
+created: 1176055302
+author: int-0
+category: recipe
+tags:
+- security
+- Arco
+---
+<blockquote>Tal vez, antes de hablar en recetas anteriores de <em>bacula</em> hubiese sido conveniente hablar sobre el manejo de cintas de backup <em>a pelo</em>. Esto nos puede ser útil en caso de querer almacenar datos en cinta de forma esporádica o para limpieza de las mismas... o simplemente por saber un poco cómo funciona esto de las cintas SCSI.</blockquote>
+
+<!--break-->
+
+
+
+<h1>Cargadores</h1>
+Primero vamos a hablar un poco de los cargadores de cintas. En el caso de que contemos con una unidad de backup que lleve integrado el cargador (como por ejemplo una HP-DDS4) hemos de saber que controlaremos toda la unidad mediante dos dispositivos lógicos.
+<blockquote>Para su funcionamiento en <em>linux</em> debéis saber que se debe activar en la BIOS de la controladora SCSI la posibilidad de contar con dos dispositivos SCSI con el mismo ID. Esto no se soportó correctamente en linux hasta la versión 2.6.18.</blockquote>
+
+<!--break-->
+
+
+
+Nos referiremos al cargador mediante <tt>/dev/sg*</tt> y a la cinta cargada con <tt>/dev/st*</tt> o <tt>/dev/nst*</tt>. Con una configuración correcta en <tt>udev</tt> se nos creará <tt>/dev/changer</tt> como enlace a <tt>/dev/sg*</tt>. Nosotros vamos a suponer que sólo tenemos un cargador de cintas y una unidad de cinta (todo ello puede o no estar en el mismo dispositivo físico). Por tanto tendremos nuestro cargador en <tt>/dev/sg0</tt> y la unidad de cinta será <tt>/dev/st0</tt> y <tt>/dev/nst0</tt>.
+
+El cargador lo usaremos mediante el comando <tt>mtx</tt>, básicamente las únicas operaciones que necesitamos realizar son:
+<ul><li>Cargar una cinta del <em>slot</em> n:
+
+<div class="console">
+{% highlight console %}
+$ mtx -f /dev/sg0 load n
+{% endhighlight %}
+</div></li>
+<li>Extraer una cinta cargada (descargar):
+
+<div class="console">
+{% highlight console %}
+$ mtx -f /dev/sg0 unload
+{% endhighlight %}
+</div></li>
+<li>Extraer el carro de cintas:
+
+<div class="console">
+{% highlight console %}
+$ mtx -f /dev/sg0 eject
+{% endhighlight %}
+</div></li></ul>
+
+En el ejemplo hemos empleado el usuario <em>root</em>, no es necesario, basta usar un usuario con privilegios de escritura en <tt>/dev/sg*</tt> (típicamente los pertenecientes al grupo <em>tape</em>).
+
+<h1>Cintas</h1>
+Todos estos comandos, sólo funcionarán si hay una cinta cargada en la unidad (independientemente de que en el carrusel de cintas haya o no, puesto que la unidad NO se autocarga) y afectan únicamente a la cinta cargada (evidentemente).
+
+Habréis observado que para el acceso a la cinta disponemos de dos dispositivos lógicos: <tt>/dev/nst0</tt> y <tt>/dev/st0</tt>. Los dos se usan de igual manera, la diferencia es que después de usar <tt>st0</tt> la cinta se rebobinará automáticamente. En cambio, si usamos <tt>nst0</tt> la cinta se quedará donde se haya terminado la última operación.
+
+Primero vamos a ver si la unidad de cinta está lista:
+
+<div class="console">
+{% highlight console %}
+ $ mt -f /dev/st0 status
+{% endhighlight %}
+</div>
+
+Con este comando, además, habremos rebobinado la cinta, ahora podemos guardar nuestro <em>home</em>, por ejemplo:
+
+<div class="console">
+{% highlight console %}
+ $ tar cvf /dev/st0 ~/
+{% endhighlight %}
+</div>
+
+Como sabréis, <em>tar</em> originalmente se usaba para almacenar y recuperar datos de dispositivos secuenciales (Tape ARchive). Si ahora queremos listar el contenido de la cinta:
+
+<div class="console">
+{% highlight console %}
+ $ tar tvf /dev/st0
+{% endhighlight %}
+</div>
+
+Recordad que al usar <tt>st0</tt> estamos rebobinando siempre la cinta, por eso hemos almacenado nuestro <em>home</em> al principio de la misma y a la hora de listarlo, también estábamos al principio. Para recuperar nuestros archivos:
+
+<div class="console">
+{% highlight console %}
+$ tar xvf /dev/st0
+{% endhighlight %}
+</div>
+
+Ahora imaginad que vamos a almacenar nuestro <em>home</em> y el de <em>root</em>:
+
+<div class="console">
+{% highlight console %}
+$ tar cvf  /dev/nst0 ~/
+$ tar cvf /dev/nst0 /root/
+{% endhighlight %}
+</div>
+
+Ahora usamos <tt>nst0</tt> para no sobreescribir los archivos. Vamos a rebobinar la cinta del todo:
+
+<div class="console">
+{% highlight console %}
+$ mt -f /dev/st0 rewind
+{% endhighlight %}
+</div>
+
+Si ahora sólo queremos recuperar el directorio del <em>root</em> tendremos que recuperar primero nuestro <em>home</em>, pero si no queremos podemos saltárnoslo. Cuando se efectúa una operación de escritura en la cinta, se graba después una marca <em>record</em>. Podemos pasar la cinta hasta el primer <em>record</em> (con lo que nos saltaremos nuestro <em>home</em>):
+
+<div class="console">
+{% highlight console %}
+$ mt -f /dev/nst0 fsf 1
+{% endhighlight %}
+</div>
+
+Y ya podemos recuperar el <em>home</em> del <em>root</em> como antes:
+
+<div class="console">
+{% highlight console %}
+$ tar xvf /dev/nst0
+{% endhighlight %}
+</div>
+
+Finalmente, si queremos borrar <b>completamente</b> una cinta (escribir ceros en toda ella):
+
+<div class="console">
+{% highlight console %}
+$ mt -f /dev/st0 erase
+{% endhighlight %}
+</div>
+
+Esta operación tarda algunas horas, dependiendo del tamaño de las cintas.
+
+<h1>Enlaces</h1>
+<ul><li>Página del manual de <em>mt</em> y <em>mtx</em></li>
+<li><a href="http://nic.phys.ethz.ch/readme/80">How to use your Tapedrive</a></li></ul>
+
+
+
+

@@ -1,0 +1,100 @@
+---
+migrated: node/911
+layout: post
+title: GladeWrapper, o cómo hacer una aplicación GTK con Python en 7 líneas
+created: 1208987690
+author: david_villa
+category: recipe
+tags:
+- Python
+- gtk
+---
+bq(head). Esta receta explica cómo usar la clase GladeWrapper para hacer programas PyGTK + glade del modo más sencillo jamás visto.
+
+
+<!--break-->
+
+
+h2. Introducción
+
+La clase GladeWrapper que propongo aquí es una forma de simplificar la carga y acceso de widgets GTK con glade. No es la única ni la primera pero creo que es lo suficientemente potente a la vez que sencilla comparada con otras implementaciones similares. 
+
+h2. Ingredientes
+
+* python-gtk2
+* glade-3
+* "Conocimientos básicos de Python":/node/43
+
+
+h2. La clase GladeWrapper
+
+Se trata de una clase abstracta, es decir, no está pensada para ser instanciada sino para heredar de ella. La clase en cuestión es ésta:
+
+"gladeutil.py":https://arco.inf-cr.uclm.es/svn/public/samples/pygtk/gladeutil/gladeutil.py
+
+<div>
+{% highlight python %}
+class Wrapper(object):
+
+    def __init__(self, glade_file, root_widget=None):
+        self.glade = gtk.glade.XML(glade_file, root_widget)
+        self.glade.signal_autoconnect(self)
+        self.get_widget = self.glade.get_widget
+
+    def __getattr__(self, key):
+        try:
+            return object.__getattribute__(self, key)
+        except AttributeError, e:
+            if not key.startswith("wg_"): raise
+
+            if not hasattr(self, 'glade'):
+                raise AttributeError("You must call gladeutil.Wrapper.__init__() in your derived class")
+
+            ret = self.glade.get_widget(key[3:])
+            if ret is None:
+                raise AttributeError, "'%s' has no widget '%s'" % (self.__class__.__name__, key[3:])
+
+            setattr(self, key, ret)
+            return ret
+{% endhighlight %}
+</div>
+
+
+Al sobreescribir el método @__getattr__()@ se puede referenciar un widget como si fuera un atributo del objeto que implemente esta clase. A pesar de eso, dispone de un método @get_widget()@ por si fuera necesario acceder a un widget del que se tiene su nombre como cadena, aunque eso no es lo habitual. 
+
+También notar que para acceder a un widget hay que poner "wg_" antes del nombre que le hayas dado en el .glade, Eso simplifica las cosas porque, de otro modo, al escribir mal el nombre de un atributo del objeto, el gladewrapper "pensaría" que te refieres a un widget; además es habitual usar atributos que se llaman igual que los widgets con los que tienen relación.
+
+
+h2. Ejemplo de uso
+
+Para entender realmente la utilidad de esta clase lo más fácil es ver un ejemplo. El siguiente programa necesita el fichero "gui.glade":https://arco.esi.uclm.es/svn/public/samples/pygtk/gladeutil/gui.glade (creado con "glade") para poder funcionar. Claramente la aplicación es totalmente trivial, es un típico "holamundo" que imprime un texto en una etiqueta al pulsar el botón.
+
+"wrapper_sample1.py":https://arco.inf-cr.uclm.es/svn/public/samples/pygtk/gladeutil/wrapper_sample1.py
+
+<div>
+{% highlight python %}
+import gtk, gladeutil
+
+class Application(gladeutil.Wrapper):
+    quit = gtk.main_quit
+
+    def on_button_clicked(self, button):
+        self.wg_entry.set_text('Minimal sample!')
+
+app = Application('gui.glade')
+gtk.main()
+{% endhighlight %}
+</div>
+
+
+
+Si alguien sabe cómo hacerlo más fácil que lo diga, por favor; a mí no se me ocurre...
+
+
+h2. Referencias
+
+* <a href="http://www.pygtk.org">http://www.pygtk.org</a>
+* <a href="http://glade.gnome.org/">http://glade.gnome.org/</a>
+
+* <a href="http://www.pixelbeat.org/libs/libglade.py">http://www.pixelbeat.org/libs/libglade.py</a>
+* <a href="http://www.daa.com.au/pipermail/pygtk/2004-July/008278.html">http://www.daa.com.au/pipermail/pygtk/2004-July/008278.html</a>

@@ -1,0 +1,37 @@
+---
+migrated: node/1528
+layout: post
+title: Pequeño FAQ de Mailman
+created: 1278154273
+author: david_villa
+category: recipe
+---
+h2. Cambiar la URL del servidor
+
+<!--break-->
+
+
+roperly configure your add_virtualhost directives in mm_cfg.py. E.g.
+
+
+<div>
+{% highlight text %}
+add_virtual_host(mailman.yyy.com, xxx.com)
+{% endhighlight %}
+</div>
+
+Then when you run
+
+
+<div class="console">
+{% highlight console %}
+
+bin/withlist -l -r fix_url <listname> -u mailman.yyy.com
+{% endhighlight %}
+</div>
+
+it will set the host in web_page_url to mailman.yyy.com and host_name
+to xxx.com.
+
+* <a href="http://www.mail-archive.com/mailman-users@python.org/msg47341.html">http://www.mail-archive.com/mailman-users@python.org/msg47341.html</a>
+* <a href="http://wiki.list.org/pages/viewpage.action?pageId=4030592">http://wiki.list.org/pages/viewpage.action?pageId=4030592</a>

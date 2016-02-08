@@ -1,0 +1,18 @@
+---
+migrated: node/256
+layout: post
+title: Redimensionar una partición con Gparted Live CD
+created: 1142075688
+author: aledelgal
+category: recipe
+---
+Bueno, esto más que una receta es una mini-receta.
+
+<!--break-->
+
+Lo único que tenéis que hacer es bajaros el "gparted-live-cd":http://sourceforge.net/project/showfiles.php?group_id=115843&package_id=173828
+Grabáis la ISO en un cd y arrancáis el pc con el cd dentro.
+Una vez que arranca gparted modificáis el tamaño de la partición que queráis.
+Ya sé que habrá otras formas mucho mejores, pero yo de momento sólo se ésta.
+Un saludo
+Si alguien sabe otra mejor que la ponga aquí por si acaso esto le da problemas a alguien.

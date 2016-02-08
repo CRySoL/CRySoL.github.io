@@ -1,0 +1,29 @@
+---
+migrated: node/829
+layout: post
+title: Configuración básica para jed
+created: 1199392497
+author: david_villa
+category: recipe
+---
+El siguiente fichero <tt>.jedrc</tt> resuelve dos cosas que suelen ser bastante latazo en JED:
+
+<!--break-->
+
+
+* Modifica la "columna" en que JED divide (trunk) las líneas automáticamente, de forma que lo hará sólo si la línea tiene 100 caracteres o más, en lugar de 72 que es el valor por defecto.
+* Permite usar las teclas "Inicio" y "Fin" para ir al principio y fin de línea.
+
+
+Fichero ~/.jedrc
+
+
+<div>
+{% highlight text %}
+() = evalfile("emacs");
+WRAP = 100;
+
+setkey ("bol", "^[OH");
+setkey ("eol", "^[OF");
+{% endhighlight %}
+</div>

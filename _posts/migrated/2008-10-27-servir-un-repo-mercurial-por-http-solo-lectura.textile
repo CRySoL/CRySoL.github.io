@@ -1,0 +1,58 @@
+---
+migrated: node/1035
+layout: post
+title: Servir un repo mercurial por http (solo lectura)
+created: 1225108691
+author: oscarah
+category: recipe
+tags:
+- mercurial
+- VCS
+- Arco
+---
+El objetivo es simple, pero útil. Tenemos un repositorio de mercurial (hg), al que accedemos por SSH. Queremos compartirlo con el mundo, pero no queremos abrirle cuanta ssh al mundo en nuestro servidor. ¿Solución? Compartirlo por HTTP.
+
+
+<!--break-->
+
+
+h2. Ingredientes
+
+* El repo de mercurial
+* Un servidor Web
+
+Suponemos que tenemos un repositorio de mercurial clonado en /home/user/repo. Y que tenemos instalado el servidor web que vayamos a usar. Además, en este caso, no usamos un CGI, sino que nos aprovechamos de las capacidades de Indexado del servidor Web. Si quieres tirar de CGI, en [2] tienes lo que buscas.
+
+h2. Con thttp
+
+En este caso es muy sencillo:
+
+
+<div class="console">
+{% highlight console %}
+box:/home/user/repo# thttpd -D -d .
+{% endhighlight %}
+</div>
+
+¡Así de fácil! Es decir, simplemente hacemos que el servidor Web encuentre los ficheros y listo. Ahora solo te queda jugar con las opciones del servidor Web. Por ejemplo, si quitas el '-D', el proceso se lanza como demonio. Es posible configurarlo para que arranque al inicio y tal... pero no quisiera yo quitarte la diversión de experimentar.
+
+h2. Con Apache
+
+Pues lo mismo ;-)
+
+h2. Descargarse el repo
+
+También muy sencillo, usando url's del tipo _static-http://maquina/recurso_, con el 'clone' de toda la vida:
+
+
+<div class="console">
+{% highlight console %}
+$ hg clone static-http://maquina/recurso
+{% endhighlight %}
+</div>
+
+h2. Referencias
+
+# <a href="http://www.selenic.com/mercurial/wiki/index.cgi/StaticHTTP">http://www.selenic.com/mercurial/wiki/index.cgi/StaticHTTP</a> 
+# <a href="http://www.selenic.com/mercurial/wiki/index.cgi/CGIinstall">http://www.selenic.com/mercurial/wiki/index.cgi/CGIinstall</a>
+# <a href="http://www.selenic.com/mercurial/wiki/index.cgi/HgWebDirStepByStep">http://www.selenic.com/mercurial/wiki/index.cgi/HgWebDirStepByStep</a>

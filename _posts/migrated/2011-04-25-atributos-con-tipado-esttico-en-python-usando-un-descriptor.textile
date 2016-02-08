@@ -1,0 +1,93 @@
+---
+migrated: node/1500
+layout: post
+title: Atributos con tipado estático en Python (usando un descriptor)
+created: 1303767336
+author: david_villa
+category: recipe
+tags:
+- Python
+---
+En esta receta voy a contar cómo utilizar los «descriptores» de Python para poder crear atributos (variables de instancia) que no puedan cambiar de tipo durante la vida del objeto. Por supuesto, también es una excusa para aprender algo sobre los descriptores en sí.
+
+
+<!--break-->
+
+
+h2. Requisitos 
+
+* Python >= 2.2 (se necesitan clases del «nuevo estilo», las que heredan de @object@).
+* Conocimientos precisos sobre los mecanismos de introspección de Python.
+
+h2. Descriptores
+
+Los descriptores de Python son clases que implementan un «protocolo» concreto, es decir, una serie de métodos. A saber:
+
+
+
+<div>
+{% highlight python %}
+__get__(self, obj, type=None)
+__set__(self, obj, value)
+__delete__(self, obj)
+{% endhighlight %}
+</div>
+
+
+Aunque esto parezca bastante extraño, lo cierto es que los descriptores se usan en la mayoría de componentes del lenguaje: funciones, métodos estáticos y de clase, properties y muchas otras cosas. La "Descriptor HowTo Guide":http://docs.python.org/howto/descriptor.html define el descriptor como «un atributo de objeto con comportamiento asociado», y eso es porque es posible añadir código que se ejecutar cuando se pida (get), se asigne (set) o se destruya un atributo creado con un descriptor.
+
+Se distingue entre «data descriptors» si definen @__get__@ y @__set__@ y «non-data descriptors» si solo definen el @__get__@. Esta diferencia afecta al comportamiento del descriptor en lo referente al método @__get__@ aunque ambos lo tienen. No voy a entrar más en detalle sobre esto porque aquí vamos a hacer un «data descriptor».
+
+h2. Tipado estático
+
+Nuestro descriptor nos va a permitir definir el tipo de un atributo al declarar la clase. No será posible cambiar el tipo del atributo operando con las instancias de la clase, aunque sí el valor. El descriptor sería algo como:
+
+
+
+<div>
+{% highlight python %}
+class TypedAttr(object):
+    def __init__(self, name, cls):
+        self.name = name
+        self.cls = cls
+
+    def __get__(self, obj, objtype):
+        if (obj is None):
+            raise AttributeError
+
+        try:
+            return obj.__dict__[self.name]
+        except KeyError:
+            raise AttributeError
+
+    def __set__(self, obj, val):
+        if not isinstance(val, self.cls):
+            raise TypeError("'%s' given but '%s' expected" % (val.__class__.__name__, self.cls.__name__))
+
+        obj.__dict__[self.name] = val
+{% endhighlight %}
+</div>
+
+
+Y se usa de este modo:
+
+
+<div>
+{% highlight python %}
+>>> class A(object):
+...     a = TypedAttr('__a', str)
+>>>
+>>> a1 = A()
+>>> a1.a = 'hi'
+>>> 
+>>> a1.a = 3
+>>> TypeError: 'int' given but 'str' expected
+{% endhighlight %}
+</div>
+
+Puedes encontrar este descriptor en la última versión del paquete "python-pyarco":https://arco.esi.uclm.es/svn/public/prj/atheist/pyarco/Type.py
+
+h2. Referencias
+
+* "Python: Typed attributes using descriptors ":http://kbyanc.blogspot.com/2007/08/python-typed-attributes-using.html
+* "Python: Decorator Classes On The Edge":http://<a href="http://www.outofwhatbox.com/blog/2010/07/python-decorator-classes-on-the-edge/">www.outofwhatbox.com/blog/2010/07/python-decorator-classes-on-the-edge/</a>
