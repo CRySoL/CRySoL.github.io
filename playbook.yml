@@ -1,0 +1,22 @@
+#!/usr/local/bin/ansible-playbook
+---
+- hosts: localhost
+  become: yes
+
+  tasks:
+  - apt: name=bash update_cache=yes
+  - apt: name=ruby2.1-dev
+  - apt: name=ruby-redcloth
+  - apt: name=git
+  - apt: name=gem
+  - gem: name=jekyll version=2.5.3
+  - git: repo=https://github.com/CRySoL/drupal-import dest=/home/vagrant/
+
+
+#  - git: repo=https://github.com/CRySoL/web.source
+
+# git:https://github.com/CRySoL/drupal-import
+# git:https://github.com/CRySoL/web.source
+# deb:ruby-pygments.rb
+# gem:jekyll-gist
+# gem:jekyll-paginate
