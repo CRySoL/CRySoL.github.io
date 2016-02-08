@@ -1,4 +1,8 @@
 #!/usr/local/bin/ansible-playbook -v
+<<<<<<< HEAD
+
+=======
+>>>>>>> 6393ac703f8112c6ef44948fb6ff931cf45712e3
 ---
 - hosts: localhost
   become: yes
