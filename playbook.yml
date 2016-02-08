@@ -1,4 +1,5 @@
-#!/usr/local/bin/ansible-playbook -v --
+#!/usr/local/bin/ansible-playbook -v
+
 ---
 - hosts: localhost
   become: yes
