@@ -1,0 +1,9 @@
+deb:ruby2-1-dev
+deb:ruby-redcloth
+deb:git
+gem:jekyll
+git:https://github.com/CRySoL/drupal-import
+git:https://github.com/CRySoL/web.source
+deb:ruby-pygments.rb
+gem:jekyll-gist
+gem:jekyll-paginate

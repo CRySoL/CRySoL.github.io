@@ -4,5 +4,5 @@
 set -e
 
 if [ ! -e _site ]; then
-    git clone https://github.com/CRySoL/CRySoL.github.io
+    git clone https://github.com/CRySoL/CRySoL.github.io _site
 fi
