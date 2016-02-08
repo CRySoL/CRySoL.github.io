@@ -1,0 +1,28 @@
+---
+migrated: node/1220
+layout: post
+title: Configurar paneles de Gnome con doble monitor
+created: 1252580272
+author: Lk2
+category: recipe
+tags:
+- gnome
+---
+Hoy, al configurar mi "layout" de escritorio en un PC con doble monitor, he descubierto algo desagradable: la configuración de paneles gráfica que proporciona Gnome (en su versión de Debian Sid) no permite seleccionar en que monitor aparece el panel. Esto hace imposible colocar  paneles en el monitor secundario.
+
+
+<!--break-->
+
+
+En esta receta pretendo explicar como solucionarlo usando *gconf*.
+
+Lo primero de todo debes crear el panel. Para ello, sobre un panel de los existentes pulsa el botón derecho del ratón y selecciona "Panel nuevo".
+
+Por defecto Gnome te lo añade en el primer hueco libre que encuentra, que por defecto suele ser o a la derecha o a la izquierda. Si abres la configuración del panel usando la entrada "Propiedades" del botón derecho podrás configurar si a que lado quieres el panel, su grosor y su apariencia, pero en ningún sitio podrás configurar que aparezca en tu otro monitor.
+
+Para solucionarlo recurre a *gconf* desde su interfaz gráfica *gconf-editor*.
+
+* Abre *gconf-editor*
+* Desplegar, en el menú de la izquierda, "_apps_" -> "_panel_" -> "_toplevels_" -> _nombre de tu panel_
+
+En la parte derecha aparecerán las propiedades del panel seleccionado. Una de ellas se llama monitor y, por regla general, tiene el valor *0*. Cambialo a *1* y tu panel cambiará de lado automáticamente.

@@ -1,0 +1,130 @@
+---
+migrated: node/835
+layout: post
+title: 'Traceando código C en los AVR "in circuit": avarice'
+created: 1200060109
+author: javieralso
+category: recipe
+tags:
+- embedded
+---
+<blockquote>Cómo tracear un programa en C para AVR en GNU/Linux con <b>avarice</b> "in circuit"</blockquote>
+
+
+<h2>Introducción</h2>
+
+Bueno, como lo prometido es deuda he conseguido tracear un programa escrito en C para un ATMEGA128 en la propia placa de desarrollo utilizando solamente software libre. Aquí explicaré como lo he hecho y además, como extensión a la receta anterior sobre <a href="http://crysol.org/node/833">simulación de código para AVR</a> explicaré como depurar con la herramienta libre <tt>ddd</tt>, que es básicamente un <em>front-end</em> para <tt><a href="node/313">gdb</a></tt> muy fácil y cómodo de utilizar.
+Así pues, sin mas preámbulos ¡¡¡¡Al turrónnnnn!!!! :-P
+
+<h2>Preparando el terreno</h2>
+
+Bueno, para nuestros propósitos neceistaremos un <a href="http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2737"><em>AVR JTAG ICE</em></a>. Se trata de un programador/emulador para <em>AVR</em> y soporta muchísimos de los micros de ésta familia.
+
+En lo referente al software, utilizaremos <a href="http://avarice.sourceforge.net/">avarice</a> que no es ni mas ni menos que nuestro interface con el JTAG. También haremos uso del ya conocido <tt>avr-gdb</tt> y de <a href="http://www.gnu.org/software/ddd/">ddd</a> como front-end de <tt>avr-gdb</tt>.
+
+Bueno, pues suponiendo que seguisteis con atención la receta anterior en la que hablé de cómo simular los <em>AVR</em>, tan solo tendremos que instalar <tt>ddd</tt> y <tt>avarice</tt> en nuestra máquina para empezar...
+
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~$ sudo apt-get install avarice ddd
+
+{% endhighlight %}
+</div>
+
+<h2>Compilación del código a simular</h2>
+
+Bueno, para la compilación del código necesitamos exactamente las mismas opciones que para la simulación. De hecho, el proceso es el mismo, ya que en ambos casos usamos <em>avr-gdb</em>. La única diferencia es que avarice no necesita para nada el archivo <em>.bin</em> que creamos. En su lugar utilizaremos el <em>.hex</em>, que será el que carguemos en el microcontrolador para tracear. Por lo tanto podemos seguir utilizando el <em>Makefile</em> de la receta anterior y supondré que, de hecho, estamos trabajando con el mismo proyecto.
+
+<h2>Simulando con <em>ddd</em></h2>
+
+Bueno, antes de empezar a tracear, voy a contar como utilizar <em>ddd</em> para simular. En realidad es muy sencillo. De hecho, hay que seguir exactamente todos los pasos de la receta anterior, salvo que en lugar de llamar a <em>avr-gdbtui</em>, se llama a <em>ddd</em> diciéndole que use por debajo a <em>avr-gdb</em>. Resumiendo, tenemos que hacer algo como esto:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~$ ddd --debugger avr-gdb -x comandos.gdb 
+
+{% endhighlight %}
+</div>
+
+¡¡Y ya ta!! Ale, a simular cosas chulas :-P
+
+<h2>Un poco de <em>avarice</em></h2>
+
+Antes de ponernos manos a la obra, explicaré un poco el uso de <em>avarice</em>. Bueno, <em>avarice</em> permite borrar, programar, cambiar los valores de los fusibles, leer el contenido de la memoria del chip, verificar el código del chip y, por supuesto, tracear. Para todo ello necesitaremos, como es de suponer, el JTAG antes mencionado.
+
+Si queremos hacer cosas como por ejemplo borrar un chip, haríamos lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~$ avarice -2 --erase  --jtag usb
+
+{% endhighlight %}
+</div>
+
+la opción <em>-2</em> se utiliza para decirle a <em>avarice</em> que estamos trabajando con el JTAG mkII, que es algo así como la segunda versión. <em>--jtag usb</em> indica que estamos utilizando la conexión USB del dispositivo. Si quisiéramos utilizar un puerto seríe, habría que sustituir <em>usb</em> por la ruta del archivo de dispositivo del puerto a utilizar.
+
+Para programar un micro:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~$ avarice -2 --erase --program --file archivo.hex --jtag usb
+
+{% endhighlight %}
+</div>
+
+Después de pasar la opción <em>--program</em>, tenemos que decir qué archivo queremos utilizar. Para se utiliza la opción <em>--file</em> seguida del archivo que queremos transferir.
+
+Si se utiliza la opción <em>--P</em> seguido de un modelo de micro podemos decirle a <em>avarice</em> que estaremos utilizando ése micro. Lo normal es que <em>avarice</em> sea capaz de leer la información de identificación del micro sin problemas.
+
+Siempre que queramos programar un micro, deberemos borrarlo antes de manera explícita, ya que el borrado no se hace de forma automática al iniciar la programación, como si pasa con otros entornos.
+
+
+<h2>Al meollo del asunto: TRACEANDO</h2>
+
+Ahora ha llegado la hora de la verdad. Con todo listo, nuestro JTAG conectado al usb del ordenador y a la tarjeta a tracear nos disponemos a empezar. La forma en que se ejecutan las aplicaciones es la misma que en la receta anterior. De hecho, para <em>avr-gdb</em>, <em>avarice</em> cumple exactamente el mismo papel que <em>simulavr</em> y lo ve de la misma manera.
+
+Lanzamos primero <em>avarice</em>, diciéndole que programe el micro si esque no lo habíamos hecho nosotros antes:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~$ avarice -2 --erase --program --file rs232toRS485.hex --jtag usb:1212
+
+{% endhighlight %}
+</div>
+
+Ésto es exactamenet lo que hicimos antes, pero con el añadido de que además, le hemos dicho que se quede escuchando conexiones entrantes por el puerto 1212
+
+Ahora tenemos que lanzar <em>ddd</em>, pero antes necesitamos un archivo de comandos para que los ejecute al comienzo. Éste archivo es casi igual que el de la receta anterior, solo que cambian un par de cosillas, así que lo pongo tal y como lo tengo yo:
+
+<pre>
+set debug remote 1
+file rs232toRS485.out
+target remote 192.168.0.19:1212
+break main
+continue
+</pre>
+
+Bueno, podemos ver que el archivo es casi igual. Solo se ha eliminado el <em>load</em>, que aquí lo que hacía era cargar el código del micro en el simulador, cosa que no nos interesaba. También activamos la simulación remota (<em>set debug remote 1</em>).
+
+Una vez hecho ésto, solo nos queda llamar al simulador:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~$ ddd --debugger avr-gdb -x comandos.gdb
+
+{% endhighlight %}
+</div>
+
+y ¡¡YA ESTÁ!! a partir de ahora, lo que hagamos en <em>ddd</em> se verá reflejado en nuestra placa de desarrollo. Podremos leer variables, asignarles otros valores, etc etc etc. Eso si, existen algunas limitaciones, como por ejemplo que solo podemos tener 3 breakpoints como mucho, pero vamos, menudencias ;-)
+
+Pues nada més. Espero que lo disfrutéis como lo estoy disfrutando yo y que os sea tan útil para vuestros proyectos como lo está siendo para mi ;-)
+
+h2. Referencias
+
+?

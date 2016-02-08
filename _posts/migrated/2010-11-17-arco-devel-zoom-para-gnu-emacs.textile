@@ -1,0 +1,33 @@
+---
+migrated: node/1433
+layout: post
+title: 'arco-devel: zoom para GNU Emacs'
+created: 1289956090
+author: david_villa
+category: recipe
+tags:
+- Arco
+- emacs
+---
+<blockquote class="warning">
+<b>ATENCIÓN:</b> Esta receta está OBSOLETA. Ver "emacs-pills":https://bitbucket.org/arco_group/emacs-pills
+</blockquote>
+
+<!--break-->
+
+
+
+La nueva versión del paquete <a href="/arco-devel"><tt>arco-devel</tt></a> (la 0.56-1) incluye keybindings para poder cambiar el tamaño de la fuente de forma similar a firefox u otros muchos programas: C-+, C--, C-rueda_del_ratón y C-0 para restaurar el tamaño por defecto. Para usarla, simplemente añade lo siguiente a tu @.emacs@:
+
+
+<div>
+{% highlight text %}
+(add-to-list 'load-path "/usr/share/arco-tools/emacs")
+(load "zoom.cfg")
+{% endhighlight %}
+</div>
+
+
+<!--break-->
+
+

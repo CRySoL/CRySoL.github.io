@@ -1,0 +1,28 @@
+---
+migrated: node/1371
+layout: post
+title: Procrastinación y el «mal de la computadora»
+created: 1278025574
+author: david_villa
+category: tale
+---
+El «centro de cálculo» del "proyecto Manhattan":http://es.wikipedia.org/wiki/Proyecto_Manhattan (probablemente el primero) era una sala con un montón de grandes máquinas de IBM. Pero no eran computadores (hablamos del año 1944), eran máquinas completamente mecánicas y procesaban bloques de tarjetas perforadas.
+
+
+<!--break-->
+
+
+Las había de 3 tipos: sumadoras, multiplicadoras y comparadoras. Un tal "Stanley Frankel":http://en.wikipedia.org/wiki/Stan_Frankel diseñó un ingenioso sistema. Se trataba de un guión en el que indicaba en qué momento concreto había que llevar las tarjetas desde la máquina sumadora a la multiplicadora y después al comparador. Esta fue probablemente una de las primeras veces en las que se pusieron en práctica los métodos numéricos.
+
+Después de algún tiempo, Frankel empezó a sufrir lo que "Richard Feynman":http://en.wikipedia.org/wiki/Richard_Feynman describe como el «mal de la computadora». La describe como una enfermedad seria que «interfiere o impide el trabajo» y que consiste en plantearse fantásticos retos que una computadora puede realizar de forma maravillosa, con el único y pequeño inconveniente de que el objetivo de estos retos es completamente innecesario y nadie ha solicitado nada remotamente parecido. Como resultado el propio Feynman tuvo que hacerse cargo del centro de cálculo. Por si alguien tiene curiosidad, este relato pertenece a un libro llamado "«Está usted de broma Sr. Feynman?»":http://es.wikipedia.org/wiki/%C2%BFEst%C3%A1_usted_de_broma,_Sr._Feynman%3F y que, por cierto,  os recomiendo.
+
+Cualquier apasionado de la programación de hoy día comprende perfectamente al pobre Frankel y habrá sufrido en mayor o menor medida esta forma de "procrastinación":http://es.wikipedia.org/wiki/Procrastinaci%C3%B3n. En la actualidad incluso existen filosofías de diseño de software ("YAGNI":http://es.wikipedia.org/wiki/No_vas_a_necesitarlo_%28YAGNI%29) que tratan de evitar el «mal de la computadora», algo mucho más antiguo de lo que la mayoría podría imaginar.
+
+<center>
+<img src="http://imgs.xkcd.com/comics/not_enough_work.png"/>
+<em> Fuente: "XKCD":http://xkcd.com/554/ </em>
+</center>
+
+<p/>
+
+También <a href="http://en.wikipedia.org/wiki/Feature_creep">http://en.wikipedia.org/wiki/Feature_creep</a>

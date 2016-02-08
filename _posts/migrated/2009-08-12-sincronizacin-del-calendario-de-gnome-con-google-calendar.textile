@@ -1,0 +1,35 @@
+---
+migrated: node/1212
+layout: post
+title: Sincronización del calendario de Gnome con Google Calendar
+created: 1250115529
+author: jalbusac
+category: recipe
+tags:
+- gnome
+- Oreto
+---
+Existe una forma muy sencilla de sincronizar el calendario de Gnome que aparece en la parte superior derecha del escritorio con los calendarios de Google Calendar.
+
+
+<!--break-->
+
+
+Para ello debemos seguir los siguientes pasos:
+
+1.- Pulsar sobre el enlace "Configuración" que aparece en la parte superior derecha en Google Calendar .
+2.- A continuación aparecen tres opciones: General, Calendarios, Configuración para móviles. Pulsamos Calendarios.
+3.- Seleccionar el calendario que queramos sincronizar.
+4.- Nos dirigimos a la última opción: "Dirección privada", ubicamos el puntero del ratón sombre el recuadro de color verde (ICAL), botón derecho y copiamos la dirección.
+5.- Escribimos en un terminal:
+
+
+<div class="console">
+{% highlight console %}
+$ /usr/lib/evolution-webcal/evolution-webcal URL
+{% endhighlight %}
+</div>
+
+donde URL es la dirección que hemos copiado en el paso 4. 
+
+El proceso anterior se puede repetir varias veces, en el caso de disponer de varios calendarios en google. Finalmente, si pulsamos la fecha y hora situada en la parte superior derecha veremos como el calendario de gnome se sincroniza perfectamente con nuestro/os calendarios creados en google.

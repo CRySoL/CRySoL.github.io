@@ -1,0 +1,38 @@
+---
+migrated: node/599
+layout: post
+title: Búsqueda Recursiva con Python
+created: 1173119726
+author: nachxs
+category: script
+---
+Este es un pequeño script que hice para realizar una busqueda de archivos de forma recursiva, A pedido de un compañero  8) , Espero les sirva.
+
+<!--break-->
+
+
+<pre>
+import os
+
+def search(path,file_name):
+    try:
+      files = os.listdir(path)
+      trunk = 0
+    except OSError:
+      print "Access Denied: " + path
+      trunk = 1
+
+    if trunk == 0:
+      for f in files:
+        bool = os.path.isdir(path + f)
+        if bool == True:
+          search(path + f + '/',file_name)
+        else:
+          if file_name == f:
+            print 'Found : ' + path + f
+
+if __name__ == '__main__':
+    path = raw_input("Directorio de búsqueda: ")
+    file = raw_input("Archivo a buscar: ")
+    search(path,file) 
+</pre>

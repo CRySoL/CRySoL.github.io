@@ -1,0 +1,82 @@
+---
+migrated: node/67
+layout: post
+title: Instalar programas con STOW
+created: 1130249656
+author: david_villa
+category: recipe
+---
+<blockquote>Cómo utilizar el gestor de instalación de paquetes <b>GNU stow</b></blockquote>
+
+<h2>Introducción</h2>
+<b>stow</b> es una pequeña herramienta que sirve para instalar paquetes (normalmente a partir de sus fuentes). Permite que los binarios, ficheros de cabecera y de ayuda del paquete estén accesibles; pero teniendo controlado dónde va a parar cada fichero, de modo que la desistalación elimina TODO lo instalado. En cualquier caso, siempre es preferible utilizar el sistema de paquetes de la distribución (deb, rpm,) pues suele permitir un mejor control del sistema.
+
+<h2>Instalación de stow</h2>
+
+Suele estar disponible como paquete en las distribuiciones de GNU/Linux más extendidas. En Debian GNU/Linux y distribuciones derivadas (como Ubuntu) es tan fácil como:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install stow
+{% endhighlight %}
+</div>
+
+<h2>Instalación de un paquete usando stow</h2>
+
+Supongamos que vas a instalar un paquete a partir de sus fuentes, por ejemplo, <tt>gnome-commander-1.1.5.tar.gz</tt>. Primero se descomprime:
+
+
+<div class="console">
+{% highlight console %}
+
+$ unp gnome-commander-1.1.5.tar.gz
+$ cd gnome-commander-1.1.5/<br/>
+{% endhighlight %}
+</div>
+
+A continuación "configuramos" el sistema de compilación. Con <tt>prefix</tt> se indica a <tt>configure</tt> el directorio en el que se va a instalar el programa. Lo más aconsejable es utilizar un subdirectorio que cuelgue de <tt>/usr/local/stow</tt> es un buen sitio.  Si ese directorio no hay que crearlo. El grupo propietario del directorio <tt>stow</tt> debería ser <tt>staff</tt>. Resulte este punto puedes proceder:
+
+
+<div class="console">
+{% highlight console %}
+
+$ ./configure --prefix=/usr/local/stow/gnome-commander
+$ make
+$ make install
+{% endhighlight %}
+</div>
+
+Con esto, los binarios quedan instalados en el directorio indicado. Sin embargo, esos directorios no están en el PATH y el programa no se puede invocar a menos que se indique la ruta completa. Aquí es donde entra en juego <b>stow</b>.
+
+Una vez instalado hacemos lo siguiente. Es importante cambiar al directorio <tt>/usr/local/stow</tt> o de lo contrario habría que indicar las rutas explícitamente.
+
+
+<div class="console">
+{% highlight console %}
+/usr/local/stow$ stow gnome-commander
+{% endhighlight %}
+</div>
+
+<b>stow</b> crea enlaces a los ficheros de modo que son accesibles desde <tt>/usr/local/bin</tt>, <tt>/usr/local/lib</tt>, etc.
+
+Para poder hacer esto hay que ser <tt>root</tt>, o mejor, hacer que tu usuario pertenezca al grupo <tt>staff</tt> (el propietario del directorio).
+
+<h2>Des-intalar un paquete gestionado con <b>stow</b></h2>
+
+Si quieres que <b>stow</b> elimine los enlaces que creó para un paquete concreto simplemente ejecuta:
+
+<div class="console">
+{% highlight console %}
+/usr/local/stow$ stow -D gnome-commander
+{% endhighlight %}
+</div>
+
+Después de esto puedes borrar el directorio <tt>/usr/local/stow/gnome-commander</tt> sin problema, y todo habrá quedado tan limpito como antes de instalarlo.
+
+<h2>Referencias</h2>
+<ul>
+  <li>
+    <a href="http://www.gnu.org/software/stow/stow.html">GNU Stow</a>
+  </li>
+</ul>

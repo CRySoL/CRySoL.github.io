@@ -1,0 +1,141 @@
+---
+migrated: node/1355
+layout: post
+title: 'Proxy SOCKS con SSH: más fácil imposible'
+created: 1272988274
+author: david_villa
+category: recipe
+tags:
+- networking
+---
+Pequeña receta para montar un proxy SOCKS en tu PC para salir a internet a través de un túnel SSH.
+
+
+<!--break-->
+
+
+h2. Ingredientes
+
+* openssh
+* autossh
+* netcat-openbsd
+* tsocks
+
+h2. ¿Para qué quiero yo esto?
+
+Buena pregunta. Pues sin entrar en detalles «podríamos decir» que un "proxy SOCKS":http://es.wikipedia.org/wiki/SOCKS es una buena forma de salir a Internet por un solo puerto aunque uses distintas aplicaciones y protocolos: web, jabber, FTP,... 
+
+h2. ¿Por qué querría yo hacer algo tan raro?
+
+Pues eso es lo bueno, que tú no quieres. Pero a veces tu empresa, instituto, universidad, el Partido, etc. decide que si te concede la gracia de darte acceso al puerto 80 (y si acaso al 443) ya tienes bastante ¿«pa» qué más?
+
+Así que, si tienes una máquina fuera (en tu casa por ejemplo) puedes utilizarla como proxy hacia Internet.
+
+h2. Configuración del proxy SOCKS (en el PC de casa)
+
+Lo único que necesitas es una computadora al otro lado del firewall (en tu casa) con un servidor SSH no demasiado viejo que esté configurado para escuchar en el puerto 443, 80 o alguno de los que te permita acceder el firewall fascista de tu empresa. Algunos incluso te permiten usar el 21 (FTP). Llamaremos a esa máquina: micasa.example.net.
+
+h2. Abriendo el túnel (desde el PC del trabajo)
+
+También necesitas SSH. Ejecuta lo siguiente en una consola:
+
+
+<div class="console">
+{% highlight console %}
+
+$ ssh -N -D localhost:1080 micasa.example.net -p 443
+{% endhighlight %}
+</div>
+
+Si no tienes configurada una "clave pública":http://crysol.org/node/6 para acceder a esa máquina (algo que te recomiendo) te pedirá la clave. Si todo va bien se quedará ahí haciendo su trabajo como buen túnel que es. No cierres esa consola. 1080 es el puerto estándar para SOCKS pero puedes usar otro si quieres.
+
+h2. Configurando las aplicaciones
+
+Muchas aplicaciones de red (aunque no todas) tienen la posibilidad de utilizar un proxy. La ventana en cuestión tendrá una pinta similar a la siguiente. Esta concretamente es la de Firefox 3.5 y la puedes encontrar en Edit->Preferences->Advanced->Network->Settings:
+
+<center>
+<img width="320" src="/files/1355_proxy.png"/>
+</center>
+
+Debes editarlo para que quede como en la figura, que corresponde con los datos de la consola de antes.
+
+Y ya está, ahora todas las conexión que haga el navegador se las pedirá al servidor SSH de tu casa (que actúa de proxy SOCKS).
+
+En lugar de hacer esto en cada aplicación, tienes la posibilidad de configurar el proxy globalmente y decir a las aplicaciones que usen la configuración del sistema. Por ejemplo en GNOME 2.30 se hace en System->Preferences->Network Proxy.
+
+h2. Doctor, el túnel se me cae
+
+Pues sí, los túneles tienen la mala costumbre de caerse y dejarte tirado si se rompe la conexión. Pero hay solución, se llama @autossh@ (es paquete Debian). Y para usarlo simplemente ejecuta el comando de antes, cambiando @ssh@ por @autossh@:
+
+
+<div class="console">
+{% highlight console %}
+
+$ autossh -N -D localhost:1080 micasa.example.net -p 443
+{% endhighlight %}
+</div>
+
+En este casi si que es casi obligado usar la clave pública porque si no, cuando intente recuperar el túnel, va a pedir la clave y la gracia de autossh (que es automático) no servirá de mucho.
+
+h2. ¿Y qué pasa con SSH?
+
+Es decir, ¿cómo puedes conectar por SSH con una máquina remota? Pues hay que hacer que el tráfico de la conexión SSH pase también a través del túnel, esto es lo que se llama «socksificar» un cliente. Es fácil socksificar el cliente SSH gracias a la opción @ProxyCommand@, que como su nombre indica (más o menos) sirve para conectar a un servidor SSH a través de un proxy. Aquí va un ejemplo
+
+
+<div class="console">
+{% highlight console %}
+
+$ ssh -o "ProxyCommand /bin/nc.openbsd -x localhost %h %p" server.minimor.com
+{% endhighlight %}
+</div>
+
+h2. «socksificando» lo que haga falta
+
+Hay muchas aplicaciones (la mayoría) que no fueron diseñadas para utilizar proxies SOCKS. Sin embargo hay un medio muy sencillo para lograr que usen el proxy sin que lo sepan. 
+
+Se basa en interceptar la invocación a la llamada @connect()@  de la librería de sockets, de modo que cuando la aplicación abra ingenuamente una conexión normal hacia un servidor remoto, los datos serán enviados de forma transparente hacia el proxy SOCKS configurado. Esta magia (que no es tal) es posible gracias a la precarga de librería de los sistemas GNU (@LD_PRELOAD@) y el programa @tsocks@ que aprovecha este principio.
+
+Después de instalar el paquete @tsocks@ tienes que configurar el proxy SOCKS que debe usar. Si has seguido las instrucciones anteriores, edita el fichero @/etc/tsocks.conf@ y cambia el valor de la opción «server»  para que quede así (se muestran las últimas líneas del fichero):
+
+
+<div>
+{% highlight text %}
+server = 127.0.0.1
+server_type = 5
+server_port = 1080
+{% endhighlight %}
+</div>
+
+Y para socksificar cualquier programa simplemente ejecuta algo como:
+
+
+<div class="console">
+{% highlight console %}
+
+$ tsocks claws-mail
+{% endhighlight %}
+</div>
+
+o bien:
+
+
+<div class="console">
+{% highlight console %}
+
+$ tsocks          # <-- esto abre una nueva shell socksificada
+$ claws-mail
+{% endhighlight %}
+</div>
+
+
+h2. looping the loop
+
+Y si lo que quieres es conectar tu máquina a una VPN cuyo servidor está al otro lado del firewall. Un tema interesante...
+
+[ToDo]
+
+
+h2. Referencias
+
+* "SSH Tunnel + SOCKS Proxy Forwarding = Secure Browsing":http://embraceubuntu.com/2006/12/08/ssh-tunnel-socks-proxy-forwarding-secure-browsing/
+* "Tunnelling SSH over a SOCKS proxy":http://blog.gidley.co.uk/2009/03/tunnelling-ssh-over-socks-proxy.html

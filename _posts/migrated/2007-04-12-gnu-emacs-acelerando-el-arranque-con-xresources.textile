@@ -1,0 +1,62 @@
+---
+migrated: node/643
+layout: post
+title: 'GNU Emacs: Acelerando el arranque, con .Xresources'
+created: 1176389673
+author: brue
+category: recipe
+tags:
+- emacs
+---
+<blockquote>Si usas el @.emacs@ para definir algunos aspectos de Emacs le obligas a usar el intérprete de lisp. Algunas cosas, como las propiedades de las fuentes, colores, barras ... se pueden modificar en el @.Xresources@ , lo que consigue que el arranque de Emacs sea más rápido
+</blockquote>
+
+
+<h2>Ingredientes</h2>
+Emacs y X11
+
+<h2>.Xresources</h2>
+
+El archivo .Xresources contiene información acerca de algunos parámetros de ejecución de aplicaciones en X11.
+
+Este tutorial es extensible a otras aplicaciones... pero pongo un ejemplo para Emacs...
+
+<pre>
+Emacs.toolBar: off
+Emacs.font: -misc-fixed-medium-r-semicondensed-*-*-120-*-*-c-*-iso8859-15
+Emacs.menuBar: off
+Emacs.background: black
+Emacs.foreground: white
+</pre>
+
+Es el ejemplito del que yo uso, y creo que se explica por si mismo.
+
+Una vez modificado el @.Xresources@ (en tu $HOME ) debes invocar el siguiente comando:
+
+
+<div class="console">
+{% highlight console %}
+$ xrdb .Xresources
+{% endhighlight %}
+</div>
+
+La próxima vez que cargues Emacs, verás la diferencia de usar esta forma de configuración vs. @.emacs@
+
+<h2>Otros ejemplos</h2>
+
+Aquí os dejo otros ejemplos de un @.Xresources@
+
+<pre>
+XTerm*background: black
+XTerm*foreground: white
+aterm*transparent: true
+aterm*scrollBar: false
+aterm*shading: 60
+*font: -misc-fixed-medium-r-semicondensed-*-*-120-*-*-c-*-iso8859-15
+*boldFont: -misc-fixed-bold-r-semicondensed-*-*-120-*-*-c-*-iso8859-15
+</pre>
+
+Espero que lo probéis y que os guste...
+
+Un saludo,
+brue

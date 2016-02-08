@@ -1,0 +1,124 @@
+---
+migrated: node/984
+layout: post
+title: 'ZeroC Ice: recogiendo estadísticas.'
+created: 1218808567
+author: KO_mOd_O
+category: recipe
+tags:
+- C++
+- Ice
+- networking
+---
+<blockquote class="head"> 
+Esta receta describe cómo recoger estadísticas de uso de red mediante la interfaz <em>Ice::Stats</em> en una aplicación que utilice ZeroC ICE.
+</blockquote>
+
+<h2>Herramientas</h2>
+
+<ul>
+<li>ZeroC ICE (en <a href="http://crysol.org/node/619">este enlace</a> se describe su instalación en Debian).</li>
+<li>La interfaz <em>Ice::Stats</em>.</li>
+</ul>
+
+<h2>Uso de la interfaz <em>Ice::Stats</em></h2>
+
+La interfaz <em>Ice::Stats</em> permite informar sobre el número de bytes enviados y recibidos por cada invocación:
+
+
+<div>
+{% highlight text %}
+local interface Stats {
+     void bytesSent(string protocol, int num);
+     void bytesReceived(string protocol, int num);
+};
+{% endhighlight %}
+</div>
+
+El proceso a seguir consiste en implementar la interfaz <em>Ice::Stats</em> y registrar ese sirviente a la hora de inicializar el <em>communicator</em>. Una implementación sencilla consistiría en imprimir la información de uso de red:
+
+
+<div>
+{% highlight cpp %}
+// MyStats.h
+#include <Ice/Stats.h>
+
+using namespace std;
+
+class MyStats : public virtual Ice::Stats {
+ public:
+  
+  virtual void bytesSent(const string& prot, Ice::Int);
+  virtual void bytesReceived(const string& prot, Ice::Int);
+};
+
+// MyStats.cpp
+#include <MyStats.h>
+
+using namespace std;
+
+void MyStats::bytesSent(const string& prot, Ice::Int num) {
+  cerr << prot << ": sent " << num << "bytes" << endl;
+}
+  
+void MyStats::bytesReceived(const string& prot, Ice::Int num) {
+  cerr << prot << ": received " << num << "bytes" << endl;
+}
+{% endhighlight %}
+</div>
+
+A continuación, tendremos que <em>instalar</em> un objeto de la clase <em>MyStats</em> en el <em>communicator</em> del cliente, del servidor o de ambos. Este paso se lleva a cabo a la hora de crear el <em>communicator</em> y mediante una estructura del tipo <em>Ice::InitializationData</em>. Como lo normal es que utilicemos la clase <em>Ice::Application</em>, el código del cliente, por ejemplo, quedaría más o menos así:
+
+
+<div>
+{% highlight cpp %}
+#include <Ice/Ice.h>
+#include <Demo.h>
+#include <MyStats.h>
+
+using namespace std;
+using namespace Demo;
+
+class Client : public Ice::Application {
+public:
+  virtual int run (int argc, char* argv[])   {
+    Ice::ObjectPrx prx = communicator()->stringToProxy("dummy:default -p 9999");
+    Demo::DummyPrx dummy = Demo::DummyPrx::uncheckedCast(prx);
+
+    dummy->hello();
+
+    return 0;
+  }
+};
+
+int
+main (int argc, char* argv[]) {
+  Client app;
+  Ice::InitializationData id;
+  id.stats = new MyStats;
+  return app.main(argc, argv, id);
+  return app.main(argc, argv);
+}
+{% endhighlight %}
+</div>
+
+En este caso, en la parte del cliente obtendríamos una salida similar a ésta al invocar la operación <em>hello</em> del proxy <em>dummy</em>:
+
+
+<div class="console">
+{% highlight console %}
+
+tcp: received 14bytes
+tcp: sent 40bytes
+tcp: received 14bytes
+tcp: received 11bytes
+tcp: sent 14bytes
+{% endhighlight %}
+</div>
+
+<h2>Referencias</h2>
+
+<ul>
+<li><a href="http://zeroc.com/doc/Ice-3.3.0/manual/Adv_server.29.20.html">Manual</a> de ZeroC ICE.</li>
+<li><a href="http://zeroc.com/doc/Ice-3.3.0/reference/Ice/Stats.html#Stats">Guía de referencia</a> de Slice.</li>
+</ul>

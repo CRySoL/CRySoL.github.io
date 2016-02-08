@@ -1,0 +1,259 @@
+---
+migrated: node/1443
+layout: post
+title: 'accept: un decorador para type-checking versátil en Python'
+created: 1293417643
+author: david_villa
+category: recipe
+tags:
+- Python
+---
+Una de las cosas que más chocan al empezar a utilizar un lenguaje dinámico (Python, Ruby, Lua, etc.) es que las variables no se declaran o definen con un tipo concreto. Eso normalmente no es un problema y de hecho resulta bastante cómodo. Pero cuando un programa adquiere cierta envergadura empiezan a surgir problemas. 
+
+Poder forzar la interfaz de un método, sobre todo de un constructor es más que conveniente. Permite detectar muchos usos inadecuados cuando el usuario de una clase y su programador son personas distintas (o uno mismo si ha pasado demasiado tiempo). Esto es básico para cosas como el "Diseño por contrato":http://en.wikipedia.org/wiki/Design_by_contract y otras metodologías en las que es imprescindible tener comprobación estricta de tipos.
+
+
+<!--break-->
+
+
+h2. Tipado estático
+
+El propio Guido sorprendió en su momento a propios y extraños con su propuesta "Adding Optional Static Typing to Python":http://<a href="http://www.artima.com/weblogs/viewpost.jsp?thread=85551">www.artima.com/weblogs/viewpost.jsp?thread=85551</a> hace ya unos años. A pesar de todo (al menos por lo que yo sé) nada de esto ha sido incluido aún en las últimas versiones de Python. Sí se han incluido en Python 3 las "Function Annotations":http://<a href="http://www.python.org/dev/peps/pep-3107/">www.python.org/dev/peps/pep-3107/</a> que ofrecen soporte para implementar tipado estático, aunque la distribución estándar no lo hace.
+
+La cuestión es que debido a esta _carencia_ es muy habitual encontrar en muchas librerías de uso extendido cosas parecidas a esto:
+
+
+<div>
+{% highlight python %}
+def func(value):
+    assert isinstance(value, str)
+    [...]
+{% endhighlight %}
+</div>
+
+Y cuando este tipo de comprobaciones prolifera hace un poco más engorroso leer el código, y eso siempre es malo.
+
+
+h2. Decoradores
+
+La forma más habitual de afrontar más o menos limpiamente este problema es utilizar "decoradores":http://<a href="http://www.python.org/dev/peps/pep-0318/">www.python.org/dev/peps/pep-0318/</a> de función. Bueno, lo que en Python se llaman «decoradores» aunque siendo mínimamente puristas no lo son porque no corresponden con la idea del "patrón de diseño decorator":http://en.wikipedia.org/wiki/Decorator_pattern.
+
+Un decorador de función (o método) en Python es otra función que recibe la función original y retorna otra función (la función decorada). Esta función decorada debería invocar en algún momento a la función original, y opcionalmente hacer algo más (ese algo más es la decoración). La ventaja de esto es obvia. Si se hace bien, se puede utilizar la función original o la decorada de forma indistinta. Se supone que la decoración añade efectos laterales. En muchos sentidos, algo parecido a la "Programación Orienta a Aspectos":http://en.wikipedia.org/wiki/Aspect-oriented_programming
+
+Bueno, esto es más de lo que tenía pensado contar sobre decoradores. Algún día escribiré una receta ex profeso, por ahora, mira el "PEP-318":http://<a href="http://www.python.org/dev/peps/pep-0318/">www.python.org/dev/peps/pep-0318/</a>.
+
+
+h2. Implementando type-checking con un decorador
+
+Como decía, no soy el primero al que se le ocurre forzar tipos con un decorador (aplico la máxima de "copiar-antes-que-innovar":http://crysol.org/node/1377 que tan buen resultado suele dar). El decorador más completo que he encontrado es el de la "PythonDecoratorLibrary":http://wiki.python.org/moin/PythonDecoratorLibrary#TypeEnforcement.28accepts.2BAC8-returns.29. Éste tiene una «feature» muy interesante: Puedes decidir qué ocurrirá si falla la comprobación de tipo: nada, un mensaje por stderr o una excepción. Aquí va un ejemplo (sacado de la página):
+
+
+<div>
+{% highlight python %}
+TYPE_CHECK = 2
+@accepts(int, debug=TYPE_CHECK)
+def fib(n):
+    if n in (0, 1): return n
+    return fib(n-1) + fib(n-2)
+{% endhighlight %}
+</div>
+
+Sin embargo no me convence, yo le pido más cosas:
+
+* Poder indicar el tipo solamente de algunos parámetros. El de arriba te obliga a poner los tipos de todos los parámetros de método o función.
+* Poder indicar los tipos de forma posicional o bien mediante la keyword (el nombre del parámetro formal).
+* Poder poner varios tipos posibles para el mismo parámetro. Por ejemplo, para decir que se debe poner una cadena, pero también vale None.
+* Poder indicar el tipo de una lista de parámetros «varargs», como en @*values@.
+* Poder decorar el resultado de este decorador con otros, si fuera necesario. La mayoría de los decoradores no respetan al 100% el «aspecto» de la función original (no son capaces de hacerse pasar perfectamente por la original) y eso complica mucho aplicar decoradores de forma anidada. Para lograr esto he utilizado una implementación de wrapper genérico que se puede encontrar en <a href="http://denis.ryzhkov.org/soft/python_lib/method_decorator.py">http://denis.ryzhkov.org/soft/python_lib/method_decorator.py</a>
+* La consecuencia de violar un tipo debería poderse elegir globalmente (al menos a nivel de módulo) en lugar de en cada llamada. Me parece mucho más cómodo para el propósito que nos ocupa.
+* Esas consecuencias deberían ser: no hacer nada, un "warning":http://docs.python.org/library/warnings.html o un excepción.
+
+
+h2. El decorador @accept@
+
+Con todo lo anterior he escrito una versión mejorada del de PythonDecoratorLibrary, aunque lo cierto es que el código no se parece en absoluto, para empezar es un "functor":http://en.wikipedia.org/wiki/Function_object en lugar de una función. Mi @accept@ soporta todo lo que he puesto ahí arriba. Lo podéis encontrar en el módulo @pyarco@ que se instala junto con el paquete debian de @atheist@. También lo puedes ver en el repositorio subversion: <a href="https://arco.esi.uclm.es/svn/public/prj/atheist/pyarco/Type.py">https://arco.esi.uclm.es/svn/public/prj/atheist/pyarco/Type.py</a>
+
+A continuación voy a ilustrar su uso mediante algunos ejemplos, que creo que es la forma más fácil de entenderlo:
+
+* Una función en la que se indica el tipo de todos los parámetros (por posición):
+
+<div>
+{% highlight python %}
+from pyarco.Type import accept
+
+@accept(int, int, str)
+def func(i1, i2, s1):
+     [...]
+
+>>> func("bye", 1, "hi")
+TypeError: Argument 'i1' should be 'int' ('str' given)
+{% endhighlight %}
+</div>
+
+* Todos los parámetros pero con keywords:
+
+<div>
+{% highlight python %}
+@accept(i1=int, i2=int, s1=str)
+def func(i1, i2, s1):
+     [...]
+{% endhighlight %}
+</div>
+
+* Indicando solo algunos tipos (con keywords):
+
+<div>
+{% highlight python %}
+@accept(i1=int, s1=str)
+def func(i1, i2, s1):
+     [...]
+
+>>> func(1, "bye", "hi")
+>>> func(1, "bye", s1="hi")
+{% endhighlight %}
+</div>
+
+* Con una función que tiene valores por defecto:
+
+<div>
+{% highlight python %}
+@accept(i1=int, i2=int, s1=str)
+def func(i1, i2=0, s1=''):
+    [...]
+
+>>> func(i1=1, s1=7)
+TypeError: Argument 's1' should be 'str' ('int' given)
+{% endhighlight %}
+</div>
+
+* Con una función que acepta una secuencia (varargs):
+
+<div>
+{% highlight python %}
+@accept(a=int)
+def func(*a):
+    [...]
+
+>>> func(1, 2, 3, 4)
+{% endhighlight %}
+</div>
+
+* Una función que acepta una función y una tupla (opcional):
+
+<div>
+{% highlight python %}
+@accept(func=types.FunctionType, args=tuple)
+def f(func, args=()):
+    [...]
+
+def g():
+    [...]
+
+>>> f(g, (1,2))
+>>> f(g)
+{% endhighlight %}
+</div>
+
+* Un método:
+
+<div>
+{% highlight python %}
+class A:
+    @accept(b=int)
+    def f(self, a, b):
+        [...]
+
+>>> a1 = A()
+>>> a1.f('a', 2)
+{% endhighlight %}
+</div>
+
+* Un constructor:
+
+<div>
+{% highlight python %}
+class A:
+    @accept(b=int)
+    def __init__(self, a, b, **kargs):
+        [...]
+
+a1 = A('a', 3)
+{% endhighlight %}
+</div>
+
+* Un constructor que llama al constructor de la superclase. Es este caso es obligatorio usar el formato de keywords. No acepta parámetros posicionales:
+
+<div>
+{% highlight python %}
+class A:
+    @accept(b=int)
+    def __init__(self, a, b):
+        [...]
+
+class B(A):
+    def __init__(self, b):
+        A.__init__(self, a='A', b=b)
+
+B(1)
+{% endhighlight %}
+</div>
+
+* Un parámetro que permite varios tipos (posicional):
+
+<div>
+{% highlight python %}
+@accept((int, str))
+def f(a): pass
+
+f(1)
+f('hi')
+{% endhighlight %}
+</div>
+
+* Varios tipos (con keyword):
+
+<div>
+{% highlight python %}
+@accept(a=(int, str))
+def f(a): pass
+
+f(1)
+f('hi')
+{% endhighlight %}
+</div>
+
+* Sin consecuencia al violar el tipo. Como has visto, por defecto se eleva la excepción TypeError.
+
+<div>
+{% highlight python %}
+accept.level = None
+
+@accept(int)
+def func(value): pass
+
+>>> func("hi")
+{% endhighlight %}
+</div>
+
+* Emitiendo un warning
+
+<div>
+{% highlight python %}
+accept.level = 'warn'
+
+@accept(int)
+def func(value): pass
+
+>>> func("hi")
+RuntimeWarning: Argument 'value' should be 'int' ('str' given)
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+* "Adding Optional Static Typing to Python":http://<a href="http://www.artima.com/weblogs/viewpost.jsp?thread=85551">www.artima.com/weblogs/viewpost.jsp?thread=85551</a>
+* "Function Annotations":http://<a href="http://www.python.org/dev/peps/pep-3107">www.python.org/dev/peps/pep-3107</a>
+* "Decoradores de funciones y métodos en Python":http://<a href="http://www.python.org/dev/peps/pep-0318/">www.python.org/dev/peps/pep-0318/</a>
+* "PythonDecoratorLibrary":http://wiki.python.org/moin/PythonDecoratorLibrary
+* "Decorador de métodos transparente":http://denis.ryzhkov.org/soft/python_lib/method_decorator.py

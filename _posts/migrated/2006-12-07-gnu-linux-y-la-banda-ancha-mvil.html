@@ -1,0 +1,247 @@
+---
+migrated: node/467
+layout: post
+title: GNU/Linux y la banda ancha móvil
+created: 1165507792
+author: int-0
+category: recipe
+---
+<blockquote>Recientemente ha caído en mis manos un juguetito muy chulo: un kit de conexión a banda ancha móvil... me he pasado unas cuantas horas pegándome con un sinfín de recetas y módulos hasta conseguir la dichosa conexión... que va freshhquísima... aquí viene un resumen de mis periplos...</blockquote>
+
+<!--break-->
+
+
+
+<h1>Ingredientes</h1>
+El kit con el que me he pegado es el <em>Vodafone <a href="http://en.wikipedia.org/wiki/HSPDA">HSPDA</a></em>, con él nos podemos conectar indistintamente a redes <em>GPRS</em> o <em>UMTS</em> según la calidad de la cobertura que tengamos en nuestra zona y tal. El kit viene con los siguientes elementos:
+<ul><li>Tarjeta <em>SIM</em> de 64k</li>
+<li>Manuales completamente inútiles</li>
+<li>Unos cablecitos USB muy monos</li>
+<li>Un módem 3.5G <em>HUAWEI</em> mod.E220 (muy bonico)</li></ul>
+
+Y en mi PC:
+<ul><li>Debian (no podía ser de otro modo)</li>
+<li>Linux 2.6.18-1</li></ul>
+
+¿Tenéis todo? Pues empecemos...
+
+<h1>La tarjeta SIM</h1>
+Aquí sucede lo siguiente: podemos usar la SIM con su PIN o sin él, se supone que ponemos el PIN para que en caso de pérdida nadie lo use y tal, pero el PIN tendremos que almacenarlo en un archivo de texto plano a la hora de conectar con lo que la seguridad del PIN no servirá de mucho. Yo lo tengo desactivado, para desactivarlo podemos usar comandos AT del módem y tal... o podemos pinchar la SIM en un móvil y desactivarlo ahí :-).
+
+De todas formas explicaré más adelante como <em>se supone</em> que se debe hacer si tenemos PIN activo.
+
+<h1>El módem</h1>
+Pues nada, cogemos el cable más corto (he leído que con otros cables puede no funcionar) y conectamos el módem... esperamos unos segundos a que el linux lo detecte y taaachán! tenemos detectado un.... ¿¿¡¡Unidad CD-ROM externa!!?? vaaaya... lo montamos y... ¡los drivers y kits de conexión para <em>Hassefroch XP</em>! que bien... lástima que no podamos borrarlo y usarlo de <em>pen-drive</em> en fins... ignoramos esto y desmontamos la unidad, etc. y hacemos lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+# modprobe usbserial vendor=0x12d1 product=0x1003
+{% endhighlight %}
+</div>
+
+Esto cargará el módulo para adaptadores serie USB, pero hay que indicar explícitamente el identificador el módem. Para el modelo que indiqué son esos, pero podéis verificarlo de la siguinte forma:
+
+
+<div class="console">
+{% highlight console %}
+$ cat /proc/bus/usb/devices
+{% endhighlight %}
+</div>
+
+Con lo que obtenemos (entre otras cosas):
+
+<pre>T:  Bus=02 Lev=01 Prnt=01 Port=00 Cnt=01 Dev#=  5 Spd=12  MxCh= 0
+D:  Ver= 1.10 Cls=00(>ifc ) Sub=00 Prot=00 MxPS=64 #Cfgs=  1
+P:  Vendor=12d1 ProdID=1003 Rev= 0.00
+S:  Manufacturer=HUAWEI Technologies
+S:  Product=HUAWEI Mobile
+C:* #Ifs= 1 Cfg#= 1 Atr=a0 MxPwr=500mA
+I:  If#= 0 Alt= 0 #EPs= 2 Cls=08(stor.) Sub=06 Prot=50 Driver=usb-storage
+E:  Ad=83(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+E:  Ad=04(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms</pre>
+
+Y ahí tenemos el <em>Vendor</em> y <em>ProdID</em> que buscábamos :-).
+
+Ahora debemos crear los dispositivos con los que manejar el módem (si no se ha hecho automáticamente):
+
+
+<div class="console">
+{% highlight console %}
+# mknod /dev/ttyUSB0 c 188 0
+# mknod /dev/ttyUSB1 c 188 1
+# mknod /dev/ttyUSB2 c 188 2
+{% endhighlight %}
+</div>
+
+Ale, ya tenemos acceso al módem :-) ahora sólo nos queda hablar con él...
+
+<h1>Configurar la conexión</h1>
+Bueno, ahora debemos instalar los siguientes programas:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install wvdial
+{% endhighlight %}
+</div>
+Yo para probar el modem usé:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install gnome-ppp minicom
+{% endhighlight %}
+</div>
+Con minicom podemos mandar comandillos y gnome-ppp busca y detecta módems. Si hicimos todos los pasos anteriores y no detectamos módem, probad a enchufar y desenchufar el USB y ver si con <em>dmesg</em> por fin aparece algo como:
+
+<pre>usbserial_generic 2-1:1.0: generic converter detected
+usb 2-1: generic converter now attached to ttyUSB0
+usbserial_generic 2-1:1.1: generic converter detected
+usb 2-1: generic converter now attached to ttyUSB1</pre>
+Si aparece, gnome-ppp ya debería detectar un módem, en caso contrario... buscad por los enlaces porque hay algo que está fallando...
+
+Ahora configuramos el marcado, esto lo hacemos en <tt>/etc/wvdial.conf</tt>, y lo dejamos como sigue:
+
+<pre># wvdial for Vodacom Data. Created by Tazz_tux
+# and adapted by Int-0 for http://crysol.inf-cr.uclm.es
+# Version 1.0
+
+# Change Log:
+#
+# Support only for Vodafone Mobile
+
+[Dialer Defaults]
+
+# Con este numero me funciona a mi:
+Phone = *99***1#
+# Este numero es el que se marca desde hassefroch XP
+# si no os funciona con el anterior, probad este.
+#Phone = *99#
+
+Username = vodafone
+Password = vodafone
+Stupid Mode = 1
+Dial Command = ATDT
+
+# Si vuestra tarjeta tiene PIN, lo poneis aqui
+[Dialer pin]
+Init1 = AT+CPIN=1234
+
+[Dialer vodafone]
+Modem = /dev/ttyUSB0
+Baud = 460800
+Init2 = ATZ
+Init3 = ATE0V1&D2&C1S0=0+IFC=2,2
+ISDN = 0
+Modem Type = Analog Modem
+
+[Dialer internet]
+# APN al que nos conectamos
+Init5 = AT+CGDCONT=1,"IP","ac.vodafone.es";</pre>
+
+Ya tenemos el archivo listo, si el módem funcionaba sólo nos queda ejecutar:
+
+
+<div class="console">
+{% highlight console %}
+# wvdial vodafone internet
+{% endhighlight %}
+</div>
+o también (para usar PIN):
+
+
+<div class="console">
+{% highlight console %}
+# wvdial pin vodafone internet
+{% endhighlight %}
+</div>
+...y ya está! estamos conectados por nuestra nueva interfaz <em>ppp0</em>, para finaliza la conexión sólo pulsad Ctrl+C y finalizáis la ejecución de wvdial.
+
+<h1>Apéndice A: Comandos del módem útiles</h1>
+Si configuráis <em>minicom</em> para que use la puerta serie <tt>/dev/ttyUSB0</tt> podemos "hablar" con el módem y mandar comandillos, estos son unos cuantos útiles que he encontrado por ahí (ni que decir tiene que podéis usarlos en el archivo de configuración de <em>wvdial</em>). Ahora pondré un ejemplo de <em>chat</em> con el módem, en cursiva están las respuestas que debemos obtener y en negrita los comandos:
+
+<pre><b>ATZ</b>
+<em>OK</em>
+<b>ATI</b>
+<em>Manufacturer: huawei
+Model: E220
+Revision: 11.110.01.03.00
+IMEI: 351827011164648
++GCAP: +CGSM,+DS,+ES
+
+OK</em>
+<b>AT+COPS?</b>
+<em>+COPS: 0,0,"vodafone ES D",2
+
+OK</em>
+
+<b>at+cpin=xxxx</b>
+<em>OK</em>
+
+<b>at+csq</b>
+<em>+CSQ: 22,99
+
+OK</em></pre>
+El comando <em>AT+COPS?</em> nos da información sobre la red en la que nos encontramos. Con <em>at+csq</em> obtenemos la calidad de la cobertura, cuanto mayor sea el número, mejor. El primer número (22 en el ejemplo) debe ser mayor de 12 para tener una señal aceptable. Los comandos para el manejo del PIN son: <em>at+clck="sc",0,"1234"</em> (donde "1234" es el PIN actual), con esto deshabilitamos el PIN. Con <em>at+clck="sc",1,"1234"</em> lo volvemos a habilitar. Si queréis saber más comandos: <a href="http://en.wikipedia.org/wiki/Hayes_command_set">Comandos AT Hayes en wikipedia.</a>
+
+<h1>Apéndice B: Configurar modprobe</h1>
+Como es un rollo todo eso del <em>vendorId</em> y tal podemos hacer más simple la carga del módulo de esta forma: creamos el archivo <tt>/etc/modprobe.d/huawei</tt> con el siguiente contenido:
+
+<pre># Huawei E220
+alias huawei usbserial
+options huawei vendor=0x12d1 product=0x1003</pre>
+Y ahora con <em>modprobe huawei</em> tendremos el módem funcionando ;-).
+
+<h1>Apéndice C: nozomi</h1>
+Bueno, ¿qué es esto de nozomi?... es un modulito que se usa para las conexiones <a href="http://en.wikipedia.org/wiki/HSPDA">HSDPA</a> y que no viene de serie en linux. Se <b>supone</b> que es necesario para hacer funcionar el invento... pero a mi no me ha hecho falta... de todas formas os digo como instalarlo por si a alguno le hace falta. El módulo no compila con 2.6.18 y no hay parche hasta la fecha (aunque el bug si está abierto). En Debian se supone que se podría hacer:
+
+
+<div class="console">
+{% highlight console %}
+# m-a ai nozomi
+{% endhighlight %}
+</div>
+Pero como ya os dije no compila, así que debéis descargaros los fuentes, parchearlos y compilarlos, descargadlo de <a href="http://www.insync.za.net/3g_docs/">http://www.insync.za.net/3g_docs/</a>. Lo descomprimís (usad <em>unp</em> y listo) y ahora editáis <tt>nozomi.c</tt> y modificad lo siguiente:
+
+Comentad las líneas 972 a 987 (no os preocupéis, se trata de una comprobación que en los 2.6.18 ya no hay que hacerla, es automática):
+<pre>/*     if (test_bit(TTY_DONT_FLIP, &tty->flags)) { */
+/*         D6("TTY_DONT_FLIP set!! %d", index); */
+/*         /\* Here we disable interrupt for that port and schedule *\/ */
+/* /\* 		task. Task wakes up a little bit later and enables interrupt.. *\/ */
+/*         port->tty_dont_flip = 1; */
+/*         disable_transmit_dl(index, dc); */
+/* #ifdef KERNEL_2_4 */
+/*         schedule_task(&dc->tty_flip_queue); */
+/* #endif */
+/* #ifdef KERNEL_2_6 */
+/*         if (!queue_work(dc->tty_flip_wq, &dc->tty_flip_wq_struct)) { */
+/*             ERR("Call to queue_work() failed."); */
+/*         } */
+/* #endif */
+/*         return 0; */
+/*     } */</pre>
+Y ahora modificad la línea 2183 que tiene lo siguiente:
+<pre>td->flags                 = TTY_DRIVER_REAL_RAW | TTY_DRIVER_NO_DEVFS,</pre>
+por esto:
+<pre>td->flags                 = TTY_DRIVER_REAL_RAW | TTY_DRIVER_DYNAMIC_DEV,</pre>
+Y ya os tiene que compilar, la instalación debéis hacerla a mano.
+
+<h1>Enlaces de interés</h1>
+
+<ul>
+<li>
+<a href="http://barrapunto.com/journal.pl?op=display&uid=16902&start=10">Instalar una PCMCIA 3G de Vodafone en linux (2ª parte)</a></li>
+<li>
+<a href="http://mybroadband.co.za/vb/printthread.php?t=21726">This is a "howto" to get the 3G cards to work under Linux.</a></li>
+<li>
+<a href="http://www.pharscape.org/content/view/28/#_Toc83808167">Vodafone 3G (UMTS) Howto</a></li>
+<li>
+<a href="http://deif.org/informatica/doc_umts.html">Cómo configurar una tarjeta UMTS (Vodafone) con núcleo 2.6.xx</a></li>
+<li>
+<a href="http://www.mybroadband.co.za/vb/showthread.php?p=762590">E220 with Ubuntu</a></li>
+</ul>
+
+...y la verdad que hay mucho más... sólo buscad en foros...
+
+Ale... disfrutad... para dudas y correciones ya sabéis ;-)

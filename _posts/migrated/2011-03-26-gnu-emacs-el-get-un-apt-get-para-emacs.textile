@@ -1,0 +1,57 @@
+---
+migrated: node/1488
+layout: post
+title: 'GNU Emacs: el-get, un apt-get para Emacs'
+created: 1301177019
+author: david_villa
+category: recipe
+tags:
+- emacs
+---
+Si utilizas Emacs y tienes varios PCs ¿cómo te apañas para que todos se comporten igual? Las mismas fuentes, los mismos colores, las mismas combinaciones de teclas... Realmente todo eso no es un gran problema; basta con tener tu ficherito @.emacs@ en un repositorio personal para que todos los PCs tengan la misma configuración.
+
+Pero ¿y los modulitos (los ficheros .el) que bajas de cualquier parte? Unos los bajas de un blog de alguien, otros de "EmacsWiki":http://<a href="http://www.emacswiki.org/">www.emacswiki.org/</a>, etc. etc. No es plan de subirlos también a tu repositorio de configuración, y además, aparecen nuevas versiones, sería un trabajo de chinos tenerlos actualizados. Hasta ahora yo había tomado la determinación de no utilizar ningún módulo de Emacs que no estuviera convenientemente empaquetado para Debian. Hasta ahora...
+
+
+<!--break-->
+
+
+Hoy he descubierto otro módulo de Emacs, llamado <a href="https://github.com/dimitri/el-get">@el-get@</a>, (que sí está en Debian :-)) que resuelve perfectamente este problema. Funciona como una especie de @apt-get@. Basta con indicar los «sources» de los módulos que quieres, estén dónde estén, y después gestionarlos con unos sencillos comandos que te sonarán:
+
+* el-get-update
+* el-get-install
+* el-get-remove
+
+Éste es un ejemplo de configuración:
+
+
+<div>
+{% highlight text %}
+(require 'el-get)
+
+(setq el-get-sources
+      '(el-get cssh switch-window vkill google-maps nxhtml xcscope yasnippet
+
+        (:name lisppaste        :type elpa)
+        (:name dictionary-el    :type apt-get)
+        (:name emacs-goodies-el :type apt-get)))
+
+(el-get)
+{% endhighlight %}
+</div>
+
+@el-get@ puede descargar módulos de repos git, svn, mercurial, bazar, directamente por http, con apt-get, de "ELPA":http://tromey.com/elpa/ y muchas otras formas. Además, el propio programa viene con cientos de «recipes», que son los fragmentos de configuración que dicen cómo y de dónde descargar módulos, de modo que la gran mayoría de los módulos que vayas a necesitar están a tiro de:
+
+
+<div>
+{% highlight text %}
+M-x el-get-install <TAB>
+{% endhighlight %}
+</div>
+
+Con esto puedes estar seguro que, teniendo el mismo @.emacs@, tienes los mismos módulos instalados en todos tus Emacs. Impresionante!
+
+h2. Referencias
+
+* <a href="https://github.com/dimitri/el-get">el-get</a>
+* "Blog del autor, con varios artículos sobre @el-get@":http://tapoueh.org/articles/news/_el-get.html

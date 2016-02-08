@@ -1,0 +1,137 @@
+---
+migrated: node/511
+layout: post
+title: Uso de la herramienta XMLBASEDSRS
+created: 1169404609
+author: nacho
+category: recipe
+---
+
+
+<!--break-->
+
+
+Este documento explicará cómo instalar y empezar a usar xmlbasedsrs, una herramienta para especificación de requisitos software basada en XML.
+
+1. Instalación
+
+Lo primero será descargarnos el paquete tar desde xmlbasedsrs.tigris.org y guardarlo en /usr/local/stow/xmlbasedsrs. Luego, ejecutaremos stow para instalarlo.
+
+Ejemplo:
+      $ cd /usr/local/stow
+      $ stow xmlbasedsrs/
+    
+
+El programa está pensado para instalarlo en /usr/local/xmlbasedsrs. Si lo instalas en otro sitio, deberás editar el archivo binario gsrs y cambiar la variable $SRS_ROOT. Me explico:
+      $ cd /usr/local/stow/xmlbasedsrs/bin #entramos en el directorio de instalación
+      $ emacs gsrs                         #editamos el script
+    
+
+Ahí habrá una variable llamada $SRS_ROOT que tiene un path. Hay que cambiarlo al path que hemos puesto nosotros, es decir:
+
+      $SRS_ROOT = "/usr/local/stow/xmlbasedsrs"
+    
+
+Aún habiendo instalado el programa en el directorio por defecto, es aconsejable editar el script y verificar que $SRS_ROOT tiene el valor correcto.
+
+2. Empezar a usarlo
+
+Creamos un nuevo directorio, en el que copiamos el archivo srs.xml. También crearemos un enlace al fichero srs.dtd:
+      $ mkdir /nuevo_proyecto
+      $ cd /nuevo_proyecto
+      $ cp /usr/local/stow/xmlbasedsrs/xml/srs.xml .
+      $ ln -s /usr/local/stow/smlbasedsrs/dtd/srs.dtd .
+    
+
+Ahora, hay que editar el fichero srs.xml para especificar los requisitos. Una vez hecho esto, ejecutaremos:
+      $ gsrs srs.xml
+    
+
+Esto creará varias vistas en el directorio srs_output. Puedes verlas usando tu navegador favorito para abrir el fichero srs_output/index.html.
+
+3. Formato de una Especificación SRS.XML
+
+Un fichero srs.xml tiene tipicamente este formato:
+
+      <srs>
+        <project>
+          <title>Software Requirements Specification</title>
+          <version>1.2</version>
+          <dl>
+          </dl>
+        </project>
+		
+        <nfrs>
+          <dl>
+	  </dl>
+        </nfrs>
+		
+        <useCaseTree>
+	  <dl>
+          </dl>
+		  
+          <actor id="A1">
+            <name>Administrator</name>
+          </actor>
+		  
+          <actor id="A2">
+            <name>User</name>
+          </actor>
+		  
+        </useCaseTree>
+      </srs>
+    
+
+
+3.1. El tag <project>
+
+Esta sección contendrá información general sobre el proyecto, como la razón de su creación, cuál es el objetivo del mismo, información de contacto, etc.
+
+Si echas un vistazo a srs.dtd verás que se usa el tag <dl> para describir diferentes subsecciones y añadir bloques de texto arbitrario. Veamos un ejemplo:
+
+      <project>
+        <title>El título de mi Proyecto</title>
+        <version>1.2</version>
+        <dl>
+          <dt>Introducción</dt>
+          <dd>Este proyecto es para...</dd>
+        </dl>
+		
+        <dl>
+          <dt>Contactos</dt>
+          <dd>Eleuterio García, eleuterio.garcía@uclm.es</dd>
+        </dl>
+      </project>
+    
+
+
+3.2. El tag <nfrs>
+
+Esta sección es para los requisitos no funcionales (Non Functional RequirementS). También se usan los tags <dl>, <dt> y <dd> para subsecciones.
+
+      <dl>
+        <dt>Diseño</dt>
+        <dd>La interfaz de usuario se tiene que diseñar de tal
+	      manera que...
+        </dd>
+      </dl>
+    
+
+
+3.3 <useCaseTree>
+
+Bien, esta es la sección del árbol de casos de uso. En esta parte, se describen los actores y sus casos de uso. Si quieres, puedes añadir informacion extra al principio del <useCaseTree> con las tags habituales dd, dt y dl.
+
+Los actores se describen después de cualquier tag dl dentro del useCaseTree. A cada actor se le asigna una id, que se refencia en los elementos del useCaseTree. Cada <useCase> puede referenciar uno o más actores. Ahora hazte las siguientes preguntas:
+- 	"¿Quién va a usar el sistema?". La respuesta son los actores.
+- 	"¿Qué van a poder hacer los actores en mi sistema?". La respuesta son los casos de uso.
+- 	"¿Cómo podrían hacer eso los actores?". La respuesta son las series de acción y reacción.
+- 	"¿Qué quiero que NO hagan los actores?". La respuesta son los requerimientos para cada acción, reacción y caso de uso.
+
+
+4. Enlaces
+* 	xmlbasedbsrs  [en]
+
+
+
+Autor: Ignacio Díez

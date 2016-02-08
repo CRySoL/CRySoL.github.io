@@ -1,0 +1,114 @@
+---
+migrated: node/651
+layout: post
+title: 'Bogoutil: completa bogofilter'
+created: 1177179398
+author: magmax
+category: recipe
+tags:
+- Debian
+---
+<blockquote>Bogofilter es un filtro antispam que es muy sencillo de combinar con sylpheed y otros clientes de correo. El paquete bogoutils nos permite acceder a las estadísticas y opciones de la base de datos de bogofilter para obtener información adicional. Aquí se muestran algunas de las opciones
+</blockquote>
+
+
+<h1> Ingredientes </h1>
+
+Evidentemente, nos hará falta <b>bogofilter</b> (que ya incluye bogoutil),  algún cliente de correo configurado con bogofilter y varias semanas de filtrado de spam.
+
+
+<h1> Notas y cosas </h1>
+
+Una nota aclaratoria para todos los ejemplos que se vean en este artículo: He reutilizado la base de datos que tuve hace tiempo, donde no filtré correctamente todos los mailes que me llegaron. Eso ha repercutido en algunas de las estadísticas que mostraré a continuación (como por ejemplo, en la cantidad de mailes que muestran como <i>ham</i> algunas de las palabras, cuando son claramente <i>spam</i>).
+
+Otra cosa: las estadísticas que se muestran aquí sólo son de 3 meses, por lo que no se pueden generalizar (harían falta años para eso).
+
+<h2> Ham vs. Spam </h2>
+
+Como nota aclaratoria, diré que siempre que me refiera a "Ham" (jamón) me referiré a los mails deseados, mientras que "Spam" (la historia tiene algo que ver con una marca que hacía "Ham" malo) hace referencia a todo mail no deseado.
+
+<h2> Cómo funciona</h2>
+
+Bogofilter es un filtro bayesiano. Ni idea de qué significa eso, pero por lo que he podido ir observando, utiliza un sistema para puntuar cada palabra, y después calcula algún tipo de media con respecto a las palabras que hay (o algo así). Por ello, cada palabra recibe una puntuación. Este articulillo hará referencia a estas puntuaciones.
+
+<h1> Histórico </h1>
+
+¿No sentís curiosidad por saber si realmente se puede decidir si un mail es bueno o no por un conjunto de palabras? ¿No encontraremos palabras que son Ham y Spam al mismo tiempo? ¿Será eso lo corriente?
+
+Bueno, pues la manera de saberlo es simple:
+
+
+<div class="console">
+{% highlight console %}
+ $ bogoutil -H ~/.bogofilter/wordlist.db
+Histogram
+score   count  pct  histogram
+0.00   122021 61.10 ################################################
+0.05      434  0.22 #
+0.10      521  0.26 #
+0.15      679  0.34 #
+0.20     1118  0.56 #
+0.25     1977  0.99 #
+0.30      924  0.46 #
+0.35     1845  0.92 #
+0.40      712  0.36 #
+0.45     4503  2.25 ##
+0.50      558  0.28 #
+0.55     5490  2.75 ###
+0.60      507  0.25 #
+0.65      577  0.29 #
+0.70     1174  0.59 #
+0.75      788  0.39 #
+0.80      522  0.26 #
+0.85      570  0.29 #
+0.90      392  0.20 #
+0.95    54405 27.24 ######################
+tot    199717
+hapaxes:  ham  109390 (54.77%), spam   31986 (16.02%)
+   pure:  ham  121951 (61.06%), spam   54197 (27.14%)
+
+{% endhighlight %}
+</div>
+
+Resulta curioso observar que el 61.20% de las palabras que recibo sólo se encuentran en correos Ham, y que el 27.24% sólo están en correos Spam. Así que se puede observar que es cierto que hay palabras que, directamente, deciden cuándo un correo es Spam.
+
+Fijaros que las concentraciones principales están en los extremos y el centro. Es lógico: los conectores (preposiciones, artículos, pronombres, ...) no serán decisorios.
+
+<h1> ¿Qué probabilidad hay de que "Sexo", "sex", "viagra", "ordenador" estén entre el spam</h1>
+
+
+<div class="console">
+{% highlight console %}
+$ bogoutil -p ~/.bogofilter/wordlist.db
+                                spam    good    Fisher
+sexo
+sexo                                3       3  0.558117
+sex
+sex                                25       0  0.999658
+viagra
+viagra                              2       3  0.457457
+ordenador
+ordenador                          21      48  0.356059
+
+{% endhighlight %}
+</div>
+
+En cuanto introduzcáis la orden arriba citada, el cursor se quedará esperando que tecleéis las palabras a buscar o bien que pulséis CTRL+D para salir.
+
+Observando las estadísticas de arriba se observa que 3 buenos y 3 malos no son un 50%... Bueno, dije que bogofilter hacía "algún tipo de media", no la media aritmética :-D
+
+<h1>Despedida</h1>
+
+He escrito esto porque me parece curioso, no excesivamente útil. De todas maneras, permite comprobar que nuestro filtro bogofilter está funcionando realmente (y si no lo creéis, probad a mirar las posibilidades de una palabra y después marcad como spam un mail que la contenga). 
+
+Espero que a alguien más también le parezca algo en lo que perder un ratejo ;)
+
+<h1>Referencias</h1>
+
+
+<div class="console">
+{% highlight console %}
+ $ man bogoutil
+
+{% endhighlight %}
+</div>

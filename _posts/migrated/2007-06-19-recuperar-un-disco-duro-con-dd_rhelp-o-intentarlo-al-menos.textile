@@ -1,0 +1,97 @@
+---
+migrated: node/697
+layout: post
+title: Recuperar un disco duro con dd_rhelp (o intentarlo al menos)
+created: 1182264234
+author: david_villa
+category: recipe
+---
+bq(head). Como ya sabrás, los discos duros no son perfectos, y cuando hacen "crash!" no hay mucho que se pueda hacer. ¿o sí? Esta receta explica cómo recuperar datos de un disco duro durante su agonía, o intentarlo al menos.
+
+
+<!--break-->
+
+
+<blockquote class="warning">
+Esta maniobra puede resultar muy peligrosa para tu disco y sobre todo para tus datos. El autor de este documento elude toda responsabilidad.
+</blockquote>
+
+<!--break-->
+
+
+
+Si tu disco duro está sufriendo una dolorosa agonía lo mejor que puedes hacer es copiar los datos que puedas salvar a otro sitio, por red o a otro disco duro. Si el disco duro tiene el sistema operativo y ya ni arranca, esta receta es lo que buscas.
+
+Lo primero es arrancar el sistema desde otro disco duro y ni siquiera intentar montar el disco moribundo.
+
+
+h2. Ingredientes
+
+* ddrescue (paquete Debian)
+* dd_rhelp
+
+h2. Instalación
+
+Como pone ahí arriba, @dd_rescue@ es paquete Debian así que lo puede instalar con el típico @apt-get@, o @aptitude@ para los más quisquillosos. 
+
+Sin embargo @dd_rhelp@ no está empaquetado pero te aconsejo que lo instales civilizadamente, es decir, en directorio vacío, creado al efecto:
+
+
+<div class="console">
+{% highlight console %}
+ $ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz  # o versión posterior
+$ ./configure prefix=/usr/local/stow/dd_rhelp
+$ make
+$ make install
+$ cd /usr/local/stow
+$ stow dd_rhelp
+
+{% endhighlight %}
+</div>
+
+En realidad no hace falta hacer el _install_ porque sólo lo va a usar el root y lo podría invocar directamente con la ruta completa, no es un programa que vayas a necesitar usar mucho, o eso sería lo deseable. Si no sabes de que va esto de @stow@, mira la "receta de stow":node/67.
+
+h2. Cómo se usa
+
+Suponiendo que la partición del disco moribundo que quieres recuperar es @/dev/sdb1@ ejecuta algo como:
+
+
+<div class="console">
+{% highlight console %}
+# dd_rhelp /dev/sdb1 /root/home.img
+{% endhighlight %}
+</div>
+
+Esto puede tardar muuuuucho, pero mucho, mucho, en función del tamaño de la partición puede llevar varios días!. En cualquier caso, después de unas decenas de horas puedes cortarlo, porque una vez recuperado "lo fácil" este programa intentará recuperar "lo difícil" incansablemente para siempre jamás.
+
+h2. Accediendo a los datos
+
+Cuando @dd_rhelp@ "acabe" tendrás un bonito fichero @.img@ del tamaño aproximado al que tenía (en vida) la partición origen. 
+
+Antes de montar la imagen es conveniente que compruebes posibles errores. Obviamente la herramienta a usar depende del sistema de ficheros que tuviese la partición original). Por ejemplo, para ext3, sería:
+
+
+<div class="console">
+{% highlight console %}
+# fsck -y /root/home.img
+{% endhighlight %}
+</div>
+
+Y luego la puedes montar de la forma habitual (aquí es dónde cruzas los dedos y rezas lo poco que sabes):
+
+
+<div class="console">
+{% highlight console %}
+# mount -o loop /root/home.img /mnt/directorio_vacio
+{% endhighlight %}
+</div>
+
+
+h2. Comentarios
+
+Parece que el asunto no va mal, pero a mi no me fue demasiado bien, recuperó toda la partición menos el "home" de mi usuario. Menos mal que todos hacemos backup diario... :-(
+
+h2. Referencias
+
+* "Recover Data from a Damaged hard disk using dd_rhelp":http://<a href="http://www.debianadmin.com/recover-data-from-a-damaged-hard-disk-using-dd_rhelp.html">www.debianadmin.com/recover-data-from-a-damaged-hard-disk-using-dd_rhelp.html</a>
+* "gddrescue: a tool for recovering data from damaged media":http://debaday.debian.net/2007/12/12/gddrescue-a-tool-for-recovering-data-from-damaged-media/

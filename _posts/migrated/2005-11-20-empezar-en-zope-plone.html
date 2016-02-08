@@ -1,0 +1,71 @@
+---
+migrated: node/109
+layout: post
+title: Empezar en Zope (Plone)
+created: 1132492363
+author: magmax
+category: recipe
+---
+<blockquote class="warning">
+OBSOLETA: Mira <a href="/node/357">Debian Plone en 5 minutos</a>
+</blockquote>
+
+<!--break-->
+
+
+
+
+<blockquote>Trataremos de ver los primeros pasos a la hora de tratar con Zope y Plone. El artículo quizá esté un poco viejo, pero puede ayudar.
+</blockquote>
+
+<!--break-->
+
+
+
+
+
+<!--break-->
+
+
+
+<h1>Usuario de emergencia</h1>
+
+Lo primero es instalar ZOPE y los modulos que mas te gusten :) (usa apt-get)
+
+Para crear el usuario de emergencia, necesitaremos ser root. Primero vamos al directorio <tt>/var/lib/instance/default</tt>, donde ejecutamos la aplicacion <i>zope-zpasswd</i> y pasamos como nombre de fichero "access":
+
+
+<div class="console">
+{% highlight console %}
+ localhost:/var/lib/instance/default# zope-zpasswd access
+
+{% endhighlight %}
+</div>
+
+Nos pedirá un nombre de usuario INICIAL (no administrador!) y su password, a las siguientes dos cuestiones pulsamos intro y ya esta... <b>Es necesario reiniciar Zope!!</b>
+
+Para reiniciar Zope, existen dos formas (ambas como root):
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/zope restart
+
+{% endhighlight %}
+</div>
+
+o bien
+
+
+<div class="console">
+{% highlight console %}
+ # zopectl restart
+
+{% endhighlight %}
+</div>
+
+<h1>Entrar en la web de administración</h1>
+
+Desde el navegador, la url es: <b>http://localhost:9673/manage</b> . Nos pedira el nombre y password del usuario inicial, una vez dentro podremos crear el usuario administrador y el resto de usuarios... y ya está! ;)
+
+

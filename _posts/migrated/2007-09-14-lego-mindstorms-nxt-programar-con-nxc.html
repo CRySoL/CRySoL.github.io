@@ -1,0 +1,193 @@
+---
+migrated: node/777
+layout: post
+title: 'Lego Mindstorms NXT: programar con NXC'
+created: 1189773160
+author: oscarah
+category: recipe
+tags:
+- Arco
+- embedded
+---
+Primeros pasos en la programación del NXT. Como usar la toolchain necesaria para programar el NXT en lenguaje NXC.
+
+
+<!--break-->
+
+
+<h2>Introducción</h2>
+
+De entre todas las opciones disponibles (véase <a href="http://crysol.org/node/771">Jugando con LEGO Minstorms: NXT</a>), la menos intrusiva y que parece más estable es NXC. NXC es un lenguaje muy parecido a C, orientado a la programación concurrente del NXT. Para usarlo no es preciso modificar el firmware original del NXT. Por ello, será la primera opción elegida.
+
+<h2>Ingredientes</h2>
+
+Sólo necesitamos el compilador y algún software para cargar los programas en el NXT:
+
+<ul>
+<li><a href="http://bricxcc.sourceforge.net/nbc/beta/index.html">NBC Beta Releases</a>, de donde descargamos el compilador. Los binarios funcionan bastante bien en mi Debian SID. La versión que usé para los tests fue la <a href="http://downloads.sourceforge.net/bricxcc/nbc-1.0.1.b32.tgz">1.0.1 b32</a>.</li>
+
+<li><a href="http://www-verimag.imag.fr/~raymond/edu/lego/t2n/">Talk 2 NXT</a>, que es una utilidad muy sencilla para escribir los binarios en la Flash del NXT, usando el cable USB.</li>
+</ul>
+
+<h2>Instalación</h2>
+
+El software necesario viene compilado, por lo que lo único que tienes que hacer es descomprimirlo y guardar los ejecutables es una carpeta que esté dentro del PATH. Son autosuficientes, sólo necesitas los dos binarios.
+
+<pre class="console">
+tools$ ls
+nbc-1.0.1.b32.tgz  t2n-0.0.tgz
+tools$ tar zxf nbc-1.0.1.b32.tgz 
+tools$ tar zxf t2n-0.0.tgz 
+tools$ ls
+nbc-1.0.1.b32.tgz  nxt  t2n-0.0  t2n-0.0.tgz
+tools$ cp nxt/nbc ~/bin
+tools$ cp t2n-0.0/t2n ~/bin
+tools$ PATH=$PATH:$HOME/bin
+</pre>
+
+<h2>Primer test: "hola mundo"</h2>
+
+Bien, el primer ejemplo es muy sencillo a la par que conocido: el "¡Hola mundo!" en versión NXT. Simplemente escribe en el display el texto especificado y espera unos segundos antes de salir.
+
+Antes de nada, un breve apunte. El SO del NXT permite programación concurrente, es decir, utiliza técnicas que nos posibilitan tener varios "hilos" ejecutandose al mismo tiempo. Como mínimo, debemos tener uno. Estos "hilos" se conocen como tareas (<i>task</i>) y se han de especificar en el programa. De momento, el "hola mundo" sólo tendrá uno: el principal e imprescindible <b>main</b>.
+
+Dentro de esta tarea, escribimos nuestro código. Cuando la tarea termine (y mientras no haya otras en ejecución) nuestro programa terminará.
+
+
+<div>
+{% highlight cpp %}
+// -*- coding: utf-8 -*-
+// Ejemplo NXC: hello world
+
+// En las últimas versiones de nbc esta línea es implicita
+#include "NXCDefs.h" 
+
+task main()
+{
+  // Escribimos el texto en el LCD
+  TextOut(20, LCD_LINE3, "Hola mundo!");
+
+  // Esperamos 3 segundos
+  Wait(3000);
+}
+{% endhighlight %}
+</div>
+
+El fichero "NXCDefs.h" es imprescindible para la compilación... !tanto que lo han incluido dentro del compilador! Esto implica que ya no es necesario incluirlo implicitamente, porque siempre se hace. Esa línea la puedes eliminar si quieres.
+
+Dentro de la tarea, usamos <b>TextOut</b> para escribir en el LCD. El display es de 100x64 pixeles, y esta es la unidad empleada en las funciones de escritura. El origen de coordenadas está en la esquina inferior izquierda. 
+
+Los dos primeros parámetros de <b>TextOut</b> son las coordenadas x,y en donde escribir el texto. Para hacer las cosas un poco más sencillas, tenemos definidas las coordenadas <i>y</i> de las líneas del LCD en las cosntantes LCD_LINEn, donde <i>n</i> está entre 1 y 7. Puedes hacer pruebas con diferentes números. Si el texto no cabe en una línea, simplemente no aparecerá. Los saltos de línea corren de nuestra cuenta.
+
+Si simplemente escribimos el texto y terminamos, no veremos nada. Para ello, <b>Wait</b> hace que se pause la tarea durante el tiempo estipulado (en ms).
+
+Bien. Puedes guardar el código en un fichero con la extensión "nxc" y compilarlo:
+
+<pre class="console">
+lab$ ls
+hello.nxc
+lab$ nbc hello.nxc -O=hello.rxe
+lab$ ls
+hello.nxc  hello.rxe
+lab$ 
+</pre>
+
+El compilador tiene múltiples opciones. Prueba "nbc -help" para verlas todas. Entre las más importantes esta "-O". Si no se especifica el fichero de salida, no produce ninguna, simplemente compila, pero no guarda el binario en ningún sitio.
+
+Una vez compilado, nos queda guardarlo en la Flash del NXT. Para ello, necesitamos el cable USB. Conecta el NXT al PC, enciende el NXT y comprueba que el kernel se entera. En el brick debe aparecerte un símbolo parecido a una llave fija (algo como "]---[" ) o la palabra "USB", dependiendo del enlace. En tu GNU box, compruebalo con <i>lsusb</i> (como root):
+
+<pre class="console">
+# lsusb 
+Bus 004 Device 001: ID 0000:0000  
+Bus 003 Device 001: ID 0000:0000  
+Bus 002 Device 001: ID 0000:0000  
+Bus 001 Device 010: ID 0694:0002 Lego Group 
+Bus 001 Device 001: ID 0000:0000  
+</pre>
+
+y la prueba definitiva es leer la información del dispositivo usando t2n:
+
+<pre class="console">
+# t2n -i
+#### NXT INFOS ###############
+protocol version=1.124 firmware version=1.3
+NXT Name: NXT_ARCO
+Blutooth address: XX:XX:XX:XX:XX:XX
+Blutooth signal: 0
+Free user flash: 79976
+</pre>
+
+Con t2n podemos listar los ficheros del brick, leer información, el estado de la batería, el espacio libre, descargar programas, subirlos, etc.
+
+Probemos subiendo nuestro ejemplillo :-D
+
+<pre class="console">
+# t2n -put hello.rxe 
+# t2n -put hello.rxe 
+  Error :
+usbnxt: upload: can'y initiate upload (status=0xffffff8f)
+# 
+</pre>
+
+El comando a usar es "put" con el nombre del fichero como argumento. Solo es necesario ponerlo una vez. Aquí lo he escrito dos veces para que veas que si el fichero ya existe en el NXT, te da un error. Antes debes borrarlo del dispositivo con el menú del mismo.
+
+Bien, ya sólo queda probarlo. En el NXT, dirígete a "My Files->Software files->hello" y ejecútalo.
+
+<h2>Otro ejemplo: palmadas</h2>
+
+El segundo ejemplo que veremos es más divertido. Accede a un motor conectado en el puero A y a un micrófono en el puerto 1. Cuando el micro detecte un sonido más alto de cierto umbral, arranca el motor. Si de nuevo vuelve a detectar otro sonido alto, el motor se para.
+
+
+<div>
+{% highlight cpp %}
+// -*- coding: utf-8 -*-
+// Ejemplo NXC: clapping hands
+
+#define MIC   SENSOR_1
+#define MAXDB 80
+
+task main(){
+
+  // Sensor en la entrada 1
+  SetSensorSound(IN_1);
+
+  // Avisamos de lo que tiene que hacer el usuario
+  TextOut(0, LCD_LINE1, "Motor: A");
+  TextOut(0, LCD_LINE2, "Microfono: 1");
+  TextOut(30, LCD_LINE5, "Aplaude");
+
+  while(true){
+    // Hasta que no haya un sonido que supere el umbral espera
+    until(MIC > MAXDB);
+
+    // Activamos el motor
+    OnFwd(OUT_A, 50);
+
+    // Esperamos un tiempo prudente para evitar 'rebotes'
+    Wait(300);
+
+    // Lo mismo, pero para parar el motor
+    until(MIC > MAXDB);
+    Off(OUT_A);
+    Wait(200);
+  }
+}
+{% endhighlight %}
+</div>
+
+Primero configura el sensor de sonido para la entrada 1. Luego imprime información para el usuario y entra en un bucle infinito. Si no cancelas el programa, este se ejecuta indefinidamente.
+
+Dentro del bucle vemos una sentencia nueva: <b>until</b>. Es obvio lo que hace, espera hasta que la condición se cumpla. En este caso, hasta que el micro (accesible desde el registo SENSOR_1) llegue al valor del umbral.
+
+La otra instrucción desconocida es <b>OnFwd</b>, que indica al motor conectado en el puerto A (OUT_A) que se mueva hacia delante (Fwd -> Forward) a una velocidad del 50%.
+
+Por último, <b>Off</b> se encarga de detener el movimiento del motor en el puerto A.
+
+Se compila y se carga en el NXT igual que en el caso anterior.
+
+<h2>Referencias</h2>
+
+<ul>
+<li><a href="http://bricxcc.sourceforge.net/nbc/nxcdoc/NXC_tutorial.pdf">Tutorial de NXC</a>, muy práctico.</li>
+<li><a href="http://bricxcc.sourceforge.net/nbc/nxcdoc/NXC_Guide.pdf">Manual de referencia de NXC</a>, con la API del sistema.</li>
+</ul>

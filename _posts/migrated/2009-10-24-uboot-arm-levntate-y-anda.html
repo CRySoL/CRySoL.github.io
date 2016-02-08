@@ -1,0 +1,284 @@
+---
+migrated: node/1241
+layout: post
+title: 'uBoot: "ARM, Levántate y anda"'
+created: 1256344082
+author: javieralso
+category: recipe
+tags:
+- embedded
+---
+<blockquote><a href="http://sourceforge.net/projects/u-boot/">u-boot</a> es un bootloader libre para dispositivos empotrados de bajo poder computacional. Para los no versados en el tema, es algo así como el <emph>grub</emph> de tu PDA o de tu navegador GPS, pero con notables diferencias, claro está. En ésta receta hablaré sobre como instalarlo y como usarlo para crear distintas particiones en la memoria Flash de tu <em>handheld</em>  para, de este modo, poder instalar un sistema arrancable. Para ello, pondré como ejemplo la tarjeta <a href="http://www.friendlyarm.net/products/mini2440">mini2440</a> que compré hace unos días.</blockquote>
+
+<!--break-->
+
+
+
+<h2>Introducción</h2>
+Como he comentado anteriormente, <em>u-boot</em> es un bootloader totalmente libre para dispositivos empotrados de bajo poder computacional. Entre sus múltiples posibilidades, están las de particionar la memoría flash del dispostivo en el que se encuentre corriendo, asignar nombre a dichas particiones, cargar imágenes en RAM desde distintas fuentes, volcarlas a flash, y un largo etcétera....
+Aquí hablaré de las opciones que a mi juicio pueden ser mas socorridas para la instalación de un Sistema Operativo en un dispositivo empotrado, en mi caso, tomando como ejemplo la tarjeta de desarrollo <em>mini2440</em> comentada anteriormente, aunque como es de suponer, las mismas operaciones pueden ser realizadas en distintas plataformas hardware.
+Así pues vamos a lo divertido del asunto ¡¡Empezamos!!
+
+<h2>Instalando</h2>
+El proceso de instalación de u-boot consiste básicamente en cargar una imagen de u-boot en la RAM de nuestrá máquina, bien a través de su propio bootloader, bien a través de un <a href="http://es.wikipedia.org/wiki/JTAG">JTAG</a>. Una vez cargado en RAM, se lanza y se le dice que se (auto)guarde en la flash de nuestra tarjeta. En este caso y dependiendo de nuestro hardware, puede sobreescribir a su bootloader original o bien coexistir con él. En cualquier caso, deberás consultar el manual de tu tarjeta para comprobarlo.
+
+Para el caso de la MINI2440, ésta viene con dos memorias Flash distintas: por un lado hay una flash NOR de 2MB en la que se encuentra almacenado el bootloader específico para los micros de Samsung (mirco de mi tarjeta de desarrollo): <em>supervivi</em>. Por otro lado, tenemos una memoria flash NAND de 128MB en la que se supone que irá nuestro sistema. En ésta memoria será en la que instalaremos u-boot, configurando posteriormente nuestra mini2440 para que arranque desde ahí (utilizando un conmutador que a tal efecto lleva instalado).
+
+Para comenzar, necesitaremos descargarnos tanto el código fuente de u-boot como el software necesario para poder comunicarnos con supervivi y un compilador cruzado para <a href="http://www.arm.com">ARM</a>:
+
+* u-boot:
+
+<div class="console">
+{% highlight console %}
+javieralso@rigoberto:~$ mkdir uboot; cd uboot
+javierlaso@rigoberto:~$ git clone git://repo.or.cz/u-boot-openmoko/mini2440.git
+
+{% endhighlight %}
+</div>
+
+* toolchain: Compiladores cruzados para ARM los hay muchos en esto de GNU. Yo, que seguí al dedillo todo lo que leí en montónes de blogs, usé el siguiente:
+
+<div class="console">
+{% highlight console %}
+javieralso@rigoberto:~$ wget http://www.codesourcery.com/sgpp/lite/arm/portal/package3696/public/arm-none-linux-gnueabi/arm-2008q3-72-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2
+javieralso@rigoberto:~$ unp  arm-none-linux-gnueabi/arm-2008q3-72-arm-none-linux-gnueabi-i686-pc-linux-gnu.tar.bz2
+javieralso@rigoberto:~$ export PATH=$PATH:/home/rigoberto/arm-2008q3/bin
+{% endhighlight %}
+</div>
+
+* Friendlyarm package: Se trata de un paquete con un uploader ya compilado para comunicarse con supervivi y de una imagen ya compilada de u-boot, que deberemos utilizar para cargar la imagen que compilemos nosotros. El por qué de usar dos imágenes de u-boot se explicará mas adelante.
+
+<div class="console">
+{% highlight console %}
+javieralso@rigoberto:~$ wget http://www.kernelconcepts.de/~fuchs/micro2440/friendlyarm2440-package.tar.bz2
+javieralso@rigoberto:~$ unp friendlyarm2440-package.tar.bz2
+{% endhighlight %}
+</div>
+
+Una vez que lo tenemos todo descargado, empezaremos por compilar el bootloader, para ello no debemos olvidar añadir a nuestro PATH la ruta en la que se encuentran los binarios de la toolchain que usemos (como hicimos anteriormente). Una vez hecho esto, podemos pasar a compilar:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@rigoberto:~$ cd uboot/mini2440
+javieralso@rigoberto:uboot/mini2440$ export CROSS_COMPILE=arm-none-linux-gnueabi-
+javieralso@rigoberto:uboot/mini2440$ make mini2440_config; make
+{% endhighlight %}
+</div>
+
+Después de no mucho tiempo y si todo ha ido bien, deberemos tener un archivo llamado <em>u-boot.bin</em> en la carpeta donde hemos llevado a cabo la compilación. Esa es la imagen de u-boot que se almacenará en la flash de nuestra tarjeta, pero para poder llevar a cabo dicho proceso, necesitaremos otra versión de u-boot (sé que suena bastante raro, y de hecho lo es. Mas adelante explicaré el por qué de ello).
+
+Bueno, llegados a este punto, cogemos nuestra mini2440, deslizamos el conmutador superior hacia la izquierda (para configurar el arranque desde la NOR), conectamos un módem nulo desde su puerto serie a un puerto serie de nuestra máquina y el <em>device USB</em> a un puerto USB libre. Tras ésto, arramcamos <em>minicom</em> y configuramos el puerto serie a 115200 Baudios, 8N1 y sin ningún tipo de contol de flujo.
+Hecho ésto, solo queda encender nuestra tarjeta y comprobar que supervivi arranca:
+
+
+<div class="console">
+{% highlight console %}
+##### FriendlyARM BIOS for 2440 #####
+[x] bon part 0 320k 2368k
+[v] Download vivi 
+[k] Download linux kernel 
+[y] Download root_yaffs image 
+[c] Download root_cramfs image 
+[a] Absolute User Application
+[n] Download Nboot 
+[e] Download Eboot 
+[i] Download WinCE NK.nb0 
+[w] Download WinCE NK.bin 
+[d] Download & Run 
+[z] Download zImage into RAM 
+[g] Boot linux from RAM 
+[f] Format the nand flash 
+[p] Partition for Linux 
+[b] Boot the system 
+[s] Set the boot parameters 
+[t] Print the TOC struct of wince 
+[u] Backup NAND Flash to HOST through USB(upload) 
+[r] Restore NAND Flash from HOST through USB 
+[q] Goto shell of vivi 
+Enter your selection:
+{% endhighlight %}
+</div>
+
+Seleccionamos la opción <em>q</em> para acceder a la shell de superivi y después le diremos que queremos cargar una imagen en la memoria y arrancar, pero para ello, antes deberemos saber cuando ocupa el bootloader que vamos a cargar (el que ya viene compilado), así que volvemos a la carpeta en la que lo descomprimimos y lo comprobamos:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@rigoberto:friendlyarm2440-package$ ls -l
+.......................
+.......................
+-rwxr-xr-x   1 javieralso javieralso 239016 oct 24 11:38 u-boot.bin
+.......................
+.......................
+{% endhighlight %}
+</div>
+
+Podemos ver que ocupa 239016 bytes. Guardamos este dato, nos será util para lo que comentamos anteriormente.
+
+
+<div class="console">
+{% highlight console %}
+Enter your selection:q
+Supervivi> load flash 0 239016 u
+USB host is connected. Waiting a download.
+{% endhighlight %}
+</div>
+
+Con esto le hemos dicho a supervivi que queremos cargar 239016 bytes de datos (observad que es la misma cantidad de bytes que ocupa la imagen de u-boot) en la RAM de la tarjeta. Ahora supervivi se ha quedado esperando los datos, que deberemos envíarselos vía USB. Habiendo conectado el cable USB como se indicó antes ejecutamos el uploader:
+
+
+<div class="console">
+{% highlight console %}
+javieralso@rigoberto: friendlyarm2440-package$ sudo ./s3c2410_boot_usb u-boot.bin
+{% endhighlight %}
+</div>
+
+que deberá ser llamado desde la carpeta <em>friendlyarm2440-package</em> y con <em>sudo</em> para poder tener acceso al puerto USB.
+
+Si todo ha ido bien, supervivi debería mostar algo como esto:
+
+
+<div class="console">
+{% highlight console %}
+Now, Downloading [ADDRESS:30000000h,TOTAL:232706]
+RECEIVED FILE SIZE:  239016 (28KB/S, 8S)
+Downloaded file at 0x30000000, size = 232696 bytes
+Found block size = 0x0003c000
+Erasing...    ... done
+Writing...    ... done
+Written 239016 bytes
+Supervivi> 
+{% endhighlight %}
+</div>
+
+Ahora, arrancamos u-boot:
+
+
+<div class="console">
+{% highlight console %}
+Supervivi> go 0x30000000
+{% endhighlight %}
+</div>
+
+y ya está, nuestra tarjeta arrancará u-boot:
+
+
+<div class="console">
+{% highlight console %}
+U-Boot 1.3.2-mini2440 (May 15 2009 - 21:24:49)
+I2C:   ready
+DRAM:  64 MB
+Flash:  2 MB
+NAND:  Bad block table not found for chip 0
+Bad block table not found for chip 0
+64 MiB
+*** Warning - bad CRC or NAND, using default environment
+USB:   S3C2410 USB Deviced
+In:    serial
+Out:   serial
+Err:   serial
+MAC: 08:08:11:18:12:27
+Hit any key to stop autoboot:  0 
+{% endhighlight %}
+</div>
+
+Lo primero que ha hecho u-boot al arrancar, ha sido darnos un mensaje de alerta indicando que el contenido de la NAND no es el que debiera, ya que no está formateada, así que éste será el siguiente paso:
+
+
+<div class="console">
+{% highlight console %}
+MINI2440 # nand scrub
+NAND scrub: device 0 whole chip
+Warning: scrub option will erase all factory set bad blocks!
+         There is no reliable way to recover them.
+         Use this command only for testing purposes if you
+         are sure of what you are doing!
+Really scrub this NAND flash? <y/N>
+Erasing at 0x33d4000 --  81% complete.
+NAND 64MiB 3,3V 8-bit: MTD Erase failure: -5
+Erasing at 0x3ffc000 -- 100% complete.
+Bad block table not found for chip 0
+Bad block table not found for chip 0
+OK
+MINI2440 # 
+{% endhighlight %}
+</div>
+
+La NAND tiene almacenada (o debería tener) una lista de bloques defectuosos, pero nosotros limpiaremos completamente la NAND borrando dicha lista y reconstruyéndola después con los bloques que nosotros detectemos como defectuosos. El comando <em>nand scrub</em> se encarga precisamente de limpiar la NAND.
+Después de haber hecho la limpieza, creamos nuestra propia <em>BBT</em>:
+
+
+<div class="console">
+{% highlight console %}
+MINI2440 # nand createbbt
+Create BBT and erase everything ? <y/N>
+Skipping bad block at  0x03410000                                            
+Skipping bad block at  0x03ff0000                                            
+Skipping bad block at  0x03ff4000                                            
+Skipping bad block at  0x03ff8000                                            
+Skipping bad block at  0x03ffc000                                            
+Creating BBT. Please wait ...Bad block table not found for chip 0
+Bad block table not found for chip 0
+Bad block table written to 0x03ffc000, version 0x01
+Bad block table written to 0x03ff8000, version 0x01
+{% endhighlight %}
+</div>
+
+Éste proceso es relativamente lento, por lo que habrá que esperar que esperar (3-4 minutillos), así que mientras tanto, busca una tarjeta SD y copia el binario <em>u-boot.bin</em> QUE COMPILASTE en dicha tarjeta. La cargaremos desde ahí.
+
+Una vez que tenemos nuestra SD con el binario cargado y que ya se ha generado la nueva BBT, introducimos la tarjeta en el lector de la mini2440 y le decimos a u-boot que la detecte:
+
+
+<div class="console">
+{% highlight console %}
+MINI2440 # mmcinit
+******** FIXME: Poner aquí la salida de mmcinit **************
+
+{% endhighlight %}
+</div>
+
+Con la tarjeta ya detectada, cargamos <em>u-boot.bin</em> en la RAM:
+
+
+<div class="console">
+{% highlight console %}
+MINI2440 # fatload mmc 0:1 0x32000000 u-boot.bin
+******** FIXME: Poner aquí la salida de fatload **************
+
+{% endhighlight %}
+</div>
+
+¿Qué ha pasado? pues que le hemos dicho a u-boot que cargue el archivo binario <em>u-boot.bin</em> desde un sistema de archivos FAT (<em>fatload</em>), ubicado en la SD (<em>mmc</em>), dispositivo 1, primera partición (<em>0:1</em>), a partir de la dirección de memoria 0x32000000.
+
+Una vez que tenemos el archivo en RAM, lo volcamos a la NAND:
+
+
+<div class="console">
+{% highlight console %}
+MINI2440 # nand write.e 0x32000000 0x0 0x38fc4
+NAND write: device 0 offset 0x0, size 0x38fc4
+Writing data at 0x38c00 -- 100% complete.
+ 233412 bytes written: OK
+{% endhighlight %}
+</div>
+
+Bueno, en este caso, hemos escrito 0x38fc4 bytes (233412, para que nos entendamos), al comienzo de la NAND. El numerajo hexadecimal, como hemos visto corresponde al peso de <em>u-boot.bin</em> pero ésta vez del que hemos compilado NOSOTROS, no del que cargamos en RAM al principio. Importante no confundir ésto. Un apunte importante es que en ésta parte del proceso, la longitud deberá darse en hexadecimal, no en decimal, ya que ello puede dar lugar a errores.
+
+Por lo que he leído por ahí, el modificador <em>.e</em> del comando <em>write</em> se utiliza para generar códigos de correción de errores y evitar así lo posibles bloques defectuosos que pueda haber en la NAND (recordad el comando <em>createbbt</em> de antes).
+
+Una vez hecho esto, podemos reiniciar tranquilos nuestra mini2440: u-boot la hará arrancar. Aunque no hará mucho mas ya que la NAND está completamente borrada y no hay sistema.
+
+Antes comenté que explicaría el por qué de usar dos versiones distintas de uboot. El motivo es que para instalar uboot, primero debe residir en la RAM y poderse ejecutar desde ahí, ya que hay que hacer una limpieza de la NAND antes de llevar a cabo la instalación propiamente dicha. Lo que observé entonces fue que las versiones de uboot que conseguían arrancar desde la RAM, no eran capaces de hacerlo luego una vez que se instalaban en NAND (en efecto, según los manuales que leí, una vez creada la BBT, se escribía el contenido de la RAM a la NAND, ya que allí es donde está uboot) y viceversa, las imágenes que si que eran capaces de arrancar desde la NAND no lo podían hacer desde la RAM. No sé si esto es por algún bug en uboot (que deberían ser entonces bugs distintos en cada una de las versiones) o porque yo hice algo mal (repetí montones de veces lo que vi en tutos, blogs y demás paso por paso). El caso es que después de varios intentos sin mucho éxito, decidí hacerlo tal y como lo he explicado aquí.
+
+<h2>En el futuro....</h2>
+En próximas recetas, explicaré qué comandos básicos utilizar en u-boot para cargar imágenes en RAM o NAND, configurar el arranque automático desde distintas fuentes, particionar la NAND, configurar opciones de arranque para el S.O. que tengamos y alguna cosilla mas. Evito poner esa información aquí para no sobrecargar demasíado esta receta, que se supone que tienen que ser breves y concisas.
+
+<h2>Referencias</h2>
+Muchas y muy variadas, aunque las mas importantes son éstas.
+<ul>
+<li><a href=" http://www.xclusivinterior.com/index.php?title=Mini2440">Wiki sobre mini2440</a></li>
+<li><a href="http://code.google.com/p/mini2440/">Hosting para proyectos sobre mini2440 en GoogleCode</a></li>
+<li><a href="http://labs.kernelconcepts.de/Projects/Micro2440/">Blog con algunos artículos y enlaces interesantes</a></li>
+<li> Buscando en Google puedes encontrar cantidad de información referente a esta tarjeta de desarrollo.</li>
+</ul>

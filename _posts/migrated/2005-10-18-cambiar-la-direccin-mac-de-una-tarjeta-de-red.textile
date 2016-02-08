@@ -1,0 +1,95 @@
+---
+migrated: node/46
+layout: post
+title: Cambiar la dirección MAC de una tarjeta de red
+created: 1129656126
+author: david_villa
+category: recipe
+---
+En determinadas «circunstancias especiales» puede ser necesario que un PC tenga una tarjeta de red con una dirección MAC específica. Esta receta explica cómo conseguirlo con @ifconfig@, @iproute@ o @macchanger@
+
+
+<!--break-->
+
+
+A pesar de que la dirección física suele estar grabada en ROM en la propia tarjeta, es posible pedirle al sistema operativo que utilice otro "número" para identificar esa tarjeta.
+
+h2. Lo primero
+
+Para poder hacer el cambio de MAC(Media Access Control), ningún programa debe estar utilizando la interfaz de red correspondiente y además hay que "bajar" la interfaz.
+
+
+<div class="console">
+{% highlight console %}
+
+# /etc/init.d/networking stop
+{% endhighlight %}
+</div>
+
+
+h2. Con @ifconfig@
+
+La sintaxis es sencilla, pongo un ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+
+# ifconfig eth0 down hw ether 08:09:0a:fa:ba:da
+{% endhighlight %}
+</div>
+
+h2. Con <tt>ip</tt> (del paquete <tt>iproute</tt>)
+
+<tt>ip</tt> es una herramienta muy potente para obtener información y manipular rutas, dispositivos, políticas de rutado y túneles.
+
+ 
+<div class="console">
+{% highlight console %}
+
+# ip link set eth0 down address 08:09:0a:fa:ba:da
+# ip link set eth0 up
+{% endhighlight %}
+</div>
+
+h2. Con <tt>macchanger</tt>
+
+"GNU MAC Changer":http://<a href="http://www.alobbs.com/modules.php?op=modload&name=macc&file=index">www.alobbs.com/modules.php?op=modload&name=macc&file=index</a> es un programa específico para nuestro proposito. Permite poner una MAC concreta, una aleatoria o elegir un fabricante de una lista, entre otras opciones. La sintaxis básica también es fácil. Pongo el ejemplo equivalente al anterior:
+
+
+<div class="console">
+{% highlight console %}
+# macchanger -m 08:09:0a:fa:ba:da eth0
+{% endhighlight %}
+</div>
+
+
+h2. Por último
+
+Volver a activar la red.
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/networking start
+{% endhighlight %}
+</div>
+
+Hay que tener en cuenta que si usamos DHCP, lo más probable es que el servidor DHCP nos asigne ahora una IP distinta ya que pensará que es otro PC.
+
+h2. Persistente
+
+Si necesitas que el cambio sea "permanente" puedes indicarlo en @/etc/network/interfaces@:
+
+<pre>
+auto eth0
+iface eth0 inet dhcp
+      ...
+      hwaddress ether 08:09:0a:fa:ba:da
+</pre>
+
+
+h2. Referencias
+
+* "GNU MAC Changer":http://<a href="http://www.alobbs.com/macchanger">www.alobbs.com/macchanger</a>
+* "Wikipedia::Mac Adrress":http://en.wikipedia.org/wiki/MAC_address

@@ -1,0 +1,168 @@
+---
+migrated: node/1410
+layout: post
+title: arco-devel, el paquete
+created: 1286982055
+author: david_villa
+category: recipe
+tags:
+- Arco
+- emacs
+---
+<blockquote class="warning">
+<b>ATENCIÓN:</b> Esta receta está OBSOLETA. Ver "emacs-pills":https://bitbucket.org/arco_group/emacs-pills
+</blockquote>
+
+<!--break-->
+
+
+
+@arco-devel@ es un paquete Debian que contiene principalmente ficheros de configuración y scripts pensados para facilitar la vida al personal técnico del grupo Arco, pero como son cosas muy genéricas, creo que quizá a alguno de los que frecuentáis CRySoL os puedan resultar útiles.
+
+
+<!--break-->
+
+
+h2. Contenido
+
+Pongo aquí a modo de resumen qué cosas se pueden encontrar en el paquete y también para que os podáis hacer una idea del tipo de cosas que tenemos pensado empaquetar
+
+h3. Yasnippets
+
+Los "yasnippets":http://code.google.com/p/yasnippet/ son un tipo de macros para emacs. Son potentes y fáciles de hacer. Con el paquete @yasnippet@ viene un buen montón de estas macros. Nosotros hemos añadido algunas que nos parecen útiles:
+
+* *python-head*. introduce la cabecera típica de los scripts python simplemente escribiendo "!py&lt;TAB>". Debe estar activado @python-mode@. La cabecera de la que hablo es:
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/python
+# -*- mode:python; coding:utf-8 -*-
+{% endhighlight %}
+</div>
+
+* *flyspell-vars*. Pone un bloque de "variables de fichero":http://<a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables">www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables</a> para pedir que se active la ortografía al vuelo (flyspell). Solo hay que escribir "spell&lt;TAB>" y te añade lo siguiente (pudiendo elegir interactivamente el tipo de comentario y el diccionario).
+
+<div>
+{% highlight text %}
+# Local Variables:
+#  coding: utf-8
+#  mode: flyspell
+#  ispell-local-dictionary: "castellano8"
+# End:
+{% endhighlight %}
+</div>
+* *documentclass*. Crea un documento LaTeX mínimo con la configuración habitual para castellano. Se activa con "documentclass&lt;TAB>" y genera:
+
+
+<div>
+{% highlight tex %}
+% -*- coding: utf-8 -*-
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{times}
+
+\title{}
+
+\begin{document}
+\maketitle
+
+\end{document}
+{% endhighlight %}
+</div>
+
+* *shebang*: Incluye el "shebang":http://en.wikipedia.org/wiki/Shebang_%28Unix%29 elegido al introducir la cadena "!&lt;TAB>"
+
+h3. Configuración modular para GNU Emacs
+
+<blockquote class="warning">
+<b>ATENCIÓN: Lo que se explica a continuación está ahora en el paquete @emacs-pills@ disponible en <a href="https://bitbucket.org/arco_group/emacs-pills">https://bitbucket.org/arco_group/emacs-pills</a></b>
+</blockquote>
+
+<!--break-->
+
+
+
+Una vez instalado el paquete puedes ver que en @/usr/share/arco/emacs@ hay unos cuantos ficheros @.elc@. Son ficheros «elisp» byte-compilados que contienen simplemente instrucciones de configuración para emacs (lo que normalmente pones en el @.emacs@) pero troceado:
+
+* *auto-insert*: Contenido por defecto que se inserta automáticamente al crear ficheros nuevos (ver "receta":/node/1437).
+* *develock*: Configuración para el modo develock con colores no-epilépticos.
+* *develock-py*: Configuración de develock para python-mode (que no lo soporta por defecto).
+* *maximize*: Dos combinaciones de teclas para maximizar emacs a pantalla completa (F11) o solo verticalmente (C-F11).
+* *paren-autoclose*: Provoca que las expresiones «pareadas», es decir, paréntesis, llaves, corchetes, comillas simples y dobles, etc. se cierren automáticamente al escribir la de apertura. Esta «feature» solivianta muchos ánimos. Usar con precaución :-P.
+* *psgml*: Configuración básica del paquete "psgml":http://<a href="http://www.lysator.liu.se/projects/about_psgml.html">www.lysator.liu.se/projects/about_psgml.html</a> para disponer de coloreado de sintaxis y completion basada en el DTD.
+* *speedbar*: Configuración básica para speedbar.
+* *strip*: Contiene la configuración para el paquete @whitespace@ de modo que al salvar un fichero automáticamente se eliminan espacios sobrantes al final de las líneas y lineas en blanco al final y al principio del fichero. Muy útil para evitar que cambios (que realmente no lo son) hagan creer al control de versiones que es necesario actualizar el fichero.
+* *tabbar*: Una configuración sencilla y muy productiva para el paquete tabbar. Clasifica en tres tipos de ficheros: normales, de control y del modo «dired». Para cambiar entre tipos usa C-Shift-arriba y C-S-abajo. Para cambiar entre ficheros de un mismo tipo usa: C-S-izquierda y C-S-derecha. Muy muy útil.
+* *uniquify*: Configuración para el modo "uniquify":http://<a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.html">www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.html</a>. Hace que ficheros con el mismo nombre en directorios distintos se distingan por el nombre del directorio en lugar de por un número, como ocurre por defecto.
+* *zoom*: Si te gusta cambiar el tamaño de la fuente con C-+ y C--, o con C-rueda y restaurar el tamaño con C-0... todo eso lo tienes cargando esta configuración. No importa nada nuevo, solo define keybindings.
+
+Para utilizar estas configuraciones escribe lo siguiente en tu @.emacs@:
+
+
+<div>
+{% highlight text %}
+(add-to-list 'load-path "/usr/share/arco/emacs")
+(load "tabbar.cfg")
+(load "maximize.cfg")
+{% endhighlight %}
+</div>
+
+Y así para cada uno de los ficheros que quieras usar.
+
+h3. devel.sh
+
+Se supone que es un fichero que tendrá alias y funciones bash varias. Ahora mismo solo tiene una, pero acabamos de empezar:
+
+* *fexec*: Ejecuta el comando indicado y queda a la espera. Cuando algún fichero cambie, ejecuta de nuevo el comando de forma automática. Esto es posible gracias al comando "inotifywait":http://crysol.org/es/node/1374.
+
+* *fmake*: Es un alias para ejecutar @fexec(make)@. Es decir, sirve para recompilar un programa o documento en cuanto cambia un fichero del directorio o subdirectorios.
+
+Para usarlo incluye lo siguiente en tu @.bashrc@:
+
+
+<div>
+{% highlight text %}
+source /usr/share/arco/devel.sh
+{% endhighlight %}
+</div>
+
+h3. Makefiles
+
+Son ficheros @.mk@, es decir, fragmentos de Makefile útiles para utilizar en los tuyos:
+
+* *flymake-c.mk*: contiene una regla @check-syntax@ para utilizar el paquete "flymake":http://flymake.sourceforge.net/ de Emacs con código C. Flymake comprueba un fichero C o C++ mientras lo escribes y añade información visual sobre errores sin necesidad que que tengas que ejecutar explícitamente el compilador. Muy útil aunque requiere configuración específica para cada lenguaje.
+
+Para utilizar estos ficheros en tus Makefile escribe:
+
+
+<div>
+{% highlight text %}
+include /usr/share/arco/flymake-c.mk
+{% endhighlight %}
+</div>
+
+h2. Instalación de @arco-devel@
+
+Añade lo siguiente a tu @/etc/apt/sources.list@:
+
+
+<div>
+{% highlight text %}
+deb http://babel.esi.uclm.es/arco/ unstable main
+{% endhighlight %}
+</div>
+
+Y después el habitual:
+
+
+<div class="console">
+{% highlight console %}
+
+# aptitude update
+# aptitude install arco-devel
+{% endhighlight %}
+</div>

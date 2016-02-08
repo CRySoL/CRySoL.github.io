@@ -1,0 +1,54 @@
+---
+migrated: node/360
+layout: post
+title: Arreglar gnome-terminal que no muestra tildes ni eñes
+created: 1153985554
+author: magmax
+category: recipe
+tags:
+- gnome
+---
+<blockquote>Desde hace algún tiempo (acabo de descubrir que muy posiblemente desde GNOME 2.14), el terminal de GNOME me muestra las tildes, eñes y otros caracteres como caritas. Aunque al principio resulta gracioso, terminas cansándote :-D. Aquí lo arreglaremos de la manera más sencilla.
+</blockquote>
+
+<h1>Arreglarlo</h1>
+Para arreglarlo basta con editar el fichero <tt>~/.dmrc</tt> y añadir al final la línea <tt>Language=es_ES.iso88591</tt>. Si lo preferís, basta con ejecutar lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+$ echo "Language=es_ES.iso88591" >> .dmrc
+
+{% endhighlight %}
+</div>
+
+<h1>¿Qué estaba pasando?</h1>
+
+Lo que pasa es que en los GNOMEs anteriores se tomaban las locales del sistema, pero parece que en las últimas no lo hace muy bien. Por ello, al fallar la carga, tomaba las locales por defecto, es decir, ANSI_X3.4-1968 que no tiene tildes y demás.
+
+Yo sabía que se podía cambiar en el menú del gnome-terminal, en "terminal"->"Establecer codificación de caracteres", pero es un rollo tener que hacerlo para cada pestaña del gnome-términal. Así, sólo lo hacía cuando tenía que leer algo un poco grande :-D
+
+Editando el fichero .dmrc le decimos a GDM cuál es el "encoding" que queremos utilizar, puediendo elegir entre los que configuramos con el paquete locales. Para cambiar los "encodings" compilados en "locales", se hace así (los chicos de UBUNTU no sé cómo leches lo hace, pero en Debian se hace así):
+
+
+<div class="console">
+{% highlight console %}
+# dpkg-reconfigure locales
+
+{% endhighlight %}
+</div>
+
+Y para saber cuáles son los disponibles (qué cadenitas poner en "Language=XXXXXXX"), basta con hacer:
+
+
+<div class="console">
+{% highlight console %}
+$locale -a
+
+{% endhighlight %}
+</div>
+
+
+<h1>Enlaces</h1>
+
+Llevo buscando bastante tiempo, y al final lo encontré en el <a href="http://www.davidpashley.com/cgi/pyblosxom.cgi/computing/gnome-terminal.html">blog de David Pashley</a>. Este documento es, básicamente, una transcripción de lo que se comenta en el enlace.

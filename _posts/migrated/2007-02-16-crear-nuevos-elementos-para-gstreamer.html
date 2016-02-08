@@ -1,0 +1,196 @@
+---
+migrated: node/566
+layout: post
+title: Crear nuevos elementos para Gstreamer
+created: 1171653374
+author: oscarah
+category: recipe
+tags:
+- gstreamer
+---
+<blockquote>
+Como crear un 'sink' y un 'source' de Gstreamer a partir de las clases gst.BaseSink y gst.BaseSrc para extender la funcionalidad.
+</blockquote>
+
+<!--break-->
+
+
+<!-- break -->
+
+<h1>Introducción</h1>
+
+  Cuando trabajas con Gstreamer, lo que utilizas son básicamente "elementos" (de hecho, gst.Element es una clase abstracta muy alta en la jerarquía). Existen elementos para casi cualquier cosa: sink de audio pasa alsa, esd, oss; sinks de vídeo para xv, ASCII-text, Coloured-ASCII-text... para muchas cosas, pero no para todas. Puede surgir la necesidad de utilizar como fuente un dispositivo muy especial, o quizá sea necesario enviar el audio a un hardware "poco común" conectado al puerto serie.
+  
+  Para solucionar esto, tenemos la posibilidad de crear nuestros propios elementos de Gstreamer. La API provee diferentes clases abstractas para que no sea necesario empezar desde cero. Estas clases se encargan de hacer cosas como la gestión de estados, el 'prerolling', etc., que de otra forma tendrías que currártelo tú mismo. Para más información, consulta el <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/pwg/html/index.html" target="_gstreamer">Plugin Writer's Guide</a> y, especialmente, la sección <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/pwg/html/chapter-other-base.html" target="_gstreamer">Pre-mase base class</a>.
+
+  Claro, el usar estas clases conlleva cierto precio (que en muchos casos está de sobra amortizado). Por ejemplo, suelen disponer sólo de un pad (para la función que quieras especificar). Las clases que te interesan son:
+
+<ul>
+<li><b>gst.BaseSink</b> para crear un elemento de tipo 'sink'</li>
+<li><b>gst.BaseSrc</b> (y derivados) para crear un elemento de tipo 'source'</li>
+</ul>
+
+<h1>Ingredientes</h1>
+
+  Lo típico: Gstreamer (0.10), Python y una <a href="http://www.gnu.org/home.es.html" target="_gnu">GNU-box</a> :-p
+
+<h1>Partes comunes</h1>
+
+  Si estás leyendo esto doy por hecho que sabes cómo funciona Gstreamer, así que vamos al tema directamente. Los nuevos elementos heredarán de una de las clases base, que les provee una interfaz sencilla para manipularlos. Principalmente, lo que tendrás que hacer es sobreescribir algunos métodos. Además será necesario que especifiques los PAD's que vas a hacer disponibles. Para esto último, se utiliza un atributo de la clase, <em>__gsttemplates__</em> (que es una tupla). 
+
+  Si quieres un pad en el nuevo elemento, lo debes añadir en <em>__gsttemplates__</em>. Para crear un pad, existe una función que nos ayuda, <b>gst.PadTemplate()</b>. Los parámetros que esta función acepta son:  
+<ul>
+<li><em>nombre</em>, nombre del pad en concreto</li>
+<li><em>type</em>, tipo de pad (PAD_SINK, PAD_SRC)</li>
+<li><em>presence</em>, cuándo está presente el pad (PAD_ALWAYS, PAD_SOMETIMES, PAD_REQUEST)</li>
+<li><em>caps</em>, las 'capacidades' del pad, es decir, el tipo de flujo que manejará. Se debe pasar un objeto de tipo gst.Caps, que podemos crearlo con <b>gst.caps_new_any()</b> o <b>gst.caps_from_string()</b>. El primer método crea un objeto con todas las 'capacidades' disponibles y el segundo lo crea en función de una cadena de texto (más sobre caps en <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/manual/html/section-caps.html" target="_gstreamer">Capabilities of a Pad</a>)
+</ul>
+
+  También, ya que el elemento que estás creando hereda en última instancia de Gobject, en el constructor tienes que llamar a <b>__gobject_init__()</b>. Además, es bueno que establezcas el nombre del elemento.
+  
+  Por último, algo imprescindible es registrar nuestra clase como un tipo de Gobject, con <b>gobject.type_register(</b><em>nombre_clase</em><b>)</b>.
+
+<h1>Escribiendo un sink</h1>
+
+  Los elementos sink (sumidero) son aquellos que permiten recibir un flujo de datos y representan el final de una tubería. Un elemento sink es aquel que sólo tiene pads de tipo sink (en nuestro caso además, sólo tiene uno). Así pues, lo que hagamos con el flujo de datos no le importa al resto de la tubería porque somos el punto final de esta. Es nuestra labor determinar qué hacer con los datos que nos llegan, por ejemplo, mandarlos a nuestro hardware "poco común", escribirlos en un fichero, etc.
+
+  Existen diferentes métodos que se pueden sobreescribir. De todos ellos, el más importante en este caso es el <b>do_render()</b>. Cuando la tubería entra en el estado PLAYING, el flujo de datos circula hacia nuestro elemento, y esto se traduce en una llamada al método <b>do_render()</b>. Por tanto, en ese método es donde debes hacer lo que necesites con los datos. Se recibe un buffer (un gst.Buffer). Cuando retorne, debe devolver un estado determinado para avisar al resto de la tubería si todo fue bien (FLOW_OK), o si los datos no eran los adecuados (FLOW_NOT_SUPPORTED), o si no quieres datos (FLOW_UNEXPECTED), o si ha habido algún error (FLOW_ERROR), etc.
+
+  Otro par de métodos útiles que puedes sobreescribir son los conocidos <b>get_property(</b><em>key</em><b>)</b> y <b>set_property(</b><em>key, value</em><b>)</b>, que evidentemente sirven para leer/modificar las propiedades del elemento.
+
+  Veamos un ejemplo sencillo:
+
+<pre>
+class HelloSink(gst.BaseSink):
+
+    __gsttemplates__ = (
+        gst.PadTemplate("sink",
+                        gst.PAD_SINK,
+                        gst.PAD_ALWAYS,
+                        gst.caps_new_any()),
+        )
+
+    def __init__(self, name):
+        self.__gobject_init__()
+        self.set_name(name)
+
+        self.count = 0
+
+    def do_render(self, buffer):
+        while (self.count < 10):
+            print buffer.data
+            self.count += 1
+            return gst.FLOW_OK
+
+        return gst.FLOW_UNEXPECTED
+
+    def set_property(self, key, value):
+        if key == "name":
+            self.set_name(name)
+        else:
+            print "no existe la propiedad %s" % key
+
+    def get_property(self, key):
+        if key == "name":
+            return self.get_name()
+        else:
+            print "no existe la propiedad %s" % key
+    
+gobject.type_register(HelloSink)
+</pre>
+
+  Este ejemplo simplemente imprime los 10 primeros buffers de datos recibidos. Retornamos FLOW_OK si estamos listos para recibir más datos. Si no queremos más datos, podemos retornar FLOW_UNEXPECTED.
+
+<h1>Escribiendo un source</h1>
+
+  Los elementos source son el extremo opuesto a los sink en la tubería. Son la fuente principal (generalmente) de datos para la tubería. Son análogos en muchos aspectos a los sink. Sólo tiene pads de tipo src (y como en el sink, sólo uno). También es posible sobreescribir varios métodos de los cuales el más importante, en este caso, es <b>do_create()</b>. De nuevo, es la tubería quien llama a este método, con dos parámetros: <em>offset</em>, que representa la posición del primer byte que espera recibir y <em>size</em>, especificando la cantidad de bytes que necesita. Esta función debe retornar dos parámetros: uno indicando cómo ha ido todo (al igual que antes, FLOW_OK, FLOW_ERROR, etc.) y otro con los datos pedidos (dentro de un gst.Buffer).
+
+  Veamos otro ejemplo sencillo para un src:
+
+<pre>
+class HelloSrc(gst.BaseSrc):
+
+    __gsttemplates__ = (
+        gst.PadTemplate("src",
+                        gst.PAD_SRC,
+                        gst.PAD_ALWAYS,
+                        gst.caps_new_any()),
+        )
+
+    def __init__(self, name):
+        self.__gobject_init__()
+        self.set_name(name)
+
+    def do_create(self, offset, size):
+        ret = gst.Buffer("¡Hola mundo!")
+        return gst.FLOW_OK, ret
+
+    def set_property(self, key, value):
+        if key == "name":
+            self.set_name(name)
+        else:
+            print "no existe la propiedad %s" % key
+
+    def get_property(self, key):
+        if key == "name":
+            return self.get_name()
+        else:
+            print "no existe la propiedad %s" % key
+
+gobject.type_register(HelloSrc)
+</pre>
+
+  Este ejemplo simplemente envía la cadena "¡Hola mundo!" por la tubería.
+
+  Algo que me gustaría comentar es que existen clases especiales para trabajar con fuentes de datos 'secuenciales' (es decir, que no se puede acceder a posiciones determinadas del flujo, como fuentes de <em>live audio</em> o cámaras). Para estos casos, quizá te sea más útil emplear gst.PushSrc
+
+<h1>Probando nuestros elementos</h1>
+
+  Para testear nuestros nuevos elementos tenemos que crearlos a mano, ya que no los hemos registrado todavía en la factoría de Gstreamer. No podemos usar <b>gst.element_factory_make()</b> y mucho menos <b>gst.parse_launch()</b> (el registrar los componentes lo dejo para otro escrito :-) )
+
+  Así que nuestro programa de prueba quedaría más o menos de la siguiente forma:
+
+<pre>
+pipe = gst.Pipeline("helloPipe")
+src = HelloSrc("source")
+sink = HelloSink("sink")
+
+pipe.add(src, sink)
+gst.element_link_many(src, sink)
+
+pipe.set_state(gst.STATE_PLAYING)
+
+def bus_event(bus, message):
+    t = message.type
+    if t == gst.MESSAGE_EOS:
+        loop.quit()
+        
+    return True
+
+pipe.get_bus().add_watch(bus_event)
+
+loop = gobject.MainLoop()
+try:
+    loop.run()
+except:
+    pass
+</pre>
+
+Y la salida debería ser la esperada:
+
+<pre class="console">
+$ python hello.py
+¡Hola mundo!
+¡Hola mundo!
+¡Hola mundo!
+¡Hola mundo!
+¡Hola mundo!
+¡Hola mundo!
+¡Hola mundo!
+¡Hola mundo!
+¡Hola mundo!
+¡Hola mundo!
+</pre>
+
+<h1>Referencias</h1>
+Ejemplos de Gstreamer: <a href="http://webcvs.freedesktop.org/gstreamer/gst-python/examples" target="_gstreamer">[1]</a> y <a href="http://cgit.freedesktop.org/~bilboed/gst-python/tree/examples" target="_gstreamer">[2]</a>

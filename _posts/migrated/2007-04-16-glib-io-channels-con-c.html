@@ -1,0 +1,74 @@
+---
+migrated: node/645
+layout: post
+title: GLib IO Channels con C
+created: 1176738453
+author: javieralso
+category: recipe
+tags:
+- Arco
+---
+<blockquote>Programación de bucles de eventos en C para GNU/Linux utilizando GLib</blockquote>
+
+
+<h2> Introducción </h2>
+Siguiendo con la línea de <em>david</em> en su entrada <a href="http://cryso.inf-cr.uclm.es/node/465">GLib IO Channels con python</a> en el que implementaba el patrón <em>reactor</em> en <em>python</em>, ahora haré una pequeña introducción a la programación de éste mismo patrón en C.
+
+<h2> Patrón <em>reactor</em> en C. </h2>
+
+El código de ejemplo para ésta receta se encuentra disponible en el <a href="https://arco.inf-cr.uclm.es/svn/public/patterns/reactor_c_glib/">repo público de Arco</a> y puede ser descargado utilizando <a href="http://subversion.tigris.org">subversion</a>. Aquí se muestra el contenido del archivo con la implementación del patrón <em>reactor</em>:
+
+
+<div>
+{% highlight c %}
+#include <stdio.h>
+#include <glib.h>
+
+gboolean handler1(gpointer data) {
+  printf ("Manejador 1\n");
+  return TRUE;
+}
+
+gboolean handler2(gpointer data) {
+  printf ("Manejador 2\n");
+  return TRUE;
+}
+
+gboolean handler3(GIOChannel *source, GIOCondition condition, gpointer data) {
+  int fd;
+  char buff[100];
+
+  for (fd = 0; fd < 100; fd++) {
+    buff[fd] = 0;
+  }
+
+  printf ("Manejador 3\n");
+  fd = g_io_channel_unix_get_fd (source);
+  read(fd, buff, 100);
+  printf ("Buffer: %s", buff);
+  return TRUE;
+}
+
+int main (void) {
+  gpointer data;
+
+  g_timeout_add(1000, handler1, data);
+  g_timeout_add(500, handler2, data);
+
+  g_io_add_watch(g_io_channel_unix_new(0), G_IO_IN, handler3, NULL);
+  g_main_loop_run(g_main_loop_new(NULL, FALSE));
+  return 0;
+}
+{% endhighlight %}
+</div>
+
+ El código que se muestra es bastante simple y fácil de entender. Al principio, después de las inclusiones de las cabeceras necesarias, se declaran tres funciones que consisten en los <em>manejadores</em> de los eventos capturados. Los dos primeros son exactamente iguales y lo único que hacen es escribir un mensaje por pantalla. El tercer manejador se llama cuando se introducen datos por teclado. Lo único que hace es inicializar un buffer en el que después copiaremos los datos introducidos y finalmente los imprimiremos. Podemos ver que éstas tres funciones devuelven <em>TRUE</em>, mas adelante se verá el porqué.
+
+La "chicha" del asunto está en la función <em>main</em>, que es la que se encarga de asignar los <em>manejadores</em> anteriores a cada una de las señales y de inicializar el bucle de eventos.
+Las llamadas a <em>g_timeout_add</em> asignan los dos primeros manejadores a un evento de tiempo, que se generará, respectivamente, cada segundo y medio segundo. Por su parte, la llamada a <em>g_io_channel_unix_new</em> asigna el tercer manejador a los eventos de escritura generados a través de la entrada estándar (el teclado).
+Finalmente, la penúltima línea se encarga de poner en funcionamiento el <em>bucle principal</em>, creado por la función que se llama como primer parámetro. En ese momento, el programa se queda "congelado" ahí y lo único que hace es esperar a que se produzcan los eventos programados (los dos de temporización y la entrada por el teclado).
+Antes comenté que los manejadores siempre devolvian <em>TRUE</em>. Ésto se debe a que si devolviesen <em>FALSE</em>, no volverían a ser llamados. Así conseguimos que los manejadores vuelvan a ser ejecutados cuando se producen de nuevo los eventos.
+
+<h2> Referencias </h2>
+
+<a href="http://developer.gnome.org/doc/API/glib">API de GLib.</a>

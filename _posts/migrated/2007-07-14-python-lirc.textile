@@ -1,0 +1,60 @@
+---
+migrated: node/740
+layout: post
+title: Python + LIRC
+created: 1184447006
+author: david_villa
+category: script
+tags:
+- Python
+- drivers
+---
+bq(head). Se trata de un ejemplo mínimo de cómo hacer un cliente de "LIRC":http://<a href="http://www.lirc.org/">www.lirc.org/</a> en Python usando "pyLirc":http://pylirc.mccabe.nu/.
+
+
+<!--break-->
+
+
+
+h2. Ingredientes 
+
+* Un mando a distancia soportado por LIRC
+* El paquete python-lirc (Debian)
+
+h2. Con Glib IO Channels
+
+Aplicando lo que vimos en la receta "GLib IO Channels con Python":node/465 es muy sencillo utilizar pyLirc. Este ejemplo sería el equivalente en Python al programa @ircat@ (que viene con lirc):
+
+<pre>
+#!/usr/bin/python
+import sys, gobject, pylirc
+
+config = sys.argv[1]
+prog = sys.argv[2]
+
+def handler(fd, condition):
+    cmds = pylirc.nextcode()
+    if cmds:
+        for code in cmds:
+            print code
+
+    return True
+
+
+fd = pylirc.init(prog, config, 1)
+gobject.io_add_watch(fd, gobject.IO_IN, handler)
+gobject.MainLoop().run()
+pylirc.exit()
+</pre>
+
+Y se invoca así:
+
+
+<div class="console">
+{% highlight console %}
+$ ircat.py lirc_config mplayer
+{% endhighlight %}
+</div>
+
+Como fichero @lircd_config@ puedes usar "éste":https://arco.inf-cr.uclm.es/svn/public/misc/lirc/.lircrc.
+

@@ -1,0 +1,90 @@
+---
+migrated: node/1376
+layout: post
+title: Instalación y puesta en marcha de HYDRA desde repo
+created: 1278954987
+author: nacho
+category: recipe
+tags:
+- Arco
+---
+En esta receta se explican los pasos a seguir para poner en marcha un sistema HYDRA desde cero, utilizando la versión SID (Still in Development) del repositorio.
+
+
+<!--break-->
+
+
+h2. Descripción del Sistema
+
+HYDRA es un sistema distribuido, en el que podemos encontrar 3 roles distintos:
+* Manager
+* Delegado
+* Nodo
+
+Cada uno de ellos requiere una configuración concreta. La estructura de red es la siguiente:
+
+<pre>
+                                   ---------
+                                   |Manager|
+                                   ---------
+                                       |
+                                       |
+                                /-------------\
+                  _____________(               )____________
+                  |             \_____________/             |
+                  |                                         |
+                  |                                         |
+              +--------+                               +--------+
+              |Delegado|                               |Delegado|
+              +--------+                               +--------+
+                  |                                         |
+       ___________|__________                    ___________|__________
+       |          |          |                   |          |          |
+       |          |          |                   |          |          |
+    +------+   +------+  +------+             +------+   +------+  +------+
+    | Nodo |   | Nodo |  | Nodo |             | Nodo |   | Nodo |    | Nodo |
+    +------+   +------+  +------+             +------+   +------+    +------+
+</pre>
+
+
+h2. Descarga y Compilación
+
+En primer lugar, es necesario descargarse el código del repo público en el ordenador que vaya a actuar de Manager. Durante la receta, supondremos que el directorio de instalación será <tt>~/hydra</tt>, así que para descargarlo hay que ejecutar:
+
+<div class="console">
+{% highlight console %}
+
+user@localhost:~$ svn co https://arco.esi.uclm.es/svn/public/prj/hydra
+{% endhighlight %}
+</div>
+
+Una vez descargado el código, es necesario definir una variable de entorno *HYDRADIR* que contenga el path al directorio de instalación. Después, se ejecuta el comando *make* en dicho directorio.
+
+h2. Manager
+
+En el Manager es necesario tener instalado también el paquete zeroc-ice33, y se editarán los ficheros <tt> manager.cfg</tt> y <tt>registry.cfg</tt> (que se encuentran en el directorio <tt>$HYDRADIR/manager/config/</tt>) según convenga.
+
+Utilizando la herramienta *icegrid-gui* se puede configurar el grid, cargando el fichero <tt>hydra.xml</tt> y modificando los parámetros necesarios de los servidores.
+
+
+h2. Delegado
+
+El Delegado también necesitará el software Ice. Además, debe configurarse para ejercer de servidor PXE y DHCP. Esto está explicado en "Instalar Debian desde PXE (nunca fue tan fácil)":node/1080 y "Arranque desde red sin disco duro":node/202. En nuestro caso hemos utilizado dnsmasq.
+También es necesario seguir la receta "Bridges y filtrado de protocolos":node/1321
+
+Es necesario llevar control sobre qué nodos deben arrancar por PXE y cuáles no. Para ello, dnsmasq nos brinda la oportunidad de utilizar un fichero, mediante la opción *dhcp-hostsfile*. En este fichero añadiremos los nodos que no deben arrancar por PXE, es decir, debe denegárseles el arranque. Esto se hace añadiendo líneas como esta:
+
+<div>
+{% highlight bash %}
+be:ba:00:fa:ba:da,net:nopxe
+{% endhighlight %}
+</div>
+
+h2. La Imagen PXE
+
+La imagen que se sirve por PXE debe contener todas las herramientas necesarias para el sistema HYDRA:
+* ZeroC ICE
+* libparted
+* sudo
+
+Además, debe configurarse para que el nombre de host varíe según el ordenador, y no sean todos iguales. En el repo de hydra hay un fichero <tt>hostname.sh</tt> para tal fin. También es necesario que exista un usuario <tt>hydrauser</tt> con permisos de administración.

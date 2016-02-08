@@ -1,0 +1,209 @@
+---
+migrated: node/216
+layout: post
+title: Kit de desarrollo completo para PSP. ACTUALIZADO.
+created: 1138967565
+author: int-0
+category: recipe
+tags:
+- Arco
+- embedded
+---
+<blockquote>Bien... supongo que quien tenga una PSP y tenga espíritu aventurero (o firmware 1.50) habrá pensado alguna vez hacerse un programita para la PSP... ver su "creación" en semejante aparatejo. Si tenéis una importante empresa y mucho dinero tal vez podáis pedir el SDK oficial a Sony y si a ellos les apetece, poder formar parte de los elegidos capaces de crear pequeñas joyas portables para disfrute de todos (o unos pocos). Por el contrario, si lo único que queréis es sacar el máximo partido posible a algo <em>vuestro</em>, usándolo como más os guste y sin tener que gastaros otra fortuna gracias al software libre (que, además, es gratuito), necesitaremos un SDK... no tan oficial como el de Sony pero que nos permitirá realizar nuestras propias aplicaciones. Eso vamos a intentar, configurar e instalar nuestro propio SDK (o <em>homebrew</em> como se conoce coloquialmente a este tipo de SDK's no oficiales).</blockquote>
+
+<h2>Estado del arte</h2>
+Bien, a partir de ahora llamaremos <em>scene</em> al estado del arte del <em>homebrew</em>, no por hacernos los "guays" sino porque en <em>google</em> obtendréis mejores resultados con "psp scene" que con "psp estado del arte". O dicho de otro modo: así se le llama a este mundillo.
+
+Actualmente disponemos de un completo <a href="http://en.wikipedia.org/wiki/Toolchain"><em>toolchain</em></a> para las psp. Esto nos permitirá usar la potencia del <em>gcc</em> para crear ejecutables para nuestras consolas.
+
+Además de programar en <em>C</em>, se han creado intérpretes de <a href="http://www.luaplayer.org/"><em>LUA</em></a> y de <a href="http://fraca7.free.fr/pspwiki/doku.php"><em>python</em></a> por lo que podremos empezar a crear programillas sin tener que meternos de lleno con el <em>gcc</em>. Además se han portado muchas librerías a <em>LUA</em> como por ejemplo <a href="http://www.libsdl.org/index.php"><em>SDL</em></a>, etc. El <em>python</em> también está cada vez menos "verde", etc. De todas formas, aquí explicaremos como instalarnos el <em>pspsdk homebrew</em>, con lo que obtendremos el <em>gcc-psp</em> y los intérpretes de <em>LUA</em> y <em>python</em> así como muchas librerías interesantes tipo <em>SDL</em>. Vamos al trabajo!
+
+<h2>Instalación del <em>toolchain</em></h2>
+Esto es lo primero y lo principal... sin esto no podemos empezar a hacer nada, nos bajaremos el repositorio de todo el SDK completo que, entre otras cosas, incluye estos <em>scripts</em> (yo uso el normal... no el "sudo"... bastantes emociones tengo ya... ;-)). Antes de instalarlo debemos asegurarnos que tenemos instalados los siguientes paquetes:
+<ul><li>automake1.9</li>
+<li>bison</li>
+<li>dot2tex</li>
+<li>doxygen</li>
+<li>flex</li>
+<li>libncurses5-dev</li>
+<li>libreadline5-dev</li>
+<li>texinfo</li>
+<li>libusb-dev</li>
+<li>libgmp3-dev</li>
+<li>libmpfr-dev</li>
+<li>libreadline-dev</li></ul>
+
+Ahora descargamos el repositorio completo:
+
+<div class="console">
+{% highlight console %}
+$ svn co svn://svn.ps2dev.org/psp/trunk
+{% endhighlight %}
+</div>
+
+Para ejecutar el <em>script</em> tendremos que establecer algunas variables en el sistema:
+
+<div class="console">
+{% highlight console %}
+$ export PSPDEV=/usr/local/pspdev
+$ export PATH=$PATH:$PSPDEV/bin
+{% endhighlight %}
+</div>
+
+Es recomendable dejar fijos estos cambios,  para ello (y si no queremos interferir en el resto de usuarios) modificaremos el archivo <tt>~/.bashrc</tt> y añadiremos las siguientes líneas:
+<pre>export PSPDEV="/usr/local/pspdev"
+export PATH="$PATH:$PSPDEV/bin"</pre>
+
+Ya sólo nos queda ejecutar el <em>script</em> del <em>toolchain</em>:
+
+
+<div class="console">
+{% highlight console %}
+$ cd trunk/psptoolchain
+$ ./toolchain.sh
+{% endhighlight %}
+</div>
+
+Bien, esto se descargará todas las herramientas de <a href="www.gnu.org"<em>GNU</em></a> necesarias, los últimos parches disponibles para ellas, los aplicará, compilará las herramientas y finalmente, las instalará. No hace falta ser root (no debemos serlo) ya que instala todo eso en <tt>/usr/local/pspdev</tt> y ahí podremos escribir si pertenecemos al grupo <em>staff</em>.
+
+<h2>Instalación del <em>homebrew</em></h2>
+Tenemos la gran mayoría del <em>homebrew</em> recopilado en el repositorio <em>subversion</em> que descargamos anteriormente, además de unas cuantas librerías y utilidades bastante "entretenidas" (por ejemplo: <em>SDL</em>, <em>prx-tools</em>, etc.).. , sólo debemos compilarlo e instalarlo. No es difícil, es más bien repetitivo.
+
+Ya que tenemos el compilador para psp listo, lo siguiente es compilar el <em>pspsdk</em>, que son las bibliotecas de acceso a los recursos de la psp:
+
+
+<div class="console">
+{% highlight console %}
+$ cd trunk/pspsdk
+$ ./bootstrap
+$ ./configure
+$ make
+$ make doxygen-doc (opcional)
+$ make install
+{% endhighlight %}
+</div>
+
+Al igual que antes, no es necesario ser <em>root</em> en ninguno de los pasos, todo se instalará en los directorios de <tt>/usr/local/pspdev</tt>.
+
+<h2>Instalación automática de librerías</h2>
+Gracias a uno de los <em>sceners</em> que más han contribuído al <em>pspsdk</em>, un tal <b>oopo</b>,  tenemos un <em>script</em> que nos descargan y compilan el resto de librerías <em>extra</em> como son <em>zlib</em>, <em>SDL</em>, etc. Para usar este script es necesario tener instalado <em>libtool</em>:
+
+<div class="console">
+{% highlight console %}
+ $ cd trunk/psplibraries
+$ ./libraries.sh
+{% endhighlight %}
+</div>
+
+Esto nos instalará (en este orden): zlib, bzip2, freetype, jpeg, libbulletml, libmad, libmikmod, libogg, libpng, libpspvram, libTremor, libvorbis, lua, pspgl, pspirkeyb, sqlite, SDL, SDL-gfx, SDL-image, SDL-mixer, SDL-ttf, smpeg-psp y zziplib. ¿Suficiente? ;-)
+
+<h2>Instalación manual de librerías</h2>
+Si no queremos instalar todo eso, podemos instalar las que deseemos una a una, a modo de ejemplo vamos a instalar una libreria, aunque el sdk incluye muchas, todas se suelen hacer de igual o similar forma. En cualquier caso, en cada directorio tenéis un fichero <tt>README.PSP</tt> que os lo explica, así como si la librería tiene dependencias (en cuyo caso hay que compilar e instalar sus dependencias antes). Vamos a instalar <em>SDL</em>, por ejemplo: leemos su archivo <tt>README.PSP</tt> y encontramos las instrucciones para hacerlo:
+
+
+<div class="console">
+{% highlight console %}
+$ cd trunk/SDL
+$ ./autogen.sh
+$ LDFLAGS="-L$(psp-config --pspsdk-path)/lib -lc -lpspuser" ./configure --host psp --prefix=$(psp-config --psp-prefix)
+$ make
+$ make install
+{% endhighlight %}
+</div>
+
+Repito que en ningún paso es necesario ser <em>root</em>. Esto instalará las librerías para psp y sus cabeceras. En el <tt>README.PSP</tt> explican cómo escribir aplicaciones para psp que usen estas librerías, incluyendo las opciones del compilador.
+
+El orden de instalación de las utilidades y las librerías que YO he seguido es el siguiente:
+<ol><li>psptoolchain</li>
+<li>pspsdk</li>
+<li>cppunit</li>
+<li>pspgl</li>
+<li>SDL</li>
+<li>SDL_gfx</li>
+<li>jpeg</li>
+<li>zlib</li>
+<li>libpng</li>
+<li>SDL_image</li>
+<li>libTremor</li>
+<li>libogg</li>
+<li>libvorbis</li>
+<li>libmikmod (ver parche más abajo)</li>
+<li>mikmodlib</li>
+<li>cpplibs</li>
+<li>SDL_mixer</li>
+<li>freetype</li>
+<li>SDL_ttf</li>
+<li>cal3D</li></ol>
+Con esto tendréis toda la versatilidad de <em>SDL</em> al alcance de vuestra psp ;-) (así como otro montón de librerías interesantes).
+
+<blockquote>Nota: libmikmod compila y se instala sin problemas, sin embargo, no se puede usar de forma "automática" en tus compilaciones porque no se ha incluído el programa <em>libmikmod-config</em>. Yo he creado el mio propio que debéis copiar en <tt>/usr/local/pspdev/psp/bin</tt> (bueno... depende de donde estéis instalando todo, en realidad sería en <tt>$(psp-config -p)/bin</tt>). Una vez compilado e instalado <em>libmikmod</em> copiáis este archivo y seguís la instalación de las librerías de forma normal.
+<pre>
+#! /bin/sh
+prefix=`psp-config -P`
+exec_prefix=${prefix}
+exec_prefix_set=no
+
+usage="Usage: libmikmod-config [--prefix[=DIR]] [--exec-prefix[=DIR]] [--version] \
+[--libs] [--cflags] [--ldadd]"
+
+if test $# -eq 0 ; then
+        echo "${usage}" 1>&2
+        exit 1
+fi
+
+while test $# -gt 0 ; do
+        case "$1" in
+        -*=*) optarg=`echo "$1" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+        *) optarg= ;;
+        esac
+
+        case $1 in
+        --prefix=*)
+                prefix=$optarg
+                if test $exec_prefix_set = no ; then
+                        exec_prefix=$optarg
+                fi
+        ;;
+        --prefix)
+                echo $prefix
+        ;;
+        --exec-prefix=*)
+                exec_prefix=$optarg
+                exec_prefix_set=yes
+        ;;
+        --exec-prefix)
+                echo $exec_prefix
+        ;;
+        --version)
+                echo 3.1.11
+        ;;
+        --cflags)
+                includedir=${prefix}/include
+                if test $includedir != /usr/include ; then
+                includes=-I$includedir
+                fi
+                echo $includes
+        ;;
+        --ldadd)
+        ;;
+        --libs)
+                libdir=-L${exec_prefix}/lib
+                echo $libdir -lmikmod -L`psp-config -P`/lib -L`psp-config \
+-p`/lib -lm -lpspvfpu -lpspdebug -lpspgu -lpspctrl -lpspge -lpspdisplay \ 
+-lpsphprm -lpspsdk -lpsprtc -lpspaudio -lc -lpspuser -lpsputility -lpspkernel
+        ;;
+        *)
+                echo "${usage}" 1>&2
+                exit 1
+        ;;
+        esac
+        shift
+done</pre></blockquote>
+
+<h2>DevKit Pro</h2>
+Gracias a la inestimable ayuda de Paco, disponemos de un paquete debian con la toolchain y el pspsdk completo, como podéis ver en este <a href="http://crysol.org/es/node/1087">aviso</a>. Funciona perfectamente, pero no se puede compilar e instalar directamente el resto de librerías puesto que los <em>scripts</em> del <em>homebrew</em> son un poco cutres y hay que maquillarlos un poquito... cuando tenga tiempo intentaré buscar alguna solución...
+
+<h2>Conclusiones</h2>
+Bueno... con esto tendréis un completo entorno de desarrollo para psp. Era el objetivo de la receta. De todas formas falta aún una cosa: crear un archivo <tt>EBOOT.PBP</tt> listo para su ejecución en la consola. El problema se reduce a tener el <em>Makefile</em> apropiado. Os sugiero que os descarguéis el código fuente del <em>port</em> del maravilloso <em>ScummVM</em>, tiene el mejor <em>Makefile</em> sobre el tema que he visto. De todas formas, si no dáis con ello, se hace una receta y en paz, ok?
+
+Disfruten! :-)

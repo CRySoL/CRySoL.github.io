@@ -1,0 +1,47 @@
+---
+migrated: node/770
+layout: post
+title: Obtener la IP con scapy
+created: 1189104346
+author: david_villa
+category: recipe
+tags:
+- scapy
+- networking
+---
+bq(head). Un pequeño script para averiguar "la IP del equipo"
+
+
+<!--break-->
+
+
+h2. Introducción
+
+De todos es sabido que eso de «la IP del equipo» es una cuestión peliaguda. Siendo puristas, la IP es un dato que sólo tiene pleno sentido durante una conexión. Un equipo puede tener varias interfaces de red conectadas a distintas redes, cada una con su IP; incluso es más que posible tener varias IPs por interface y además pueden cambiar en cualquier momento.
+
+h2. «Solución»
+
+Para que tenga algo de sentido, voy a suponer por simplicidad que «la IP de la máquina» es la IP que corresponda a la interfaz de red configurada para acceder al router por defecto. Ya digo que esta es una presunción un tanto arriesgada, que no funcionará en algunos casos, pero sí en la mayoría. A fin de cuentas te permite tener una IP con la que la máquina será alcanzable, siempre que no sea una IP privada ni esté NATeado, claro. Conclusión: no utilices esto para cosas serias.
+
+Para implementar lo dicho con scapy, primero veamos la tabla de rutas:
+
+<pre>
+>>> scapy.conf.route.routes
+[(127L, 255L, '0.0.0.0', 'lo', '127.0.0.1'),
+ (2507681L, 16777215L, '0.0.0.0', 'eth0', '161.67.48.112'),
+ (0L, 0L, '161.67.48.1', 'eth0', '161.67.48.112')]
+</pre>
+
+Me quedo con las IP de las interfaces para las "entradas" que correspondan a saltos (no entrega directa):
+
+<pre>
+>>> [x[4] for x in scapy.conf.route.routes if x[2] != '0.0.0.0']
+['161.67.48.112']
+</pre>
+
+Y como podría darse el caso de que hubiera más de una, me quedo con la primera. O sea, que se queda así:
+
+<pre>
+>>> [x[4] for x in scapy.conf.route.routes if x[2] != '0.0.0.0'][0]
+'161.67.48.112'
+</pre>

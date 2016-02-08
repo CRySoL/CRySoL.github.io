@@ -1,0 +1,115 @@
+---
+migrated: node/1278
+layout: post
+title: Patrón Flyweight en Python como metaclase
+created: 1261760070
+author: david_villa
+category: recipe
+tags:
+- Arco
+- Python
+- patterns
+---
+Esta receta incluye una implementación «comentada» del patrón de diseño «<a href="http://es.wikipedia.org/wiki/Flyweight_%28patr%C3%B3n_de_dise%C3%B1o%29">Flyweight</a>» (peso mosca) usando una metaclase Python.
+
+
+<!--break-->
+
+
+h2. Introducción
+
+Para una mejor comprensión y máximo aprovechamiento, se recomienda al lector no iniciado en las metaclases, leer la receta "Ahí va la virgen! Metaclases! (con Python)":metaprogramacion-con-python antes de proceder con ésta.
+
+h2. Patrón _flyweight_
+
+El <a href="http://es.wikipedia.org/wiki/Flyweight_%28patr%C3%B3n_de_dise%C3%B1o%29"><em>peso mosca</em></a> es un patrón muy útil en aplicaciones que utilizan muchos objetos parecidos o idénticos. El objetivo es compartir parte del estado del objeto. Cuando varias instancias comporten los mismos valores para sus atributos (tamaño, color, forma, etc.) realmente el objeto solo se crea una vez y las siguientes instancias referencian el estado del objeto existente. 
+
+El patrón "Memoization":http://en.wikipedia.org/wiki/Memoization se puede considerar una particularización de _flyweight_ para funciones. _Memoization_ cachea el resultado de una función o método de modo que la siguiente vez que se invoque la misma función con los mismos argumentos se obtiene el valor cacheado en lugar de recalcularse.
+
+No se debe confundir _flyweight_ con el patrón Singleton. En el _singleton_ solo existe una estancia para la clase que implementa dicho patrón, mientras que con _flyweight_ habrá tantas instancias como «objetos diferentes» haya.
+
+Es posible aplicar _flyweight_ aunque los objetos solo compartan una parte de su estado (el estado intrínseco) y tengan almacenamiento adicional para sus valores distintivos (estado extrínseco). Por ejemplo, un colección de pelotas del mismo color y tamaño (estado intrínseco) pueden tener posiciones diferentes (estado extrínseco). En esta receta vamos a tratar únicamente el caso en el que los objetos son idénticos y dependientes de una clave: a igual clave, igual estado. Veamos un ejemplo de cómo debería funcionar esto:
+
+
+
+<div>
+{% highlight python %}
+>>> luna = Astro("luna")
+>>> moon = Astro("luna")
+>>> sol = Astro("sol")
+>>> luna is moon
+... True
+>>> luna is sol
+... False
+{% endhighlight %}
+</div>
+
+
+Esa es la teoría, en la práctica las limitaciones de los lenguajes de programación no siempre permiten que el patrón se pueda implementar de una forma tan transparente. En esos casos (Java, C++, etc.) la implementación del patrón incluye una «factoría», es decir, una función u objeto que crea, almacena y devuelve las instancias a los objetos conforme se le piden. 
+
+h2. _flyweight_ como metaclase
+
+Pero Python siempre da la nota, y esta vez no podía ser menos. Por medio de una metaclase se puede implementar _flyweight_ de una forma elegante y completamente transparente para el usuario de la clase. El constructor va a hacer el papel de factoría de forma transparente.
+
+Ésta es la metaclase:
+
+
+
+<div>
+{% highlight python %}
+class Flyeight(type):
+    def __init__(cls, name, bases, dct):
+        cls.__instances = {}
+        type.__init__(cls, name, bases, dct)
+
+    def __call__(cls, key, *args, **kw):
+        instance = cls.__instances.get(key)
+        if instance is None:
+            instance = type.__call__(cls, key, *args, **kw)
+            cls.__instances[key] = instance
+        return instance
+{% endhighlight %}
+</div>
+
+
+Para usarlo basta añadir el típico "__metaclass__" a tu clase y ya será un _peso mosca_ en toda regla.
+
+
+
+<div>
+{% highlight python %}
+class Astro:
+    __metaclass__ = Flyweight
+
+    def __init__(self, key):
+        print "Creando la instancia '%s'..." % key
+        time.sleep(2)
+        print "'%s' creado" % key
+
+a = Astro("luna")
+b = Astro("luna")
+assert a is b 
+{% endhighlight %}
+</div>
+
+
+El método @__init__@ de la clase Astro no hace nada útil, solo sirve para ilustrar que únicamente se crean dos instancias y que @a@ y @b@ son realmente el mismo objeto. El @sleep@ enfatiza el ahorro de recursos (tiempo, en este caso). Aunque normalmente este patrón se utiliza para evitar pedir memoria para almacenar los atributos de objetos idénticos, también es muy útil para ahorrar el tiempo que lleva construirlos, un efecto nada despreciable si la construcción de la instancia implica acceder a ficheros en disco.
+
+Puedes descargar el código de nuestro "repo público":http://arco.esi.uclm.es/svn/public/samples/python-metaclass/flyweight.py. Al ejecutar este fichero debería obtener esta salida:
+
+
+<div class="console">
+{% highlight console %}
+
+$ python flyweight.py 
+Creando la instancia 'luna'...
+'luna' creado
+Creando la instancia 'sol'...
+'sol' creado
+{% endhighlight %}
+</div>
+
+
+h2. Relacionado
+
+* "Algo parecido para métodos":http://<a href="http://www.djangosnippets.org/snippets/1130/">www.djangosnippets.org/snippets/1130/</a>

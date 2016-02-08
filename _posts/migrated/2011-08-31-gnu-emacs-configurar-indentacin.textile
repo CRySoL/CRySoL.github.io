@@ -1,0 +1,37 @@
+---
+migrated: node/1542
+layout: post
+title: 'GNU Emacs: Configurar indentación'
+created: 1314773332
+author: nacho
+category: recipe
+tags:
+- emacs
+---
+En esta receta explico un par de opciones muy útiles para configurar la forma que tiene Emacs de realizar la indentación. Por ejemplo, Emacs indenta el código C con dos espacios, pero quizá a tí te gusta más con 4. También permite cambiar la forma de indentar las llaves, paréntesis, etc.
+
+
+<!--break-->
+
+
+h2. Las Opciones
+
+La primera de ellas es <tt>c-default-style</tt>, e indica el *estilo de indentación* que queremos que siga Emacs. Hay varios estilos, entre ellos k&r, gnu, bsd y linux. Podéis ver una lista entera con la _completion_ al ejecutar el comando en el minibuffer de Emacs.
+
+Tenemos también la opción <tt>c-basic-offset</tt> con la que podemos indicar el número de espacios que queremos que Emacs utilice en la indentación. Hay que recordar que, por defecto, Emacs utiliza tabulaciones, así que es posible que queráis utilizar el comando <tt>untabify</tt> si estáis reformateando un fichero entero. Para que no se usen tabulaciones y se utilicen sólo espacios, existe la opción <tt>indent-tabs-mode</tt>.
+
+Podéis poner estas opciones en el fichero <tt>.emacs</tt>, de la siguiente forma:
+
+<div>
+{% highlight text %}
+;; c-mode indentation
+(setq c-default-style "linux"
+      c-basic-offset 3)
+(setq indent-tabs-mode nil)   ;; usar solo espacios
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+# <a href="http://www.emacswiki.org/emacs/IndentingC">http://www.emacswiki.org/emacs/IndentingC</a>

@@ -1,0 +1,39 @@
+---
+migrated: node/1373
+layout: post
+title: Desnudando a la NDS Lite
+created: 1278359160
+author: paco
+tags:
+- NDS
+- embedded
+---
+Mmmm, ¿no te atreves a destripar tu NDS para ver lo que tiene? ¿Te paraste cuando ya no quedaban más tornillos que quitar?  Bueno, aprovechando la coyuntura de una NDS ajena con ganas de chapotear la hemos destripado enterita.
+
+
+<!--break-->
+
+
+<h2>La placa madre</h2>
+
+Quitando todo tornillo que se ponga a tiro no es difícil llegar a la placa madre.  Quitando con cuidado los cables planos de las pantallas llegamos a lo que se ve en las dos primeras figuras.
+
+<img src="/files/IMG_3024.JPG"/>
+<img src="/files/IMG_3037.JPG"/>
+
+Sorprendentemente decepcionante. Solo se ve un Mitsumi 3325A que no tengo ni idea de qué es (parece de supervisión y alimentación) y un AKM 4181AVT que es el touch screen controller.
+
+Por debajo no hay nada pero las pistas sugieren que hay un chip gordo y otro no tan gordo justo debajo del Slot1.  Me temo que no queda mas remedio que tirar de desoldador.
+
+<h2>La Lite desnuda</h2>
+
+Desoldando solo la carcasa metálica del Slot1 se puede ver el verdadero corazoncito de la NDS Lite:  el chip de Nintendo y ARM (NTR-1) y la memoria principal de 2Mx16 (STM M69AB048).
+
+<img src="/files/IMG_3045.JPG"/>
+<img src="/files/IMG_3041.JPG"/>
+
+<h2>La WiFi</h2>
+
+Curiosamente la WiFi viene en una tarjetita independiente, una monada.  Apenas se ve porque anda cubierta de gomaespuma, pero aquí os la mostramos como vino al mundo.
+
+<img src="/files/IMG_3023.JPG"/>

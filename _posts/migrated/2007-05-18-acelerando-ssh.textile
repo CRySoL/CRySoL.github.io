@@ -1,0 +1,94 @@
+---
+migrated: node/691
+layout: post
+title: Acelerando SSH
+created: 1179478556
+author: david_villa
+category: recipe
+tags:
+- networking
+---
+<blockquote class="head">Si usas con frecuencia ssh, habrás notado que muchas veces tarda muchísimo en conectar incluso aunque utilices autenticación por clave pública. Estos son algunos ajustes de configuración que pueden hacer que la conexión sea mucho más rápida.</blockquote>
+
+h2. Acelerando el login
+
+<p>
+
+h3. DNS
+
+
+Si la máquina a la que quieres conectar tiene IP fija, puedes utilizar tu fichero de configuración de ssh para indicar la IP y así te ahorras resolver la dirección de la máquina cada vez que conectes. Para eso, escribes en @~/.ssh/config@:
+
+<pre>
+Host example.com
+     Hostname 208.77.188.166
+     User Gil.Puertas
+</pre>
+
+
+Otra cosa que hace SSH y que puede influir mucho en la duración del «login» es la opción «UseDNS». Según dice el manual: 
+
+UseDNS specifies whether sshd should look up the remote host name and check that the resolved host name for the remote IP address maps back to the very same IP address. The default is "yes".
+
+Y claro, si trata de hacer la resolución inversa de una IP de una conexión ADSL puede tardar bastante (suponiendo que pueda). De modo que una buena forma de ahorrar unos valiosos segundos es poner lo siguiente en el @/etc/ssh/ssd_config@:
+
+<pre>
+UseDNS no
+</pre>
+
+Recuerda que ésta es una cuestión de seguridad que estás decidiendo no usar. La seguridad tiene un coste, pero no tenerla también, tú decides.
+
+
+h3. GSSAPI
+
+"GSSAPI":http://es.wikipedia.org/wiki/GSSAPI es un API genérico normalizado para usar mecanismos de seguridad como Kerberos o SASL. Por defecto, al menos en Debian, ssh viene configurado para utilizar autenticación GSSAPI. Si no sabías lo que era, lo más probable es que no lo necesites. Así que lo puedes desactivar comentando la línea correspondiente en @/etc/ssh/ssh_config@:
+
+<pre>
+#    GSSAPIAuthentication yes
+</pre>
+
+Esto supone una diferencia considerable en el tiempo de acceso. En una prueba ejecutando un simple "ssh example ls" en una máquina de la misma LAN, el tiempo necesario pasa de 15.2 a 0.1 segundos.
+
+h3. ControlMaster
+
+Si sueles abrir varias sesiones (login, repos, sftp, etc) hacia el mismo servidor, SSH permite reutilizar una conexión establecida para sesiones adicionales. Eso supone un ahorro de tiempo considerable ya que no necesita establecer una nueva conexión. Para ello, simplemente escribe esto en un @~/.ssh/config@
+
+
+<div>
+{% highlight text %}
+Host *
+   ControlMaster auto
+   ControlPath ~/.ssh/master-%r@%h:%p
+{% endhighlight %}
+</div>
+
+h2. Acelerando la transferencia
+
+Si utilizas SCP o SFTP para copiar ficheros también hay algunas cosas que puedes hacer para mejorar la velocidad.
+
+h3. Compresión
+
+SSH permite comprimir el flujo de datos, que muchas veces viene desactivado por defecto. Tienes que activarlo tanto en el servidor como en el cliente. Para el servidor edita @/etc/ssh/sshd_config@ y añade una línea tal que:
+
+<pre>
+Compression delayed
+</pre>
+
+Es la opción por defecto si no se especifica. Para el cliente puedes activarlo para todo el mundo editando el @/etc/ssh/ssh_config@:
+
+<pre>
+Compression yes
+</pre>
+
+O que sólo los usuarios que lo deseen escriban esa línea en su @~/.ssh/config@.
+
+
+h2. Comentarios
+
+Si conoces otras formas de mejorar el rendimiento de SSH, por favor, deja un comentario.
+
+h2. Referencias
+
+* "ssh manuals":http://<a href="http://www.openssh.com/manual.html">www.openssh.com/manual.html</a>
+* <a href="http://www.linux.com/feature/54498">http://www.linux.com/feature/54498</a>
+* "Improving SSH (OpenSSH) connection speed with shared connections":http://protempore.net/~calvins/howto/ssh-connection-sharing/

@@ -1,0 +1,60 @@
+---
+migrated: node/237
+layout: post
+title: Grabar CD y DVD más rápido
+created: 1141038177
+author: goyo
+category: recipe
+---
+<blockquote>
+Esta receta describe cómo configurar una grabadora de CD/DVD para aprovechar todas sus posibilidades y velocidad.
+</blockquote>
+
+
+Es muy posible que aunque <a href="http://www.k3b.org/">k3b</a> detecte perfectamente tu grabadora, luego resulte que la velocidad de grabación no llegue a la que teóricamente tiene la unidad.
+
+
+Es normal que no se alcance la velocidad máxima que proporciona el fabricante y, además, la velocidad no es continua (es más lenta cuando graba en el interior del cd que en el exterior). Esto puede ser debido a que, por motivos de seguridad y, para que no se produzcan conflictos entre determinados tipos de placas base y dispositivos de almacenamiento, algunas distros (caso de mi Ubuntu Breezy) no activan el DMA por defecto. 
+
+<h1>Ver estado por defecto</h1>
+
+Para ver la configuración de nuestro dispositivo usa @hdparm <dispositivo>@, por ejemplo:
+
+<pre class="console">$ hdparm /dev/hdc/
+/dev/hdc:
+ IO_support   =  1 (32-bit)
+ unmaskirq    =  1 (on)
+ using_dma    =  0 (off)
+ keepsettings =  0 (off)
+ readonly     =  0 (off)
+ readahead    = 256 (on)
+ HDIO_GETGEO failed: Invalid argument
+</pre>
+
+Como ves, el DMA está desactivado. 
+
+
+<h1>Cambiando la configuración</h1>
+
+Ahora actiremos el DMA, el @io_support@  (E)IDE 32bit I/O support- y el @unmaskirq@ (enmascarar o no otras interrupciones mientras se procesa una interrupción del disco). Siguiendo el ejemplo anterior:
+
+<pre class="console">$ sudo hdparm -d1 -u1 -c1 /dev/hdc
+/dev/hdc:
+ setting 32-bit IO_support flag to 1
+ setting unmaskirq to 1 (on)
+ setting using_dma to 1 (on)
+ IO_support   =  1 (32-bit)
+ unmaskirq    =  1 (on)
+ using_dma    =  1 (on)
+</pre>
+
+Como consejo, si realizas muchas copias "al vuelo" (del lector a grabadora) es mejor tenerlos en diferentes canales IDE.
+
+<h1>Comentarios</h1>
+
+Este era un problema que tenía, pregunté en la lista y lo que he explicado es lo que me contestaron listeros como Luis Mayoral y fSancho (las mieles son pa ellos :)).
+
+
+<h1>Referencias</h1>
+
+* man hdparm

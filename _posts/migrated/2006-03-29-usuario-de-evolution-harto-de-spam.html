@@ -1,0 +1,100 @@
+---
+migrated: node/271
+layout: post
+title: Usuario de Evolution harto de spam.
+created: 1143648084
+author: magmax
+category: recipe
+---
+<blockquote>
+¿Usas Evolution y aún tienes Spam? ¿Quieres eliminarlo de una vez por todas? Bien... La verdad es que aún no lo he conseguido, pero estoy tras la pista. A ver si entre todos conseguimos quitarnos de enmedio el molesto spam.
+</blockquote>
+
+<!--break-->
+
+
+
+
+<h1>Motivación</h1>
+
+Uso Evolution 2.6.0 y me he propuesto no volver a ver un mail de Spam o, al menos, ver los menos posibles.
+
+Buscando por ahí, he descubierto el paquete "evolution-plugins", que trae, entre otros, plugins para utilizar spamassessin (desde ahora SA) y bogofilter (BF).
+
+Le pregunté a google y descubrí que SA utiliza más filtros que BF, pero que Evolution sólo permite utilizar el filtro bayesiano, que es el mismo que utiliza BF. Sin embargo, BF es más rápido que SA, por lo que la elección está clara.
+
+<h1>Primeros pasos</h1>
+
+Lo primero es abrir el evolution y editar los "complementos"; marcaremos el filtro para BF y desmarcaremos el de SA.
+
+Con google como fuente de información, descubro que Evolution no ejecuta bogofilter para cada mail. Eso es bueno y es malo: por una parte tarda menos; por otra, el filtro se entrena peor. Por ello es necesario entrenarle a mano con e-mails buenos (NON-SPAM), ya que con e-mails malos le podremos ir entrando poco a poco.
+
+<h1>Metiéndole caña</h1>
+
+Vamos a probar. Marcamos un par de e-mails y con el botón derecho los "guardamos como" ejemplo.mail. Vamos a una consolita, hacemos lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+ $ cat ejemplo.mail|bogofilter -n
+
+{% endhighlight %}
+</div>
+
+Con lo que le decimos que eso no es spam. Ahora probamos a ver lo que bogofilter ha aprendido:
+
+
+<div class="console">
+{% highlight console %}
+ $ bogoutil -H ~/.bogofilter/wordlist.db
+
+{% endhighlight %}
+</div>
+
+Nos aparecerá un gráfico chulo con las cosas que sabe. Es el momento de meterle toda más caña:
+
+
+<div class="console">
+{% highlight console %}
+ $ cat ~/.evolution/mail/local/Inbox|bogofilter -n
+
+{% endhighlight %}
+</div>
+
+Volvemos a ver el gráfico y vemos que ha cambiado.
+
+Es el momento ideal para meterle algo de spam. En <a href="http://bulma.net/">bulma</a> encontré un <a href="http://bulma.net/~gallir/BULMA/spams.txt.gz">fichero con spam</a> interesante.
+
+Para insertarlo, hacemos algo parecido a lo anterior: 
+
+
+<div class="console">
+{% highlight console %}
+ $ zcat spams.txt.gz | bogofilter -s
+
+{% endhighlight %}
+</div>
+
+Y podemos volver a ver el gráfico. Ahora estará más compensado.
+
+<h1>Acelerando del aprendizaje</h1>
+
+Con el fin de acelerar el proceso de aprendizaje y para que bogofilter sepa correctamente qué es spam y qué no de entre los correos que me llegan, decidí incluir un filtro para todos los correos que me llegasen. El filtro aplica la regla siguiente (la condición es apra que se aplique siempre):
+
+<pre>Si puntuación igual -1, encauzar al programa `bogofilter -u`
+</pre>
+
+<b>Ésta es una opción peligrosa</b>, pero a grandes males grandes remedios.
+
+Dejé la opción puesta durante unas 3 ó 4 semanas y después la quité. La cantidad de falsos positivos y negativos ha sido demasiado alta durante esta época, pero 2 semanas después de quitar este filtro apenas hay falsos positivos o negativos. Me ha costado bastante, pero me he librado casi por completo del spam.
+
+<h1>Situación actual</h1>
+
+Me encuentro casi sin spam, aunque llegar a esta situación ha sido duro. La semana pasada recibí un par de falsos positivos y un par de falsos negativos. A menudo se comportaba mal con los mensajes en inglés, por lo que me apunté a un par de listas en inglés para poder enseñar a bogofilter y así solucionarlo. Cada día filtra mejor :-D
+
+Sin embargo, si alguien conoce algún sistema para acelerar el proceso se lo agradecería mucho, ya que más de un mes es mucho tiempo.
+
+<h1>Enlaces relacionados</h1>
+
+Una noticia en Bulma: <a href="http://bulma.net/body.phtml?nIdNoticia=1537">Bogofilter mata mejor</a>.
+

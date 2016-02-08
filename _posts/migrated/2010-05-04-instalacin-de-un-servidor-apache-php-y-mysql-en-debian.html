@@ -1,0 +1,51 @@
+---
+migrated: node/1354
+layout: post
+title: Instalación de un servidor Apache, PHP y MySQL en Debian
+created: 1272971234
+author: Trini
+category: recipe
+---
+<h2>Introducción</h2>
+
+<!--break-->
+
+
+
+
+Cuando queremos crear una web dinámica y orientada al contenido, podemos hacer uso de lo que conocemos como gestor de contenidos o CSM (Content Management System). Drupal es un CMS que ofrece gran modularidad y una serie de ventajas que lo caracterizan. Es por ello que en este documento nos centraremos en la instalación de esta herramienta para demostrar, a pesar de lo que pueda parecer a primera vista, la sencillez de su configuración.
+
+
+<h2>Instalación de Drupal</h2>
+
+
+
+Para realizar la instalación de esta herramienta tiene que tener en cuenta una serie de requisitos previos como, por ejemplo, la instalación de unos determinados paquetes como son:
+
+<ul>
+  <li> apache2: es un servidor web de código abierto y se desarrolla dentro del proyecto HTTP Server de la Apache Software Foundation.</li>
+  <li> php5: es un lenguaje de programación interpretado que utilizará para la creación de páginas web dinámicas. </li>
+  <li> mysql-server: es el servidor de bases de datos de MySQL</li>
+  <li> php5-mysql: es el módulo de MySQL para php5</li>
+</ul>
+
+Una vez que tiene disponibles todos estos paquetes, tendrá que instalarlos. Para llevar a cabo esta instalación, el comando que utilizará es 	<em>aptitude</em> y lo haremos de la siguiente forma:
+
+
+<div class="console">
+{% highlight console %}
+aptitude install apache2 php5 mysql-server php5-mysql 
+{% endhighlight %}
+</div>
+
+
+<h2>Referencias</h2>
+
+
+
+<a href="http://drupal.org/">Página oficial de DRUPAL</a>
+
+
+
+
+

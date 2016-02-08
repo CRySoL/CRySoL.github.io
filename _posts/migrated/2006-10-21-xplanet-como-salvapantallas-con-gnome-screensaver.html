@@ -1,0 +1,59 @@
+---
+migrated: node/406
+layout: post
+title: Xplanet como salvapantallas con gnome-screensaver
+created: 1161428799
+author: fsancho
+category: recipe
+tags:
+- gnome
+---
+<blockquote>
+Muchos de los que usamos Ubuntu vimos con poco agrado que se prescindiese del gestor de Salvapantallas XScreensaver. El sustituto fue gnome-screensaver, mucho mas sencillo y con muchas menos funcionalidades.
+
+Con esta mini-receta trataré de devolver la sonrisa a aquellos que dejaron de poder utilizar Xplanet como salvapantallas.
+</blockquote>
+
+Aunque gnome-screensaver es mucho mas simplón, no limita las posibilidades. Simplemente están fuera de la interfaz de usuario, pero en la práctica sigue siendo perfectamente posible toquetear en sus tripas. Por ahora solo se puede hacer desde la consola, pero el equipo de gnome-screensaver tiene en mente extender su interfaz para que sea algo mas configurable (ya que a día de hoy no lo es en absoluto).
+
+En el paquete 'xscreensaver-data' podremos encontrar un montón de ficheros con extensión <tt>.desktop</tt>, estos ficheros contienen los lanzadores de los salvapantallas. Lo único que tendremos que hacer es crearnos nuestro propio lanzador y colocarlo en el sitio adecuado. Además tendremos que crear un enlace para Xplanet en el directorio donde se encuentran los salvapantallas. 
+
+En primer lugar, creamos un fichero <tt>xplanet.desktop</tt> con este contenido.
+
+<pre>
+[Desktop Entry]
+Encoding=UTF-8
+Name=XPlanet
+Comment=This Shows random planets from random points of view using Xplanet.
+TryExec=xplanet
+Exec=xplanet -vroot -label -body random -origin random -radius 20 -range 10 -wait 30
+StartupNotify=false
+Terminal=false
+Type=Application
+Categories=Screensaver
+X-Ubuntu-Gettext-Domain=xscreensaver
+</pre>
+
+La etiqueta <tt>Exec</tt> es la que contiene el comando concreto que deberemos ejecutar para mostrar nuestro salvapantallas. En mi caso muestro un cuerpo aleatorio desde un origen aleatorio y lo cambio cada 30 segundos. 
+
+Una vez creado el fichero lo copiamos al directorio <tt>/usr/share/gnome-screensaver/themes/</tt>.
+
+<b>Actualización:</b> Los usuarios de Ubuntu Edgy deben copiar el fichero en el directorio <tt>/usr/share/applications/screensavers/</tt>.
+
+
+<div class="console">
+{% highlight console %}
+$ sudo cp xplanet.desktop /usr/share/applications/screensavers/
+{% endhighlight %}
+</div>
+
+Por último creamos un enlace del binario de Xplanet en <tt>/usr/lib/xscreensaver</tt>
+
+
+<div class="console">
+{% highlight console %}
+$ sudo ln -s /usr/bin/xplanet /usr/lib/xscreensaver/
+{% endhighlight %}
+</div>
+
+Y listo!, sólo tienes que ir al menú Sistema->Preferencias->Salvpantallas y seleccionar tu nuevo salvapantallas de Xplanet.

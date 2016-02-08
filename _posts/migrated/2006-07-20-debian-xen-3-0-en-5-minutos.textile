@@ -1,0 +1,123 @@
+---
+migrated: node/352
+layout: post
+title: Debian Xen 3.0 en 5 minutos
+created: 1153387804
+author: paco
+category: recipe
+---
+Esta receta explica cómo instalar Xen y crear dominios fácilmente en un sistema Debian GNU/Linux
+
+
+<!--break-->
+
+
+h2. Ingredientes
+
+Todos son paquetes Debian:
+
+* linux-image-2.6.16-2-xen-vserver-686
+* linux-image-2.6.16-2-xen-686 xen-hypervisor-3.0-i386
+* xen-ioemu-3.0 xen-utils-3.0
+* xen-docs-3.0
+* libc6-xen
+* xen-tools
+* bridge-utils
+* sysfstools
+* lvm2
+
+h2. Instalación
+
+Hacer los initrd a mano (de momento el postinstall de las imágenes no lo hace):
+
+
+<div class="console">
+{% highlight console %}
+ $ mkinitrd -o /boot/initrd.img-2.6.16-2-xen-686 2.6.16-2-xen-686
+$ mkinitrd -o /boot/initrd.img-2.6.16-2-xen-vserver-686 2.6.16-2-xen-vserver-686
+
+{% endhighlight %}
+</div>
+
+Añadir a mano una entrada en @/boot/grub/menu.lst@ (la actualización automática entiende de Xen, pero no pone el initrd):
+
+<pre>
+title Debian GNU/Linux, Xen
+root  (hd0,1)
+kernel /boot/xen-3.0-i386.gz
+module /boot/vmlinuz-2.6.16-2-xen-vserver-686 root=/dev/hda2 ro
+module /boot/initrd.img-2.6.16-2-xen-vserver-686
+savedefault
+boot
+</pre>
+
+Evidentemente tendrás que ajustar el root a tu partición.
+
+Editar el @/etc/xen/xend-config.sxp@ y asegurarse de que están estas opciones:
+
+<pre>
+(network-script network-bridge)
+(vif-script vif-bridge)
+</pre>
+
+Elige una partición gordota que no estés usando para poner las imágenes y crea el grupo de volúmenes LVM:
+
+
+<div class="console">
+{% highlight console %}
+ $ pvcreate /dev/hda5
+$ vgcreate xen-img /dev/hda5
+
+{% endhighlight %}
+</div>
+
+Cambia el hda5 por la partición que elijas.
+
+Edita los parámetros por defecto de @/etc/xen-tools/xen-tools.conf@ y asegurate de que tienes estas líneas:
+
+<pre>
+lvm = xen-img
+debootstrap = 1
+fs = ext3
+dist = sid
+image = full
+</pre>
+
+Y ajusta los parámetros size, memory y swap a tu gusto.
+
+
+h2. Creando y arrancando imágenes
+
+Ya puedes crear las imágenes que quieras con un simple:
+
+
+<div class="console">
+{% highlight console %}
+ $ xen-create-image --hostname myNewImage
+
+{% endhighlight %}
+</div>
+
+Y puedes arrancarla con:
+
+
+<div class="console">
+{% highlight console %}
+ $ xm create myNewImage.cfg -c 
+{% endhighlight %}
+</div>
+
+Para salir de la consola pulsa Ctrl-] y para volver a la consola de esta imagen:
+
+
+<div class="console">
+{% highlight console %}
+ $ xm console myNewImage 
+{% endhighlight %}
+</div>
+
+Más fácil imposible...
+
+h2. Referencias
+
+* "Installing Xen 3.0 upon Debian Sarge":http://<a href="http://www.debian-administration.org/articles/304">www.debian-administration.org/articles/304</a>

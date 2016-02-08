@@ -1,0 +1,158 @@
+---
+migrated: node/818
+layout: post
+title: Creación de un parser con flex y bison en C++
+created: 1197220041
+author: cleto
+category: recipe
+tags:
+- C++
+---
+<blockquote>La siguiente receta explica como construir un analizador léxico con Flex y un analizador sintáctico con Bison, utilizando C++. Además, incluye un pequeño Makefile para el enlazado de todos los archivos y un ejemplo mínimo de uso.</blockquote>
+
+<!--break-->
+
+
+
+<h2>Requisitos</h2>
+<ul><li>bison++</li></ul>
+El paquete <em>bison++</em> instalará también lo necesario de flex.
+
+<h2>Construcción</h2>
+<h3>scanner.l</h3>
+Este archivo es el que va contener la especificación Flex del analizador léxico. Si estudias el código siguiente verás 
+que el analizador es muy simple: sólo reconoce números enteros.
+
+
+
+<div>
+{% highlight cpp %}
+%option c++
+%option noyywrap
+
+%{
+#include <sstream>
+#include <cstdlib>
+#include "parser.h"
+using namespace std;
+%}
+
+DIGIT   [0-9]
+DIGIT1  [1-9]
+
+%%
+
+{DIGIT1}{DIGIT}*  {
+                   cout << "Lexer: " << yytext << endl;
+                   return Parser::NUMBER;
+                  }
+
+.                 {
+                   return Parser::UNKNOWN;
+                  }
+
+<<EOF>>           {
+                   yyterminate();
+                  }
+%%
+{% endhighlight %}
+</div>
+
+
+Es importante ver que el analizador sintáctico ("Parser") ya conoce los tokens, por lo que el analizador léxico no tiene más que devolver el token encontrado.
+
+<h3>parser.y</h3>
+A continuación el analizador sintáctico, también sencillo, que sólo consta de una construcción válida para el lenguaje.
+
+
+
+<div>
+{% highlight cpp %}
+%name Parser
+%define LSP_NEEDED
+%define MEMBERS                 \
+    virtual ~Parser()   {} \
+    private:                   \
+       yyFlexLexer lexer;
+%define LEX_BODY {return lexer.yylex();}
+
+%define ERROR_BODY {cerr << "error encountered at line: "<<lexer.lineno()<<" last word parsed:"<<lexer.YYText()<<"\n";}
+
+%header{
+#include < ostream >
+#include < fstream >
+#include < FlexLexer.h >
+using namespace std;
+%}
+
+%union {
+       int i_type;
+}
+
+%token UNKNOWN
+%token < i_type > NUMBER
+
+%type < i_type > number
+
+%start number
+
+%%
+number
+
+: NUMBER { $$ = atoi(lexer.YYText()); cout << "Parser value " << $$ << endl;}
+
+;
+
+%%
+{% endhighlight %}
+</div>
+
+
+<h3>test.cc</h3>
+Finalmente, el archivo de prueba que crea  el objeto parser que lanzará el comienzo de análisis (léxico y sintáctico).
+
+
+
+<div>
+{% highlight cpp %}
+#include "parser.h"
+#include < iostream >
+using namespace std;
+
+int main(int argc, char ** argv)
+{
+       Parser parser;
+       parser.yyparse();
+       return 0;
+}
+{% endhighlight %}
+</div>
+
+
+<h2>Makefile</h2>
+Para compilar y enlazar todo es necesario seguir un orden específico. Como muestra el siguiente <em>Makefile</em>, es necesario mantener la consistencia de nombres y crear primero el parser, después el scanner y finalmente el programa de prueba.
+
+
+
+<div>
+{% highlight text %}
+all: test
+
+parser.cc: parser.y
+        bison++ -d -hparser.h -o $@ $<
+
+scanner.cc: scanner.l
+        flex++ -d -o$@ $<
+
+test:  parser.o scanner.o test.o
+        g++ -o $@ test.o parser.o scanner.o
+
+clean:
+        $(RM) *~ *# test *.o *.h
+        $(RM) parser.cc scanner.cc
+{% endhighlight %}
+</div>
+
+
+<h2>Referencias</h2>
+<ul><li><a href="http://compilers.iecc.com/comparch/article/05-03-112">A simple example of using bison++ and flex++</a></li></ul>

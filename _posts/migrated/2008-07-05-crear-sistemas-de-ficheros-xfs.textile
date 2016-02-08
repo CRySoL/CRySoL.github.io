@@ -1,0 +1,62 @@
+---
+migrated: node/906
+layout: post
+title: Crear sistemas de ficheros XFS
+created: 1215270417
+author: Lk2
+category: recipe
+tags:
+- Arco
+---
+bq(head). Todos estamos acostumbrados a utilizar en nuestros sistemas GNU particiones Extended3 (ext3). Sin embargo existen otras muchas alternativas. En esta receta voy a explicar cómo usar una muy interesante: *XFS*.
+
+
+<!--break-->
+
+
+
+*XFS* es un sistema de archivos desarrollado inicialmente por SGI (Sillicon Graphics) para Irix (su implementación de UNIX). Sus principales características son:
+
+* Capacidad de hasta 9 exabytes (aunque el kernel Linux de 32 bits lo limita a 16 terabytes).
+* _Journaling_ del sistema de ficheros. Los cambios en el sistema de archivos se realizan primero sobre esta bitácora y luego físicamente sobre el disco, lo que conlleva una mejora de rendimiento .
+* LVM, por lo que permite que las particiones se puedan redimensionar sin tener que crear un nuevo sistema de archivos.
+
+h2. Soporte de XFS para el kernel
+
+Por suerte, para disfrutar de este sistema de ficheros no tienes que hacer nada del otro mundo, ya que está soportado de serie en Linux desde la versión 2.4.25.
+
+De todos modos, si no estás seguro porque usas un kernel compilado por ti o por algún otro motivo puedes comprobar si tienes instalado el soporte para XFS de esta forma:
+
+
+<div class="console">
+{% highlight console %}
+$ ls /lib/modules/$(uname -r)/kernel/fs/xfs*
+{% endhighlight %}
+</div>
+
+Si la salida es un archivo xfs.ko, es que tienes soporte.
+
+Si no tienes soporte para XFS te va a tocar instalarte uno que lo tenga (cualquier Linux precompilado de Debian lo lleva) o bien, si lo compilas a mano, busca tu mismo las opciones adecuadas.
+
+h2. Instalación de herramientas
+
+Una vez que sepas que tienes soporte para XFS necesitarás tener herramientas para poder crear sistemas de archivos. Todas estas herramientas se encuentran en el paquete *xfsprogs*, que se instala de la forma habitual:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install xfsprogs
+{% endhighlight %}
+</div>
+
+Entre las utilidades más destacables de este paquete están:
+* mkfs.xfs: para crear sistemas de ficheros XFS.
+* fsck.xfs: comprueba que la partición no tiene errores.
+* xfs_growfs: permite redimensionar las particiones XFS aprovechando sus capacidades LVM.
+
+Además, con estas herramientas también podremos crear y gestionar particiones sin problemas desde Gparted, el editor de particiones de Gnome.
+
+h2. Referencias
+
+* "XFS en la Wikipedia":http://es.wikipedia.org/wiki/XFS#Caracter.C3.ADsticas
+* "Página web del proyecto XFS de SGI":http://oss.sgi.com/projects/xfs/

@@ -1,0 +1,131 @@
+---
+migrated: node/1561
+layout: post
+title: Ver eventos deportivos usando Sopcast y XBMC
+created: 1326804542
+author: fsancho
+category: recipe
+tags:
+- multimedia
+---
+Que XBMC es el mejor software para media-centers es algo que poca gente discute. La receta que os traigo os permitirá ver todo tipo de eventos deportivos usando XBMC desde vuestra GNU/Linux usando el protocolo Sopcast.
+
+
+<!--break-->
+
+
+En primer lugar partimos de un sistema GNU/Linux con XBMC versión Dharma funcionando. Para los que aun no sepan como se instala, nada como la documentación oficial <a href="http://wiki.xbmc.org/index.php?title=HOW-TO:Install_XBMC_for_Linux">http://wiki.xbmc.org/index.php?title=HOW-TO:Install_XBMC_for_Linux</a>
+
+El segundo paso es instalar el plugin que nos permitirá acceder a multitud de eventos deportivos on-line. El plugin se llama SportsDevil y puede encontrarse en esta dirección <a href="http://code.google.com/p/xbmc-development-with-passion/wiki/SportsDevil/">http://code.google.com/p/xbmc-development-with-passion/wiki/SportsDevil/</a>
+
+Para instalarlo debemos descargar el siguiente fichero
+<a href="http://xbmc-development-with-passion.googlecode.com/files/repository.MaxMustermann.xbmc-1.0.1.zip">http://xbmc-development-with-passion.googlecode.com/files/repository.MaxMustermann.xbmc-1.0.1.zip</a>
+
+Una vez descargado, arrancamos xbmc y vamos a Sistema->Add-ons->Instalar desde un archivo zip. Seleccionamos el fichero zip que acamos de descargar 
+
+Una vez instalado el fichero zip, vamos a la opción Conseguir Add-ons->MaxMustermann's add-ons->Add-ons de Video->SportsDevil Y seleccionamos la opción Instalar.
+
+Con esto ya tenemos XBMC y SportsDevil funcionando y tendremos acceso a multitud de emisiones deportivas, pero por ahora solo las que emitan en rtmp o flash. Para poder acceder a las que emitan usando Sopcast tendremos que hacer lo siguiente.
+
+Insalamos Sopcast. En Ubuntu es tan sencillo como seguir estos dos pasos.
+
+
+<div class="console">
+{% highlight console %}
+
+sudo add-apt-repository ppa:jason-scheunemann/ppa
+sudo apt-get update
+sudo apt-get install sp-auth mplayer
+{% endhighlight %}
+</div>
+
+Seguramente también sirva para Debian aunque no lo he probado.
+También instalamos el reproductor mplayer que es el que vamos a utilizar.
+
+Si quieres instalarlo desde el sitio oficial, el enlace de descarga es este
+<a href="http://www.sopcast.com/download/">http://www.sopcast.com/download/</a>
+
+Ahora necesitamos un script para automatizar la carga de enlaces sop:// ya que el cliente sp-sc tan solo nos conecta a la red sopcast y nos deja el streaming en un acceso web local del tipo http://localhost:puerto/tv.asf
+
+El script está adjunto a esta receta. Descarga el fichero sop-player.txt, renombralo a sop-player y dale atributos de ejecución y lo copias en /usr/local/bin.
+
+Ahora tenemos que indicarle a XBMC que utilice ese script para reproducir los enlaces sop://. Para ello editamos el fichero $HOME/.xbmc/userdata/playercorefactory.xml y lo dejamos así
+
+
+<div>
+{% highlight xml %}
+<playercorefactory>
+ <players>
+   <player name="sop-player" type="ExternalPlayer" audio="false" video="true">
+     <filename>/usr/local/bin/sop-player</filename>
+     <args>"{1}"</args>
+     <islauncher>false</islauncher>
+     <hidexbmc>false</hidexbmc>
+     <hidecursor>true</hidecursor>
+     <forceontop>true</forceontop>
+   </player>
+ </players>
+ <rules action="prepend">
+   <rule protocols="sop" player="sop-player"/>
+ </rules>
+</playercorefactory>
+{% endhighlight %}
+</div>
+
+Ya solo faltaría poder controlar mplayer con el mando a distancia. Tan sencillo como editar el fichero $HOME/.lircrc
+
+
+<div>
+{% highlight bash %}
+begin
+     button = VolUp
+     prog = mplayer
+     config = volume 1
+     repeat = 1
+end
+
+begin
+     button = VolDown
+     prog = mplayer
+     config = volume -1
+     repeat = 1
+end
+
+begin
+     button = Stop
+     prog = mplayer
+     config = stop
+     repeat = 1
+end
+
+begin
+     button = Pause
+     prog = mplayer
+     config = pause
+     repeat = 1
+end
+
+begin
+     button = Rewind
+     prog = mplayer
+     config = seek -10
+     repeat = 1
+end
+
+begin
+     button = Forward
+     prog = mplayer
+     config = seek 10
+     repeat = 1
+end
+
+begin
+     button = Mute
+     prog = mplayer
+     config = mute
+     repeat = 0
+end
+{% endhighlight %}
+</div>
+
+Obviamente, esto está tomado de la configuracion de mi mando a distancia. Para adaptarlo al tuyo tienes que mirar en tu fichero /etc/lirc/lircd.conf y usar los nombres de los botones de tu mando.

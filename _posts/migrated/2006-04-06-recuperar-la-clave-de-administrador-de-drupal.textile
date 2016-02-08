@@ -1,0 +1,41 @@
+---
+migrated: node/278
+layout: post
+title: Recuperar la clave de administrador de Drupal
+created: 1144354157
+author: david_villa
+category: recipe
+tags:
+- MySQL
+---
+O lo que es lo mismo, cómo editar el valor de un registro en MySQL
+
+
+<!--break-->
+
+
+
+En Drupal, el primer usuario que se crea es el administrador del sitio, de modo que tiene el identificador de usuario 1. Así que sólo hace falta un poco de SQL:
+
+
+<div class="console">
+{% highlight console %}
+$ mysql -u dbadmin -p drupal
+mysql> update users set pass=md5('NEWPASS') where uid = 1;
+
+{% endhighlight %}
+</div>
+
+Y si necesitas saber cómo se llama el admin, pues:
+
+
+<div class="console">
+{% highlight console %}
+mysql> select name from users where uid=1;
+{% endhighlight %}
+</div>
+
+
+h1. Referencias
+
+* "How to change Drupal 'admin' password. UID1":http://occy.net/node/122

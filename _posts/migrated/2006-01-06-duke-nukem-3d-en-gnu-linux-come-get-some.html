@@ -1,0 +1,235 @@
+---
+migrated: node/171
+layout: post
+title: Duke Nukem 3D en GNU/Linux, Come get some!!
+created: 1136567189
+author: fsancho
+category: recipe
+---
+<table>
+<tr>
+<td>
+<p>
+Hace tiempo, concretamente el pasado 12 de Enero de 2004, 3DRealms liberó el <a href="ftp://ftp.3drealms.com/source/duke3dsource.zip">código fuente</a> de uno de sus mejores juegos de todos los tiempos, Duke Nukem 3D. Desde aquel momento muchos programadores comenzaron a intentar adaptar el juego a los nuevos sistemas operativos. 
+
+No tardaron en llegar las primeras versiones para GNU/Linux, que con mas o menos dificultades consiguieron que se pudiese jugar.
+</p>
+</td>
+<td width="20%" align="center">
+<img src="/files/171-dukenukem3d.jpg"/>
+</td>
+</tr>
+</table>
+
+
+
+<!--break-->
+
+
+
+Sin duda lo mejor del juego era el modo multijugador. En el juego original se utilizaba el protocolo IPX. En estas nuevas versiones se ha añadido soporte TCP/IP.
+
+Así que tenemos Duke Nukem 3D, funcionando en GNU/Linux de forma nativa y con soporte al juego multijugador por TCP/IP, ¿No se os hace la boca agua?
+
+
+Uno de los mejores ports de Duke Nukem que podemos encontrar actualmente es obra de un australiano de 23 años llamado <a href="http://jonof.edgenetwork.org/index.php?p=main">Jonathon Fowler (Jonof)</a>. Tiene ports de varios juegos creados con el mismo motor que Duke Nukem como es Shadow Warriors.
+
+Necesitaremos varios ingredientes para que todo funcione correctamente. Así que vamos a ello.
+
+<h1>Ingredientes</h1>
+
+<ul>
+  <li>
+    Código fuente de <a href="http://jonof.edgenetwork.org/index.php?p=downloads&cat=0">JFBuild</a>
+  </li>
+  <li>
+Código fuente de <a href="http://jonof.edgenetwork.org/index.php?p=downloads&cat=1">JFDuke3D</a>
+  </li>
+  <li>
+Parche para JFBuild: <a href="http://www.mephisto.ma.cx/mephisto/patches/jfbuild_src_20051009.patch">Descarga</a>
+  </li>
+  <li>
+Parche para JFDuke: <a href="http://www.mephisto.ma.cx/mephisto/patches/jfduke3d_src_20051009.patch">Descarga</a>
+  </li>
+  <li>
+Librería <a href="http://www.fmod.org/index.php/download">fmod</a>
+  </li>
+  <li>
+Librerías SDL
+    <ul>
+      <li>libsdl-dev 
+      <li>libsdl-mixer-dev
+      <li>libsdl-ttf-dev
+      <li>libsdl-image-dev
+    </ul>
+   </li>
+   <li>
+Fichero duke3d.grp: El de la versión <a href="ftp://ftp.3drealms.com/share/3dduke13.zip">Shareware</a> te servirá.
+  </li>
+  <li>
+Compilador GCC < 4.0: Yo he usado gcc-3.3 y gcc-3.4, ambas funcionan.
+  </li>
+  <li>
+Ensamblador nasm
+  </li>
+</ul>
+
+<h1>Preparación</h1>
+
+Antes de nada hay que instalar las librerías necesarias para compilar el juego. La mas rara de instalar es fmod por lo que vamos a explicarla la primera de todas.
+
+<h2>FMOD</h2>
+Descomprimimos el fichero <tt>fmodapi3741linux.tar.gz</tt> que nos creará el directorio <tt>fmodapi3741linux</tt>. Dentro de ese directorio veremos varios mas. Solo nos interesa el directorio <tt>api</tt>. La manera mas limpia de instalar la librería es utilizando <a href="http://crysol.inf-cr.uclm.es/drupal/node/67">stow.</a> Creamos el directorio <tt>/usr/local/stow/fmod</tt> y dentro de el toda la jerarquía de directorios necesaria. Esto hay que hacerlo a mano ya que fmod no trae un makefile. Estos son los pasos.
+
+
+<div class="console">
+{% highlight console %}
+# cd fmodapi3741linux/api
+# mkdir -p /usr/local/stow/fmod/include/fmod
+# mkdir -p /usr/local/stow/fmod/lib
+# cp libfmod-3.74.1.so /usr/local/stow/fmod/lib
+# cp inc/* /usr/local/stow/fmod/include/fmod
+# ln -s /usr/local/stow/fmod/lib/libfmod-3.74.1.so /usr/local/stow/fmod/lib/libfmod.so
+# cd /usr/local/stow
+# stow fmod
+
+{% endhighlight %}
+</div>
+
+
+<h2>SDL</h2>
+Ahora hay que instalar las librerías SDL. En mi caso, uso Ubuntu, sería así de sencillo (sería lo mismo si usas Debian, Molinux, Guadalinex o cualquier otro derivado de Debian). 
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsdl1.2-dev
+
+{% endhighlight %}
+</div>
+
+<h2>DUKE3D.GRP</h2>
+Para obtener el fichero <tt>duke3d.grp</tt> necesitaremos el compresor <em>orange</em>. Así que instalamos <em>orange</em> y para simplificar mas las cosas el descompresor universal <em>unp</em>.
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install unp orange unzip
+$ unzip 3dduke13.zip
+$ unp DN3DSW13.SHR
+
+{% endhighlight %}
+</div>
+
+Con esto tenemos disponible el fichero <tt>DUKE3D.GRP</tt>. Es importante pasar el nombre a minúsculas ya que si no no funcionará. Una manera sencilla es con el comando <em>rename</em> de esta forma.
+
+
+<div class="console">
+{% highlight console %}
+$ rename 'y/A-Z/a-z/' DUKE3D.GRP
+{% endhighlight %}
+</div>
+
+Creo que con esto tenemos todos los ingredientes listos. Si faltase alguna librería decidlo en los comentarios, pero creo que ya está todo lo necesario.
+
+<h1>Compilación del juego</h1>
+
+Vamos a crearnos una carpeta para meter todo lo que vamos necesitando. Yo he creado un directorio llamado jonof, el nombre da igual. Dentro he puesto el código fuente y los parches de JFBuild y JFDuke.
+
+En primer lugar descomprimimos tanto jfbuild_src_20051009.zip como jfduke3d_src_20051009.zip y después aplicamos los parches. Estos son los pasos.
+
+
+<div class="console">
+{% highlight console %}
+$ cd jonof
+$ unzip jfbuild_src_20051009.zip jfduke3d_src_20051009.zip
+$ patch -p0 < jfbuild_src_20051009.patch
+$ patch -p0 < jfduke3d_src_20051009.patch
+$ ln -s jfbuild_src_20051009 build
+
+{% endhighlight %}
+</div>
+
+Los parches son para solucionar un problema con el sonido en Linux. El autor está trabajando en un sistema de sonido propio para la próxima version (<a href="http://jonof.edgenetwork.org/index.php?p=jfaud">JFAud</a>), pero aun no está disponible y está descuidando la implementación actual. Menos mal que alguien en el <a href="http://jonof.edgenetwork.org/forum/viewtopic.php?t=580">foro</a> se curró un parche transitorio para solucionarlo.
+
+Una vez hecho esto tendremos que retocar ligeramente el Makefile de jfduke, pero tranquilos que es tarea facil. Abrimos el fichero <tt>Makefile</tt> con el editor de texto que queramos (no con openoffice.org) y en la línea 39 veremos lo siguiente.
+
+<pre>
+        -I$(INC:/=) -I$(EINC:/=) -I$(SRC)jmact -I$(SRC)jaudiolib #-I../jfaud/inc
+</pre>
+
+Pues bien lo retocamos para que quede así.
+
+<pre>
+        -I$(INC:/=) -I$(EINC:/=) -I$(SRC)jmact -I$(SRC)jaudiolib -I/usr/local/include/fmod  #-I../jfaud/inc
+</pre>
+
+Como veis he añadido la ruta donde he puesto la librería fmod, es tan solo esa la modificación que hay que hacer.
+
+Después de todo esto, cruzamos los dedos y ejecutamos lo siguiente.
+
+
+<div class="console">
+{% highlight console %}
+$ make CC=gcc-3.4 
+{% endhighlight %}
+</div>
+
+Si todo ha ido bien deberemos tener en el mismo directorio un ejecutable llamado duke3d y otro llamado build. Como habrás adivinado duke3d es el juego y build es el constructor de niveles.
+
+Llegados a este punto lo único que necesitas es el fichero duke3d.grp que obtuvimos antes, tan solo es necesario copiarlo al directorio en el que te encuentras y lanzar el juego con:
+
+
+<div class="console">
+{% highlight console %}
+$ ./duke3d
+{% endhighlight %}
+</div>
+
+<h1>Cómo jugar</h1>
+Si has llegado hasta aquí, ¡enhorabuena! Imagino que ahora querrás jugar con mas gente porque es lo que mas gracia tiene de este juego. Si os fijáis en el directorio donde esta el código fuente hay un fichero llamado <tt>releasenotes.html</tt> que explica como se lanza el modo multijugador.
+
+Este juego no dispone de un servidor dedicado por lo que será necesario que uno de los jugadores sea el servidor y el resto clientes. Es necesario saber de antemano cuantos jugadores va a haber y que todos estos tengan la mismas versión del fichero <tt>duke3d.grp</tt>.
+
+Vamos a explicarlo con un ejemplo. Supongamos que queremos organizar una partida entre tres jugadores.
+
+<ul>
+<li>jugador1 : 66.249.93.104</li>
+<li>jugador2 : 68.142.197.86</li>
+<li>jugador3 : 212.85.32.12</li>
+</ul>
+
+Uno de los tres ha de ser el servidor, por ejemplo el jugador1. Para ello deberá lanzar el juego de esta forma
+
+
+<div class="console">
+{% highlight console %}
+$ ./duke3d /net /n0:3
+{% endhighlight %}
+</div>
+
+Los otros dos jugadores deberán lanzar el juego de esta otra forma
+
+
+<div class="console">
+{% highlight console %}
+$ ./duke3d /net /n0 66.249.93.104
+{% endhighlight %}
+</div>
+
+Hay que tener en cuenta que el jugador que haga de servidor necesita tener habilitada la salida por el puerto 23513 o bien cambiar el puerto por otro mediante el parámetro <tt>/pX</tt> donde <tt>X</tt> es el puerto escogido. Obviamente los demas jugadores también deberán poner el valor del nuevo puerto.
+
+<h2>Mapas de usuario</h2>
+Si queremos utilizar mapas extras, en primer lugar el fichero <tt>duke3d.grp</tt> shareware no nos servirá, necesitaremos alguno de la versión comercial del juego. Nos vale tanto el normal como el de la edición "Atomic". Para lanzar el juego en red con un mapa de usuario tendremos que hacerlo así.
+
+
+<div class="console">
+{% highlight console %}
+./duke3d -map user.map
+{% endhighlight %}
+</div>
+
+Aquí dejo un enlace donde podéis conseguir mapas extras. <a href="http://oak.cats.ohiou.edu/~bg101597/duke/duke.html">The Duke Mecca</a>.
+
+<h1>Epílogo</h1>
+Espero que disfrutéis con este juegazo por el que apenas pasa el tiempo. ¿O será que me estoy haciendo mayor?
