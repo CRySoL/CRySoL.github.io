@@ -1,0 +1,170 @@
+---
+migrated: node/797
+layout: post
+title: git, el control de versiones definitivo (por ahora)
+created: 1193859244
+author: david_villa
+category: recipe
+tags:
+- VCS
+---
+bq(head). Una pequeña introducción a *git*, el sistema de control de versiones de moda.
+
+
+<!--break-->
+
+
+
+h2. Ingredientes
+
+* *git-core* -  fast, scalable, distributed revision control system
+
+
+h2. Identidad del usuario
+
+Para las operaciones de log, @git@ necesita una identificación del usuario, para ello usa estos dos comandos:
+
+
+<div class="console">
+{% highlight console %}
+$ git config [--global] user.email "juan.nadie@babia.es"
+$ git config [--global] user.name "Juan Nadie"
+
+{% endhighlight %}
+</div>
+
+h2. Creando un repositorio
+
+Partiendo de un directorio (sea nuevo o no):
+
+
+<div class="console">
+{% highlight console %}
+juan@example:~/iexplorer9$ git init
+Initialized empty Git repository in .git/
+
+{% endhighlight %}
+</div> 
+
+
+
+h2. Añadir contenido
+
+Lo primero es añadir el propio directorio donde has inicializado el repositorio:
+
+
+<div class="console">
+{% highlight console %}
+juan@example:~/iexplorer9$ git add .
+{% endhighlight %}
+</div>
+
+Y después, del mismo modo puedes añadir cualquier fichero que crees en ese directorio o en los que contiene.
+
+h2. Commit
+
+Como en la mayoría de los VCS (Version Control System) para hacer que los cambios sean permanentes y se cree una nueva versión es necesario ejecutar un "commit". La sintaxis en *git* es obvia:
+
+
+<div class="console">
+{% highlight console %}
+juan@example:~/iexplorer9$ git commit
+{% endhighlight %}
+</div>
+
+Y como también es habitual, pide un mensajito para informar al prójimo del propósito de los cambios realizados. Y aquí viene "la pregunta": ¿dónde han ido esos cambios si no has indicado en ningún momento el servidor? Pues esa es una diferencia fundamental con CVS o Subversion, no tiene porqué haber un servidor que mantenga el repositorio, CVS y Subversion eran centralizados, *git* es distribuido.
+
+En resumen, todo lo anterior es para crear y mantener un repositorio personal individual.
+
+h2. Descargar una copia del repo
+
+Evidentemente @git@ tendría poco interés si no diera la posibilidad de que varias personas trabajaran sobre el mismo repositorio. Otro usuario "pepe" que tenga cuenta en la misma máquina puede obtener una copia del repo de juan con:
+
+
+<div class="console">
+{% highlight console %}
+pepe@example:~$ git clone /home/juan/iexplorer9 micopia
+{% endhighlight %}
+</div>
+
+h2. Trabajo en equipo
+
+Pepe puede ahora hacer cambios sobre *su* copia del repo. El usuario Juan puede integrar esos cambios en su repo con:
+
+
+<div class="console">
+{% highlight console %}
+juan@example:~/iexplorer9$ git pull /home/pepe/micopia
+{% endhighlight %}
+</div>
+
+Si Juan va a realizar esta operación frecuentemente y además quiere tener un control más fino de los cambios puede utilizar un mecanismo alternativo:
+
+
+<div class="console">
+{% highlight console %}
+juan@example:~/iexplorer9$ git remote add pepe /home/pepe/micopia
+juan@example:~/iexplorer9$ git fetch pepe
+
+{% endhighlight %}
+</div>
+
+A diferencia de @pull@, el comando @fetch@ crea una rama, que se puede mezclar con la rama principal:
+
+
+<div class="console">
+{% highlight console %}
+juan@example:~/iexplorer9$ git merge pepe/master
+{% endhighlight %}
+</div>
+
+o lo que es lo mismo:
+
+
+<div class="console">
+{% highlight console %}
+juan@example:~/iexplorer9$ git pull . remotes/pepe/master
+{% endhighlight %}
+</div>
+
+h3. Modo "centralizado"
+
+En el apartado anterior, los cambios se piden siempre explícitamente. Hay otra alternativa: el comando @push@ que permite trabajar de una forma similar a la que se utiliza CVS o Subversion. En ese caso, Pepe puede enviar sus cambios a la copia de Juan con:
+
+
+<div class="console">
+{% highlight console %}
+pepe@example:~/micopia$ git push
+{% endhighlight %}
+</div>
+
+Y puede actualizar su copia con:
+
+
+<div class="console">
+{% highlight console %}
+pepe@example:~/micopia$ git pull
+{% endhighlight %}
+</div>
+
+h2. Acceso remoto
+
+Es posible obtener una copia desde otra máquina mediante SSH:
+
+
+<div class="console">
+{% highlight console %}
+manolo@box:~$ git clone ssh://example.org/~juan/iexplorer9
+{% endhighlight %}
+</div>
+
+También es posible acceder remotamente con WebDAV y rsync
+
+h2. Referencias
+
+* "A tutorial introduction to git":http://<a href="http://www.kernel.org/pub/software/scm/git/docs/tutorial.html">www.kernel.org/pub/software/scm/git/docs/tutorial.html</a>
+* "Everyday GIT With 20 Commands Or So":http://<a href="http://www.kernel.org/pub/software/scm/git/docs/everyday.html">www.kernel.org/pub/software/scm/git/docs/everyday.html</a>
+* "Git - SVN Crash Course":http://git.or.cz/course/svn.html
+* "git for CVS users":http://<a href="http://www.kernel.org/pub/software/scm/git/docs/cvs-migration.html">www.kernel.org/pub/software/scm/git/docs/cvs-migration.html</a>
+
+

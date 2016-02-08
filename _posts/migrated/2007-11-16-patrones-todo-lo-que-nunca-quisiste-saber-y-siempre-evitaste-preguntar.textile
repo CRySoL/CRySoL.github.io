@@ -1,0 +1,65 @@
+---
+migrated: node/806
+layout: post
+title: 'Patrones: Todo lo que nunca quisiste saber y siempre evitaste preguntar'
+created: 1195237731
+author: david_villa
+category: recipe
+tags:
+- patterns
+---
+bq(head). Primera de una serie de recetas sobre patrones de diseño.
+
+
+<!--break-->
+
+
+h2. Introducción
+
+Ésta es, espero, la primera de usa serie de recetas sobre el apasionante y desconocido mundo de los patrones de diseño; tan queridos y odiados en las carreras de informática de medio mundo. Mi intención es dar un explicación práctica y muy breve sobre algunos de los patrones más útiles. No pretendo hacer otro catálogo de patrones, porque ya hay dos cientos mil libros sobre el tema, pero quizás pueda servir para que alguno se acerque al tema y otros discutamos sobre ello.
+
+h2. Definición
+
+Según Wikipedia, un "patrón de diseño":http://en.wikipedia.org/wiki/Design_pattern_%28computer_science%29 es:
+
+<em>a design pattern is a general repeatable solution to a commonly occurring problem in software design. A design pattern is not a finished design that can be transformed directly into code. It is a description or template for how to solve a problem that can be used in many different situations.</em>
+
+o sea:
+
+<em>un patrón de diseño es una solución general repetible a un problema habitual en el diseño de software. Un patrón de diseño no es un diseño terminado que se pueda transformar directamente en código. Es una descripción o plantilla que indica cómo resolver un problema que se puede usar en muchas situaciones diferentes.</em>
+
+Ya sé que hay un artículo en la Wikipedia española, pero la definición de la inglesa me parece mucho más correcta.
+
+h2. Confusiones habituales
+
+Desde el punto de vista del programador "clásico", el patrón es un concepto que puede resultar confuso. Por eso aquí intentaré aclarar algunas de las confusiones más comunes:
+
+* Un patrón no es una clase, ni una librería.
+* El patrón es una solución abstracta, no está ligado a ningún lenguaje de programación concreto.
+* Para usar un patrón hay que implementarlo y adaptarlo a la aplicación concreta. Pero la implementación no es lo mismo que el patrón en sí. 
+* Un patrón es un elemento de diseño, no de la implementación.
+
+
+h2. ¿Por qué usar patrones?
+
+Los patrones son soluciones probadas a problemas comunes, utilizadas muchas veces para solucionar problemas similares y que han demostrado un importante nivel de calidad.
+
+Lo patrones buscan principalmente:
+
+* Aumentar la cohesión.
+* Reducir el acoplamiento.
+* Reducir el uso de la herencia, por el alto coste que implica.
+
+En definitiva, utilizar patrones puede mejorar el diseño de una aplicación siempre que sepa lo que se está haciendo y no se intente "meter" patrones a toda costa. Una de las ventajas más interesantes bajo mi punto de vista es que utilizar patrones aporta *nomenclatura*, es decir, varias personas que conozcan la terminología pueden hablar de un diseño complejo sin confusiones y sin necesidad de utilizar gráficos o esquemas, al menos cuando se tratan cuestiones generales o durante la fase inicial.
+
+h2. Tipos
+
+Aunque a lo largo de los años han ido apareciendo millones de patrones, la clasificación de "GoF":http://es.wikipedia.org/wiki/Gang_of_Four se ha ganado por derecho propio considerarse como oficial:
+
+* De creación: Ofrecen métodos para crear objetos o familias de objetos.
+* De estructura: Se ocupan de la composición de clases u objetos.
+* De comportamiento: Ofrecen métodos para interacción entre clases u objetos y sistemas para distribuir o delegar responsabilidades.
+
+h2. Referencias
+
+* <a href="http://en.wikipedia.org/wiki/Design_Patterns"><em>Design Patterns, Elements of Reusable Object-Oriented Software</em>, ISBN: 0-201-63361-2</a>

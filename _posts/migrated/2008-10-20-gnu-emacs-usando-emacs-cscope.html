@@ -1,0 +1,59 @@
+---
+migrated: node/1028
+layout: post
+title: 'GNU Emacs: usando emacs + cscope'
+created: 1224545400
+author: ricardo
+category: recipe
+tags:
+- emacs
+---
+<blockquote class="head"> 
+Esta receta explica brevemente como configurar <b>emacs</b> para utilizarlo junto con <b>cscope</b>, una herramienta para navegar a través de código fuente C/C++.
+</blockquote>
+
+<h2>Ingredientes</h2>
+<ul>
+<li>emacs</li>
+<li>cscope</li>
+</ul>
+
+<h2>Configuración</h2>
+Si te has instalado cscope en Debian/Ubuntu se te habrá instalado la interfaz de cscope para (X)Emacs que se encuentra en el archivo <code>/usr/share/emacs/site-lisp/xcscope.el</code>. Para el resto de distribuciones tendrás que asegurarte de que el archivo xcscope.el está en un directorio donde Emacs pueda encontrarlo.
+
+El siguiente paso es editar el archivo <code>~/.emacs</code> añadiendo lo siguiente:
+
+<div>
+{% highlight text %}
+(require 'xcscope)
+{% endhighlight %}
+</div>
+
+Si deseas añadir atajos para hacer más comoda la introducción de algunas órdenes puedes añadir los siguiente también el el archivo <code>~/.emacs</code>:
+
+<div>
+{% highlight text %}
+(define-key global-map [(control f3)]  'cscope-set-initial-directory)
+(define-key global-map [(control f4)]  'cscope-unset-initial-directory)
+(define-key global-map [(control f5)]  'cscope-find-this-symbol)
+(define-key global-map [(control f6)]  'cscope-find-global-definition)
+(define-key global-map [(control f7)]
+  'cscope-find-global-definition-no-prompting)
+(define-key global-map [(control f8)]  'cscope-pop-mark)
+(define-key global-map [(control f9)]  'cscope-next-symbol)
+(define-key global-map [(control f10)] 'cscope-next-file)
+(define-key global-map [(control f11)] 'cscope-prev-symbol)
+(define-key global-map [(control f12)] 'cscope-prev-file)
+(define-key global-map [(meta f9)]  'cscope-display-buffer)
+(define-key global-map [(meta f10)] 'cscope-display-buffer-toggle)
+{% endhighlight %}
+</div>
+
+<h2>Funcionamiento</h2>
+Abres los ficheros de código fuente C/C++, utilizas los comandos del tipo <code>cscope-*</code> (<code>M-x cscope-*</code> o utilizas las teclas atajo) para buscar deficiones, símbolos, etc. El funcionamiento básico es así de sencillo.
+
+<h2>Referencias</h2>
+<ol>
+  <li> El propio archivo <code>xcscope.el</code> explica más profundamente, en los comentarios del principio del archivo, la configuración y el funcionamiento. </li>
+  <li> Página web de <a href="http://cscope.sourceforge.net/">cscope</a> </li>
+</ol>

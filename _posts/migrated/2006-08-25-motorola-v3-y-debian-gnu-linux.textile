@@ -1,0 +1,61 @@
+---
+migrated: node/384
+layout: post
+title: Motorola V3 y Debian GNU/Linux
+created: 1156524153
+author: david_villa
+category: recipe
+---
+Programas disponibles en Debian para acceder al Motorola V3
+
+
+<!--break-->
+
+
+
+h1. Introducción
+
+En realidad no hay mucho que decir, he comprado un V3 en portabilidad por -1€ (no digo de qué compañía). Este móvil tiene una "clavija USB mini-B estándar":http://en.wikipedia.org/wiki/Universal_Serial_Bus, que sirve incluso para cargar la batería desde el ordenador.
+
+Me he puesto a mirar a ver qué se puede hacer con él en Debian. Y he quedado gratamente sorprendido, en poco más de 5 minutos ya estaba todo funcionando. El motivo: que los programas necesarios están empaquetaditos en mi querida Debian.
+
+h1. Ingredientes
+
+* Un Linux con soporte "USB modem"
+* "wammu":http://cihar.com/gammu/wammu/
+* "moto4lin":http://moto4lin.sourceforge.net/wiki/Main_Page
+
+h1. Instalación
+
+Si tienes un Linux de los precompilados por Debian casi seguro que tendrás soporte USB-modem. Puedes comprobarlo cargando el módulo @cdc_acm@:
+
+
+<div class="console">
+{% highlight console %}
+ # modprobe cdc_acm 
+{% endhighlight %}
+</div>
+
+En cuanto a los programas, ya sabes:
+
+
+<div class="console">
+{% highlight console %}
+ # apt-get install moto4lin wammu 
+{% endhighlight %}
+</div>
+
+Tendrás que configurarlos para que usen el dispositivo @/dev/ttyACM0@ o similar (mira tu @/var/log/syslog@).
+
+* *wammu* sirve para gestionar contactos, mensajes, llamadas y calendarios.
+* *moto4lin* sirve para manipulación de ficheros: fondos, imágenes, sonidos, melodías, juegos, etc.
+
+Espero que le sirva a alguien, aunque esta información no es dificil de encontrar.
+
+h1. Comentarios
+
+No he tenido tiempo de trastear mucho con el móvil, pero a primera vista parece una buena elección si pretendes sacarle jugo al teléfono desde tu Debian.
+
+h1. Referencias
+
+* "Motorola en Ubuntu??":http://<a href="http://www.ubuntu-es.org/node/22826">www.ubuntu-es.org/node/22826</a>

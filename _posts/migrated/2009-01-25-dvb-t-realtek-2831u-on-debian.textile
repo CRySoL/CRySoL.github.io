@@ -1,0 +1,76 @@
+---
+migrated: node/1082
+layout: post
+title: DVB-T Realtek 2831U on Debian
+created: 1232847048
+author: david_villa
+category: recipe
+tags:
+- drivers
+- Debian
+---
+How to install the device driver for a TDT receiver based on the chipset DVB-T Realtek. In my case, it's the Zaapa ZT- DVBTSTUSB
+
+
+<!--break-->
+
+
+Lets see the device identification:
+
+
+<div class="console">
+{% highlight console %}
+
+# lsusb
+[...]
+Bus 004 Device 003: ID 0bda:2831 Realtek Semiconductor Corp. 2831U Device
+[...]
+{% endhighlight %}
+</div>
+
+Enter the next commands in a console:
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo apt-get install linux-headers-$(uname -r) mercurial
+$ hg clone http://linuxtv.org/hg/~jhoogenraad/rtl2831-r2
+$  cd rtl2831-r2/
+$ make
+[...incomprehensible long long compilation output...]
+$ sudo make install 
+[...linux things...]
+{% endhighlight %}
+</div>
+
+Ready! When you plug the receiver you should see something like that in the @/var/log/sys.log@:
+
+
+<div>
+{% highlight text %}
+kernel: [  952.777025] usb 5-1: new high speed USB device using ehci_hcd and address 7
+kernel: [  952.910355] usb 5-1: configuration #1 chosen from 1 choice
+kernel: [  952.910716] usb 5-1: New USB device found, idVendor=0bda, idProduct=2831
+kernel: [  952.910716] usb 5-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+kernel: [  952.910716] usb 5-1: Product: RTL2831U
+kernel: [  952.910716] usb 5-1: Manufacturer: Generic
+kernel: [  952.910716] usb 5-1: SerialNumber: 77771111153705700
+kernel: [  953.032908] dvb-usb: found a 'RTL2831U DVB-T USB2.0 DEVICE' in warm state.
+kernel: [  953.032908] dvb-usb: will pass the complete MPEG2 transport stream to the software demuxer.
+kernel: [  953.032908] DVB: registering new adapter (RTL2831U DVB-T USB2.0 DEVICE)
+kernel: [  953.032908] DVB: registering adapter 0 frontend 0 (Realtek RTL2831 DVB-T)…
+kernel: [  953.032908] input: IR-receiver inside an USB DVB receiver as /class/input/input10
+kernel: [  953.040575] dvb-usb: schedule remote query interval to 300 msecs.
+kernel: [  953.040585] dvb-usb: RTL2831U DVB-T USB2.0 DEVICE successfully initialized and connected.
+kernel: [  953.040615] usbcore: registered new interface driver dvb_usb_rtd2831u
+{% endhighlight %}
+</div>
+
+Read the recipe "Televisión digital terrestre (TDT) en GNU/Linux":node/289 to see how to use the receiver with KDE and Gnome.
+
+h2. Comments
+
+Thanks to oscarah.
+
+PS:Yes, an english recipe is always a small recipe :-)

@@ -1,0 +1,50 @@
+---
+migrated: node/1377
+layout: post
+title: INGSOFT
+created: 1279143275
+author: david_villa
+category: opinion
+tags:
+- INGSOFT
+---
+Tras el _pseudo-orwelliano_ término «INGSOFT» me propongo escribir algunos posts (breves) sobre *ingeniería de software «práctica»*. ¡¿Y eso existe?!
+
+
+<!--break-->
+
+
+Pues sí, aunque a muchos informáticos de carrera nos cueste mucho creerlo, lo cierto es que hay una cantidad importante de gente por ahí interesada en resolver los problemas reales que tiene la profesión. Sorprendente ¿verdad? Y no estoy hablando de las atribuciones y los colegios profesionales, estoy hablando del diseño e implementación de programas que tengan la inaudita cualidad de funcionar, y además funcionar bien. 
+
+Los <a href="http://en.wikipedia.org/wiki/List_of_software_development_philosophies">«principios o filosofías de diseño de software»</a> me parecen un buen sitio para empezar. Los principios de diseño hablan (razonadamente) sobre cosas que deberíamos hacer y cosas que no deberíamos. No se puede decir que sean de precisión matemática ni mucho menos (ojalá) pero lo cierto es que seguirlos nos puede ayudar a hacer un trabajo de calidad (qué palabra!). Hace unos días hablaba sobre uno de estos principios ("YAGNI":http://en.wikipedia.org/wiki/You_ain%27t_gonna_need_it) en el post "Procrastinación y el «mal de la computadora»":http://crysol.org/es/node/1371 que bien podría haber sido el primer post de esta serie.
+
+La profesión de informático (ingeniero o no) es aún muy artesanal. Muchos piensan que una ingeniería (como es la informática) no debería ser artesanal, y tienen razón, no debería, pero lo que debería o no y la realidad raramente coinciden. El depender del buen hacer del profesional y, desgraciadamente, menos de los formalismos o principios científicos contrastables, trae problemas a la hora de ejercerla.
+
+En casi todas las ingenieras está muy claro qué está bien y que está mal, cuál es el valor o la cantidad adecuada para conseguir el resultado que se busca (con su correspondiente margen de tolerancia), pero en informática la bibliografía está llena de normas, métodos y reglas que a la hora de la verdad, en el momento crucial, acaban diciendo que «depende del caso», «las consideraciones concretas», «bueno, es que claro...», «bajo cierto punto de vista...» y nadie se moja. Nada está del todo bien ni del todo mal. No hay normas estrictas para casi nada y pocos se atreven a decir categóricamente que algo es una barbaridad (y a menudo los que lo hacen meten la pata). Sin duda eso se debe a que es una disciplina científica muy muy joven y por tanto inmadura.
+
+Por eso me atrevería a decir que el principal problema de la profesión de informático es la «imaginación» ya sea por defecto o por exceso. Me explico, ante un problema, el informático novato tiene la impresión de ser el primero del mundo al que se le presenta algo así. En lugar de buscar la «solución correcta» (que suele estar en los libros) lo que hace es crear una propia. Aquí hay dos posibilidades:
+
+* el novato imagina alguna solución maravillosa y creativa, o 
+* el novato diseña/escribe lo primero que se le ocurre, aún a sabiendas de que es una chapuza. 
+
+Para el primero hay esperanza, el segundo NO ES un profesional (es lo que hace, un chapuza) al menos por el momento. Pero, en ambos casos, el resultado es parecido: un completo desastre, código espaquetti, inmantenible e inútil. «El novato» no tiene porqué ser un recién llegado, si no se toman medidas, si no se aprende y avanza, uno puede ser novato toda la vida.
+
+¿Y cuál es la solución para evitarlo? Pues la misma que en cualquier otra profesión: la experiencia, pero no es preciso que sea *nuestra* experiencia, podemos aprovechar la de otros. Es decir,  copia (que no _plagia_) de los maestros, de los que han demostrado que saben, que les va bien. Con «maestros» no me refiero a profesores (pocos han ejercido como verdaderos profesionales del software), me refiero a los grandes gurús, profesionales con experiencia en la industria del software y que han tenido éxito más allá de la pura suerte. De ese grupo yo excluiría a algunos como por ejemplo Bill Gates, que no tiene nada de maestro del software, aunque sí es un gran maestro de los negocios (y ha escrito libros dignos de ser leídos).
+
+Podemos resumir todo eso en un principio (filosofía?) aún más básico que los que veremos en los próximos posts. Dice algo tan simple como:
+
+*«Elije copiar antes que innovar»*
+
+Sé que es duro y difícil resistirse, nos gusta mucho crear, inventar y todo eso (a los del primer grupo, a los otros se la trae al pairo), es otro síntoma del «mal de la computadora». Pero si somos ingenieros nuestra labor es resolver problemas de forma eficaz y eficiente, es decir, de forma satisfactoria y con el mínimo coste y tiempo posible.
+
+Sólo cuando conozcas las técnicas y métodos mayoritariamente aceptados y tengas claro que son *insuficientes* para resolver tu problema puedes aventurarte a idear algo revolucionario, no antes (te anticipo que si eres honesto contigo mismo, pasará algo más de una década hasta que te suceda). Para entonces ya tendrás la suficiente experiencia y ciertas garantías de que lo que propones no es una burrada. Todo eso se consigue principalmente leyendo bibliografía y también, aunque en menor medida, leyendo/tocando trabajo de otros (buen código y buenos diseños a poder ser).
+
+<center>
+MENOS ES MÁS
+LA CREATIVIDAD ES LA ESCLAVITUD
+LA EXPERIENCIA ES LA FUERZA
+</center>
+
+<span style="float:right">Bienvenidos al INGSOFT</span>
+<p/>
+<p/>

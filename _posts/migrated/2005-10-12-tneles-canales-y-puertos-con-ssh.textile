@@ -1,0 +1,95 @@
+---
+migrated: node/32
+layout: post
+title: Túneles, canales y puertos con SSH
+created: 1129146141
+author: david_villa
+category: recipe
+tags:
+- networking
+---
+@ssh@ (entre otras muchas cosas) también sirve para crear túneles entre máquinas o simplemente redireccionar puertos en un misma máquina.
+
+
+<!--break-->
+
+
+h2. Redirigir conexiones a esta máquina hacia otra (<em>local forwarding</em>)
+
+La sintaxis es simple:
+
+<pre>
+ssh -g -N -L lport:remotehost:rport remotehost
+</pre>
+
+Esto crea un túnel de modo que las conexiones al puerto *lport* de esta máquina ser redirigirán al puerto *rport* de la máquina *rhost* a través del túnel.
+
+Significado de los parámetros:
+
+* *-g:*: Permitir a otros hosts usar este túnel, se consigue lo mismo con la opción @GatewayPorts yes@ en el fichero @/etc/ssh/ssh_config@ o en @~/.ssh/config@
+* *-N:* No ejecutar ningún comando ni shell, solo crear el túnel
+* *-L:* Crear un túnel a un puerto remoto (puede haber varias opciones -L en el mismo comando)
+* *lport:* Un puerto local libre
+* *rhost:* La máquina remota
+* *rport:* El puerto de la máquina remota al que queremos enviar el tráfico
+
+
+h2. Redirigir conexiones de otra máquina hacia ésta (<em>remote forwarding</em>)
+
+Muy similar:
+
+<pre>
+ssh -N -R sport:localhost:dport remotehost
+</pre>
+
+Esto le pide a la máquina @remotehost@ que las conexiones que hagan a su puerto @sport@ las redirija al puerto @dport@ de @localhost@. Esto es útil por ejemplo para hacer un *telnet inverso*. Supongamos que queremos conectar desde la máquina *server* (que tiene una IP pública) a la máquina *home* que está NATeada y con un dirección privada. Pues hacemos lo siguiente.
+
+En la máquina *home*:
+
+
+<div class="console">
+{% highlight console %}
+$ ssh -N -R 2222:localhost:22 pepe@server
+{% endhighlight %}
+</div>
+
+Esto te pide una clave de la cuenta de usuario en *pepe@server* porque lo que estás haciendo es solicitar un servicio de redireción al servidor SSH de *server*. Después de introducir la clave, debes dejar ese proceso corriendo o no se podrá hacer la segunda parte. Un comandillo para ejecutar un lanzador (útil para conectar al ordenador de un familiar novatillo):
+
+<pre>
+bash -c "sshpass -p `ssh-askpass` ssh -N -R 2222:localhost:22 pepe@server"
+</pre>
+
+Y en la máquina *server* hay que ejecutar:
+
+
+<div class="console">
+{% highlight console %}
+$ ssh -p 2222 pepe@localhost
+{% endhighlight %}
+</div>
+
+Esto abre una conexión contra el servidor SSH de *home*, por lo que el usuario también necesita una cuenta en *home*.
+
+
+
+h2. Redirigir un puerto local a otro
+
+Esto puede resultar útil cuando queremos que un servidor "escuche" en un puerto distinto del estándar sin tener que tocar la configuración del programa servidor concreto ni recurrir a iptables.
+
+
+h2. Referencias
+
+* "Guía de OpenSSH":http://<a href="http://www.lucianobello.com.ar/openssh/">www.lucianobello.com.ar/openssh/</a>
+* "Chuleta":http://perso.wanadoo.es/manel3/chuletas/I-ssh2
+* "Manage SSH Tunnels with Gnome SSH Tunnel Manager":http://<a href="http://www.debianadmin.com/manage-ssh-tunnels-with-gnome-ssh-tunnel-manager.html">www.debianadmin.com/manage-ssh-tunnels-with-gnome-ssh-tunnel-manager.html</a>
+* "Creando túneles TCP/IP (port forwarding) con SSH: Los 8 escenarios posibles usando OpenSSH":http://<a href="http://www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh/">www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh/</a>
+
+* "autossh":http://<a href="http://www.harding.motd.ca/autossh/">www.harding.motd.ca/autossh/</a>
+* "HOWTO autossh":http://gentoo-wiki.com/HOWTO_autossh
+
+* "HowTo: SSH Tunnel Firefox":http://ubuntuforums.org/showthread.php?t=723025
+* "SSH dynamic port forwarding with SOCKS":http://<a href="http://www.debian-administration.org/articles/449">www.debian-administration.org/articles/449</a>
+* "Howto use SSH local and remote port forwarding":http://<a href="http://www.debianadmin.com/howto-use-ssh-local-and-remote-port-forwarding.html">www.debianadmin.com/howto-use-ssh-local-and-remote-port-forwarding.html</a>
+
+* "SSH Through or Over Proxy":http://daniel.haxx.se/docs/sshproxy.html
+* "Tunnelling SSH over a SOCKS proxy":http://blog.gidley.co.uk/2009/03/tunnelling-ssh-over-socks-proxy.html

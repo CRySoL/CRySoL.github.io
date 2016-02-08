@@ -1,0 +1,45 @@
+---
+migrated: node/888
+layout: post
+title: Compilando e instalando PAlib
+created: 1206311362
+author: javieralso
+category: recipe
+tags:
+- embedded
+---
+<blocquote>Cómo compilar e instalar <b>PAlib</b> para compilar aplicaciones para NDS.</blocquote>
+
+
+<!--break-->
+
+
+
+<h1>Introducción</h1>
+<b>PAlib</b> es una librería de desarrollo para NDS que está por encima de <a href="http://devkitpro.sourceforge.net/devkitProWiki/libnds/index.html">libnds</a> y que nos permite escribir aplicaciones para nuestra videoconsola abstrayendonos de los detalles a bajo nivel que maneja esta librería.
+
+Algunos cambios introducidos en <em>libnds</em> han hecho que la antigua versión de <em>PAlib</em> deje de funcionar como debía. Además, también había algunos problemas para compilar el código debido a éstos cambios, por lo que he tenido que tocar un poco el código fuente para hacerlo funcionar, ya que no he encontrado unos fuentes actualizados por ningún sitio...
+
+<h1>Instalación</h1>
+Lo primero que tenemos que hacer es descargar <a href="http://arco.inf-cr.uclm.es/~javier.almansa/nds/PAlib.tgz">los fuentes de PAlib ya modificados</a>.
+Una vez que tengamos descargado el archivo con los fuentes, lo descomprimimos y después entramos en el directorio en el que se encutran los fuentes y ejecutamos <em>make</em>
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~/PAlib-src-patched20080323$ make
+
+{% endhighlight %}
+</div>
+Para terminar copiamos el directorio al directorio donde tenemos <em>DEVKITPRO</em> instalado:
+
+<div class="console">
+{% highlight console %}
+javieralso@avalon:~/PAlib-src-patched20080323$ cp -vfR ../PAlib-src-patched20080323 /usr/lib/devkitPro/PAlib
+
+{% endhighlight %}
+</div>
+y definimos la siguiente variable (Ya sabeis, en ~/.bashrc)
+<pre>
+export PAPATH=${DEVKITPRO}/PAlib
+</pre>
+Y bueno, ya tenemos la librería instalada y lista para utilizar ¡¡¡A DISFRUTARLA!!! ;-)

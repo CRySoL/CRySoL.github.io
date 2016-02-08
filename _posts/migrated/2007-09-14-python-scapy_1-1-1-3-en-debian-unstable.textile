@@ -1,0 +1,14 @@
+---
+migrated: node/776
+layout: post
+title: python-scapy_1.1.1-3 en Debian (unstable)
+created: 1189765831
+author: david_villa
+category: new
+tags:
+- Debian
+- scapy
+---
+La nueva versión del paquete de *scapy* ya está en los repositorios de Debian. No es una nueva release, pero corrige un bug bastante tonto aunque importante que impedía utilizar scapy como módulo.
+<!-- break -->
+Más info: <a href="http://packages.debian.org/sid/python-scapy">http://packages.debian.org/sid/python-scapy</a>

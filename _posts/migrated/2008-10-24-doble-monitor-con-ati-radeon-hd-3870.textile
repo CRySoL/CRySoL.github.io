@@ -1,0 +1,115 @@
+---
+migrated: node/1033
+layout: post
+title: 'Doble Monitor con ATI Radeon HD 3870 '
+created: 1224867086
+author: felix
+category: recipe
+tags:
+- Arco
+- drivers
+- Debian
+---
+<blockquote>
+Configurar la tarjeta gráfica ATI radeon HD 3870 con dos monitores
+</blockquote>
+
+h2. Ingredientes
+
+* module-assistant
+* linux-headers de la versión de Linux que tengas corriendo
+* fglrx-control 
+* fglrx-kernel-src 
+* fglrx-driver 
+* mesa-utils
+* Una tarjeta ATI radeon HD 3870 :-)
+
+h2. Configurar la tarjeta
+
+Para la configuración inicial de la tarjeta seguimos los pasos listados <a href="http://wiki.forumdebian.com.br/index.php/Instalando_o_driver_da_ATI_no_Debian">aquí</a>, relativos al driver FGLRX. Podemos resumir estos pasos en:
+
+Utilizamos el module assistant:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# m-a update
+# m-a a-i fglrx-kernel-src
+{% endhighlight %}
+</div>
+
+
+Generamos el archivo @xorg.conf@ con (se hace una copia de seguridad):
+
+
+
+<div class="console">
+{% highlight console %}
+
+# aticonfig --initial
+{% endhighlight %}
+</div>
+
+Lo único que tienes que añadir, al final del archivo:
+
+
+
+<div>
+{% highlight text %}
+Section "Extensions"
+          Option "XVideo" "Enable"
+EndSection
+{% endhighlight %}
+</div>
+
+
+Con esto ya deberías tener funcionando la ATI con un solo monitor. Para comprobar si el 3d te rula, ya sabes:
+ 
+
+
+<div class="console">
+{% highlight console %}
+
+#glxinfo | grep direct
+direct rendering: Yes
+{% endhighlight %}
+</div>
+
+
+Antes de hacer esto, he probado con el instalador de la ATI (bajandolo de su página web) y no rula.
+
+h2. Doble monitor
+
+Para el doble monitor:
+
+
+
+<div class="console">
+{% highlight console %}
+
+#aticonfig --initial=dual-head
+{% endhighlight %}
+</div>
+
+
+Con el @xorg.conf@ que te genera, tienes dos escritorios distintos en cada monitor, puedes cambiar iconos de uno a otro pero no cambiar aplicaciones entre ellos. Si quieres verlo todo como un único monitor debes habilitar la opción Xinerama dentro del @ServerLayout@ del @xorg.conf@:
+
+
+
+<div>
+{% highlight text %}
+Section "ServerLayout"
+        Identifier     "aticonfig Layout"
+        Screen      0  "aticonfig-Screen[0]-0" 0 0
+        Screen         "aticonfig-Screen[0]-1" RightOf "aticonfig-Screen[0]-0"
+        Option         "Xinerama" "on"
+EndSection
+{% endhighlight %}
+</div>
+
+
+Y ya esta todo, con eso debería funcionar.
+
+Saludos

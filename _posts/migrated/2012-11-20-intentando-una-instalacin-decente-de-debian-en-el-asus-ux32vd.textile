@@ -1,0 +1,65 @@
+---
+migrated: node/1690
+layout: post
+title: Intentando una instalación decente de Debian en el ASUS UX32VD
+created: 1353416275
+author: CRySoL
+category: recipe
+tags:
+- Debian
+---
+El título de la receta lo dice todo, no?
+
+
+<!--break-->
+
+
+h2. Instalación
+
+Descarga y «tuesta» esta ISO en un pendrive:
+
+
+<div class="console">
+{% highlight console %}
+
+$ wget http://cdimage.debian.org/cdimage/unofficial/efi-development/upload4/debian-wheezy-amd64-i386-MA-efi-test4.iso
+$ dd if=debian-wheezy-amd64-i386-MA-efi-test4.iso of=/dev/sd<tu pendrive>
+{% endhighlight %}
+</div>
+
+Arranca con el pendrive y haz una instalación normal para amd-64. Este instalador ya respeta la partición EFI. Si quieres eliminar todo lo que hay en el disco tendrás que crear una partición EFI nueva. Yo he instalado la debian en el disco SSD. El maravilloso Windows 8 que viene preinstalado ha volado, pero no he tocado sus particiones por el momento. Si estás interesado en respetar el Windows, busca otra receta :-P
+
+h2. ¿Qué funciona tal cual?
+
+Recién instalado y sin configurar nada, la cosa está así:
+
+* dongle USB Ethernet (ya desde el instalador)
+* La tarjeta de vídeo funciona en 16 bits
+* Las teclas del volumen (F10-F12)
+* Suspensión (también al cerrar la tapa) e hibernación
+* Las teclas de iluminación del teclado funcionan (F3/F4) pero las del monitor no (F5/F6)
+* Bluetooth funciona
+
+* La tarjeta WiFi no funciona
+* El botón derecho del ratón no funciona
+
+h2. Linux 3.6
+
+Añade los repos de experimental e instala @linux-image-3.6@. Reinicia y ahora funcionan algunas cosas más:
+
+* El botón derecho del ratón
+
+h2. Más cosas
+
+* La tarjeta WiFi funciona sólo con instalar @firmware-iwlwifi@. Puede que tengas que reiniciar.
+
+* Al arrancar no arrancan las X. Suspediendo con fn-f1 y arrancando de nuevo funciona.
+** Escribe @GRUB_CMDLINE_LINUX_DEFAULT="quiet nomodeset"@ en @/etc/default/grub@
+*** Eso arregla el problema pero entonces las X arrancan con el driver *vesa* en lugar de *intel*.
+
+h2. Referencias
+
+* <a href="https://help.ubuntu.com/community/AsusZenbookPrime">https://help.ubuntu.com/community/AsusZenbookPrime</a>
+* <a href="http://ubuntuforums.org/showthread.php?p=12114657">http://ubuntuforums.org/showthread.php?p=12114657</a>
+* <a href="https://wiki.ubuntu.com/Kernel/PowerManagementALPM">https://wiki.ubuntu.com/Kernel/PowerManagementALPM</a>
+* <a href="https://github.com/Bumblebee-Project/bbswitch">https://github.com/Bumblebee-Project/bbswitch</a>

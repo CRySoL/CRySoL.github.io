@@ -1,0 +1,22 @@
+---
+migrated: node/1213
+layout: post
+title: Desactivación de pitidos varios
+created: 1250417248
+author: david_villa
+category: recipe
+---
+* Consola: Añadir @set bell-style none@ al fichero @$HOME/.inputrc@
+
+<!--break-->
+
+* X: Añadir @xset b off@ al fichero @$HOME/.xsession@
+* Desactivar altavoz interno: Añadir @blacklist pcspkr@ al fichero @/etc/modprobe.d/blacklist.conf@
+* GDM: Escribe @SoundOnLogin=false@ en el fichero @/etc/gdm/gdm.conf@, en la sección @[greeter]@
+
+
+
+h3. Referencias
+
+* <a href="http://www.debian-administration.org/articles/110">http://www.debian-administration.org/articles/110</a>
+* <a href="http://www.cyberciti.biz/faq/how-to-linux-disable-or-turn-off-beep-sound-for-terminal/">http://www.cyberciti.biz/faq/how-to-linux-disable-or-turn-off-beep-sound-for-terminal/</a>

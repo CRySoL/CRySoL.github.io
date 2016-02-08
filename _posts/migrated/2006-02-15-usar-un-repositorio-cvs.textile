@@ -1,0 +1,117 @@
+---
+migrated: node/226
+layout: post
+title: Usar un repositorio CVS
+created: 1140030121
+author: david_villa
+category: recipe
+tags:
+- VCS
+---
+CVS es un sistema de <a href="http://es.wikipedia.org/wiki/Sistema_de_control_de_versión">control de versiones</a> concurrente. Era hasta hace poco el más utilizado en proyectos de software libre, está siendo rapidamente reemplazado por "subversion":/drupal/node/181 por sus evitentes ventajas prácticas. En esta receta se explica cómo realizar las operaciones básicas con un repositorio CVS.
+
+
+<!--break-->
+
+
+
+
+h1. Crear un módulo
+
+ToDo
+
+
+h1. Descargar un módulo
+
+Esta es la operación más habitual y también una de las más simples:
+
+Con pserver:
+
+
+<div class="console">
+{% highlight console %}
+$ cvs -d:pserver:pepe@example.com:/var/cvs co -d anotherjob projects/pepejob
+{% endhighlight %}
+</div>
+
+Con ssh:
+
+
+<div class="console">
+{% highlight console %}
+$ export CVS_RSH=ssh
+$ cvs -d:ext:pepe@example.com:/var/cvs co -d anotherjob projects/pepejob
+{% endhighlight %}
+</div>
+
+Esto obtiene una copia de la versión HEAD(la última) del módulo @pepejob@. Crea un directorio @anotherjob@ en el directorio actual.
+
+
+h1. Actualizar una copia local de un módulo
+
+Suponiendo que haya nuevas versiones disponibles del módulo del ejemplo anterior, puedes actualizar tu copia a la última versión con:
+
+
+<div class="console">
+{% highlight console %}
+anotherjob$ *cvs update*
+{% endhighlight %}
+</div>
+
+
+h1. Subir al repositorio cambios locales
+
+Si eres tú el que desea subir al repositorio una nueva versión de los ficheros de ese módulo (que has modificado tú mismo), ejecuta esto:
+
+
+<div class="console">
+{% highlight console %}
+anotherjob$ *cvs commit*
+{% endhighlight %}
+</div>
+
+Es este caso se abrirá el editor de texto por defecto para que añadas un comentario referente a las modificaciones que estás subiendo.
+
+
+h1. Crear una rama
+
+ToDo
+
+
+h1. Usar un repositorio CVS servido por un SSH que no está en el puerto por defecto.
+
+Supongamos que el servidor *ssh* está en el puerto 22022 en lugar del 22. En este caso hay que hacer un pequeño "_hack_". Crea un script, por ejemplo @~/bin/myssh.sh@, y escribe en él lo siguiente:
+
+<pre>
+#!/bin/bash
+ssh -p 22022 $*
+</pre>
+
+Dale permisos de ejecución y actualiza la variable de entorno @CVS_RSH@ para usar tu script:
+
+
+<div class="console">
+{% highlight console %}
+$ chmod 0700 ~/bin/myssh.sh
+$ export CVS_RSH=~/bin/myssh.sh
+
+{% endhighlight %}
+</div>
+
+Y ya puedes utilizar cvs de la forma habitual para el caso de ssh.
+
+h2. Un modo más elegante (menos chapuza)
+
+Escribe un fichero @~/.ssh/config@ y añade algo como:
+
+<pre>
+Host example
+   Hostname example.com
+   Port 22022
+</pre>
+
+
+h1. Referencias
+
+* "CVS Book":http://cvsbook.red-bean.com/
+

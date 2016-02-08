@@ -1,0 +1,117 @@
+---
+migrated: node/521
+layout: post
+title: Configurar múltiples interfaces de red
+created: 1172006084
+author: int-0
+category: recipe
+tags:
+- networking
+---
+bq(head). Esta receta explica cómo evitar que las interfaces de red cambien arbitrariamente de nombre.
+
+
+<!--break-->
+
+
+
+h2. Motivación
+
+Es frecuente tener distintos interfaces de red en un mismo equipo, por ejemplo, un portátil tiene ethernet, firewire, wireless y mil historias más. O incluso un equipo que esté funcionando de pasarela puede tener distintos tipos de red en uno y otro interfaz, siendo estos de la misma tecnología. Normalmente no ocurre, pero puede suceder que "bailen" los interfaces, es decir: ayer el RJ-45 era eth0 y el firewire eth1 y hoy resulta que el firewire es eth0 y el RJ-45 es eth1. Esto nos puede causar más de un problema o quebradero de cabeza.
+
+Con este documento pretendemos establecer de una vez por todas quién es eth0 y quién eth1.
+
+h2. El problema
+
+Necesitamos una forma de identificar un dispositivo, esto podremos hacerlo por el driver que usa, la dirección MAC, la dirección base del driver, la línea IRQ que usa el driver, el ARP (tipo de enlace), la información del bus, y en tarjetas wireless, por el tipo de protocolo.
+
+Voy a tratar en este documento la identificación por driver que usa y, a modo de ejemplo, por dirección MAC.
+
+h2. Ingredientes
+
+Sólo dos programitas: @ifrename@ y @ethtool@, los debianeros ya saben:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install ifrename ethtool 
+{% endhighlight %}
+</div>
+
+Con @ifrename@ podrás nombrar los dispositivos como quieras y con @ethtool@ podrás ver qué drivers usan tus interfaces.
+
+h2. Averiguar qué interfaces tienes
+
+Si quieres obtener información sobre tus interfaces basta con teclear:
+
+
+<div class="console">
+{% highlight console %}
+$ ifconfig 
+{% endhighlight %}
+</div>
+
+Aquí podrás ver direcciones MAC, protocolos del canal, etc. Si quieres identificar interfaces con la MAC pues con esto ves qué interfaz tiene tal o cual MAC. Para saber que driver es una u otra interfaz:
+
+
+<div class="console">
+{% highlight console %}
+$ ethtool -i interfaz
+{% endhighlight %}
+</div>
+
+Va, un ejemplo...
+
+
+<div class="console">
+{% highlight console %}
+$ ethtool -i eth0
+driver: 8139too
+version: 0.9.27
+firmware-version:
+bus-info: 0000:00:12.0
+
+{% endhighlight %}
+</div>
+
+Como ves, la interfaz eth0 es la que "crea" el driver 8139too. También puedes ver la información del bus, otra forma de identificar una interfaz.
+
+h2. Configurar los nombres de las interfaces
+
+Pues si tienes una fstab (File System TABle), ¿por qué no tener una iftab (InterFaz TABle)?, pues nada, haz una en @/etc@. En ella indica cómo se va a llamar la interfaz, qué atributo la identifica y cual debe ser el valor de ese atributo para esa interfaz. Para que nos entendamos:
+
+
+<div class="console">
+{% highlight console %}
+ $ vi /etc/iftab 
+{% endhighlight %}
+</div>
+
+Y creamos lo siguiente (este es el que uso en mi portátil):
+
+<pre>
+eth0 driver 8139too
+eth1 driver ip1394
+</pre>
+
+Ahora supón que tienes dos drivers iguales, pues lo haces con la MAC:
+
+<pre>
+eth0 mac 12:34:56:78:90:AB
+eth1 mac AB:90:78:56:34:12
+</pre>
+
+Puedes especificar varios atributos...
+
+<pre>
+eth0 driver ip1394 mac 12:34:56:78:90:AB
+eth1 driver wavelan interrupt 15
+air* mac 00:07:0E:* arp 1
+</pre>
+
+Como ves esto tiene muchas posibilidades... ya sólo queda reiniciar (si la configuración que has hecho es distinta de la que tenías en el momento de hacerla).
+
+h2. Referencias
+
+* Página "man" de ifrename
+* Página "man" de iftab

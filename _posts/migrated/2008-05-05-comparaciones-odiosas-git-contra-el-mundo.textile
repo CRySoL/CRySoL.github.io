@@ -1,0 +1,146 @@
+---
+migrated: node/915
+layout: post
+title: 'Comparaciones odiosas: git contra el mundo'
+created: 1210011525
+author: oscarah
+category: recipe
+---
+h2. Restaurar ficheros borrados: 
+
+* svn: @svn up@
+* mercurial: @hg reset --all@
+* git: @git ls-files -d | xargs git checkout --@ &nbsp;&nbsp;#<em>(no es broma)</em>
+
+
+<!--break-->
+
+
+h2. Aviso de que tu repo está desactualizado al intentar subir tus cambios
+
+<p>
+
+h3. Con svn: 
+
+
+<div class="console">
+{% highlight console %}
+$ svn ci
+svn: Desactualizado: 'nombre_de_fichero' en transacción '2255-1'
+
+{% endhighlight %}
+</div>
+
+
+h3. Con git:
+
+
+<div class="console">
+{% highlight console %}
+
+$ git push
+! [rejected]        master -> master (non-fast forward)
+{% endhighlight %}
+</div>
+
+
+h2. Información de estado
+
+<p>
+
+h3. Con svn:
+
+
+<div class="console">
+{% highlight console %}
+
+$ svn st
+?        nuevo.txt
+M        modificado.c
+{% endhighlight %}
+</div>
+
+Si no hay ficheros nuevos, no lista nada, admite -q (quiet) y -v (verbose)
+
+h3. Con mercurial:
+
+
+<div class="console">
+{% highlight console %}
+$ hg st
+{% endhighlight %}
+</div>
+
+Si no hay ficheros nuevos, no lista nada, admite -q (quiet), -v (verbose) y también filtrando por tipo: añadido, modificado, borrado, etc entre otras. El formato de la salida es muy similar al de svn, pero además se pueden usar plantillas para su generación.
+
+h3. Con git:
+
+
+
+<div class="console">
+{% highlight console %}
+
+$ git status
+# On branch master
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       file1.h
+#       file2.h
+[...  TODOS los que haya sin posibilidad de resumir ...]
+nothing added to commit but untracked files present (use "git add" to track)
+{% endhighlight %}
+</div>
+
+
+No admite ningún parámetro para controlar o modificar el resultado del comando.
+
+
+
+h2. Averiguar el repo original del que se clonó éste
+
+<p>
+
+h3. Con mercurial
+
+
+<div class="console">
+{% highlight console %}
+$ hg path
+{% endhighlight %}
+</div>
+
+h3. Con git:
+
+
+<div class="console">
+{% highlight console %}
+$ git remote show origin
+{% endhighlight %}
+</div>
+
+h2. Cambiar la URL del repo original
+
+<p>
+
+h3. Con mercurial
+
+Edita el fichero @.hg/hgrc@:
+
+
+<div>
+{% highlight text %}
+[paths]
+default = http://www.selenic.com/repo/hg
+default-push = http://hg.example.com/hg
+{% endhighlight %}
+</div>
+
+h3. Con git:
+
+
+<div class="console">
+{% highlight console %}
+$ git remote set-url origin URL
+{% endhighlight %}
+</div>

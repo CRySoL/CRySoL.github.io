@@ -1,0 +1,84 @@
+---
+migrated: node/1473
+layout: post
+title: Dependency injection and mocking classes using C++ and google-mock library
+created: 1298049769
+author: cleto
+category: recipe
+tags:
+- devel
+- C++
+- Arco
+- C++
+- devel
+- Arco
+---
+Currently I am building tests for an existing implementation of IDM. I am using "google-mock":http://code.google.com/p/googlemock, a mocking library for C++ classes. Let's see an example of "dependency injection":http://en.wikipedia.org/wiki/Dependency_injection. This basic technique is used when you are mocking your classes and, thus, obtain non-fragile tests.
+
+
+<!--break-->
+
+
+Suppose the following class hierarchy and the ''Trainer'' class:
+
+
+<div>
+{% highlight cpp %}
+class Animal {
+public:
+  virtual int walk(int steps) = 0;
+};
+
+class Kangaroo: public Animal {
+public:
+  int walk(int steps) { return 2*steps; }
+};
+
+class Trainer {
+public:
+  int orderWalk(Animal* animal) { cout << animal->walk(4) << endl; }
+};
+
+int main() {
+  Trainer trainer;
+  trainer.orderWalk(new Kangaroo());
+  return 0;
+}
+{% endhighlight %}
+</div>
+
+
+A @Trainer@ needs an @Animal@ at the @orderWalk()@ member. In the sample code, a @Kangaroo@ is passed to such method, but we can modify this issue. Suppose we want to ensure that the @orderWalk()@ method calls to @walk()@. Let's do it with mocks:
+
+
+<div>
+{% highlight cpp %}
+#include <gmock/gmock.h>
+
+using namespace ::testing::Return;
+
+[... rest of the code ...]
+
+class AnimalMock: public Animal {
+  MOCK_METHOD1(walk, int(int steps))
+      .Times(1)
+      .WillOnce(Return(5*steps));
+};
+
+int main() {
+  Trainer trainer;
+  AnimalMock mock;
+  
+  EXPECT_CALL(mock, walk(4))
+      .Times(1);
+      
+  trainer.orderWalk(&mock);
+  
+  return 0;
+}
+{% endhighlight %}
+</div>
+
+First, @AnimalMock@ is implemented by the google-mock library using the @MOCK_METHOD1@ directive. This implementation lets you set expectations about the mock. This is done in the @main()@ function. An expectation is configured before calling to @orderWalk@, and it is as follows: __we expect the @walk()@ method to be executed with @4@ as parameter just 1 time over @mock@ object__.
+
+And that's is. You can get more information about mocks at "google-mock documentation":http://code.google.com/p/googlemock/wiki/ForDummies.

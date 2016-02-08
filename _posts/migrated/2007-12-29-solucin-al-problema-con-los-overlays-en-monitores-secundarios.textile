@@ -1,0 +1,174 @@
+---
+migrated: node/827
+layout: post
+title: Solución al problema con los overlays en monitores secundarios
+created: 1198894274
+author: int-0
+category: recipe
+tags:
+- graphics
+---
+<blockquote>Alguna vez puede darse el caso de que necesitemos proyectar una película o jugar a algunos juegos en un monitor secundario (o proyector) que conectemos a un portátil. Puede haberos pasado (como a mi) que la ventana en el monitor secundario aparezca en negro. Veremos como solucionar el problema en esta micro-receta.</blockquote>
+
+<!--break-->
+
+
+
+<h2>El problema</h2>
+Cuando en el monitor secundario algunas ventanas nos aparezcan en negro puede significar lo siguiente: el contenido de dicha ventana es una capa <em>overlay</em>. El problema en este tipo de capas es que la aplicación dibuja directamente en ellas, esto hace que no se gestione por el servidor gráfico y por tanto no existe dos copias de estas capas (una para cada monitor).
+
+<h2>Solución de emergencia</h2>
+Si lo que queremos es reproducir una película y contamos con un reproductor como <em>mplayer</em>, podemos decir al reproductor que construya una capa que <b>si</b> esté gestionada por el servidor X, por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+$ mplayer -vo xv [archivo_de_video]
+{% endhighlight %}
+</div>
+
+Al seleccionar como salida <em>xv</em> creamos una capa que al estar gestionada por el servidor gráfico <b>si</b> se crean las copias de las capas necesarias.
+
+<h2>Solución general</h2>
+Si queremos una solución más general de forma que no sólo funcione con el <em>mplayer</em>, para ello tendríamos que encontrar una forma de seleccionar en que salida del servidor hay que volcar el <em>overlay</em>. Pues esa forma existe... instalemos <em>xvattr</em>:
+
+
+<div class="console">
+{% highlight console %}
+ # aptitude install xvattr
+{% endhighlight %}
+</div>
+
+Si lo ejecutamos obtendremos algo parecido a:
+
+<pre>Found Xv 2.2
+Adaptor: 0
+Name: ATI Radeon Video Overlay
+ Port: 73
+  Name: XV_DEVICE_ID
+   Flags: XvGettable 
+   Min value: 0
+   Max value: -1
+   Current value: 109
+  Name: XV_LOCATION_ID
+   Flags: XvGettable 
+   Min value: 0
+   Max value: -1
+   Current value: 110
+  Name: XV_INSTANCE_ID
+   Flags: XvGettable 
+   Min value: 0
+   Max value: -1
+   Current value: 111
+  Name: XV_DUMP_STATUS
+   Flags: XvSettable 
+   Min value: 0
+   Max value: 1
+  Name: XV_SET_DEFAULTS
+   Flags: XvSettable 
+   Min value: 0
+   Max value: 1
+  Name: XV_AUTOPAINT_COLORKEY
+   Flags: XvGettable XvSettable 
+   Min value: 0
+   Max value: 1
+   Current value: 1
+  Name: XV_COLORKEY
+   Flags: XvGettable XvSettable 
+   Min value: 0
+   Max value: -1
+   Current value: 30
+  Name: XV_DOUBLE_BUFFER
+   Flags: XvGettable XvSettable 
+   Min value: 0
+   Max value: 1
+   Current value: 1
+  Name: XV_OVERLAY_ALPHA
+   Flags: XvGettable XvSettable 
+   Min value: 0
+   Max value: 255
+   Current value: 255
+  Name: XV_GRAPHICS_ALPHA
+   Flags: XvGettable XvSettable 
+   Min value: 0
+   Max value: 255
+   Current value: 255
+  Name: XV_ALPHA_MODE
+   Flags: XvGettable XvSettable 
+   Min value: 0
+   Max value: 1
+   Current value: 0
+  Name: XV_BRIGHTNESS
+   Flags: XvGettable XvSettable 
+   Min value: -1000
+   Max value: 1000
+   Current value: 0
+  Name: XV_CONTRAST
+   Flags: XvGettable XvSettable 
+   Min value: -1000
+   Max value: 1000
+   Current value: 0
+  Name: XV_SATURATION
+   Flags: XvGettable XvSettable 
+   Min value: -1000
+   Max value: 1000
+   Current value: 0
+  Name: XV_COLOR
+   Flags: XvGettable XvSettable 
+   Min value: -1000
+   Max value: 1000
+   Current value: 0
+  Name: XV_HUE
+   Flags: XvGettable XvSettable 
+   Min value: -1000
+   Max value: 1000
+   Current value: 0
+  Name: XV_RED_INTENSITY
+   Flags: XvGettable XvSettable 
+   Min value: -1000
+   Max value: 1000
+   Current value: 0
+  Name: XV_GREEN_INTENSITY
+   Flags: XvGettable XvSettable 
+   Min value: -1000
+   Max value: 1000
+   Current value: 0
+  Name: XV_BLUE_INTENSITY
+   Flags: XvGettable XvSettable 
+   Min value: -1000
+   Max value: 1000
+   Current value: 0
+  Name: XV_CRTC
+   Flags: XvGettable XvSettable 
+   Min value: -1
+   Max value: 1
+   Current value: -1
+  Name: XV_GAMMA
+   Flags: XvGettable XvSettable 
+   Min value: 100
+   Max value: 10000
+   Current value: 1000
+  Name: XV_COLORSPACE
+   Flags: XvGettable XvSettable 
+   Min value: 0
+   Max value: 1
+   Current value: 0</pre>
+
+Son variables que controlan la visualización del video, una de ellas (<em>XV_CRTC</em>) indica dónde dibujar los <em>overlays</em>, si hacemos lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+$ xvattr -a XV_CRTC -v 1
+{% endhighlight %}
+</div>
+
+Tendremos lo que buscamos... si, todo este rollo de receta se resume en el título y en la línea de arriba. :P
+Si queréis hacer más pruebas con <em>xvattr</em>, el formato es muy sencillo:
+
+
+<div class="console">
+{% highlight console %}
+$ xvattr -a [atributo] -v [valor]
+{% endhighlight %}
+</div>

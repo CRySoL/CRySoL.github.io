@@ -1,0 +1,142 @@
+---
+migrated: node/758
+layout: post
+title: Gestionando preferencias con GConf y Python
+created: 1186751470
+author: david_villa
+category: recipe
+tags:
+- Python
+---
+bq(head). Esta receta es un pequeña introducción al uso de GConf desde un programa Python.
+
+
+<!--break-->
+
+
+
+h2. Introducción
+
+GConf es el sistema de gestión de preferencias de GNOME. Es un gestor de persistencia genérico, algo así como una pequeña base de datos que permite almacenar globalmente las preferencias de los usuarios.
+
+En esta receta sólo voy a contar cómo guardar y leer datos desde GConf, aunque es posible hacer otras cosas más sofisticadas tales como registrar un _observador_ de una variable o conjunto de ellas para que GConf lo invoque cuando se produzca un cambio en su valor.
+
+h2. Guardar y recuperar una variable
+
+Cada aplicación debe tener un lugar en el árbol. En el ejemplo será @/app/prueba@:
+
+
+
+<div>
+{% highlight python %}
+client = gconf.client_get_default()
+
+anchura = 10
+
+# guardar
+client.set_int('/app/prueba/anchura', anchura) 
+
+#recuperar, 'valor' será None si la clave no existe
+valor = client.get_int('/app/prueba/anchura') 
+{% endhighlight %}
+</div>
+
+
+
+h2. Automatizando
+
+Estos valores tienen tipo, que puede ser bool, int, float, string, pair, list o schema. Pero si tu aplicación tiene muchos datos que se deben cargar/guardar es bastante rollo tener que utilizar el método set/get adecuado dependiendo del tipo. Pero con Python se puede simplificar mucho esta tarea utilizando sus potentes mecanismos de introspección. La siguiente clase encapsula todo lo necesario:
+
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/python
+import gconf
+import types, inspect
+
+class AutoPrefs:
+    def __init__(self, key):
+        self.app_key = key
+        self.client = gconf.client_get_default()
+
+    def gconf_attributes(self):
+        'returns a list with all the gconf attibute names'
+        return [x[0] for x in inspect.getmembers(self)
+                if x[0].startswith('gc_')]
+
+    def gconf_load(self):
+        casts = {gconf.VALUE_BOOL:   gconf.Value.get_bool,
+                 gconf.VALUE_INT:    gconf.Value.get_int,
+                 gconf.VALUE_FLOAT:  gconf.Value.get_float,
+                 gconf.VALUE_STRING: gconf.Value.get_string}
+        
+        for name in self.gconf_attributes():
+            gval = self.client.get(self.app_key + name)
+            if gval == None: continue
+            setattr(self, name, casts[gval.type](gval))
+
+    def gconf_save(self):
+        casts = {types.BooleanType: gconf.Client.set_bool,
+                 types.IntType:     gconf.Client.set_int,
+                 types.FloatType:   gconf.Client.set_float,
+                 types.StringType:  gconf.Client.set_string}
+        
+        for name in self.gconf_attributes():
+            value = getattr(self,name)
+            casts[type(value)](self.client, self.app_key + name, value)
+{% endhighlight %}
+</div>
+
+
+
+Como se puede comprobar, el "truco" es que la clase se preocupa sólo de los atributos cuyo nombre empiece por "gc_". Y aquí va un ejemplo de uso:
+
+
+
+<div>
+{% highlight python %}
+class Sample(AutoPrefs):
+    def __init__(self):
+        AutoPrefs.__init__(self, '/app/sample/')
+
+        # defaults
+        self.gc_width = 10
+        self.gc_open = False
+        self.gc_name = "Sample"
+
+        self.gconf_load()
+
+# main
+s = Sample()
+print s.gc_width
+print s.gc_open
+print s.gc_name
+
+s.gc_name = "Other"
+s.gc_open = True
+
+s.gconf_save()
+{% endhighlight %}
+</div>
+
+
+Se puede comprobar (y modificar) el valor de estas variables usando @gconf-editor@ de este modo:
+
+
+<div class="console">
+{% highlight console %}
+$ gconf-editor /app/sample
+{% endhighlight %}
+</div>
+
+La versión actualizada de este código esta disponible en un repositorio subversion: <a href="https://arco.inf-cr.uclm.es/svn/public/misc/gconf/autoprefs.py">https://arco.inf-cr.uclm.es/svn/public/misc/gconf/autoprefs.py</a>
+
+
+h2. Referencias
+
+* "GConf Reference Manual":http://developer.gnome.org/doc/API/2.0/gconf/index.html - C
+* "Introduction to GConf and GnomeVFS":http://developer.imendio.com/publications/introduction_gconf_gnomevfs/ - C
+* "GConfTutorial":http://<a href="http://www.mono-project.com/GConfTutorial">www.mono-project.com/GConfTutorial</a> - C#
+* "Mono Documentation :: GConf":http://<a href="http://www.go-mono.com/docs/index.aspx?link=N:GConf">www.go-mono.com/docs/index.aspx?link=N:GConf</a>
+* "Introduction to the GConf library":http://developer.gnome.org/feature/archive/gconf/gconf.html - bastante viejo

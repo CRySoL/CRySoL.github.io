@@ -1,0 +1,68 @@
+---
+migrated: node/683
+layout: post
+title: 'GNU Emacs: Mejorando Tabbar'
+created: 1179161091
+author: magmax
+category: recipe
+tags:
+- emacs
+---
+<blockquote>
+Ya vimos cómo <a href="http://crysol.inf-cr.uclm.es/node/554">Añadir pestañas a Emacs</a>. Ahora veremos cómo cambiar las agrupaciones.
+</blockquote>
+
+<h2>Ingredientes</h2>
+
+Nuevamente, <b>Emacs</b> y <b>emacs-goodies-el</b>.
+
+<h2>Agrupaciones</h2>
+
+A menudo me ha ocurrido que he tenido que abrir ficheros Makefile. Realmente es un fastidio que tabbar agrupe por extensiones: a mí me gustaría tener disponibles mi Makefile, los .C y los .CPP que utilizo constantemente.
+
+Hoy editaremos a mano, una vez más, nuestro queridísimo .emacs (_emacs para los Windozes). Ahí va un ejemplo de hacer lo que he descrito:
+
+<pre>(defun tabbar-buffer-groups (buffer)
+  (with-current-buffer (get-buffer buffer)
+    (cond
+     ((eq major-mode 'dired-mode) '("Main") )
+     ((memq major-mode '(c-mode c++-mode makefile-mode)) '("Coding") )
+     )
+    )
+  )
+</pre>
+
+Claro, que suele ser un fastidio tener todas las pestañitas ésas: scratch, Messages, ... Ahí va mi configuración:
+<pre>
+(defun tabbar-buffer-groups (buffer)
+  "Return the list of group names BUFFER belongs to.
+Return only one group for each buffer."
+  (with-current-buffer (get-buffer buffer)
+    (cond
+     ((member (buffer-name) '("*scratch*")) '("Misc") )
+     ((member (buffer-name) '("*Messages*")) '("Misc") )
+     ((member (buffer-name) '("*Completions*")) '("Misc") )
+     ((member (buffer-name) '("*Ediff Registry*")) '("Misc") )
+     ((eq major-mode 'dired-mode) '("Main") )
+     ((memq major-mode '(c-mode c++-mode makefile-mode)) '("Coding") )
+     (t '("Main") )
+     )
+    )
+  )
+</pre>
+
+Como podéis ver, tengo 3 grupos principales: Misc, Coding y Main. Por defecto lo mete todo en "Main", salvo los ficheros de c, c++ y Makefiles que son "Coding", y los buffers habituales van a "Misc".
+
+Con esta base y un poco de imaginación, se pueden hacer muchas cosas muy apañadas...
+
+<h2>Referencias</h2>
+
+<a href="http://www-cdf.fnal.gov/~sthrlnd/emacs_help.html">Mike's Emacs Help Page</a> (y ese Mike no soy yo :D).
+
+<h2>Próxima semana:</h2>
+
+Bueno... Podéis observar que he roto lo habitual de escribir cada semana. A parte de que estoy muy liado, ¡se me están acabando las ideas!. 
+
+David ha proporcionado unos cuantos TES y Brue también ha puesto su granito de arena. Si alguien más participa, ¡estupendo! pero, por mi parte, se acaban los TES. 
+
+De todas maneras, podéis poner vuestros trucos y marcarlos como "emacs" en la pestaña "Tema". Siempre son bienvenidos ;)

@@ -1,0 +1,36 @@
+---
+migrated: node/1335
+layout: post
+title: Problemas con la red en Java openjdk-6 en Debian
+created: 1267025288
+author: david_villa
+category: recipe
+tags:
+- Java
+---
+Edita el fichero @/etc/sysctl.d/bindv6only.conf@ para que quede:
+
+<!--break-->
+
+
+
+<div>
+{% highlight text %}
+net.ipv6.bindv6only = 0
+{% endhighlight %}
+</div>
+
+Después ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+
+$ sudo invoke-rc.d procps restart
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+* <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=560056">http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=560056</a>

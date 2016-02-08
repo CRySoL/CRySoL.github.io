@@ -1,0 +1,165 @@
+---
+migrated: node/433
+layout: post
+title: Alternativas a parse_launch()
+created: 1162845292
+author: oscarah
+category: recipe
+tags:
+- gstreamer
+---
+Llegados a este punto, sabemos como crear una pequeña aplicación, bastante sencilla, que use Gstreamer para las tareas multimedia (evidentemente, doy por hecho que has leido el mini-tutorial que dejé. Si todavía no lo has leido, y no sabes de que estoy hablando... ¡a que esperas!).
+
+<!--break-->
+
+
+<h3>gst.parse_launch()</h3>
+Cuando creamos la tubería, usamos una función de la API de gstreamer llamada <code>parse_launch().</code> Esta se encargaba de leer una descripción de la tubería que queríamos y la creaba para nosotros. Es una forma muy rápida de probar combinaciones de elementos y además nos permite introducirnos en el mundo de Gstreamer sin tener que preocuparnos por los Elementos o los enlaces entre estos. Esta utilidad (que además esta disponible para ejecutar desde la línea de comandos, cosa que pronto veremos) tiene sus limitaciones, evidentemente. Para nuestro propósito, que es docente, la mayor limitación es que nos oculta la estructura interna de la tubería. Así pues, si queremos analizarla tomando los elementos que la forman, sus enlaces, etc. tendremos que hacerla de otro modo. Aquí es donde entran en juego las alternativas a <code>parse_launch()</code>
+
+<h3>gst.element_factory_make()</h3>
+Seguro que recordarás que cada elemento puede poseer uno o más pads, es decir, uno o más 'enchufes'. También se dijo que era usual que se crearan los pads solo cuando eran necesarios, los cuales llamamos pads dinámicos. Pues bien, cuando creamos una tubería y deseamos especificar los elementos que la forman uno a uno, debemos conectar estos pads entre sí para que el flujo de datos sea posible.
+
+Teniendo esto presente, vamos a definir nuestra tubería. Primero creamos un contenedor, cuya función será almacenar el resto de elementos y controlar el flujo que pase por ellos, es decir, manipulará el estado de la tubería entera. Luego el resto de elementos. La cadena que definía la tubería era: <code>"filesrc location=' + args[1] + ' ! oggdemux ! vorbisdec ! audioconvert ! alsasink"</code>. Es decir, que usamos lo siguiente: filesrc, oggdemux, vorbisdec, audioconvert y alsasink. Anteriormente ya describimos estos elementos. Ahora los vamos a crear uno a uno usando <code>element_factory_make().</code> Esta función admite dos argumentos, uno obligatorio y otro opcional. El primero de ellos (obligatorio) indica el plugin que queremos usar en ese elemento (como 'filesrc' u 'oggdemux') y el segundo especifica un nombre para el elemento. Como es opcional, si no lo ponemos, gstreamer le asigna uno por defecto (de la forma 'nombre_del_pluginN', siendo N un número). Este nombre ha de ser único, pues debe identificar el elemento de forma unívoca. Para nuestro ejemplo, el código sería así:
+
+
+<div>
+{% highlight python %}
+pipeline = gst.Pipeline('pipeline')
+filesrc = gst.element_factory_make("filesrc", "file-src")
+parser = gst.element_factory_make("oggdemux","ogg-parser")
+decoder = gst.element_factory_make("vorbisdec","vorbis-decoder")
+conv = gst.element_factory_make("audioconvert","converter")
+sink = gst.element_factory_make("alsasink", "alsa-sink")
+{% endhighlight %}
+</div>
+
+Con eso, creamos los elementos. Estos elementos hacen uso de algunos plugins disponibles en gstreamer. Es muy común que estos plugins sean configurables, es decir, que podamos modificar o establecer algunas de sus propiedades o atributos. ¿Como? Pues, la mayoría de las veces, existe un método llamado <code>set_property()</code> (que a los programadores de glib seguro que les suena) que se encarga de ello. Acepta dos argumentos: uno con el nombre de la propiedad que queremos modificar y el otro con el valor nuevo que queremos darle. En este caso, hemos creado un 'filesrc', que lee de un fichero del disco. Evidentemente, hemos de especificar donde está el fichero del que leer. Esto lo hacemos así:
+
+
+<div>
+{% highlight python %}
+filesrc.set_property("location", args[1])
+{% endhighlight %}
+</div>
+
+De momento, no necesitamos modificar ningún atributo más. Así que ya tenemos nuestros elementos creados y configurados. Nuestro siguiente paso, antes de hacer nada más, es meterlos en el contenedor que hemos creado:
+
+
+<div>
+{% highlight python %}
+bin.add(filesrc, parser, decoder, conv, sink)
+{% endhighlight %}
+</div>
+
+Y ahora, lo que nos queda es hacer un camino para el flujo de datos, es decir, establecer enlaces entre ellos. Como anteriormente explicamos, los pads tienen definida la dirección del flujo: existen pads del tipo 'src' o fuente, que son los que aportan datos; y existen pads del tipo 'sink' o sumidero, que son los que reciben datos. Así pues, cuando creamos un filesrc, este elemento solo tiene un pad, de tipo src, lo cual nos indica que nos aportará datos a la tubería (como esperábamos). ¿Como conectamos los pads? Es muy simple: un pad de tipo fuente debe conectarse a un pad de tipo sumidero. Los datos que aporte la fuente irán a parar al sumidero. Pues bien, en nuestro caso, tanto oggdemux y vorbisdec como audioconvert tienen (o tendrán) pads de los dos tipos. Solo tenemos que conectarlos en ese orden y listo. Para ello, usamos la función <code>gst.element_link_many()</code>. Acepta desde dos hasta un número indefinido de parámetros, pero todos ellos son elementos que enlazar. Y los enlaza en el órden que le demos. Por tanto, lo lógico sería usar:
+
+<font color="red"><b>gst.element_link_many(filesrc, parser, decoder, conv, sink)</b></font>
+
+pero si intentamos esto, seguro que se producirá un error, avisandonos de que no es posible enlazar el ogg-parser con el vorbis-decoder. ¿Por qué? La razón es bien sencilla. El oggdemux no tiene un pad del tipo src. O por lo menos no lo tiene de momento. El src de este elemento es dinámico, como antes explicábamos. Solo se creará cuando sea necesario. ¿Por qué existen estos pads? Porque el Ogg no es más que un envoltorio para diferentes tipos de datos: audio, video, etc. Como, teóricamente, pueden existir muchos tipos de datos encapsulados, no sería apropiado crear un src para cada tipo de datos si sólo queremos usar uno de ellos. Sucede lo mismo con otros envoltorios, así que es común la existencia de pads dinámicos. Lo que nos interesa ahora es cómo lo solucionamos. También es muy sencillo: creamos una función que sea llamada cuando se cree ese nuevo pad y que se encargue de enlazarlo de forma adecuada. ¿Cómo podemos saber que se ha creado un nuevo pad? Cuando un elemento crea un nuevo pad, se produce un evento que podemos capturar, es decir, gstreamer nos avisa de que se ha creado un nuevo pad y nosotros podemos decirle a gstreamer que cuando esto ocurra, sea llamada nuestra función. Esto lo hacemos usando el método <code>connect()</code>, que <i>'conecta'</i> el evento con nuestra función. Pero antes, debemos crear la función:
+
+
+<div>
+{% highlight python %}
+def new_pad (element, pad):
+    sinkpad = decoder.get_pad("sink")
+    pad.link(sinkpad)
+{% endhighlight %}
+</div>
+
+Esta función acepta dos parámetros: el primero es una referencia al elemento que la llama y el segundo es el nuevo pad que se ha creado. Ahora solo tenemos que enlazarlo con el sink correspondiente, que para nuestro caso es el del decoder. Lo obtenemos con el método <code>get_pad()</code> al cual le pasamos el tipo de pad que queremos, 'sink'. Por último, enlazamos el nuevo pad, que será de tipo 'src' con el 'sink' que obtenemos del decoder.
+
+Bien, ahora que tenemos la función, podemos conectar el evento correspondiente a esta función con <code>connect()</code> Este método acepta dos argumentos: el evento que se produce y la función a la que lo enlazamos:
+
+
+<div>
+{% highlight python %}
+parser.connect("pad-added", new_pad)
+{% endhighlight %}
+</div>
+
+Por último, tenemos que enlazar el resto de elementos, que tienen pads estáticos. Lo hacemos asi:
+
+
+
+<div>
+{% highlight python %}
+gst.element_link_many(filesrc, parser)
+gst.element_link_many(decoder, conv, sink)
+{% endhighlight %}
+</div>
+
+
+<h3>Conclusión</h3>
+Y...¡ya esta! Ahora, en bin tenemos algo homólogo a si hubiéramos usado <code>parse_launch().</code> Entoces... ¿por qué liarse tanto? En primer lugar, porque, como antes comenté, así vemos un poco más profundamente como es una tubería en gstreamer. Por otro lado, porque con <code>parser_launch()</code> solo podemos crear elementos que ya estén registrados en gstreamer. Si creamos un nuevo elemento que no sea estándar (cosa que haremos más tarde), no podremos usar <code>parse_launch()</code> (al menos no sin complicar un poco las cosas).
+
+
+<h3>Código</h3>
+
+
+<div>
+{% highlight python %}
+# -*- coding: latin -*-
+
+import pygst
+pygst.require("0.10")
+import sys, gst, gobject
+gobject.threads_init()
+
+def main(args):
+  if len(args) != 2:
+    print "Uso:", args[0], "archivo.ogg"
+    return -1
+
+  pipeline = gst.Pipeline('pipeline')
+
+  filesrc = gst.element_factory_make("filesrc", "file-src")
+  parser = gst.element_factory_make("oggdemux","ogg-parser")
+  decoder = gst.element_factory_make("vorbisdec","vorbis-decoder")
+  conv = gst.element_factory_make("audioconvert","converter")
+  sink = gst.element_factory_make("alsasink", "alsa-sink")
+
+  filesrc.set_property("location", args[1])
+
+  def new_pad (element, pad):
+    sinkpad = decoder.get_pad("sink")
+    pad.link(sinkpad)
+
+  parser.connect("pad-added", new_pad)
+
+  pipeline.add(filesrc, parser, decoder, conv, sink)
+
+  gst.element_link_many(filesrc, parser)
+  gst.element_link_many(decoder, conv, sink)
+
+  def eventos(bus, msg):
+    t = msg.type
+    if t == gst.MESSAGE_EOS:
+      loop.quit()
+    elif t == gst.MESSAGE_ERROR:
+      e, d = msg.parse_error()
+      print "ERROR:", e
+      loop.quit()
+    return True
+
+  pipeline.get_bus().add_watch(eventos)
+  pipeline.set_state(gst.STATE_PLAYING)
+  loop = gobject.MainLoop()
+  try:
+    print "Reproduciendo..."
+    loop.run()
+  except KeyboardInterrupt: # Por si se pulsa Ctrl+C
+    pass
+
+  print "Parando..."
+  print "!Adios!"
+  pipeline.set_state(gst.STATE_NULL)
+  return 0
+
+if __name__ == "__main__":
+  sys.exit(main(sys.argv))
+{% endhighlight %}
+</div>
+
+
+<h3>Siguiente</h3>
+Como ya hemos usado algunos plugins y sabemos como manipularlos, en el próximo artículo hablaremos de una herramienta que nos sirve para navegar entre todos los que tenemos disponibles, obteniendo información acerca de ellos. Hablo de gst-inspect (y después veremos más acerca de las gstreamer-tools). 

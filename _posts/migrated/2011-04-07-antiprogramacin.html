@@ -1,0 +1,74 @@
+---
+migrated: node/1490
+layout: post
+title: Antiprogramación
+created: 1302168376
+author: nacho
+tags:
+- platanada
+---
+Muchas veces se habla sobre cómo deberían hacerse las cosas, pero a veces no se muestran los <em>contraejemplos</em>. A raíz de una conversación en la <a href="http://crysol.org/es/listas">lista de correo</a> se me ha ocurrido que podría ser útil tener una lista de ejemplos de malas prácticas de programación, cosas a evitar, desde fallos de novato hasta cosas más complejas.
+
+
+<!--break-->
+
+
+Empezaré con un par de ejemplos sencillos que me vienen a la cabeza, ejemplos <b>reales</b> que he visto, y espero que os animéis y publiquéis los que recordéis. Aquí los que más aportarán serán los profesores, que corrigen nuestras prácticas y seguro que más de una vez se llevan las manos a la cabeza (ahora los modernos lo llaman <em>facepalm</em>):
+
+<h2>Condición múltiple</h2>
+Este contraejemplo apareció en una práctica sobre un juego de ajedrez. Se trataba de comprobar las coordenadas de la pieza:
+ 
+
+<div>
+{% highlight java %}
+if (row==1 || row==2 || row==3 || row==4 || row==5 || row==6 || row==7 || row==8) {
+    if (col=='A' || col=='B' || col=='C' || col=='D' || col=='E' || col=='F' || col=='G' || col=='H' ){
+
+        // coordenadas correctas, hacer cosas
+
+    } else {
+        // columna incorrecta
+    }
+
+} else {
+    // fila incorrecta
+}
+{% endhighlight %}
+</div>
+
+
+Una solución mejor habría sido algo como:
+
+<div>
+{% highlight java %}
+if (row<1 || row>8 || col<'A' || col>'H'){
+    throw new InvalidCoordException(row, col);
+}
+
+// todo correcto, hacer cosas
+}
+{% endhighlight %}
+</div>
+
+
+<h2>Condición inversa</h2>
+En la misma práctica también encontré esto:
+
+<div>
+{% highlight java %}
+if (condición) {
+} else {
+    // hacer cosas
+}
+{% endhighlight %}
+</div>
+
+No recuerdo exactamente cuál era la condición, pero la idea era esa. Obviamente, hubo que sustituirlo por:
+
+<div>
+{% highlight java %}
+if(!condición){
+    //hacer cosas
+}
+{% endhighlight %}
+</div>

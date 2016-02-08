@@ -1,0 +1,70 @@
+---
+migrated: node/1258
+layout: post
+title: Creative ZEN con Debian GNU/Linux
+created: 1257533718
+author: david_villa
+category: recipe
+tags:
+- drivers
+---
+Como acceder al "Creative Zen":http://es.store.creative.com/products/product.aspx?catid=213&pid=16999 desde un PC con Debian para mover todo tipo de ficheros, playlists, etc.
+
+
+<!--break-->
+
+
+h2. Ingredientes
+
+* mtpfs
+
+h2. Introducción
+
+Aunque se supone que banshee, rhythmbox y amarok se puede utilizar para sincronizar este reproductor, por lo que he visto la forma más fácil y eficaz es "mtpfs":http://<a href="http://www.adebenham.com/mtpfs/">www.adebenham.com/mtpfs/</a>, un sistema de ficheros FUSE que utiliza la librería "libmtp":http://libmtp.sourceforge.net/.
+
+h2. Setup
+
+Lo único necesario (a parte de instalar el paquete @mtpfs@) es asegurarte de que tu usuario pertenece al grupo @fuse@:
+
+
+<div class="console">
+{% highlight console %}
+
+#  sudo addgroup pepito fuse
+{% endhighlight %}
+</div>
+
+Y después (cuando tu usuario ya sea del grupo @fuse@) haces un directorio en tu home y montas el reproductor:
+
+
+
+<div class="console">
+{% highlight console %}
+
+~$ mkdir ZEN
+~$ mtpfs ZEN
+{% endhighlight %}
+</div>
+
+
+Y ya puedes explorar/copiar/borrar ficheros del directorio ZEN desde nautilus o desde dónde quieras. Para terminar debes desmontar el reproductor con:
+
+
+<div class="console">
+{% highlight console %}
+
+~$ fusermount -u ZEN
+{% endhighlight %}
+</div>
+
+h2. Más fácil
+
+Para hacerlo un poco más fácil y no tener que escribir comanditos puedes añadirlo en el @/etc/fstab@. En este caso puedes poner el directorio de montaje en @/mnt/ZEN@ y así además le vale a otros usuarios del mismo PC.
+
+
+<div>
+{% highlight text %}
+[...]
+mtpfs    /mnt/ZEN   fuse    user,noauto    0    0
+{% endhighlight %}
+</div>

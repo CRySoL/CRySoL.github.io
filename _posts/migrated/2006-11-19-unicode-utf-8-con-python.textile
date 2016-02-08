@@ -1,0 +1,178 @@
+---
+migrated: node/454
+layout: post
+title: Unicode/UTF-8 con Python
+created: 1163894981
+author: david_villa
+category: recipe
+tags:
+- Python
+---
+Cómo usar y aprovechar el soporte de Unicode que Python trae de serie. Si no tienes muy claro de que va esto del Unicode, te recomiendo leer primero la receta "Unicode y UTF-8":http://crysol.inf-cr.uclm.es/node/453.
+
+
+<!--break-->
+
+
+h2. Introducción
+
+Python tiene soporte nativo para Unicode y sus _encodings_ más populares. Si ejecutas un interprete de Python en un terminal, lo habitual es que herede el _encoding_ por defecto. Para esta receta se supone que tus "locales" son es_ES.UTF-8. Puedes comprobarlo con:
+
+
+<div class="console">
+{% highlight console %}
+>>> import sys
+>>> sys.stdin.encoding
+'UTF-8'
+
+{% endhighlight %}
+</div>
+
+h2. Crear cadenas Unicode
+
+Cualquier cadena Unicode debe estar expresada con un encoding concreto. Python intentará utilizar siempre su encoding por defecto, que se puede obtener con:
+
+
+<div class="console">
+{% highlight console %}
+>>> sys.getdefaultencoding()
+'ascii'
+
+{% endhighlight %}
+</div>
+
+Para indicar que una cadena es Unicode basta con escribir el caracter 'u' delante de la cadena, o bien construir un objeto de tipo @unicode()@:
+
+
+<div class="console">
+{% highlight console %}
+>>> u'hola'
+u'hola'
+>>> unicode('hola')
+u'hola'
+
+{% endhighlight %}
+</div>
+
+Como verás, al indicar una variable o literal, el interprete muestra la representación interna de esa variable.
+
+Si sólo utilizas caracteres 'ascii', la representación interna es igual, como en el ejemplo anterior. Pero si utilizas caracteres no-ascii, la cosa cambia:
+
+
+<div class="console">
+{% highlight console %}
+>>> u'año'
+u'a\xf1o'
+>>> unicode('año')
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 1: ordinal not in range(128)
+
+{% endhighlight %}
+</div>
+
+En la primera sentencia del ejemplo de arriba, Python entiende que la cadena está escrita con el codec del terminal (utf-8) porque se está dando como un literal; pero en el segundo caso el interprete entiende (por defecto) que el string es 'ascii', lo cual es un error, puesto que 'ascii' no puede representar el carácter unicode 'ñ'. Por tanto, si la cadena está expresada en un codec diferente, es necesario indicarlo explícitamente:
+
+
+<div class="console">
+{% highlight console %}
+>>> unicode('año', 'utf-8')
+u'a\xf1o'
+
+{% endhighlight %}
+</div>
+
+
+h2. Insertar caracteres 'raros'
+
+Los literales unicode pueden contener caracteres expresados por su número. Por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+>>> cad = u'hola\u2605'
+>>> cad
+u'hola\u2605'
+>>> print cad  
+hola★
+
+{% endhighlight %}
+</div>
+
+En la última línea del ejemplo deberías ver un estrella negra de 5 puntas, pero eso depende de la calidad de tu navegador (usa firefox, o iceweasel si estás en Debian).
+
+Como es dificil recordar secuencias de números, Python permite especificar un carácter por su nombre. El equivalente de la asignación anterior es:
+
+
+<div class="console">
+{% highlight console %}
+>>> cad = u'hola\N{BLACK STAR}' 
+{% endhighlight %}
+</div>
+
+El módulo "unicodedata":http://docs.python.org/lib/module-unicodedata.html tiene funciones específicas para las tareas de identificación y nombrado de caracteres unicode.
+
+También tienes una función estándar (@unichr()@) para convertir un código unicode a carácter:
+
+
+<div>
+{% highlight text %}
+>>> cad = unichr(0x1d160)
+{% endhighlight %}
+</div>
+
+
+h2. Aplicar una codificación (encode)
+
+A partir de una cadena Unicode se puede obtener su representación con diferentes codecs usando el método encode().
+
+
+
+<div class="console">
+{% highlight console %}
+
+>>> cad = u’año’
+>>> cad
+u’a\xf1o’
+>>> print cad
+año
+>>> cad.encode(‘utf-8’)
+‘a\xc3\xb1o’
+>>> cad.encode(‘utf-16’)
+‘\xff\xfea\x00\xf1\x00o\x00'
+{% endhighlight %}
+</div>
+
+
+Si el codec indicado no puede codificar la cadena unicode indicada, hay varias alternativas, dependiendo del 2º argumento del método encode()
+
+
+
+<div class="console">
+{% highlight console %}
+
+>>> cad.encode(‘ascii’, ‘strict’) # es el modo por defecto
+UnicodeEncodeError: ‘ascii’ codec can’t encode character u’\xf1’ in position 1: ordinal not in range(128)
+>>> cad.encode(‘ascii’, ‘ignore’)
+‘ao’
+>>> cad.encode(‘ascii’, ‘replace’)
+‘a?o’
+{% endhighlight %}
+</div>
+
+
+h2. Leer cadenas de un fichero (decode)
+
+[Por hacer]
+
+h2. El módulo codecs
+
+[Por hacer]
+
+
+h2. Referencias
+
+* "Python Unicode Tutorial":http://<a href="http://www.reportlab.com/i18n/python_unicode_tutorial.html">www.reportlab.com/i18n/python_unicode_tutorial.html</a>
+* "Unicode HOWTO":http://<a href="http://www.amk.ca/python/howto/unicode">www.amk.ca/python/howto/unicode</a>
+* "Unicode for Programmers":http://<a href="http://www.jorendorff.com/articles/unicode/index.html">www.jorendorff.com/articles/unicode/index.html</a>
+* "Python and Unicode":http://<a href="http://www.pycs.net/users/0000323/stories/14.html">www.pycs.net/users/0000323/stories/14.html</a>
+* "How to Use UTF-8 with Python":http://evanjones.ca/python-utf8.html
+* <a href="http://eraunatonteria.wordpress.com/2012/02/23/python-y-redireccionar-utf-8-a-un-fichero/">http://eraunatonteria.wordpress.com/2012/02/23/python-y-redireccionar-utf-8-a-un-fichero/</a>

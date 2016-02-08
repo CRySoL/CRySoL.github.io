@@ -1,0 +1,22 @@
+---
+migrated: node/53
+layout: post
+title: ATI y libGL.so.1
+created: 1129739133
+author: jota
+---
+Puesto que me encuentro como tantos otros dandole vueltas a la dichosa aceleracion 3d con ATI en Ubuntu, segui un tutorial que recomendaba la eliminacion de todo lo referente al modulo fglrx que viene en los repostiorios, segui dicho tutorial y parece ser que la cosa funciona mas o menos, dmesg no me lanza ningun error relacionando con el driver ni nada por el estilo, pero cuanod ejecuto glxgears:
+
+<!--break-->
+
+
+
+<div class="console">
+{% highlight console %}
+jota@malkavian:~ $ glxgears
+glxgears: error while loading shared libraries: libGL.so.1: cannot open shared object file: No such file or directory
+
+{% endhighlight %}
+</div>
+
+parece ser que falta esa libreria, siguiendo otro tutorial desande lo andado, instale xlib-mesa, y volvi a repetir los pasos, pero aun asi sigo sin tener la biblioteca, ¿Alguien puede ayudarme?

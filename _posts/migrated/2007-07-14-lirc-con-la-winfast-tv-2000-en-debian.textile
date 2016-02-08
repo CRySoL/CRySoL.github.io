@@ -1,0 +1,142 @@
+---
+migrated: node/738
+layout: post
+title: LIRC con la WinFast TV  2000 en Debian
+created: 1184445226
+author: david_villa
+category: recipe
+tags:
+- Debian
+- drivers
+---
+bq(head). Cómo configurar y usar el control remoto de la Leadtek Winfast TV 2000 en un sistema Debian GNU/Linux.
+
+
+<!--break-->
+
+
+
+h2. Detección
+
+Tanto por el log de arranque de Linux como utilizando @dmesg@ deberías ver un buen trozo de información sobre la detección de la tarjeta capturadora:
+
+
+<div class="console">
+{% highlight console %}
+bttv: driver version 0.9.16 loaded
+bttv: using 8 buffers with 2080k (520 pages) each for capture
+intel8x0_measure_ac97_clock: measured 54583 usecs
+intel8x0: clocking to 47492
+bttv: Bt8xx card found (0).
+ACPI: PCI Interrupt Link [APC2] enabled at IRQ 17
+ACPI: PCI Interrupt 0000:01:09.0[A] -> Link [APC2] -> GSI 17 (level, high) -> IRQ 201
+bttv0: Bt878 (rev 2) at 0000:01:09.0, irq: 201, latency: 32, mmio: 0xd6000000
+bttv0: detected: Leadtek WinFast TV 2000 [card=34], PCI subsystem ID is 6606:217d
+bttv0: using: Leadtek WinFast 2000/ WinFast 2000 XP [card=34,autodetected]
+bttv0: gpio: en=00000000, out=00000000 in=00ffff07 [init]
+bttv0: using tuner=5
+tuner 2-0061: chip found @ 0xc2 (bt878 #0 [sw])
+tuner 2-0061: type set to 5 (Philips PAL_BG (FI1216 and compatibles))
+bttv0: registered device video0
+bttv0: registered device vbi0
+bttv0: registered device radio0
+bttv0: PLL: 28636363 => 35468950 .. ok
+*input: bttv IR (card=34) as /class/input/input4*
+*bttv-input: bttv IR (card=34) detected at pci-0000:01:09.0/ir0*
+bt878: AUDIO driver version 0.0.0 loaded
+bt878: Bt878 AUDIO function found (0).
+
+{% endhighlight %}
+</div>
+
+Lo interesante (para esta receta al menos) son las líneas en negrita, que indica que el control remoto ha sido detectado correctamente y el dispositivo en el que está disponible.
+
+h2. Instalación
+
+El driver para este mando requiere módulos de Linux que deben compilarse para la versión específica que uses, pero gracias a @module-assistant@ eso no es un problema:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install module-assistant lirc
+# m-a ai lirc
+
+{% endhighlight %}
+</div>
+
+h2. Configuración
+
+Edita el fichero @/etc/lirc/hardware.conf@ y modifica estas variables:
+
+<pre>
+START_LIRCMD=false     # para no usar lircmd
+LOAD_MODULES=true
+DRIVER="default"
+DEVICE="/dev/lirc0"
+MODULES="lirc_dev lirc_gpio"
+</pre>
+
+Ahora copia los ficheros de configuración de las teclas del mando (en mi caso el RM-0010) al directorio @/etc/lirc@:
+
+
+<div class="console">
+{% highlight console %}
+# cp /usr/share/doc/lirc/remotes/leadtek/lircd.conf.RM-0010 /etc/lirc/lircd.conf
+# cp /usr/share/doc/lirc/remotes/leadtek/lircmd.conf.RM-0010 /etc/lirc/lircmd.conf
+
+{% endhighlight %}
+</div>
+
+Y reinicia el servicio:
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/lirc restart
+{% endhighlight %}
+</div>
+
+h2. Probando
+
+Puedes probar que el mando funciona correctamente con el comando @irw@. Simplemente ejecútalo y pulsa las teclas del mando a distancia:
+
+
+<div class="console">
+{% highlight console %}
+$ irw
+00000000c03fc03f 00 FULLSCREEN RM-0010
+00000000c03fc03f 01 FULLSCREEN RM-0010
+00000000c03fc03f 02 FULLSCREEN RM-0010
+00000000c03fc03f 03 FULLSCREEN RM-0010
+00000000c03f20df 00 VOL_UP RM-0010
+00000000c03f20df 01 VOL_UP RM-0010
+00000000c03f20df 02 VOL_UP RM-0010
+00000000c03f20df 03 VOL_UP RM-0010
+
+{% endhighlight %}
+</div>
+
+h2. Usos de LIRC
+
+Hay muchos programas con soporte para LIRC, como por ejemplo:
+
+* "mplayer":http://<a href="http://www.mplayerhq.hu/DOCS/HTML/en/control.html#lirc">www.mplayerhq.hu/DOCS/HTML/en/control.html#lirc</a>
+* "xmms":http://packages.debian.org/stable/sound/xmms-lirc
+* "xine":http://xinehq.de/index.php/readme#2.4.4
+* "freevo":http://freevo.sourceforge.net/cgi-bin/doc/Lirc
+* "mythtv":http://<a href="http://www.mythtv.org/wiki/index.php/LIRC">www.mythtv.org/wiki/index.php/LIRC</a>
+* xawtv (xawtv-remote)
+
+h2. Definiendo acciones
+
+La configuración de las pulsaciones de teclas para muchos de estos programas está centralizada en el fichero @/etc/lirc/lircrc@ aunque cada usuario puede escribir su propio fichero en @$HOME/.lircrc@. Como ejemplo del <a href="http://www.lirc.org/html/configure.html#lircrc_format">formato de <code>.lircrc</code></a>, éste es mi fichero <a href="https://arco.inf-cr.uclm.es/svn/public/misc/lirc/.lircrc"><code>.lircrc</code> para el mando de la Winfast TV 2000</a>.
+
+h2. inputlirc
+
+*Por hacer*
+
+h2. Referencias
+
+* "Página oficial de LIRC":http://<a href="http://www.lirc.org/">www.lirc.org/</a>
+* "HOWTO: Usar el apple remote en GNU/Linux sin configurar LIRC":http://magarto.com/wiki/index.php?title=HOWTO:_Usar_el_apple_remote_en_GNU/Linux_sin_configurar_LIRC
+* "Leadtek Winfast TV2000 XP on gentoo":http://skolima.jogger.pl/2006/11/29/leadtek-winfast-tv2000-xp-on-gentoo-part-1-infrared-remote/

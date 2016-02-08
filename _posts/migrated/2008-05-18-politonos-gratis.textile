@@ -1,0 +1,48 @@
+---
+migrated: node/921
+layout: post
+title: Politonos gratis
+created: 1211129362
+author: magmax
+category: recipe
+tags:
+- ocio
+---
+<blockquote>
+Hasta las narices de que me quieran sajar por un minuto de canción más o menos lo mismo que por una canción completa (con una calidad ridícula), aquí tenéis un manual para reducir el tamaño y la calidad de vuestras canciones favoritas. Eso sí: siempre y cuando tengáis un "título de propiedad" de la canción...
+</blockquote>
+
+
+
+<h2>Paso 0: A WAV</h2>
+
+Lo primero que hago es obtener el wav. Como lo tengo en CD uso <b>grip</b> (paquetito debian y tal). Si lo tenéis ya en mp3, saltaros este paso.
+
+<h2>Paso 1: Recortando</h2>
+
+Pues yo uso <b>mhwaveedit</b>. Abre tanto el mp3 como el wav. Recortas, pruebas, recortas, pruebas, pruebas, recortas, pruebas, deshaces, recortas, pruebas... Ale, ya tienes el trocito que te gusta.
+
+<h2>Paso 2: Calidad paupérrima</h2>
+
+¿Vas a difrutar de la música? La respuesta es: NO. Un montón de investigación para obtener mejor calidad y al final lo que queremos es basura. ¿Qué se le va a hacer? Pero... ¡No hay problema!
+
+
+<div class="console">
+{% highlight console %}
+$ lame -m m -b 56 ficherito.wav ficherito.mp3
+
+{% endhighlight %}
+</div>
+
+Con esto conseguiréis una calidad regulera, pero un tamaño enano. Para un wav de 5Mb he conseguido un mp3 de 200Kb. Podéis jugar con el parámetro de <b>-b</b> hasta encontrar lo que queréis (si ponéis un valor inválido, os avisa de cuáles son los buenos).
+
+Ironic mode: ON
+
+Ale... a difrutar de la música 
+
+Ironic mode: OFF
+
+--
+
+<b>20070522</b> - Añadida opción "-m m" para transformar a Mono. Gracias, Paco; se me había pasado al transcribirlo.
+

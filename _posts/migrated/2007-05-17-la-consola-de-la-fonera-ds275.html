@@ -1,0 +1,75 @@
+---
+migrated: node/690
+layout: post
+title: 'La consola de la fonera: DS275'
+created: 1179414424
+author: oscarah
+category: recipe
+tags:
+- embedded
+---
+<blockquote class="head">El router <i>La Fonera</i>, distribuido por <a href="http://www.fon.com">Fon</a>, cuenta con un puerto serie interno (por lo menos hasta la versión 2.1, aunque es muy posible que la 2.2 también traiga uno). Veamos como usarlo para acceder a la consola del GNU/Linux que lleva dentro.</blockquote>
+
+
+<h2>Introducción</h2>
+La fonera trae un GNU/Linux de fábrica. Es una versión modificada de <a href="http://openwrt.org/">OpenWRT</a> por la gente de FON, pero al fin y al cabo es un GNU/Linux. Además, cuenta con un puerto serie, lo cual es una buena noticia porque nos permite interactuar con el mundo externo de una forma muy sencilla. De momento lo vamos a usar para acceder a la consola del sistema. Al contrario de lo que muchos piensan, usar un emulador de terminal con ese puerto serie no es ni mucho menos tener acceso SSH.
+
+El <a href="http://es.wikipedia.org/wiki/Secure_Shell">SSH (Secure SHell)</a> es un protocolo de comunicaciones que permite el control remoto de forma segura (entre otras muchas cosas). Lo que usamos nosotros es simplemente una consola del sistema (como cuando accedemos en un terminal real). El kernel de la fonera está configurado de forma que los mensajes se envíen al puerto serie. Además, se arranca una shell para ese mismo puerto que permite la interacción con el sistema. Es una consola como las de toda la vida.
+
+Nosotros, simplemente tenemos que conectar un puerto serie de nuestro PC con el de la fonera. Bueno, realmente es un poco menos sencillo, por el hecho de que nuestro puerto serie sigue la norma <a href="http://es.wikipedia.org/wiki/RS232">RS232</a> con respecto a los niveles de tensión, mientras que el de la fonera no (usa niveles convencionales TTL). Luego, necesitamos <i>algo</i> que "adapte" entre los niveles RS232 y TTL. Este <i>algo</i> es un circuto, más o menos complejo. 
+
+Existen múltiples versiones. Una de ellas es la conexión directa. Actualmente, las <a href="http://es.wikipedia.org/wiki/UART">UART</a> de los PC's soportan los niveles TTL sin mucho problema. Otra opción es diseñar un circuito basado en transistores y diodos que haga el trabajo. Sin duda, puede ser una buena opción... a menos que quieras/puedas usar los integrados que existen a tal fin.
+
+La "mejor" (depende de las circunstancias) versión de este adaptador es usar un conversor de niveles integrado. El más conocido es el <a href="http://www.google.es/search?q=max232">MAX232</a>. Es un integrado de 16 pines que necesita varios condensadores para trabajar. Otro modelo menos conocido pero quizá más sencillo de usar es el <a href="http://www.google.es/search?q=ds275">DS275</a>. Es un integrado más pequeño, solo tiene 8 pines, que se conecta directamente, por lo que usarlo es sencillisimo. Es el que vamos a emplear aquí.
+
+<h2>El adaptador</h2>
+Como siempre, antes de usar ningún integrado, recomiendo leerse el <i>datasheet</i> correspondiente. Si ya lo has hecho, podemos continuar... :-) 
+
+El puerto serie del PC tiene un montón de señales que no nos interesan ahora. Son 9 pines (en un DB9 claro) de los cuales solo vamos a emplear 3, a saber:
+
+<pre>
+PIN: 2 -&gt; RxD
+     3 -&gt; TxD
+     5 -&gt; GND
+</pre>
+
+El RxD es el encargado de la recepción de los datos, el TxD de la transmisión  y el GND sólo es la referencia de las señales (GrouND). Sucede lo mismo con el serie de la fonera, solo que en este caso, vamos a usar un pin más: el de 3.5 V de referencia para el integrado. No te preocupes si parece mucho lio, al final lo verás muy claro.
+
+Resumiendo: tenemos en el puerto serie del PC 3 pines a usar y en el de la fonera 4 pines. Los de la fonera son como sigue: 
+
+<pre>
+| GND  #  RxD  TxD  #
+| Vcc  #   #    #   #
+</pre>
+
+visto de tal forma que a la izquierda tengamos inmediatamente el borde de la placa. Mmm... quizá una imagen valga más que mil palabras...
+
+<a href='http://arco.esi.uclm.es/~oscar.acena/images/zocalo.png' title='Zocalo serie de la fonera'><img src='http://arco.esi.uclm.es/~oscar.acena/images/zocalo.mini.png' alt='Zocalo serie de la fonera' /></a>
+
+Bien, veamos ahora el integrado que usaremos:
+
+<a href='http://arco.esi.uclm.es/~oscar.acena/images/ds275.png' title='esquema ds275'><img src='http://arco.esi.uclm.es/~oscar.acena/images/ds275.mini.png' alt='esquema ds275' /></a>
+
+Y ahora las conexiones que vamos a hacer... mejor una explicación gráfica:
+
+<a href='http://arco.esi.uclm.es/~oscar.acena/images/esquema.png' title='conexiones fonera-PC con un ds275'><img src='http://arco.esi.uclm.es/~oscar.acena/images/esquema.mini.png' alt='conexiones fonera-PC con un ds275' /></a>
+
+Y por último todo el invento montado:
+
+<a href='http://arco.esi.uclm.es/~oscar.acena/images/fonera-serie.jpg' title='Fonera con puerto serie'><img src='http://arco.esi.uclm.es/~oscar.acena/images/fonera-serie.mini.jpg' alt='Fonera con puerto serie' /></a>
+
+<h2>Probando</h2>
+
+Y ya está. Podemos conectar el puerto serie a la fonera y arrancar un programa de emulación de terminal en ese mismo puerto. Existe uno muy interesante llamado minicom ($ man minicom) que funciona muy bien. Configúralo para que escuche en el puerto serie de tu PC, y como parámetros: 9600 8N1 (es decir 9600 Bps, 8 bits de datos, sin paridad y 1 bit de stop). 
+
+<b>NOTA</b>: No te fíes del estado del minicom, que muestra siempre desconectado. Esto te sería util si usaras un dispositivo de red orientado a conexión, pero usas un puerto serie, de tipo caracter que se comporta como un flujo de datos.
+
+Bien, ahora que lo tienes todo listo, arranca la fonera. Espera unos segundos y empezarás a ver el arranque del kernel. ¡Enhorabuena! Ya tienes acceso a la consola de tu fonera.
+
+Si no ves nada en un rato, es probable que hayas metido la pata. Lo siento. Repasa las conexiones con cuidado. Si sigues teniendo problemas, busca ayuda. En internet hay mucha información al respecto. 
+
+<h2>Referencias</h2>
+<ol>
+<li><a href="http://wiki.openwrt.org/OpenWrtDocs/Hardware/Fon/Fonera">OpenWRT y la Fonera</a></li>
+<li><a href="http://www.kmitl.ac.th/%7Ekswichit/MAX232/MAX232.htm">RS232C Level Converter</a></li>
+</ol>

@@ -1,0 +1,96 @@
+---
+migrated: node/377
+layout: post
+title: Solucionar sincronización audio/video de flash
+created: 1155943639
+author: fsancho
+category: recipe
+---
+<blockquote>
+Pululando por el <a href="http://blogs.adobe.com/penguin.swf/">blog de desarrollo</a> de la próxima versión del plugin de flash para GNU/Linux, he visto una recetilla que explica cómo solucionar el problema de desincronización de audio y video que sufrimos los que usamos el plugin de flash en GNU/Linux, sobre todo aquellos que no disponen de un ordenador muy potente.
+</blockquote>
+
+
+
+Yo lo he probado en mi portátil, en el que el problema era de lo mas acusado y se ha solucionado como por arte de magia.
+
+
+La forma de solucionarlo en sistemas Debian y similares es la siguiente.
+
+* Instala el paquete "alsa-oss".
+* Crea el fichero de entrada "/etc/asound.conf" con este contenido:
+
+<pre>
+pcm.card0 {
+   type hw
+   card 0
+   mmap_emulation true
+}
+
+pcm.!output {
+   type dmix
+   ipc_key 1234
+   ipc_key_add_uid 1
+   slave {
+   	 pcm "card0"
+	 period_time 0
+	 period_size 1024
+	 buffer_size 8192
+	 rate 44100
+	 }
+   bindings {
+   	    0 0
+	    1 1
+	    }
+}
+
+pcm.!input {
+   type dsnoop
+   ipc_key 4321
+   ipc_key_add_uid 1
+   slave {
+   	 pcm "card0"
+	 period_time 0
+	 period_size 1024
+	 rate 44100
+	 }
+}
+
+pcm.!duplex {
+   type asym
+   playback.pcm "output"
+   capture.pcm "input"
+}
+
+pcm.!default {
+   type plug
+   slave.pcm "duplex"
+}
+
+pcm.!dsp0 {
+   type plug
+   slave.pcm "duplex"
+}
+
+ctl.!mixer0 {
+   type hw
+   card 0
+}
+</pre>
+
+Una vez hecho esto puedes reiniciar el ordenador o bien recargar alsa con el comando
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/alsa-utils force-reload 
+{% endhighlight %}
+</div>
+
+Después edita el fichero "/etc/firefox/firefoxrc" y déjalo de esta manera.
+
+<pre>
+# which /dev/dsp wrapper to use
+FIREFOX_DSP="aoss"
+</pre>
+

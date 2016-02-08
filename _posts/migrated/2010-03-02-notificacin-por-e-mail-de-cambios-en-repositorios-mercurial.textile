@@ -1,0 +1,91 @@
+---
+migrated: node/1339
+layout: post
+title: Notificación por e-mail de cambios en repositorios Mercurial
+created: 1267555944
+author: Lk2
+category: recipe
+tags:
+- mercurial
+- VCS
+- Arco
+---
+Cómo notificar de los cambios ocurridos en un repositorio "Mercurial":http://mercurial.selenic.com/ por correo electrónico.
+
+
+<!--break-->
+
+
+Puede que en algún proyecto necesites tener un control exhaustivo sobre quien y cuando hace _pushes_ en el repositorio. Para ello, Mercurial proporciona unos "_*hooks*_":http://crysol.org/es/node/1329 predefinidos para configurarlo de forma rápida y sencilla.
+
+Toda la configuración que hace falta estará en el fichero habitual: *.hg/hgrc*. El soporte para notificaciones se añade de la siguiente forma:
+
+
+
+<div>
+{% highlight text %}
+[extensions]
+hgext.notify =
+
+[hooks]
+changegroup.notify = python:hgext.notify.hook
+
+[email]
+from = direccion@email.com
+
+[smtp]
+host = localhost
+
+[notify]
+test = False
+config = /ruta/absoluta/a/notify.conf
+template = \ndetails:\nchangeset: {rev}:{node|short}\nuser: {author}\ndate: {date|date}\ndescription:\n{desc}\n
+{% endhighlight %}
+</div>
+
+
+Obviamente, si en alguna de las secciones ya tienes alguna configuración adicional, solo añade lo necesario en cada sección.
+
+De lo anterior solamente necesitarás modificar 4 cosillas:
+
+* En [email], *from*: puedes poner la dirección de correo que quieras que aparezca como remitente de los e-mails.
+* En [smtp], *host*: dependerá de la configuración de tu estafeta de correo local, pero teniéndola configurada convenientemente no tendrás problema dejando este valor.
+* En [notify], *config*: esta es la parte más "escabrosa" del asunto. Tenéis que dar una ruta absoluta a un fichero de configuración. Este fichero de configuración es, como puedes imaginar, quien dice a quien notificar por e-mail. Lo veremos un poco más adelante, aquí solo va la ruta al mismo.
+* En [notify], *template*: es la plantilla del correo electrónico que se enviará. Las partes que están entre llaves en el ejemplo son "comodines" que se substituyen por cosas como el identificador de revisión, el autor del _push_, la fecha... en fin, en las referencias podéis encontrar el significado de cada una de ellas y algunas más.
+
+h2. Fichero de configuración de notify
+
+El fichero de configuración que comentaba antes tiene esta estructura:
+
+
+
+<div>
+{% highlight text %}
+[usersubs]
+# key is subscriber email, value is comma-separated list of glob patterns
+user@host = pattern
+
+[reposubs]
+# key is glob pattern, value is comma-separated list of subscriber emails
+pattern = user@host
+{% endhighlight %}
+</div>
+
+
+Pero si simplemente quieres que te notifique de los cambios solo necesitarás la segunda sección, algo como lo que sigue:
+
+
+
+<div>
+{% highlight text %}
+[reposubs]
+* = tudireccion@deemail.com
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+* "NotifyExtension en el Wiki de Mercurial":http://mercurial.selenic.com/wiki/NotifyExtension
+* "Setting up Mercurial to e-mail on changes":http://morecode.wordpress.com/2007/08/03/setting-up-mercurial-to-e-mail-on-a-commit/ en "It needs more code":http://morecode.wordpress.com
+* "Capítulo 10":http://hgbook.red-bean.com/read/handling-repository-events-with-hooks.html del libro Mercurial

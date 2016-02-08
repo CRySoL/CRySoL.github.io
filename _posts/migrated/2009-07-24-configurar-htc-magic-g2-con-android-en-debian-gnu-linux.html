@@ -1,0 +1,72 @@
+---
+migrated: node/1138
+layout: post
+title: Configurar HTC Magic (G2) con Android en Debian GNU/Linux
+created: 1248435217
+author: cleto
+category: recipe
+tags:
+- drivers
+- Debian
+---
+<blockquote>Esta receta explica cómo configurar tu máquina Debian para poder empezar a desarrollar programas con tu flamante móvil HTC Magic (G2).</blockquote>
+
+<h2>Introducción</h2>
+Existe un SDK con multitud de herramientas para desarrollar en sobre teléfonos Android (como es el caso del HTC Magic que, a día de hoy, Vodafone vende en exclusividad). Sin embargo, para sacarle todo el partido al entorno de desarrollo es necesario tener configurado correctamente tu ordenador para que al enchufar el móvil via USB puedas utilizar las herramientas del SDK. En esta receta se explica precisamente esto último sobre un sistema Debian GNU/Linux.
+
+<h2>Requisitos</h2>
+<ul>
+<li><a href="http://developer.android.com/sdk/1.5_r3/index.html">SDK de Android v1.5</a></li>
+<li>Ordenador con Debian GNU/Linux sid.</li>
+<li>Móvil HTC Magic.</li>
+<li>Cable USB del móvil.</li>
+</ul>
+
+<h2>Configuración</h2>
+<p>
+<h3>En el PC</h3>
+Para evitar problemas, asegúrate de que el teléfono <b>NO</b> se encuentra enchufado al ordenador. A continuación, creamos el grupo 'androiddev':
+
+<div class="console">
+{% highlight console %}
+$ sudo addgroup --system androiddev
+{% endhighlight %}
+</div>
+
+Posteriormente, crea el fichero /etc/udev/rules.d/50-android.rules con el siguiente contenido:
+<pre>
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0bb4", ATTRS{idProduct}=="0c02", GROUP="androiddev", SYMLINK+="android%n"
+</pre>
+
+Le damos permisos de lectura y ejecución y recargamos las reglas de udev:
+
+<div class="console">
+{% highlight console %}
+$ sudo chmod a+rx /etc/udev/50-android.rules
+$ sudo /etc/init.d/udev reload 
+{% endhighlight %}
+</div>
+
+<h3>En el móvil</h3>
+Primero, asegúrate de que el teléfono tiene el modo USB de depuración <b>activado</b>. Esto se encuentra en Ajustes->Aplicaciones->Desarrollo.
+
+Una vez comprobado, conecta el teléfono al PC.
+
+<h2>Probando que todo funciona...</h2>
+Descomprime el SDK que te has descargado en el directorio que prefieras. Dentro del árbol de directorios que se ha generado hay uno llamado "tools". Dentro de él, hacemos:
+
+
+<div class="console">
+{% highlight console %}
+$ ./adb start-server
+$ ./adb shell
+{% endhighlight %}
+</div>
+
+Si todo ha ido bien, tendrás una bonita shell dentro de tu móvil. Listemos los paquetes Android (ficheros .apk) que tenemos:
+
+<div class="console">
+{% highlight console %}
+$ ls /system/app/
+{% endhighlight %}
+</div>

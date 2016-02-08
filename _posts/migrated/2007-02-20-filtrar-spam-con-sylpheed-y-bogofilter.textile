@@ -1,0 +1,62 @@
+---
+migrated: node/513
+layout: post
+title: Filtrar spam con Sylpheed y Bogofilter
+created: 1172010010
+author: magmax
+category: recipe
+---
+
+
+<!--break-->
+
+
+
+Lo primero es instalar la versión en desarrollo de sylpheed, llamada sylpheed-claws. Debo advertir que puede ser algo inestable y que cada uno asuma sus riesgos. Para ello (Debian):
+
+
+<div class="console">
+{% highlight console %}
+  # apt-get install sylpheed-claws 
+{% endhighlight %}
+</div>
+
+Debes utilizar un filtro Bayesiano: bogofilter. Lo instalamos (Debian):
+
+
+<div class="console">
+{% highlight console %}
+  # apt-get install bogofilter 
+{% endhighlight %}
+</div>
+
+h2. Configurando Sylpheed-Claws
+
+Como vas a modificar los filtros, tendrás que ir a la opción del menú Configuración/filtrado.... Una vez allí puedes configurar tus filtros.
+
+Es muy importante que tus filtros anti-spam se encuentren los primeros, o no llegarán a filtrarse.
+
+Lo primero es crear una carpetita donde mandar el spam. La mía cuelga directamente de "Correo". Si alguien no lo tiene así, que lo tenga en cuenta cuando vaya introduciendo los filtros.
+
+Como Sylpheed-Claws permite introducir los filtros "a pelo" dividiendo la condición y la acción, utilizaré directamente lo que hay que añadir para ir más deprisa. Si después miras en "Definir...", lo encontrarás todo desglosado.
+
+Deja que Bogofilter aprenda
+
+Condición: unread & ˜colorlabel 4 & ˜colorlabel 2 & test "bogofilter -u <%F"
+Acción: move "#mh/Correo/spam"
+
+Con esto bogofilter aprende de cada mensaje. Verás que he tomado los colores rojo(2) y azul(4) como "especiales". En las siguientes secciones se muestra que estos colores sirven para enseñar a bogofilter cuando se equivoca. Pueden seleccionarse otros colores o cualquier otro tipo de marca, pero recuerda cambiarlo en todos los filtros.
+
+Si a Bogofilter se le pasa un mensaje de spam
+
+Condición: colorlabel 2 & test "bogofilter -Ns <%F"
+Acción: color 0 move "#mh/Correo/spam"
+
+Bogofilter necesita aprender, y, sobre todo al principio, no filtrará algunos mensajes que son spam. Con esta regla, los marcas de color rojo, y cuando filtres, bogofilter entenderá que son spam y aprenderá de su error. Como ves, además le limpio el color.
+
+Si Bogofilter te filtra un correo normal
+
+Condición: colorlabel 4 & test "bogofilter -Sn <%F"
+Acción: color 0 move "#mh/Correo/inbox"
+
+Éste es el caso contrario: bogofilter ha tomado como spam un mensaje que querías leer. Si lo marcas de azul claro, al filtrarlo, bogofilter aprenderá.

@@ -1,0 +1,45 @@
+---
+migrated: node/807
+layout: post
+title: 'GNU Emacs: Reemplazar texto en múltiples ficheros'
+created: 1196443480
+author: david_villa
+category: recipe
+tags:
+- emacs
+---
+bq(head). Una utilidad muy interesante que incorpora el modo "dired" de Emacs
+
+
+<!--break-->
+
+
+
+h2. Selección de ficheros
+
+Lo primero es abrir el directorio dónde están los ficheros a modificar. Lo puedes hacer con <tt>C-x d</tt> o bien con el menú en "File-> Open Directory".
+
+A continuación puedes mover el cursor sobre la lista de ficheros y marcar (<tt>m</tt>) o "desmarcar" (<tt>u</tt>) los ficheros que quieras. 
+
+Si quieres seleccionar con comodines, escribe <tt>% m</tt> y escribe un patrón, por ejemplo, para marcar todos los ficheros que acaban en "html":
+
+<pre>% m html$</pre>
+
+h2. Reemplazando
+
+Ahora ejecuta el comando:
+
+<pre>M-x dired-do-query-replace-regexp</pre>
+
+En su lugar puedes utilizar la opción de menú: "Operate->Query Replace in Files" o simplemente pulsar <tt>Q</tt>.
+
+Y emacs te pedirá el texto original y el que deseas poner es su lugar. Para cada ocurrencia que encuentre en cada uno de los ficheros marcados, deberás respondes si quieres reemplazar (<tt>y</tt>/<tt>n</tt>). Si quieres reemplazar todas pulsa <tt>!</tt>.
+
+Para guardar los cambios, lo más fácil es:
+
+<pre>M-x save-some-buffers</pre>
+
+
+h2. Referencias
+
+* "Interactively Find and Replace String Patterns on Multiple Files":http://xahlee.org/emacs/find_replace_inter.html

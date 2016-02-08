@@ -1,0 +1,17 @@
+---
+migrated: node/249
+layout: post
+title: Nautilus con samba
+created: 1141647978
+author: magmax
+---
+Necesitaba acceso a samba desde nautilus y no lo conseguía. Ya tengo la solución:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install libsmbclient libgnomevfs2-extra
+{% endhighlight %}
+</div>
+
+Y ya se puede acceder a las anticuadas redes Mindows mediante <tt>smb://</tt> en en queridísimo nautilus :-D

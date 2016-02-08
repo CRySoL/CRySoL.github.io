@@ -1,0 +1,92 @@
+---
+migrated: node/635
+layout: post
+title: Utilizar un mando Wii con tu GNU/Linux
+created: 1175627319
+author: cleto
+category: recipe
+tags:
+- ocio
+---
+<blockquote>Si tienes una Nintendo Wii y has comprobado todo lo que puedes hacer con un <a href="http://es.wikipedia.org/wiki/Control_Remoto_Wii">Wiimote</a>, es hora que lo conectes a tu PC con GNU. Esta receta es un ejemplo <b>muy básico</b> de lo que se puede hacer con él.</blockquote>
+
+<!--break-->
+
+
+
+<h1>Ingredientes</h1>
+<ul>
+<li>Un mando de Wii (o Wiimote).</li>
+<li>Un adaptador USB Bluetooth.</li>
+<li>Los paquetes <em>bluetooth bluez-utils python-bluez python-xlib python-pygame</em> (sin comas para que copies y pegues ;-)).</li>
+<li>El programa/librería de prueba <em>Wiiwanna Motte Dammiit!</em> (o <a href="http://www.forthewiin.org/">WMD</a>).</li>
+</ul>
+
+<h1>Configurando el sistema</h1>
+Primero, tienes que parchear <em>python-xlib</em> para que funcione con el programa de prueba. Para ello, tienes que editar el archivo <em>/usr/share/python-support/python-xlib/Xlib/protocol/display.py</em> y reemplazar:
+
+<pre>recv = self.socket.recv(2048)</pre>
+
+por:
+
+<pre>recv = self.socket.recv(4096)</pre>
+
+Seguidamente, cargamos los módulos <em>uinput</em> y <em>evdev</em>. Si tienes un núcleo más o menos actual, no tendrás problemas. Personalmente, lo he probado con un 2.6.18-4 y ambos se encontraban ya en mi sistema. Para cargar los módulos haz:
+
+
+<div class="console">
+{% highlight console %}
+# modprobe uinput evdev
+{% endhighlight %}
+</div>
+
+Al cargar el módulo <em>uinput</em>, se va a crear un archivo (con el mismo nombre que el módulo) en el directorio <em>/dev/input/</em>. Sin embargo, el programa necesita que esté en <em>/dev/misc/</em>. En cualquier caso, necesitamos asegurarnos de que el archivo esté en esta última localización, por ello debes linkarlo de la siguiente forma:
+
+
+<div class="console">
+{% highlight console %}
+# mkdir /dev/misc  <--- Si no lo tienes creado!!!
+# ln -s /dev/input/uinput /dev/misc/uinput
+# chmod 666 /dev/misc/uinput
+{% endhighlight %}
+</div>
+
+Es posible que la ruta inicial de <em>uinput</em> no sea igual que la que se ha citado. En tal caso, utiliza <em>find</em> para encontrar el archivo:
+
+
+<div class="console">
+{% highlight console %}
+# find /dev -name uinput
+{% endhighlight %}
+</div>
+
+Finalmente, sólo queda configurar el archivo <em>/etc/X11/xorg.conf</em> para conectar las salidas del Wiimote con de un nuevo dispositivo de entrada del servidor X. Primero, crea un <em>InputDevice</em> como sigue:
+
+<pre>Section "InputDevice"
+Identifier "Wiimote"
+Driver "evdev"
+Option "Name" "Nintendo Wiimote"
+EndSection</pre>
+
+Y, en el apartado <em>ServerLayout</em>, escribe la siguiente línea:
+
+<pre>InputDevice "Wiimote"</pre>
+
+Reinicia el entorno gráfico y tu GNU/Linux estará preparado para probar el Wiimote, ¿lo estás tú? :-).
+
+<h1>Probando el Wiimote</h1>
+Una vez reiniciado el entorno gráfico, tienes que enchufar tu dispositivo USB Bluetooth (evidentemente) y ejecutar el programa. Si no lo has descomprimido aún, hazlo y en el directorio que crea ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+$ python WMD.py
+{% endhighlight %}
+</div>
+
+Verás en consola un mensaje de espera de sincronización con el mando Wii. Para sincronizarlo, quita la tapa de las pilas del mando y pulsa el botón <em>SYNC</em>. Comenzarán a parpadear los LED azules. Si paran de hacerlo y en consola no aparece el mensaje "CONNECTED", debes pulsar de nuevo el botón <em>SYNC</em>. Personalemente, no he tenido que pulsarlo más de 2 veces. 
+
+Cuando la conexión ha sido establecida, como se ha dicho, aparecerá el mensaje "CONNECTED". Si empiezas a pulsar los botones, mostrará qué botón has pulsado; si mueves el mando bruscamente, mostrará un mensaje con las coordenadas del movimiento; si apuntas a la pantalla, podrás mover el ratón en la dirección del mando. Ciertamente, esto último está en pañales y comprobarás que pierdes el control del ratón al rato de trastear con él. No te preocupes, el software es libre y se puede mejorar ;-).
+
+<h1>Referencias</h1>
+Esta receta es una interpretación y adaptación personal de <a href="http://debianizado.blogspot.com/2007/03/controlando-linux-con-el-mando-de-la.html">entrada del blog "Debianizado"</a>.

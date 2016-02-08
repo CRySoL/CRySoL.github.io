@@ -1,0 +1,227 @@
+---
+migrated: node/999
+layout: post
+title: La Forma Canónica Ortodoxa
+created: 1220477348
+author: david_villa
+category: recipe
+tags:
+- patterns
+- C++
+---
+La Forma Canónica Ortodoxa u <em>Orthodox Canonical Form</em> (OCF) es un modismo muy utilizado en C++ y definido por James Coplien en su libro <em> Advanced C++: Programming Styles and Idioms</em>. Este modismo permite que un tipo(clase) definido por el programador se comporte como un «tipo concreto de dato», es decir, tenga las mismas características que un tipo proporcionado por el lenguaje.
+
+
+<!--break-->
+
+
+* Es *canónica* en el sentido de que se atiene a unas reglas preestablecidas (por el lenguaje).
+* Es *ortodoxa* porque es conforme a las prácticas generalmente aceptadas y que mejor aprovecha las características del lenguaje.
+
+Imagina que quieres hacer una clase <tt>String</tt> para manejar cómodamente cadenas de caracteres y suplir las deficiencias de los array de caracteres de C (aunque C++ ya tiene una clase <tt>string</tt> mucho mejor que la que vas a hacer tú :-P) Lo de hacer el <tt>String</tt> es porque es el ejemplo típico para explicar OCF y no quería deshonrar la tradición.
+
+Si quieres que cumpla la OCF...
+
+h3. Debe tener un *constructor sin argumentos*  
+
+Si no es así, será imposible definir arrays o colecciones(contenedores) de instancias de esa clase. Debes tener presente que si tu clase no tiene ningún constructor, el compilador creará un constructor sin argumentos que hará una inicialización básica de los atributos, los atributos sin constructor por defecto no se inicializarían.
+
+
+
+<div>
+{% highlight cpp %}
+String::String() {
+  rep = new char[1];
+  rep[0] = '\0';
+}
+{% endhighlight %}
+</div>
+
+
+
+h3. Debe incluir el *constructor de copia*
+
+Se encarga de que todos los atributos se copien de la forma correcta para obtener una instancia independiente del original. Particularmente importante si la clase tiene atributos de tipo puntero, puesto que el constructor de copia generado por el compilador copiará los punteros y *no* las variables referenciadas por ellos. El constructor de copia acepta una referencia constante de su mismo tipo como único argumento. No confundir con el operador de asignación.
+
+Aprovecho para definir un método para obtener el tamaño de la cadena que vendrá bien para implementar los demás métodos:
+
+
+
+<div>
+{% highlight cpp %}
+int
+String::size() const {
+  return ::strlen(rep);
+}
+{% endhighlight %}
+</div>
+
+
+Y ahora sí, el constructor de copia:
+
+
+
+<div>
+{% highlight cpp %}
+String::String(const String& s) {
+  rep = new char[s.size() + 1];
+  ::strcpy(rep, s.rep);
+}
+{% endhighlight %}
+</div>
+
+
+
+h3. Debe implementar el *operador de asignación*
+
+Se ejecuta cuando se asigna una instancia de la clase a otra. Es importante para evitar problemas en los «temporarios» y en los pasos por valor (por copia) en las llamadas a funciones.
+
+
+
+<div>
+{% highlight cpp %}
+String& String::operator=(const String& s) {
+  if (rep != s.rep) {
+    delete[] rep;
+    int lenOrig = s.size() + 1;
+    rep = new char[lenOrig];
+    ::strcpy(rep, s.rep);
+  }
+
+  return *this;
+}
+{% endhighlight %}
+</div>
+
+
+
+h3. Un *destructor*
+
+Que se encarga de liberar la memoria de los atributos dinámicos, cerrar ficheros, sockets, etc...
+
+
+
+<div>
+{% highlight cpp %}
+String::~String() {
+  delete[] rep;
+}
+{% endhighlight %}
+</div>
+
+
+
+h2. Ampliando la funcionalidad
+
+Aparte de la OCF propiamente dicha, algunos métodos más simplificarán el uso del nuevo tipo.
+
+h3. Constructor de conversión
+
+Para crear fácilmente un <tt>String</tt> a partir de una array de <tt>char</tt>.
+
+
+
+<div>
+{% highlight cpp %}
+String::String(const char *s) {
+  int lenOrig = ::strlen(s) + 1;
+  rep = new char[lenOrig];
+  ::strcpy(rep, s);
+}
+{% endhighlight %}
+</div>
+
+
+
+h3. Operadores de adicción
+
+
+
+<div>
+{% highlight cpp %}
+String&
+operator+(String& left, const String& right) {
+  char* rep = new char[left.size() + right.size() + 1];
+  ::strcpy(rep, left.rep);
+  ::strcat(rep, right.rep);
+  delete[] left.rep;
+  left.rep = rep;
+  return left;
+}
+
+const String
+operator+(const String& left, const String& right) {
+  String retval(left);
+  return retval + right;
+}
+
+String
+operator+(const char* left, const String& right) {
+  return String(left) + right;
+}
+{% endhighlight %}
+</div>
+
+
+
+h3. Ostream inserter
+
+Para que las instancias se pueden imprimir fácilmente:
+
+
+
+<div>
+{% highlight cpp %}
+ostream&
+operator<<(ostream& os, const String& s) {
+  os << s.rep;
+  return os;
+}
+{% endhighlight %}
+</div>
+
+
+
+h2. Declaración de la clase
+
+
+
+<div>
+{% highlight cpp %}
+class String {
+public:
+
+  String();
+  String(const String&);
+  String(const char *);
+
+  String& operator=(const String&);
+
+  int size() const;
+  ~String();
+
+  friend String& operator+(String& left, const String& right);
+  friend const String operator+(const String& left, const String& right);
+  friend String operator+(const char* left, const String& right);
+
+  friend ostream& operator<<(ostream& os, const String& s);
+
+private:
+    char *rep;
+};
+{% endhighlight %}
+</div>
+
+
+
+h2. Download
+
+Este ejemplo está disponible en el "repo público":https://bitbucket.org/arco_group/patterns/src/tip/OCF/String.cc
+
+h2. Referencias
+
+* <a href="http://agamenon.uniandes.edu.co/~pfiguero/soo/Idioms/claseCanonica.html">http://agamenon.uniandes.edu.co/~pfiguero/soo/Idioms/claseCanonica.html</a>
+* <a href="http://www.edm2.com/0510/introcpp3.html">http://www.edm2.com/0510/introcpp3.html</a>
+* "Las referencias y el constructor de copia":http://arco.esi.uclm.es/~david.villa/pensar_en_C++/products/vol1/C11.html
+
+* <a href="http://en.wikipedia.org/wiki/Rule_of_three_%28C++_programming%29">http://en.wikipedia.org/wiki/Rule_of_three_%28C++_programming%29</a>

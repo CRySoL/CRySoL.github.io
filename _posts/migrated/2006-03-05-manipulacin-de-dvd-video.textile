@@ -1,0 +1,173 @@
+---
+migrated: node/248
+layout: post
+title: Manipulación de DVD Video
+created: 1141580481
+author: david_villa
+category: recipe
+tags:
+- ripping
+---
+Esta receta pretende ser una chuleta de pequeños trucos y utilidades para manipular DVD Video, usando los programas libres habituales en un sistema GNU
+
+
+<!--break-->
+
+
+
+En realidad, la idea de esta receta, es ir apuntando aquí las soluciones que vaya encuentrando a problemas que nos surjan. Se admiten y agradecen sugerencias para ir mejorando y ampliando la receta (deja tu comentario).
+
+h3. Nota Legal
+
+El autor subraya que copiar un soporte digital es legal para obras propias, copias adquiridas comercialmente o que cumplan las condiciones de "copia privada":http://es.wikipedia.org/wiki/Derecho_de_copia_privada. El autor rechaza toda responsabilidad y desaprueba la utilización de esta información en aquellos casos que queden fuera de la legalidad vigente.
+
+<a name="contenido"> </a>
+
+h2. Listar el contenido del DVD
+
+h3. Con @lsdvd@
+
+Se puede utilizar tanto con un disco como con un directorio que contenga una estructura de DVD. Lo siguiente es un ejemplo de uso de @lsdvd@:
+
+<pre class="console">
+$ lsdvd -as -t 1 /mnt/dvd/
+libdvdread: Using libdvdcss version 1.2.9 for DVD access
+libdvdread: Couldn't find device name.
+Couldn't read enough bytes for title.
+Disc Title: unknown
+Title: 01, Length: 00:21:54.010 Chapters: 01, Cells: 01, Audio streams: 02, Subpictures: 02
+        Audio: 1, Language: en - English, Format: ac3, Frequency: 48000, Quantization: drc, Channels: 2, AP: 0, Content: Undefined, Stream id: 0x80
+        Audio: 2, Language: es - Espanol, Format: ac3, Frequency: 48000, Quantization: drc, Channels: 2, AP: 0, Content: Undefined, Stream id: 0x81
+        Subtitle: 01, Language: en - English, Content: Undefined, Stream id: 0x20,
+        Subtitle: 02, Language: es - Espanol, Content: Undefined, Stream id: 0x21,
+</pre>
+
+h3. Con @tcprobe@
+
+Este programa viene con el paquete @transcode@. El ejemplo equivalente al caso anterior sería:
+
+<pre class="console">
+$ tcprobe -i /dev/dvd
+libdvdread: Using libdvdcss version 1.2.9 for DVD access
+[tcprobe] DVD image/device
+libdvdread: Using libdvdcss version 1.2.9 for DVD access
+(dvd_reader.c) mpeg2 pal 4:3 U0 720x576 video
+(dvd_reader.c) ac3 en drc 48kHz 2Ch
+(dvd_reader.c) ac3 es drc 48kHz 2Ch
+(dvd_reader.c) subtitle 00=<en>
+(dvd_reader.c) subtitle 01=<es>
+(dvd_reader.c) subtitle 02=<it>
+(dvd_reader.c) DVD title 1/6: 1 chapter(s), 1 angle(s), title set 1
+(dvd_reader.c) title playback time: 00:21:54.10  1315 sec
+(dvd_reader.c) [Chapter 01] 00:00:00.000 , block from 3304 to 472933
+[tcprobe] summary for /dev/dvd, (*) = not default, 0 = not detected
+import frame size: -g 720x576 [720x576]
+     aspect ratio: 4:3 (*)
+       frame rate: -f 25.000 [25.000] frc=3
+      audio track: -a 0 [0] -e 48000,16,2 [48000,16,2] -n 0x2000 [0x2000]
+      audio track: -a 1 [0] -e 48000,16,2 [48000,16,2] -n 0x2000 [0x2000]
+[tcprobe] V: 32875 frames, 1315 sec @ 25.000 fps
+[tcprobe] A: 20.55 MB @ 128 kbps
+[tcprobe] CD:  650 MB | V:  629.5 MB @ 4015.4 kbps
+[tcprobe] CD:  700 MB | V:  679.5 MB @ 4334.3 kbps
+[tcprobe] CD: 1300 MB | V: 1279.5 MB @ 8161.8 kbps
+[tcprobe] CD: 1400 MB | V: 1379.5 MB @ 8799.8 kbps
+</pre>
+
+h3. Con @mplayer@
+
+@mplayer@ suelta un montón de información útil, aunque es un poco caótico. Recomiendo utilizar @grep@ para filtrar la información que necesites. Ahí va un ejemplo:
+
+<pre class="console">
+$ mplayer -frames 0  dvd://1 2> /dev/null
+[open] audio stream: 0 audio format: ac3 (stereo) language: en aid: 128
+[open] audio stream: 1 audio format: ac3 (stereo) language: fr aid: 129
+[open] audio stream: 4 audio format: ac3 (stereo) language: es aid: 130
+[open] number of audio channels on disk: 3.
+[open] subtitle ( sid ): 0 language: en
+[open] subtitle ( sid ): 1 language: fr
+[open] subtitle ( sid ): 2 language: it
+[open] subtitle ( sid ): 3 language: de
+[open] subtitle ( sid ): 4 language: es
+[open] number of subtitles on disk: 5
+</pre>
+
+h3. Otros
+
+También puedes usar @vobcopy@ y @dvdbackup@ para obtener información del DVD.
+
+
+<div class="console">
+{% highlight console %}
+$ *vobcopy* -i /dev/dvd -I
+{% endhighlight %}
+</div>
+
+ó
+
+
+<div class="console">
+{% highlight console %}
+$ *dvdbackup* -i /dev/dvd -I
+{% endhighlight %}
+</div>
+
+
+h2. Extraer el contenido del DVD a un directorio
+
+h3. Con @vobcopy@.
+
+Para extraer todo el DVD al directorio actual basta con:
+
+
+<div class="console">
+{% highlight console %}
+$ vobcopy -m
+{% endhighlight %}
+</div>
+
+Para extraer únicamente el primer título del dispositivo @/mnt/dvd@ al directorio @destino@:
+
+
+<div class="console">
+{% highlight console %}
+$ vobcopy -i /mnt/dvd/ -n 1 -o /directorio/destino/
+{% endhighlight %}
+</div>
+
+h3. Con @dvdbackup@.
+
+Para extraer todo el DVD:
+
+
+<div class="console">
+{% highlight console %}
+$ dvdbackup -M -i/dev/dvd -o /directorio/destino/
+{% endhighlight %}
+</div>
+
+h2. Reproducir un DVD a partir de la ISO
+
+Monta la ISO:
+
+
+<div class="console">
+{% highlight console %}
+$  mount -o loop peli.iso /punto/de/montaje
+{% endhighlight %}
+</div>
+
+Y con mplayer...
+
+
+<div class="console">
+{% highlight console %}
+$ mplayer  -dvd-device /punto/de/montaje dvd://1 -slang es 
+{% endhighlight %}
+</div>
+
+h2. Referencias
+
+* man vobcopy
+* man dvdbackup
+* "DVD Backups":http://<a href="http://www.togaware.com/linux/survivor/DVD_Backups.html">www.togaware.com/linux/survivor/DVD_Backups.html</a>

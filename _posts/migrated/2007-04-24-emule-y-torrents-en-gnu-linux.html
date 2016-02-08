@@ -1,0 +1,34 @@
+---
+migrated: node/653
+layout: post
+title: Emule y torrents en GNU/Linux
+created: 1177429644
+author: int-0
+category: recipe
+tags:
+- networking
+---
+<blockquote>Hola buenas! todos nosotros somos adictos en mayor/menor medida a las redes P2P, de ellas descargamos películas, discos y algunos <em>delincuentes</em> programas y juegos. No es ningún secreto que la mayoría de los <em>internautas</em> españoles usan su conexión a internet para esto, las ISP's lo saben y como pasan de que su red se colapse realizan un filtro de protocolo a <em>emule</em> y <em>torrents</em> (las compañías evidentemente te lo negarán). No vale cambiar el puerto de escucha porque no se hace un filtro de puertos, se realiza filtro de protocolo. Se sospecha que Telefónica y Ono lo hacen; si es verdad que lo hacen deberían por lo menos avisar, así que nosotros vamos a intentar hacerles la pirula.</blockquote>
+
+<h1>Conexiones ofuscadas</h1>
+Nuestro problema está en que si un <em>router</em> de nuestro ISP <em>sabe</em> qué protocolo está transportando, podrá aplicar unas reglas de <em>QoS</em> (calidad de servicio) que probablemente a nosotros no nos haga ninguna gracia. La solución es más o menos sencilla: <em>ofuscar</em> el protocolo. Ofuscar una conexión es "desbaratar" el paquete saliente de forma que sea irreconocible, cuando llega a su destino, el receptor conoce la forma de recomponer el paquete. Hasta lo que sé, por ahora es la propia aplicación la que debe ofuscar el protocolo.
+
+<h1>Emule</h1>
+En GNU/Linux no disponemos de un buen cliente para <em>edonkey</em> que permita ofuscación de protocolo... debemos recurrir al maravilloso y archiconocido <em>eMule</em>. Tranquilos porque tiene licencia GPL :-P. Pero Int-0 se ha vuelto loco!! si eso es para hassefroch!!. Pues si... pero nosotros tenemos <em>wine</em> ;-)
+
+Pues bien, el <em>emule</em> funciona bastante bien con <em>wine</em> pero existe un problema: para alcanzar buenas velocidades es necesario abrir un <em>raw socket UDP</em> y esto sólo se puede hacer con wine si se es administrador :O. La forma en la que yo lanzo <em>emule</em> (no la versión con instalador, sino la que está lista para ejecutar) es la siguiente:
+
+<div class="console">
+{% highlight console %}
+# sudo wine emule.exe
+{% endhighlight %}
+</div>
+
+<blockquote>Hay que advertir que esto es <em>PELIGROSO</em>, para paliar un poco los problemas, podríamos crear una jaula <em>chroot</em> o algo así, si alguno lo hace que mande un post o modifique la receta :-P.</blockquote>
+
+Una vez arrancado la mula, nos vamos a <em>Preferencias > Seguridad > Activar la Ofuscación de Protocolo</em> y listo!. El <em>único</em> problema de todo esto es que no hay mucha gente que use ofuscación, por ese motivo sólo descargaréis a máxima velocidad de clientes que usen también ofuscación.
+
+<h1>Torrent</h1>
+Bueno, este es el protocolo de p2p de GNU por excelencia :-). Aquí tenemos clientes en muchos sabores... pero que permitan la ofuscación de protocolo reduce bastante el abanico, concretamente (que yo conozca): Azureus y ktorrent. El Azureus está muy chulo pero tiene un inconveniente: carga mucho la máquina. El Ktorrent es más ligerito. Tanto Azureus como ktorrent permiten conexiones ofuscadas (pero en las opciones aparece como <em>permitir cifrado de protocolo</em>), así que ya sabeís, cualquiera de los dos os vale, además que ambos son paquete Debian.
+
+Y con esto termino... ya sabéis que la descarga de cierto software es absolutamente ilegal y la desapruebo completamente. Esta receta NO sirve para delinquir sino para <em>paliar</em> parcialmente la política restrictiva de los ISP's (no la discuto, pero me parece FATAL que no lo avisen oficialmente).

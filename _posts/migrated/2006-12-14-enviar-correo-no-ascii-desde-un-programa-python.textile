@@ -1,0 +1,80 @@
+---
+migrated: node/471
+layout: post
+title: Enviar correo no-ASCII desde un programa Python
+created: 1166118585
+author: david_villa
+category: recipe
+tags:
+- Arco
+- Python
+---
+Cómo enviar correo con cuerpo o cabeceras no-ASCII desde un programa Python
+
+
+<!--break-->
+
+
+h2. Lo fácil
+
+Enviar un correo ASCII es algo trivial gracias al módulo "smtplib":http://docs.python.org/lib/module-smtplib.html:
+
+
+
+<div>
+{% highlight python %}
+import smtplib
+
+sender = "SteveBallmer@microshow.com"
+receiver = "usuarios@internes.org"
+
+msg =  "From: %s\n" % sender
+msg += "To: %s\n" % receiver
+msg += "Subject: Se alquilan sillas voladoras (patentadas)\n\n"
+msg += "Sillas voladoras en versiones 'home' y 'professional' de alta calidad y libres de virus."
+
+server = smtplib.SMTP('smtp.example.org')
+server.sendmail(sender, receiver, msg)
+server.quit()
+{% endhighlight %}
+</div>
+
+
+h2. Caracteres extendidos
+
+El problema viene cuando necesitas enviar caracteres no-ASCII, es decir, tiene que utilizar una codificación de caracteres UTF-8, latin-1 o similar.
+
+
+
+
+<div>
+{% highlight python %}
+import smtplib
+from email.MIMEText import MIMEText
+from email.Header import Header
+
+sender = "SteveBallmer@microshow.com"
+receiver = "usuarios@internes.org"
+body = unicode(texto, 'latin-1')
+
+coding = 'latin-1'
+msg = MIMEText(body.encode(coding), 'plain', coding)
+msg['From']    = sender
+msg['To']      = receiver
+msg['Subject'] = Header(u'Vendo cañones lanza-sillas', coding)  # la 'ñ' no se puede codificar en ASCII
+
+server = smtplib.SMTP('smtp.example.org')
+server.sendmail(sender, receiver, msg.as_string())
+server.quit()
+{% endhighlight %}
+</div>
+
+
+En el ejemplo, 'texto' es una variable que contiene texto procedende de un fichero codificado en latin-1 o quizá de un terminal con la misma codificación. Podría ser cualquier otra codificación, pero debe ser conocida y debe indicarse al crear la variable 'body' (de tipo unicode).
+
+A "MIMEText":http://docs.python.org/lib/module-email.mime.text.html se le debe pasar texto codificado e indicar a su vez el encoding que se ha usado. A "Header":http://docs.python.org/lib/module-email.header.html se le puede pasar texto unicode indicando qué encoding debe usar para codificar dicho texto.
+
+h2. Referencias
+
+* "Sending Unicode emails in Python":http://mg.pov.lt/blog/unicode-emails-in-python.html
+* "email: Examples":http://docs.python.org/library/email-examples.html

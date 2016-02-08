@@ -1,0 +1,157 @@
+---
+migrated: node/59
+layout: post
+title: apt-get y dpkg
+created: 1129904471
+author: david_villa
+category: recipe
+---
+<blockquote>
+Algunas posibilidades de las herramientas <tt>apt-get</tt> y <tt>dpkg</tt> de Debian GNU/Linux
+</blockquote>
+
+<h2> Listar todos los ficheros de un paquete</h2>
+
+
+<div class="console">
+{% highlight console %}
+$ dpkg -L nombre_paquete
+{% endhighlight %}
+</div>
+
+
+<h2> Instalar un paquete de una <em>release</em> concreta</h2>
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install -t unstable nombre_paquete
+{% endhighlight %}
+</div>
+
+
+<h2> Bloquear (<em>hold</em>) un paquete para que no se actualice en los <em>upgrades</em></h2>
+
+
+<div class="console">
+{% highlight console %}
+# echo nombre_paquete hold | dpkg --set-selections
+{% endhighlight %}
+</div>
+
+
+<h2> Quitar el bloqueo a un paquete</h2>
+
+
+<div class="console">
+{% highlight console %}
+# echo nombre_paquete install | dpkg --set-selections
+{% endhighlight %}
+</div>
+
+
+<h2> Ver la versión de un paquete instalado</h2>
+
+
+<div class="console">
+{% highlight console %}
+$ apt-cache policy nombre_paquete | grep Installed
+{% endhighlight %}
+</div>
+
+
+<h2> Listar los paquetes que contienen cierta cadena en su nombre</h2>
+
+
+<div class="console">
+{% highlight console %}
+$ COLUMNS=120 dpkg -l | grep string
+{% endhighlight %}
+</div>
+
+
+<h2> Obtener el estado(<em>hold</em>, <em>purge</em>) de un paquete</h2>
+
+
+<div class="console">
+{% highlight console %}
+$ dpkg --get-selections nombre_paquete
+{% endhighlight %}
+</div>
+
+
+<h2> Eliminar un paquete y sus ficheros de configuración</h2>
+
+
+<div class="console">
+{% highlight console %}
+# dpkg --purge nombre_paquete
+{% endhighlight %}
+</div>
+
+
+<h2> Ver las dependencias de un paquete y su descripción</h2>
+
+
+<div class="console">
+{% highlight console %}
+$ apt-cache showpkg nombre_paquete
+{% endhighlight %}
+</div>
+
+
+<h2> Buscar paquetes relacionados con un término</h2>
+
+
+<div class="console">
+{% highlight console %}
+$ apt-cache search string
+{% endhighlight %}
+</div>
+
+
+<h2> Posibles problemas</h2>
+
+Al instalar un paquete, puede ocurrir que su script de post-instalación falle por alguna razón, lo cual impide que el paquete se instale correctamente.  Si eso ocurre puedes editar su script correspondiente en <tt>/var/lib/dpkg/info/<em>nombre_paquete</em>.postinst</tt> e intentar arreglarlo. Después simplemente ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+ # dpkg --configure -a
+{% endhighlight %}
+</div>
+
+
+h2. Reinstalar todos los paquetes instalados
+
+Útil para limpiar los binarios si el sistema ha sido infectado con un virus o un rootkit. USAR CON PRECAUCIÓN.
+
+
+<div class="console">
+{% highlight console %}
+# for i in $(dpkg --get-selections | grep -v deinstall | awk '{print $1}'); do apt-get install -y --reinstall $i; done
+{% endhighlight %}
+</div>
+
+<h2> Enlaces</h2>
+
+<ul>
+   <li>
+      <a href="http://quark.fe.up.pt/laespiral/recetas/1-100/receta43.html">Configurar paquetes Debian</a>
+   </li>
+   <li>
+	  <a href="http://www.debian.org/doc/manuals/debian-tutorial/">Debian Tutorial</a> 
+   </li>
+   <li>
+	  <a href="http://quark.fe.up.pt/laespiral/recetas/1-100/receta56.html">Cómo buscar software y paquetes asociados en Debian</a>
+   </li>
+   <li>
+	<a href="http://www.courville.org/phpwiki/apt/dpkg">apt/dpkg</a>
+   </li>
+   <li>
+	  <a href="http://www.linuca.org/body.phtml?nIdNoticia=39">apt y dpkg. Herramientas de gestión de paquetes para Debian</a> 
+   </li>
+   <li>
+      <a href="http://linuxhelp.blogspot.com/2005/12/concise-apt-get-dpkg-primer-for-new.html"> A Concise apt-get / dpkg primer for new Debian users</a>
+   </li>
+</ul>

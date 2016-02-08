@@ -1,0 +1,30 @@
+---
+migrated: node/1531
+layout: post
+title: Cómo usar TOR en Debian
+created: 1309898728
+author: esteban_trabajos
+category: recipe
+tags:
+- networking
+---
+Si queréis usar Tor para conseguir anonimato mientras navegáis:
+
+<!--break-->
+
+
+
+<div class="console">
+{% highlight console %}
+
+# apt-get install tor
+{% endhighlight %}
+</div>
+
+Y por defecto os creará un proxy soxks5 en 127.0.0.1:9050. Ahora configuráis el navegador para que use como socks proxy el que acabáis de crear.
+
+Para comprobar que estáis en una red TOR podéis visitar: <a href="https://check.torproject.org/">https://check.torproject.org/</a>
+
+Después de eso ya podréis navegar de una forma cuasi anónima. Seguro que más de uno perderá sus buenas horas intentando sacar la IP con la que conectásteis a algún foro para postear tonterias (o verdades)...
+
++info: <a href="http://postimage.org/image/rwodd3us/">http://postimage.org/image/rwodd3us/</a>

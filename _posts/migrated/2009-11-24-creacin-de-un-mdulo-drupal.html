@@ -1,0 +1,481 @@
+---
+migrated: node/1264
+layout: post
+title: Creación de un módulo Drupal
+created: 1259046857
+author: magmax
+category: recipe
+---
+<blockquote>
+<strong>Atención:</strong> Este artículo se ha copiado de <a href="http://www.magmax.org/2010/05/11/creacion-modulo-drupal.html">la web de MagMax</a>(que es su autor). Es posible que sufra cambios. Podéis encontrar la última versión de este artículo en <a href="http://www.magmax.org/2010/05/11/creacion-modulo-drupal.html">su ubicación original</a>. Muchas gracias.
+</blockquote>
+
+<!--break-->
+
+
+
+Hoy vamos a ver cómo crear un módulo drupal sencillito. Como ejemplo vamos a escribir nuestro propio módulo, algo que sea útil: un "feedback".
+
+
+<!--break-->
+
+
+En este tutorial nos vamos a centrar en drupal 6. Para usar otro drupal, basta mirarse la API de cada función.
+
+Tras probar varios, para la edición recomiendo kate.
+
+<h1>Directorios y ficheros</h1>
+
+Los módulos deben colgar a partir de la ruta <tt>/etc/drupal/6/sites/default/modules</tt>. Allí crearemos un directorio con el nombre de nuestro módulo. En este caso, "feedback": <tt>/etc/drupal/6/sites/default/modules/feedback</tt>.
+
+Será en este directorio donde vayan nuestros ficheros. Para el ejemplo, tan sólo vamos a crear 3 ficheros: <tt>feedback.info</tt>, <tt>feedback.module</tt> y <tt>feedback.install</tt>. El primero de los ficheros sirve para decirle a drupal de qué va nuestro módulo; el segundo contendrá toda la lógica; y el tercero servirá para crear la base de datos.
+
+<h1>Diciéndole a Drupal que estamos aquí</h1>
+
+Crearemos el archivo <tt>feedback.info</tt>. Su contenido es el siguiente:
+
+<div>
+{% highlight ini %}
+; $Id$
+name = "Feedback"
+description = "Proporciona un formulario para solicitar mejoras."
+core = 6.x
+{% endhighlight %}
+</div>
+
+Habitualmente, la gente de drupal suele comenzar por un comentario con el ID del repositorio. De esta manera, es fácil identificar la versión del módulo.
+
+A continuación viene el nombre, tal cual se mostrará en la ventana de administracción. Conviene usar algo corto.
+
+La descripción puede ser algo más larga. Aparecerá también en la ventana de administracción, y nos dará una idea sobre para qué sirve el módulo. Podemos usar hasta varias líneas
+
+El "core" hace referencia a la versión de drupal para la que se construye el módulo. Como vamos a hacer algo para drupal 6, el valor será "6.x".
+
+A parte de estas 3 palabras clave que son obligatorias ("name", "description" y "core"), hay varias opcionales, como "package", "dependences", ... que están más allá del objetivo de este tutorial. Vean la documentación para más información.
+
+Tened cuidado con las tildes y las eñes, ya que pueden causar problemas. Si guardáis en UTF-8, os ahorraréis quebraderos de cabeza. Además, si encerráis las cosas entre comillas dobles (como he hecho), podréis usar varias líneas ;)
+
+<h1>Creación de la base de datos</h1>
+
+Suele ser buena política comenzar los nombres de las tablas con el nombre del módulo; así nos aseguramos que no se van a chocar con otros módulos. Así, vamos a crear la tabla "feedback_messages", para lo que crearemos el fichero feedback.install:
+
+
+<div>
+{% highlight php %}
+<?php
+function feedback_schema ()
+{
+  $schema['feedback_messages'] = array
+  (
+    'description' => t('Tabla para mensajes de retroalimentacion'),
+    'fields' => array 
+    (
+      'id' => array 
+      (
+        'description' => t('Identificador de mensaje'),
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array 
+      (
+        'description' => t('Identificador del usuario que realiza el feedback'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ),
+      'message' => array
+      (
+        'description' => t('Mensaje de feedback'),
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'indate' => array
+      (
+        'description' => t('Fecha en la que se crea el comentario'),
+        'type' => 'datetime',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}
+
+
+function feedback_install() {
+  // Create my tables.
+  drupal_install_schema('feedback');
+}
+
+function feedback_uninstall() {
+  // Drop my tables.
+  drupal_uninstall_schema('feedback');
+}
+?>
+{% endhighlight %}
+</div>
+
+<b>Nota importante:</b> En los ejemplos, voy a cerrar los el tag que indica que hemos entrado en modo PHP. Sin embargo, en nuestros módulos es muy importante que los dejemos abiertos. Es decir: usaremos "&lt;?php", pero no "?&gt;".
+
+Aquí hemos creado una cosa que se llama "hook" y que veremos más adelante. En concreto, hemos usado el hook_schema, hook_install y hook_uninstall.
+
+Existen algunas limitaciones. Para comenzar, Drupal utiliza un tipo de tabla de MySQL que no soporta Foreign Keys, por lo que no tenemos que preocuparnos por eso: nada más que las tablas y los campos.
+
+Quizá os llame la atención la función "t". Sirve para indicarle a Drupal que es un texto traducible, y, si encuentra la traducción, lo mostrará traducido. Conviene poner las claves en inglés, que es el idioma por defecto para Drupal, pero esa norma me la he saltado a la torera.
+
+Por lo demás, no creo necesario comentar el archivo: como cada apartado tiene su comentario, creo que se explica sólo.
+
+<h1>Creación de la lógica</h1>
+
+Ahora vamos con lo más difícil: La lógica del módulo.
+
+Una norma básica: Todas las funciones de nuestro módulo deben comenzar por el nombre de nuestro módulo. Si queremos crear una función estática (invisible desde fuera), antecederemos una barra baja ('_').
+
+En la documentación veremos muchas referencias a "hook". No es el Capitán Garfio... Son funciones que Drupal espera encontrar en nuestro código (aunque no todas son obligatorias), es decir: puntos de entrada a nuestro módulo.
+
+Veamos un ejemplo de hook: hook_help. Así, de paso, proporcionamos un poco de ayuda a nuestro módulo.
+
+
+<div>
+{% highlight php %}
+<?php
+/**
+* Implements hook_help().
+*/
+function feedback_help ( $path, $arg )
+{
+  $output=''; // para construir la salida
+  switch ( path )
+  {
+    case 'admin/help#feedback':
+      $output .= '<p>' . t('Módulo que permite la inserción de mensajes de feedback.') . '</p>';
+      break;
+  }
+  return $output;
+}
+?>
+{% endhighlight %}
+</div>
+
+<b>Nota:</b> Vuelvo a recordar que los ficheros del módulo contendrán el &lt;?php, pero no el ?&gt;.
+
+Con esa función en nuestro <tt>feedback.module</tt> tenemos asegurado que cuando alguien acceda a <tt>admin/help#feedback</tt> podrá ver la ayuda.
+
+Para más información, la página de <a href="http://api.drupal.org/api/function/hook_help">hook_help</a>.
+
+<h2>Permisos</h2>
+
+Veamos ahora quién puede usar nuestro módulo.
+
+Por un lado, queremos que cualquier usuario pueda rellenar un formulario, que será lo que después veremos desde un usuario administrador. Así que tenemos dos tipos de permiso: "send message" y "view message". El primero será útil por si sólo queremos el feedback de usuarios autenticados. Pensad que luego tendremos que asignar estos permisos a algunos roles. El nombre de los permisos puede coincidir con otros, pero no creo que pase nada, porque van identificados contra nuestro módulo (es posible que exista alguno especial para ver si se tienen privilegios de administrador, etc.).
+
+Para crear los permisos, tenemos otro hook, el <b>hook_perm</b>:
+
+
+<div>
+{% highlight php %}
+<?php
+/**
+* Implements hook_perm().
+*/
+function feedback_perm ()
+{
+  return array ('send message', 'view messages');
+}
+?>
+{% endhighlight %}
+</div>
+
+<b>Nota:</b> Aún a riesgo de ser pesao, os recuerdo que nuestro código tendrá un &lt;?php al principio, pero no un ?&gt; al final.
+
+<b>Nota 2:</b> En algún sitio leí que los comentarios para los hooks se recomiendan que sean como éstos que estoy poniendo.
+
+Como véis, no tiene mayor complicación. Copiar y pegar en nuestro <tt>feedback.module</tt>
+
+Más información en <a href="http://api.drupal.org/api/function/hook_perm">hook_perm</a> y también <a href="http://drupal.org/getting-started/6/admin/user/permissions">aquí</a>.
+
+<h2>Bloques</h2>
+
+Nuestro módulo aún no hace nada. Ahora vamos a declarar dos bloques: Uno para que el Administrador del sitio pueda colocar donde quiera un enlace al formulario (que luego crearemos) y otro para que el Administrador pueda decidir quién y dónde pude verse si hay algún mensaje o no.
+
+La función hook_block (seguro que ya os lo esperábais) tiene tres parámetros:
+<ul>
+<li>$op, que puede valer "list", "view", "save" o "configure", dependiendo de la operación solicitada. En nuestro caso, como vamos a lo fácil, sólo contemplaremos "list" y "view".</li>
+<li>$delta, que sirve para identificar el identificador de bloque.</li>
+<li>$edit, usado para la operación "save", por lo que nos olvidamos de él.</li>
+</ul>
+
+
+<div>
+{% highlight php %}
+<?php
+/** 
+* Implementation of hook_block().
+*/
+function feedback_block ( $op = 'list', $delta = 0, $edit = array() )
+{
+  if ( $op == "list")
+  {
+      $blocks = array(); 
+      $blocks[0]["info"] = t('Feedback');
+      $blocks[1]["info"] = t('New Feedbacks');
+      return $blocks;
+  }
+  else if ( $op == "view" )
+  {
+      $content = '';
+      $block = array();
+      switch ( $delta )
+      {
+        case 0:
+          $block['subject'] = t('Feedback');
+
+          $options = array( "attributes" => array("title" => t("Sends a feedback message") ) );
+          $link = l( t("New Feedback"), "feedback/message", $options );
+          $content .= '<div class="link">' . $link . "</div>";
+          break;
+        case 1:
+          $block['subject'] = t('Feedback Messages');
+
+          $options = array( "attributes" => array("title" => t("Shows feedback messages") ) );
+          $title = t("There are @total new feeds", array ( '@total' => _feedback_count() ) );
+          $link = l( $title , "feedback/adminmessages", $options );
+          $content .= '<div class="link">' . $link . "</div>";
+          break;
+      }
+      $block['content'] = $content;
+      return $block;
+  }
+}
+?>
+{% endhighlight %}
+</div>
+
+<b>NOTA:</b> ¿Adivináis? Un "&lt;?php", ningún "?&gt;".
+
+Vamos a ver esto, que tiene mucha tela.
+
+La parte de "list" no tiene mucha complicación: es un array que devuelve en la posición 0 el bloque para usuarios y en la posición 1, el de administradores. Se le pasan los títulos y en paz.
+
+La parte de "view" depende de si estamos en el bloque 0 (usuarios) o en el bloque 1 (administradores). Ambos van a crear un enlace ($link) a unas páginas que trataremos más adelante. Además, le añaden un título molón mediante $options. Para que queden chulos se utiliza la clase "link". Y... Bueno, en el caso de los administradores nos interesa saber cuántos feedbacks nuevos hay, por lo que llamamos a la función _feedback_count(), que debe darnos el número de feeds nuevos.
+
+Como es facilita, vamos con la función _feedback_count():
+
+
+<div>
+{% highlight php %}
+<?php
+/** Devuelve el número de feeds creados en la última semana
+*/
+function _feedback_count ()
+{
+  $query = "SELECT count(id) as total from {feedback_messages} where datediff( now(), indate ) < 7";
+  $queryResult =  db_query ( $query );
+  $result = db_fetch_object ( $queryResult ) ;
+  return $result->total;
+}
+?>
+{% endhighlight %}
+</div>
+
+<b>NOTA:</b> Una vez más: Un "&lt;?php", ningún "?&gt;".
+
+Bueno, ya tenemos un ejemplo (pequeñito) de consulta SQL :D
+
+Aquí nos dejamos pendiente el manejar las direcciones de los enlaces. Esto se verá en los siguientes apartados.
+
+Pero... Antes que nada, ¡ vamos a probar lo poco que tenemos !
+
+<h3>Probando que no os engaño</h3>
+
+Si todo está en su sitio, deberíamos poder ver los módulos. Vamos a Drupal, Administer->Site Building->Modules, buscamos nuestro modulito, que estará en la sección "others" (sección por defecto, ya que no hemos establecido un "package" en el .info) y lo activamos.
+
+Guardamos la configuración.
+
+¡¡ Y ya está funcionando !!
+
+...
+
+¿Que no veis nada? ¡Pues claro que no! Vamos con los bloques: Administer->Site Building->Blocks, buscamos "New Feedbacks" y "Feedback" y los colocamos en algún sitio, por ejemplo en la "Right sidebar", y guardamos.
+
+Tachaaaaaaan!!!
+
+Si no hemos hecho algo mal (vosotros o yo), deberíais ver vuestros dos fabulosos bloques.
+
+<h2>Manejando direcciones</h2>
+
+En el apartado anterior nos dejamos pendiente el manejo de direcciones. Para esto hay otro hook, el hook_menu:
+
+
+
+<div>
+{% highlight php %}
+<?php
+/**
+* Implementation of hook_menu().
+*/
+function feedback_menu ( ) 
+{
+  $items = array();
+
+  $items['feedback/message'] = array
+  (
+    'title' => t('Feedback'),
+    'page callback' => 'feedback_message',
+    'access arguments' => array('send message'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['feedback/adminmessages'] = array
+  (
+    'title' => t('Feedback Admin'),
+    'page callback' => 'feedback_admin',
+    'access arguments' => array('view messages'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+?>
+{% endhighlight %}
+</div>
+
+<b>Nota:</b> Todos a una: "un &lt;?php, pero ningún ?&gt;".
+
+Con esto le estamos contando a Drupal qué función es la que nos va a generar la página a mostrar en ese link.
+
+Así que volvemos a dejar cosas en el tintero: ahora tenemos que crear las funciones feedback_message y feedback_admin.
+
+Si os dais cuenta, hemos rellenado "access arguments". Estos son los permisos necesarios para poder acceder a ese link. Si el usuario que trata de acceder no tiene esos permisos, se le mostrará la página de que no tiene acceso (ojo, que el administrador tiene todos los permisos).
+
+<h2>Creación de un formulario</h2>
+
+Vamos con el formulario de inserción de un feed. Comenzamos por la función que nos dejamos pendiente:
+
+
+<div>
+{% highlight php %}
+<?php
+function feedback_message ()
+{
+  $content = '';
+  
+  $content .= drupal_get_form ( 'feedback_message_form' );
+
+  return $content;
+}
+?>
+{% endhighlight %}
+</div>
+
+Y con eso, delegamos en la función feedback_message, que es un formulario. Al ser un formulario, tiene "cosas especiales". Por ejemplo, tiene hooks. Así podemos tener el hook_validate y el hook_submit, que se ejecutarán para validar y enviar el formulario, respectivamente. Venga, no hay dolor; vamos con las 3 a la vez:
+
+
+
+<div>
+{% highlight php %}
+<?php
+function feedback_message_form ()
+{
+  $form = array
+  (
+    'feedback' => array 
+    ( 
+      '#type' => 'fieldset', 
+      '#title' => t( 'Feedback' ), 
+      'message' => array ( '#type' => 'textarea', "#description"=>"Write here your message" ),
+      'submit' => array ( '#type' => 'submit',  '#value' => t('Submit'),  ),
+    ),
+  );
+  return $form;
+}
+
+function feedback_message_form_validate ( $form, &$form_state )
+{
+  $message = $form_state['values']['message'];
+  if ( $message == '' )
+    form_set_error( $form, t('Message cannot be empty.'));
+}
+
+function feedback_message_form_submit ( $form, &$form_state )
+{
+  global $user;
+  $userid = NULL;
+  if ( $user )
+    $userid = $user->uid;
+  $message = $form_state['values']['message'];
+
+  $query = "INSERT into {feedback_messages} ( uid, message, indate ) values ( %d, '%s', now() ) ";
+  $queryResult = db_query ( $query, $userid, $message );
+
+  if ( db_affected_rows() )
+    drupal_set_message ( t ( "Thank you for your feedback." ) );
+  else
+    form_set_error ( $form, t( "An error has happened. Your feedback has not been sent." ) );
+}
+?>
+{% endhighlight %}
+</div>
+
+<b>Nota:</b> ... &lt;?php ... ?&gt; ...
+
+No hay mucho que comentar aquí... Que la función del formulario devuelve un array, que hook_submit y hook_validate se tienen que llamar igual que la función del formulario pero con las coletillas _submit y _validate, que si "validate" lanza el form_set_error entonces no se lanza el submit y... poco más.
+
+Como el submit no ha redireccionado a otra página, aparecerá de nuevo la antigua.
+
+<h2>Tablas</h2>
+
+Vamos a hacer algo muy cutre: una tabla enorme con todos los feeds. Por no ser tan sumamente cutres, haremos que sea ordenable si pinchamos en las cabeceras :D
+
+
+
+<div>
+{% highlight php %}
+<?php
+function feedback_admin ()
+{
+  $content = '';
+
+  $header = array
+  (
+    array('data' => t('Date'), 'field' => 'indate', 'sort' => 'desc'),
+    array('data' => t('User'), 'field' => 'name'),
+    array('data' => t('Message'), 'field' => 'message'),
+  );
+
+  $query = "SELECT u.name, fm.indate, fm.message FROM {feedback_messages} fm, {users} u WHERE fm.uid=u.uid";
+  $queryResult =  db_query ( $query );
+
+  $rows = array ();
+  while ( $message = db_fetch_object ( $queryResult ) ) 
+  {
+    $row = array ();
+    $row['name'] = $message->name;
+    $row['indate'] = $message->indate;
+    $row['message'] = $message->message;
+    $rows[] = $row;
+  }
+
+  $content .= theme_table($header, $rows);
+  return $content;
+}
+?>
+{% endhighlight %}
+</div>
+
+<b>Nota:</b> ... &lt;?php ... ?&gt; ...
+
+$header tiene las cabeceras y son el nexo con los campos. El while transforma los resultados en un vector de arrays y, al llamar a theme_table, Drupal sabe cómo tiene que renderizar eso, así que nos lo pinta todo mono.
+
+Si alguien llega alguna vez a leer hasta aquí y lo pide, continuaré el tutorial, diciendo cómo mejorar esta función. Hay distintas cosas que podemos hacerle: paginar los resultados, poner sólo un trozo del mensaje ( mensaje completo en otra página/en la misma pero arriba del todo), formulario de búsquedas, etc.
+
+<h1>Enlaces</h1>
+
+<a href="http://drupal.org/node/206753">Creación de módulos para drupal</a>
+<a href="http://drupal.org/node/231036">Escribir ficheros .info</a>
+<a href="http://drupal.org/node/159605">Tipos de datos para el .install</a>
+
+<h1>Licencia</h1>
+Este documento se puede distribuir bajo licencia <a href="http://www.gnu.org/copyleft/fdl.html">FDL</a> y el código bajo licencia <a href="http://www.gnu.org/licenses/gpl.html">GPL v3 o posterior, a su elección</a>.
+
+<h1>Y fin</h1>
+Espero que lo encontréis útil. Para problemas, errores, unas pizzas: <a href="http://magmax.org">http://magmax.org</a>

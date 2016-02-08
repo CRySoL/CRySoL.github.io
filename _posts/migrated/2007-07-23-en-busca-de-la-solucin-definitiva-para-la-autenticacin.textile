@@ -1,0 +1,241 @@
+---
+migrated: node/743
+layout: post
+title: En busca de la solución definitiva para la autenticación
+created: 1185206489
+author: paco
+category: recipe
+---
+bq(head). Los usuarios de cualquier variante de GNU o de Unix buscan desde siempre el Santo Grial de la administración de sistemas: autenticación flexible y centralizada, backup flexible y sencillo, homes compartidos facilitos.  En esta receta nos ocupamos del primer ingrediente, la autenticación.
+
+
+<!--break-->
+
+
+h2. Ingredientes
+
+Todos son paquetes Debian:
+
+* libnss-ldap
+* libnss-db
+* nss-updatedb
+* libpam-modules
+* libpam-krb5
+* libpam-ldap
+* libpam-ccreds
+
+h2. Rizando el rizo de la autenticación
+
+Para el administrador existe una premisa básica: no nos gusta tener usuarios, son la fuente de todos nuestros problemas.  Pero asumiendo que un sistema sin usuarios es inviable en la mayor parte de los casos intentaremos al menos que nos den los mínimos quebraderos de cabeza.
+
+La gestión de las passwords es unos de esos problemas recurrentes.  Cuando se abre una cuenta en una organización con más de un ordenador es un latazo ir entrando ordenador por ordenador para crear repetidamente el mismo usuario.  Y no es menos latazo tratar de sincronizar las passwords entre todos ellos.  Es por esto por lo que surgen los sistemas de autenticación y autorización centralizados.  Por ejemplo, cada vez es más utilizado LDAP y en otros ambientes más hostiles también es famosillo el Active Directory de M$.
+
+Vamos a asumir un entorno realista.  Osea, tremendamente complejo, como la vida misma. Y buscaremos la solución más flexible que podamos. Por ejemplo, supongamos que nuestra empresa tiene un servidor Active Directory al que no tenemos acceso de administración. No se a vosotros pero a mi me gustaría tener la misma password del curro en mi casa.  Pero claro, no queremos que todos los empleados de nuestra empresa puedan acceder a nuestro ordenador de casa.  Y probablemente también nos gustaría gestionar nuestro propio servidor LDAP para poder decidir de forma centralizada quién tiene acceso a todos nuestros ordenadores. Por supuesto también hay que tener en cuenta que las redes pueden fallar.  No parece muy conveniente que necesitemos conexión permanente con el servidor LDAP, ni con el servidor Active Directory.
+
+h2. Estrategia global
+
+Os propongo esta estrategia: 
+
+* En primer lugar los datos de las cuentas de usuario se gestionarán de forma centralizada en un servidor LDAP (la configuración del servidor LDAP queda fuera de esta receta, ya hay muchas sobre ese tema).  Es decir, el servidor LDAP sustituirá siempre que se pueda a los famosos ficheros /etc/passwd, /etc/group y /etc/shadow.
+* Sin embargo la password en principio será tomada directamente del servidor Active Directory de nuestra empresa, siempre que sea un usuario de la empresa, claro.  Si no es usuario de la empresa utilizaremos la password almacenada en el servidor LDAP.
+* En todo momento mantendremos algunos usuarios locales (root y los que usa Debian) almacenando sus datos en los /etc/passwd, /etc/shadow y /etc/group normales.
+* Mantendremos un cache de los datos remotos en el ordenador local, incluidas las passwords, para que pueda funcionar todo cuando no tengamos red.  El cache se mantiene de forma automática así que no hay nada más que hacer.  Los homes de los usuarios se crearán automáticamente la primera vez que entren.
+
+h2. Configuración de NSS (Name Service Switch)
+
+Los datos de los usuarios se obtienen mediante una función de la libc (getent) que se puede ejercitar directamente con el comando del mismo nombre.  Esta rutina se puede configurar de forma modular, para que busque los datos en nuestros célebres /etc/passwd, /etc/group, /etc/shadow, etc. o para que lo busque en otros lugares (bases de datos locales, servidores LDAP, servidores NIS, etc.).
+
+Primero instalamos los paquetes necesarios:
+
+
+<div class="console">
+{% highlight console %}
+# aptitude install libnss-ldap libnss-db nss-updatedb
+
+{% endhighlight %}
+</div>
+
+Al instalarse libnss-ldap se pueden configurar los parámetros básicos, pero no todas las pijaditas.  Por eso es mejor editar la configuración a mano después.  Empezaremos por el archivo de configuración de NSS (/etc/nsswitch.conf).  En él habrá que cambiar la forma en la que se obtienen las tablas de passwd, group y shadow:
+
+<pre>
+passwd:  files db [NOTFOUND=continue] ldap
+group:     files db [NOTFOUND=continue] ldap
+shadow:  files ldap
+</pre>
+
+Esto le indica a NSS que primero debe mirar en los típicos archivos (/etc/passwd, /etc/group y /etc/shadow), después en el caché local y, si aún así no lo encuentra, debe buscar en el servidor LDAP. 
+
+Para que funcione la búsqueda en el servidor LDAP habrá que configurar el archivo /etc/libnss-ldap.conf con algo así:
+
+<pre>
+uri ldaps://mi.servidor.ldap
+base dc=mi,dc=organizacion
+tls_cacert /etc/ldap/cacert.pem
+bind_policy hard
+ssl on
+use_sasl off
+rootuse_sasl off
+idle_timelimit 3600
+pam_min_uid 1000
+sasl_secprops maxssf=0
+nss_reconnect_tries 1
+nss_reconnect_sleeptime 1
+nss_reconnect_maxsleeptime 8
+nss_reconnect_maxconntries 2
+nss_paged_results yes
+nss_base_passwd ou=People,dc=mi,dc=organizacion?one
+nss_base_shadow ou=People,dc=mi,dc=organizacion?one
+nss_base_group ou=Group,dc=mi,dc=organizacion?one
+</pre>
+
+Donde mi.servidor.ldap es el nombre DNS de tu servidor ldap y dc=mi,dc=organizacion es la base de búsqueda de tu servidor LDAP.  Si has seguido cualquiera de las muchas recetas que hay por ahí para configurar un servidor LDAP sabrás de lo que hablo.
+
+Asegúrate de que el archivo /etc/ldap/cacert.pem contiene el certificado de la entidad certificadora que usaste para generar el certificado de tu servidor LDAP.  La mayoría de las recetas proponen usar una entidad certificadora ficticia, así que este certificado lo habrás creado en el proceso de configuración del servidor LDAP.
+
+Ahora falta rellenar el caché local con los datos del servidor LDAP.  Para eso usaremos:
+
+
+<div class="console">
+{% highlight console %}
+
+# nss_updatedb ldap passwd
+# nss_updatedb ldap group
+{% endhighlight %}
+</div>
+
+Esto lo podemos poner en un script dentro de /etc/cron.daily/ para que se actualice automáticamente cada día con cualquier posible nuevo usuario.
+
+De momento no hemos hecho nada de autenticación, solo de información de usuarios.  Y lo podemos probar:
+
+
+<div class="console">
+{% highlight console %}
+
+# getent passwd
+# getent group
+# getent shadow
+{% endhighlight %}
+</div>
+
+Nota que obtienes una salida muy parecida a lo que hay en /etc/passwd, /etc/group y /etc/shadow salvo que no hay ninguna información de passwords.
+
+h2. Configurando PAM (Puggable Authentication Modules)
+
+Una vez que NSS funciona correctamente (¡compruébalo con getent!) podemos pasar a configurar la autenticación con PAM.
+
+Primero instalamos los paquetitos relacionados:
+
+
+<div class="console">
+{% highlight console %}
+# aptitude install libpam-modules libpam-krb5 libpam-ldap libpam-ccreds
+
+{% endhighlight %}
+</div>
+
+Al instalar libpam-krb5 se configurará el servidor Kerberos5, que por si no lo habías adivinado, es el servidor Active Directory.  El default realm es el dominio de la empresa (por ejemplo, en la UCLM es UCLM.ES), el KDC (Kerberos Domain Controller) es el propio servidor Active Directory y el admin server es también el mismo.
+
+Si quieres comprobar que funciona correctamente instala también el paquete krb5-user y prueba a autenticarte:
+
+
+<div class="console">
+{% highlight console %}
+
+$ kinit -A usuario
+$ kdestroy
+{% endhighlight %}
+</div>
+
+Al instalar libpam-ldap volverá a preguntar las mismas cosas que con libnss-ldap.  Nuevamente es mejor configurarlo a mano despues.  Se configura en el archivo /etc/pam_ldap.conf.  Por ejemplo:
+
+<pre>
+uri ldaps://mi.servidor.ldap
+base dc=mi,dc=organizacion
+tls_cacert /etc/ldap/cacert.pem
+bind_policy soft
+timelimit 20
+bind_timelimit 20
+</pre>
+
+Ahora vamos a configurar PAM.  En primer lugar editamos el archivo /etc/pam.d/common-auth, que contiene los requisitos necesarios de autentificación, el más complejo:
+
+<pre>
+auth [success=done default=ignore] pam_unix.so nullok_secure try_first_pass
+auth [authinfo_unavail=ignore success=2 default=ignore] pam_krb5.so use_first_pass minimum_uid=5000
+auth [authinfo_unavail=ignore success=1 default=2] pam_ldap.so use_first_pass
+auth [default=done] pam_ccreds.so action=validate use_first_pass
+auth [default=done] pam_ccreds.so action=store
+auth [default=bad] pam_ccreds.so action=update
+auth required pam_permit.so
+</pre>
+
+Primero intenta autenticar con el archivo /etc/shadow normalito.  Después, si no lo consigue intenta el Active Directory.  Después si no lo consigue intenta el servidor LDAP. Por último intenta el caché de credenciales.  Cuando tiene éxito cualquier autenticación remota (Active Directory o LDAP) guarda los datos en el caché de credenciales para que en caso de desconexión de la red pueda seguir usando el equipo.
+
+A continuación editamos /etc/pam.d/common-account para determinar cuándo es una cuenta válida:
+
+<pre>
+account sufficient pam_unix.so nullok_secure
+account sufficient pam_ldap.so
+account sufficient pam_krb5.so minimum_uid=1000
+account required pam_permit.so
+</pre>
+
+De esta forma aún cuando el servidor LDAP y el Active Directory no estén accesibles al menos dirá que la cuenta es válida.
+
+Cada vez que se cree una nueva sesión podemos verificar si el usuario ya tiene un directorio personal (home) y si no es así crearlo automáticamente.  Por ejemplo este podría ser el contenido de /etc/common-session:
+
+<pre>
+session optional pam_krb5.so minimum_uid=5000
+session required pam_unix.so
+session required pam_mkhomedir.so skel=/etc/skel/ umask=0022
+</pre>
+
+Se utiliza pam_krb5 para gestionar la validez de los tickets kerberos de Active Directory.  En cuanto se sale de la sesión automáticamente se destruye el ticket.  Además se utiliza pam_mkhomedir para que se creen los directorios de usuario automáticamente.
+
+En cuanto a los cambios de passwords todo depende de la política que quieras seguir.  Por ejemplo:
+
+<pre>
+password sufficient pam_krb5.so minimum_uid=5000
+password sufficient pam_ldap.so minimum_uid=1000
+password required pam_unix.so nullok obscure md5
+</pre>
+
+h2. El caso de gnome-screensaver
+
+El gnome-screensaver es un caso bastante puñetero.  El problema es que se ejecuta como usuario normal, mientras que las credenciales cacheadas por libpam-ccreds se pueden leer/escribir solo por root.  Por tanto no podemos usar las credenciales cacheadas.
+
+Una posible solución, asumiendo que hay seguridad física (que nadie no autorizado puede desenchufar de la red nuestro equipo) es cambiar el /etc/pam.d/gnome-screensaver por:
+
+<pre>
+auth [success=done default=ignore] pam_unix.so nullok_secure try_first_pass
+auth [authinfo_unavail=ignore success=done default=ignore] pam_krb5.so use_first_pass minimum_uid=5000
+auth [authinfo_unavail=ignore success=done default=bad] pam_ldap.so use_first_pass
+auth required pam_permit.so
+</pre>
+
+Pero cuidado con esto, porque en caso de desconexión de la red cualquier password bastará para desbloquear el escritorio.  A mi me parece aceptable, porque mi compañero de despacho es de fiar, pero vosotros vereis...
+
+Otra posibilidad es requerir que para desbloquear el escritorio haya conexión de red.  Por ejemplo, con este /etc/pam.d/gnome-screensaver:
+
+<pre>
+auth [success=done default=ignore] pam_unix.so nullok_secure try_first_pass
+auth [authinfo_unavail=ignore success=done default=ignore] pam_krb5.so use_first_pass minimum_uid=5000
+auth required pam_ldap.so use_first_pass
+</pre>
+
+h2. Resumen
+
+¿Qué hemos conseguido? 
+
+* Los usuarios de nuestros equipos pueden ser gestionados de forma centralizada en un servidor LDAP.
+* Las passwords que no tengamos que guardar nosotros no las guardamos, las delegamos en el Active Directory de nuestra empresa.
+* Diariamente se sincroniza el servidor LDAP con la base de datos local de cada equipo con datos de identificación.
+* La primera vez que entran en un equipo crean su directorio personal y cachean sus datos de autenticación.
+* En caso de desconexión de la red todo funciona con los datos cacheados.
+
+h2. Referencias
+
+* "Experimentando con Active Directory y OpenLDAP | CRySoL":http://crysol.org/node/370
+* <a href="https://help.ubuntu.com/community/PamCcredsHowto">Instructions to install & configure libpam-ccreds on Ubuntu 5.10</a>.
+* <a href="https://help.ubuntu.com/community/LDAPClientAuthentication">LDAP Client Authentication on Ubuntu</a>.
+* <a href="https://help.ubuntu.com/community/ActiveDirectoryHowto">Active Directory Authentication on Ubuntu</a>.

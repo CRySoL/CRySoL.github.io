@@ -1,0 +1,130 @@
+---
+migrated: node/539
+layout: post
+title: PyGTK y Glade, GUIs instantáneas
+created: 1169904954
+author: oscarah
+category: recipe
+tags:
+- Python
+- gtk
+---
+<blockquote>Breve reseña de como hacer una interfaz gráfica usando PyGTK y glade-3.</blockquote>
+
+<h2>Introducción</h2>
+Diseñar un interfaz gráfica para tu aplicación es muy sencillo. Además, con <a href="http://glade.gnome.org/">glade</a> no tendrás que pelearte mucho con la API que vas a usar, GTK+.
+
+NOTA: Aunque no necesitarás saber ampliamente como funciona GTK, sí que deberías saber <em>un poco</em> sobre GTK. Hay mucha documentación disponible (de hecho, GTK tiene una magnífica documentación).
+
+<h2>Ingredientes</h2>
+Básicamente:
+<ol>
+  <li>Glade</li>
+  <li>PyGTK</li>
+</ol>
+
+Y obviamente, <a href="http://www.python.org">Python</a> y <a href="http://www.gnu.org/software/emacs/emacs.html">Emacs</a>... bueno, realmente te serviría cualquier otro editor, pero ya que estamos, hacemos las cosas bien. :-p
+
+Para instalarlos, como de costumbre (en Debian):
+
+<pre class="console">
+# apt-get install python python-gtk2 emacs21 glade
+</pre>
+
+<h2>Diseñando la interfaz</h2>
+Para empezar, es una buena idea que crees un directorio donde guardar todos los archivos necesarios.
+
+<pre class="console">
+$ mkdir ejemplo
+$ cd ejemplo
+</pre>
+
+Lanza glade para crear la interfaz:
+
+<pre class="console">
+$ glade-3
+</pre>
+
+Se abrirá el gestor de proyectos, la paleta y la ventana de propiedades. Como ejemplo, simplemente puedes hacer una ventana con un botón para cerrarla.
+
+Para crear la ventana principal, pincha sobre el widget <em>Toplevels-&gt;Window</em>. Aparecerá una nueva ventana, que será con la que trabajarás. Puedes colocar un botón que ocupe todo el área, pero no podrías añadir más cosas. Lo que vas a hacer es insertar un widget especial, que no se muestra, que sirve para almacenar otros widgets, HBox. Está en <em>Containers-&gt;Horizontal Box</em>
+
+Cuando lo coloques en la ventana, te saldrá un mensaje preguntándote el número de elementos que quieres meter: 2.
+
+En el lado izquierdo, puedes poner una etiqueta, <em>Control and Display-&gt;Label</em>. Por lo menos, para este ejemplo es muy grande, así que en la ventana de propiedades, en la pestaña <em>Empaquetado</em> desmarca <em>Expandir</em> y <em>LLenar</em>. En <em>General</em> puedes ponerle el valor a la etiqueta: 'Acción'.
+
+En el lado derecho coloca un botón, <em>Control and Display-&gt;Button</em>. Como también es muy grande, de nuevo en <em>Empaquetado</em> desmcarca <em>Expandir</em> y <em>LLenar</em>. En <em>General</em> cambia el valor que se muestra en el botón (donde pone <em>Etiqueta</em>): 'salir'.
+
+Es un buen momento para guardar. Llámalo como quieras, "ejemplo.glade" es una buena opción. Lo que se guarda en "ejemplo.glade" es un esquema de todos los componentes que has usado en la interfaz, junto con sus atributos, señales, etc. en XML. Esto será lo que luego utilices a la hora de generar la interfaz con libglade.
+
+Por último, vas a añadir un par de manejadores de señal para capturar un evento y una señal. Uno para el evento, "delete-event", de la ventana principal. Este evento se lanzará cuando se cierre la aplicación (bien pulsando Alt+F4, bien haciendo click en el botón de cierre, etc.). El otro para la señal "clicked" del botón que has añadido.
+
+Para ello, selecciona la ventana principal (desde el 'widget tree') y en el gestor de Propiedades, en la pestaña Señales, busca la señal "delete-event" (que pertenece a GtkWidget), y añade un manipulador, "on_window1_delete_event". Repite los mismos pasos para el manipulador "on_button1_clicked" de la señal "clicked" del botón que has creado.
+
+Guarda los cambios y cierra el Glade.
+
+<h2>Escribiendo el código</h2>
+Ahora, desde el mismo terminal, edita un fichero nuevo, que puedes llamar ejemplo.py. Ábrelo con nuestro editor favorito: :-p
+
+<pre class="console">
+$ emacs ejemplo.py
+</pre>
+
+Y escribe lo siguiente:
+
+
+<div>
+{% highlight python %}
+# -*- coding: utf-8 -*-
+
+import pygtk
+pygtk.require("2.0")
+import gtk, gtk.glade
+
+class App:
+
+    def __init__(self):
+        self.glade = gtk.glade.XML("ejemplo.glade")
+        self.glade.signal_autoconnect(self)
+        self.glade.get_widget("window1").show_all()
+
+    def on_window1_delete_event(self, widget, event):
+        gtk.main_quit()
+
+    def on_button1_clicked(self, widget):
+        gtk.main_quit()
+
+if __name__ == "__main__":
+    try:
+        a = App()
+        gtk.main()
+    except KeyboardInterrupt:
+        pass
+{% endhighlight %}
+</div>
+
+En el __init__ puedes ver varias cosas. En primer lugar, cómo cargas la interfaz que has hecho antes:
+<pre>gtk.glade.XML("ejemplo.glade")</pre>
+
+Después, cómo le indicas donde debe buscar los <em>callbacks</em> (o manejadores de señal), para las señales que le has activado, en este caso, en la misma clase.
+
+Por último, el método self.glade.get_widget("window1") devuelve una referencia al widget "window1". Se llama a <em>show_all()</em> para que muestre su contenido y listo.
+
+Sobre las firmas de los callbacks, hay mucha información en la documentación de la API de GTK. Simplemente decir que en este caso, necesitas un argumento para el widget que emite la señal, y, si es un evento, otro argumento para especificar el evento. 
+
+De nuevo, guarda los cambios y cierra el emcas (o lo que quiera que estés usando de editor :-p) 
+
+Puedes comprobar que funciona de la manera usual.
+
+<pre class="console">
+$ python ejemplo.py
+</pre>
+
+<h2>Referencias</h2>
+
+La página oficial de Glade: descargas, documentación, etc.
+ - <a href="http://glade.gnome.org/">http://glade.gnome.org/</a>
+La página oficial de PyGTK: descargas, documentación, tutoriales, etc.
+ - <a href="http://www.pygtk.org">http://www.pygtk.org</a>
+Información sobre LibGlade: documentación sobre la API.
+ - <a href="http://developer.gnome.org/doc/API/libglade/libglade.html">http://developer.gnome.org/doc/API/libglade/libglade.html</a>

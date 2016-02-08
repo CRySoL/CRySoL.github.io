@@ -1,0 +1,52 @@
+---
+migrated: node/1009
+layout: post
+title: Hercules Webcam Deluxe bajo GNU/Linux
+created: 1221872257
+author: greenbite
+category: recipe
+tags:
+- drivers
+---
+Para aquellos que no conozcan la Hercules Webcam Deluxe es una webcam de alto rendimiento pero de bajo precio (entre 17€ y 25€).
+
+<!--break-->
+
+
+Algunas de sus caracteristicas son :
+
+    * Micrófono integrado con cancelación de ruido y muy sensible.
+    * Clavija USB (compatible USB 1.1 y 2.0)
+    * 1,3 Megapíxeles (imagen fija), resolución VGA 1280x960 (imagen fija y vídeo)
+    * Hasta 30 imágenes /seg. Ratio de frames muy estable
+    * Rotación lateral de 360°, rotación vertical de 180°
+
+Para los que tengan una de estas Webcam  abrán comprobado como tras conectarla sobre Gnu/Linux no es detectada, la forma de hacerla funcionar es la siguiente:
+
+1. Para instalar los drivers necesitaremos los headers. Desde un terminal:
+sudo apt-get install build-essential linux-headers-`uname -r`
+
+2. Para bajar el driver:
+wget <a href="http://www.zeldor.biz/Ubuntu/ov51x-jpeg-1.5.8.tar.gz">http://www.zeldor.biz/Ubuntu/ov51x-jpeg-1.5.8.tar.gz</a>
+
+3. Extraemos los ficheros
+tar -xvf ov51x-jpeg-1.5.8.tar.gz
+
+4. Entramos en el directorio:
+cd ov51x-jpeg-1.5.8
+
+5. Preparamos la instalación de los ficheros:
+make
+
+6. Compilamos los modulos:
+sudo make install
+
+7. Y por ultimo los instalamos:
+sudo depmod -A
+sudo modprobe ov51x-jpeg
+
+8. Para probar que funciona abrimos Cheese:
+Aplicaciones->Graficos->Cheese
+
+9. Si no lo tenemos instalado:
+sudo apt-get install cheese 

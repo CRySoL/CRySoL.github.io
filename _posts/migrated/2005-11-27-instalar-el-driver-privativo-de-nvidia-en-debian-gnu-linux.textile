@@ -1,0 +1,119 @@
+---
+migrated: node/121
+layout: post
+title: Instalar el driver privativo de nVidia en Debian GNU/Linux
+created: 1133086200
+author: david_villa
+category: recipe
+---
+<blockquote>
+Cómo utilizar <tt>module-assistant</tt> para instalar el driver propietario para las tarjetas gráficas de nvidia en Debian GNU/Linux, Ubuntu y demás distros derivadas.
+</blockquote>
+
+
+Hay varias alternativas para instalar este driver. Esta receta explica la forma más sencilla, que es también la más "Debian compliant". Consulta las referencias si quieres probar las otras alternativas.
+
+<h2>Actualiza tu Linux</h2>
+Instalar el driver de nvidia es una buena oportunidad para aprovechar y actualizar el núcleo. Se supone que vas a utilizar un Linux precompilado y empaquetado por Debian. Por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install linux-image-2.6.22-1-386
+{% endhighlight %}
+</div>
+
+También vas a necesitar las cabeceras, que es un paquete con el mismo nombre, cambiando <b>image</b> por <b>headers</b>.
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install linux-headers-2.6.22-1-386
+{% endhighlight %}
+</div>
+
+Si usas grub, no olvides hacer el <tt>update-grub</tt> correspondiente. Y ahora reinicia para usar el núcleo recién instalado.
+
+<h2>Ahora... lo divertido</h2>
+
+Esto es tan fácil que casi no tiene gracia. Primero instala <tt>module-assistant</tt> y <tt>nvidia-kernel-common</tt>:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install module-assistant nvidia-kernel-common
+{% endhighlight %}
+</div>
+
+Y a continuación ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+# module-assistant auto-install nvidia
+{% endhighlight %}
+</div>
+
+O lo que es lo mismo, pero más cortito y fácil de recordar:
+
+
+<div class="console">
+{% highlight console %}
+# m-a a-i nvidia
+{% endhighlight %}
+</div>
+
+Y ese programilla se encarga de compilar, crear el paquete Debian correspondiente y hasta de instalarlo. No viene mal un:
+
+
+<div class="console">
+{% highlight console %}
+
+# depmod -a
+# modprobe nvidia
+{% endhighlight %}
+</div>
+
+
+Si todo ha ido bien deberías tener tu driver funcionando. 
+
+h2. Y el GLX
+
+También tienes que instalar:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install nvidia-glx
+{% endhighlight %}
+</div>
+
+
+<h2>Cambio en la configuración del servidor X</h2>
+
+Edita tu <tt>/etc/X11/xorg.conf</tt> y busca el apartado <tt>Section "Device"</tt>. Cambia la línea <tt>driver</tt> para que quede algo como:
+
+<pre>
+        Driver  "nvidia"
+</pre>
+
+
+Sólo queda reiniciar tu gestor de acceso. Por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/gdm restart
+{% endhighlight %}
+</div>
+
+<h2>Referencias</h2>
+
+<ul>
+<li>
+<a href="http://home.comcast.net/~andrex/Debian-nVidia/">Andrew's Debian-nVidia HOWTO</a>
+</li>
+<li>
+<a href="http://lafuente.bitacoras.com/archivos/2005/10/22/modulos_de_nvidia_en_debian">Módulos de nvidia en Debian</a>
+</li>
+</ul>

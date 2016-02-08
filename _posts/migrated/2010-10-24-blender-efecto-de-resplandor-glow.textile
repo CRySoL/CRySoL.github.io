@@ -1,0 +1,33 @@
+---
+migrated: node/1417
+layout: post
+title: Blender - Efecto de  Resplandor (Glow)
+created: 1287915915
+author: nacho
+category: recipe
+tags:
+- blender
+---
+<blockquote>En esta receta veremos cómo añadir un efecto de resplandor a un objeto, gracias a los nodos de composición.</blockquote>
+
+<h2>Preparación de la Escena</h2>
+Seleccionamos el objeto que queremos que brille y le aplicamos un material de color blanco, y activamos la opción *Shadeless*. En la pestaña de propiedades del objeto, localizaremos el deslizador *Pass Index* y le asignaremos un número que lo distinga de todos los demás objetos que no brillen. Normalmente los objetos tienen índice 0, así que podemos utilizar el 1, por ejemplo.
+
+En el panel de propiedades de renderizado, desplegamos la pestaña *Layers* y comprobamos que la opción *Object Index* esté activa.
+
+<h2>Composición</h2>
+Supongo que ya tenéis un nodo *Render Layers* y otro *Composite*, además de *Use nodes* activo. (ver <a href="http://crysol.org/es/node/1416">receta dof</a>)
+
+Añadimos un nodo *ID Mask* (add->convertor->id mask) y conectamos a su entrada la salida *Object index* del nodo _Render Layers_ (si no la ves, revisa la sección anterior). Elegimos el valor del índice que le pusimos a nuestro objeto brillante (en nuestro ejemplo, 1).
+
+<center>
+<img src="/assets/files/glow-nodos.png"/>
+</center>
+
+Añadimos un nodo para desenfocar (add->filter->blur), elegimos fast-gaussian e incrementamos el valor del desenfoque en x e y hasta unos 4 ó 5 pixeles.
+
+A continuación, utilizaremos el mezclador de color (add->color->mix) para unir el resultado del _blur_ con la imagen original, y uniremos este resultado con el nodo *Composite*.
+
+Si queréis que el brillo sea de un color, en lugar de blanco, podéis añadir un nodo *Color Ramp* (add->convertor->color ramp) y colocarlo entre el nodo de Blur y el de Color Mix. 
+
+<img src="/assets/files/glow-render.png"/>

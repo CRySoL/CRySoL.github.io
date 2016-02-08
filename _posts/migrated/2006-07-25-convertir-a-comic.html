@@ -1,0 +1,33 @@
+---
+migrated: node/358
+layout: post
+title: Convertir a comic
+created: 1153865295
+author: int-0
+category: script
+---
+Pues nada... otro script tonto pero que puede ser útil... este script es para bash pero no lo invocaremos directamente... sino que será una opción nueva en nautilus... más cómodo imposible! :D
+
+Sabéis lo que es un CBZ o un CBR?, si no lo sabéis os lo digo: Comic Book Zip y Comic Book Rar. En vez de tener los jpeg's de un comic (o una serie de imágenes) por ahí como si fueran hojas sueltas... los comprimimos en un zip (o rar), le ponemos esa extensión y ya tenemos un comic book :D. Si además os instaláis el paquete <b>comix</b> tendréis un estupendo visualizador de comics en el PC.
+
+<blockquote>Nota: una cosa muy chula (a mi me lo parece) que sucede al instalar <em>comix</em> es que se registran esos dos tipos de fichero y el nautilus te crea unos bonitos thumbs con las portadas de los comics al visitar esos directorios... muy mono...</blockquote>
+
+<!--break-->
+
+
+
+Pues bien, si tenemos tropecientas imagenes o comics en sus directorios y queremos pasarlos a cbz podemos crear un script de forma que nos aparezca una nueva opción en el menú contextual del nautilus, la opción "crear comic", que, aplicada a una carpeta con imágenes, comprime todas las imágenes en un cbz y te las elimina (se eliminan sólo si se almacenaron en el zip...). El script debéis nombrarlo "crear comic" y debéis crearlo en <tt>~/.gnome2/nautilus-scripts/</tt> (crear el directorio si no existe) y es el siguiente:
+
+<pre>#!/bin/bash
+cd "$NAUTILUS_SCRIPT_SELECTED_FILE_PATHS"
+cd "$@"
+zip -1 -m "$@.cbz" *
+mv "$@.cbz" ../
+cd ..
+rmdir "$@"</pre>
+
+Para probarlo: como véis necesita el paquete <b>zip</b> (que es non-free :() seleccionad un directorio que contenga imágenes, pulsad el botón derecho, seleccionáis <em>scripts</em> y <em>crear comic</em> y ya! :D
+
+Mejoras: pues no se comprueba nada de lo que hay en el directorio... simplemte se comprime todo (con la opción -m para mover los ficheros) y se intenta borrar el directorio... si tiene subdirectorios pues no se borra y en paz. Aunque funciona bien... es un poco cutre :-P.
+
+Ale, espero que le sirva a alguien... hasta luego!
