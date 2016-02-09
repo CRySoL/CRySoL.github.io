@@ -1,0 +1,32 @@
+---
+migrated: node/661
+layout: post
+title: "¡Ayuda! Audio en gnu/linux"
+created: 1177155780
+author: brue
+category: enquiry
+tags:
+- multimedia
+---
+Hola a todos, a ver si entre las cabezas pensantes de aquí se pude llegar a una solución óptima.
+
+<!--break-->
+
+
+Ya todos conocéis el problema del audio, que si dispositivo ocupado que si ahora usas alsa, que si esd, jackd, gstreamer ...
+
+Teniendo a alsa como parte final, ¿qué podemos hacer para que todo funcione bien y que no tengamos problemas que no pasan en win32 por ejemplo, recursos ocupados, grandes latencias y demás?
+
+Una de mis primeras soluciones fue usar jackd con alsa. Es una buena solución, para los programas que implementan un cliente jackd... pero para los demás, a joderse. Jack, en conjunción con los parches de tiempo real de linux funciona bastante bien, y se pueden conectar múltiples clientes sin tener que cerrar el programa que suena cada vez que queremos poner otro.
+
+Esd y artsd, más de lo mismo, aparte de que la latencia es una "full", no todos los programas soportan esd... así que los juegos y programas que usen alsa de forma nativa, nasti, o pones un nativo, o usas los compatibles con esd, pero no mezcles.
+
+Una buena solución sería que alsa de algún modo se encargase de hacer la mezcla software y que no pillara el control del dispositivo de forma dictatorial, sino que gestionase nuevos clientes alsa. ¿Esto existe? ¿Tienen planes de hacerlo?
+
+Los "software mixers", están bien, pero como no hay uniformidad, tenemos que fastidiarnos.
+
+¿Hay algún modo de integrar alsa/jack/esd ? En win32 es algo obvio que puedan sonar dos cosas a la vez. Gstreamer quizá solucione esto, pero alsa estará siempre ocupado por el primer dispositivo que las use. 
+
+Me resulta fustrante ya este problema... ya que tengo que hacerlo todo a mano.
+
+Venga, sugerencias ...  

@@ -1,0 +1,195 @@
+---
+migrated: node/796
+layout: post
+title: Sockets «raw» con Python
+created: 1193744489
+author: david_villa
+category: recipe
+tags:
+- Arco
+- Python
+- networking
+---
+bq(head). Esta receta es una pequeña introducción a la programación de sockets «raw».
+
+
+<!--break-->
+
+
+h2. Introducción
+
+Los sockets son el API por excelencia para programación de aplicaciones de red en prácticamente todos los sistemas operativos. Los sockets más "famosos" son los de la familia de Internet, concretamente aquellos para programación de servidores y clientes TCP y UDP, aunque hay muchos otros tipos de sockets para muchos otros protocolos, como por ejemplo BlueTooth. 
+
+En el "repo público de arco":https://bitbucket.org/arco_group/python-net/src/tip/upper tengo unos cuantos ejemplos que pueden servir para empezar con sockets AF_INET:SOCK_STREAM(TCP) y AF_INET:SOCK_DGRAM(UDP). Sin embargo, el objetivo de esta receta es otro.
+
+h2. En crudo
+
+Muchas veces se presenta el problema de tener que hacer un programa que debe manejar protocolos de bajo nivel. Con los sockets a los que me refería antes, sólo puedes decidir el contenido de la carga útil de segmentos TCP o UDP pero no puedes leer ni escribir nada de lo que hay debajo: cabeceras IP, ICMP, ARP, Ethernet, etc. Para eso existen los sockets "raw", también llamados "conectores directos". Los ejemplos de la receta están todos en Python pero todo lo que cuento aquí se puede aplicar a sockets C (como poco) salvando las diferencias entre ambos lenguajes, claro.
+
+Hay dos tipos de sockets "raw" básicos que puedes crear: AF_PACKET y AF_INET. El resto de la receta trata básicamente de las características y posibilidades de ambos tipos de sockets.
+
+h2. Interfaces promiscuas (con perdón)
+
+Antes de seguir, es importante señalar que para que funcionen algunos de estos ejemplos es necesario ejecutar el programa con privilegios de superusuario y además se debe configurar la interfaz de red en _modo promiscuo_. Para ello, simplemente ejecuta algo como:
+
+
+<div class="console">
+{% highlight console %}
+# ifconfig eth0  promisc
+{% endhighlight %}
+</div>
+
+
+h2. AF_PACKET
+
+Con este tipo de sockets se puede acceder a toda la pila de protocolos. Es posible leer y escribir cabeceras de cualquier capa incluido el nivel de enlace (típicamente Ethernet). El siguiente ejemplo es un _sniffer_ básico que imprime todas las tramas Ethernet completas recibidas por cualquier interfaz:
+
+
+
+<div>
+{% highlight python %}
+import socket
+
+ETH_P_ALL = 3
+
+s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(ETH_P_ALL))
+
+while 1:
+    print '--\n', repr(s.recv(1600))
+{% endhighlight %}
+</div>
+
+
+Es posible filtrar:
+
+* El *tipo de trama*: usando el último parámetro del constructor de @socket@
+* el interfaz de red:  usando el método @bind()@.
+
+El siguiente programa imprime únicamente mensajes ARP recibidos o enviados por la interfaz "eth0":
+
+
+
+<div>
+{% highlight python %}
+import socket
+
+ETH_P_ARP = 0x0806
+
+s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(ETH_P_ARP))
+s.bind(('eth0', ETH_P_ARP))
+
+while 1:
+    print '--\n', repr(s.recv(1600))
+{% endhighlight %}
+</div>
+
+
+
+h3. Enviando
+
+El mismo socket se puede utilizar para enviar datos. Para sintetizar un paquete, es decir, construir cabeceras de acuerdo a las especificaciones se utiliza normalmente el módulo struct. El siguiente listado envía una cabecera Ethernet. Si pones wireshark y capturas la trama enviada verás que te indica que es un "malformed packet" y con razón, ya que no tiene carga útil y eso lógicamente no tiene sentido. De modo que este programa no sirve para nada, sólo para que veas que se puede construir y enviar lo que quieras (siempre que tenga sentido, claro).
+
+
+
+<div>
+{% highlight python %}
+import socket, struct
+
+ETH_P_ARP = 0x0806
+
+s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(ETH_P_ARP))
+s.bind(('eth0', ETH_P_ARP))
+s.send(struct.pack('!6s6sh', '\xFF'*6, '\x00\x01\x02\x03\x04\x05', ETH_P_ARP))
+{% endhighlight %}
+</div>
+
+
+En el repo hay un "ejemplo de arping en Python con sockets raw":https://bitbucket.org/arco_group/python-net/src/tip/raw/arping.py que te puede servir como ejemplo completo de cómo diseccionar y sintetizar tramas Ethernet y mensajes ARP.
+
+
+h2. AF_INET
+
+La principal diferencia con los sockets del apartado anterior es que estos gestionan las cabeceras de enlace y red. El siguiente programa muestra todos los paquetes IP que contienen un segmento UDP. El paquete capturado incluye las cabeceras IP y UDP:
+
+
+
+<div>
+{% highlight python %}
+import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.getprotobyname("udp"))
+
+while 1:
+    print '--\n', repr(s.recv(1600))
+{% endhighlight %}
+</div>
+
+
+Es posible filtrar por cualquier protocolo que se pueda transportar sobre IP, es decir, valores válidos del campo "protocolo" de la cabecera IP. Para más información consulta el método @getprotobyname()@.
+
+
+h3. Enviando
+
+Para enviar datos sobre este tipo de socket  debes utilizar @sendto()@ indicando la dirección IP destino. El siguiente programa envía un paquete UDP que contiene el texto "hola internet". El programa se encarga de construir la cabecera UDP, pero las cabeceras IP y Ethernet las construye el SO.
+
+
+
+
+<div>
+{% highlight python %}
+import socket, struct
+
+s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.getprotobyname("udp"))
+
+payload = "hola Inet"
+udp_pkt = struct.pack('!4h', 0, 2000, 8+len(payload), 0) + payload 
+s.sendto(udp_pkt, ('161.67.27.1', 0))
+{% endhighlight %}
+</div>
+
+
+
+h3.  IP_HDRINCL
+
+El flag @IP_HDRINCL@ permite indicarle a un socket AF_INET:SOCK_RAW que el usuario también desea construir él mismo la cabecera IP. En la recepción, la cabecera IP siempre se incluye. Cuando se especifica IP_HDRINCL, el socket se encarga de rellenar ciertos campos de la cabecera IP. Estos campos son:
+
+* Checksum
+* IP origen (si el usuario puso ceros)
+* Identificador del paquete (si el usuario puso ceros)
+* Longitud total
+
+Esta opción, como la gran mayoría de las opciones para sockets se fija con:
+
+
+
+<div>
+{% highlight python %}
+s.setsockopt(socket.SOL_IP, socket.IP_HDRINCL, 1)
+{% endhighlight %}
+</div>
+
+
+Esta opción resulta muy útil cuando se desea enviar paquetes IP que transportan distintos protocolos. En ese caso se debe crear un socket de tipo @IPPROTO_RAW@. Es decir:
+
+
+
+<div>
+{% highlight python %}
+s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)
+{% endhighlight %}
+</div>
+
+
+Pero debes tener presente que no se puede leer de este tipo de socket. Sólo se puede utilizar para enviar.
+
+
+h2. Identificación del origen
+
+Puedes obtener información sobre el origen de una trama o paquete utilizando el método @recvfrom()@ en lugar de @recv()@ tanto para AF_PACKET como para AF_INET. Obviamente, el valor devuelto por este método para cada tipo de socket es diferente y tiene significados diferentes.
+
+
+h3. Referencias
+
+* @man packet@
+* @man 7 raw@
+* "HOWTO de programación de sockets con Python":http://wiki.python.org/moin/HowTo/Sockets?highlight=%28socket%29

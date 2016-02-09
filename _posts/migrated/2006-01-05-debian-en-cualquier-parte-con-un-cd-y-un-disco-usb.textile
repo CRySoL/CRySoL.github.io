@@ -1,0 +1,27 @@
+---
+migrated: node/170
+layout: post
+title: Debian en cualquier parte con un CD y un disco USB?
+created: 1136497650
+author: david_villa
+category: tale
+---
+Algunas de las miles de distribuciones _live_ que ruedan por ahí tienen una característica muy interesante; consiste en montar tu _home_ desde un disco USB. De ese modo vayas donde vayas puedes tener un sistema decente. Pero a esto le veo varios problemas.
+
+<!--break-->
+
+
+* No puedes instalar más paquetes sobre la marcha.
+* No puedes mantener la configuración de ciertos dispositivos, como por ejemplo un router ADSL.
+* Como el live-CD está comprimido, tarda lo que no está escrito en arrancar y aún después de arrrancar no es un dechado de velocidad.
+
+Dado que los discos USB empiezan a tener un tamaño considerable a un precio no demasiado escandaloso (4GiB por 85€) hacer una instalación sobre uno de estos "pinchos" parece una buena solución para el tema de la _Debian portatil_. Aún así, esto tiene dos problemas:
+
+* La mayoría de los ordenadores no arrancan de USB, sólo los más nuevos.
+* Se necesitan varias configuraciones, por ejemplo para la red, puede interesar tener los drivers de un router ADSL y también los de algún modem. También puede pasar que el ordenador tenga distinta tarjeta gráfica.
+
+Lo ideal sería tener soporte para los dispositivos más comunes, como ATI y nvidia en el caso de las tarjetas de video.
+
+Para el tema del arranque USB, una solución podría ser hacer un CD mínimo (tipo tarjeta de visita) con el arranque, y luego transferir el control al disco USB una vez montado.
+
+Ya sé que esto parece una carta tardía a los reyes magos, pero ¿alguien lo ha intentado con más o menos exito? ¿Conocea alguna distro o proyecto que vaya en esta línea?

@@ -1,0 +1,210 @@
+---
+migrated: node/4
+layout: post
+title: Cómo escribir una receta
+created: 1128530329
+author: admin
+category: recipe
+---
+Este documento define las normas de estilo que se deben aplicar a las recetas de la web de CRySoL. Se describe la estructura, el formato y típografía a utilizar. Esta receta sigue las normas que en ella se definen y sirve además como introducción a los formatos de entrada necesarios para poder escribir recetas.
+
+
+<!--break-->
+
+
+<h2>¿Qué es una receta?</h2>
+
+Una receta es un documento corto (2 o 3 páginas) cuyo fin es describir un procedimiento o técnica de forma directa y práctica, evitando ornamentos literarios. Es una versión aún más reducida de los llamados mini-howto's ya que ni siquiera se espera que una receta incluya una explicación técnica detallada de cada acción. 
+
+Utiliza <b>segunda persona del singular</b> (tú, usted) para referirte al lector, preferiblemente el IMPERATIVO, como por ejemplo "copia el fichero en tu <em>home</em>". De ese modo resulta más directo y claro. Evita las formas plurales, como "ahora copiamos el fichero en nuestro <em>home</em>", que pueden ser confusas o ambiguas en muchos casos (no hay "homes" colectivos).
+
+Y aunque no tendría ni que pedirse, el único requisito imprescindible e inexcusable es el de respetar escrupulosamente la ortografía y la gramática. Tus lectores y sobre todo los editores te lo agradecerán infinitamente. 
+
+
+<h2> Estructura del documento </h2>
+
+Ya hemos hablado anteriormente en otros artículos de la conveniencia de fijar unas normas mínimas para el formato de las recetas. En esta primera recetas vamos a concretar las más importantes. Las parte básicas de una receta son:
+<ol>
+<li> <b>Título:</b>
+<p>
+El título de la receta debe ser una frase que describa la utilidad de la misma de forma directa y consisa. Recordad que el título se rellena en un campo del formulario diferente del cuerpo, por lo que no tiene ningún tipo de estilo.
+</p>
+</li>
+
+<li>  <b>Resumen: </b>
+<p>
+Es lo primero que debe aparecer en el cuerpo del documento. El resumen es un párrafo que explica con más detalle cuál es la utilidad de la receta. Se trata de que el lector no pierda tiempo leyendola si no es eso lo que está buscando realmente.
+</p>
+</li>
+
+<li> <b>Contenido:</b> 
+<p>
+Dado el objetivo de una receta, resulta muy conveniente dividir el documento en tantos puntos(secciones y subsecciones) como pasos implique la realización del procediemiento que se describe.
+</p>
+
+<p>
+Como el criterio principal de las recetas es siempre el tamaño, en lugar de incluir explicaciones detalladas, se aconseja añadir un apartado de referencias para que el lector pueda profundizar en el tema si lo desea.
+</p>
+
+</li>
+</ol>
+
+<h2> Formato </h2>
+
+Los "formatos de entrada" soportados actualmente para las recetas de CRySoL son:
+
+<ul>
+  <li>HTML</li>
+  <li>Textile</li>
+</ul>
+
+A continuación se describe para cada uno de ellos la forma de escribir cada uno de los elementos que pueden formar una receta.
+
+
+<h2> Resumen </h2>
+
+<pre>
+Texto del resumen
+&lt;!--break-->
+</pre>
+
+
+<h3> Resultado: </h3>
+El primer párrafo de este documento es un buen ejemplo de cómo queda.
+
+
+<h2> Secciones </h2>
+
+<ul>
+  <li> HTML
+    <pre>&lt;h2>Título de la sección&lt;/h2></pre>
+  </li>
+  <li> Textile
+    <pre>h2. Título de la sección</pre>
+  </li>
+</ul>
+
+<h3> Resultado: </h3>
+
+El título "Formato" de esta misma sección.
+
+
+<h2> Inclusión de ficheros y terminales </h2>
+
+Para mostrar fragmentos de un fichero, como puede ser configuración o código fuente, y también para comandos escritos en una consola y el resultado de los mismos ver la receta <a href="/node/931">Listados de código en CRySoL</a>
+
+<h2> Listas sin orden </h2>
+
+<ul>
+  <li>HTML
+    <pre>
+&lt;ul>
+  &lt;li> tal &lt;/li>
+  &lt;li> cual &lt;/li>
+  &lt;li> pascual &lt;/li>
+&lt;/ul>
+</pre>
+  </li>
+  <li> Textile
+<pre>
+* tal
+* cual
+* pascual
+    </pre>
+  </li>
+</ul>
+
+<h3> Resultado: </h3>
+
+<ul>
+  <li> tal </li>
+  <li> cual </li>
+  <li> pascual </li>
+</ul>
+
+<h2> Listas ordenadas </h2>
+
+<ul>
+  <li>HTML
+    <pre>
+&lt;ol>
+  &lt;li> tal &lt;/li>
+  &lt;li> cual &lt;/li>
+  &lt;li> pascual &lt;/li>
+&lt;/ol>
+</pre>
+  </li>
+  <li> Textile
+<pre>
+# tal
+# cual
+# pascual
+</pre>
+  </li>
+</ul>
+
+<h3> Resultado: </h3>
+
+<ol>
+  <li> tal </li>
+  <li> cual </li>
+  <li> pascual </li>
+</ol>
+
+
+<h2> Enlaces </h2>
+
+<ul>
+  <li>HTML
+<pre>
+The &lt;a href="http://gnu.org">GNU&lt;/a> Operating System
+</pre>
+  </li>
+  <li>Textile
+<pre>
+The "GNU":http://gnu.org Operating System
+</pre>
+  </li>
+</ul>
+
+<h3> Resultado: </h3>
+The <a href="http://gnu.org">GNU</a> Operating System
+
+<h2> Otras cuestiones de estilo </h2>
+
+Se debe utilizar:
+
+<ul>
+<li><b>negrita</b> para los términos relevantes: &lt;b>html&lt;/b> y *textile*</li>
+<li><em>cursiva</em> para palabras en un idioma extranjero o conceptos ámplios: &lt;em>html&lt;/em> y _textile_</li>
+<li><code>monoespacio</code> para nombres de ficheros y comandos: &lt;code>html&lt;/code> y @textile@</li>
+</ul>
+
+<h2> Añadir imágenes </h2>
+
+Como lo de las imágenes es una cuestión peliaguda, los usuarios normales no pueden usar el elemento &lt;img> ni subir adjuntos. Cuando hayas demostrado que eres "persona de bien" puedes pedir a un administrador que te dé permisos para ambas cosas.
+
+Suponiendo que ya tienes permiso debes seguir estos pasos.
+
+<ol>
+<li> Escribe un mínimo de la receta, por ejemplo la introducción y envíala sin publicarla. Ahora verás que tu post queda identificado con un número en la URL, algo como: crysol.org/node/*1504*.
+</li><li> Renombra las imágenes que quieras subir a tu receta para que empiecen con ese número, seguido de un guión bajo. Por ejemplo: *1504_pantallazo1.png*.
+</li><li> Ahora edita tu receta y en la sección "Archivos adjuntos" sube añade cada una de tus imágenes. Una vez que las hayas subido, serán accesibles desde el directorio @files@, por ejemplo: crysol.org/files/1504_pantallazo1.png
+</li><li> Y ya sólo te queda enlazarlas en el cuerpo de tu receta. No pongas URL absolutas (a menos que enlaces algo externo) porque este portal tiene varios nombres DNS. Utiliza rutas relativas, es decir:
+
+<pre>
+    &lt;img src="/files/crysol_logo.gif"/>
+</pre>
+</li>
+</ol>
+
+<h2> Cómo enviar una receta </h2>
+
+Todos los usuarios registrados en la web pueden escribir "entradas" en su bitácora(blog), así que:
+
+<ul>
+<li>Para escribir una receta, debes escribir una entrada en su blog siguiendo el formato indicado en esta receta.
+</li><li>Etiqueta dicha entrada de blog como "receta" en la lista "tipo de nodo", que aparece justo encima del cuerpo del documento. Opcionalmente elige uno o varios de la lista de "temas".
+</li><li>Como autor, quedas a cargo del mantenimiento de la receta, lo cual incluye responder los comentarios que se hagan (en la medida de tus posibilidades), arreglar errores e incorporar mejoras.
+</li>
+</ul>

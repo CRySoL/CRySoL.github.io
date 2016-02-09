@@ -1,0 +1,67 @@
+---
+migrated: node/404
+layout: post
+title: Renombrar múltiples ficheros usando mmv
+created: 1161296142
+author: LaEspiral
+category: recipe
+---
+<blockquote>
+Supongamos que tenemos 60 archivos con nombres "ficheroXXX.JPEG" y queremos cambiarles el nombre a todos para que queden "ficheroXXX.jpg" (XXX quiere decir tres dígitos cualquiera; cualquier otro significado de XXX será pura coincidencia :-) Se puede escribir un comando shell que busque todos los archivos y les cambie el nombre uno a uno. Pero más fácil aún es usar el programa mmv que viene en el paquete @mmv@ de Debian.
+</blockquote>
+
+<!--break-->
+
+
+
+El comando para cambiar el nombre de los archivos sería:
+
+
+<div class="console">
+{% highlight console %}
+$ mmv "*.JPEG" "#1.jpg"
+{% endhighlight %}
+</div>
+
+El comando viene seguido por una plantilla para los nombres originales y otra para los nuevos nombres que serán usados. En la plantilla de los nombres originales se pueden usar los meta-caracteres *, ?, [, ] con los mismos significados que tienen en la shell; dentro de [ ] se pueden usar también - y ^. En la segunda plantilla #1 será substituido por el valor de la primera expresión regular en la primera plantilla, en este caso el nombre del fichero sin extensión.
+
+El punto y coma también tiene un significado especial en la plantilla de origen; representa cualquier subdirectorio. Por ejemplo, el comando:
+
+
+<div class="console">
+{% highlight console %}
+$ mmv ";*.htm" "#1#2.html"
+{% endhighlight %}
+</div>
+
+Cambiará la terminación .htm por .html en todos los ficheros que existan con esa terminación en el directorio actual y en todos sus subdirectorios. El #1 en la plantilla de destino será substituido por el directorio al que corresponda el punto y coma (no hace falta poner barras / porque el nombre del directorio ya las tiene). En lugar de #2 entrará la segunda expresión regular, que en este caso es todo lo que venga después del nombre del directorio y antes de la terminación .html.
+
+El superusuario podría también modificar el nombre de todos los ficheros con extensión .htm en el sistema, con el simple comando:
+
+
+<div class="console">
+{% highlight console %}
+$ mmv "/;*.htm" "#1#2.html"
+{% endhighlight %}
+</div>
+
+El paquete @mmv@ viene también con los programas @mcp@, @mln@ y @mad@ que permiten hacer copias de varios ficheros, hacer enlaces de varios ficheros (para que sean enlaces simbólicos se usa la opción -s) o colocar el contenido de varios ficheros al final de otros. Por ejemplo, si queremos hacer copias de seguridad de todas las páginas HTML en el directorio actual y en sus directorios, usamos:
+
+
+<div class="console">
+{% highlight console %}
+$ mcp ";*.html" "#1#2.html-backup"
+{% endhighlight %}
+</div>
+
+Por cada fichero terminado en @.html@, tendremos en el mismo directorio un fichero terminado en @.html-backup@ que es una copia idéntica. 
+
+h1. Autoría
+
+Jaime E. Villate
+© Copyright 2001, 2002, 2003, 2004, La Espiral, debian-laespiral@lists.debian.org
+Permitida la copia y distribución textual, integral, siempre y cuando se mantenga este aviso.
+
+h1. Referencias
+
+* "Cambiar el nombre de varios archivos, usando expresiones regulares":http://laespiral.org/recetas/1-100/receta78.html

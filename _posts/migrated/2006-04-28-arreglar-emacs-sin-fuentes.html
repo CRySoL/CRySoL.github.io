@@ -1,0 +1,48 @@
+---
+migrated: node/292
+layout: post
+title: Arreglar Emacs sin fuentes
+created: 1146211277
+author: magmax
+category: recipe
+tags:
+- emacs
+---
+<blockquote>
+Recientemente he perdido las fuentes de mi querido Emacs. Estaban ahí, y de repente sólo me aparecían cuadritos de colores (muy monos, eso sí, de colores y todo). Sin embargo, por fin, he encontrado una solución, aunque sea temporal.
+</blockquote>
+
+<h1>Solución provisional</h1>
+<h2>Qué fuentes tienes en el sistema</h2>
+Lo primero es saber qué fuentes tienes en el sistema. Para ello basta ejecutar:
+
+
+<div class="console">
+{% highlight console %}
+xlsfonts
+
+{% endhighlight %}
+</div>
+
+Eso sí... preparaos para una salida laaaaarga.
+
+<h2>Una fuente para Emacs</h2>
+
+Ahora basta con decirle a Emacs la fuente que quieres. A mí me ha gustado una courier (se parecía bastante a la que tenía antes):
+
+
+<div class="console">
+{% highlight console %}
+emacs -font -adobe-courier-medium-o-normal--12-120-75-75-m-70-iso8859-1
+
+{% endhighlight %}
+</div>
+
+<h2>Escribir menos</h2>
+
+Como escribir esa parrafada cada vez es un rollo... pues vamos a hacerle un alias. Para ello editamos el fichero <tt>.bashrc</tt> y le añadimos la línea siguiente:
+
+<pre>alias emacs="emacs -font -adobe-courier-medium-r-normal--14-140-75-75-m-90-iso10646-1"
+</pre>
+
+Y conseguimos que Emacs se abra con esa fuente. No es lo mejor, pero funciona.

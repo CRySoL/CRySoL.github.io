@@ -1,0 +1,97 @@
+---
+migrated: node/280
+layout: post
+title: Edición de imágenes en consola, con ImageMagick
+created: 1144670363
+author: aledelgal
+category: recipe
+---
+<blockquote>
+ImageMagick es una colección de herramientas y librerías para leer, escribir y manipular una imagen en diversos formatos. Las operaciones de pocesamiento de imágenes están disponibles en línea de comandos. Se pueden redimensionar, cambiar su resolución, rotar, añadir texto, añadir efectos artísticos, etc..., lo que quieras.
+</blockquote>
+
+<h2>Instalación de imageMagick</h2>
+Yo cuando lo descubrí ya lo tenía instalado, pero de todas formas está en los repositorios, es tan fácil como:
+
+
+<div class="console">
+{% highlight console %}
+ # apt-get install imagemagick 
+{% endhighlight %}
+</div>
+
+
+h2. Redimensionar una imagen. 
+
+Existen varias opciones:
+
+Redimensionarla porcentualmente:
+
+
+<div class="console">
+{% highlight console %}
+ $ convert -sample 50%x50% imgagen.jpg nuevaimagen.jpg 
+{% endhighlight %}
+</div>
+
+Cambiarle la resolución (a 800x600):
+
+
+<div class="console">
+{% highlight console %}
+ $ convert -resize 800x600 imagen.jpg nuevaimagen.jpg 
+{% endhighlight %}
+</div>
+
+
+h2. Cambiar la calidad
+
+En este caso, al 85%:
+
+
+<div class="console">
+{% highlight console %}
+ $  convert -quality 85 imagen.jpg nuevaimagen.jpg 
+{% endhighlight %}
+</div>
+
+
+h2. Rotar una imagen
+
+Para rotar hacia la derecha indica el número de grados como un número positivo. Si quieres rotar hacia la izquierda indica el número de grados como un número negativo.
+
+Así rotaríamos 90 grados a la derecha:
+
+
+<div class="console">
+{% highlight console %}
+ $ convert -rotate 90 input.jpg output.jpg 
+{% endhighlight %}
+</div>
+
+
+h2. Añadir texto a una imagen
+
+Opciones:
+* fill white rellena las letras de color blan en lugar del negro por defecto
+* pointsize especifica el tamaño de letra
+* draw 'text 10,50 " ... "' Dibuja el texto entre las comillas dobles en la posición 10,50
+
+
+<div class="console">
+{% highlight console %}
+ $ convert -font helvetica -fill white -pointsize 36 -draw 'text 10,50 "Dia de campo..." imagen.jpg imagencomentada.jpg 
+{% endhighlight %}
+</div> 
+
+
+h2. Y mucho más
+
+Hay muchos más comandos para hacer efectos artísticos, como por ejemplo "spread" para indicar en qué medida se va a esparcir una imagen; "solarize" para indicar un grado de solarizado; etc, etc, etc, ...
+
+Luego seguiré con esta receta, añadiendo bien añadido cómo se hacen los efectos artísticos, cómo se hace un script para hacer lo que quieras con todas las imágenes de un directorio, etc...Pero ahora mismo no puedo ;)  Si alguien se anima...
+
+h2. Referencias
+
+* @man convert@
+* <a href="http://www.starlinux.net">Starlinux</a>

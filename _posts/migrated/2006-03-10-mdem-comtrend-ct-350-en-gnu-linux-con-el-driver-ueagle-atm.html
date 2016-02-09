@@ -1,0 +1,207 @@
+---
+migrated: node/254
+layout: post
+title: Módem Comtrend CT-350 en GNU/Linux, con el driver ueagle-atm
+created: 1142013575
+author: nacho
+category: recipe
+tags:
+- drivers
+---
+
+
+<!--break-->
+
+
+Desde que cambié de kernel me quedé sin conexión a Internet. Compilaba y recompilaba los drivers de mi módem, pero no había manera, así que me puse a buscar información, hasta que por fin vi la luz: al parecer, desde el kernel 2.6.10 los drivers para modems adsl usb (eagle-usb) están siendo reemplazados por ueagle-atm, en especial y sobre todo a partir del kernel 2.6.15. 
+
+<h2>Ingredientes</h2>
+Esta es la configuración que yo tengo y con la que he conseguido ponerlo en marcha:
+
+    * Debian, Linux >= 2.6.15
+    * Módem ADSL Contrend CT-350 usb de Terra (usea, Telefónica), el azulito
+    * subversion
+
+<h2>Empecemos</h2>
+Bien, lo primero que necesitas son los drivers del modem y el firmware. Los drivers bajatelos del repositorio:
+
+<div class="console">
+{% highlight console %}
+
+$ svn co svn://svn.gna.org/svn/ueagleatm/trunk/ueagle-atm ueagle-atm
+
+{% endhighlight %}
+</div>
+
+Esto te creará un directorio <b>ueagle-atm</b>
+
+Y coge el firmware de <a href="http://eagle-usb.org/ueagle-atm/non-free/">http://eagle-usb.org/ueagle-atm/non-free/</a>. Coge el fichero ueagle-data-*.tar más nuevo (se supone que es mejor, ¿no?). Al descomprimirlo, también te creará un directorio, ueagle-data-x.x (x.x son los números de la versión, no pienses mal).
+
+<h2>Instalación del Firmware y los Drivers</h2>
+En el directorio de los drivers, edita el fichero Makefile y déjalo así:
+
+<div>
+{% highlight make %}
+ifndef KERNELDIR
+KERNELDIR  := /lib/modules/$(shell uname -r)/build
+endif
+
+obj-m := ueagle-atm.o
+obj-m += usbatm.o
+
+all:
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) 
+#EXTRA_CFLAGS="-DDEBUG"
+
+nodebug:
+	$(MAKE) -C $(KERNELDIR) M=$(PWD)
+	
+clean:
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
+
+install:
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules_install
+	/sbin/depmod -ae
+{% endhighlight %}
+</div>
+
+En definitiva, lo único que hemos hecho ha sido quitar los flags de depuración. Esto no debería ser necesario, así que lo dejamos como paso opcional. Bueno, al lío. Ahora, hay que instalar los drivers:
+
+
+<div class="console">
+{% highlight console %}
+
+# make
+# make install
+
+{% endhighlight %}
+</div>
+
+Esto debería valer, pero no. El make no funciona correctamente, y es necesario copiar los ficheros .ko que se generan, a mano:
+
+
+<div class="console">
+{% highlight console %}
+
+# mkdir -p /lib/modules/$(uname -r)/drivers/usb/atm
+# cp *.ko /lib/modules/$(uname -r)/drivers/usb/atm
+
+{% endhighlight %}
+</div>
+
+Vale, ahora vamos con el firmware. El firmware son los ficheros .bin y .fw que has descomprimido del ueagle-data-1.1.tar.gz (en mi caso). Entra en el directorio y copialos a su sitio:
+
+
+<div class="console">
+{% highlight console %}
+
+# mkdir -p /lib/firmware/ueagle-atm
+# cp * /lib/firmware/ueagle-atm
+
+{% endhighlight %}
+</div>
+
+Ahora, hay que cargar los módulos. Antes de nada, aseguraote que no se haya cargado ya alguno de estos módulos:
+
+
+<div class="console">
+{% highlight console %}
+
+$ lsmod | grep usbatm
+$ lsmod | grep ueagle
+
+{% endhighlight %}
+</div>
+
+Si es así, descárgalos con rmmod nombremodulo. Ahora carga los buenos:
+
+
+<div class="console">
+{% highlight console %}
+
+# depmod -ae
+# modprobe usbatm
+# modprobe ueagle-atm
+
+{% endhighlight %}
+</div>
+
+Configuración de la conexión
+Ya tienes el módem rulando (o debería). Ahora hay que configurar la conexión, poniendo el nombre de usuario, la contraseña... esas cosillas.
+Para empezar, necesitas tener instalados los siguientes paquetes:
+
+<ul>
+<li>br2684ctl
+<li>ppp
+<li>pppoe
+<li>ppp-pppoe
+</ul>
+
+Ahora ve a una consola, y como superusuario escribe:
+
+
+<div class="console">
+{% highlight console %}
+
+# br2684 -c 0 -b -a 8.32
+    br2684: Interface "nas0" created sucessfully
+    br2684: Communicating over ATM 0.8.32, encapsulation LLC
+    br2684: Interface configured
+
+{% endhighlight %}
+</div>
+
+El 8.32 son el VPI y el VCI del ISP (madre mía con las siglas). Estos corresponden a Telefónica con IP dinámica. Si tienes otra cosa, pues tendrás que cambiarlo. puedes consultar una tabla.
+Si en lugar de encapsulado LLC utilizas VC MUX, entonces debes añadir -e 1. Recomiendo encarecidamente leer:
+
+
+<div class="console">
+{% highlight console %}
+
+$ man br2684ctl
+
+{% endhighlight %}
+</div>
+
+Para indicar el nombre de usuario y contraseña, edita (o crea, en su defecto) el archivo /etc/ppp/pap-secrets, y añade una linea como esta:
+
+"nombre de usuario" * "contraseña" *
+
+Luego, haz lo propio con el fichero <tt>/etc/ppp/peers/adsl</tt> , y déjalo como sigue:
+
+<pre>
+user "nombre de usuario (con comillas)"
+plugin rp-pppoe.so
+nas0
+noipdefault
+usepeerdns
+defaultroute
+persist
+noauth
+</pre>
+
+Ya sólo queda levantar la interfaz:
+
+
+<div class="console">
+{% highlight console %}
+
+# ifconfig nas0 up
+
+{% endhighlight %}
+</div>
+
+y conectarse:
+
+
+<div class="console">
+{% highlight console %}
+
+# pppd call adsl
+
+{% endhighlight %}
+</div>
+
+
+<h2>Comentarios</h2>
+Special thanks to int-0, alias Tobías.

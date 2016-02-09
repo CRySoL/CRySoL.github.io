@@ -1,0 +1,63 @@
+---
+migrated: node/848
+layout: post
+title: Desarrollo de aplicaciones para PSP-Slim y PSP-Fat con FW actuales
+created: 1201626980
+author: int-0
+category: recipe
+tags:
+- embedded
+- Arco
+---
+<blockquote>Dado que la PSP evoluciona, lo hace también la <em>scene</em> (normalmente más rápido :P), lo que provoca cambios en el <em>pspsdk</em> que debemos adoptar lo antes posible para no quedarnos obsoletos. En este caso vamos a hacer compatibles nuestros programas al modelo <em>slim</em> de PSP y a las PSP clásicas con <em>firmwares</em> actuales (versiones 3.XX y posteriores). Es <b>indispensable</b> leer y entender la receta <a href="http://crysol.org/node/746">"Aplicaciones portables entre PSP y GNU/Linux con SDL"</a>.</blockquote>
+
+
+
+<h2>Introducción</h2>
+Hasta ahora, cuando desarrollábamos software para nuestras portátiles, no teníamos ningún tipo de limitación: toda la máquina era para nosotros. Esto era debido a que las aplicaciones se podían ejecutar como <em>kernel thread</em>, es decir: con todos los privilegios. A partir del <em>firmware</em> 2.71 esto no es posible, y si nuestros ejecutables se configuran como <em>kernel thread</em>, obtendremos un bonito <em>"No se pudo iniciar el juego"</em> cuando intentemos ejecutarlo. Igualmente obtendremos un error si, aún siendo <em>user thread</em>, hacemos llamadas a objetos del espacio del <em>kernel</em>.
+
+<h2>Configurar el programa como <em>user thread</em></h2>
+Como ya explicamos en anteriores recetas, el modo del hilo viene configurado por:
+<pre>PSP_MODULE_INFO("module_name", 0, 1, 1);</pre>
+
+Aquí viene el primer cambio, a partir de ahora lo configuraremos como:
+<pre>PSP_MODULE_INFO("module_name", 0, 1, 0);</pre>
+
+Ahora tenemos el siguiente problema: en este modo de ejecución, se asignan 64Kb de memoria para el <a href="http://es.wikipedia.org/wiki/Asignaci%C3%B3n_din%C3%A1mica_de_memoria"><em>heap</em></a> de nuestras aplicaciones, por tanto se recomienda <em>allocatar</em> una buena cantidad de memoria al principio del programa, esto se consigue con:
+<pre>PSP_HEAP_SIZE_KB(20480);</pre>
+
+Con esto ya tenemos el código listo, ahora a compilar... ;)
+
+<h2>Cambios en el <em>Makefile</em></h2>
+Afortunadamente no hay mucho que cambiar, sólo que no podemos genera un archivo <em>elf</em> sino que ahora hemos de crear un <em>prx</em>, además también hay que indicar que queremos crear un archivo para <em>firmware</em> 3.71 o superior, todo se consigue símplemente con:
+<pre>BUILD_PRX = 1
+PSP_FW_VERSION = 371
+EXTRA_TARGETS = EBOOT.PBP
+include $(PSPSDK)/lib/build.mak</pre>
+
+En realidad basta con añadir las dos primeras lineas a nuestros <em>makefiles</em>... ;)
+
+<h2>Apéndice A: adaptando aplicaciones con SDL</h2>
+Ya hablamos en recetas anteriores sobre <em>SDL</em>, ahora vamos a hablar un poco de sus "tripas". <em>SDL</em> tiene un componente llamado <em>SDLmain</em> que se incluye automáticamente en los programas que usan esta librería. Ese componente permite abstraer algunos detalles de las arquitecturas, por ejemplo, en las aplicaciones para PSP nos ahorra tener que definir nuestro <em>PSP_MODULE_INFO</em> porque <em>SDLmain</em> tiene su propia definición. Al igual que instala sus propios manejadores para el <em>callback</em> de terminación. Esto antes nos suponía una comodidad y una ventaja, sin embargo ahora, nos viene un poco mal debido a que <em>SDLmain</em> asume que nuestro programa se va a ejecutar como <em>kernel thread</em> y no es cierto.
+
+Afortunadamente no hay que tocar mucho código, excepto incluír todo aquello que <em>SDLmain</em> hacía automáticamente:
+<ul><li>PSP_MODULE_INFO</li>
+<li>ExitThread y ExitCallback</li></ul>
+Ahora debemos modificar los <em>makefiles</em>, dado que los <em>CFLAGS</em> y los <em>LIBS</em> (parámetros al <em>linkador</em>) los establecemos haciendo uso de <em>sdl-config</em> que tenemos en nuestro <em>pspsdk</em>, es decir:
+<pre>PSPBIN = $(shell psp-config --psp-prefix)/bin
+SDL_CONFIG = $PSPBIN/sdl-config
+
+CFLAGS = $(shell $SDL_CONFIG) --cflags
+LIBS = $(shell $SDL_CONFIG) --libs</pre>
+
+Lo que hace que nuestras variables tomen estos valores:
+<pre>CFLAGS = -I/usr/local/pspdev//psp/include/SDL -Dmain=SDL_main
+LIBS = -L/usr/local/pspdev//psp/lib -lSDLmain -lSDL -lm -lGL -lpspvfpu -L/usr/local/pspdev//psp/sdk/lib -lpspdebug -lpspgu -lpspctrl -lpspge -lpspdisplay -lpsphprm -lpspsdk -lpsprtc -lpspaudio -lc -lpspuser -lpsputility -lpspkernel -lpspnet_inet</pre>
+
+¿Estáis viendo el <em>SDLmain</em>? pues eso hay que quitarlo ;)
+Quitaremos la invocación a <em>sdl-config</em> y estableceremos
+dichas variables directamente:
+<pre>CFLAGS = -I/usr/local/pspdev//psp/include/SDL
+LIBS = -L/usr/local/pspdev//psp/lib -lSDL -lm -lGL -lpspvfpu -L/usr/local/pspdev//psp/sdk/lib -lpspdebug -lpspgu -lpspctrl -lpspge -lpspdisplay -lpsphprm -lpspsdk -lpsprtc -lpspaudio -lc -lpspuser -lpsputility -lpspkernel -lpspnet_inet</pre>
+
+Y con eso y un bizcocho... está listo ;)

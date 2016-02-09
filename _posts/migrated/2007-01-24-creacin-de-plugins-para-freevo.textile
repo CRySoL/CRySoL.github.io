@@ -1,0 +1,206 @@
+---
+migrated: node/533
+layout: post
+title: Creación de Plugins para Freevo
+created: 1169642364
+author: fsancho
+category: recipe
+tags:
+- ocio
+---
+En esta recetilla cuento los pasos que he seguido para crear un pequeño _plugin_ para Freevo, con el que poder lanzar el juego "Stepmania":http://<a href="http://www.stepmania.com/">www.stepmania.com/</a>. Como tengo la intención de incorporar más juegos al menú de Freevo, he intentado no hacer el plugin demasiado específico. 
+
+
+<!--break-->
+
+
+
+h1. Lo básico
+
+Es bastante sencillo crear un plugin. Veamos los elementos mínimos. Si atendemos a la <a href="http://freevo.sourceforge.net/cgi-bin/doc/DevelopPlugins">documentación oficial</a> un plugin es una subclase que hereda de <tt>PluginInterface</tt> y que debe tener al menos dos funciones.
+
+* actions: que devuelve una lista de las posibles acciones del plugin (o una lista vacía)
+<pre>
+    def actions(self,item): 
+        if SOMECONDITION:
+            return [ (self.COMMAND,'Name of menu entry')] 
+        return [] 
+</pre>
+
+* Uno o varios comandos que deben estar disponibles.
+<pre>
+    def COMMAND(self,arg=None, menuw=None):
+        item = self.item 
+        os.system('command') 
+        menuw.delete_menu(arg, menuw) 
+</pre>
+
+Aunque se supone que eso es lo básico que hay que saber, resulta que siguiendo estos sencillos pasos no he sido capaz de hacer funcionar mi plugin correctamente. Así que como siempre que ocurre esto el procedimiento a seguir es:
+
+* Busca un plugin que funcione,
+* destrípalo 
+* y adáptalo a tus necesidades.
+
+
+h1. Plugin Stepmania
+
+A continuación un paseo comentado por mi sencillo plugin para lanzar Stepmania.
+
+En primer lugar una cabecera con las inclusiones de rigor.
+<pre>
+#python modules
+import os, time, stat, re, copy
+
+#freevo modules
+import config, menu, rc, plugin, skin, osd, util
+from gui.PopupBox import PopupBox
+from item import Item
+</pre>
+
+Después accedo a los objetos <tt>skin</tt> y <tt>osd</tt>
+<pre>
+
+#get the singletons so we get skin info and access the osd
+skin = skin.get_singleton()
+osd  = osd.get_singleton()
+
+skin.register('Stepmania', ('screen', 'title', 'info', 'plugin'))
+
+</pre>
+
+Realmente solo se necesita el objeto <tt>skin</tt>, pero bueno. 
+
+
+h2. Clase @PluginInterface@
+
+<pre>
+class PluginInterface(plugin.MainMenuPlugin):
+    """
+    A plugin to launch Stepmania Game
+    To activate, put the following lines in local_conf.py:
+
+    plugin.activate('stepmania', level=45)
+    """
+    # make an init func that creates the cache dir if it don't exist
+    def __init__(self):
+        plugin.MainMenuPlugin.__init__(self)
+
+
+    def items(self, parent):
+        return [ GameMainMenuItem(parent) ]
+</pre>
+
+
+Como puede verse, en el constructor se invoca el constructor de la clase madre <tt>MainMenuPlugin</tt>. Existen otros tipos de plugins. Este plugin podría ser del tipo <tt>ItemPlugin</tt> para incorporarse como una acción más dentro de la categoría <tt>video</tt>, <tt>image</tt> o <tt>tv</tt>. 
+
+También puede verse que en vez de implementar una función <tt>actions</tt> creo una función <tt>items</tt>. Mi interpretación es que al crearse el plugin de tipo <tt>MainMenuPlugin</tt>, se obtiene una lista de items disponibles. Cada item retornado es una clase que sí que debe implementar los métodos <tt>actions</tt> y los comandos asociados.
+
+En mi caso, la función <tt>items</tt> solo devuelve un elemento, que se corresponde con la clase <tt>GameMainMenuItem</tt>.
+
+h2. Clase <tt>GameMainMenuItem</tt>
+
+<pre>
+class GameMainMenuItem(Item):
+
+    def __init__(self, parent):
+        Item.__init__(self, parent, skin_type='Stepmania')
+        self.name = _('Stepmania')
+
+    def actions(self):
+        """
+        return a list of actions for this item
+        """
+        items = [ ( self.launch_game , _('Stepmania' )) ]
+        return items
+
+    def launch_game(self, arg=None, menuw=None):
+        popup_string=_("Starting Stepmania...")
+        pop = PopupBox(text=popup_string)
+        pop.show()
+        os.system('stepmania')
+        pop.destroy()
+        menuw.delete_menu(arg, menuw)
+        menuw.refresh()
+</pre>
+
+En su constructor se invoca el constructor del elemento en el menú principal de Freevo.
+
+La lista de acciones solo devuelve una única acción que se corresponde con el método <tt>launch_game</tt>.
+
+El método <tt>launch_game</tt> se limita a mostrar un <em>popup</em> y lanzar el comando del juego. A la vuelta del juego se destruye el <em>popup</em> y se refresca el menú.
+
+
+h1. Todo junto
+
+A continuación todo el código del plugin para quien lo quiera utilizar:
+
+<pre>
+#python modules
+import os, time, stat, re, copy
+
+#freevo modules
+import config, menu, rc, plugin, skin, osd, util
+from gui.PopupBox import PopupBox
+from item import Item
+
+#get the singletons so we get skin info and access the osd
+skin = skin.get_singleton()
+osd  = osd.get_singleton()
+
+skin.register('Stepmania', ('screen', 'title', 'info', 'plugin'))
+
+class PluginInterface(plugin.MainMenuPlugin):
+    """
+    A plugin to launch Stepmania Game
+
+    To activate, put the following lines in local_conf.py:
+
+    plugin.activate('stepmania', level=45)
+
+    """
+    # make an init func that creates the cache dir if it don't exist
+    def __init__(self):
+        plugin.MainMenuPlugin.__init__(self)
+
+
+    def items(self, parent):
+        return [ GameMainMenuItem(parent) ]
+
+
+class GameMainMenuItem(Item):
+
+    def __init__(self, parent):
+        Item.__init__(self, parent, skin_type='Stepmania')
+        self.name = _('Stepmania')
+
+    def actions(self):
+        """
+        return a list of actions for this item
+        """
+        items = [ ( self.launch_game , _('Stepmania' )) ]
+        return items
+
+    def launch_game(self, arg=None, menuw=None):
+        popup_string=_("Starting Stepmania...")
+        pop = PopupBox(text=popup_string)
+        pop.show()
+        os.system('stepmania')
+        pop.destroy()
+        menuw.delete_menu(arg, menuw)
+        menuw.refresh()
+
+</pre>
+
+Tan solo hay que guardar el contenido con el nombre @stepmania.py@ y copiarlo en el directorio @/usr/share/python-support/python-freevo/freevo/plugins@. Y ejecutar el comando.
+<pre class="console"># update-python-modules -i /usr/share/python-support/python-freevo</pre>
+
+Para invocarlo, tal y como se explica en los comentarios del código, hay que incluir lo siguiente en el fichero @/etc/freevo/local_conf.py@
+
+<pre>
+plugin.activate('stepmania', level=45)
+</pre>
+
+
+h1. Referencias
+
+* "Freevo":http://<a href="http://www.freevo.org">www.freevo.org</a>

@@ -1,0 +1,223 @@
+---
+migrated: node/839
+layout: post
+title: "(Py)GTK Tips 'n Tricks"
+created: 1200570793
+author: CRySoL
+category: recipe
+tags:
+- Python
+- gtk
+- Arco
+---
+<blockquote>Esta receta pretende recoger una colección sobre pequeños 'trucos' de GTK que siempre viene bien tener a mano. 
+</blockquote>
+
+<h2>GtkkTreeview</h2>
+
+<ul>
+<li><b>Desactivar los elementos seleccionados:</b> parece intuitivo, pero la primera vez que lo buscas, te vuelves loco. Se debe hacer con un objeto GtkTreeSelection, usando el método <i>unselect_all()</i>.
+</li>
+
+<u>Ejemplo</u>
+<pre>
+  selection = view.get_selection()
+  selection.unselect_all()
+</pre>
+</ul>
+
+<h2>GtkIconView</h2>
+
+<ul>
+<li><b>Iconos de stock en IconView:</b> resulta que el IconView es un widget un tanto especial, hasta la fecha. Es muy restrictivo en cuando al modelo que le puedes especificar y no permite usar <i>cell_func</i> para renderizar nuestros datos. Además, los iconos deben ser obligatoriamente pixbuf. Por tanto, si lo que tenemos es los nombres de stock de los iconos, debemos convertirlos a pixbuf antes de meterlos en el store del iconview. Para eso, podemos usar el método <b>render_icon</b> de gtk.Widget. Necesita como mínimo dos parámetros, el stock y el tamaño, y retorna un pixbuf listo para meter en el modelo.</li>
+
+<u>Ejemplo</u>
+<pre>
+iv = gtk.IconView()
+st = gtk.ListStore(str, gtk.gdk.Pixbuf)
+icon = iv.render_icon("gtk-file", gtk.ICON_SIZE_BUTTON)
+st.append(["un fichero", icon])
+</pre>
+</ul>
+
+<h2>GtkTreeStore, GtkListStore</h2>
+
+<ul>
+<li>
+<b>Crear el modelo con tuplas o listas:</b> quizá en este caso, lo obvio sería utilizar el tipo <i>tuple</i> o <i>list</i>, pero si lo haces, Gtk te responde con un bonito:</li>
+
+<pre class="console">
+TypeError: could not get typecode from object
+</pre>
+
+Así, lo más sencillo es utilizar <i>object</i> de Python, que se acoge a lo que le des :-).
+
+<u>Ejemplo</u>
+<pre>
+t = gtk.ListStore(str, object)
+t.append(["nums", (1,2,3,4,5,6,7,8,9,0)])
+</pre>
+</ul>
+
+<h2>Nuevos widgets</h2>
+
+<ul>
+<li><b>PyGtk:</b> Generalmente, hacer un nuevo widget en PyGtk es muy sencillo. Basta con crear una nueva clase que herede de otro widget y llamar al 'inicializador' adecuado, es decir, en nuestro __init__ llamamos a <i>Gtk.WidgetDelQueHeredamos.__init__(self)</i> y listo.</li>
+
+<u>Ejemplo</u>
+<pre>
+class MyTreeStore(gtk.TreeStore):
+    def __init__(self):
+        gtk.TreeStore.__init__(self)
+</pre>
+</ul>
+
+<h2>Tamaño de un widget</h2>
+
+<ul>
+<li><b>Obtener el tamaño de un widget y su posición:</b> para conseguir esto, el widget ha de estar <i>realized</i>, es decir, ha de haberse llamado a las primitivas para construirlo antes de pintarlo. Si el widget es visible, esto ya ha ocurrido. Si no, es posible utilizar el método <i>realize()</i> para forzarlo. Una vez hecho esto, el objeto tiene su tamaño y sus coordenadas en el atributo <b>allocation</b>, que es un gdk.Rectangle. </li>
+
+<u>Ejemplo</u>
+
+<div>
+{% highlight python %}
+# Tomado de http://faq.pygtk.org/index.py?req=show&file=faq05.009.htp
+win = gtk.Window()
+win.realize() # o win.show()
+rect = win.allocation
+{% endhighlight %}
+</div>
+</ul>
+
+<h2>Gtk.Events</h2>
+
+<ul>
+<li><b>Mejorar el rendimiento:</b> supongamos que tenemos un callback conectado al evento "motion_notify_event", y que en ese callback dibujamos algo (por ejemplo, usando Cairo). Si el método tarda en dibujar, se encolarán un montón de eventos sin procesar, que se despacharán después de que el usuario haya empezado la sucesión de eventos. Esto provoca, por ejemplo, que al desplazar un elemento, este se mueva siempre por detrás de donde está el ratón, dando una desagradable sensación. Para evitar eso, podemos bloquear la emisión del evento, hasta que se pueda procesar.</li>
+
+<u>Ejemplo</u>
+
+<div>
+{% highlight python %}
+# Callback del evento 'motion_notify_event' 
+def on_motion_notify_event(self, widget, event):
+    widget.handler_block_by_func(self.on_motion_notify_event)
+     
+    # Your code goes here
+
+    def _unblock():
+        widget.handler_unblock_by_func(self.on_motion_notify_event)
+    gobject.idle_add(_unblock)
+
+    return True
+{% endhighlight %}
+</div>
+</ul>
+
+<h2>Cairo</h2>
+
+<ul>
+<li><b>Redibujar sólo lo necesario:</b> puesto que el evento <i>expose</i> se produce muchas veces, es interesante poder repintar sólo las zonas necesarias. Para ello, usamos <i>clip()</i>, que crea una zona de dibujo, enmascarando los cambios producidos fuera de esta zona.</li>
+
+<u>Ejemplo</u>
+<pre>
+# ctx es el contexto de dibujo de Cairo
+ctx.rectangle(event.area.x, event.area.y, event.area.width, event.area.height)
+ctx.clip()
+</pre>
+
+<li><b>Crear una ventana transparente:</b> para poder probar esto, es necesario tener habilitado el <i><a href="http://crysol.org/es/node/1090">compositing</a></i> en el gestor de ventanas. El truco básicamente consiste en crear una ventana sin decoraciones, y con el colormap adecuado (uno que soporte canales <i>alpha</i>), y pintar sobre ella con cairo.</li>
+
+<u>Ejemplo</u>
+
+<div>
+{% highlight python %}
+#!/usr/bin/env python
+# -*- mode: python; coding: utf-8 -*-
+
+import sys
+import gtk
+import cairo
+
+
+def expose_event(widget, event):
+    cr = widget.window.cairo_create()
+    size = widget.get_size()
+
+    cr.set_operator(cairo.OPERATOR_SOURCE)
+    cr.rectangle(1, 1, size[0]-2, size[1]-2)
+
+    cr.set_source_rgba(1, 1, 1, .8)
+    cr.stroke_preserve()
+
+    cr.set_source_rgba(1, 1, 1, .2)
+    cr.fill()
+
+
+def main():
+
+    win = gtk.Window()
+    win.set_decorated(False)
+    win.set_app_paintable(True)
+
+    win.connect('delete-event', gtk.main_quit)
+    win.connect('expose-event', expose_event)
+
+    screen = win.get_screen()
+    colormap = screen.get_rgba_colormap()
+    win.set_colormap(colormap)
+
+    # avoid flick
+    win.realize()
+    win.window.set_back_pixmap(None, False)
+
+    win.show_all()
+    gtk.main()
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
+{% endhighlight %}
+</div>
+<u>Resultado</u>
+<center><img src="/assets/files/window.png"/></center>
+</ul>
+
+<h2>GtkPixbuf</h2>
+
+<ul>
+<li><b>Cargar gdk.Pixbuf desde un buffer:</b> a veces es útil poder renderizar un pixbuf desde datos de un streaming, o desde un socket, en lugar de usar las fuentes comunes de imágenes de gtk (ficheros, stock, etc.). Para ello, es posible usar gdk.PixbufLoader, que nos permite escribir los datos poco a poco, y cuando están todos disponibles, obtener el Pixbuf.</li>
+
+<u>Ejemplo</u>
+<pre>
+pbl = gtk.gdk.PixbufLoader()
+pbl.write(data)
+pbl.close()
+pixbuf = pbl.get_pixbuf()
+</pre>
+
+<li><b>Cargar un gdk.Pixbuf desde stock:</b> aunque esto ya lo hemos visto más arriba, formaba parte de otro ejemplo. Aquí lo vemos más claro. Tenemos un Stock ID, y queremos cargar un gdk.Pixbuf a partir de él. Es fácil si usamos *gtk.Widget.render_icon()*. Te retorna el Pixbuf directamente.</li>
+
+<u>Ejemplo</u>
+
+<div>
+{% highlight python %}
+pixbuf = gtk.Invisible().render_icon(gtk.STOCK_ZOOM_100, gtk.ICON_SIZE_BUTTON)
+{% endhighlight %}
+</div>
+</ul>
+
+<b>PD: Se admiten nuevos Tips 'n Tricks :-D</b>
+
+<h2>Referencias</h2>
+
+<ul>
+<li><a href="http://www.pygtk.org/pygtk2reference/index.html">Almohada/referencia de PyGtk</a></li>
+<li><a href="http://faq.pygtk.org/index.py?req=index">FAQ de PyGTK</a></li>
+<li><a href="http://cairographics.org/manual/">Manual de Cairo (en C)</a></li>
+<li><a href="http://cairographics.org/">Página oficial de Cairo Graphics</a></li>
+<li><a href="http://www.pixelbeat.org/libs/libglade.py">Pixelbeat</a></li>
+<li><a href="http://www.daa.com.au/pipermail/pygtk/2004-July/008278.html">Pygtk list</a></li>
+</ul>

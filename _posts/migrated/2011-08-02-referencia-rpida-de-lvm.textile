@@ -1,0 +1,75 @@
+---
+migrated: node/1538
+layout: post
+title: Referencia rápida de LVM
+created: 1312327368
+author: david_villa
+category: recipe
+tags:
+- sysadm
+---
+Comandos básicos para crear un sistema LVM
+
+
+<!--break-->
+
+
+Primero un gráfico muy ilustrativo (sacado de la primera referencia):
+
+<center>
+<img src="http://linuxconfig.org/images/Lvm.jpg"/>
+</center>
+
+
+h3. Crear volúmenes físicos (<b>p</b>hysical <b>v</b>olumes) 
+
+para cada partición o disco que se quiera utilizar:
+
+
+<div class="console">
+{% highlight console %}
+
+# pvcreate /dev/sda
+# pvcreate /dev/sdb1
+{% endhighlight %}
+</div>
+
+Se puede comprobar con @pvdisplay@.
+
+h3. Crear un grupo virtual (<b>v</b>irtual <b>g</b>roup) 
+
+a partir de los volúmenes físicos.
+
+
+<div class="console">
+{% highlight console %}
+
+# vgcreate g0 /dev/sda
+# vgextend g0 /dev/sdb1
+{% endhighlight %}
+</div>
+
+Lo puedes ver con @vgdisplay@.
+
+h3. Crear los volúmenes lógicos (<b>l</b>ogical <b>v</b>olumes)
+
+que jugarán el papel de las particiones en un sistema convencional.
+
+
+<div class="console">
+{% highlight console %}
+
+# lvcreate --size 80G --name home g0
+[...]
+{% endhighlight %}
+</div>
+
+Los puedes comprobar con @lvdisplay@
+
+Y ya solo queda formatearlos y montarlos donde corresponda como si de particiones convencionales se tratase.
+
+h2. Referencias
+
+* "Linux lvm - Logical Volume Manager":http://linuxconfig.org/Linux_lvm_-_Logical_Volume_Manager
+* "Logical Volume Manager Cheatsheet":http://martin.ankerl.com/2008/02/05/logical-volume-manager-cheatsheet/
+* "RAID y LVM en Linux":http://wiki.bandaancha.st/RAID_y_LVM_en_Linux

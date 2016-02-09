@@ -1,0 +1,63 @@
+---
+migrated: node/655
+layout: post
+title: Streaming RTP usando GStreamer
+created: 1177438611
+author: diego
+category: recipe
+tags:
+- gstreamer
+---
+<blockquote class="head">
+Veremos como podemos hacer streaming utilizando el protocolo RTP (Real Time Protocol), usando tuberías GStreamer. Transmitiremos tanto audio como vídeo a través de las tuberías.
+</blockquote>
+
+
+<h2>Introducción</h2>
+Necesitas tener instalados los paquetes gstreamer0.10-tools y los plugins necesarios: gstreamer0.10-plugins-base, gstreamer0.10-farsight, gstreamer0.10-plugins-good, gstreamer0.10-plugins-ugly, gstreamer0.10-alsa, gstreamer0.10-ffmpeg y gstreamer0.10-x.
+
+El soporte de RTP en GStreamer actualmente es parcial, aún así, ya es posible ejecutar algunas tuberías que nos transmiten vídeo y audio utilizando RTP encima de UDP.
+
+RTP se compone de dos protocolos: RTP y RTCP. RTP es el encargado de transmitir los datos del flujo multimedia, y RTCP se encarga del control de flujo. En los elementos udpsrc y udpsink de la tubería es necesario especificar un puerto par, que será usado por RTP. RTCP usará justo el siguiente, un puerto impar. También puede especificarse un host opcional para especificar la interfaz por donde mandaremos los paquetes.
+
+<h2>Vídeo MPEG4</h2>
+Ejecuta la siguiente tubería (emisor) con la opción verbose:
+
+<pre class="console">$ gst-launch-0.10 -v filesrc location=~/streams/sincity.mp4 ! ffdemux_mov_mp4_m4a_3gp_3g2_mj2 ! rtpmp4vpay ! udpsink port=5000
+Setting pipeline to PAUSED ...
+Pipeline is PREROLLING ...
+/pipeline0/rtpmp4vpay0.src: caps = application/x-rtp, media=(string)video, payload=(int)96, clock-rate=(int)90000, encoding-name=(string)MP4V-ES, ssrc=(guint)2642861434, clock-base=(guint)3234275225, seqnum-base=(guint)52397, profile-level-id=(string)0, config=(string)000001200086c5d4c307d314043c1463000001b25876694430303334
+/pipeline0/rtpmp4vpay0.sink: caps = video/mpeg, width=(int)640, height=(int)480, framerate=(fraction)30000/1001, systemstream=(boolean)false, mpegversion=(int)4, codec_data=(buffer)000001200086c5d4c307d314043c1463000001b25876694430303334
+/pipeline0/rtpmp4vpay0.src: caps = application/x-rtp, media=(string)video, payload=(int)96, clock-rate=(int)90000, encoding-name=(string)MP4V-ES, ssrc=(guint)2642861434, clock-base=(guint)3234275225, seqnum-base=(guint)52397, profile-level-id=(string)3, config=(string)000001b003000001b50900000100000001200086c5d4c307d314043c1463000001b25876694430303334
+/pipeline0/udpsink0.sink: caps = application/x-rtp, media=(string)video, payload=(int)96, clock-rate=(int)90000, encoding-name=(string)MP4V-ES, ssrc=(guint)2642861434, clock-base=(guint)3234275225, seqnum-base=(guint)52397, profile-level-id=(string)3, config=(string)000001b003000001b50900000100000001200086c5d4c307d314043c1463000001b25876694430303334
+Pipeline is PREROLLED ...
+Setting pipeline to PLAYING ...
+New clock: GstSystemClock</pre>
+
+Presta atención a las Capabilities (caps) de udpsink, es el tipo de datos que se transmitirán por la red. Copia los caps del elemento udpsink. Los caps cambian cada vez que se ejecuta el emisor.
+
+A continuación, lanza el receptor, especificando los caps en el udpsrc
+
+<pre class="console">$ gst-launch-0.10 udpsrc port=5000 caps ="application/x-rtp, media=(string)video, payload=(int)96, clock-rate=(int)90000, encoding-name=(string)MP4V-ES, ssrc=(guint)2642861434, clock-base=(guint)3234275225, seqnum-base=(guint)52397, profile-level-id=(string)3, config=(string)000001b003000001b50900000100000001200086c5d4c307d314043c1463000001b25876694430303334" ! rtpmp4vdepay ! ffdec_mpeg4 ! xvimagesink sync=false</pre>
+
+En el receptor, la opción "sync=false" en los sink finales (xvimagesink, alsasink, etc) es importante, puesto que aún no hay implementado un gestor de la sesión RTP que controle la sincronización en la tubería.
+
+Puedes especificar en el udpsrc una URI del tipo "udp://host:puerto" de donde debe coger los datos.
+
+<h2>Audio Vorbis</h2>
+
+La forma de proceder es la misma. Primero ejecuta el emisor:
+
+<pre class="console">$ gst-launch-0.10 -v audiotestsrc ! audioconvert ! vorbisenc ! rtpvorbispay ! udpsink port=5000</pre>
+
+Ahora debes copiar los caps en la tubería del receptor, y ejecutar el receptor.
+
+<pre class="console">$ gst-launch-0.10 udpsrc port=5000 caps="CAPS_DEL_EMISOR" ! rtpvorbisdepay ! vorbisdec ! audioconvert ! alsasink sync=false</pre>
+
+Todo esto teóricamente se podría utilizar para transmitir en directo el escritorio de nuestro equipo a numerosos equipos mediante multicast, útil por ejemplo, para que los alumnos vean la pantalla del profesor en su ordenador.
+También hay soporte para transmitir vídeo Theora y vídeo H.263, pero no está suficientemente probado.
+
+<h2>Referencias</h2>
+<a href="http://gstreamer.freedesktop.org/documentation/rtp.html">GStreamer: RTP support</a>
+<a href="http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-0.10.5.tar.gz">Código fuente de los plugins Good, donde se encuentra RTP, versión 0.10.5</a>
+<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-good-plugins/html/gst-plugins-good-plugins-udpsrc.html">Elemento udpsrc</a>

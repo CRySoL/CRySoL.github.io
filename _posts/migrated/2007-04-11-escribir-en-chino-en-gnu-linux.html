@@ -1,0 +1,61 @@
+---
+migrated: node/641
+layout: post
+title: Escribir en chino en GNU/Linux
+created: 1176332331
+author: goyo
+category: recipe
+---
+<blockquote class="head"> 
+Con este mini-HowTo aprenderemos a escribir caracteres chinos (tradicional -fántǐzì- o simplificado -jiǎntǐzì-) en nuestra distribución GNU/Linux preferida utilizando la plataforma SCIM (Smart Common Input Method). Este tutorial puede ser extensible a otros idiomas como el Japonés o el Árabe, por ejemplo.
+</blockquote>
+
+
+<h2>Instalar SCIM y sus plugins de Chino</h2>
+SCIM es una plataforma que nos va a permitir escoger el Chino o cualquier otro idioma como método de entrada. Además, nos ayudará después en la escritura de los caracteres (No es tarea fácil sacar ideogramas de un teclado qwerty ^_^) . Para instalarlo tecleamos lo siguiente en un terminal:
+
+<div class="console">
+{% highlight console %}
+$ sudo apt-get install scim
+{% endhighlight %}
+</div>
+Por supuesto, también necesitamos el soporte de scim para Chino:
+
+<div class="console">
+{% highlight console %}
+$ sudo apt-get install scim-chinese scim-tables-zh scim-pinyin
+{% endhighlight %}
+</div>
+
+<h2>Configuración de SCIM</h2>
+Para configurar SCIM, tecleamos:
+
+<div class="console">
+{% highlight console %}
+$ scim-setup
+{% endhighlight %}
+</div>
+
+Se abre la ventana principal de SCIM y nos dirigimos a la sección IMEngine. Dentro de ella, pinchamos en la opción "Configuración Global", habilitamos Chino (simplificado) y/o Chino (tradicional). Los idiomas que tengamos habilitados luego los podremos seleccionar a la hora de ponernos a escribir los caracteres.
+Para finalizar, pinchamos en "Aceptar".
+
+<h2>Escribir los Caracteres</h2>
+Abrimos un editor de texto plano (por ejemplo, gedit) y hacemos click derecho en la hoja en blanco. En el menú contextual, vamos a "Método de Entrada" y seleccionamos "SCIM Input Method". 
+Si todo ha ido bien, abajo aparece una nueva barra con diferentes iconos.
+
+Puede ser que las primeras veces se resista. Esta barra sólo sale cuando el idioma Chino está correctamente habilitado en SCIM, así que si no te ha salido, probablemente el SCIM siga puesto para el español. Para comprobarlo, haz click izquierdo en el icono de SCIM de la barra de tareas al lado del reloj y comprueba que aparece el chino. Si no es así, haz click derecho y pulsa en "Actualizar Configuración".
+
+Nosotros escribiremos con nuestro teclado qwerty las palabras chinas en <a href="http://es.wikipedia.org/wiki/Pinyin">pinyin</a> (sin los tonos) y él nos mostrará las diferentes palabras chinas que existen con esas letras, probando con diferentes combinaciones de tonos. Es algo parecido al sistema de entrada T9 de los móviles. 
+
+Ahora que tenemos la barra, pinchamos en el icono a la derecha de la chincheta. Aquí elegiremos el algoritmo que nos va a ayudar a escribir. Debemos elegir la última opción que aparece en la parte de Chino (simplificado) (es la única que no tiene caracteres latinos en su descripción). También lo podemos escoger sin necesidad de la barra, en el menú desplegable que aparece al hacer click sobre el icono de SCIM al lado del reloj en la barra de tareas. 
+
+<h2>Un Ejemplo</h2>
+Como no podía ser de otra forma, para probarlo escribiremos "Hola Mundo".
+
+<i>Off-Topic: De todas las acepciones posibles de "mundo", me ha parecido mejor por la que se traduciría por "todo el mundo".
+En pinyin sería (digo yo, sólo llevo un mes aprendiendo :P) "quán qiú hào" (por si tenéis curiosidad, se pronunciaría parecido a  chuanchiou jao).</i>
+
+Para escribirlo, como ya hemos dicho, no necesitamos escribir los tonos (las tildes; en Chino hay 5 tipos), así que escribimos "quan" y nos aparecen varios ideogramas. El que se corresponde con el que buscamos es el primero, así que pulsamos el espacio y se guarda. Seguimos escribiendo "qiu" y el caracter que buscamos es el segundo, por lo que pulsamos el 2 en el teclado. El caracter correspondiente de "hao" también es el primero, así que simplemente escribimos hao y damos un espacio. El resultado es el siguiente: 
+<pre>全球 好</pre>
+
+再见 (zài jiàn, Adiós!) 

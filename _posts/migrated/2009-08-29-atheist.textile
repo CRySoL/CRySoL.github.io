@@ -1,0 +1,28 @@
+---
+migrated: node/1218
+layout: post
+title: Atheist
+created: 1251557234
+author: david_villa
+---
+You need evidences, not just beliefs.
+
+
+<!--break-->
+
+
+@Athest@ is a simple framework for running test cases. You write small files in Python language using a set of predefined functions and classes (a "DSL":http://en.wikipedia.org/wiki/Domain-specific_language). In many senses, the concept is quite similar to @make@ or @SCons@ frameworks although Atheist isn’t a building system at all.
+
+h2. Project
+
+* "Atheist at savannah":https://savannah.nongnu.org/projects/atheist/
+
+h2. Documentation
+
+* "On line":http://arco.esi.uclm.es/~david.villa/atheist/html/
+* "PDF":http://arco.esi.uclm.es/~david.villa/atheist/Atheist.pdf
+
+h2. Download
+
+* "Debian package":http://packages.debian.org/sid/atheist
+* "SVN repository":https://arco.esi.uclm.es/svn/public/prj/atheist/

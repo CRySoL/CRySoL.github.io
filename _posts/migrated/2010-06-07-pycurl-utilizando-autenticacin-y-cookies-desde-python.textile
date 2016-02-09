@@ -1,0 +1,105 @@
+---
+migrated: node/1361
+layout: post
+title: 'PycURL: utilizando autenticación y cookies desde Python'
+created: 1275925652
+author: Lk2
+category: recipe
+tags:
+- Arco
+- Python
+- devel
+---
+bq(head). Esta receta explicará a través de ejemplos mínimos como utilizar cookies para autenticarnos en una página y poder realizar sucesivas consultas con esa misma autenticación.
+
+
+<!--break-->
+
+
+El contenido de esta receta te será muy útil si estás haciendo pruebas para alguna página web o bien si quieres automatizar tareas que requieres autenticarse en una página. Empecemos.
+
+h2. Ejemplo mínimo de uso
+
+A través de PycURL podemos solicitar una página web. Por ejemplo, para descargar esta receta, podremos utilizar este código:
+
+
+<div>
+{% highlight python %}
+import pycurl
+
+url = http://crysol.org/es/node/
+
+c = pycurl.Curl()
+c.setopt(pycurl.URL, url)
+c.perform()
+c.close()
+{% endhighlight %}
+</div>
+
+En el ejemplo anterior creamos un objeto @Curl@ y añadimos una propiedad (en este caso, la URL que queremos consultar). Al ejecutar la operación @perform@ obtendrá a través de HTTP el contenido HTML de dicha URL y lo mostrará por pantalla.
+
+La salida se puede redirigir a una cadena o a fichero a través de la librería, pero eso lo veremos en otra receta más vanzada (perdóname, pero yo también acabo de empezar con cURL :P).
+
+h2. Autenticarse en una web
+
+Utilizaremos CRySoL como banco de pruebas (sin abusar) para autenticarnos. En la web se realiza este paso en la página <a href="http://crysol.org/user">http://crysol.org/user</a>, en la que hay un formulario. Si visualizaramos el código de esa página, veríamos que dicho formulario en de tipo "POST":http://en.wikipedia.org/wiki/POST_(HTTP).
+
+Para poder realizar la autenticación necesitamos saber los campos del formulario. Para no complicarte la vida más de la cuenta, los campos son "name", "pass" y "form_id", cuyos respectivos valores serían tu nombre de usuario en CRySoL, tu contraseña y la cadena "user_login". El formulario tiene más campos, pero para realizar una autenticación tan solo deberemos especificar estos.
+
+Para realizar la especificación de dichos campos utilizaremos un diccionario Python estándar, el cual pasaremos a la función @urllib.urlencode@ para que lo serialice de forma que se pueda enviar como datos HTTP.
+
+
+<div>
+{% highlight python %}
+
+import pycurl
+import urllib
+
+url = 'http://crysol.org/user'
+
+post_vars = { 'name': 'Lk2',
+              'pass': 'la_password',
+              'form_id': 'user_login'}
+
+c = pycurl.Curl()
+c.setopt(pycurl.URL, url)
+c.setopt(pycurl.POSTFIELDS, urllib.urlencode(post_vars))
+
+c.perform()
+c.close()
+{% endhighlight %}
+</div>
+
+h2. Añadiendo cookies al invento
+
+Autenticarse en una web está bien, pero no nos servirá de nada si no utilizamos "_cookies_":http://en.wikipedia.org/wiki/HTTP_cookie. Utilizándolas, podremos realizar sucesivas peticiones a una página y mantenernos autenticado entre ellas (lo que se dice mantener abierta una sesión, vaya).
+
+Para ello tan solo añade al código anterior la siguiente línea (*antes de hacer el @perform@*):
+
+
+<div>
+{% highlight python %}
+c.setopt(pycurl.COOKIEJAR, '/tmp/cookie.txt')
+{% endhighlight %}
+</div>
+
+Claro está, la ubicación de la _cookie_ la puedes poner al gusto.
+
+h2. Utilizando una _cookie_
+
+Tras obtener una _cookie_ seguro que quieres poder utilizarla. Para ello, antes de realizar el @perform@ de cualquier URL del dominio de CRySoL tendrías que decirle a cURL que utilice la _cookie_ que con tanto cariño guardamos antes.
+
+Tan fácil como lo siguiente: añade esta línea *antes* de hacer el @perform@:
+
+
+<div>
+{% highlight python %}
+c.setopt(pycurl.COOKIEFILE, '/tmp/cookie.txt')
+{% endhighlight %}
+</div>
+
+h2. Código de los ejemplos (un poco mejorado)
+
+Aquí dejo unos cuantos ejemplos de lo visto hasta aquí. Sentiros libres de añadir/sugerir mejoras u otros usos que se le pudiera dar a esta bonita librería.
+
+* "Ejemplos de PycURL":https://arco.esi.uclm.es/svn/public/samples/pycurl/

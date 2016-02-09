@@ -1,0 +1,33 @@
+---
+migrated: node/1087
+layout: post
+title: Updated debian packages for devkitPro
+created: 1234035720
+author: paco
+category: new
+tags:
+- NDS
+- embedded
+- Debian
+---
+A new version of my debian packages for <a href="http://devkitpro.org/">devkiPro</a> was released today.  They are more or less synched with devkitARM r24 (with an updated dswifi), devkitPPC r16, and a current repository snapshot of psp-sdk (with small patches).
+
+
+<!--break-->
+
+
+We are going to use them in an undergrad introductory course on computer architecture (first year).  The lab assignments must be developed on Nintendo DS videoconsoles.  In a near future we will expand our offering to Sony PSP, and Nintendo GameCube or Wii.
+
+If you want to install them in your Debian/Ubuntu/Molinux use the following additional apt sources:
+
+<pre>
+deb http://arco.esi.uclm.es/~francisco.moya/debian ./
+deb http://arco.esi.uclm.es/~francisco.moya/debian-amd64 ./
+deb-src http://arco.esi.uclm.es/~francisco.moya/debian ./
+</pre>
+
+Update your package database and install <b>devkitpro-arm-eabi</b> or <b>devkitpro-ppc</b> or <b>devkitpro-psp</b>.
+
+You will find that package contents and structure follow closely the layout of devkitPro for Windows.  To be more precise you will even find all of the examples for NDS, GBA, GP32, GameCube y Wii in the appropriate places.  Tutorials and HOWTOs are easily adapted to GNU/Linux by just replacing <em>C:</em> or <em>/c</em> by <em>/opt</em>.
+
+Besides devkitPro I released an updated versión of <a href="http://desmume.org">desmume</a>, not yet available in Debian, with gdb stub support enabled.  Desmume is the only free Nintendo DS emulator with integrated gdb stub support.  This version fixes a serious bug in <em>desmume 0.9</em> IPC emulation.  It was taken from a subversion repository snapshot on 2009-02-07, slightly patched to be able to compile it on 64 bit hosts.

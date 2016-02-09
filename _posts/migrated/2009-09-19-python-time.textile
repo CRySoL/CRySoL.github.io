@@ -1,0 +1,105 @@
+---
+migrated: node/1222
+layout: post
+title: Python time
+created: 1253382118
+author: david_villa
+category: recipe
+tags:
+- Python
+---
+Una pequeña reseña sobre las funciones de manipulación de la hora en Python mediante el módulo @time@.
+
+
+<!--break-->
+
+
+h2. ¿Qué hora es?
+
+<p>
+
+h3. @time.time() -> float@
+
+Devuelve la hora UNIX en segundos, como float, aunque es poco probable que el sistema de escritorio pueda dar precisión menor a la milésima de segundo.
+
+
+<div>
+{% highlight text %}
+>>> time.time()
+253391341.7215531
+{% endhighlight %}
+</div>
+
+h3. @time.localtime([seconds]) -> struct_time@
+
+Devuelve la hora como tupla @(tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday, tm_yday, tm_isdst)@. Si no se le indica nada, utiliza la hora actual.
+
+
+<div>
+{% highlight text %}
+>>> time.localtime()
+(2009, 9, 19, 22, 36, 45, 5, 262, 1)
+{% endhighlight %}
+</div>
+
+@time.gmtime()@ hace lo mismo pero expresada en UTC (GMT).
+
+h3. @time.asctime([tuple]) -> string@
+
+Devuelve una representación textual de la hora. Se le puede indicar una hora como tupla.
+
+
+<div>
+{% highlight text %}
+>>> time.asctime()
+'Sat Sep 19 22:26:04 2009'
+{% endhighlight %}
+</div>
+
+
+h2. Formateando la hora
+
+<p>
+
+h3. @strftime(format[, tuple]) -> string@
+
+Formatea una hora (indicada como tupla) usando la especificación indicada por parámetro (@format@). Si no se indica el segundo parámetro (@tuple@) toma la hora actual.
+
+
+<div>
+{% highlight text %}
+>>> time.strftime("%a %b %d %H:%M:%S %Y")
+'Sat Sep 19 19:40:42 2009'
+{% endhighlight %}
+</div>
+
+El significado de cada variable (los caracteres con %) lo puedes ver en la documentación del "módulo time":http://docs.python.org/library/time.html#time.strftime.
+
+
+h3. @strptime(string, format) -> struct_time@
+
+Hace lo contrario de @strptime()@, es decir, parsea una cadena para obtener la hora como tupla.
+
+
+<div>
+{% highlight text %}
+>>> time.strptime("Sat Sep 12 16:47:31 2009", "%a %b %d %H:%M:%S %Y")
+(2009, 9, 12, 16, 47, 31, 5, 255, -1)
+{% endhighlight %}
+</div>
+
+
+h2. Conversiones
+
+
+<div>
+{% highlight text %}
+FLOAT  -> TUPLA   localtime(), gmtime() 
+FLOAT  -> STRING  ctime()
+
+TUPLA  -> FLOAT   mktime()
+TUPLA  -> STRING  asctime(), strftime()
+
+STRING -> TUPLA   strptime()
+{% endhighlight %}
+</div>

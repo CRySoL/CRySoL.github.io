@@ -1,0 +1,23 @@
+---
+migrated: node/970
+layout: post
+title: Lo único seguro es que no lo es
+created: 1218672487
+author: david_villa
+category: opinion
+---
+Con esta paradoja se puede resumir la situación de la seguridad informática últimamente. Empezamos con la "clave privada predecible":http://<a href="http://www.debian.org/security/2008/dsa-1571">www.debian.org/security/2008/dsa-1571</a> de SSL en Debian (y Ubuntu y derivados, que son muchos), seguramente la cagada *más grande* en materia  de seguridad de su historia.
+
+
+<!--break-->
+
+
+Después llegó Kamiski con el "fallito de los DNS":http://<a href="http://www.unixwiz.net/techtips/iguide-kaminsky-dns-vuln.html">www.unixwiz.net/techtips/iguide-kaminsky-dns-vuln.html</a>. Y no se trata de una cosilla da nada. A día de hoy, el comercio electrónico a través de Internet es el equivalente a jugar a la ruleta rusa con tu cuenta bancaria; y eso sin hablar de que tu privacidad en la red es básicamente una lotería, incluyendo tus cuentas de correo o tu expediente académico. Los pocos proveedores de Internet que han hecho algo por solucionar el problema, probablemente el *más grave* de la historia de Internet, han perdido el tiempo, ya que no es nada difícil encontrar exploits usando Google (supuestamente) para CUALQUIER implementación de servidor DNS que exista, incluso después de parcheada. Ni OpenDNS ni nada...
+
+Y acostumbrados a que el telediario de Antena3 nos dé la brasa durante semanas con chorradas como el virus "I Love You", sería de esperar que ante un verdadero problema de primera plana, montaran la de Dios es Cristo. ¿Vosotros habéis visto los titulares apocalípticos? Yo tampoco. Si ningún telespectador va a entender remotamente de qué va el tema, y menos un periodista, mejor hablar de la web que vende joyas hechas con las cenizas de tu abuela.
+
+Y luego están los proveedores de "banda ancha" que te venden sus centinelas, guardianes, anti-spyware, anti-troyanos, anti-anti-firewalls y otros cientos de gilipuerteces del mismo calibre... pero ¿qué están haciendo para solucionar el  problemón del DNS poisoning?... NADA.
+
+Pero eso no es todo, en la famosa conferencia Black Hat, unos "participantes" han demostrado que la arquitectura de seguridad de Windows Vista (el S.O. más seguro del -infra- mundo) ha resultado ser un "fiasco sin precedentes":http://<a href="http://www.kriptopolis.org/la-puntilla-para-vista">www.kriptopolis.org/la-puntilla-para-vista</a>, convirtiendo a Vista en el coladero *gran grande* de todos los tiempos, "capaz" de otorgar control total a cualquier programilla (web, e-mail) que pueda cargar una DLL malingeniosa. ¿El error? Asumir (por diseño) que cualquier DLL cargada a través de .NET es completamente confiable, cachis! ha resultado que, contra todo pronóstico, era una asunción demasiado optimista. Y no parece que la solución, de haberla, vaya a llegar a corto plazo.
+
+Conclusión: lo del SSH de Debian no parece tan grave visto lo visto... :-D

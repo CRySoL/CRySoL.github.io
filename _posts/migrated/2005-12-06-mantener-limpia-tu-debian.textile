@@ -1,0 +1,102 @@
+---
+migrated: node/144
+layout: post
+title: Mantener limpia tu Debian
+created: 1133887135
+author: david_villa
+category: recipe
+---
+En esta recetilla se explica el uso de alguos programamas de Debian (o distros derivadas) que pueden ayudar a mantener el sistema limpio y no tener más basura de la deseada
+
+
+<!--break-->
+
+
+
+h1. localepurge
+
+Se trata de un paquetito que identifica y elimina todos los ficheros de documentación y páginas de manual que corresponden a idiomas que no vas a usar, con el consiguiente ahorro de espacio en disco y de ficheros.
+
+h2. Configura tus "locales"
+
+Es decir, elige qué idiomas quieres que estén disponibles para que las aplicaciones puedan elegir. Las "locales" también determinan cómo se presentan fechas, monedas, decimales, cómo se ordenan cadenas de texto, etc. Instala el paquete si no lo tienes instalado. Si ya lo tienes puede reconfigurarlo con:
+
+
+<div class="console">
+{% highlight console %}
+~# dpkg-reconfigure locales
+{% endhighlight %}
+</div>
+
+Y marca las que quieras en la lista. Normalmente serán @es_ES@ y @es_ES@euro@.
+
+
+h2. Instala el paquete "localepurge"
+
+Lo de siempre:
+
+
+<div class="console">
+{% highlight console %}
+~# apt-get install localepurge
+{% endhighlight %}
+</div>
+
+Y te dice que marques que "locales" quieres conservar. Elige también @es_ES@ y @es_ES@euro@. Y ya está. Desde ahora, cada vez que instales algo con @apt-get@ se ejecutará el @localepurge@ y eliminará todos esos idiomas tan molestos. En una instalación media, la primera vez que se ejecute verás que puede suponer más de 200 MB liberadas.
+
+
+h1. deborphan
+
+Se trata de un programa que determina qué librerías no son usadas por ningún paquete instalado en el sistema (paquetes huérfanos). De modo que los paquetes que las contienen pueden ser eliminados para ahorrar espacio. Por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+~# deborphan
+freetype2
+libpng3
+libcln3c2
+libntfs7
+libglade0
+
+{% endhighlight %}
+</div>
+
+Si quieres borrar esos paquetes huérfanos ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+~# apt-get remove $(deborphan)
+{% endhighlight %}
+</div>
+
+
+h1. debfoster
+
+Se trata de un _front-end_ para @apt-get@. La idea es que el usuario le diga a debfoster qué paquetes quiere tener realmente instalados y cuales son _prescindibles_.
+El programa permite dos cosas:
+
+* Identificar aquellos paquetes que no son dependencias de nada que el usuario quiera tener instalado realmente.
+* Evitar que los paquetes que instalas "para probarlos" se queden ahí para siempre, consumiendo disco y ancho de banda cuando los actualizas.
+
+Después de instalar el paquete. ejecuta @debfoster@. 
+
+El programa te preguntará que debe hacer con toooodos los programas instalados en ese momento. Es un poco pesado pero sólo ocurre la primera vez. Desde ahora cuando quieras instalar un paquete con la intención de que se quede utiliza @debfoster@ en lugar de @apt-get install@. 
+
+
+<div class="console">
+{% highlight console %}
+~# debfoster _paquete_a_instalar_
+{% endhighlight %}
+</div>
+
+Pero cuando quieras instalar un paquete, sólo "para ver qué es" utiliza @apt-get install@ de la forma habitual. Cada vez que ejecutes debfoster, te preguntará que hacer con esos paquetes que no dijiste que querías conservar explicitamente.
+
+h1. Referencias
+
+* "localepurge":http://packages.debian.org/stable/admin/localepurge
+* "deborphan":http://packages.debian.org/testing/admin/deborphan
+* "debfoster":http://<a href="http://www.fruit.je/debfoster/">www.fruit.je/debfoster/</a>
+* "Limpiando nuestro Debian":http://<a href="http://www.esdebian.org/article.php/2006081516135144">www.esdebian.org/article.php/2006081516135144</a>
+* "deborphan: find packages you don’t want":http://debaday.debian.net/2007/10/21/deborphan-find-packages-you-dont-want/

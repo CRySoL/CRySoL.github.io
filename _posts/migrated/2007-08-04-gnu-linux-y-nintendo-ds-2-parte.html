@@ -1,0 +1,27 @@
+---
+migrated: node/752
+layout: post
+title: GNU/Linux y Nintendo DS (2ª Parte)
+created: 1186240255
+author: javieralso
+category: recipe
+tags:
+- embedded
+---
+<blockquote>Segunda entrega de esta serie de recetas sobre el movimiento <a href="http://es.wikipedia.org/wiki/Homebrew"><em>homebrew</em></a> para ésta consola...
+</blockquote>
+
+
+En una <a href="http://crysol.org/node/622">receta anterior</a> de éste mismo blog hablé sobre la instalación de las herramientas para poder programar la <em>NDS</em> bajo <b>GNU/Linux</b>. El problema es que el tiempo pasa y los <em>scenners</em> siguen trabajando y claro, cometen errores y las cosas dejan de funcionar como lo hacían antes (menos mal que suele ser de forma temporal). Con ésto quiero decir, que a día de hoy, la toolchain no compila correctamente, así que me he visto obligado a buscar por ahí la toolchain precompilada y a instalarla en mi equipo.
+
+He conseguido instalar <em>libnds</em>, <em>libfat</em>, <em>dswifi</em> y <a href="http://www.palib.info/forum/"><em>PAlib</em></a>. Ésta última es una una abstracción a alto nivel de funciones para vídeo, texto, audio, etc... que tienen por debajo <em>libnds</em>.
+Buscando por ahí también he encontrado mas información y tutos sobre ésta última librería, en la página que comento mas arriba, así que me he decido a empezar a trastear en mis pocos ratos libres con <em>PAlib</em>.
+
+Para empezar, después de conseguir instalar las librerías precompiladas en mi máquina, las subí a <a href="http://arco.inf-cr.uclm.es/~javier.almansa/nds/precompilado"><em>arco</em></a>. Dentro del paquete <em>dsTools.tgz</em> se encuentra el árbol de directorios ya montado con toda la toolchain. Para instalarla, basta con descomprimir el paquete dentro de un directorio cualquiera de nuestra máquina y agregar las rutas a nuestros PATHs. Para ello, suponiendo que hemos descomprimido el paquete dentro del directorio <em>/usr/local/stow/dkp/</em> tan solo tenemos que añadir lo siguiente al archivo <em>~/.bashrc</em>:
+<pre>export DEVKITPRO=/usr/local/stow/dkp
+export DEVKITARM=/usr/local/stow/dkp/devkitARM
+export LIBNDS=/usr/local/stow/dkp/libnds
+export LIBNDS_INCLUDE=/usr/local/stow/dkp/libnds/include
+export LIBNDS_LIB=/usr/local/stow/dkp/libnds/lib
+</pre>
+Con ésto ya tendremos la toolchain lista para funcionar y probar los ejemplos de <em>PAlib</em>.

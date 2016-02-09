@@ -1,0 +1,59 @@
+---
+migrated: node/127
+layout: post
+title: En Nautilus también tenemos "Abrir terminal aquí"!
+created: 1133168714
+author: int-0
+category: recipe
+---
+<blockquote>Esta receta está dedicada a todas aquellas personas que van por ahí diciendo que su KDE o su file-roller son mejores que Nautilus por el simple hecho de que no tiene la opción "Abrir terminal aquí"... bueno pues nada, buscad nuevos argumentos porque ese hace tiempo que no os vale... Debéis saber que a Nautilus se le pueden añadir toda la funcionalidad que queráis de una forma muy sencilla: Nautilus-scripts (o G-scripts).</blockquote>
+
+
+<h1>Nautilus-scripting</h1>
+Nautilus permite al usuario crear sus propios scripts en cualquier lenguaje, ya sea python, perl, bash-script, etc. Para ello, lo único que debemos hacer es copiarlos en el siguiente directorio:
+
+
+<div class="console">
+{% highlight console %}
+~/.gnome2/nautilus-scripts
+{% endhighlight %}
+</div>
+
+La primera vez que ponemos un script debemos reiniciar nautilus para que nos aparezca la nueva entrada en el menú contextual, después se actualizará dinámicamente con los scripts y directorios que creemos en dicha carpeta.
+
+<h1>Abrir terminal aquí</h1>
+Además, nautilus crea unas variables de entorno para facilitar más aún escribir scripts útiles, una de ellas nos permite obtener la lista de ficheros seleccionados, si seleccionamos una carpeta y abrimos una shell ahí tendremos lo que queremos... en bash-script esto es extremadamente fácil: creamos el archivo "terminal aqui" con el siguiente contenido:
+
+<pre>
+#!/bin/bash
+cd $NAUTILUS_SCRIPT_SELECTED_FILE_PATHS
+gnome-terminal
+</pre>
+
+Cambiamos los permisos y lo movemos a la carpeta de scripts de nautilus:
+
+
+<div class="console">
+{% highlight console %}
+$ chmod +x "terminal aqui"
+$ mv "terminal aqui" ~/.gnome2/nautilus-scripts/
+
+{% endhighlight %}
+</div>
+
+Reiniciamos nautilus (esto no parece muy elegante...):
+
+
+<div class="console">
+{% highlight console %}
+$ killall nautilus
+{% endhighlight %}
+</div>
+
+Si ahora pinchamos con el botón derecho sobre una carpeta nos aparecerá una nueva opción en el menú contextual y ahí la opción "terminal aqui". Podeis crear subcarpetas para hacer subsecciones, etc. Hay muchos <a href="http://g-scripts.sourceforge.net/">scripts útiles</a> (aunque algunos ya están un poco obsoletillos...)
+
+<h1>Referencias</h1>
+<ul>
+<li><a href="http://g-scripts.sourceforge.net/">http://g-scripts.sourceforge.net/</a></li>
+</ul>
+

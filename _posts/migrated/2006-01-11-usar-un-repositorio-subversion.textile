@@ -1,0 +1,164 @@
+---
+migrated: node/181
+layout: post
+title: Usar un repositorio subversion
+created: 1137014002
+author: david_villa
+category: recipe
+tags:
+- VCS
+---
+Subversion es un sistema de <a href="http://es.wikipedia.org/wiki/Sistema_de_control_de_versión">control de versiones</a> concurrente. Su objetivo es muy similar al de CVS aunque tiene grandes ventajas sobre éste, y por eso, cada día muchos proyectos de desarrollo de software cambian a subversion.
+
+
+<!--break-->
+
+
+En esta receta se explica cómo realizar las operaciones básicas con un repositorio subversion. Si necesitas crear y publicar un repositorio consulta esta "otra receta":/drupal/?q=node/162
+
+
+h2. Crear un módulo
+
+Cuando se comieza un nuevo desarrollo es necesario crear un nuevo módulo en el repositorio (algo similar a un directorio en el sistema de ficheros local). Para ello, supondremos que ya existe un repositorio accesible en @<a href="http://example.com/repos@">http://example.com/repos@</a>. Tienes que ejecutar algo similar a:
+
+
+<div class="console">
+{% highlight console %}
+$ svn import /home/user/job http://example.com/repos/myjob
+{% endhighlight %}
+</div>
+
+Siendo @job@ el directorio que contiene los ficheros del nuevo proyecto. Esto creará el módulo @myjob@ en el repositorio @repos@ del host @example.com@ y subirá allí el contenido de @/home/user/job@, creando así la versión inicial.
+
+
+h2. Descargar un módulo
+
+Esta es la operación más habitual y también una de las más simples:
+
+
+<div class="console">
+{% highlight console %}
+$ svn checkout http://example.com/repo/anotherjob
+{% endhighlight %}
+</div>
+
+Esto obtiene una copia de la versión HEAD(la última) del módulo @anotherjob@. Crea un directorio con el mismo nombre en el directorio actual.
+
+
+h2. Actualizar una copia local
+
+Suponiendo que haya nuevas versiones disponibles del módulo del ejemplo anterior, puedes actualizar tu copia a la última versión con:
+
+
+<div class="console">
+{% highlight console %}
+anotherjob$ *svn update*
+{% endhighlight %}
+</div>
+
+
+h2. Gestión de conflictos
+
+ToDo
+
+
+h2. Añadir un fichero
+
+Si has creado un fichero nuevo al módulo y quieres que esté en el repositorio tienes que añadirlo explícitamente. Recuerda que un repositorio está pensado para "fuentes" (no binarios). No subas nada que se pueda generar a partir de otros ficheros. Nada de binarios, ficheros objeto, copias de seguridad, pdf o cualquier cosa que se pueda obtener como resultado de una compilación. 
+
+
+<div class="console">
+{% highlight console %}
+anotherjob$ *svn add* nuevo_fichero
+anotherjob$ svn commit
+{% endhighlight %}
+</div>
+
+
+h2. Subir cambios locales al repositorio
+
+Si eres tú el que desea subir al repositorio una nueva versión de los ficheros de ese módulo (que has modificado tú mismo), ejecuta esto:
+
+
+<div class="console">
+{% highlight console %}
+anotherjob$ *svn commit*
+{% endhighlight %}
+</div>
+
+Es este caso se abrirá el editor de texto por defecto para que añadas un comentario referente a las modificaciones que estás subiendo.
+
+
+
+h2. Mover un módulo
+
+Esta es una importante mejora con respecto a CVS. En subversion se pueden renombrar y mover ficheros y módulos completos. La idea es poder cambiar la ubicación del módulo en el mismo repositorio.
+
+Supón que quieres mover el contenido del módulo @xmi2code@ en @<a href="http://example.com/repos/@">http://example.com/repos/@</a> a @xmi2code/trunk@. Las operaciones a realizar serán las siguientes
+
+* Renombrar (mover) @xmi2code@ a @trunk@
+
+
+<div class="console">
+{% highlight console %}
+$ svn move -m "xmi2code a trunk" http://example.com/repos/xmi2code http://example.com/repos/trunk
+{% endhighlight %}
+</div>
+
+
+* Crear el subdirectorio @xmi2code@:
+
+
+<div class="console">
+{% highlight console %}
+$ svn mkdir -m "crear xmi2code" http://example.com/repos/xmi2code
+{% endhighlight %}
+</div>
+
+
+* Mover @trunk@ a @xmi2code@:
+
+
+<div class="console">
+{% highlight console %}
+$ svn move -m "trunk a xmi2code" http://example.com/repos/trunk http://example.com/repos/xmi2code
+{% endhighlight %}
+</div>
+
+
+
+h2. Crear una rama
+
+Subversion permite crear flujos de desarrollo paralelos ramificando el módulo en uno o varios puntos. Para este ejemplo, supondremos que la rama principal se encuentra en el subdirectorio @trunk@ del módulo @xmi2code@. La nueva rama tendrá por nombre @vhdl@. Tendrás que ejecutar las siguientes operaciones:
+
+* Creación del subdirectorio @branches@ (en el caso de que no exista), en el que se colocará la nueva rama.
+
+
+<div class="console">
+{% highlight console %}
+$ svn mkdir http://example.com/repos/xmi2code/xmi2code/branches
+{% endhighlight %}
+</div>
+
+* Creación de la rama:
+
+
+<div class="console">
+{% highlight console %}
+ $ svn copy http://example.com/repos/xmi2code/xmi2code/trunk http://example.com/repos/xmi2code/xmi2code/branches/vhdl
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+* "Subversion":http://subversion.tigris.org/
+* "Control de versiones con Subversion [manual oficial]":http://svnbook.red-bean.com/
+* "Subversion personal":http://sindominio.net/quique/Traducciones/subversion_personal.html
+* "FAQ Subversion":http://<a href="http://www.luca.2y.net/desarrollo/sitios/LUGMen/proyectos/desarrollo/material/faq-subversion.html">www.luca.2y.net/desarrollo/sitios/LUGMen/proyectos/desarrollo/material/faq-subversion.html</a>
+* "A Novices Tutorial on Subversion":http://<a href="http://www.germane-software.com/~ser/R_n_R/subversion.html">www.germane-software.com/~ser/R_n_R/subversion.html</a>
+* "Subversion":http://<a href="http://www.1x4x9.info/files/subversion/html/online/index.html">www.1x4x9.info/files/subversion/html/online/index.html</a>
+* "Guía de referencia Debian":http://qref.sourceforge.net/Debian/reference/ch-vcs.es.html
+* "SmallSVNTutorial":http://wiki.debian.org/SmallSVNTutorial
+* "Playing with SVN":http://<a href="http://www.debian-administration.org/articles/374">www.debian-administration.org/articles/374</a>
+* "Gestión de proyectos con Subversion":http://<a href="http://www.escomposlinux.org/fer_y_juanjo/index.php?pag=subversion.html">www.escomposlinux.org/fer_y_juanjo/index.php?pag=subversion.html</a>

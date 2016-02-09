@@ -1,0 +1,71 @@
+---
+migrated: node/1346
+layout: post
+title: 'CMake: Enlazado de librerías'
+created: 1269625517
+author: cleto
+category: recipe
+tags:
+- Arco
+- devel
+---
+<blockquote>En esta receta se explica cómo linkar binarios con librerías estáticas y dinámicas.</blockquote>
+
+<h2>Linkado básico</h2>
+A estas alturas ya conocemos cómo construir archivos binarios y librerías en CMake. Ahora supón que la librería dummy que se viene utilizando en los ejemplos está instalada en un path accesible y que el programa hello.cpp hace uso de la librería de forma dinámica. Una posible implementación de este escenario sería la siguiente:
+
+<div>
+{% highlight text %}
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+PROJECT(hello)
+
+# Para includes
+FIND_PATH(dummy_path dummy.h)  
+
+IF(NOT dummy_path)
+   MESSAGE(FATAL_ERROR "** Falta la cabecera dummy.h, dummy!")
+ENDIF()
+
+INCLUDE_DIRECTORIES(${dummy_path})
+
+# Búsqueda del .so
+FIND_LIBRARY(dummy_lib dummy)
+
+IF(NOT dummy_path)
+   MESSAGE(FATAL_ERROR "** Falta la librería dummy, dummy!")
+ENDIF()
+
+ADD_EXECUTABLE(hello hello.cpp)
+TARGET_LINK_LIBRARIES(hello ${dummy_lib})
+{% endhighlight %}
+</div>
+
+En primer lugar, se comprueba que es posible acceder a la librería dummy (tanto la cabecera como el archivo .so). Utilizando el comando TARGET_LINK_LIBRARIES se indica a CMake que el objetivo <tt>hello</tt> debe ser linkado con la librería <tt>dummy_lib</tt>.
+
+Para una librería estática, sería muy similar el código ya que CMake detecta que se trata de un tipo u otro y genera el código necesario para linkar estática o dinámicamente según la librería encontrada.
+
+<h2>FindPkgConfig</h2>
+Habitualmente, muchas librerías que se utilizan en sistemas como GNU utilizan la herramienta pkg-config que ayuda a obtener las distintas variables necesarias (CFLAGS, LDFLAGS, etc).
+
+CMake proporciona un módulo llamado FindPkgConfig que incluye comandos útiles para encontrar librerías que utilizan pkg-config. Pese a que se incluye en la distribución estándar, CMake no recomienda el uso de este módulo porque es posible que haya sistemas privativos que no tengan instalada la aplicación pkg-config. Pero eso, no nos preocupa... ¿verdad? :-)
+
+Supón que el programa <tt>hello</tt> utiliza glib. Podríamos comprobar que está instalado y enlazarlo como sigue:
+
+
+<div>
+{% highlight text %}
+#Carga del módulo
+include(FindPkgConfig)
+PKG_CHECK_MODULES(glib REQUIRED glib-2.0) # REQUIRED=Fallará si no lo encuentra
+
+# En "glib_INCLUDE_DIRS" se han cargado los directorios (-I del compilador)
+INCLUDE_DIRECTORIES(${glib_INCLUDE_DIRS})
+
+ADD_EXECUTABLE(hello hello.cpp)
+
+# En "glib_LIBRARIES están el nombre de las librerías (-l del compilador)
+TARGET_LINK_LIBRARIES(hello ${glib_LIBRARIES}
+{% endhighlight %}
+</div>
+
+¿Y cómo es que en glib_LIBRARIES y glib_INCLUDE_DIRS se guardan esos datos?. Los módulos Find* de CMake crean variables para que el usuario las pueda utilizar en caso de encontrar la librería o el objeto que se esté buscando. Una buena forma de saber sobre qué variables se dispone es consultando la documentación. En la cabecera de los módulos también viene esta información (en Debian <tt>/usr/share/cmake2.8/Modules/*.cmake</tt>).

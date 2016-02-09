@@ -1,0 +1,23 @@
+---
+migrated: node/550
+layout: post
+title: Fallos en el repositorio de Mesa (a día 9 de Febrero de 2007) DRM_VBLANK_SECONDARY
+created: 1171042335
+author: brue
+---
+En el repo de Mesa hay un bug temporal. El que quiera compilar en debian, tras enfrentarse con los apt-get's pertinentes de desarrollo (importante x11proto*, libnurbs, libxmu, libxi, libmesa...etc -dev), tendrá que definir la contante DRM_VBLANK_SECONDARY en algún sitio visible para vblank.c.
+
+<!--break-->
+
+
+Así, por ejemplo podemos añadir:
+
+<pre>
+#define DRM_VBLANK_SECONDARY 0x20000000
+</pre>
+
+en <path_a_source_de_mesa>/src/drivers/dri/common/vblank.c
+
+El que quiera un tuto completo de cómo tener aceleración en su ibook, que lo diga. Espero que no tengáis problemas para hacerlo por vosotros mismos. (Recordad los que tengáis PPC, borrad en config/linux-dri-ppc los targets que no se usen - por ejemplo, dejad sólo radeon si vais a compilar para una radeon -r300 para ...)
+
+That's all folks.

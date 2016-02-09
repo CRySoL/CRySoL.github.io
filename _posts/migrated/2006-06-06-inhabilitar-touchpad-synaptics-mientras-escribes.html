@@ -1,0 +1,37 @@
+---
+migrated: node/328
+layout: post
+title: Inhabilitar touchpad synaptics mientras escribes
+created: 1149624390
+author: loren
+category: recipe
+---
+<blockquote>Cómo desactivar el touchpad mientras estás escribiendo, evitando así taps involuntarios.</blockquote>
+
+<h1>Antes de nada...</h1>
+Lo primero que tienes que hacer es asegurarte que tu touchpad es synaptics. Si es así, lo siguiente es comprobar que tienes instalado el módulo <a href="http://packages.debian.org/cgi-bin/search_contents.pl?word=syndaemon&searchmode=searchfiles&case=insensitive&version=unstable&arch=i386">xserver-xorg-input-synaptics</a>. Si no lo tienes, ¿a qué estas esperando?
+
+<h1>Manos a la obra!</h1>
+Una vez que has instalado el módulo, tendrás el comando <a href="http://linuxcommand.org/man_pages/syndaemon1.html">syndaemon</a> disponible, el cual monitorizará tu teclado y desactivará tu touchpad cada vez que escribas. Puedes probar su comportamiento introduciendo lo siguiente en una terminal:
+
+
+<div class="console">
+{% highlight console %}
+$ syndaemon -i 1 -d
+{% endhighlight %}
+</div><ul><li>Con -i 1 le estás diciendo a syndaemon que quieres que tarde 1 segundo en volver a habilitar tu touchpad desde que presionas la última tecla de tu teclado.</li>
+<li>Con -d le dices que quieres que se ejecute como demonio del sistema.</li></ul>
+
+Ahora sólo falta que agregues ese comando a tu lista de programas al inicio del gestor de sesiones de Gnome.
+
+Si no usas Gnome, puedes agregar el siguiente script en tu directorio de scripts de inicio:
+<pre>#!/bin/bash
+syndaemon -i 1 -d
+</pre>
+Con esto puedes decir adiós a esos molestos taps involuntarios ;)
+
+<h1> Referencias </h1>
+
+<ul>
+<li><a href="http://www.esdebian.org/article.php/deshabilitar_touchpad">Deshabilitar el touchpad mientras se escribe</a></li>
+</ul>

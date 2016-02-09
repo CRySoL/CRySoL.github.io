@@ -1,0 +1,236 @@
+---
+migrated: node/82
+layout: post
+title: 'Configuración y disfrute de un SAI: NUT en Debian'
+created: 1131191140
+author: david_villa
+category: recipe
+---
+<blockquote>
+Esta receta explica cómo instalar y configurar la herramienta <acronym title="Network UPS Tools">NUT</acronym> para aprovechar al máximo las posibilidades de un <acronym title="Sistema de Alimentación Ininterrumpida">SAI</acronym> en un sistema Debian GNU/Linux. Concretamente, los pasos son para un MGE Pulsar Extreme 1500C
+</blockquote>
+
+h2. Introducción
+
+Instalar un software de control para un SAI sólo tiene sentido si podemos hablar con él para obtener datos de su estado y funcionamiento. Si el SAI no tiene ningún tipo de conexión de datos (tal como serie o USB) esta receta no te sirve. En cualquier caso, un SAI que no dice nada sobre su estado es de muy poca utilidad. Si estás pensado en comprar un SAI, elige uno con el que puedas hablar. En la <a href="http://www.networkupstools.org/">página de nut</a> hay una <a href="http://www.networkupstools.org/compat/">lista</a> de las marcas y modelos compatibles.
+
+<h2>Instalación</h2>
+
+Si tienes una distro compatible Debian, instalar el paquete <acronym title="Network UPS Tools"><b>nut</b></acronym> es así de fácil:
+
+
+<div class="console">
+{% highlight console %}
+ # apt-get install nut
+{% endhighlight %}
+</div>
+
+<h2>Descripción</h2>
+Este software tiene una arquitectura cliente/servidor. Esta configuración permite que varios equipos alimentados por un único SAI (y que ejecutan un cliente) puedan <em>hablar</em>, a través de la red, con el equipo que tiene la conexión de datos del SAI (y que ejecuta el servidor). De este modo, ante un corte de corriente, todos los equipos quedan informados y pueden actuar en consecuencia.
+
+Por este motivo, aunque el SAI dé servicio a una sola máquina, será necesario instalar un servidor y un cliente.
+
+<h2>Funcionalidad</h2>
+Lógicamente, la función de un SAI o <acronym title="Uninterruptible Power Supply">UPS</acronym> (mantener la alimentación durante cortes de luz) es insuficiente para un servidor, ya que es muy probable que no haya nadie para apagar el equipo durante el tiempo de duración de las baterías. El software <em>nut</em> ofrece servicios mucho más interesantes:
+
+<ul>
+  <li>Fijar un umbral de bateria, por debajo del cual el equipo conectado al SAI se apaga automáticamente.
+  </li>
+  <li>Desconexión del SAI. De este modo las baterías no se agotan inútilmente, pues ya no hay nada que alimentar.
+  </li>
+  <li>Fijar umbrales de carga máxima.
+  </li>
+  <li>Monitorización y configuración remota (por medio de CGI).
+  </li>
+</ul>
+
+Con esa configuración, ante un corte de luz, ocurre lo siguiente:
+
+<ul>
+  <li>El SAI pasa a modo batería.
+  </li>
+  <li>Al bajar el nivel de carga de la batería al umbral fijado, el driver que corre en el servidor lo detecta e informa a todos los clientes.
+  </li>
+  <li>Los clientes inician el proceso de apagado de cada equipo.
+  </li>
+  <li>Justo antes de apagarse, el servidor envía al SAI el comando de desconexión.
+  </li>
+  <li>El SAI recibe el comando, espera un tiempo prefijado y después se apaga.
+  </li>
+</ul>
+
+Al volver la corriente:
+
+<ul>
+  <li>El SAI enciende automáticamente.
+  </li>
+  <li>Cuando la fuente de alimentación del PC detecta voltaje (procedente del SAI) arranca el equipo. Para esto es necesario configurar el BIOS Setup de cada ordenador.
+  </li>
+</ul>
+
+No todos los SAIs pueden hacer todo lo que se índica. Tendrás más o menos posibilidades dependiendo de la gama y precio del SAI. 	
+
+<h2>Configuración</h2>
+    
+<h3>Configuración común</h3>
+
+Lo primero, y antes de que se nos olvide, será cambiar los permisos del puerto serie (<tt>/dev/ttyS0</tt> o <tt>/dev/ttyS1</tt>), pues nos debe dejar leer y escribir en él como <tt>root</tt>. En Debian, los puertos serie suelen pertenecer al grupo <tt>dialout</tt>, así que la manera más fácil de conseguir permiso es:
+
+
+<div class="console">
+{% highlight console %}
+# addgrp nut dialout 
+{% endhighlight %}
+</div>
+ 
+En <tt>/etc/nut/ups.conf</tt> habrá que realizar algunos cambios (tanto en cliente como en servidor). Aquí es donde se añade el driver (cada familia de SAIs tiene su propio driver):
+
+
+<div>
+{% highlight text %}
+[id]
+   driver = (driver)
+   port = (port)
+   (options)
+{% endhighlight %}
+</div>
+
+Por ejemplo, para un SAI "MGE Pulsar Extreme" será:</p>
+
+
+<div>
+{% highlight text %}
+[mge]
+   driver = mge-utalk
+   port = /dev/ttyS0
+   LowBatt = 90
+{% endhighlight %}
+</div>
+
+<h3>Configuración del servidor</h3>
+    
+Edita el fichero <tt>/etc/default/nut</tt> modificando la línea <tt>"START_UPSD=no"</tt> por <tt>"START_UPSD=yes"</tt>
+
+En el fichero <tt>/etc/nut/upsd.conf</tt> tienes que crear la lista de control de acceso (ACL). Para ello incluye (si no existe ya):</p>
+
+
+<div>
+{% highlight text %}
+ACL all 0.0.0.0/0
+ACL localhost 127.0.0.1/32                  # host actual
+ACL [NombreMáquina] 192.168.0.0/24    # toda la red
+
+ACCESS grant login localhost [password]
+ACCESS grant monitor localhost [password]
+
+ACCESS grant login [NombreMaquina] [password]
+ACCESS grant monitor [NombreMáquina] [password]
+ACCESS deny all all
+{% endhighlight %}
+</div>
+
+Por último, edita el fichero <tt>/etc/nut/upsd.users</tt>  para dar acceso a los usuarios. Para ello, añade las  líneas:</p>
+
+
+<div>
+{% highlight text %}
+[monuser]
+        password = [password]
+        allowfrom = localhost 192.168.0.0/24     # tu red
+{% endhighlight %}
+</div>
+
+
+<h3>Configuración del cliente</h3>
+
+Edita el fichero <tt>/etc/default/nut</tt> modificando la línea <tt>"START_UPSMON=no"</tt> por <tt>"START_UPSMON=yes"</tt>
+
+Lo siguiente será <tt>/etc/nut/upsmon.conf</tt>. Éste es el fichero de configuración del cliente.  La línea obligatoria a añadir es la del monitor:
+
+
+<div>
+{% highlight text %}
+MONITOR [id]@[ip] 1 [password] slave|master
+{% endhighlight %}
+</div>
+    
+Lo normal para el equipo que tiene la conexión de datos al SAI es que funcione en modo "master". Eso significa que debe esperar a que los "slaves" apaguen antes de hacerlo él. Así que quedará algo como esto:
+
+
+<div>
+{% highlight text %}
+MONITOR mge@192.168.0.1 1 [password] master
+{% endhighlight %}
+</div>
+ 
+Ahora debes reniciar el servicio de la forma habitual:
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/nut restart
+{% endhighlight %}
+</div>
+
+
+<h2>Consejos</h2>
+
+Lo mejor es que la primera vez se arranque todo a mano, pues el <em>script</em> descrito en la sección anterior redirige todos los errores a <tt>/dev/null</tt>. Para ello se hará:
+
+
+<div class="console">
+{% highlight console %}
+
+# upsdrvctl start
+Network UPS Tools - UPS driver controller 1.2.1
+Network UPS Tools - MGE UPS SYSTEMS/U-Talk driver 0.51.0 (1.2.1)
+#
+# upsd
+Network UPS Tools upsd 1.2.1
+#
+# upsmon
+UPS: mge@192.168.0.1 (slave) (power value 1)
+Using power down flag file /etc/killpower
+#
+{% endhighlight %}
+</div>
+
+Puedes ver que la monitorización funciona adecuadamente con el comando <tt>upsc</tt>:
+
+
+<div class="console">
+{% highlight console %}
+
+# upsc mge
+UPS: localhost
+MFR: MGE UPS SYSTEMS
+STATUS: OL CHRG
+UPSIDENT: EXtreme 1500C 15
+MODEL: EXtreme 1500C
+FIRMREV: 15
+UTILITY: 230.0
+BATTPCT: 100.0
+BATT_RUNTIME: 01890
+ACFREQ: 50.00
+LOADPCT: 026.0
+WAKEDELAY: 001
+GRACEDELAY: 120
+SLFTSTINT: 10080
+OUTVOLT: 230.5
+BATTVOLT: 054.6
+LOBATTPCT: 90
+NOMBATVLT: 048.0
+CURRENT: 001.2
+{% endhighlight %}
+</div>
+
+Y eso es todo.
+
+
+
+h2. Referencias
+
+* "Network UPS Tools":http://<a href="http://www.networkupstools.org/">www.networkupstools.org/</a>
+* "MGE and NUT How-To":http://opensource.mgeups.com/howto.htm
+* "Gestionando un SAI desde OpenBSD con NUT":http://<a href="http://www.usebox.net/jjm/ups-obsd/">www.usebox.net/jjm/ups-obsd/</a>
+* "Monitorizar un SAI con Debian":http://<a href="http://www.servitux.org/view.php/page/sai">www.servitux.org/view.php/page/sai</a>

@@ -1,0 +1,200 @@
+---
+migrated: node/1081
+layout: post
+title: Router casero con Debian en el fit-PC 1.0
+created: 1232768261
+author: david_villa
+category: recipe
+tags:
+- networking
+- Debian
+---
+El "fit-PC":http://<a href="http://www.fit-pc.com/new/about-fit-pc.html">www.fit-pc.com/new/about-fit-pc.html</a> es un computador basado en el chip <a href="http://en.wikipedia.org/wiki/Geode_(processor)">Geode</a> con un tamaño realmente pequeño (12x12x4 cm) pero con características muy interesantes. Esta receta explica como instalar Debian para sacarle el máximo rendimiento al pequeño de la casa.
+
+
+<!--break-->
+
+
+h2. Características
+
+<img style="float:right" src="http://www.slipperybrick.com/wp-content/uploads/2007/07/fitpc-linux-fanless.jpg" alt="fit-PC 1.0" width="300px"/>
+
+Como puedes ver en las "especificaciones de fit-PC 1.0":http://<a href="http://www.fit-pc.com/new/fit-pc-1-0-specifications.html">www.fit-pc.com/new/fit-pc-1-0-specifications.html</a> tiene:
+
+* Procesador Geode LX800 ("CS5536":http://<a href="http://www.amd.com/us-en/ConnectivitySolutions/ProductInformation/0,,50_2330_9863_9864%5E13054,00.html">www.amd.com/us-en/ConnectivitySolutions/ProductInformation/0,,50_2330_9863_9864%5E13054,00.html</a>)  a 500 MHz 
+* Tarjeta de vídeo Geode LX con una resolución máxima de 1920x1440  (conector VGA DB-15)
+* 256 MiB  de RAM DDR 333MHz
+* 60 GB (IDE de 2,5")
+* 2 x RJ45 Ethernet 100Mbps
+* 2 x USB 2.0
+* 1 x RJ11 RS-232
+* Tarjeta de sonido con entrada y salida
+
+Esto es lo que dice @lspci@:
+
+
+<div class="console">
+{% highlight console %}
+
+# lspci
+00:01.0 Host bridge: Advanced Micro Devices [AMD] CS5536 [Geode companion] Host Bridge (rev 33)
+00:01.1 VGA compatible controller: Advanced Micro Devices [AMD] Geode LX Video
+00:01.2 Entertainment encryption device: Advanced Micro Devices [AMD] Geode LX AES Security Block
+00:0d.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL-8139/8139C/8139C+ (rev 10)
+00:0e.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL-8139/8139C/8139C+ (rev 10)
+00:0f.0 ISA bridge: Advanced Micro Devices [AMD] CS5536 [Geode companion] ISA (rev 03)
+00:0f.2 IDE interface: Advanced Micro Devices [AMD] CS5536 [Geode companion] IDE (rev 01)
+00:0f.3 Multimedia audio controller: Advanced Micro Devices [AMD] CS5536 [Geode companion] Audio (rev 01)
+00:0f.4 USB Controller: Advanced Micro Devices [AMD] CS5536 [Geode companion] OHC (rev 02)
+00:0f.5 USB Controller: Advanced Micro Devices [AMD] CS5536 [Geode companion] EHC (rev 02)
+{% endhighlight %}
+</div>
+
+Es cierto que no es el último alarido en prestaciones pero es poco mayor que una disquetera de 3.5", es muy silencioso (no tiene ventilador), no se calienta nada y consume 10W en total. Aunque en principio se puede usar como PC doméstico sin muchas pretensiones, yo voy a contar cómo montar un router casero de lo más coqueto.
+
+h2. Instalación
+
+Aunque según el wiki de fit-PC se puede arrancar el instalador desde un pendrive USB o con un CD-ROM externo, yo aconsejo seguir la receta "
+Instalar Debian desde red con PXE":/node/1080. Eso requiere otro PC y conexción a Internet, pero no creo que sea mucho pedir en estos días.
+
+Para activar el arranque por red entra en la BIOS pulsado "del" durante el arranque. Una vez dentro activa la opción "Etherboot" que está en  la sección "Custom Configuration".
+
+h2. Ingredientes
+
+Una vez terminada la instalación, instala los siguientes paquetes
+
+* iptables
+* dnsmasq
+* ifplugd
+* lm-sensors
+* hddtemp
+* smartmontools
+
+
+h2. Configurando el router
+
+Para eso, lo mejor es seguir la receta "router doméstico con GNU/Linux":/node/96
+
+h2. @ifplugd@
+
+Es un demonio que vigila las interfaces de red para saber cuando consiguen o pierden link y ejecuta <tt>ifup</tt>/<tt>ifdown</tt> respectivamente sobre la interfaz correspondiente. De ese modo al conectar los cables de red, las interfaces de activan automáticamente, al así como el network-manager pero bien hecho. :-P
+
+h2. Sensores
+
+Añade al fichero @etc/modules@:
+
+
+<div>
+{% highlight text %}
+lm90
+scx200_acb
+{% endhighlight %}
+</div>
+
+Para probar que funciona, cárgalos con @modprobe@ (o reinicia)  y ejecuta:
+
+
+<div class="console">
+{% highlight console %}
+
+# sensors
+lm99-i2c-0-4c
+Adapter: CS5536 ACB0
+G/C Temp:    +40.0°C  (low  =  +0.0°C, high = +70.0°C)  
+                      (crit = +85.0°C, hyst = +75.0°C)  
+GPU Temp:    +61.6°C  (low  = +16.0°C, high = +86.0°C)  
+                      (crit = +126.0°C, hyst = +116.0°C)  
+{% endhighlight %}
+</div>
+
+
+h2. X Windows
+
+Aunque no es muy necesario que digamos para un router, quizá te venga bien tener un entorno gráfico. Yo recomiendo @xfce4@ (sin @gdm@). El paquete del driver geode que hay en "sid" da un rendimiento penoso por alguna razón que desconozco. Instala el de etch que va mucho mejor. Ejecuta lo siguiente:
+
+
+
+<div class="console">
+{% highlight console %}
+
+# wget http://ftp.de.debian.org/debian/pool/main/x/xserver-xorg-video-geode/xserver-xorg-video-geode_2.10.1-2_i386.deb
+# dpkg -i xserver-xorg-video-geode_2.10.1-2_i386.deb
+# echo 'xserver-xorg-video-geode hold' | dpkg --set-selections
+{% endhighlight %}
+</div>
+
+
+El último comando es para bloquear el paquete y evitar que se actualice cuando hagas un "upgrade".
+
+
+El siguiente fichero @xorg.conf@ funciona razonablemente:
+
+
+<div>
+{% highlight text %}
+Section "InputDevice"
+        Identifier      "Generic Keyboard"
+        Driver          "kbd"
+        Option          "XkbRules"      "xorg"
+        Option          "XkbModel"      "pc105"
+        Option          "XkbLayout"     "es"
+EndSection
+
+Section "InputDevice"
+        Identifier      "Configured Mouse"
+        Driver          "mouse"
+EndSection
+
+Section "Module"
+        Load "xtrap"
+        Load "extmod"
+        Load "dbe"
+        Load "dri"
+        Load "glx"
+        Load "record"
+        Load "freetype"
+EndSection
+
+Section "Device"
+        Identifier      "Configured Video Device"
+        Driver          "geode"
+        BusId           "PCI:0:1:1"
+        BoardName       "Geode LX Video"
+        VendorName      "Advanced Micro Devices [AMD]"
+EndSection
+
+Section "Monitor"
+        Identifier      "Configured Monitor"
+        HorizSync       20 - 90
+        VertRefresh     50 - 75
+        UseModes    "Custom"
+EndSection
+
+Section "Screen"
+        Identifier      "Default Screen"
+        Device          "Configured Video Device"
+        Monitor         "Configured Monitor"
+        DefaultDepth    16
+        SubSection "Display"
+                Viewport 0 0
+                Depth    16
+                Modes    "1680x1050"
+        EndSubSection
+EndSection
+
+Section "ServerLayout"
+        Identifier      "Default Layout"
+        Screen          "Default Screen"
+EndSection
+
+Section "Modes"
+   Identifier "Custom"
+   Modeline "1680x1050"  146.25  1680 1784 1960 2240  1050 1053 1059 1089 +hsync +vsync
+EndSection
+{% endhighlight %}
+</div>
+
+h2. Referencias
+
+* "fit-PC Wiki":http://<a href="http://www.fit-pc.com/wiki/index.php?title=Main_Page">www.fit-pc.com/wiki/index.php?title=Main_Page</a>
+* "2 doubts: Sensors & geode TRNG":http://<a href="http://www.fit-pc.com/forum/viewtopic.php?t=471&sid=90b07d8772762f329f8e2cbd392afe59">www.fit-pc.com/forum/viewtopic.php?t=471&sid=90b07d8772762f329f8e2cbd392afe59</a>

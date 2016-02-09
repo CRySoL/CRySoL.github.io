@@ -1,0 +1,54 @@
+---
+migrated: node/14
+layout: post
+title: Acceso a Red C@mpus con Firefox y Greasemonkey
+created: 1127835076
+author: Geronimo
+category: recipe
+---
+Todos los alumnos y profesores de la UCLM que usan otro navegador web que no sea Internet Explorer saben lo "peculiar" que es la web de RedC@mpus. Esta receta explica cómo arreglar este incomprensible error.
+
+
+<!--break-->
+
+
+Para permitir a los usuarios de Mozilla y Firefox acceder a esa web, he escrito un script para la extensión <a href="http://www.greasespot.net/">Greasemonkey</a> de Firefox/Mozilla/etc. que permite usar <a href="https://redcampus.uclm.es">Red-C@mpus</a> desde estos navegadores. Básicamente lo que hace es sustituir el menú "desplegable" que aparecía al situar el cursor encima de un enlace en la página principal de Red-C@mpus por un menú horizontal de navegación.
+
+<h3>¿Qué es Greasemonkey?</h3>
+
+Según la propia <a href="http://www.greasespot.net/">web de Greasemonkey</a>:
+<blockquote>Greasemonkey is a Firefox extension which lets you to add bits of DHTML ("user scripts") to any web page to change its behavior. In much the same way that user CSS lets you take control of a web page's style, user scripts let you easily control any aspect of a web page's design or interaction.</blockquote>
+
+<!--break-->
+
+
+
+<h3>Instalar Greasemonkey</h3>
+
+En la página de <a href="https://addons.mozilla.com">Complementos para Firefox</a>, busca <a href="https://addons.mozilla.org/es-ES/firefox/addon/748">Greasemonkey</a> y pincha en el enlace <em>Añadir a Firefox</em> y reinicia a continuación el navegador.
+
+<h3>Instalar el Script</h3>
+
+<a href="http://userscripts.org/">Userscripts.org</a> es un punto de encuentro para la comunidad de usuarios de Greasemonkey. En este sitio podrás encontrar miles de scripts, y entre ellos <a href="http://userscripts.org/scripts/show/9533">Free-C@mpus</a>. Visita el enlace anterior y pulsa en el enlace <em>Install</em>, y cuando aparezca una ventana emergente mostrando información acerca del script, pulsa en <em>Aceptar</em>  para confirmar la instalación.
+
+<h3>Y listo</h3>
+
+Visita <a href="https://redcampus.uclm.es">Red-C@mpus</a>  ;-)
+
+<h3>TODO (Por hacer)</h3>
+<ul>
+<li>Sustituir el menú del perfil de profesores.</li>
+<li>Sustituir los enlaces javascript a sus equivalentes en HTML.</li>
+</ul>
+
+<h3>Comentarios</h3>
+
+<a href="http://crysol.org/es/user/26">Lk2</a> ha sido tan majo de proporcionar un mirror, así que también puedes descargar el script desde <a href="http://arco.esi.uclm.es/~josel.segura/free-cmpus.user.js">http://arco.esi.uclm.es/~josel.segura/free-cmpus.user.js</a>. ¡Gracias Lk2! :-)
+
+La idea original es de Bena, que colgó en su día en la antígua web de CRySOL un sistema de frames para poder acceder a Red-C@mpus. ¡Gracias Bena! :-)
+
+El script debe funcionar en todos los navegadores donde funcione la extensión Greasemonkey como es el caso de Mozilla Suite y Firefox. Parece ser que también fue portado para Epiphany, pero no lo he probado.
+
+Algunas funcionalidades de RedC@mpus (aunque no todas) funcionan con Konqueror si configuras el "user agent" como IE.
+
+Si hubiera algún problema con el script o no te funcionara, pon un comentario e intentaremos solucionarlo ;-)

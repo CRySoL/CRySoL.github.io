@@ -1,0 +1,134 @@
+---
+migrated: node/334
+layout: post
+title: Afina tus discos con hdparm
+created: 1150543510
+author: david_villa
+category: recipe
+---
+hdparm es una pequeña herramienta que sirve para manipular la configuración de las unidades de disco. El objetivo es optimizar el tiempo de acceso o la velocidad de transferencia. 
+
+
+<!--break-->
+
+
+
+*AVISO:* El uso de algunas opciones de @hdparm@ puede provocar bloqueos en la unidad, cuelques del equipo, perdida de datos y destrucción del Universo.
+
+h2. Cómo está la cosa
+
+h3. Ver información de la unidad:
+
+Con el siguiente comando puedes ver, entre otros muchos datos, el modo DMA más moderno y el número máximo de sectores por operación (<i>MaxMultSect</i>).
+
+
+<div class="console">
+{% highlight console %}
+ # hdparm -i /dev/hda 
+{% endhighlight %}
+</div>
+
+Lo mismo, pero mucho más verboso:
+
+
+<div class="console">
+{% highlight console %}
+ #hdparm -I /dev/hda 
+{% endhighlight %}
+</div>
+
+
+h3. Ver la configuración actual:
+
+
+<div class="console">
+{% highlight console %}
+
+# hdparm /dev/hda
+
+/dev/hda:
+ multcount    =  0 (off)
+ IO_support   =  1 (32-bit)
+ unmaskirq    =  1 (on)
+ using_dma    =  1 (on)
+ keepsettings =  0 (off)
+ readonly     =  0 (off)
+ readahead    = 256 (on)
+ geometry     = 24321/255/63, sectors = 390721968, start = 0
+{% endhighlight %}
+</div>
+
+Significado de estas variables:
+
+* *multicount*: Nº de sectores que se leen en cada acceso.
+* *IO_support*: 16/32 bits.
+* *unmakirq*: Desemascarar IRQ del disco. Permite "compartir" la IRQ.
+* *using_dma*: Acceso directo a memoria.
+
+
+h3. Medir el rendimiento actual:
+
+
+<div class="console">
+{% highlight console %}
+
+# hdparm -tT /dev/hda
+
+/dev/hda:
+ Timing cached reads:   1168 MB in  2.00 seconds = 583.68 MB/sec
+ Timing buffered disk reads:  168 MB in  3.01 seconds =  55.78 MB/sec
+{% endhighlight %}
+</div>
+
+h2. Modificando la configuración
+
+Y cruzando los dedos...
+
+
+<div class="console">
+{% highlight console %}
+
+# hdparm -c1 /dev/hda       ;Usar transferencias de 32 bits
+# hdparm -m16 /dev/hda      ;Fijar 'multicount' a 16 sectores
+# hdparm -d1 /dev/hda       ;Activar DMA
+# hdparm -u1 /dev/hda       ;Desemascarar la IRQ del disco (PELIGROSO: pérdida masima del sistema de ficheros)
+# hdparm -W1 /dev/hda       ;Activa cache de escritura, puede dejar sin efecto a 'sync'
+{% endhighlight %}
+</div>
+
+h2. Guardar la configuración
+
+Una vez que hayas probado qué opciones van bien con tu disco y estés seguro de que funcionan adecuadamente, lo más cómodo es escribir escribar la configuración en @/etc/hdparm.conf@. El siguiente sirve como ejemplo:
+
+
+<div>
+{% highlight text %}
+/dev/hda {
+        mult_sect_io = 16
+        write_cache = on
+        dma = on
+        io32_support = 1
+        read_ahead_sect = 128
+}
+
+/dev/cdrom {
+        dma = on
+        interrupt_unmask = on
+        io32_support = 1
+}
+{% endhighlight %}
+</div>
+
+h2. Recetas relacionadas
+
+* "Grabar CD y DVD más rápido":http://crysol.inf-cr.uclm.es/node/237
+
+h2. Referencias
+
+* Fernando Sancho :-)
+* "Mejorando el rendimiento del disco duro con 'hdparm'":http://laespiral.org/recetas/1-100/receta36.html
+* @$ man hdparm@
+
+
+
+

@@ -1,0 +1,67 @@
+---
+migrated: node/1105
+layout: post
+title: Subtítulos fuera de la imagen en mplayer
+created: 1239378296
+author: david_villa
+category: recipe
+tags:
+- multimedia
+---
+Como añadir un margen para el renderizado de subtítulos en mplayer
+
+
+<!--break-->
+
+
+h2. Introducción
+
+A veces resulta difícil leer los subtítulos de una película cuando lo que aparece debajo del texto tiene el mismo color, o cuando la película tiene subtítulos empotrados de otro idioma; por ejemplo, hablan en japonés, se subtitula en inglés y encima los subtítulos en español. También es útil para aprender idiomas si quieres tener tanto los subtítulos empotrados más otros externos.
+
+h2. Opciones
+
+Las opciones de mplayer que tienen que ver con el tema son:
+
+* *-ass*: activa el renderizado SSA/ASS
+* *-ass-color*: color del texto, en formato RRGGBBAA
+* *-ass-border-color*: color del contorno para el texto (RRGGBBAA)
+* *-ass-font-scale*: Factor de escala del texto
+* *-ass-bottom-margin*: Altura del margen inferior.
+* *-ass-use-margins*: Colocar los subtítulos en el margen.
+
+h2. Un ejemplo
+
+
+<div class="console">
+{% highlight console %}
+
+$ mplayer loveStory.avi -sub loveStory.en.avi -ass -ass-color ffff0000 -ass-border-color 00000000 -ass-font-scale 2 -fontconfig -ass-bottom-margin 55 -ass-use-margins 
+{% endhighlight %}
+</div>
+
+h2. Configuración
+
+Si vas a utilizar siempre los mismos valores (o quieres tener unos por defecto) puedes usar el fichero de configuración (@~/.mplayer/config@).
+
+
+<div>
+{% highlight text %}
+ass-color = ffff0000
+ass-border-color = 00000000
+ass-font-scale = 2
+ass-use-margins = 1
+ass-bottom-margin = 55
+{% endhighlight %}
+</div>
+
+Y debes ejecutar @mplayer@ así:
+
+
+<div class="console">
+{% highlight console %}
+
+$ mplayer loveStory.avi -sub loveStory.en.avi -ass
+{% endhighlight %}
+</div>
+
+Si no pones la opción @-ass@, no se utiliza nada de esa configuración, de modo que no afecta a las películas que veas sin subtítulos.

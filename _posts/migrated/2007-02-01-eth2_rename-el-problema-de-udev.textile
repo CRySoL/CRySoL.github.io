@@ -1,0 +1,17 @@
+---
+migrated: node/542
+layout: post
+title: 'Eth2_rename: el problema de udev ...'
+created: 1170298213
+author: brue
+category: enquiry
+tags:
+- drivers
+---
+Los que tengan problemas con los nombre de los dispositivos de red, que le echen un vistazo al fichero:
+
+"/etc/udev/rules.d/z25_persistent-net.rules"
+
+Si hay dos nombres iguales, uno estará en conflicto y se renombrará, haciendo que sea un horror trabajar con ese nombre.
+
+Prueba Cleto, y luego me dices ;)

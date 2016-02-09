@@ -1,0 +1,113 @@
+---
+migrated: node/494
+layout: post
+title: Apache2 como frontal "seguro" para Zope/Plone
+created: 1168599137
+author: david_villa
+category: recipe
+tags:
+- Arco
+---
+Cómo configurar Apache para mejorar la seguridad de un sitio Zope, utilizando _mod_proxy_ y _VirtualHostMonster_.
+
+
+<!--break-->
+
+
+
+h2. Escenario
+
+Tenemos una máquina con una única IP pública que hace de fachada de una red con direccionamiento privado. Esta máquina tiene configurado un port-forward de los puertos 80 y 443 hacia una de las máquinas de la red interna (que llamaremos 'www'). Esa máquina se encarga de gestionar todo lo referente a web que hay en la red local. Hay una tercera máquina (llamada 'zope') que tiene varios sitios Plone. Algo como esto:
+
+<pre>
+ INET-----router--+--www  80,443
+                  |
+                  +--zope 8081
+</pre>
+
+En realidad este tinglado es "virtual", porque no son máquinas reales sino "VServers":http://crysol.inf-cr.uclm.es/node/378, pero a efectos de configuración y mantenimiento es igual que si estuviera montado con máquinas reales.
+
+La configuración del iptables de @router@ es:
+
+<pre>
+*nat
+-A PREROUTING -m multiport -p tcp --dports 80,443 -j DNAT --to-destination zope
+-A POSTROUTING -o eth0 -j MASQUERADE
+</pre>
+
+
+h2. Zope
+
+Lo único que hay que hacer en el Zope es instalar el producto *VirtualHostMonster*: en el raíz. Tienes que indicar un ID pero puedes poner cualquier cosa, por ejemplo "VHM". Este producto permite indicarle a Zope cómo son las URL que quieres que genere.
+
+
+h2. Apache
+
+En @www@ instalamos un Apache nuevecito y hacemos un VirtualHost conforme a la receta "Crear un sitio web SSL con apache2":/node/198.
+
+h3. mod_proxy
+
+Instala el módulo @proxy@ con:
+
+
+<div class="console">
+{% highlight console %}
+# a2enmod proxy
+{% endhighlight %}
+</div>
+
+
+h3. Configuración
+
+Sobre el mismo fichero que has hecho para el sitio SSL, haz las siguientes modificaciones:
+
+
+
+<div>
+{% highlight text %}
+<VirtualHost *:443>
+  ...
+  ProxyRequests Off
+  
+  <Proxy *>
+     Order deny,allow
+     Allow from all
+  </Proxy>
+  
+  # Zope site management
+  <Location /zope>
+    ProxyPass http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443//VirtualHostRoot/_vh_zope
+    ProxyPassReverse http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443//VirtualHostRoot/_vh_zope
+  </Location>
+  
+  <Location /miSitio>
+    ProxyPass http://zope:8081/VirtualHostBase/https/IP_PUBLICA/xm/VirtualHostRoot/_vh_miSitio
+    ProxyPassReverse http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443/xm/VirtualHostRoot/_vh_miSitio
+  </Location>
+
+</VirtualHost>
+{% endhighlight %}
+</div>
+
+
+Se trata de un "Reverse Proxy":http://en.wikipedia.org/wiki/Reverse_proxy, es decir, no se puede usar como un proxy web al uso, sino simplemente como un intermediario transparente hacia otro site. 
+
+En este fichero, se definen dos redirecciones: la primera es para el interfaz de administración de Zope, y la segunda es un sitio Plone llamado "miSitio".
+
+h3. Por último
+
+No olvides recargar la nueva configuración de Apache.
+
+
+<div class="console">
+{% highlight console %}
+# /etc/init.d/apache2 reload
+{% endhighlight %}
+</div>
+
+
+h2. Referencias
+
+* "Running Plone and Zope behind an Apache 2 web server":http://plone.org/documentation/tutorial/plone-apache
+* "Running Zope with Apache":http://wiki.zope.org/zope2/ZopeAndApache
+* "Apache 2.2 mod_proxy":http://httpd.apache.org/docs/2.2/mod/mod_proxy.html

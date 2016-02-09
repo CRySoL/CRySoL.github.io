@@ -1,0 +1,111 @@
+---
+migrated: node/86
+layout: post
+title: Mezclador de audio por software, con ALSA
+created: 1131306700
+author: fsancho
+category: recipe
+---
+A veces el servidor de sonido esound es un latazo porque impide que otras aplicaciones que hacen uso del hardware de sonido puedan funcionar. De modo que para jugar a algunos juegos necesitamos apagar el servidor de sonido y siempre resulta algo tedioso.
+
+
+<!--break-->
+
+
+h1. Ingredientes
+
+* alsa-oss
+
+h1. ¿Por qué ocurre esto?
+
+Porque nuestra tarjeta no tiene la habilidad de mezclar distintos canales de audio. Algunas tarjetas disponen de
+mezclador por hardware pero no es muy habitual en las que vienen de serie con muchos ordenadores o con los portátiles. Entonces ¿por qué en windows si se puede acceder de forma concurrente al sonido y en GNU/Linux no? Porque los drivers de windows de las tarjetas que no tienen mezcla por hardware incorporan de serie un mezclador por sofware. La buena noticia es que con Alsa también se puede hacer. Vamos a ver cómo .
+
+h2. Manos a la obra
+
+Pues bien, tan solo necesitas instalar el paquete @alsa-oss@, editar el fichero @/etc/asoundrc@ y copiar dentro lo siguiente:
+
+
+
+<div>
+{% highlight text %}
+# .asoundrc for use with ALSA and the dmix plugin, for ALSA-level
+# software mixing across all apps.
+#
+# http://alsa.opensrc.org/index.php?page=AlsaSharing
+# http://alsa.opensrc.org/index.php?page=DmixPlugin
+pcm.card0 {
+    type hw
+    card 0
+}
+
+pcm.dmix0 {
+    type dmix
+    ipc_key 219345           # any unique number here
+    slave {
+            pcm "hw:0,0"
+            period_time 0
+            buffer_time 0
+            period_size 2048    # jm: much smoother than 1024/8192!
+            buffer_size 32768
+            rate 48000
+    }
+
+    bindings {
+        0 0   # from 0 => to 0
+        1 1   # from 1 => to 1
+    }
+}
+
+pcm.dsp0 {
+  type plug
+  slave.pcm "dmix0"
+}
+
+# this makes native ALSA apps default to using dmix
+pcm.!default {
+  type plug
+  slave.pcm "dmix0"
+}
+
+ctl.dsp0 {
+  type hw
+  card 0
+}
+
+ctl.!default {
+  type hw
+  card 0
+}
+{% endhighlight %}
+</div>
+
+
+Si usas @esound@ tendrás que instalar el paquete @libesd-alsa0@ y editar el fichero @/etc/esound/esd.conf@ para que quede así:
+
+
+
+<div>
+{% highlight text %}
+[esd]
+auto_spawn=1
+spawn_options=-terminate -nobeeps -as 2 -d default
+spawn_wait_ms=100
+# default options are used in spawned and non-spawned mode
+default_options=
+{% endhighlight %}
+</div>
+
+
+Si tienes @libao@ edita además el fichero @/etc/libao.conf@ para poner lo siguiente:
+
+
+
+<div>
+{% highlight text %}
+default_driver=esd
+{% endhighlight %}
+</div>
+
+
+Y eso es todo.

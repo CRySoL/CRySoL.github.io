@@ -1,0 +1,78 @@
+---
+migrated: node/1330
+layout: post
+title: Manipulación de ficheros MP3
+created: 1266079577
+author: david_villa
+category: recipe
+tags:
+- shell
+- multimedia
+---
+Un pequeño catálogo de herramientas (de consola) para manipulación de ficheros .mp3. Muy útiles para usar en scripts y automatizar como Dios manda.
+
+
+<!--break-->
+
+
+h3. Ingredientes
+
+Paquetes Debian/Ubuntu:
+
+* lame
+* libimage-exiftool-perl (exiftool)
+* eyed3 (eyeD3)
+
+
+h2. Codificación
+
+
+<div class="console">
+{% highlight console %}
+
+$ lame -q2 -V2 original.wav resultado.mp3
+{% endhighlight %}
+</div>
+
+*-q*: nivel de calidad, @2@ es el recomendado para buena calidad conservando velocidad aceptable.
+*-V*: usar variable bitrate. @0@ es la máxima calidad, @4@ por defecto, @9@ la peor.
+
+
+h2. Manipulación de metadatos (ID3)
+
+<p/>
+
+h3. "exiftool":http://<a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">www.sno.phy.queensu.ca/~phil/exiftool/</a>
+
+@exiftool@ es una herramienta muy potente para obtener metadatos de un montón de formatos de ficheros, entre ellos, los mp3.
+
+
+<div class="console">
+{% highlight console %}
+
+$ exiftool "09 - Rey.mp3" -p '$Album - $Track - $Title'
+Gran Ilusión - 09 - Rey
+{% endhighlight %}
+</div>
+
+Soporta todas las "tags de ID3":http://<a href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ID3.html">www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ID3.html</a> de todas las versiones del formato.
+
+h3. "eyeD3":http://eyed3.nicfit.net/
+
+Con @eye3D@ puedes modificar los metadatos ID3:
+
+
+<div class="console">
+{% highlight console %}
+
+$ eyeD3 -a "Enendro" -A "Gran Ilusión" -t "Rey" -n "09" "09 - Rey.mp3"
+{% endhighlight %}
+</div>
+
+h3. id3ren
+
+Programa para copiar etiquetas ID3, renombrar el fichero a partir de la etiqueta, etiquetar el fichero a partir de su nombre, etc.
+
+h3. Comentarios
+
+Por favor, si conoces otras herramientas útiles, deja un comentario.

@@ -1,0 +1,27 @@
+---
+migrated: node/1224
+layout: post
+title: eduroam con network-manager (one more time)
+created: 1253555462
+author: david_villa
+category: recipe
+tags:
+- networking
+---
+<img src="http://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Eduroam_logo.svg/200px-Eduroam_logo.svg.png">
+
+
+En la pestaña "Wireless Security":
+
+* *Security:* WPA & WPA2 Enterprise
+* *Authentication:* Protected EAP (PEAP)
+* *CA Certificate:* /etc/ssl/certs/AddTrust_External_Root.pem
+* *PEAP Version:* Automático
+* *Inner Authentication:* MSCHAPv2
+
+
+<!--break-->
+
+
+* *User Name:* Fulano.DeTal@uclm.es
+* *Password:* 12345

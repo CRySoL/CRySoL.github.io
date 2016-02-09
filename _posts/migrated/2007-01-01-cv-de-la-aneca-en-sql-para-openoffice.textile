@@ -1,0 +1,89 @@
+---
+migrated: node/479
+layout: post
+title: CV de la ANECA en SQL para OpenOffice
+created: 1167645958
+author: paco
+category: recipe
+tags:
+- Arco
+---
+bq(head). Si das o pretendes dar clase en la Universidad estoy seguro de que estás hasta los güevos de reescribir el curriculum en 100 formatos diferentes.  En cada formato te piden cosas diferentes, organizados de forma diferente, y lo que es peor, con herramientas diferentes.
+
+<!--break-->
+
+<!-- break -->
+
+Ahora toca la moda de las aplicaciones web, algo de lo más absurdo.  Después de haber escrito de media unos 100 o 150 curriculums en tu vida te piden que rellenes campo a campo cada casilla de un interminable formulario que brilla por su inusabilidad y del que ni siquiera es posible extraer de golpe toda la información en algún tipo de documento.  Si generas una solicitud de acreditación es posible obtener un documento XML con toda la información.  Este documento puede usarse para crear una base de datos usable en OpenOffice.
+
+
+h2. Ingredientes
+
+* aneca2sql disponible como paquete Debian en "mi página personal":http://arco.esi.uclm.es/~francisco.moya/debian/aneca2sql_1.0_all.deb
+* openoffice
+
+h2. Preparación
+
+Instala los paquetes de OpenOffice (al menos el Writer y el Base) y el paquetillo aneca2sql.
+
+Consigue uno de esos archivos XML que genera la aplicación web de la ANECA. Normalmente tendrá un nombre del tipo <em>XMLSolicitudDefinitiva-numerito.aneca</em> o algo así.  Aunque parezca mentira es preciso generar una solicitud definitiva para poder extraer los datos en XML.  Increible pero cierto. Conviértelo a SQL así
+
+
+
+<div class="console">
+{% highlight console %}
+$ aneca2sql --create XMLSolicitudDefinitiva-numerito.aneca > cv.sql
+
+{% endhighlight %}
+</div>
+
+
+Con esto ya tendrás un archivo <em>cv.sql</em> que incluye la creación de las tablas y la inserción de todos los elementos.
+
+h2. Crear la base de datos en OpenOffice Base
+
+Abre el archivo <em>cv.sql</em> en un editor como gedit, con buen soporte de cut&paste entre aplicaciones GNOME (emacs da problemas).
+
+Arranca la aplicación <em>oobase</em> o abre una nueva base de datos en OpenOffice.  Elige un nombre para el archivo.
+
+Una vez en la ventana de edición selecciona la opción de menú <em>Tools->SQL</em>.
+
+Copia todo el script SQL y pega en el recuadro <em>Command to execute</em>.  Pincha en <em>Execute</em>.  Asegurate de que el comando se ha ejecutado con éxito leyendo el mansajito de estado.
+
+Pincha en el browser de tablas y selecciona <em>View->Refresh Tables</em>.
+
+h2. Usar la base de datos en OpenOffice Writer
+
+Crea un nuevo documento de texto. Pincha en <em>View->Data Sources</em>.  Debería aparecer tu base de datos.  Pincha en ella y despliega las tablas.  Elige la TD_PERSONAL para hacer una pruebita. Arrastra una columna (por ejemplo PERS_APELLIDO1) hasta el texto.  Verás que aparece un campo nuevo, pero no se rellena automáticamente.  Estamos componiendo la plantilla.
+
+Cuando tengamos la plantilla tan mona como podamos, selecciona los registros de la tabla que quieres usar (en este ejemplo es fácil porque solo hay un registro :-) y pincha en el icono <em>Data to fields</em>.  Ese ya se quedará ahí aunque cambie o desaparezca la base de datos, lo cual es cómodo para compartir documentos sin tener que mandar además la base de datos.
+
+h2. Listas de múltiples registros
+
+Evidentemente hay tablas en las que queremos que aparezcan todos los registros (por ejemplo TD_CURRI_CONGRESOS).  En ese caso opera como en el caso anterior, haciendo una plantilla mona para un registro, pero después vete al final de la plantilla del registro y pincha en <em>Insert->Fields->Other</em>, selecciona la pestaña Database y pincha en <em>Next record</em>.  Esto avanza al siguiente registro y es parte de la plantilla.
+
+Ya solo queda copiar la plantilla del registro tantas veces como sea necesario para que salgan todos los registros.  Animo a nuestros lectores a que hagan una macro para hacer esto automáticamente.
+
+Para rellenar la plantilla múltiple basta con seleccionar todos los registros de la tabla y pinchar en el icono <em>Data to fields</em>.
+
+h2. Actualizar la base de datos
+
+Para actualizar la base de datos lo mejor es destruirla entera y volverla a crear.  Esto se puede hacer directamente desde el propio script SQL usando la opción --drop:
+
+
+
+<div class="console">
+{% highlight console %}
+$ aneca2sql --drop XMLSolicitudDefinitiva-numerito.aneca > cv.sql
+
+{% endhighlight %}
+</div>
+
+
+Ten en cuenta que el interfaz SQL de OpenOffice no es muy listo.  Si encuentra un error en cualquier punto ya no sigue, asi que no es posible ignorar los insert que ya estaban en la base de datos.  No olvides pinchar en <em>Refresh tables</em>.
+
+h2. Pendiente
+
+Obviamente todavía está incompleto, pero es útil para muchas cosas.  Alguien debería hacer una macro para actualizar todos los campos del documento: seleccionar una a una todas las tablas, seleccionar todos los registros de cada tabla y seleccionar <em>Data to fields</em>.
+
+También es útil para generar el curriculum del grupo, o una lista de todas las publicaciones de la gente, o un simple directorio telefónico.  La pena es que la manía de la ANECA de pasar todo a mayúsculas afea bastante el resultado.

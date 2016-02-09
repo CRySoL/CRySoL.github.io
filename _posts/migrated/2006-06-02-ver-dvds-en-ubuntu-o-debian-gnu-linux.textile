@@ -1,0 +1,59 @@
+---
+migrated: node/322
+layout: post
+title: Ver DVDs en Ubuntu o Debian GNU/Linux
+created: 1149287815
+author: david_villa
+category: recipe
+---
+Esta receta explica qué hacer para poder reproducir DVD en nuestro sistema operativo favorito. Puede resultar trivial para un iniciado pero como ya me lo han preguntado alguna que otra vez lo dejo aquí para la posteridad :-)
+
+
+<!--break-->
+
+
+
+h1. Añadir el repositorio de _marillat_
+
+Edita el @sources.lst@:
+
+
+<div class="console">
+{% highlight console %}
+# nano /etc/apt/sources.lst 
+{% endhighlight %}
+</div>
+
+Y al final del fichero escribe:
+
+<pre>deb http://www.debian-multimedia.org sid main </pre>
+
+Y que no se te olvide actulizar los índices de paquetes:
+
+
+<div class="console">
+{% highlight console %}
+# apt-get update 
+{% endhighlight %}
+</div>
+
+
+h1. Instalar los paquetes
+
+
+<div class="console">
+{% highlight console %}
+ # apt-get install libdvdcss2 totem-xine 
+{% endhighlight %}
+</div>
+
+También puede ser recomendable instalar la librería de navegación, que permitirá leer los menús "raros" de algunos DVD's :).
+
+
+<div class="console">
+{% highlight console %}
+# apt-get install libdvdnav4
+{% endhighlight %}
+</div>
+
+Otro reproductor multimedia muy recomendable es @gxine@, que tiene soporte de subtítulos, pistas de audio, etc
