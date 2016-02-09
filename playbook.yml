@@ -5,20 +5,22 @@
   become: yes
 
   tasks:
-  - apt: name=ruby2.1-dev update_cache=yes
+  - apt: name=ruby update_cache=yes
+  - apt: name=ruby2.1-dev
   - apt: name=ruby-redcloth
-  - apt: name=git
-  - apt: name=gem
-  - apt: name=ruby-kramdown
-  - apt: name=ruby-mercenary
-  - apt: name=ruby-safe-yaml
-  - apt: name=ruby-colorator
-  - apt: name=ruby-redcarpet
-  - gem: name=blankslate user_install=no
-  - gem: name=parslet user_install=no
-  - gem: name=toml user_install=no
-  - gem: name=pygments.rb version=0.6.1 user_install=no
-  - gem: name=liquid version=2.6.1 user_install=no
+  - apt: name=rake
+#  - apt: name=git
+#  - apt: name=gem
+#  - apt: name=ruby-kramdown
+#  - apt: name=ruby-mercenary
+#  - apt: name=ruby-safe-yaml
+#  - apt: name=ruby-colorator
+#  - apt: name=ruby-redcarpet
+#  - gem: name=blankslate user_install=no
+#  - gem: name=parslet user_install=no
+#  - gem: name=toml user_install=no
+#  - gem: name=pygments.rb version=0.6.1 user_install=no
+#  - gem: name=liquid version=2.6.1 user_install=no
   - gem: name=jekyll version=2.5.3 user_install=no include_dependencies=yes
 
 - hosts: localhost
