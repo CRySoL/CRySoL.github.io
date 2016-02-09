@@ -26,7 +26,7 @@
 - hosts: localhost
 
   tasks:
-  - git: repo=https://github.com/CRySoL/drupal-import dest=/home/vagrant/drupal-import
+  - git: repo=https://github.com/CRySoL/drupal-import dest=/home/{{ ansible_user_id }}/drupal-import
 
 
 #  - git: repo=https://github.com/CRySoL/web.source
