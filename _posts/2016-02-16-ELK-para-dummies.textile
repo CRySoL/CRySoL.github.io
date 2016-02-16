@@ -1,0 +1,14 @@
+---
+layout: post
+title: "ELK (Elastic/logstash/Kibana para dummies"
+author: david_villa
+category: recipe
+tags: ElasticSearch logstash kibana
+lang: es
+---
+
+Enlazo un tutorial del colega Magmax para montar un entorno básico ELK (ElasticSearch + logstash + Kibana) como sistema de monitorización. Probablemente el que llega más lejos con menos rollo, y con screencast y todo.
+
+<a href="http://magmax.org/blog/monitorizacion-con-elasticsearch-kibana-y-topbeat/">Monitorización con ElasticSearch, Kibana y TopBeat</a>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/y42z9oToi4k" frameborder="0" allowfullscreen></iframe>
