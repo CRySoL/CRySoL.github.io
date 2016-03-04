@@ -1,0 +1,26 @@
+---
+layout: post
+title: "How to revoke a GPG key"
+author: david_villa
+category: recipe
+tags: GPG pgp
+lang: en
+---
+
+Generate revocation certificate:
+
+<pre class="console">
+gpg -o revocation.asc --gen-revoke F8025C91
+</pre>
+
+Import the certificate to revoke the corresponding key:
+
+<pre class="console">
+gpg --import revocation.asc
+</pre>
+
+Public the revoked key to servers:
+
+<pre class="console">
+gpg --keyserver pgp.mit.edu --send-keys F8025C91
+</pre>
