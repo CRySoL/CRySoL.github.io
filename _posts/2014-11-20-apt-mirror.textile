@@ -18,13 +18,14 @@ h2. Ingredients
 
 h2. Configuring apt-mirror
 
-@apt-mirror@ program has not command line options or argument at all. The only configuration feature is the file @/etc/apt/mirror@. Assuming default values for all options the minimal configuration could be something as simple as:
+@apt-mirror@ program has not command line options or argument at all. The only configuration feature is the file @/etc/apt/mirror.list@. Assuming default values for all options the minimal configuration could be something as simple as:
 
 <pre>
-deb http://ftp.debian.org/debian unstable main
+deb-all   http://ftp.debian.org/debian unstable main
+deb-amd64 http://ftp.debian.org/debian unstable main
 </pre>
 
-This is the same syntax of the file @/etc/apt/source.list@ and is the mirror that the program will use as "source".
+This is the a very similar syntax of the file @/etc/apt/source.list@ (note architecture names after "deb"). These are the mirrors that the program will use as "source".
 
 h2. Mirroring
 
