@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Installing the Ice-3.6 packages from ZeroC on Debian"
+title: "Installing the Ice-3.6.2 packages from ZeroC on Debian"
 author: david_villa
 category: recipe
 tags: devel Ice Debian
@@ -19,8 +19,8 @@ To install packages you must setup some additional repositories. Execute the fol
 
 <pre class="console">
 $ sudo su
-# wget -qO- http://babel.esi.uclm.es/arco/key.asc | apt-key add -
-# echo "deb http://babel.esi.uclm.es/arco sid main" > /etc/apt/sources.list.d/babel.list
+# wget -qO- http://pike.esi.uclm.es/arco/key.asc | apt-key add -
+# echo "deb http://pike.esi.uclm.es/arco sid main" > /etc/apt/sources.list.d/pike.list
 # wget -qO- https://zeroc.com/download/GPG-KEY-zeroc-release | apt-key add -
 # echo "deb http://zeroc.com/download/apt/ubuntu14.04 stable main" > /etc/apt/sources.list.d/zeroc.list
 </pre>
@@ -32,11 +32,11 @@ To install Ice packages, execute:
 # apt-get -y install zeroc-ice36
 </pre>
 
-All this may be done just running this "script":https://gist.githubusercontent.com/davidvilla/bd4c69af93e28b7f3881/raw/223ded8ebf6910eafc26d7277a836bbf0448cc20/install-ice36
+All this may be done just running this "script":https://gist.githubusercontent.com/davidvilla/fc5d4fc7960ab97f3b2094a303dbf386/raw/b9de452add12595dcb31b425348d7310501b144a/install-ice3.6.2.sh
 
 A simple way to make the same is:
 
 <pre class="console">
 $ sudo su
-# wget -qO- https://goo.gl/8V3LcX | sh
+# wget -qO- https://goo.gl/rOXGep | sh
 </pre>
