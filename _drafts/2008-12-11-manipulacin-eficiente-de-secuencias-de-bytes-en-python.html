@@ -1,0 +1,35 @@
+---
+migrated: node/1062
+layout: post
+title: Manipulación «eficiente» de secuencias de bytes en Python
+created: 1229009553
+author: david_villa
+category: recipe
+tags:
+- Python
+---
+<a href="https://arco.inf-cr.uclm.es/pipermail/python/2005-March/000143.html">https://arco.inf-cr.uclm.es/pipermail/python/2005-March/000143.html</a>
+
+<!--break-->
+
+
+
+<div>
+{% highlight python %}
+import os, array
+
+# una función que necesita una secuencia como parámetro
+def funcion(content):
+  data = array.array('B', content)
+  fd = open('destino', 'wb')
+  data.write(fd)
+  fo.close()
+
+
+def main():
+  fd = open('fichero')
+  data = array.array('B', fd.read()) # array de bytes
+  fd.close()
+  funcion(data.tolist())
+{% endhighlight %}
+</div>

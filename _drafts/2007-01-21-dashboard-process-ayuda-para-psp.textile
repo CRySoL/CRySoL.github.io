@@ -1,0 +1,76 @@
+---
+migrated: node/510
+layout: post
+title: " Dashboard Process: ayuda para PSP"
+created: 1169404229
+author: magmax
+category: recipe
+---
+
+
+<!--break-->
+
+
+Uso de Dashboard Process como ayuda para seguir PSP
+
+Instalación y Plugins
+
+Para su instalación basta con ejecutar:
+      ~$ java -jar pdash-install-1-6-1.jar
+      ~$
+    
+
+y seguir los pasos que se nos indican. Será necesario tener instalada la versión 1.3 o superior de java.
+
+Los plugins se instalan copiando el .jar correspondiente al directorio donde instalamos Dashboard.
+
+El entorno
+
+La ventana que se nos muestra es muy simple:
+- 	Un botón con una "C" que es el menú de opciones;
+- 	una flechita, que sirve para que el tiempo comience a contar;
+- 	un bicho que se utiliza para indicar los bugs (defect log);
+- 	una hoja de papel que es un acceso rápido a la jerarquía, así como a la ayuda sobre la fase del proyecto actual.
+- 	una lista de palabras que indican el proyecto y su fase.
+
+
+Creación de un nuevo proyecto
+
+Para crear un nuevo proyecto utilizaremos los siguientes pasos:
+- 	Pulsar "C"
+- 	Pulsar "Hierarchy"
+- 	Seleccionar el proceso padre. Si vamos a crear el proceso padre, da igual qué nodo esté seleccionado, siempre que se seleccione alguno de su mismo nivel.
+- 	En el menú buscaremos Edit/Add Node. Si queremos que se cree como hijo del nodo actual, seleccionaremos "Above" o "Below" si lo queremos arriba o abajo respectivamente, o "As Child" si queremos que sea un hijo.
+- 	Cuando ya tengamos creado el proceso, crearemos las fases PSP. Para ello ya cuenta con herramientas, y bastará acceder en el menú a Edit/Add Template y elegir la que creamos conveniente. Recordad que "PSP for Engineers" es un plugin que permite crear las plantillas necesarias para los ejercicios del libro de Humphrey.
+- 	Salir salvando cambios
+
+
+PSP0
+
+PSP0 cuenta con 2 herramientas: el "time log" y el "defect log".
+
+Time log
+
+Sirve para medir tiempos. su uso es muy sencillo: basta con utilizar la flechita de la barra principal (flechita para comenzar, dos barritas para parar). Podemos ver y modificar el estado del time log en el menú C/Time Log.
+
+Defect Log
+
+Para insertar una entrada nueva basta con pulsar al bicho que está en la barra principal (disponible sólo si se está en un proyecto con PSP).
+
+En el formulario que se nos ofrece existen distintas entradas:
+- 	Tipo de defecto: En las últimas versiones ya aparece el nombre y no el número. Para estar seguros, habría que consultar la documentación o el libro de Humphrey
+- 	Fix Defect: Error al que corrije. No es necesario rellenarlo. Un error puede provocar otros, así que pulsaremos el bicho que tenemos justo al lado para corregir este nuevo defecto. La casilla se rellena sóla.
+- 	Injected: Etapa en la que se detecta el error
+- 	Removed: Etapa en la que se corrige el error
+- 	Fix Time: Tiempo utilizado para corregirlo. No es necesario rellenarla
+- 	Start/Stop Fixing: Comienza o termina el tiempo de corrección.
+- 	Description: Descripción del problema y su solución. Es muy importante rellenarla con todo lujo de detalles. Breve, pero muy explicativa. Servirá en la etapa de "postmortem" para evaluar dónde se perdió más tiempo y ser capaces de ahorrar tiempo en futuros problemas, así como para consultarla y buscar la solución cuando el problema vuelva a aparecer
+
+Para consultar/modificar defectos, nos iremos al menú C/Defect Log
+
+Importante
+
+Hasta aquí lo que he aprendido yo. Ruego que el que investigue más vaya completando este minidoc. Gracias!!!!
+
+
+Autor: Miguel Ángel García

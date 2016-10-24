@@ -42,7 +42,7 @@ h2. Manipulación de metadatos (ID3)
 
 <p/>
 
-h3. "exiftool":http://<a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">www.sno.phy.queensu.ca/~phil/exiftool/</a>
+h3. "exiftool":http://www.sno.phy.queensu.ca/~phil/exiftool/
 
 @exiftool@ es una herramienta muy potente para obtener metadatos de un montón de formatos de ficheros, entre ellos, los mp3.
 
@@ -55,7 +55,7 @@ Gran Ilusión - 09 - Rey
 {% endhighlight %}
 </div>
 
-Soporta todas las "tags de ID3":http://<a href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ID3.html">www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ID3.html</a> de todas las versiones del formato.
+Soporta todas las "tags de ID3":http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ID3.html de todas las versiones del formato.
 
 h3. "eyeD3":http://eyed3.nicfit.net/
 

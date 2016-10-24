@@ -1,0 +1,19 @@
+---
+migrated: node/871
+layout: post
+title: 'GNU Emacs: manipulando el control de versiones'
+created: 1204158709
+author: david_villa
+category: recipe
+tags:
+- VCS
+- emacs
+---
+<a href="http://www.gnu.org/software/emacs/tour/">http://www.gnu.org/software/emacs/tour/</a> (apartado version control)
+
+h2. Combinaciones interesantes
+
+C-x v u: Revertir el fichero a la última versión subida al repo
+C-x v v: Commit
+
+

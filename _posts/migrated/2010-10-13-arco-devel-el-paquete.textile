@@ -41,7 +41,7 @@ Los "yasnippets":http://code.google.com/p/yasnippet/ son un tipo de macros para 
 {% endhighlight %}
 </div>
 
-* *flyspell-vars*. Pone un bloque de "variables de fichero":http://<a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables">www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables</a> para pedir que se active la ortografía al vuelo (flyspell). Solo hay que escribir "spell&lt;TAB>" y te añade lo siguiente (pudiendo elegir interactivamente el tipo de comentario y el diccionario).
+* *flyspell-vars*. Pone un bloque de "variables de fichero":http://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables para pedir que se active la ortografía al vuelo (flyspell). Solo hay que escribir "spell&lt;TAB>" y te añade lo siguiente (pudiendo elegir interactivamente el tipo de comentario y el diccionario).
 
 <div>
 {% highlight text %}
@@ -93,11 +93,11 @@ Una vez instalado el paquete puedes ver que en @/usr/share/arco/emacs@ hay unos 
 * *develock-py*: Configuración de develock para python-mode (que no lo soporta por defecto).
 * *maximize*: Dos combinaciones de teclas para maximizar emacs a pantalla completa (F11) o solo verticalmente (C-F11).
 * *paren-autoclose*: Provoca que las expresiones «pareadas», es decir, paréntesis, llaves, corchetes, comillas simples y dobles, etc. se cierren automáticamente al escribir la de apertura. Esta «feature» solivianta muchos ánimos. Usar con precaución :-P.
-* *psgml*: Configuración básica del paquete "psgml":http://<a href="http://www.lysator.liu.se/projects/about_psgml.html">www.lysator.liu.se/projects/about_psgml.html</a> para disponer de coloreado de sintaxis y completion basada en el DTD.
+* *psgml*: Configuración básica del paquete "psgml":http://www.lysator.liu.se/projects/about_psgml.html para disponer de coloreado de sintaxis y completion basada en el DTD.
 * *speedbar*: Configuración básica para speedbar.
 * *strip*: Contiene la configuración para el paquete @whitespace@ de modo que al salvar un fichero automáticamente se eliminan espacios sobrantes al final de las líneas y lineas en blanco al final y al principio del fichero. Muy útil para evitar que cambios (que realmente no lo son) hagan creer al control de versiones que es necesario actualizar el fichero.
 * *tabbar*: Una configuración sencilla y muy productiva para el paquete tabbar. Clasifica en tres tipos de ficheros: normales, de control y del modo «dired». Para cambiar entre tipos usa C-Shift-arriba y C-S-abajo. Para cambiar entre ficheros de un mismo tipo usa: C-S-izquierda y C-S-derecha. Muy muy útil.
-* *uniquify*: Configuración para el modo "uniquify":http://<a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.html">www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.html</a>. Hace que ficheros con el mismo nombre en directorios distintos se distingan por el nombre del directorio en lugar de por un número, como ocurre por defecto.
+* *uniquify*: Configuración para el modo "uniquify":http://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.html. Hace que ficheros con el mismo nombre en directorios distintos se distingan por el nombre del directorio en lugar de por un número, como ocurre por defecto.
 * *zoom*: Si te gusta cambiar el tamaño de la fuente con C-+ y C--, o con C-rueda y restaurar el tamaño con C-0... todo eso lo tienes cargando esta configuración. No importa nada nuevo, solo define keybindings.
 
 Para utilizar estas configuraciones escribe lo siguiente en tu @.emacs@:

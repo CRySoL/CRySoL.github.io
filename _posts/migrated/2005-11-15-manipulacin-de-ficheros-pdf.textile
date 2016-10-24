@@ -225,7 +225,7 @@ $ gs -sOutputFile=grayscale.pdf -sDEVICE=pdfwrite \
 
 <h3>Con Ghostscript</h3>
 
-[visto en "commandlinefu.com":http://<a href="http://www.commandlinefu.com/commands/view/4466/convert-pdf-to-jpeg-using-ghostscript">www.commandlinefu.com/commands/view/4466/convert-pdf-to-jpeg-using-ghostscript</a>]
+[visto en "commandlinefu.com":http://www.commandlinefu.com/commands/view/4466/convert-pdf-to-jpeg-using-ghostscript]
 
 
 <div class="console">
@@ -236,7 +236,7 @@ $ gs -dNOPAUSE -sDEVICE=jpeg -r144 -sOutputFile=p%03d.jpg file.pdf
 
 <h3>Con convert</h3>
 
-[visto en "linuxquestions":http://<a href="http://www.linuxquestions.org/questions/linux-software-2/pdf-to-png-converter-57142/">www.linuxquestions.org/questions/linux-software-2/pdf-to-png-converter-57142/</a>]
+[visto en "linuxquestions":http://www.linuxquestions.org/questions/linux-software-2/pdf-to-png-converter-57142/]
 
 
 <div class="console">

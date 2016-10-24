@@ -1,0 +1,94 @@
+---
+migrated: node/1232
+layout: post
+title: Empaquetar una librería C++
+created: 1255054947
+author: cleto
+tags:
+- Arco
+- Debian
+- C++
+---
+
+
+<!--break-->
+
+
+
+<div>
+{% highlight makefile %}
+CC=g++
+
+CXXFLAGS=-Wall -fPIC -Iinclude
+
+VERSION=1.0
+LIBNAME=libDummy
+
+TARGET=$(LIBNAME).so.$(VERSION)
+
+all: $(TARGET)
+	ln -fs $^ $(LIBNAME).so
+
+$(TARGET): Dummy.o
+	$(CC) $(CXXFLAGS) $^ --share -o $@
+
+LDLIBS  = -L.
+LDFLAGS = -lDummy
+test: test.o
+
+clean:
+	$(RM) *.so* *.o *~
+{% endhighlight %}
+</div>
+
+
+
+
+<div>
+{% highlight cpp %}
+#include <string>
+namespace Test {
+  class Dummy {
+  public:
+    Dummy(const std::string& name);
+    void sayHello() const;
+  private:
+    std::string _name;
+  };
+};
+{% endhighlight %}
+</div>
+
+
+
+
+<div>
+{% highlight cpp %}
+#include <Test/Dummy.h>
+#include <iostream>
+using namespace std;
+namespace Test {
+  Dummy::Dummy(const string& name) :
+    _name(name)
+  {}
+  void Dummy::sayHello() const {
+    cout << "Hi!, i'm " << _name << endl;
+  }
+};
+{% endhighlight %}
+</div>
+
+
+
+
+<div>
+{% highlight cpp %}
+#include<Test/Dummy.h>
+using namespace Test;
+int main() {
+  Dummy d("Noel");
+  d.sayHello();
+  return 0;
+}
+{% endhighlight %}
+</div>

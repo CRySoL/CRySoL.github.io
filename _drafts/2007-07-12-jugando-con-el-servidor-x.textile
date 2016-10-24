@@ -1,0 +1,58 @@
+---
+migrated: node/736
+layout: post
+title: Jugando con el servidor X
+created: 1184277704
+author: david_villa
+---
+
+
+<!--break-->
+
+
+h2. Un segundo servidor X en otro DISPLAY
+
+
+<div class="console">
+{% highlight console %}
+$ X :1
+{% endhighlight %}
+</div>
+
+Tanto éste como el resto de comandos utilizan por defecto DISPLAY=0. Pero voy a suponer que ese DISPLAY ya está ocupado por otro servidor (ejecutando GNOME o similar).
+
+h2. Un servidor X con un @xterm@
+
+El servidor X acaba cuando se cierra el terminal.
+
+
+<div class="console">
+{% highlight console %}
+$ xinit -- :1
+{% endhighlight %}
+</div>
+
+h2. Un servidor X para un único programa
+
+
+<div class="console">
+{% highlight console %}
+$ xinit /usr/bin/xeyes -- :1 
+{% endhighlight %}
+</div>
+
+Lo mismo se puede conseguir escribiendo un fichero @~/.xinitrc@ que contenga el comando o comandos que se desean ejecutar:
+
+<pre>
+xeyes&
+gnome-terminal
+</pre>
+
+y ejecutando @xinit@ sin indicar ningún comando:
+
+
+<div class="console">
+{% highlight console %}
+$ xinit -- :1
+{% endhighlight %}
+</div>

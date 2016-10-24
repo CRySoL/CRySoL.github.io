@@ -16,7 +16,7 @@ bq(head). Cómo afinar la instalación de nuestra querida Debian en este "portá
 
 h2. Introducción
 
-Yo he instalado una "debian-netinstall-lenny":http://<a href="http://www.debian.org/devel/debian-installer/">www.debian.org/devel/debian-installer/</a> que deja el sistema bastante usable. Lo siguiente funciona perfectamente recién instalado:
+Yo he instalado una "debian-netinstall-lenny":http://www.debian.org/devel/debian-installer/ que deja el sistema bastante usable. Lo siguiente funciona perfectamente recién instalado:
 
 * Tarjeta de vídeo Intel i945
 * Tarjeta de vídeo nVidia GeForce 7400 (nv)
@@ -358,7 +358,7 @@ $ make
 {% endhighlight %}
 </div>
 
-Esto último es una guarrada, cuando tenga tiempo veré si puedo empaquetar esto para Debian. En "arakhne.org":http://<a href="http://www.arakhne.org/spip.php?article50">www.arakhne.org/spip.php?article50</a> hay un intento de empaquetado pero sólo funciona con el Linux 2.6.17-11-generic. Habría que hacer que compile con module-assistant.
+Esto último es una guarrada, cuando tenga tiempo veré si puedo empaquetar esto para Debian. En "arakhne.org":http://www.arakhne.org/spip.php?article50 hay un intento de empaquetado pero sólo funciona con el Linux 2.6.17-11-generic. Habría que hacer que compile con module-assistant.
 
 Una vez instalado carga los siguientes módulos:
 
@@ -403,10 +403,10 @@ h2. Por probar
 
 h2. Referencias
 
-* "Vaio VGN-SZ72B":http://<a href="http://www.linux.it/~malattia/wiki/index.php/Vaio_VGN-SZ72B">www.linux.it/~malattia/wiki/index.php/Vaio_VGN-SZ72B</a>
-* "Installing Ubuntu Dapper On a Vaio VGN-SZ 1HP/B":http://<a href="http://www.clip.dia.fi.upm.es/~cochoa/wiki/index.php/Installing_Ubuntu_On_a_Vaio">www.clip.dia.fi.upm.es/~cochoa/wiki/index.php/Installing_Ubuntu_On_a_Vaio</a>
+* "Vaio VGN-SZ72B":http://www.linux.it/~malattia/wiki/index.php/Vaio_VGN-SZ72B
+* "Installing Ubuntu Dapper On a Vaio VGN-SZ 1HP/B":http://www.clip.dia.fi.upm.es/~cochoa/wiki/index.php/Installing_Ubuntu_On_a_Vaio
 * "Sony Vaio VGN-B3VP":http://wiki.archlinux.org/index.php/Sony_Vaio_VGN-B3VP
-* "Sony Vaio - VGN-SZ3HP Ubuntu 6.06":http://<a href="http://www.attaccailpianeta.com/?p=149">www.attaccailpianeta.com/?p=149</a>
+* "Sony Vaio - VGN-SZ3HP Ubuntu 6.06":http://www.attaccailpianeta.com/?p=149
 * "Sony Vaio SZ110 (SZ Series) and Ubuntu Linux":http://ariel.vardi.free.fr/ariel//vaiosz.html
 * "SpeedStep":http://wiki.archlinux.org/index.php/SpeedStep
 * "Sony Programmable I/O Control Device Driver":http://popies.net/sonypi/

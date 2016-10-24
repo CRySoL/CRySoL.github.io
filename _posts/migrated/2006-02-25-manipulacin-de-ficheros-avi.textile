@@ -235,11 +235,11 @@ $ mencoder -oac mp3lame -ovc lavc -lavcopts vcodec=mpeg4 -o lovestory.avi lovest
 
 h2. Referencias
 
-* "transcode command examples":http://<a href="http://www.transcoding.org/cgi-bin/transcode?Command_Examples">www.transcoding.org/cgi-bin/transcode?Command_Examples</a>
-* "mplayer":http://<a href="http://www.mplayerhq.hu/DOCS/HTML/es/index.html">www.mplayerhq.hu/DOCS/HTML/es/index.html</a>
+* "transcode command examples":http://www.transcoding.org/cgi-bin/transcode?Command_Examples
+* "mplayer":http://www.mplayerhq.hu/DOCS/HTML/es/index.html
 * @man ffmpeg@
 * @man mplayer@
 * "19 cosas útiles que puedes hacer con ffmpeg ":http://mundogeek.net/archivos/2008/10/10/19-cosas-utiles-que-puedes-hacer-con-ffmpeg/
-* "19 ffmpeg commands for all needs":http://<a href="http://www.catswhocode.com/blog/19-ffmpeg-commands-for-all-needs">www.catswhocode.com/blog/19-ffmpeg-commands-for-all-needs</a>
+* "19 ffmpeg commands for all needs":http://www.catswhocode.com/blog/19-ffmpeg-commands-for-all-needs
 * <a href="http://www.cuadernoderuta.es/unir-y-convertir-formatos-de-video-mpg-avi-asf-en-ubuntu/">http://www.cuadernoderuta.es/unir-y-convertir-formatos-de-video-mpg-avi-asf-en-ubuntu/</a>
 * "Using ffmpeg to manipulate audio and video files":http://howto-pages.org/ffmpeg/

@@ -10,7 +10,7 @@ tags:
 ---
 Si utilizas Emacs y tienes varios PCs ¿cómo te apañas para que todos se comporten igual? Las mismas fuentes, los mismos colores, las mismas combinaciones de teclas... Realmente todo eso no es un gran problema; basta con tener tu ficherito @.emacs@ en un repositorio personal para que todos los PCs tengan la misma configuración.
 
-Pero ¿y los modulitos (los ficheros .el) que bajas de cualquier parte? Unos los bajas de un blog de alguien, otros de "EmacsWiki":http://<a href="http://www.emacswiki.org/">www.emacswiki.org/</a>, etc. etc. No es plan de subirlos también a tu repositorio de configuración, y además, aparecen nuevas versiones, sería un trabajo de chinos tenerlos actualizados. Hasta ahora yo había tomado la determinación de no utilizar ningún módulo de Emacs que no estuviera convenientemente empaquetado para Debian. Hasta ahora...
+Pero ¿y los modulitos (los ficheros .el) que bajas de cualquier parte? Unos los bajas de un blog de alguien, otros de "EmacsWiki":http://www.emacswiki.org/, etc. etc. No es plan de subirlos también a tu repositorio de configuración, y además, aparecen nuevas versiones, sería un trabajo de chinos tenerlos actualizados. Hasta ahora yo había tomado la determinación de no utilizar ningún módulo de Emacs que no estuviera convenientemente empaquetado para Debian. Hasta ahora...
 
 
 <!--break-->

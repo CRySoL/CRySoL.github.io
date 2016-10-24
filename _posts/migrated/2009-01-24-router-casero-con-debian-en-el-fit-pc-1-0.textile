@@ -9,7 +9,7 @@ tags:
 - networking
 - Debian
 ---
-El "fit-PC":http://<a href="http://www.fit-pc.com/new/about-fit-pc.html">www.fit-pc.com/new/about-fit-pc.html</a> es un computador basado en el chip <a href="http://en.wikipedia.org/wiki/Geode_(processor)">Geode</a> con un tamaño realmente pequeño (12x12x4 cm) pero con características muy interesantes. Esta receta explica como instalar Debian para sacarle el máximo rendimiento al pequeño de la casa.
+El "fit-PC":http://www.fit-pc.com/new/about-fit-pc.html es un computador basado en el chip <a href="http://en.wikipedia.org/wiki/Geode_(processor)">Geode</a> con un tamaño realmente pequeño (12x12x4 cm) pero con características muy interesantes. Esta receta explica como instalar Debian para sacarle el máximo rendimiento al pequeño de la casa.
 
 
 <!--break-->
@@ -19,9 +19,9 @@ h2. Características
 
 <img style="float:right" src="http://www.slipperybrick.com/wp-content/uploads/2007/07/fitpc-linux-fanless.jpg" alt="fit-PC 1.0" width="300px"/>
 
-Como puedes ver en las "especificaciones de fit-PC 1.0":http://<a href="http://www.fit-pc.com/new/fit-pc-1-0-specifications.html">www.fit-pc.com/new/fit-pc-1-0-specifications.html</a> tiene:
+Como puedes ver en las "especificaciones de fit-PC 1.0":http://www.fit-pc.com/new/fit-pc-1-0-specifications.html tiene:
 
-* Procesador Geode LX800 ("CS5536":http://<a href="http://www.amd.com/us-en/ConnectivitySolutions/ProductInformation/0,,50_2330_9863_9864%5E13054,00.html">www.amd.com/us-en/ConnectivitySolutions/ProductInformation/0,,50_2330_9863_9864%5E13054,00.html</a>)  a 500 MHz 
+* Procesador Geode LX800 ("CS5536":http://www.amd.com/us-en/ConnectivitySolutions/ProductInformation/0,,50_2330_9863_9864%5E13054,00.html)  a 500 MHz 
 * Tarjeta de vídeo Geode LX con una resolución máxima de 1920x1440  (conector VGA DB-15)
 * 256 MiB  de RAM DDR 333MHz
 * 60 GB (IDE de 2,5")
@@ -196,5 +196,5 @@ EndSection
 
 h2. Referencias
 
-* "fit-PC Wiki":http://<a href="http://www.fit-pc.com/wiki/index.php?title=Main_Page">www.fit-pc.com/wiki/index.php?title=Main_Page</a>
-* "2 doubts: Sensors & geode TRNG":http://<a href="http://www.fit-pc.com/forum/viewtopic.php?t=471&sid=90b07d8772762f329f8e2cbd392afe59">www.fit-pc.com/forum/viewtopic.php?t=471&sid=90b07d8772762f329f8e2cbd392afe59</a>
+* "fit-PC Wiki":http://www.fit-pc.com/wiki/index.php?title=Main_Page
+* "2 doubts: Sensors & geode TRNG":http://www.fit-pc.com/forum/viewtopic.php?t=471&sid=90b07d8772762f329f8e2cbd392afe59

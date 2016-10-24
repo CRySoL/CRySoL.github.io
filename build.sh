@@ -8,7 +8,8 @@ if [ -d _migrate ]; then
 fi
 
 if ! [ -d _site ];  then
-	git clone git@github.com:CRySoL/CRySoL.github.io.git  _site
+	# git clone git@github.com:CRySoL/CRySoL.github.io.git  _site
+	git clone https://github.com/CRySoL/CRySoL.github.io.git _site
 fi
 
 git --git-dir=_site/.git --work-tree=$(pwd)/_site pull

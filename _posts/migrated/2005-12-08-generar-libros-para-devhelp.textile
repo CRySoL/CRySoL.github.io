@@ -17,7 +17,7 @@ h1. Un ejemplo para empezar
 
 Se supone que en Debian hay un paquete llamado @devhelp-book-pygtk2@, pero no instala desde hace muuucho, aunque no sé porqué sigue saliendo en los listados de paquetes. Como podrás deducir se trata de la documentación de la libreria GTK 2.0 para Python. Vamos a ver cómo conseguir nuestro libro de PyGTK2.
 
-# Descarga la referencia de la librería de "PyGTK":http://<a href="http://www.pygtk.org/reference.html">www.pygtk.org/reference.html</a>, en formato HTML, que te la dan ya comprimida en un "tar":http://<a href="http://www.pygtk.org/dist/pygtk2reference.tbz2">www.pygtk.org/dist/pygtk2reference.tbz2</a>.
+# Descarga la referencia de la librería de "PyGTK":http://www.pygtk.org/reference.html, en formato HTML, que te la dan ya comprimida en un "tar":http://www.pygtk.org/dist/pygtk2reference.tbz2.
 # Descomprímelo en @~/.devhelp/books/@:<br />
 
 <div class="console">
@@ -54,7 +54,7 @@ h1. Libros ya hechos
 * "Libros para devhelp":http://htmlhelp.berlios.de/wiki/Devhelp_Books
 * "HTML Help":http://htmlhelp.berlios.de/books/devhelp.php
 * "LIDN":http://lidn.sourceforge.net/books_download.php
-* "Guía de programación de GNOME":http://<a href="http://www.ubiobio.cl/~gpoo/archivos/gnome/programming-guidelines.tar.gz">www.ubiobio.cl/~gpoo/archivos/gnome/programming-guidelines.tar.gz</a>
+* "Guía de programación de GNOME":http://www.ubiobio.cl/~gpoo/archivos/gnome/programming-guidelines.tar.gz
 * "varios: MySQL, PHP, Ruby, cvs, docbook":http://amauta.ourproject.org/libros/
 
 h1. Referencias

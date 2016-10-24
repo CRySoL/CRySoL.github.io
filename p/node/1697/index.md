@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /recipe/2013-02-10/altavoces-bluetooth-en-gnome
+refresh_to_post_id: /recipe/2013-02-10/altavoces-bluetooth-en-gnome.html
 ---

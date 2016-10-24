@@ -12,12 +12,10 @@ bq(head). Cómo configurar la impresora HP LaserJet 1000 USB en GNU/Linux
 <!--break-->
 
 
-
-
 h2. Ingredientes
 
 * cupsys
-* foo2zjs:http://foo2zjs.rkkda.com/
+* "foo2zjs":http://foo2zjs.rkkda.com/
 
 
 h2. Instalación
@@ -107,5 +105,5 @@ Con la interfaz web de CUPS añade una impresora con la siguiente configuración
 
 h2. Enlaces
 
-* "Linux Printing.org :: HP LaserJet 1000":http://<a href="http://www.linuxprinting.org/show_printer.cgi?recnum=HP-LaserJet_1000">www.linuxprinting.org/show_printer.cgi?recnum=HP-LaserJet_1000</a>
+* "Linux Printing.org :: HP LaserJet 1000":http://www.linuxprinting.org/show_printer.cgi?recnum=HP-LaserJet_1000
 * "foo2zjs: a linux printer driver for ZjStream protocol":http://foo2zjs.rkkda.com/

@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /recipe/2010-12-14/planificacin-manual-de-cpus-con-taskset
+refresh_to_post_id: /recipe/2010-12-14/planificacin-manual-de-cpus-con-taskset.html
 ---

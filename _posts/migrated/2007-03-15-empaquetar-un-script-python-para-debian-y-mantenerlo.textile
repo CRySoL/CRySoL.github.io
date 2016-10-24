@@ -47,7 +47,7 @@ Para seguir la receta vamos a empaquetar "pyhello":https://arco.inf-cr.uclm.es/s
 
 h2. Crear el paquete
 
-Sea como fuere, debes asegurarte de que tienes los fuentes en un directorio con un nombre similar a @pyhello-0.1@ (hay "normas precisas":http://<a href="http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Package">www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Package</a> sobre este nombre, que debes cumplir) y un .tgz con el mismo contenido en el directorio padre de ese. A continuación:
+Sea como fuere, debes asegurarte de que tienes los fuentes en un directorio con un nombre similar a @pyhello-0.1@ (hay "normas precisas":http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Package sobre este nombre, que debes cumplir) y un .tgz con el mismo contenido en el directorio padre de ese. A continuación:
 
 * Entra en el directorio
 * Define el nombre del mantenedor (tú) como variable de entorno ($DEBFULLNAME)
@@ -135,8 +135,8 @@ Description: Ejemplo básico de script Python empaquetado en Debian GNU/Linux
 
 Básicamente debes elegir:
 
-* "Section":http://<a href="http://www.debian.org/doc/debian-policy/ch-archive.html#s-subsections">www.debian.org/doc/debian-policy/ch-archive.html#s-subsections</a>
-* "Priority":http://<a href="http://www.debian.org/doc/debian-policy/ch-archive.html#s-priorities">www.debian.org/doc/debian-policy/ch-archive.html#s-priorities</a>
+* "Section":http://www.debian.org/doc/debian-policy/ch-archive.html#s-subsections
+* "Priority":http://www.debian.org/doc/debian-policy/ch-archive.html#s-priorities
 * Architecture
 
 
@@ -293,17 +293,17 @@ h2. Relacionado
 
 h3. Paquetería Debian
 
-* "Debian New Maintainers' Guide ":http://<a href="http://www.debian.org/doc/manuals/maint-guide/index.en.html">www.debian.org/doc/manuals/maint-guide/index.en.html</a> | "es":http://<a href="http://www.debian.org/doc/manuals/maint-guide/index.es.html">www.debian.org/doc/manuals/maint-guide/index.es.html</a>
+* "Debian New Maintainers' Guide ":http://www.debian.org/doc/manuals/maint-guide/index.en.html | "es":http://www.debian.org/doc/manuals/maint-guide/index.es.html
 * "CDBS Documentation":https://perso.duckcorp.org/duck/cdbs-doc/cdbs-doc.xhtml
 * "HowToPackageForDebian":http://wiki.debian.org/HowToPackageForDebian
-* "Manuales del DDP para desarrolladores":http://<a href="http://www.debian.org/doc/devel-manuals.es.html">www.debian.org/doc/devel-manuals.es.html</a>
-* "Debian Package Build Tools":http://<a href="http://www.eyrie.org/~eagle/notes/debian/build-tools.html">www.eyrie.org/~eagle/notes/debian/build-tools.html</a>
+* "Manuales del DDP para desarrolladores":http://www.debian.org/doc/devel-manuals.es.html
+* "Debian Package Build Tools":http://www.eyrie.org/~eagle/notes/debian/build-tools.html
 * "HOWTO Crear paquetes .deb y mirror debian":http://soleup.eup.uva.es/mario/post/1/446
-* "Debian Policy Manual":http://<a href="http://www.debian.org/doc/debian-policy/">www.debian.org/doc/debian-policy/</a>
+* "Debian Policy Manual":http://www.debian.org/doc/debian-policy/
 * "Creación de paquetes Debian":http://xarxantoni.net:8080/mediawiki/index.php/Creaci%C3%B3n_de_paquetes_Debian
 * "Crear paquetes DEB de código Python en Ubuntu":http://shakaran.es/blog/2009/08/crear-paquetes-deb-de-codigo-python-en-ubuntu/
 
 h3. Python
 
-* "Debian Python Policy":http://<a href="http://www.debian.org/doc/packaging-manuals/python-policy/">www.debian.org/doc/packaging-manuals/python-policy/</a>
+* "Debian Python Policy":http://www.debian.org/doc/packaging-manuals/python-policy/
 * "Python Modules Packaging Team":http://python-modules.alioth.debian.org/

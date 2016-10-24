@@ -1,0 +1,69 @@
+---
+migrated: node/449
+layout: post
+title: Autocompletado programable con GNU Bash
+created: 1163782679
+author: david_villa
+category: recipe
+---
+<a href="http://listas.aditel.org/archivos/python-es/2006-November/020048.html">http://listas.aditel.org/archivos/python-es/2006-November/020048.html</a>
+
+<!--break-->
+
+
+
+Re: [Python-es] Terminal de linux. Autocompletado.
+Arnau Sanchez <arnau@ehas.org>
+
+
+tny escribió:
+> He visto que a la hora de escribir muchos comandos en el terminal de
+> linux, se autocompletan con el tabulador.
+>
+> Quisiera que al pasar los parámetros a mis programas python se puediera
+> emplear también el autocompletado.
+>   
+Esto es ligeramente off-topic, pero en fin...
+
+(Sólo conozco Debian, pero imagino que será similar en otras distros)
+
+La bash tiene completado programable, es capaz de expandir 
+inteligentemente cualquier tipo de parámetro, no sólo ficheros y 
+directorios. Para activarlo para un usuario edita su ~/.bashrc y añade 
+(o normalmente, descomenta):
+
+/etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+A partir de este momento (además de muchas otras cosas), comandos como 
+uname o wget expanden los parámetros con nombre largo (--xxxx) . ¿Cómo 
+lo hace? en vez de tenerlo guardado estáticamente en algún fichero (lo 
+que sería muy costoso de mantener, aunque en algunos casos -rsync- sí lo 
+hace así), usa la función _getops definida en /etc/bash_completion y 
+ejecuta al programa con "--help", parseando la salida. Si quieres que tu 
+programa esté incluido entre los que expande escribe:
+
+complete -o default -F _longopt miscript.py
+
+(y para que sea permanente, ponlo por ejemplo en .bashrc)
+
+Puedes comprobar que otros programas hacen uso del longopt con:
+
+complete -p | grep _longopt
+
+Naturalmente, debes asegurarte que tu aplicación responde 
+convenientemente a un --help. En mis scripts python siempre uso el 
+módulo optparse para el control de parámetros (en vez de getopt, que me 
+parece más pobre) y el parseador entiende perfectamente su salida.
+
+Usando convenientemente el completado de la bash se puede expandir de 
+todo:  parámetros, nombres de host, de paquetes, servicios, nombres de 
+usuario, etc, es una herramienta muy potente.
+
+h2. Referencias
+
+* "More on Using the Bash Complete Command":http://www.linuxjournal.com/content/more-using-bash-complete-command
+* "An introduction to bash completion":http://www.debian-administration.org/article/An_introduction_to_bash_completion_part_1
+* "Alias para aptitude con autocompletado":http://mundogeek.net/archivos/2007/07/10/alias-para-aptitude-con-autocompletado/
+

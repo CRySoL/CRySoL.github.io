@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /recipe/2005-10-07/grabar-cds-y-dvds-fcilmente-desde-consola
+refresh_to_post_id: /recipe/2005-10-07/grabar-cds-y-dvds-fcilmente-desde-consola.html
 ---

@@ -8,7 +8,7 @@ category: recipe
 tags:
 - ocio
 ---
-En esta recetilla cuento los pasos que he seguido para crear un pequeño _plugin_ para Freevo, con el que poder lanzar el juego "Stepmania":http://<a href="http://www.stepmania.com/">www.stepmania.com/</a>. Como tengo la intención de incorporar más juegos al menú de Freevo, he intentado no hacer el plugin demasiado específico. 
+En esta recetilla cuento los pasos que he seguido para crear un pequeño _plugin_ para Freevo, con el que poder lanzar el juego "Stepmania":http://www.stepmania.com/. Como tengo la intención de incorporar más juegos al menú de Freevo, he intentado no hacer el plugin demasiado específico. 
 
 
 <!--break-->
@@ -203,4 +203,4 @@ plugin.activate('stepmania', level=45)
 
 h1. Referencias
 
-* "Freevo":http://<a href="http://www.freevo.org">www.freevo.org</a>
+* "Freevo":http://www.freevo.org

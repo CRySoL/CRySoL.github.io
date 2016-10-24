@@ -1,0 +1,32 @@
+---
+migrated: node/1061
+layout: post
+title: Bacula usando un disco duro
+created: 1228818360
+author: david_villa
+category: recipe
+tags:
+- security
+---
+Algunas cuestiones a tener en cuenta cuando se usa un disco duro en lugar de una unidad de cinta para hacer backup con Bacula.
+
+h3. Recetas relacionadas
+
+* "instalar un sistema Bacula en GNU":node/400
+* "Configurando backups en Bacula":node/549
+
+
+<!--break-->
+
+
+h2. Cambiar el estado del medio
+
+Si el disco en el que está el fichero no se puede acceder o montar, el *estado* de ese medio pasará a ERROR y no lo volverá a usar. Una vez arreglado el problema debes volver a poner el estado del medio a "Append" con el comando @update@, por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+
+*update volume="BackupVolume0001" volstatus="Append"
+{% endhighlight %}
+</div>

@@ -1,0 +1,37 @@
+---
+migrated: node/351
+layout: post
+title: instalar Drupal en Debian GNU/Linux
+created: 1153329561
+author: david_villa
+category: recipe
+---
+h1. Ingredientes
+
+* mysql-server-5.0
+* php5-mysql
+
+
+
+h2. URL limpios
+
+Activar el módulo Rewrite de apache2:
+
+
+<div class="console">
+{% highlight console %}
+ a2enmod rewrite 
+{% endhighlight %}
+</div>
+
+* "Apache 2 configuration of clean URLs on Debian":http://drupal.org/node/43783
+
+
+h2. Cargar la base de datos
+
+
+<div class="console">
+{% highlight console %}
+ 
+{% endhighlight %}
+</div>

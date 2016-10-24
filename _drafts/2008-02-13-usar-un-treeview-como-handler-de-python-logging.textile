@@ -1,0 +1,122 @@
+---
+migrated: node/854
+layout: post
+title: Usar un Treeview como Handler de Python Logging
+created: 1202910116
+author: oscarah
+category: recipe
+tags:
+- Arco
+- Python
+---
+<pre>
+
+<!--break-->
+
+# -*- mode: python; coding: utf-8 -*-
+
+import logging
+import gtk
+import gobject
+import random
+
+
+class MyHandler(logging.Handler):
+    def __init__(self, *args):
+        logging.Handler.__init__(self, *args)
+
+        ## TIME | LEVEL | LOGGER | MESSAGE
+        self.store = gtk.ListStore(str, str, str, str)
+
+    def emit(self, record): 
+        marking = {logging.DEBUG:    '<span color="grey">%s</span>',
+                   logging.INFO:     '%s',
+                   logging.WARNING:  '<span color="orange">%s</span>',
+                   logging.ERROR:    '<span color="red">%s</span>',
+                   logging.CRITICAL: '<span color="red"><b><u>%s</u></b></span>'}
+
+        marks = marking[record.levelno]
+
+        row = [marks % str(record.created),
+               marks % record.levelname,
+               marks % record.name,
+               marks % record.msg]
+
+        self.store.append(row)        
+
+
+class MyApp:
+    def __init__(self):
+        mw = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        mw.connect('delete-event', gtk.main_quit)
+
+        sc = gtk.ScrolledWindow()
+        sc.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        mw.add(sc)
+
+        hand = MyHandler()
+        logging.root.setLevel(logging.NOTSET)
+        logging.root.addHandler(hand)
+
+        tv = gtk.TreeView(hand.store)       
+        cell = gtk.CellRendererText()
+
+        cols = ["Time", "Level", "Logger", "Message"]
+        index = 0
+        for i in cols:
+            tvc = gtk.TreeViewColumn(i, cell)
+            tvc.add_attribute(cell, "markup", index)
+            tv.append_column(tvc)
+            index += 1
+
+        sc.add(tv)
+        mw.set_size_request(500, 300)
+        mw.show_all()
+
+
+def sender():
+    levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+    msg = "Mensaje de logging"
+    funcs = {"DEBUG"   :logging.debug,    "INFO" :logging.info,
+             "WARNING" :logging.warning,  "ERROR":logging.error,
+             "CRITICAL":logging.critical
+             }
+
+    funcs[random.choice(levels)](msg)
+    return True
+
+
+if __name__ == "__main__":
+
+    try:
+        gobject.timeout_add(1000, sender)
+
+        app = MyApp()
+        gtk.main()
+    except KeyboardInterrupt:
+        pass
+</pre>
+
+campos de un Record:
+
+<pre class="console">
+{
+'threadName': 'MainThread',
+'name': 'root', 
+'thread': -1210423104, 
+'created': 1202918405.0497971, 
+'process': 14750, 
+'args': (), 
+'module': 'test', 
+'filename': 'test.py', 
+'levelno': 20, 
+'exc_text': None, 
+'pathname': 'test.py', 
+'lineno': 71, 
+'msg': 'Mensaje de logging', 
+'exc_info': None, 
+'relativeCreated': 1081.9251537322998, 
+'levelname': 'INFO', 
+'msecs': 49.79705810546875
+}
+</pre>

@@ -1,0 +1,78 @@
+---
+migrated: node/955
+layout: post
+title: Uso de Mercurial
+created: 1216716538
+author: Lk2
+category: recipe
+tags:
+- VCS
+---
+h2. Comandos útiles con Mercurial
+
+<!--break-->
+
+
+* Crear repositorio nuevo
+
+<div class="console">
+{% highlight console %}
+$ hg init
+{% endhighlight %}
+</div>
+* Clonar un repositorio existente (checkout de SVN)
+
+<div class="console">
+{% highlight console %}
+$ hg clone URI_REPOSITORIO
+{% endhighlight %}
+</div>
+* Actualizar desde el repositorio local
+
+<div class="console">
+{% highlight console %}
+$ hg up
+{% endhighlight %}
+</div>
+* Subir cambios al repositorio local
+
+<div class="console">
+{% highlight console %}
+$ hg ci
+{% endhighlight %}
+</div>
+* Enviar cambios al repositorio "maestro" (si existe)
+
+<div class="console">
+{% highlight console %}
+$ hg push
+{% endhighlight %}
+</div>
+* Recibir cambios del repositorio maestro (si existe)
+
+<div class="console">
+{% highlight console %}
+$ hg pull
+{% endhighlight %}
+</div>
+* Comprobar diferencias entre nuestro sistema de ficheros y nuestro repositorio local
+
+<div class="console">
+{% highlight console %}
+$ hg st
+{% endhighlight %}
+</div>
+* Comprobar diferencias entre el repositorio "maestro" y nuestro repositorio local
+
+<div class="console">
+{% highlight console %}
+$ hg incoming
+{% endhighlight %}
+</div>
+* Comprobar diferencias entre nuestro repositorio local y su "maestro"
+
+<div class="console">
+{% highlight console %}
+$ hg outgoing
+{% endhighlight %}
+</div>

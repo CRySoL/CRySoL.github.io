@@ -1,0 +1,209 @@
+---
+migrated: node/240
+layout: post
+title: XGL en Ubuntu Dapper con Nvidia
+created: 1141092273
+author: cleto
+category: recipe
+---
+<blockquote class="warning">
+<b>ATENCIÓN:</b> Esta receta está OBSOLETA. Ahora todo el tinglado de XGL ha cambiado. Mira la nueva receta de <a href="/node/399">XGL y Beryl en Ubuntu Dapper</a>
+</blockquote>
+
+<!--break-->
+
+
+
+
+<blockquote>
+Esta receta explica cómo instalar y configurar el servidor Xgl en una máquina con Ubuntu Dapper y una tarjeta de video Nvidia.
+</blockquote>
+
+<!--break-->
+
+
+
+<table>
+<tr>
+<td>
+<p>
+¡La revolución ha llegado a GNOME! Supongo que a estas alturas sabréis lo que es Xgl. Ya se habló por aquí <a href="http://crysol.inf-cr.uclm.es/drupal/node/231">sobre él</a> y aquí voy a explicar cómo instalarlo en Ubuntu Dapper. Básicamente, Xgl es un servidor X con soporte OpenGL, además voy a poner Compiz, que es el que se encarga para dar efectos 3D al escritorio, y que hace que GNOME sea otro :-)
+
+En la foto se muestra como va a quedar tu escritorio. Sí, sí... eso es GNOME. ¿Para qué 4 escritorios? ¿No es mejor tener 1 pero con la forma de un cubo?
+</p>
+</td>
+<td>
+<a href="http://en.wikipedia.org/wiki/Xgl"<img width="300" src="/files/240_shot2.png" alt=""compiz screenshot></img></a>
+</td>
+</tr>
+</table>
+
+
+<!--break-->
+
+
+<h1> Demo </h1>
+
+Por si aún no sabes de qué estamos hablando, echa un vistazo a este vídeo:
+
+<center>
+<div align="center"><object width="425" height="350"><br/>
+<param name="movie" value="http://www.youtube.com/v/l7eHmIK12eY"></param><embed src="http://www.youtube.com/v/l7eHmIK12eY" type="application/x-shockwave-flash" width="425" height="350" bgcolor="#102129"></embed></object></div>
+</center>
+
+<h1>Requisitos</h1>
+Supondré que teneis una máquina x86... así que vas a necesitar:
+
+<h2>Ubuntu Dapper instalado</h2>
+
+Para ello tienes dos opciones:
+<ul>
+<li>
+Lo puedes instalar desde cero bajandote la imagen ISO de <a href="http://releases.ubuntu.com/6.06/">Ubuntu dapper</a> o bien,
+</li>
+<li>
+Si tienes Ubuntu Breezy puedes actualizar a Dapper. Esto se consigue editando el fichero <tt>/etc/apt/sources.list</tt> y añadiendo los repositorios de Dapper. Es decir, donde aparezca <em>breezy</em> cámbialo por <em>dapper</em> y después ejecuta:
+<p/>
+
+<div class="console">
+{% highlight console %}
+# apt-get update
+# apt-get dist-upgrade
+{% endhighlight %}
+</div>
+
+Esto hará que APT se baje unos 1000 paquetes :-).
+</li>
+</ul>
+
+Por experiencia propia recomiendo lo primero (bajarse la iso). El segundo método da varios problemas de momento, y no es muy recomendable para usuarios poco experimentados.
+
+<h2>Una tarjeta Nvidia</h2>
+Este es el segundo requisisto (yo tengo una de 64MB y va decente). En realidad debería ir con cualquier tarjeta que tenga aceleracion 3D, pero hasta el momento sólo lo he visto funcionar con nvidia.
+
+<h1>Instalando los drivers de nvidia</h1>
+
+Para ello hacemos:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo apt-get install nvidia-glx
+{% endhighlight %}
+</div>
+
+<h1>Configuración del servidor X</h1>
+Para dejar todo "niquelado" tienes que editar, como root, el fichero <tt>/etc/X11/xorg.conf</tt>. La sección de <b>Module</b> debes dejarla parecida a esto:
+<pre>
+#       Load    "GLcore"
+#       Load    "dri" 
+.....................
+.....................
+        Load    "glx"
+</pre>
+
+En el mismo fichero hay una sección <b>Device</b> que debes dejar así:
+<pre>
+Section "Device"
+	Identifier- <---NO TOCARLO!!!
+	Driver		"nvidia"
+	BusID		"PCI:1:0:0"
+	Option 		"RenderAccel" 		"true"
+	Option 		"AllowGLXWithComposite" "true" 
+EndSection
+</pre>
+
+Y en el mismo fichero. Añade al final lo siguiente:
+<pre>
+Section "Extensions"
+          Option  "Composite" "Enable"
+EndSection
+</pre>
+
+¡Pues guay! Vamos bien. Con esto has conseguido decirle a Ubuntu que use el driver "nvidia" que has instalado antes y tener aceleración hardware.
+
+<h1>Instalar Xgl/Compiz</h1>
+
+Turno de instalar lo interesante:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo apt-get install compiz xserver-xgl\
+libgl1-mesa xserver-xorg libglitz-glx1 compiz-gnome
+{% endhighlight %}
+</div>
+
+Para activarlo tienes que editar el fichero <tt>/etc/gdm/gdm.conf-custom</tt>. Edita la sección <b>[servers]</b> para dejarla tal que así:
+
+<pre>
+[servers]
+0=Xgl
+</pre>
+
+... y al final del todo añade tal cual:
+
+<pre>
+[server-Xgl] 
+name=Xgl server 
+command=/usr/bin/Xgl :0 -fullscreen -ac -accel glx:pbuffer -accel xv:fbo 
+flexible=true
+</pre>
+
+Esto le dice a GDM que arranque con el nuevo Xgl con una serie de parámetros. Salva el fichero y listo :-)
+
+<h1>Arrancando y probando Xgl</h1>
+
+¡Ya tienes instalado Xgl y compiz! Ahora sólo falta "darle caña". Ahora debes crear un fichero que se ejecute al iniciar la sesión y así no tener que volver a hacer esto más. Crea un fichero, por ejemplo, <tt>/usr/local/bin/compiz_start</tt> y escribe en él:
+
+<pre>
+#!/bin/bash
+gnome-window-decorator &  compiz --replace gconf decoration wobbly\
+fade minimize cube rotate zoom scale move resize place switcher &
+xmodmap /usr/share/xmodmap/xmodmap.es
+</pre>
+
+Lo que hace esto es evitar que los bordes de ventana se oculten al ejecutar compiz (el primer argumento) y, después, ejecuta <b>compiz</b> con todos los efectos. Este fichero debe tener permisos de ejecución:
+
+
+<div class="console">
+{% highlight console %}
+$ sudo chmod 755 /usr/local/bin/compiz_start
+{% endhighlight %}
+</div>
+
+Recomiendo, <b>encarecidamente</b>, <u>reiniciar</u> en este momento. Diversas pruebas me han hecho ser cuidadoso en esta fase del proceso y no es para tomarlo a broma. Basta con reiniciar las X con 'Control+Alt+BackSpace' pero si te quieres asegurar, reinicia la máquina completamente (tipo windows).
+
+<h1>Toca jugar</h1>
+Una vez que entres de nuevo en GNOME verás que está raro: se ha cargado raro, como a trozos... algo ha cambiado. ¡Efectivamente! ¡Xgl está en marcha! 
+
+Por último, ejecuta el fichero <tt>compiz_start</tt> que hiciste antes:
+
+
+<div class="console">
+{% highlight console %}
+$ compiz_start
+{% endhighlight %}
+</div>
+
+¡Ya está! Ahora prueba:
+<ul>
+<li>Control+Alt y click/arrastre izquierdo en el escritorio: gira el cubo.</li>
+<li>Control+Alt y flecha izda/dcha: gira a otra cara del cubo.</li>
+<li>Control+Alt+Shift y flecha izda/decha: desplaza la ventana activa a otra cara del cubo</li>
+<li>Alt y click/arrastre en una ventana: mueve ventana</li>
+<li>Control+Alt y click/arrastre en una ventana: mueve ventana "pegajosa"</li>
+<li>Tecla Win y click derecho: zoom</li>
+<li>Tecla Win y rueda: zoom manual</li>
+<li>F12: colocación de ventanas</li>
+<li>Alt+Tab: cambia de aplicación (muy mejorado)</li>
+<li>Parar una aplicación con Control+z en consola: probadlo...</li>
+</ul>
+
+¡¿A que está guay?! Ya sabes... puedes arrancar <tt>compiz_start</tt> al inicio de la sesión y así despreocuparte. Esto se hace en <em>Sistema->Preferencias->Sesiones</em> y se debe añadir <b>/usr/local/bin/compiz_start</b>.
+
+<h1>Referencias</h1>
+Esta receta se basa en:
+<ul>
+<li><a href="http://www.ubuntuforums.org/showthread.php?t=131267">XGL Install and General Tips For Gnome and Nvidia</a></li>
+</ul>

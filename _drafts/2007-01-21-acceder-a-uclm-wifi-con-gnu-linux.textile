@@ -1,0 +1,191 @@
+---
+migrated: node/527
+layout: post
+title: Acceder a UCLM WiFi con GNU/Linux
+created: 1169412368
+author: int-0
+category: recipe
+---
+
+
+<!--break-->
+
+
+1. Motivación
+
+La UCLM ha puesto la tecnología WiFi al alcance de todos sus alumnos, una iniciativa muy acertada bajo mi punto de vista. Supongo que para que fuese más fácil de configurar para la mayoría de los alumnos decidieron usar el protocolo de red privada de Microsoft, el problema (como suele suceder en estos casos) es que la mayoría no son todos. Este documento pretende aumentar un poquito esa mayoría.
+
+2. El problema
+
+Los protocolos de tunneling tienen un amplio soporte en GNU/Linux, entonces... ¿por qué no se puede conectar de forma normal?, muy sencillo: por el cifrado. La UCLM WiFi utiliza el protocolo de autenticación MS-CHAPv2 que a su vez utiliza el mecanismo de cifrado MPPE.
+
+El soporte de Linux a este mecanismo de cifrado es a través de un driver que utiliza la licencia BSD, motivo por el cual no se puede incluir de serie en el kernel (incompatibilidad de licencias), pero si se puede conseguir aparte.
+
+Tenemos varias formas de conseguir soporte MPPE en nuestra distribución. Describiré los métodos de menor a mayor complejidad.
+
+3. Conseguir un Kernel Precompilado con soporte MPPE
+
+Es el método mas sencillo. Distribuciones como UBUNTU traen un kernel con soporte de serie para MPPE. Puedes instalarte esta estupenda distribución o puedes instalarte su kernel en tu Debian.
+
+En el siguiente enlace podrás descargar un kernel apropiado para tu distribución con soporte MPPE de serie (si usas Debian claro)
+
+Kernel de Ubuntu
+
+Tan solo tienes que descargarte un linux-image-2.6.8 adecuado para tu equipo. Los que tienen la terminación 386 funcionan en todos lados. Si tienes un PII en adelante te conviene usar el que tiene la terminación 686 y si tienes un K7 Ahtlon o superior te conviene usar el que tiene la terminación k7. Si tu ordenador tiene mas de un procesador escoge aquel que tiene el sufijo smp
+
+Si necesitas compilarte mas módulos para ese kernel, dispones del paquete linux-headers-2.6.8 con idénticos sufijos que el que te acabas de bajar. Tan solo tienes que bajarte el que equivalente.
+
+Procesador i386 y posteriores. kernel-image. kernel-headers
+
+Procesador PII y posteriores. kernel-image. kernel-headers
+
+Procesador AMD K7 y posteriores. kernel-image. kernel-headers
+
+Paquete de headers común a todos los anteriores. Debes instalarlo si quieres tener las cabeceras del kernel correctamente instaladas. kernel-headers.
+
+Una vez descargados los paquetes procede a instalarlos con dpkg -i. Después actualizas tu gestor de arranque y reinicias con el kernel instalado. Ya tienes un kernel con soporte MPPE. Ya puedes pasar al siguiente paso.
+# dpkg -i linux-image-2.6.8.1-3-386_2.6.8.1-16_i386.deb
+# dpkg -i linux-headers-2.6.8.1-3-386_2.6.8.1-16_i386.deb
+# update-grub
+Searching for GRUB installation directory ... found: /boot/grub .
+Testing for an existing GRUB menu.list file... found: /boot/grub/menu.lst .
+Searching for splash image... none found, skipping...
+Found kernel: /boot/vmlinuz-2.6.8.1-3-386
+Updating /boot/grub/menu.lst ... done
+# reboot
+      
+
+4. Aplicar el parche en Debian
+
+Este procedimiento es apropiado si sabes como compilar un kernel. Si no sabes como se compila un kernel, te recomiendo que primero te leas el mini-doc Compilación del kernel Linux en Debian. Esto está probado en kernels v2.4.x y v2.6.x que son los más comunes actualmente.
+
+Como dijimos antes, no existe soporte MPPE de serie en el kernel Linux, pero es posible añadirlo por separado, para ello es necesario parchear el código fuente del kernel y después compilarlo. Esto es posible dado a que en GNU/Linux tenemos acceso a todo el código fuente de todos los programas.
+
+Primero descargaremos e instalaremos el parche:
+# apt-get install kernel-patch-mppe
+      
+
+Para aplicarlo y compilar es necesario (evidentemente) el fuente del núcleo que estemos usando (2.6.6 en este caso):
+# apt-get install kernel-source-2.6.6
+      
+
+Recordad que los fuentes del kernel todavía hay que descomprimirlos... (están en /usr/src/)
+
+Ahora hay que configurar el kernel. Si eres muy quisquilloso y prefieres hacerlo a tu gusto, adelante. Si no te quieres meter en camisas de once varas y quieres aprovechar la configuración de un kernel que ya estabas usando haz lo siguiente.
+
+Supón que estabas usando el kernel precompilado de Debian kernel-image-2.6.6-1-686. La configuración de ese kernel se encuentra en /boot/config-2.6.6-1-686. Tan solo tienes que copiarla a /usr/src/kernel-source-2.6.6 con el nombre .config
+
+Una vez configurado el kernel procedemos a compilarlo aplicando el parche MPPE. Utilizaremos el comando make-kpkg incluido en el paquete kernel-package.
+# cd /usr/src/kernel-source-2.6.6
+# cp /boot/config-2.6.6-1-686 .config
+# make-kpkg --added-patches mppe --revision mppe.1 --append-to-version -mppe --initrd kernel-image
+      
+
+Esto aplicará el parche a los fuentes antes de compilar, motivo por el cual os preguntará por la nueva opción que se añande al kernel. Escribís m(de módulo) y pulsais Intro.
+ PPP MPPE compression (encryption) (PPP_MPPE) [N/m/?] (NEW) m
+      
+
+Si os fijáis bien, hemos activado la opción --initrd, esto hará que make-kpkg nos pregunte si estamos seguros de ello.
+
+Si has configurado tu kernel a mano es posible que no necesites esta opción. Aun así, si quieres incluir un initrd asegúrate de que has activado el soporte para cramfs en el kernel.
+
+Una vez contestadas todas las preguntas, se procede a la compilación y empaquetamiento del nuevo kernel.
+
+Esto tardará un buen rato (dependiendo de la configuración escogida y la potencia de tu ordenador) y como resultado de todo esto tendréis un paquete kernel-image-2.6.6-mppe_mppe.1_i386.deb en /usr/src. Lo instalamos y actualizamos nuestro gestor de arranque (grub en nuestro caso)
+# dpkg -i kernel-image-2.6.6-mppe_mppe.1_i386.deb
+# update-grub
+      
+
+Después de esto reiniciamos la máquina para arrancar con el nuevo kernel con mppe incorporado. Para cargar los módulos es necesario incluir en /etc/modutils/mppe
+# echo "alias ppp-compress-18 ppp_mppe" > /etc/modutils/mppe
+# update-modules
+      
+
+O también podemos hacerlo a mano.
+# modprobe ppp_mppe
+      
+
+O si no:
+# modprobe hdlc
+# modprobe ppp_generic
+# modprobe ppp_mppe
+      
+
+Como el nuevo módulo ppp_mppe NO es GPL se cargará como "tainted module" pero eso no será problema (a parte de posibles problemas morales, pero eso es otra historia).
+ppp_mppe: module license 'BSD without advertisement clause' taints kernel.
+PPP MPPE Compression module registered
+      
+
+5. Aplicar el parche en otra distribución
+
+Si por alguna extraña razón no eres usuario de Debian también puedes aplicar el parche. Debes tener instalado los fuentes del núcleo que uses así como las cabeceras. Primero descargas el parche: <a href="http://sourceforge.net/project/showfiles.php?group_id=44827">http://sourceforge.net/project/showfiles.php?group_id=44827</a>
+
+Para aplicar el parche sólo hay que ejecutar el script (evidentemente debéis descomprimir el archivo antes)
+$ ./kernelmod.sh
+      
+
+Esto debería funcionar sin problemas, a mi personalmente en la Debian NO funcionaba porque no detectaba correctamente el directorio de los fuentes del núcleo. Si no os funciona os toca pelearos con el script a ver si encontráis el problema...
+
+Una vez aplicado el parche la configuración y compilación del módulo se hace de igual forma que en Debian.
+
+6. Configurar una nueva conexión PPP
+
+Para esto emplearemos un programilla muy fácil de usar llamado ppp-php-gtk que deberemos descargar, en Debian es trival, basta con añadir la siguiente fuente en /etc/apt/sources.list:
+# James Cameron's PPTP GUI packaging
+deb <a href="http://quozl.netrek.org/pptp/php-gtk">http://quozl.netrek.org/pptp/php-gtk</a> ./
+      
+
+Y ya como siempre...
+$ apt-get update
+$ apt-get install pptpconfig php-gtk-pcntl php-pcntl
+      
+
+Para los que no tengan Debian, en la página <a href="http://quozl.us.netrek.org/pptp/php-gtk/">http://quozl.us.netrek.org/pptp/php-gtk/</a> encontraréis los fuentes y paquetes RPM del programa.
+
+Sólo nos queda ejecutar el programa y configurar la conexión:
+$ pptpconfig
+      
+
+Nos aparecerá un bonito GUI, rellenaremos los siguientes campos:
+- 	Pestaña Server
+    Name: UCLM WiFi
+    Server: vpn.uclm.es
+    Domain: UCLM
+    Username: (tu DNI sin letra ni nada)
+    Password: (la de Red Campus y tal...)
+  
+- 	Pestaña Routing
+    Activar "All to Tunnel", pinchar en "Public Network
+    Interface" y ahí introducir el dispositivo de red,
+    normalmente eth0. En la última versión del GUI
+    ya no es necesario especificar el dispositivo de red,
+    he buscado por los "changelogs" y no dice nada al
+    respecto por lo que debo suponer que se detecta.
+  
+- 	Pestaña DNS
+    Activar "Automatic".
+  
+- 	Pestaña Encryption
+    Activar "Require Microsoft Point-to-Point Encryption
+    (MPPE)" y "Refuse to Authenticate with EAP"
+  
+- 	Pestaña Miscellaneus
+    Activar "Enable connection debugging facilities" (más
+    chulo) y en "Reconnect if disconnected" (más fiable).
+  
+
+Ahora pinchamos en "Add" y nos aparecerá un nuevo tunel en la lista, si hacemos doble click en él o lo seleccionamos y pinchamos "Start" conectará con la UCLM WiFi y podremos navegar sin problemas.
+
+Una curiosidad del programa es que al conectar al tunel automáticamente nos añade las nuevas rutas por lo que los programas ni se darán cuenta de que usan una nueva conexión. Cuando finalicemos la sesión automáticamente nos restaurará las rutas que teníamos antes asi que podremos tener múltiples conexiones inalámbricas en el mismo equipo... chulo, ¿verdad?
+
+7. Enlaces
+* 	UCLM WiFi  [es]
+* 	PPTP Client  [en]
+* 	Poptop project  [en]
+* 	pptp-php-gtk  [en]
+
+
+
+Autor: Tobías Díaz, Fernando Sancho
+
+Agradecimientos a Alfredo José Muela por sus preguntas.

@@ -16,14 +16,14 @@ h2. Introducción
 
 UCS _Universal Character Set_ es un sistema *universal* de codificación de caracteres definido por la norma ISO 10646. Su objetivo es acabar de una vez con tantos sistemas de codificación incompatibles entre sí (ASCII, latin-1, euc*, cp* y cientos más) de modo que para cualquier carácter del mundo, sea chino, cirílico o bengalí, haya un número que lo identifique unívocamente.
 
-Pero, como dice Tanenbaum: "Lo mejor de los estándares es que hay muchos dónde elegir" y esta vez no iba a ser menos. De forma paralela al desarrollo de la norma UCS, un consorcio de empresas creó el proyecto "Unicode":http://<a href="http://www.unicode.org/">www.unicode.org/</a> con el mismo objetivo. Pero no puede haber dos sistemas de codificación universales porque no serían universales. Por suerte se pusieron de acuerdo y desde la versión Unicode 2.0, ISO 10646 y Unicode son compatibles (al menos en lo que a la codificación se refiere).
+Pero, como dice Tanenbaum: "Lo mejor de los estándares es que hay muchos dónde elegir" y esta vez no iba a ser menos. De forma paralela al desarrollo de la norma UCS, un consorcio de empresas creó el proyecto "Unicode":http://www.unicode.org/ con el mismo objetivo. Pero no puede haber dos sistemas de codificación universales porque no serían universales. Por suerte se pusieron de acuerdo y desde la versión Unicode 2.0, ISO 10646 y Unicode son compatibles (al menos en lo que a la codificación se refiere).
 
 
 h2. UTF-8
 
 Pues bien:
 
-"UTF-8":http://<a href="http://www.ietf.org/rfc/rfc3629.txt">www.ietf.org/rfc/rfc3629.txt</a> es un formato para codificar caracteres UCS (o Unicode) utilizando secuencias de bytes.
+"UTF-8":http://www.ietf.org/rfc/rfc3629.txt es un formato para codificar caracteres UCS (o Unicode) utilizando secuencias de bytes.
 
 UTF-8 es una invención de "Ken Thompson":http://en.wikipedia.org/wiki/Ken_Thompson (sí, sí, el creador de Unix) como medio para resolver el problema de utilizar Unicode en sistemas tipo Unix. Cuando a Thompson se le ocurrió la idea de UTF-8 (septiembre 1992) trabajaba en el desarrollo de "Plan 9":http://plan9.bell-labs.com/plan9dist/ en Bell Labs. Una semana más tarde Plan 9 se convertía en el primer sistema operativo en tener soporte para UTF-8. 
 
@@ -96,10 +96,10 @@ Para que todo el entorno GNOME sea UTF-8 basta con indicarlo así antes de abrir
 
 h2. Referencias
 
-* "UTF-8 and Unicode FAQ for Unix/GNU":http://<a href="http://www.cl.cam.ac.uk/~mgk25/unicode.html">www.cl.cam.ac.uk/~mgk25/unicode.html</a>
-* "RFC 3629 :: UTF-8, a transformation format of ISO 10646":http://<a href="http://www.ietf.org/rfc/rfc3629.txt">www.ietf.org/rfc/rfc3629.txt</a>
-* "UTF-8 encoded sample plain-text file":http://<a href="http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt">www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt</a>
-* "Unicode":http://<a href="http://www.unicode.org/">www.unicode.org/</a>
+* "UTF-8 and Unicode FAQ for Unix/GNU":http://www.cl.cam.ac.uk/~mgk25/unicode.html
+* "RFC 3629 :: UTF-8, a transformation format of ISO 10646":http://www.ietf.org/rfc/rfc3629.txt
+* "UTF-8 encoded sample plain-text file":http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt
+* "Unicode":http://www.unicode.org/
 * "The Unicode HOWTO":<a href="ftp://ftp.ilog.fr/pub/Users/haible/utf8/Unicode-HOWTO.html">ftp://ftp.ilog.fr/pub/Users/haible/utf8/Unicode-HOWTO.html</a>
-* "Characters and encodings":http://<a href="http://www.cs.tut.fi/~jkorpela/chars/">www.cs.tut.fi/~jkorpela/chars/</a>
-* "Juegos de caracteres: ASCII, CP850, ISO-8859-15, Unicode, UTF-8, etc.":http://<a href="http://www.vicente-navarro.com/blog/2008/06/15/juegos-de-caracteres-ascii-cp850-iso-8859-15-unicode-utf-8/">www.vicente-navarro.com/blog/2008/06/15/juegos-de-caracteres-ascii-cp850-iso-8859-15-unicode-utf-8/</a>
+* "Characters and encodings":http://www.cs.tut.fi/~jkorpela/chars/
+* "Juegos de caracteres: ASCII, CP850, ISO-8859-15, Unicode, UTF-8, etc.":http://www.vicente-navarro.com/blog/2008/06/15/juegos-de-caracteres-ascii-cp850-iso-8859-15-unicode-utf-8/

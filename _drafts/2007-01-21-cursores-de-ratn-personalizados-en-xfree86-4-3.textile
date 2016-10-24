@@ -1,0 +1,35 @@
+---
+migrated: node/523
+layout: post
+title: " Cursores de ratón personalizados en XFree86 4.3"
+created: 1169411599
+author: david_villa
+category: recipe
+---
+ Cursores de ratón personalizados en XFree86 4.3
+
+<!--break-->
+
+
+Crear un fichero index.theme en ~/.icons/default/ (hacer los directorios necesarios si no existen) y escribir lo siguiente:
+
+      [Icon Theme]
+      Inherits= ******
+    
+
+Los asteriscos se deben sustituir por el nombre de tema de cursores que se quiera usar. Para utilizar los que viene por defecto basta con hacer unos enlaces:
+      ~/.icons$ ln -s /usr/lib/X11/icons/whiteglass whiteglass
+      ~/.icons$ ln -s /usr/lib/X11/icons/whiteglass handhelds
+      ...
+    
+
+Por ejemplo, para usar el tema whiteglass el fichero ~/.icons/default/index.theme debe contener:
+
+      [Icon Theme]
+      Inherits= whiteglass
+    
+
+En <a href="http://www.kde-look.org/">http://www.kde-look.org/</a> hay muchos otros temas.
+
+
+Autor: David Villa

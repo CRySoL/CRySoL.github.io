@@ -1,0 +1,17 @@
+---
+migrated: node/238
+layout: post
+title: Reiniciar linux tocando el directorio /proc
+created: 1141062906
+author: Marset
+category: recipe
+---
+Esta receta me ha salvado el culo en mas de una ocasion cuando he perdido conectividad por ssh pero he podido acceder al directorio /proc.
+Hay que tener en cuenta que se trata de un reinicio en caliente, por lo tanto, no se lanzan los scripts de cierre de servicios.
+
+Debemos lanzar lo siguiente:
+
+echo 1 > /proc/sys/kernel/sysrq
+echo b > /proc/sysrq-trigger
+
+

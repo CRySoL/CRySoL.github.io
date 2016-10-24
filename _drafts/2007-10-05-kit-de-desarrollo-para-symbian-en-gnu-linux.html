@@ -1,0 +1,27 @@
+---
+migrated: node/784
+layout: post
+title: Kit de desarrollo para Symbian en GNU/Linux
+created: 1191605403
+author: int-0
+category: recipe
+tags:
+- embedded
+- Arco
+---
+<blockquote>Con la continua disminución de los precios en el mercado de la telefonía móvil es muy habitual que contemos ya con terminales realmente interesantes. Muchos de ellos basados en <a href="http://es.wikipedia.org/wiki/Symbian_OS">Symbian OS</a>. Aún desconozco qué tal se desarrolla para este sistema, supongo que en próximas recetas le daremos un repaso; por ahora hay algo que no me gusta <em>nada</em>: el <em>SDK</em> está para <em>hasefroch</em> y punto. Afortunadamente <em>Symbian</em> suele correr en arquitecturas <em>ARM</em>, ampliamente cubiertas por <em>gcc</em>. En esta receta instalaremos el <em>SDK</em> de <em>Symbian</em>, en concreto para móviles <em>Nokia S60 Series</em>, supongo que será extensible a otros modelos.</blockquote>
+
+<!--break-->
+
+
+
+<h2>Ingredientes</h2>
+A parte de las herramientas típicas (tipo <em>unp</em>, etc.) nos hace falta:
+<ul><li>La <em>toolchain</em> de nuestra arquitectura: usaremos <b>gcc-psion</b>, podéis encontrarlo en la<a href="http://www.inf.u-szeged.hu/symbian-gcc/dload.php">zona de descargas del proyecto <em>Symbian GCC</em></a> de la Universidad de Szeged (Hungría). La versión gcc-3.0 Symbian build 9/546 nos servirá.</li>
+<li>El SDK de nuestra arquitectura: en nuestro caso usaremos <em>Series 60 2nd Edition SDK for Symbian OS, Supporting Feature Pack 2, For C++</em>, es decir, el archivo <b>S60_2nd_fp2_sdk_msb.zip</b>, que encontraremos en el <a href="http://www.forum.nokia.com/">Forum Nokia</a>, previo registro (gratuito :P).</li>
+<li>Unos <em>scripts</em> que nos facilitarán más la vida: <em>sdk2unix</em>, lo descargaremos de la <a href="http://www.koeniglich.de/sdk2unix/sdk2unix-1.9.tar.gz">página de Rudi.</a></li></ul>
+
+Además, debemos contar con el <em>wine</em> (o similar) para poder instalar inicialmente el <em>SDK</em>.
+
+
+

@@ -1,0 +1,36 @@
+---
+migrated: node/956
+layout: post
+title: El Chumby desde tu navegador
+created: 1216741572
+author: oscarah
+category: recipe
+tags:
+- Chumby
+---
+
+
+<!--break-->
+
+
+<div>
+{% highlight html %}
+<html>
+<head>
+  <title>Chumby Framebuffer</title>
+</head>
+
+<script>
+function change() {
+  loc = "http://192.168.0.203/cgi-bin/custom/fb1?" + Math.random();
+  document.getElementById("fb1").src = loc;  
+  setTimeout(change, 300);
+}
+</script>
+
+<body onLoad="setTimeout(change, 300)">
+  <img src="http://192.168.0.203/cgi-bin/custom/fb1" id="fb1" /><br/>
+</body>
+</html>
+{% endhighlight %}
+</div>

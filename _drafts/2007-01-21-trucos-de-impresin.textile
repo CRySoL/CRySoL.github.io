@@ -1,0 +1,55 @@
+---
+migrated: node/519
+layout: post
+title: " Trucos de impresión"
+created: 1169411034
+author: david_villa
+category: recipe
+---
+Se describen algunos usos de las herramientas de impresión de GNU/Linux que pueden resultar muy útiles cuando nuestra impresora tiene funcionalidad limitada.
+
+<!--break-->
+
+
+1. Ingredientes
+- 	Una impresora configurada
+- 	psutils
+
+
+2. Imprimir a doble cara, en una impresora simplex
+
+Primero las impares en orden inverso:
+$ a2ps fichero.pdf -o - | psselect -e -r | lp
+      
+
+Se recoge lo imprimido y se coloca en el mismo orden en la bandeja de entrada (Dependiendo de la impresora habrá que ponerlo cara abajo o cara arriba). Despúes se imprimen las pares, en orden:
+$ a2ps fichero.pdf -o - | psselect -o | lp
+      
+
+Por defecto a2ps imprime 2 páginas por hoja. Para imprimir 1 página por hoja se indica como parámetro.
+
+Se puede hacer un pequeño script para automátizar la tarea, algo como:
+
+	#!/bin/bash
+	# "duplex" imprime a doble cara en una impresora simplex
+
+	if [ -z "$1" ]; then
+	  echo "Usage: duplex [file to print]"
+	  exit
+	fi
+
+	a2ps -1 $1 -o - | psselect -e -r | lp
+	echo "Press ENTER to print even pages..."
+	read
+	a2ps -1 $1 -o - | psselect -o | lp
+      
+
+Se podría extender fácilmente para que el número de páginas por hoja y la impresora destino también fuesen parámetros del script
+
+3. Enlaces
+* 	Le GNU a2ps  [en] <a href="http://www.inf.enst.fr/~demaille/a2ps/">http://www.inf.enst.fr/~demaille/a2ps/</a>
+* 	Imprimir documentos para encuadernar como libros  [es] <a href="http://quark.fe.up.pt/laespiral/recetas/1-100/receta82.html">http://quark.fe.up.pt/laespiral/recetas/1-100/receta82.html</a>
+
+
+
+Autor: David Villa

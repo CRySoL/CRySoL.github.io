@@ -1,0 +1,43 @@
+---
+migrated: node/507
+layout: post
+title: sincronizar una PDA en GNU/Linux
+created: 1169403605
+author: magmax
+category: recipe
+---
+h1. Introducción
+
+<!--break-->
+
+
+En este artículo veremos cómo configurar nuestro sistema GNU/Linux para permitir sincronizarlo con nuestra PDA. Todo lo aquí expuesto ha sido probado con una SONY CLIÉ TJ27 sobre una distribución Debian.
+
+h1. Paquetes necesarios
+
+Para comenzar, necesitaremos los siguientes paquetes:
+
+* jpilot
+* pilot-link
+
+Ya sabéis: el procedimiento habitual ("# apt-get install jpilot pilot-link").
+
+h1. Configuración
+
+La PDA necesita tener un usuario con el que sincronizar. Para crearlo, ejecutaremos:
+
+  $ install-user -u USUARIO -i PID_del_USUARIO
+
+Resulta interesante cambiar también el valor de la variable de entorno JPILOT_HOME de manera que podemos gestionar varias PDAs con un mismo usuario. El procedimiento es el siguiente (el directorio debe existir):
+
+  $ export JPILOT_HOME=/Directorio
+
+Además, crearemos el enlace simbólico /dev/pilot que apunte a la localización de nuestra PDA:
+
+  # ln -s /dev/ttyUSB0 /dev/pilot
+
+IMPORTANT 	¡¡¡Recordad que ambos deben tener permisos de lectura/escritura por parte del usuario que lo va a manejar!!!
+
+h1. Usando Jpilot
+
+Bueno, ahora basta con arrancar jpilot. Conecta la PDA y dale al botón de sincronización de la misma. Cuando esté "buscando", dale al botón de sincronización del jpilot y... ¡voilá!

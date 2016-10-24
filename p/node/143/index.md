@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /2005-12-06/problemas-en-debian
+refresh_to_post_id: /2005-12-06/problemas-en-debian.html
 ---

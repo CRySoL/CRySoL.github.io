@@ -1,0 +1,21 @@
+---
+migrated: node/903
+layout: post
+title: Filtrado por MAC
+created: 1207489872
+author: david_villa
+category: recipe
+tags:
+- networking
+- security
+---
+bq(head). Esta receta explica varias formas de configurar un router para filtrar/permitir ciertas MAC. Aunque no es una técnica muy eficaz (como bien saben los alumnos de la ESI) hay veces en las que puede resultar útil como complemento a otras técnicas de protección, sobre todo con router WiFi
+
+
+<!--break-->
+
+
+
+<a href="http://jaredquinn.info/it-related/technical/2006.02.05/iptables-mac-filter/">http://jaredquinn.info/it-related/technical/2006.02.05/iptables-mac-filter/</a>
+<a href="http://www.cyberciti.biz/tips/iptables-mac-address-filtering.html">http://www.cyberciti.biz/tips/iptables-mac-address-filtering.html</a>
+<a href="http://zaragozawireless.org/wk/index.php/Control%20de%20Acceso%20por%20MAC">http://zaragozawireless.org/wk/index.php/Control%20de%20Acceso%20por%20MAC</a>

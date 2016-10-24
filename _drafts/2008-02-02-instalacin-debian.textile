@@ -1,0 +1,17 @@
+---
+migrated: node/849
+layout: post
+title: Instalación Debian
+created: 1201985215
+author: david_villa
+---
+
+sources.list
+
+<pre>
+deb http://www.debian-multimedia.org sid main
+</pre>
+
+Instalar:
+
+* debian-multimedia-keyring

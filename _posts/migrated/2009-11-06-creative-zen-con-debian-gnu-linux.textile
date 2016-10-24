@@ -20,7 +20,7 @@ h2. Ingredientes
 
 h2. Introducción
 
-Aunque se supone que banshee, rhythmbox y amarok se puede utilizar para sincronizar este reproductor, por lo que he visto la forma más fácil y eficaz es "mtpfs":http://<a href="http://www.adebenham.com/mtpfs/">www.adebenham.com/mtpfs/</a>, un sistema de ficheros FUSE que utiliza la librería "libmtp":http://libmtp.sourceforge.net/.
+Aunque se supone que banshee, rhythmbox y amarok se puede utilizar para sincronizar este reproductor, por lo que he visto la forma más fácil y eficaz es "mtpfs":http://www.adebenham.com/mtpfs/, un sistema de ficheros FUSE que utiliza la librería "libmtp":http://libmtp.sourceforge.net/.
 
 h2. Setup
 

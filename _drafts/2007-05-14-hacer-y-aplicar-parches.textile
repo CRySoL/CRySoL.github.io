@@ -1,0 +1,33 @@
+---
+migrated: node/684
+layout: post
+title: Hacer y aplicar parches
+created: 1179181144
+author: david_villa
+category: recipe
+---
+patch -p0 < patch-splash-2.4.17.diff
+
+<!--break-->
+
+
+bzcat ../patch.tar.bz2 | patch -p1
+
+h2. Crear parche de dos archivos
+
+
+<div class="console">
+{% highlight console %}
+diff -c archivo_original archivo_modificado > parche.patch
+{% endhighlight %}
+</div>
+
+Posteriormente hay que editar el fichero parche.patch para que la ruta a los fichero que aparece en las primeras líneas sea correcta (supongo que se podrá hacer automático, pero aún no averigüé como)
+
+h2. Referencias
+
+* "How To Make Patches (Cygwin/Unix)":http://www.garagegames.com/index.php?sec=mg&mod=resource&page=view&qid=3014
+* "Patching Ubuntu packages":https://wiki.ubuntu.com/MOTU/School/PatchingSources
+* "Crear parches":http://www.kopernix.com/?q=node/229
+
+* <a href="https://wiki.ubuntu.com/PackagingGuide/PatchSystems">https://wiki.ubuntu.com/PackagingGuide/PatchSystems</a>

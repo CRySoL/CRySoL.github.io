@@ -1,0 +1,20 @@
+---
+migrated: node/754
+layout: post
+title: autotools
+created: 1186319818
+author: david_villa
+category: recipe
+---
+
+* Escribir un configure.ac o configure.in
+* aclocal
+** crea aclocal.m4
+* autoconf
+** crea configure
+* Escribir Makefile.am
+* automake-1.10 --add-missing
+** crea config.sub
+** missing
+** install-sh
+** config.guess

@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /2010-03-31/da-del-documento-libre
+refresh_to_post_id: /2010-03-31/da-del-documento-libre.html
 ---

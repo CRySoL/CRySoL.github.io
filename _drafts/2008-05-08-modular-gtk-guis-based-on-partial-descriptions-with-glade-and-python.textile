@@ -1,0 +1,189 @@
+---
+migrated: node/916
+layout: post
+title: Modular GTK GUIs based on partial descriptions with glade and Python
+created: 1210240783
+author: david_villa
+category: recipe
+tags:
+- Python
+- gtk
+---
+bq(head). This recipe explains how to build modular GUIs with GTK and glade. The programmer may "mount" the final GUI from widget sets (often containers) obtained from several glade files, using libglade. This provides a very powerful and dynamic way to design and build any kind of GUI.
+
+
+<!--break-->
+
+
+h2. Ingredients
+
+* python
+* python-gtk2
+* python-glade2
+
+All of them are Debian (and Ubuntu) packages.
+
+
+h2. Basics
+
+Usually, the glade library (libglade) is used to build standalone windows by means of @gtk.glade.XML@ class:
+
+
+
+<div>
+{% highlight python %}
+>>> gui = gtk.glade.XML('gui.glade')
+{% endhighlight %}
+</div>
+
+
+But, when the application user interface behave more dynamic or it needs to integrate some portions provided by glugins or extensions. it is very useful give to constructor the name of a specific widget. In these cases, libglade loads widget descriptions for it and all of its children. 
+
+
+
+<div>
+{% highlight python %}
+>>> gui = gtk.glade.XML('gui.glade', 'box')
+{% endhighlight %}
+</div>
+
+
+In both cases, the @get_widget()@ method is needed to achieve the reference to any of the loaded widgets, even when a widget name is given in the constructor.
+
+
+
+<div>
+{% highlight python %}
+>>> gui = gtk.glade.XML('gui.glade', 'box')
+>>> box = gui.get_widget('box')
+>>> box
+<gtk.HBox object at 0xb6ac5464 (GtkHBox at 0x842ac20)>
+{% endhighlight %}
+</div>
+
+
+If the second parameter isn't the name of a window, this glade.XML instance (@gui@) will not be able to create window widgets in spite of @gui.glade@ file may contains window descriptions. The programmers needs a container to pack the built widget in some window, using @add()@, @pack_start()@ and others conventional <tt><a href="http://pygtk.org/pygtk2reference/class-gtkcontainer.html">Container</a></tt> methods.
+
+h2. Object Oriented
+
+Writing classes that manage one or more related widgets may be a good way to simplify interaction between applications elements as say MVC pattern or "multi-layer model". For example, this is a very basic sample that illustrates the GUI composition from portions:
+
+"sample1.py":https://arco.esi.uclm.es/svn/public/samples/pygtk/glade_portions/sample1.py
+
+
+<div>
+{% highlight python %}
+import gtk, gtk.glade
+
+class Action:
+
+    def __init__(self, n, name):
+        self.glade = gtk.glade.XML('gui.glade', 'action')
+        self.glade.signal_autoconnect(self)
+        self.gui    = self.glade.get_widget('action')
+        self.label  = self.glade.get_widget('label')
+        self.button = self.glade.get_widget('button')
+
+        self.label.set_text(str(n))
+        self.button.set_label(name)
+
+    def on_button_clicked(self, bt):
+        print bt.get_label()
+
+
+class Application:
+
+    def __init__(self):
+        self.glade = gtk.glade.XML('gui.glade', 'window')
+        self.glade.signal_autoconnect(self)
+        self.box   = self.glade.get_widget('box')
+        self.entry = self.glade.get_widget('entry')
+        self.n = 0
+
+    def on_window_delete_event(self, event, data=None):
+        gtk.main_quit()
+
+    def on_add_clicked(self, bt):
+        name = self.entry.get_text()
+        if not name: return
+
+        action = Action(self.n, name)
+        self.n += 1
+        self.box.pack_start(action.gui)
+
+Application()
+gtk.main()
+{% endhighlight %}
+</div>
+
+
+This program create instances of @Action@ class when a name is provided and the button "add new" is clicked. The "action" prints its name when its button is pressed.  
+
+
+h2. A bit of syntactic sugar
+
+The next listing is equivalent to the shown above. But in this case, the use of class "GladeWrapper":node/911 provides implicit access to widgets  preventing all these ugly "get_widget" lines:
+
+"sample2.py":https://arco.esi.uclm.es/svn/public/samples/pygtk/glade_portions/sample2.py
+
+
+<div>
+{% highlight python %}
+#!/usr/bin/python
+import sys, gtk, gtk.glade
+sys.path.append('gladewrapper')
+from gladewrapper import GladeWrapper
+
+class Action(GladeWrapper):
+
+    def __init__(self, n, name):
+        GladeWrapper.__init__(self, 'gui.glade', 'action')
+        self.gui = self.wg_action
+
+        self.wg_label.set_text(str(n))
+        self.wg_button.set_label(name)
+
+    def on_button_clicked(self, bt):
+        print bt.get_label()
+
+
+class Application(GladeWrapper):
+
+    def __init__(self):
+        GladeWrapper.__init__(self, 'gui.glade', 'window')
+        self.n = 0
+
+    def on_window_delete_event(self, event, data=None):
+        gtk.main_quit()
+
+    def on_add_clicked(self, bt):
+        name = self.wg_entry.get_text()
+        if not name: return
+
+        self.entry.set_text('')
+
+        action = Action(self.n, name)
+        self.n += 1
+        self.wg_box.pack_start(action.gui)
+
+
+Application()
+gtk.main()
+{% endhighlight %}
+</div>
+
+
+
+h2. A little wart
+
+Even with @GladeWrapper@, we could not avoid the @gui@ attribute. The "GUI portion" *HAS A* widget but the ideal situation is; the GUI portions *IS A* widget. That would be the true object-oriented behavior. The problem here is that we can not use inheritance. We don't know what is the widget class to inherit from until the call to @get_widget()@, too late.
+
+However, the Python language has very powerful mechanism to build new types at runtime. We will use a metaclass to build an ad-hoc type(class) that implements the required portion functionality and this same instance will be also the specified widget
+
+
+h2. References
+
+* "The PyGTK Class Reference":http://pygtk.org/pygtk2reference/gtk-class-reference.html
+* "PyGTK 2.0 Tutorial":http://pygtk.org/pygtk2tutorial/index.html
+* "PyGTK FAQ: How do I produce or reuse a [portion of a] widget tree in glade?":http://faq.pygtk.org/index.py?req=show&file=faq22.011.htp
+* "PyGTK FAQ: How can I get a new instance of a widget defined in a glade file?":http://faq.pygtk.org/index.py?req=show&file=faq22.012.htp

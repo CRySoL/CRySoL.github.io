@@ -1,0 +1,111 @@
+---
+migrated: node/524
+layout: post
+title: Configurar el portatil para la red de casa y de la oficina
+created: 1169411663
+author: david_villa
+category: recipe
+---
+
+
+<!--break-->
+
+Si tienes red en casa (ya sea red local o ADSL) y también en el trabajo, lo más habitual es que en el portatil necesites usar dos o más direcciones IP diferentes. Este documento explica como configurar una distribución Debian para que el equipo detecte automáticamente en que red se encuentra y elija la IP que debe utilizar en cada caso.
+
+Fundamento
+
+Se trata de utilizar una IP de la red destino como referencia; un equipo que siempre esté conectado y mantenga la misma dirección. Lo más adecuado es usar el router o el DNS local si lo hay.
+
+Se configura la interfaz de red con la IP deseada para una red en particular y se hace ping al equipo de referencia de dicha red. Si contesta es evidente que estamos en esa red. Si no contesta se prueba con otra red diferente.
+
+Configuración
+
+Por supuesto todo lo anterior se hace de forma automática. Tienes que modificar tu fichero /etc/network/interfaces. Supongamos que tenemos sólo una tarjeta de red. Partimos de dos ficheros interfaces diferentes:
+
+El de casa:
+
+    auto lo eth0
+
+    # The loopback interface
+    iface lo inet loopback
+
+    # The ethernet interface
+    iface eth0 inet static
+       address 192.168.0.6
+       netmask 255.255.255.0
+       network 192.168.0.0
+       broadcast 192.168.0.255
+       gateway 192.168.0.254
+  
+
+Y el del trabajo (en el ejemplo se utiliza una IP imposible):
+
+    auto lo eth0
+
+    # The loopback interface
+    iface lo inet loopback
+
+    # The ethernet interface
+    iface eth0 inet static
+       address 300.100.1.123
+       netmask 255.255.255.0
+       network 300.100.1.0
+       broadcast 300.100.1.255
+       gateway 300.100.1.1
+  
+
+A partir de estas dos configuraciones escribimos un único fichero /etc/network/interfaces del siguiente modo:
+
+    auto lo eth0
+
+    # The loopback interface
+    iface lo inet loopback
+    
+    mapping eth0
+       script /usr/local/sbin/ping-places.sh
+       map 300.100.1.123/24 300.100.1.1 eth0-work
+       map 192.168.0.6/24 192.168.0.254 eth0-home
+
+    # Ethernet HOME
+    iface eth0-home inet static
+      address 192.168.0.6
+      netmask 255.255.255.0
+      network 192.168.0.0
+      broadcast 192.168.0.255
+      gateway 192.168.0.254
+
+    # Ethernet WORK
+    iface eth0-work inet static
+      address 300.100.1.123
+      netmask 255.255.255.0
+      network 300.100.1.0
+      broadcast 300.100.1.255
+      gateway 300.100.1.1
+  
+
+Si en la red de casa no tienes ninguna máquina que pueda servir como referencia, simplemente coloca la línea map correspondiente la última de la lista e indica la IP del host como IP de referencia.
+
+map 192.168.0.6/24 192.168.0.6 eth0-home
+
+
+Script
+
+El script /usr/local/sbin/ping-places.sh realiza todo el trabajo necesario a partir de la información que se le indica: Configura el interface con ifconfig tomando la primera dirección de la línea map y hace ping a la segunda dirección. Si la máquina remota contesta, el script devuelve el tercer parámetro de la línea map y termina. Si no es así se vuelve a llamar al script con la siguiente línea.
+
+El script ping-places.sh lo debe proporcionar el usuario, aunque el paquete ifupdown incluye uno como ejemplo en /usr/share/doc/ifupdown/examples/. El script map.sh también puede servir para el mismo propósito.
+
+Herramientas
+- 	whereami
+- 	divine
+- 	laptop-net
+- 	laptop-netconf
+- 	netenv
+
+
+Enlaces
+- 	[Bulma] Mapping eth0 solucionado. [es] : <a href="http://bulmalug.net/pipermail/bulmailing/2002-May/015046.html">http://bulmalug.net/pipermail/bulmailing/2002-May/015046.html</a>
+- 	Autoconfiguración del acceso a la red (mapping eth0) : <a href="http://bulmalug.net/body.phtml?nIdNoticia=1302">http://bulmalug.net/body.phtml?nIdNoticia=1302</a>
+
+
+
+Autor: David Villa

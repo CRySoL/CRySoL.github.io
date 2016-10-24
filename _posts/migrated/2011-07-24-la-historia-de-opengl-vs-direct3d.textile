@@ -32,7 +32,7 @@ Las aceleradoras gráficas nacieron unos meses más tarde. Y Microsoft se encont
 
 Así que Microsoft compró un poco de _middleware_ y lo amoldó a su estilo, creando D3D v3. Lo despreció _todo el mundo_. Y no sin razón: mirar el código de D3D v3 es como mirar dentro del Arca de la Alianza.
 
-"John Carmack":http://en.wikipedia.org/wiki/John_D._Carmack, de *Id Software*, echó un vistazo a esa basura y dijo: _«Que le den por culo»_, y decidió implementar una nueva API: "OpenGL":http://<a href="http://www.opengl.org">www.opengl.org</a>
+"John Carmack":http://en.wikipedia.org/wiki/John_D._Carmack, de *Id Software*, echó un vistazo a esa basura y dijo: _«Que le den por culo»_, y decidió implementar una nueva API: "OpenGL":http://www.opengl.org
 
 Otra parte de la "bestia de múltiples cabezas" que es Microsoft había estado ocupada trabajando con SGI en una implementación de OpenGL para Windows. La idea aquí era cortejar a los desarrolladores de aplicaciones GL típicas: aplicaciones para workstations, herramientas CAD, modelado... ese tipo de cosas. Los juegos eran lo último que tenían en mente; esto era principalmente una cosa para Windows NT, pero Microsoft decidió añadirlo también a Win95.
 

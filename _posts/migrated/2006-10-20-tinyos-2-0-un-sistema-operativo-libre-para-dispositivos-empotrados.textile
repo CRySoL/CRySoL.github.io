@@ -34,7 +34,7 @@ Esto va a depender del dispositivo para el cual quieras desarrollar una aplicaci
 * avr-libc,  la librería estándar de C
 * avarice,  para utilizar el gdb con JTAG (sistema para depuración típico de sistemas empotrados)
 
-Si peiensas utilizar el @apt-get@ para instalar todo eso será mejor que eches un vistazo a esta página de "tinyOS":http://thomer.com/tinyos/. En resumen dice que no es buena idea, ya que necesitamos versiones muy concretas. Lo mejor es bajarse los "rpm":http://<a href="http://www.tinyos.net/tinyos-2.x/doc/html/upgrade-tinyos.html#external-tools">www.tinyos.net/tinyos-2.x/doc/html/upgrade-tinyos.html#external-tools</a> y pasar los paquetes a @.deb@ con @alien@, para luego instalarlos. Un tema importante, primero desinstala todo lo que tengas de avr y no te olvides de bloquear todos los paquetes para que no se actulicen cuando hagas un "upgrade".
+Si peiensas utilizar el @apt-get@ para instalar todo eso será mejor que eches un vistazo a esta página de "tinyOS":http://thomer.com/tinyos/. En resumen dice que no es buena idea, ya que necesitamos versiones muy concretas. Lo mejor es bajarse los "rpm":http://www.tinyos.net/tinyos-2.x/doc/html/upgrade-tinyos.html#external-tools y pasar los paquetes a @.deb@ con @alien@, para luego instalarlos. Un tema importante, primero desinstala todo lo que tengas de avr y no te olvides de bloquear todos los paquetes para que no se actulicen cuando hagas un "upgrade".
 
 Una vez que tengas los compiladores cruzados (necesarios para compilar el sistema operativo TinyOS) necesitas el compilador de nesC. nesC es el lenguaje en el que está escrito tiniyOS y que se usa también para escribir las aplicaciones. En la página web tienes paquetes rpm para el nesC (que usará los compiladores y para la toolchain de tinyOS por lo que, como esto en una debian tienes que tirar de @alien@ para convertir los paquetes.
 
@@ -131,7 +131,7 @@ Instalar Graphviz desde su paquete debian correspondiente con
 
 h2. Probando
 
-Bueno, enhorabuena, si has hecho todos estos pasos, ya tienes el tinyOS instalado en tu ordenador, ahora necesitas probar todo esto que hemos hecho. No está de más echarle un vistazo a la "estructura general":http://<a href="http://www.tinyos.net/tinyos-2.x/doc/html/overview.html#tep108">www.tinyos.net/tinyos-2.x/doc/html/overview.html#tep108</a> del SO para entender como está estructurado y sus posibilidades.
+Bueno, enhorabuena, si has hecho todos estos pasos, ya tienes el tinyOS instalado en tu ordenador, ahora necesitas probar todo esto que hemos hecho. No está de más echarle un vistazo a la "estructura general":http://www.tinyos.net/tinyos-2.x/doc/html/overview.html#tep108 del SO para entender como está estructurado y sus posibilidades.
 
 La mejor forma de ver si todo esta correctamente instalado es tratar de compilar y probar algunas de las aplicaciones de ejemplo que vienen con el propio sistema operativo. Como ya habrás notado el sistema operativo se ha instalado por defecto en el directorio @/opt/tinyos-2.x@
 
@@ -167,8 +167,8 @@ Con el cd de crosbow es muy windoze, ejecutar el instalador y ya sabeis, yes yes
 
 h1. Enlaces
 
-* "Web de TinyOS":http://<a href="http://www.tinyos.net/">www.tinyos.net/</a>
-* "TOSSIM: El simulador":http://<a href="http://www.cs.berkeley.edu/~pal/research/tossim.html">www.cs.berkeley.edu/~pal/research/tossim.html</a>
+* "Web de TinyOS":http://www.tinyos.net/
+* "TOSSIM: El simulador":http://www.cs.berkeley.edu/~pal/research/tossim.html
 * <a href="http://thomer.com/tinyos/">http://thomer.com/tinyos/</a>
 * <a href="http://www.stoecklin.net/technology/tinyos/setup-howto/">http://www.stoecklin.net/technology/tinyos/setup-howto/</a>
 * <a href="http://www.moteiv.com/community/Moteiv_Boomerang_Fixes#TinyOS_1.x_upgrade.2C_nesC_fails">http://www.moteiv.com/community/Moteiv_Boomerang_Fixes#TinyOS_1.x_upgrade.2C_nesC_fails</a>

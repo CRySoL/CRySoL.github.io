@@ -1,0 +1,15 @@
+---
+migrated: node/1003
+layout: post
+title: Cambiar nombres de ficheros segun un patrón
+created: 1220964076
+author: oscarah
+category: script
+tags:
+- shell
+- VCS
+---
+...cuando mmv no sirve
+
+for i in `ls tp_*.py`; do hg mv $i ${i/tp_/method_}; done
+

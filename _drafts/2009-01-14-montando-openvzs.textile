@@ -1,0 +1,289 @@
+---
+migrated: node/1078
+layout: post
+title: Montando OpenVZ's
+created: 1231892000
+author: oscarah
+category: recipe
+---
+El sistema tiene LVM:
+
+<!--break-->
+
+
+
+<div class="console">
+{% highlight console %}
+
+# lvm lvs
+LV     VG   Attr   LSize   Origin Snap%  Move Log Copy%  Convert
+backup g0   -wi-a-   9,31G
+cups   g0   -wi-a-   9,31G
+ldap   g0   -wi-a-   9,31G
+mail   g0   -wi-a-   9,31G
+repo   g0   -wi-a- 465,66G
+web    g0   -wi-a- 186,26G
+{% endhighlight %}
+</div>
+
+Creamos el directorio /var/containers para montar los volúmenes con los containers. Dentro, se crean tantas subcarpetas como containers haya. Cada carpeta debe llamarse igual que el CTID del contenedor que albergará. En esa carpeta, se monta el volumen destinado a ese contenedor El orden es el siguiente:
+
+* ldap (101)
+* repo (102)
+* web (103)
+* mail (104)
+* backup (105)
+* cups (106)
+
+
+<div class="console">
+{% highlight console %}
+
+# mkdir /var/containers
+# cd /var/containers
+# mkdir 101 102 103 104 105 106
+{% endhighlight %}
+</div>
+
+
+Formateamos con XFS el volumen para web, y configuramos fstab para que monte en el arranque (con las opciones por defecto):
+
+
+<div class="console">
+{% highlight console %}
+
+# mkfs.xfs /dev/g0/web -f
+{% endhighlight %}
+</div>
+
+[/etc/fstab]
+
+
+<div>
+{% highlight text %}
+[+] #/dev/g0/ldap     /var/containers/101 xfs defaults        0       0
+[+] #/dev/g0/repo     /var/containers/102 xfs defaults        0       0
+[+] /dev/g0/web       /var/containers/103 xfs defaults        0       0
+[+] #/dev/g0/mail     /var/containers/104 xfs defaults        0       0
+[+] #/dev/g0/backup   /var/containers/105 xfs defaults        0       0
+[+] #/dev/g0/cups     /var/containers/106 xfs defaults        0       0
+{% endhighlight %}
+</div>
+
+    
+Modificamos el /etc/sysctl.conf con las siguientes opciones:
+
+[/etc/sysctl.conf]
+
+
+<div>
+{% highlight text %}
+[+] # On Hardware Node we generally need
+[+] # packet forwarding enabled and proxy arp disabled
+[+]
+[+] net.ipv4.conf.default.forwarding=1
+[+] net.ipv4.conf.default.proxy_arp = 0
+[+] net.ipv4.ip_forward=1
+[+]
+[+] # Enables source route verification
+[+] net.ipv4.conf.all.rp_filter = 1
+[+]
+[+] # Enables the magic-sysrq key
+[+] kernel.sysrq = 1
+[+]
+[+] # TCP Explict Congestion Notification
+[+] #net.ipv4.tcp_ecn = 0
+[+]
+[+] # we do not want all our interfaces to send redirects
+[+] net.ipv4.conf.default.send_redirects = 1
+[+] net.ipv4.conf.all.send_redirects = 0  # NOTE: this may be 1
+{% endhighlight %}
+</div>
+
+
+Añadimos los repos de openvz a /etc/apt/sources.list, y actualizamos:
+
+[/etc/apt/sources.list]
+
+
+<div>
+{% highlight text %}
+[+] deb http://download.openvz.org/debian-systs etch openvz
+{% endhighlight %}
+</div>
+
+
+Instalamos los templates para debian:
+
+
+<div class="console">
+{% highlight console %}
+
+# apt-get update
+# apt-get install vzctl-ostmpl-debian-5.0-i386-minimal
+{% endhighlight %}
+</div>
+
+
+Modificamos el fichero de configuración de vz.conf para especificar las rutas donde estarán los contenedores.
+
+[/etc/vz/vz.conf]
+
+
+<div>
+{% highlight text %}
+[-] VE_ROOT=/var/lib/vz/root/$VEID
+[-] VE_PRIVATE=/var/lib/vz/private/$VEID
+[+] VE_ROOT=/var/containers/$VEID/root
+[+] VE_PRIVATE=/var/containers/$VEID/private
+{% endhighlight %}
+</div>
+
+
+Creamos el container para web, y lo configuramos:
+
+
+<div class="console">
+{% highlight console %}
+
+# vzctl create 103 --ostemplate debian-5.0-i386-minimal
+Creating VE private area (debian-5.0-i386-minimal)
+Performing postcreate actions
+VE private area was created
+
+# vzctl set 103 --name web --save
+Name web assigned
+Saved parameters for VE 103
+
+# vzctl set web --ipadd 192.168.0.103 --save
+Saved parameters for VE 103
+
+# vzctl set web --onboot yes --save
+Saved parameters for VE 103
+
+# vzctl set web --nameserver 172.20.32.3 --save
+Saved parameters for VE 103
+
+# vzctl set web --hostname www --save
+Set hostname: www
+Saved parameters for VE 103
+{% endhighlight %}
+</div>
+
+
+Arrancamos y probamos el contenedor:
+
+
+<div class="console">
+{% highlight console %}
+
+# vzctl start web
+Starting VE ...
+VE is mounted
+Adding IP address(es): 192.168.0.103
+Setting CPU units: 1000
+Configure meminfo: 65536
+File resolv.conf was modified
+VE start in progress...
+
+# vzctl enter web
+entered into VE 103
+root@localhost:/# exit
+{% endhighlight %}
+</div>
+
+
+Ahora toca configurar la red en el Host para tener acceso al exterior desde los contenedores.
+
+Regla para iptables, para salir a internte desde el contenedor:
+
+
+<div class="console">
+{% highlight console %}
+
+# iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+{% endhighlight %}
+</div>
+
+Modificamos un poco el contenedor:
+
+Evito que arranque el servicio ssh (en 'web' no es necesario):
+
+
+<div class="console">
+{% highlight console %}
+
+# update-rc.d -f ssh remove
+{% endhighlight %}
+</div>
+
+
+[/etc/apt/sources.list]
+
+
+<div>
+{% highlight text %}
+[-] todo
+[+] deb http://ftp.fi.debian.org/debian lenny main contrib non-free
+[+] deb http://security.debian.org lenny/updates main contrib non-free
+{% endhighlight %}
+</div>
+
+
+
+<div class="console">
+{% highlight console %}
+
+# aptitude update
+# aptitude upgrade
+{% endhighlight %}
+</div>
+
+h2. Problemas
+
+<b>Apache2 no quiere arrancar:</b>
+
+<div class="console">
+{% highlight console %}
+
+cat /var/log/apache2/error.log  
+[Wed Jan 14 04:20:07 2009] [notice] Apache/2.2.3 (Debian) configured -- resuming normal operations
+[Wed Jan 14 04:20:07 2009] [alert] (12)Cannot allocate memory: apr_thread_create: unable to create worker thread
+[Wed Jan 14 04:20:07 2009] [alert] (12)Cannot allocate memory: apr_thread_create: unable to create worker thread
+[Wed Jan 14 04:20:09 2009] [alert] No active workers found... Apache is exiting!
+{% endhighlight %}
+</div>
+
+solución: 
+
+
+<div class="console">
+{% highlight console %}
+
+# vzctl set web --privvmpages 100000 --save
+{% endhighlight %}
+</div>
+
+h2. Referencias
+
+<p/>
+
+h3. OpenVZ
+
+* <a href="http://wiki.openvz.org/Main_Page">http://wiki.openvz.org/Main_Page</a>
+* <a href="http://wiki.openvz.org/Installation_on_Debian">http://wiki.openvz.org/Installation_on_Debian</a>
+* <a href="http://wiki.openvz.org/Basic_operations_in_OpenVZ_environment">http://wiki.openvz.org/Basic_operations_in_OpenVZ_environment</a>
+* <a href="http://wiki.openvz.org/User_Guide/Operations_on_Virtual_Private_Servers">http://wiki.openvz.org/User_Guide/Operations_on_Virtual_Private_Servers</a>
+* <a href="http://wiki.openvz.org/Using_NAT_for_container_with_private_IPs">http://wiki.openvz.org/Using_NAT_for_container_with_private_IPs</a>
+* <a href="http://wiki.openvz.org/Bind_mounts">http://wiki.openvz.org/Bind_mounts</a>
+* <a href="http://forum.openvz.org/index.php?t=msg&goto=27003&">http://forum.openvz.org/index.php?t=msg&goto=27003&</a>
+
+
+h3. LVM
+
+* <a href="http://www.debian-administration.org/articles/410">http://www.debian-administration.org/articles/410</a>
+
+
+h3. Other
+
+* <a href="http://crysol.org/node/96">http://crysol.org/node/96</a>

@@ -18,7 +18,7 @@ Poder forzar la interfaz de un método, sobre todo de un constructor es más que
 
 h2. Tipado estático
 
-El propio Guido sorprendió en su momento a propios y extraños con su propuesta "Adding Optional Static Typing to Python":http://<a href="http://www.artima.com/weblogs/viewpost.jsp?thread=85551">www.artima.com/weblogs/viewpost.jsp?thread=85551</a> hace ya unos años. A pesar de todo (al menos por lo que yo sé) nada de esto ha sido incluido aún en las últimas versiones de Python. Sí se han incluido en Python 3 las "Function Annotations":http://<a href="http://www.python.org/dev/peps/pep-3107/">www.python.org/dev/peps/pep-3107/</a> que ofrecen soporte para implementar tipado estático, aunque la distribución estándar no lo hace.
+El propio Guido sorprendió en su momento a propios y extraños con su propuesta "Adding Optional Static Typing to Python":http://www.artima.com/weblogs/viewpost.jsp?thread=85551 hace ya unos años. A pesar de todo (al menos por lo que yo sé) nada de esto ha sido incluido aún en las últimas versiones de Python. Sí se han incluido en Python 3 las "Function Annotations":http://www.python.org/dev/peps/pep-3107/ que ofrecen soporte para implementar tipado estático, aunque la distribución estándar no lo hace.
 
 La cuestión es que debido a esta _carencia_ es muy habitual encontrar en muchas librerías de uso extendido cosas parecidas a esto:
 
@@ -36,11 +36,11 @@ Y cuando este tipo de comprobaciones prolifera hace un poco más engorroso leer 
 
 h2. Decoradores
 
-La forma más habitual de afrontar más o menos limpiamente este problema es utilizar "decoradores":http://<a href="http://www.python.org/dev/peps/pep-0318/">www.python.org/dev/peps/pep-0318/</a> de función. Bueno, lo que en Python se llaman «decoradores» aunque siendo mínimamente puristas no lo son porque no corresponden con la idea del "patrón de diseño decorator":http://en.wikipedia.org/wiki/Decorator_pattern.
+La forma más habitual de afrontar más o menos limpiamente este problema es utilizar "decoradores":http://www.python.org/dev/peps/pep-0318/ de función. Bueno, lo que en Python se llaman «decoradores» aunque siendo mínimamente puristas no lo son porque no corresponden con la idea del "patrón de diseño decorator":http://en.wikipedia.org/wiki/Decorator_pattern.
 
 Un decorador de función (o método) en Python es otra función que recibe la función original y retorna otra función (la función decorada). Esta función decorada debería invocar en algún momento a la función original, y opcionalmente hacer algo más (ese algo más es la decoración). La ventaja de esto es obvia. Si se hace bien, se puede utilizar la función original o la decorada de forma indistinta. Se supone que la decoración añade efectos laterales. En muchos sentidos, algo parecido a la "Programación Orienta a Aspectos":http://en.wikipedia.org/wiki/Aspect-oriented_programming
 
-Bueno, esto es más de lo que tenía pensado contar sobre decoradores. Algún día escribiré una receta ex profeso, por ahora, mira el "PEP-318":http://<a href="http://www.python.org/dev/peps/pep-0318/">www.python.org/dev/peps/pep-0318/</a>.
+Bueno, esto es más de lo que tenía pensado contar sobre decoradores. Algún día escribiré una receta ex profeso, por ahora, mira el "PEP-318":http://www.python.org/dev/peps/pep-0318/.
 
 
 h2. Implementando type-checking con un decorador
@@ -252,8 +252,8 @@ RuntimeWarning: Argument 'value' should be 'int' ('str' given)
 
 h2. Referencias
 
-* "Adding Optional Static Typing to Python":http://<a href="http://www.artima.com/weblogs/viewpost.jsp?thread=85551">www.artima.com/weblogs/viewpost.jsp?thread=85551</a>
-* "Function Annotations":http://<a href="http://www.python.org/dev/peps/pep-3107">www.python.org/dev/peps/pep-3107</a>
-* "Decoradores de funciones y métodos en Python":http://<a href="http://www.python.org/dev/peps/pep-0318/">www.python.org/dev/peps/pep-0318/</a>
+* "Adding Optional Static Typing to Python":http://www.artima.com/weblogs/viewpost.jsp?thread=85551
+* "Function Annotations":http://www.python.org/dev/peps/pep-3107
+* "Decoradores de funciones y métodos en Python":http://www.python.org/dev/peps/pep-0318/
 * "PythonDecoratorLibrary":http://wiki.python.org/moin/PythonDecoratorLibrary
 * "Decorador de métodos transparente":http://denis.ryzhkov.org/soft/python_lib/method_decorator.py

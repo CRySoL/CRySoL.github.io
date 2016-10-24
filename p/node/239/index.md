@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /2006-02-28/pegatinas-de-linux
+refresh_to_post_id: /2006-02-28/pegatinas-de-linux.html
 ---

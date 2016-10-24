@@ -54,7 +54,7 @@ h2. Con <tt>ip</tt> (del paquete <tt>iproute</tt>)
 
 h2. Con <tt>macchanger</tt>
 
-"GNU MAC Changer":http://<a href="http://www.alobbs.com/modules.php?op=modload&name=macc&file=index">www.alobbs.com/modules.php?op=modload&name=macc&file=index</a> es un programa específico para nuestro proposito. Permite poner una MAC concreta, una aleatoria o elegir un fabricante de una lista, entre otras opciones. La sintaxis básica también es fácil. Pongo el ejemplo equivalente al anterior:
+"GNU MAC Changer":http://www.alobbs.com/modules.php?op=modload&name=macc&file=index es un programa específico para nuestro proposito. Permite poner una MAC concreta, una aleatoria o elegir un fabricante de una lista, entre otras opciones. La sintaxis básica también es fácil. Pongo el ejemplo equivalente al anterior:
 
 
 <div class="console">
@@ -91,5 +91,5 @@ iface eth0 inet dhcp
 
 h2. Referencias
 
-* "GNU MAC Changer":http://<a href="http://www.alobbs.com/macchanger">www.alobbs.com/macchanger</a>
+* "GNU MAC Changer":http://www.alobbs.com/macchanger
 * "Wikipedia::Mac Adrress":http://en.wikipedia.org/wiki/MAC_address

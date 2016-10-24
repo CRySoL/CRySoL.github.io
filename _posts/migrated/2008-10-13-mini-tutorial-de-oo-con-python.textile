@@ -40,7 +40,7 @@ que es una clase vacía, pero que puede ser útil en algunas ocasiones.
 
 h2. Métodos
 
-Un método es un conjunto de sentencias con un nombre asociado que se aplican sobre una instancia de la clase, es decir, es una función ligada a la clase que determina algo que los objetos de esa clase son capaces de hacer o de recibir. El programador puede definir un buen número de "métodos especiales":http://<a href="http://www.python.org/doc/2.5.2/ref/customization.html">www.python.org/doc/2.5.2/ref/customization.html</a> en una clase Python y el más común de todos ellos es el constructor. El nombre de todos los métodos especiales empieza y acaba con un doble guión bajo "__" . He aquí una clase muy simple con un constructor:
+Un método es un conjunto de sentencias con un nombre asociado que se aplican sobre una instancia de la clase, es decir, es una función ligada a la clase que determina algo que los objetos de esa clase son capaces de hacer o de recibir. El programador puede definir un buen número de "métodos especiales":http://www.python.org/doc/2.5.2/ref/customization.html en una clase Python y el más común de todos ellos es el constructor. El nombre de todos los métodos especiales empieza y acaba con un doble guión bajo "__" . He aquí una clase muy simple con un constructor:
 
 
 <div>
@@ -68,7 +68,7 @@ h2. self
 
 Quizá te habrás percatado de que el constructor tiene un argumento llamado @self@ pero en el código anterior, en el que se crea el objeto, no se pasa nada como parámetro. Bueno, pues ese @self@ es un parámetro un tanto especial; representa a la instancia sobre la que opera el método. En realidad los métodos son funciones normales que reciben como primer parámetro la dirección del objeto sobre el que deben trabajar. Esto es así en la mayoría de los lenguajes orientados a objetos, sólo que normalmente ese hecho se oculta al programador. Por ejemplo, basta con usar un depurador en un programa C++ para ver un curioso puntero llamado @this@ como primer parámetro de cada método.
 
-De modo que Python no es tan distinto, la diferencia es que Python no lo oculta, lo muestra, es explícito. Todo es explícito, es parte de la "filosofía de diseño de Python":http://<a href="http://www.python.org/dev/peps/pep-0020/">www.python.org/dev/peps/pep-0020/</a>.
+De modo que Python no es tan distinto, la diferencia es que Python no lo oculta, lo muestra, es explícito. Todo es explícito, es parte de la "filosofía de diseño de Python":http://www.python.org/dev/peps/pep-0020/.
 
 
 h2. Principios de la orientación a objetos
@@ -104,7 +104,7 @@ h3. Polimofismo
 
 Permite que cada clase pueda especificar el comportamiento de un método común (heredado) de modo que el método hará algo distinto dependiendo de la clase a la que corresponda el objeto. 
 
-Python ofrece este mecanismo aunque no es posible definir varias funciones con el mismo nombre y distintos argumentos (como ocurre en otros lenguajes). Sí que permite realizar "sobrecarga de operadores":http://<a href="http://www.python.org/doc/2.5.2/ref/specialnames.html">www.python.org/doc/2.5.2/ref/specialnames.html</a>, algo muy valioso para conseguir programas más legibles y mantenibles y conseguir tipos que se compartan exactamente igual que los que incorpora el lenguaje.
+Python ofrece este mecanismo aunque no es posible definir varias funciones con el mismo nombre y distintos argumentos (como ocurre en otros lenguajes). Sí que permite realizar "sobrecarga de operadores":http://www.python.org/doc/2.5.2/ref/specialnames.html, algo muy valioso para conseguir programas más legibles y mantenibles y conseguir tipos que se compartan exactamente igual que los que incorpora el lenguaje.
 
 
 *[en construcción]*

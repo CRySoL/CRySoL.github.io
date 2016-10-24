@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /2009-11-10/maneras-de-indentar
+refresh_to_post_id: /2009-11-10/maneras-de-indentar.html
 ---

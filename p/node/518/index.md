@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /recipe/2007-01-21/impresora-hp-laserjet-1000-usb
+refresh_to_post_id: /recipe/2007-01-21/impresora-hp-laserjet-1000-usb.html
 ---

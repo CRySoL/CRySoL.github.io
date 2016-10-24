@@ -1,0 +1,62 @@
+---
+migrated: node/917
+layout: post
+title: 'Goocanvas I parte: Hello World!'
+created: 1210459469
+author: oscarah
+category: recipe
+tags:
+- Python
+- graphics
+---
+
+
+<!--break-->
+
+<div>
+{% highlight python %}
+# -*- mode: python; coding: utf-8 -*-
+
+import goocanvas
+import gtk
+
+
+class Hello:
+    def __init__(self):
+        mw = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        mw.connect("delete-event", gtk.main_quit)
+
+        sc = gtk.ScrolledWindow()
+        sc.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+        sc.set_shadow_type(gtk.SHADOW_IN)
+        mw.add(sc)
+        mw.set_size_request(350, 266)
+
+        canvas = goocanvas.Canvas()
+        sc.add(canvas)
+
+        root = canvas.get_root_item()
+
+        rect_item = goocanvas.Rect(x=100, y=100, width=150, height=66,
+                                   line_width=3, stroke_color="black", 
+                                   fill_color="#ff8a00", radius_y=5, radius_x=5)
+        root.add_child(rect_item)
+
+        text_item = goocanvas.Text(x=175, y=133, text="¡Hooola Mundo!",
+                                   anchor=gtk.ANCHOR_CENTER, font="Sans 9",
+                                   fill_color="white")
+        root.add_child(text_item)
+
+        mw.show_all()
+
+
+
+if __name__ == "__main__":
+    try:
+        h = Hello()
+        gtk.main()
+    except KeyboardInterrupt:
+        pass
+    
+{% endhighlight %}
+</div>

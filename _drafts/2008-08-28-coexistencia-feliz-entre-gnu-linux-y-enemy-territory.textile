@@ -1,0 +1,49 @@
+---
+migrated: node/994
+layout: post
+title: Coexistencia feliz entre GNU/Linux y Enemy Territory
+created: 1219916207
+author: Vigilante
+category: recipe
+tags:
+- ocio
+---
+<blockquote class="head"> 
+   Esta receta explica como solventar algunos problemas comunes con este juego y empujarte a la adicción al mismo.
+</blockquote>
+
+<h2>Introducción</h2>
+Enemy-territory también conocido como ET, es un FPS multijugador gratuito ambientado en la segunda Guerra Mundial.
+
+<h2>Problemas de sonido</h2>
+Si no oyes nada, la solución que deberías adoptar es:
+Cerrar todas las aplicaciones que estén haciendo uso del dispositivo de audio.
+Ejecutar como root lo siguiente:
+
+
+<div class="console">
+{% highlight console %}
+
+echo "et.x86 0 0 direct" > /proc/asound/card0/pcm0p/oss
+echo "et.x86 0 0 disable" > /proc/asound/card0/pcm0c/oss
+modprobe snd_seq_oss
+modprobe snd_mixer_oss
+modprobe snd_pcm_oss
+{% endhighlight %}
+</div>
+
+
+<h2>Problemas con tarjetas ATI</h2>
+
+Algunas tarjetas ATI no se llevan bien con este juego. Esto se debe a que ET utiliza PunkBuster, esto es  dicho de forma vulgar un "evita tramposos". PunkBuster piensa que el driver de ATI está intentando hacer alguna trampa y por eso se te expulsará del servidor. 
+
+La forma de solucionar esto (según Carlos, el hombre de seguridad, Clint para los jugones) es simplemente actualizar el PunkBuster, que puedes descargar desde <a href="http://websec.evenbalance.com/downloads/linux/pbsetup.run">aquí</a>.
+
+Observación: La instalación del driver de ATI se realizó descargando el driver directamente de la página de ATI.
+
+<h2>Lanzador a tu server favorito</h2>
+Cuando se es adicto, jugarás siempre en el mismo servidor y, para ahorrarte abrir el juego, ir a la lista de servidores y teclear tu IP o teclear tu IP desde la consola del ET, puedes crearte un lanzador en tu escritorio :)
+
+El comando que debes poner al lanzador es:
+
+<pre class="console">et +connect <i>serverIP</i> +password <i>password</i></pre>

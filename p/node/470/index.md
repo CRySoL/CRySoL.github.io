@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /2006-12-13/convertidor-de-video
+refresh_to_post_id: /2006-12-13/convertidor-de-video.html
 ---

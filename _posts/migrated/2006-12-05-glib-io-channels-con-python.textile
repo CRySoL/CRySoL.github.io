@@ -19,7 +19,7 @@ h2. Introducción
 
 Los IO Channels de GLib son una forma muy elegante  y eficiente de manejar múltiples fuentes de datos asíncronas simultáneas. En un sistema Unix cualquier entrada de datos se puede ver como un fichero. Eso permite que ficheros, pipes, terminales, puertos serie, sockets y casi cualquier cosa se puedan tratar de forma homogénea. Además, también se pueden utilizar eventos activados por tiempo.
 
-En términos de diseño, se considera que el bucle de eventos de GLib es una implementación del patrón de diseño "Reactor":http://<a href="http://www.artima.com/articles/io_design_patterns2.html">www.artima.com/articles/io_design_patterns2.html</a>.
+En términos de diseño, se considera que el bucle de eventos de GLib es una implementación del patrón de diseño "Reactor":http://www.artima.com/articles/io_design_patterns2.html.
 
 
 h2. GLib para Python?
@@ -123,4 +123,4 @@ while 1:
 
 h2. Referencias
 
-* "PyGObject Reference Manual":http://<a href="http://www.pygtk.org/docs/pygobject/index.html">www.pygtk.org/docs/pygobject/index.html</a>
+* "PyGObject Reference Manual":http://www.pygtk.org/docs/pygobject/index.html

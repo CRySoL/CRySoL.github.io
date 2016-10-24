@@ -1,0 +1,19 @@
+---
+migrated: node/526
+layout: post
+title: " Usos interesantes de wget"
+created: 1169411846
+author: david_villa
+category: recipe
+---
+
+
+Esta receta trata de explotar algunas de las muchas posibilidades del programa wget
+
+1. Spider
+
+Un spider es un programa que navega a través de la web siguiendo los enlaces que encuentra. Se utiliza para buscar enlaces rotos.
+ 
+$ wget --spider --force-html -i index.html
+      
+* 	Página oficial de wget  [en]

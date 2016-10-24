@@ -1,0 +1,46 @@
+---
+migrated: node/1693
+layout: post
+title: debian/control
+created: 1355135567
+author: david_villa
+---
+"Source":http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Source: bash
+
+<!--break-->
+
+"Section":http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Section: base
+"Priority":http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Priority: required
+"Maintainer":http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Maintainer: Matthias Klose <doko@debian.org>
+"Standards-Version":http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Standards-Version: 3.9.3
+Build-Depends: 
+<nbsp/><nbsp/><nbsp/><nbsp/>autoconf, autotools-dev, quilt, bison, libncurses5-dev,
+<nbsp/><nbsp/><nbsp/><nbsp/>texinfo, debhelper (>= 5), texi2html, locales, gettext, sharutils, time,
+<nbsp/><nbsp/><nbsp/><nbsp/>xz-utils, dpkg-dev (>= 1.16.1)
+Build-Depends-Indep: texlive-latex-base, ghostscript
+Homepage: <a href="http://tiswww.case.edu/php/chet/bash/bashtop.html">http://tiswww.case.edu/php/chet/bash/bashtop.html</a>
+Vcs-Browser: <a href="https://code.launchpad.net/~doko/+junk/pkg-bash-debian">https://code.launchpad.net/~doko/+junk/pkg-bash-debian</a>
+Vcs-Bzr: <a href="http://bazaar.launchpad.net/~doko/+junk/pkg-bash-debian">http://bazaar.launchpad.net/~doko/+junk/pkg-bash-debian</a>
+
+Package: bash
+"Architecture":http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Architecture: any
+Multi-Arch: foreign
+Pre-Depends: dash (>= 0.5.5.1-2.2), ${shlibs:Pre-Depends}, ${misc:Depends}
+Depends: base-files (>= 2.1.12), debianutils (>= 2.15)
+Recommends: bash-completion (>= 20060301-0)
+Conflicts: bash-completion (<< 20060301-0)
+Replaces: bash-doc (<= 2.05-1), bash-completion (<< 20060301-0)
+Suggests: bash-doc
+Essential: yes
+Section: shells
+Priority: required
+"Description"http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Description: GNU Bourne Again SHell
+ Bash is an sh-compatible command language interpreter that executes
+ commands read from the standard input or from a file.  Bash also
+ incorporates useful features from the Korn and C shells (ksh and csh).
+ .
+ Bash is ultimately intended to be a conformant implementation of the
+ IEEE POSIX Shell and Tools specification (IEEE Working Group 1003.2).
+ .
+ The Programmable Completion Code, by Ian Macdonald, is now found in
+ the bash-completion package.

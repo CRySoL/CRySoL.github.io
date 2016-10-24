@@ -10,7 +10,7 @@ tags:
 - scapy
 - networking
 ---
-Esta receta en realidad es una traducción de un artículo de Rob Klein titulado "Packet Wizardry: Ruling the Network with Python":http://hackaholic.org/papers/blackmagic.txt usando la magnífica herramienta "scapy":http://<a href="http://www.secdev.org/projects/scapy/">www.secdev.org/projects/scapy/</a>. Igual es un poco largo para receta, pero bueno, no tiene desperdicio.
+Esta receta en realidad es una traducción de un artículo de Rob Klein titulado "Packet Wizardry: Ruling the Network with Python":http://hackaholic.org/papers/blackmagic.txt usando la magnífica herramienta "scapy":http://www.secdev.org/projects/scapy/. Igual es un poco largo para receta, pero bueno, no tiene desperdicio.
 
 
 <!--break-->
@@ -18,8 +18,7 @@ Esta receta en realidad es una traducción de un artículo de Rob Klein titulado
 
 h3. Autor
 
-By Rob klein Gunnewiek aka detach
-<a href="http://hackaholic.org/">http://hackaholic.org/</a>
+By Rob klein Gunnewiek aka detach <a href="http://hackaholic.org/">http://hackaholic.org/</a>
 
 h3. Historial de cambios
 
@@ -78,7 +77,7 @@ Después, como sabes, el frag SYN se utiliza para iniciar una conexión. Una res
 
 Después de construir el paquete, le pido a Scapy que libere su magia negra y emita los paquetes. Los resultados se diseccionan en el bucle for y se lista la dirección IP destino de los hosts que respondieron SA
 
-Scapy es una herramienta excelente escrita por Philippe Biondi, disponible para descarga en "<a href="http://www.secdev.org/projects/scapy/&quot;:http://www.secdev.org/projects/scapy/">http://www.secdev.org/projects/scapy/":http://www.secdev.org/projects/scapy/</a>. Aunque este tutorial debería facilitar la mayoría de la documentación que podrías necesitar, puedes encontrar más documentación ahí. Asegúrate de estudiar también su presentación sobre Scapy. Aunque scapy en si es bueno, su documentación no es fabulosa, mucho lo tendrás que aprender por ti mismo.
+Scapy es una herramienta excelente escrita por Philippe Biondi. Aunque este tutorial debería facilitar la mayoría de la documentación que podrías necesitar, puedes encontrar más documentación ahí. Asegúrate de estudiar también su presentación sobre Scapy. Aunque scapy en si es bueno, su documentación no es fabulosa, mucho lo tendrás que aprender por ti mismo.
 
 h2. Puesta en marcha de Scapy
 
@@ -108,7 +107,7 @@ Lo que más me gusta de Python es que puedes escribir cualquier cosa que tú cre
 
 La característica de Python más importante y probablemente más chula es que tiene un modo interactivo nativo. Sí, ese es el modo que acabas de usar. Tú ejecutas 'python' y tiene el indicador '>>>'. 
 
-Ahora que tenemos Python funcionando vamos con scapy. Descarga scapy de "<a href="http://www.secdev.org/projects/scapy/&quot;:http://www.secdev.org/projects/scapy/">http://www.secdev.org/projects/scapy/":http://www.secdev.org/projects/scapy/</a>, en el momento de escribir esto, la versión es 0.9.17beta. Extrae el fuente de Scapy y ejecuta el programa como root[2].
+Ahora que tenemos Python funcionando vamos con scapy. Descarga scapy de "<a href="http://www.secdev.org/projects/scapy/":http://www.secdev.org/projects/scapy/">http://www.secdev.org/projects/scapy/":http://www.secdev.org/projects/scapy/</a>, en el momento de escribir esto, la versión es 0.9.17beta. Extrae el fuente de Scapy y ejecuta el programa como root[2].
 
 <pre class="console">
   detach@luna:~/lab/scapy-0.9.17$ sudo python ./scapy.py
@@ -686,7 +685,7 @@ En cualquier caso, Scapy dice esto sobre DNS:
   >>> 
 </pre>
 
-A la vista de la "RFC-1035":http://<a href="http://www.ietf.org/rfc/rfc1035.txt">www.ietf.org/rfc/rfc1035.txt</a> veo que los siguientes campos son interesantes para enviar una consulta DNS:
+A la vista de la "RFC-1035":http://www.ietf.org/rfc/rfc1035.txt veo que los siguientes campos son interesantes para enviar una consulta DNS:
 
 * ID: Es un identificador de 16 bits que tu SO utiliza para distinguir entre consultas. De ese modo se puede saber con que consulta corresponde cada respuesta que llega (el ID de la respuesta es el mismo que el de la consulta)
 * QR: Tipo de mensaje (0 significa pregunta, 1 significa respuesta)
@@ -909,7 +908,7 @@ Otra cosa que se podría hacer más sencilla es la disección. Yo usé el métod
 
 :-). Perdón por ello.
 
-*Actualización 2*: Philippe Biondi (autor of scapy) menciona también en su email el uso de los mecanismos de respuesta de Scapy para spoofing DNS. Visita su "website":http://<a href="http://www.secdev.org/projects/scapy">www.secdev.org/projects/scapy</a>
+*Actualización 2*: Philippe Biondi (autor of scapy) menciona también en su email el uso de los mecanismos de respuesta de Scapy para spoofing DNS. Visita su "website":http://www.secdev.org/projects/scapy
 
 Así que debería reemplazarlo con:
 

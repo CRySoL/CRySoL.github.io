@@ -60,7 +60,7 @@ o en el @.emacs@ con:
 
 h3. Elegir el diccionario en cada fichero
 
-Si escribes habitualmente en más de un idioma, es bastante latazo tener que estar cambiando el diccionario activo para que corresponda con el fichero que estás editando. Es ese caso, lo más cómodo es definir una "variable de fichero":http://<a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables">www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables</a> que se aplicará únicamente a ese fichero concreto en el momento de cargarlo. 
+Si escribes habitualmente en más de un idioma, es bastante latazo tener que estar cambiando el diccionario activo para que corresponda con el fichero que estás editando. Es ese caso, lo más cómodo es definir una "variable de fichero":http://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables que se aplicará únicamente a ese fichero concreto en el momento de cargarlo. 
 
 Por ejemplo, para un documento LaTeX en inglés, escribe lo siguiente al final del texto:
 
@@ -101,15 +101,15 @@ M-x flyspell-prog-mode
 
 h2. Autodetección del idioma
 
-Hay un par de paquetes emacs (no estándar) que cargan automáticamente el diccionario que corresponda utilizando el atributo "xml:lang":http://<a href="http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/flyspell-xml-lang.el">www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/flyspell-xml-lang.el</a> en los fichero XML o el la opción "babel":http://<a href="http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/flyspell-babel.el">www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/flyspell-babel.el</a> en ficheros LaTeX. Si te interesa tendrás que instalarlos por tu cuenta.
+Hay un par de paquetes emacs (no estándar) que cargan automáticamente el diccionario que corresponda utilizando el atributo "xml:lang":http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/flyspell-xml-lang.el en los fichero XML o el la opción "babel":http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/flyspell-babel.el en ficheros LaTeX. Si te interesa tendrás que instalarlos por tu cuenta.
 
 
 h2. Referencias
 
 * "flyspell.el":http://www-sop.inria.fr/mimosa/Manuel.Serrano/flyspell/flyspell.html#Presentation
-* "EmacsWiki::FlySpell":http://<a href="http://www.emacswiki.org/cgi-bin/wiki/FlySpell">www.emacswiki.org/cgi-bin/wiki/FlySpell</a>
-* "GNU Emacs":http://<a href="http://www.gnu.org/software/emacs/manual/html_node/Spelling.html#Spelling">www.gnu.org/software/emacs/manual/html_node/Spelling.html#Spelling</a>
-* "[flyspell] set dictionary via file variables":http://<a href="http://www.webservertalk.com/archive310-2006-10-1686340.html">www.webservertalk.com/archive310-2006-10-1686340.html</a>
+* "EmacsWiki::FlySpell":http://www.emacswiki.org/cgi-bin/wiki/FlySpell
+* "GNU Emacs":http://www.gnu.org/software/emacs/manual/html_node/Spelling.html#Spelling
+* "[flyspell] set dictionary via file variables":http://www.webservertalk.com/archive310-2006-10-1686340.html
 
 
 h2. Próxima entrega

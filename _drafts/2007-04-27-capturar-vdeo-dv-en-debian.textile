@@ -1,0 +1,43 @@
+---
+migrated: node/659
+layout: post
+title: 'Capturar vídeo DV en Debian '
+created: 1177684300
+author: cleto
+category: recipe
+tags:
+- multimedia
+---
+<blockquote>
+En esta receta se explica como extraer vídeo DV de una cámara en Debian GNU/Linux via Fireware con Kino.
+</blockquote>
+
+
+h2. Ingredientes
+
+* kino
+
+
+h2. Permisos
+
+Para poder utilizar el firewire de tu cámara digital, debes agregarte al grupo <em>disk</em>. Para ello, utiliza <em>addgroup</em>:
+
+
+<div class="console">
+{% highlight console %}
+addgroup usuario disk
+{% endhighlight %}
+</div>
+
+h2. Módulos
+
+El módulo es necesario cargarlo antes de enchufar el cable firewire. Utiliza lo siguiente para cargar el módulo:
+
+
+<div class="console">
+{% highlight console %}
+modprobe raw1394
+{% endhighlight %}
+</div>
+
+Al enchufar la cámara, en el directorio <em>/dev</em> se habrá creado el archivo <em>/dev/raw1369</em>. Los permisos por defecto del dispositivo no son suficientes para usar kino de forma estándar. Por ello, es necesario añadirse al grupo <em>disk</em>.

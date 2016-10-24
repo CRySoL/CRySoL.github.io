@@ -1,4 +1,4 @@
 ---
 layout: refresh
-refresh_to_post_id: /recipe/2007-04-21/bogoutil-completa-bogofilter
+refresh_to_post_id: /recipe/2007-04-21/bogoutil-completa-bogofilter.html
 ---

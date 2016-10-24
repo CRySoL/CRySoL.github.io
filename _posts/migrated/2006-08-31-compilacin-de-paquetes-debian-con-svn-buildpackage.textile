@@ -34,7 +34,7 @@ Para compilar paquetes Debian obviamente vas a necesitar todas las herramientas 
 
 h2. La excusa: gnome-bluetooth
 
-Para ver cómo funciona svn-buildpackage vamos a construir el paquete Debian de gnome-bluetooth, que no es un paquete oficial (lleva más de 800 días en "preparación":http://<a href="http://www.debian.org/devel/wnpp/being_packaged">www.debian.org/devel/wnpp/being_packaged</a>). Evidentemente lo puedes hacer con cualquier paquete Debian o Ubuntu mantenido de la misma forma.
+Para ver cómo funciona svn-buildpackage vamos a construir el paquete Debian de gnome-bluetooth, que no es un paquete oficial (lleva más de 800 días en "preparación":http://www.debian.org/devel/wnpp/being_packaged). Evidentemente lo puedes hacer con cualquier paquete Debian o Ubuntu mantenido de la misma forma.
 
 
 h3. Repositorio

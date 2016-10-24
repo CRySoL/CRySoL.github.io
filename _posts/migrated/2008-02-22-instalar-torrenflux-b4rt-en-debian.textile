@@ -8,7 +8,7 @@ category: recipe
 tags:
 - Debian
 ---
-bq(head). Se trata de un frontend para bittorrent y wget escrito en PHP. "torrentflux-b4rt":http://tf-b4rt.berlios.de/ es un fork de "torrentflux":http://<a href="http://www.torrentflux.com/">www.torrentflux.com/</a> más flexible, ligero y potente que el original. En esta receta se explica cómo instalarlo sobre @lighttpd@ y @sqlite@.
+bq(head). Se trata de un frontend para bittorrent y wget escrito en PHP. "torrentflux-b4rt":http://tf-b4rt.berlios.de/ es un fork de "torrentflux":http://www.torrentflux.com/ más flexible, ligero y potente que el original. En esta receta se explica cómo instalarlo sobre @lighttpd@ y @sqlite@.
 
 
 <!--break-->

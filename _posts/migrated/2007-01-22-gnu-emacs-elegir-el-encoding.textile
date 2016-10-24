@@ -33,7 +33,7 @@ A continuación escribe el nombre del _encoding_ en el mini-buffer, por ejemplo:
 
 h2. Fijar el encoding en el propio fichero
 
-Se puede indicar el encoding en el propio fichero con una "variable local":http://<a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/File-Variables.html#File-Variables">www.gnu.org/software/emacs/manual/html_node/emacs/File-Variables.html#File-Variables</a>, simplemente escribe al principio del fichero algo como esto:
+Se puede indicar el encoding en el propio fichero con una "variable local":http://www.gnu.org/software/emacs/manual/html_node/emacs/File-Variables.html#File-Variables, simplemente escribe al principio del fichero algo como esto:
 
 <pre>
  -*- coding: utf-8 -*-

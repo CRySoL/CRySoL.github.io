@@ -127,16 +127,16 @@ h2. Comentarios
 
 Una pequeña pega de *dm-crypt* es que no proporciona "negación plausible":http://en.wikipedia.org/wiki/Plausible_deniability. En cristiano:  si el soporte llega a manos de un "agente enemigo", sabrá que hay datos cifrados en él aunque no pueda leerlos, vamos, que sabrá que escondes algo. 
 
-Un criptosistema ideal no deja huellas de su uso, es decir, no hay manera de distinguir datos aleatorios de datos cifrados. Este tipo de _feature_  la proporciona por ejemplo "TrueCrypt":http://<a href="http://www.truecrypt.org/">www.truecrypt.org/</a>. Realmente yo creo que, a menos que seas espía o te dediques a pasar secretos militares en tus ratos libres, este nivel de privacidad es innecesario, al menos a día de hoy.
+Un criptosistema ideal no deja huellas de su uso, es decir, no hay manera de distinguir datos aleatorios de datos cifrados. Este tipo de _feature_  la proporciona por ejemplo "TrueCrypt":http://www.truecrypt.org/. Realmente yo creo que, a menos que seas espía o te dediques a pasar secretos militares en tus ratos libres, este nivel de privacidad es innecesario, al menos a día de hoy.
 
  
 
 h2. Referencias
 
-* "dm-crypt: a device-mapper crypto target":http://<a href="http://www.saout.de/misc/dm-crypt/">www.saout.de/misc/dm-crypt/</a>
+* "dm-crypt: a device-mapper crypto target":http://www.saout.de/misc/dm-crypt/
 * "LUKS - Linux Unified Key Setup ":http://luks.endorphin.org/
 * "Howto use Cryptsetup with LUKS support":http://feraga.com/library/howto_use_cryptsetup_with_luks_support_0
-* "Encrypting the USB flash drive":http://<a href="http://www.linuxquestions.org/questions/linux-kernel-70/encrypting-the-usb-flash-drive-524930/">www.linuxquestions.org/questions/linux-kernel-70/encrypting-the-usb-flash-drive-524930/</a>
-* "Howto use an encrypted container under Windows XP and Linux":http://<a href="http://www.mayrhofer.eu.org/Default.aspx?pageindex=6&pageid=34">www.mayrhofer.eu.org/Default.aspx?pageindex=6&pageid=34</a>
-* "Howto: Completly encrypted harddisk including the suspend to disk partition with Ubuntu 6.10 Edgy Eft":http://<a href="http://www.c3l.de/linux/howto-completly-encrypted-harddisk-including-suspend-to-encrypted-disk-with-ubuntu-6.10-edgy-eft.html">www.c3l.de/linux/howto-completly-encrypted-harddisk-including-suspend-to-encrypted-disk-with-ubuntu-6.10-edgy-eft.html</a>
+* "Encrypting the USB flash drive":http://www.linuxquestions.org/questions/linux-kernel-70/encrypting-the-usb-flash-drive-524930/
+* "Howto use an encrypted container under Windows XP and Linux":http://www.mayrhofer.eu.org/Default.aspx?pageindex=6&pageid=34
+* "Howto: Completly encrypted harddisk including the suspend to disk partition with Ubuntu 6.10 Edgy Eft":http://www.c3l.de/linux/howto-completly-encrypted-harddisk-including-suspend-to-encrypted-disk-with-ubuntu-6.10-edgy-eft.html
 * <a href="http://wiki.centos.org/HowTos/EncryptedFilesystem">http://wiki.centos.org/HowTos/EncryptedFilesystem</a>

@@ -27,7 +27,7 @@ Todas estas tareas implican escribir o borrar lo mismo en todas las líneas que 
 
 h2. Manipulación de rectángulos
 
-Los "rectángulos":http://<a href="http://www.gnu.org/software/emacs/manual/html_node/Rectangles.html#Rectangles">www.gnu.org/software/emacs/manual/html_node/Rectangles.html#Rectangles</a> son justo eso, zonas rectangulares acotadas por dos columnas y dos filas cualesquiera. Esto permite, por ejemplo, copiar, pegar, borrar o insertar columnas de texto en cualquier parte. 
+Los "rectángulos":http://www.gnu.org/software/emacs/manual/html_node/Rectangles.html#Rectangles son justo eso, zonas rectangulares acotadas por dos columnas y dos filas cualesquiera. Esto permite, por ejemplo, copiar, pegar, borrar o insertar columnas de texto en cualquier parte. 
 
 Lo normal para usar estos comandos es definir primero la región o rectángulo sobre el que se va a aplicar el comando. Eso se hace poniendo la _marca_ (C-space) en una esquina y el cursor en la esquina diagonalmente opuesta.
 

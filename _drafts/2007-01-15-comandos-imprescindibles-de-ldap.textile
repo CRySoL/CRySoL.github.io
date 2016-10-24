@@ -1,0 +1,37 @@
+---
+migrated: node/502
+layout: post
+title: Comandos imprescindibles de LDAP
+created: 1168887194
+author: david_villa
+category: recipe
+---
+h1. Crear un usuario
+
+<!--break-->
+
+
+
+<div class="console">
+{% highlight console %}
+$ ldapadduser pepito pepito
+{% endhighlight %}
+</div>
+
+h1. Añadir un usuario a un grupo
+
+
+<div class="console">
+{% highlight console %}
+$ ldapusertogroup pepito alumnos
+{% endhighlight %}
+</div>
+
+h1. Listar los miembros de un grupo
+
+
+<div class="console">
+{% highlight console %}
+$ ldapsearch  -x "(cn=alumnos)"
+{% endhighlight %}
+</div>

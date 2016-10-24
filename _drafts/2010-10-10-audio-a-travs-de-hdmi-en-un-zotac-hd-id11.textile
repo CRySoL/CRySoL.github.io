@@ -1,0 +1,26 @@
+---
+migrated: node/1408
+layout: post
+title: Audio a través de HDMI en un Zotac HD-ID11
+created: 1286731300
+author: Lk2
+category: recipe
+tags:
+- drivers
+- Debian
+---
+En esta receta voy a explicar como conseguir que Alsa reproduzca el audio por defecto utilizando la salida HDMI de la tarjeta gráfica integrada en el equipo "Zotac ZBOX HD-ID11":http://www.zotac.com/index.php?option=com_wrapper&view=wrapper&Itemid=100083&lang=es
+
+
+<!--break-->
+
+
+Antes de empezar, quiero advertir unas cuantas cosas.
+
+* Esta receta no tiene garantía. Es decir, si te quedas sin audio, como me pasó a mi en mis primeras pruebas, no me culpes.
+* Seguir esta receta va a dejar tocado (cuando no muerto) el Alsa que viene empaquetado en Debian. Lo mantengo instalado por todas las dependencias que el paquete me resuelve, pero siguiendo la receta sobre-escribirás gran parte de los ficheros del paquete @alsa-base@ y de otros.
+* No aseguro que funcione con cualquier otro hardware, de hecho, ese es el motivo que me ha llevado a poner el nombre del producto en el título de la receta. Si funciona con otro hardware es pura coincidencia.
+
+h2. Introducción
+
+Hace poco, cuando compré este pequeño ordenador para ponerlo junto a la TV del salón, pensaba que el tema del sonido en GNU/Linux estaba muy pulido y que no tendría problema: craso error. Pero como de todo en esta vida se puede sacar alguna enseñanza y algún conocimiento, me puse manos a la obra y gracias a la "lista de correo de usuario de Alsa":

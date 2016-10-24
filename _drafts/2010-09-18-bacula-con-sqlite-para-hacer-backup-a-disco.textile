@@ -1,0 +1,51 @@
+---
+migrated: node/1400
+layout: post
+title: Bacula con sqlite para hacer backup a disco
+created: 1284798490
+author: david_villa
+category: recipe
+tags:
+- security
+---
+En esta receta se muestra una de las configuraciones más sencillas de instalar para usar bacula.
+
+
+<!--break-->
+
+
+h2. Ingredientes
+
+* Básicos
+** bacula-director-sqlite3
+** bacula-sd-sqlite3
+** bacula-fd
+* Gestión
+** bacula-console
+** bacula-console-qt
+
+
+h2. bconsole y bat
+
+Son herramientas de administración (@bconsole@ para terminal y @bat@ gráfica). La única configuración que requieren es la localización y clave de acceso a los *directores*. Dicha información se especifica así:
+
+
+<div>
+{% highlight text %}
+Director {
+  Name = localhost-dir
+  DIRport = 9101
+  address = localhost
+  Password = "jIJOihUHlkjhljOIJhoUIH98Y0hOLgYF6"
+}
+
+Director {
+  Name = example-dir
+  DIRport = 9101
+  address = stallman.example.com
+  Password = "hjhkjhgGVYIbkIuikBiuGV90898bhiUghIU"
+}
+{% endhighlight %}
+</div>
+
+Tanto el fichero @/etc/bacula/bconsole.conf@ como el @/etc/bacula/bat.conf@ utilizan el mismo formato y como se puede comprobar se pueden especificar varios directores en el mismo fichero.

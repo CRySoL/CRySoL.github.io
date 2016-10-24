@@ -1,0 +1,43 @@
+---
+migrated: node/1060
+layout: post
+title: Accediendo a los bookmarks de Firefox desde Python
+created: 1228524744
+author: david_villa
+category: recipe
+tags:
+- Python
+---
+Firefox 3 utiliza una base de datos "SQLite":http://es.wikipedia.org/wiki/SQLite para almacenar los bookmarks (entre otras cosas). Además, ahora los bookmarks se pueden "etiquetar". Ambas features nos permiten hacer algunas cosas interesantes, tales como búsquedas por palabras clave o generación de páginas con nuestros enlaces.
+
+<!--break-->
+
+
+h2. Ingredientes
+
+* python-sqlite
+
+
+h2. Abriendo la base de datos
+
+En sistemas GNU, la base de datos de bookmarks está en @~/.mozilla/firefox/<profile_path>/places.sqlite@, siendo *&lt;profile_path>* una ruta que aparece como valor de la variable @Path@ para cada perfil. Los perfiles están almacenados en un fichero "tipo ini" en @~/.mozilla/firefox/profiles.ini@. El mio tiene esta pinta:
+
+
+<div>
+{% highlight text %}
+[General]
+StartWithLastProfile=1
+
+[Profile0]
+Name=default
+IsRelative=1
+Path=uiophgt0y.default
+{% endhighlight %}
+</div>
+
+de modo que la base de datos está en mi @~/.mozilla/firefox/uiophgt0y.default/places.sqlite@.
+
+
+h2. Referencias
+
+* "Firefox 3 uses sqlite to store bookmarks (and most other things)":http://me.phillipoertel.com/articles/2008/04/23/firefox-3-uses-sqlite-to-store-bookmarks

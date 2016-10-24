@@ -1,0 +1,32 @@
+---
+migrated: node/668
+layout: post
+title: Reproducir Flash con Gnash en PowerPC (y en otras) en GNU/Linux
+created: 1178310130
+author: cleto
+category: recipe
+tags:
+- gstreamer
+- Debian
+- multimedia
+---
+<blockquote>¿Quién lo iba a decir? El software libre avanza y una muestra de ello es que Gnash reproduce el flash, por ejemplo, de <a href="http://www.youtube.com">YouTube</a>. En esta receta te enseñamos como.</blockquote>
+
+<!--break-->
+
+
+
+<h2>Ingredientes</h2>
+Descargamos los fuentes de Gnash desde el repositorio oficial:
+
+<div class="console">
+{% highlight console %}
+export CVS_RSH="ssh"
+cvs -z3 -d:pserver:anonymous@cvs.sv.gnu.org:/sources/gnash co gnash
+
+{% endhighlight %}
+</div>
+Esto nos creará un directorio "gnash" en el que tenemos todos los archivos fuentes del programa. Además, también tenemos que tener instalado:
+<ul>
+<li>build-essential</li>
+</ul>

@@ -6,7 +6,7 @@ created: 1296269544
 author: david_villa
 category: recipe
 ---
-That recipe shows how to configure "redmine":http://<a href="http://www.redmine.org/">www.redmine.org/</a> to use PAM authentication. It includes the PAM authentication plugin code.
+That recipe shows how to configure "redmine":http://www.redmine.org/ to use PAM authentication. It includes the PAM authentication plugin code.
 
 
 <!--break-->
@@ -133,5 +133,5 @@ I'm sorry if the plugin code contains errors, but it is my very first Ruby progr
 
 h2. References
 
-* "Alternative (custom) Authentication HowTo":http://<a href="http://www.redmine.org/projects/redmine/wiki/Alternativecustom_authentication_HowTo">www.redmine.org/projects/redmine/wiki/Alternativecustom_authentication_HowTo</a>
+* "Alternative (custom) Authentication HowTo":http://www.redmine.org/projects/redmine/wiki/Alternativecustom_authentication_HowTo
 * "rpam":http://gomix.fedora-ve.org/projects/ruby/wiki/Ruby_PAM

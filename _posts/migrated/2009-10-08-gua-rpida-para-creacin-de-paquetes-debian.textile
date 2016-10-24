@@ -9,7 +9,7 @@ tags:
 - Arco
 - Debian-devel
 ---
-Empaquetar un programa, librería o cualquier otro elemento software en Debian puede ser una tarea complicada, sobre todo si queremos añadirlo a Debian donde es necesario que cumpla muchos requisitos (concretamente, la conocida "Debian Policy":http://<a href="http://www.debian.org/doc/debian-policy/">www.debian.org/doc/debian-policy/</a>).
+Empaquetar un programa, librería o cualquier otro elemento software en Debian puede ser una tarea complicada, sobre todo si queremos añadirlo a Debian donde es necesario que cumpla muchos requisitos (concretamente, la conocida "Debian Policy":http://www.debian.org/doc/debian-policy/).
 
 Esta guía puede ser considerada por algunos como "quick&dirty":http://en.wikipedia.org/wiki/Quick-and-dirty, pero ofrece un punto intermedio entre la política de Debian y lo que se podría llamar "cutre". La guía se compone de recetas que te servirán de ayuda para empaquetar tus programas y distribuirlos de forma personal.
 
@@ -19,7 +19,7 @@ Esta guía puede ser considerada por algunos como "quick&dirty":http://en.wikipe
 
 h2. Antes de seguir leyendo...
 
-En esta guía se muestran recetas o HowTo's que pueden ser de gran ayuda a la hora de crear paquetes que, a menos que se especifique lo contrario, *NO CUMPLEN* con la "política de Debian":http://<a href="http://www.debian.org/doc/debian-policy/">www.debian.org/doc/debian-policy/</a>. El objetivo de esta guía es mostrar una forma razonablemente correcta de crear paquetes Debian para tus aplicaciones personales, y *no pretende sustituir a ninguna guía oficial*.
+En esta guía se muestran recetas o HowTo's que pueden ser de gran ayuda a la hora de crear paquetes que, a menos que se especifique lo contrario, *NO CUMPLEN* con la "política de Debian":http://www.debian.org/doc/debian-policy/. El objetivo de esta guía es mostrar una forma razonablemente correcta de crear paquetes Debian para tus aplicaciones personales, y *no pretende sustituir a ninguna guía oficial*.
 
 Por todo ello, si quieres subir tus paquetes a Debian, con toda seguridad, *necesitarás realizar trabajo adicional*.
 
@@ -27,9 +27,9 @@ h2. Lecturas recomendadas
 
 Para comenzar a crear paquetes para un sistema como Debian es necesario documentarse (y mucho). A continuación, se listan algunos documentos oficiales sobre el sistema Debian, que son importantes si quieres meterte en el mundo de Debian:
 
-* "Contrato Social de Debian":http://<a href="http://www.debian.org/social_contract">www.debian.org/social_contract</a>: un apartado muy importante del contrato social son las directrices de software libre de Debian (más conocida como "DFSG(Debian Free Software Guidelines)":http://<a href="http://www.debian.org/social_contract#guidelines">www.debian.org/social_contract#guidelines</a>). Es importante porque define exactamente qué es y qué no es software libre en Debian.
-* "La guía del nuevo desarrollador de Debian":http://<a href="http://www.debian.org/doc/maint-guide/">www.debian.org/doc/maint-guide/</a>.
-* "La política de Debian":http://<a href="http://www.debian.org/doc/debian-policy/">www.debian.org/doc/debian-policy/</a>.
+* "Contrato Social de Debian":http://www.debian.org/social_contract: un apartado muy importante del contrato social son las directrices de software libre de Debian (más conocida como "DFSG(Debian Free Software Guidelines)":http://www.debian.org/social_contract#guidelines). Es importante porque define exactamente qué es y qué no es software libre en Debian.
+* "La guía del nuevo desarrollador de Debian":http://www.debian.org/doc/maint-guide/.
+* "La política de Debian":http://www.debian.org/doc/debian-policy/.
 
 h2. Herramientas
 

@@ -15,7 +15,7 @@ bq(head). Cuando tienes un dispositivo con pantalla táctil y quieres programar 
 <!--break-->
 
 
-*Tslib* se suele utilizar en muchos dispositivos embebidos para proporcionar la funcionalidad de la pantalla táctil a los programadores. Se utiliza en muchos dispositivos de este tipo, entre ellos el TomTom, el Nokia 770 o el que nos ocupará en esta receta: el "Chumby":http://<a href="http://www.chumby.com">www.chumby.com</a>
+*Tslib* se suele utilizar en muchos dispositivos embebidos para proporcionar la funcionalidad de la pantalla táctil a los programadores. Se utiliza en muchos dispositivos de este tipo, entre ellos el TomTom, el Nokia 770 o el que nos ocupará en esta receta: el "Chumby":http://www.chumby.com
 
 h2. Preparándolo todo
 
@@ -194,6 +194,6 @@ Para probar si hemos compilado/instalado todo correctamente necesitarías crear 
 
 Cuando lo ejecutes deberá aparecerte en la pantalla del Chumby algo como esto:
 
-!<a href="/assets/files/capture1.jpg">/assets/files/capture1.jpg</a>!
+!/assets/files/capture1.jpg!
 
 Simplemente tienes que pulsar en la cruz tantas veces como va cambiando de sitio. En la terminal SSH podrśa ver cuando termina el proceso. Es importante que cuando termines compruebes que se ha creado un fichero llamado *pointercal* en el directorio _/etc_ de tu directorio NFS/pincho USB.

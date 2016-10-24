@@ -1,0 +1,36 @@
+---
+migrated: node/1032
+layout: post
+title: DLXview para GNU's actuales
+created: 1224860835
+author: cleto
+---
+<blokquote>Esta receta explica cómo instalar GLXView de forma nativa en GNU/Linux</blockquote>
+
+<!--break-->
+
+
+
+En muchas universidades se utiliza DLXView como simulador de prácticas. El principal problema que te encuentras cuando quieres instalar DLXView en tu GNU/Linux es que no hay forma de hacerlo porque es prácticamente "abandonware".
+
+Sin embargo, y gracias a la ayuda inestimable de david, disponemos de un ejecutable de DLXView para kernel's relativamente recientes. Puedes descargarlo así:
+
+<div class="console">
+{% highlight console %}
+wget http://babel.esi.uclm.es/aic/dlxview
+{% endhighlight %}
+</div>
+
+Para instalarlo correctamente necesitas instalar las librerías siguientes:
+<ul>
+<li><a href="http://packages.debian.org/search?keywords=tk8.0&searchon=names&suite=all&section=all">tk8.0</a></li>
+<li><a href="http://packages.debian.org/search?keywords=tcl8.0&searchon=names&suite=all&section=all">tcl8.0</a></li>
+</ul>
+
+Estas librerías son un poco antiguas. A día de hoy están en la rama "stable", pero te las puedes descargar sin problemas desde los enlaces proporcionados sea cual sea tu versión. Para instalar las librerías:
+
+<div class="console">
+{% highlight console %}
+# dpkg -i __nombre__paquete.deb
+{% endhighlight %}
+</div>

@@ -1,17 +1,40 @@
 #!/usr/local/bin/ansible-playbook -v
 
 ---
-- hosts: localhost
+- hosts: all
   become: yes
 
   tasks:
-  - apt: name=ruby update_cache=yes
-  - apt: name=ruby2.1-dev
-  - apt: name=ruby-redcloth
-  - apt: name=rake
-  - gem: name=jekyll version=2.5.3 user_install=no include_dependencies=yes
+  - apt_repository: repo='deb http://ftp.debian.org/debian stretch main' state=present
+  - apt: update_cache=yes
 
-- hosts: localhost
+  - apt: name=git
+  - apt: name=jekyll
+
+
+  # - apt: name=ruby
+  # - apt: name=ruby-dev
+  # - apt: name=ruby-redcloth
+  # - apt: name=rake
+  # - apt: name=openssl state=latest
+  # - apt: name=ruby-pygments.rb
+  # - gem: name=jekyll-paginate user_install=no
+  # - gem: name=jekyll-gist user_install=no
+  # - gem: name=jekyll user_install=no include_dependencies=yes
+
+  - apt: name=mysql-server
+  - apt: name=python-mysqldb
+  - mysql_db: name=drupal
+  - mysql_db: name=drupal state=import target=/vagrant/crysol620.sql
+  - apt: name=ruby-dev
+  - apt: name=ruby-sequel
+  - apt: name=ruby-safe-yaml
+  - apt: name=ruby-rinku
+  - apt: name=libmysqlclient-dev
+  - gem: name=mysql
+
+- hosts: all
 
   tasks:
   - git: repo=https://github.com/CRySoL/drupal-import dest=/home/{{ ansible_user_id }}/drupal-import
+  # - git: repo=https://github.com/CRySoL/web.source dest=/home/{{ ansible_user_id }}/web.source

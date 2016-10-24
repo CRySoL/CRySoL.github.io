@@ -21,9 +21,9 @@ h2. Obtener el instalador/los paquetes necesario para nuestra tarjeta gráfica.
 
 Últimamente Nvidia está haciendo muchos cambios sobre sus drivers, por lo que muchas tarjetas que estaban soportadas han pasado a estarlo por el driver "legacy" (el viejuno) y cosas por el estilo. Las distintas opciones que tenemos son:
 
-* Última versión del driver (actualmente "100.14.11":http://<a href="http://www.nvidia.com/object/linux_display_ia32_100.14.11%20.html">www.nvidia.com/object/linux_display_ia32_100.14.11%20.html</a>).
-* Última versión del driver "legacy" (actualmente "1.0-9639":http://<a href="http://www.nvidia.com/object/linux_display_ia32_1.0-9639.html">www.nvidia.com/object/linux_display_ia32_1.0-9639.html</a>).
-* Versión "legacy" para GPUs muy viejas (actualmente "1.0-7185":http://<a href="http://www.nvidia.com/object/linux_display_ia32_1.0-7185.html">www.nvidia.com/object/linux_display_ia32_1.0-7185.html</a>).
+* Última versión del driver (actualmente "100.14.11":http://www.nvidia.com/object/linux_display_ia32_100.14.11%20.html).
+* Última versión del driver "legacy" (actualmente "1.0-9639":http://www.nvidia.com/object/linux_display_ia32_1.0-9639.html).
+* Versión "legacy" para GPUs muy viejas (actualmente "1.0-7185":http://www.nvidia.com/object/linux_display_ia32_1.0-7185.html).
 
 Para saber qué driver te conviene más es recomendable verlo en la lista de "hardware soportado por el driver de Nvidia":http://us.download.nvidia.com/XFree86/Linux-x86/100.14.11/README/appendix-a.html.
 

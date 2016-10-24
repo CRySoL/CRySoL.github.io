@@ -33,7 +33,7 @@ Y desde ahí todo normal hasta que llega el momento de particionar el disco.
 
 h2. Particionado del disco
 
-Este modelo viene con dos discos SATA de 320GB que se pueden configurar como RAID en BIOS gracias a la controladora Intel 82801. Yo no la he utilizado porque he visto que varias personas "han reportado problemas":http://<a href="http://www.nevillehobson.com/next/2008/03/18/no-confidence-in-raid-on-xps-420/">www.nevillehobson.com/next/2008/03/18/no-confidence-in-raid-on-xps-420/</a> y además parece que es un «faked RAID» de modo que la diferencia de rendimiento con un software RAID no es significativa, de hecho es lo que "recomienda Debian":http://wiki.debian.org/DebianInstaller/SataRaid.
+Este modelo viene con dos discos SATA de 320GB que se pueden configurar como RAID en BIOS gracias a la controladora Intel 82801. Yo no la he utilizado porque he visto que varias personas "han reportado problemas":http://www.nevillehobson.com/next/2008/03/18/no-confidence-in-raid-on-xps-420/ y además parece que es un «faked RAID» de modo que la diferencia de rendimiento con un software RAID no es significativa, de hecho es lo que "recomienda Debian":http://wiki.debian.org/DebianInstaller/SataRaid.
 
 h3. RAID software
 
@@ -88,7 +88,7 @@ MemTotal:      4084320 KiB
 </div>
 
 
-Si te interesa saber a qué se debe la limitación de 3 GiB en los sistemas de 32 bits te recomiendo esta interesante receta: "La odisea de ampliar la memoria a 4 GiB":http://<a href="http://www.vicente-navarro.com/blog/2008/07/14/la-odisea-de-ampliar-la-memoria-a-4-gib/">www.vicente-navarro.com/blog/2008/07/14/la-odisea-de-ampliar-la-memoria-a-4-gib/</a>
+Si te interesa saber a qué se debe la limitación de 3 GiB en los sistemas de 32 bits te recomiendo esta interesante receta: "La odisea de ampliar la memoria a 4 GiB":http://www.vicente-navarro.com/blog/2008/07/14/la-odisea-de-ampliar-la-memoria-a-4-gib/
 
 h2. Suspender / Hibernar 
 
@@ -132,4 +132,4 @@ h2. Referencias
 
 * "Setting up Debian on a Serial ATA RAID device":http://wiki.debian.org/DebianInstaller/SataRaid
 * "Installing Debian with SATA based RAID":http://xtronics.com/reference/SATA-RAID-debian-for-2.6.html
-* "Instalar Ubuntu 8.04 Hardy Heron sobre un fakeRAID":http://<a href="http://www.vicente-navarro.com/blog/2008/05/01/instalar-ubuntu-hardy-heron-sobre-un-fakeraid/">www.vicente-navarro.com/blog/2008/05/01/instalar-ubuntu-hardy-heron-sobre-un-fakeraid/</a>
+* "Instalar Ubuntu 8.04 Hardy Heron sobre un fakeRAID":http://www.vicente-navarro.com/blog/2008/05/01/instalar-ubuntu-hardy-heron-sobre-un-fakeraid/

@@ -43,7 +43,7 @@ found USB scanner (vendor=0x04b8 [EPSON], product=0x012d [EPSON Scanner]) at lib
 
 h2. Drivers
 
-*Después* de instalar los paquetes que aparecen en el apartado "ingredientes" descarga los paquetes <tt>iscan</tt> y <tt>iscan-plugin-gt-s600</tt> de la "web del fabricante":http://<a href="http://www.avasys.jp/lx-bin2/linux_e/scan/DL1.do">www.avasys.jp/lx-bin2/linux_e/scan/DL1.do</a>. Están en formato RPM, debes convertirlos a DEB con </tt>alien</tt>.
+*Después* de instalar los paquetes que aparecen en el apartado "ingredientes" descarga los paquetes <tt>iscan</tt> y <tt>iscan-plugin-gt-s600</tt> de la "web del fabricante":http://www.avasys.jp/lx-bin2/linux_e/scan/DL1.do. Están en formato RPM, debes convertirlos a DEB con </tt>alien</tt>.
 
 
 

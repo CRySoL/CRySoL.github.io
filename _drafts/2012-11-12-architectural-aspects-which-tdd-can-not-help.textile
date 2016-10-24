@@ -1,0 +1,16 @@
+---
+migrated: node/1689
+layout: post
+title: Architectural aspects which TDD can not help
+created: 1352726679
+author: david_villa
+---
+TDD is not perfect, what is? There are some important application architectural aspects that can not be achieved (today) with the TDD design approach:
+
+* security
+* scalability
+* data representation
+* data flow
+* portability
+* traceability
+* profiling

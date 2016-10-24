@@ -1,0 +1,61 @@
+---
+migrated: node/525
+layout: post
+title: " Usos avanzados de OpenOffice.org"
+created: 1169411785
+author: david_villa
+category: recipe
+---
+
+
+<!--break-->
+
+
+OpenOffice, por su naturaleza libre tiene algunas posibilidades impensables en entornos como Microsoft Word. Aquí se detallan algunos ejemplos.
+
+Generar PDFs automáticamente
+
+Desde consola, y sin tener que abrir la interfaz gráfica de openoffice, podemos generar ficheros PDF a partir de un conjunto de documentos de forma completamente automática.
+
+Eso permite que, con un fichero Makefile, podamos tener las versiones PDF de todos nuestros ficheros OpenOffice.org. Un ejemplo pueden ser las transparencias de un curso, que deben estar colgadas en la web en PDF. Cuando modifiquemos alguno de los ficheros .sxi tan sólo tenemos que ejecutar make y automáticamente se pueden generar las versiones PDF y subirse al servidor
+
+Lo primero es configurar un destilador PDF en OpenOffice.org:
+- 	Instalar ghostview
+- 	Instalar openoffice.org-gnome (opcional)
+- 	Abrir el administración de impresoras (desde el menú o escribiendo oopadmin)
+- 	Hacer click en Impresora nueva
+- 	Seleccionar Conectar un convertidor PDF
+- 	Seleccionar Controlador predeterminado
+- 	Seleccionar /usr/bin/gs q dNOPAUSE sDEVICE=pdfwrite sOutputFile="(OUTFILE)"
+- 	Seleccionar el directorio de salida para guardar los PDF generado (ej. ~/pdf/)
+- 	Asignarle un nombre (ej: toPDF)
+
+Para imprimir a PDF un fichero ejecutamos desde una consola, o desde un Makefile:
+      $ openoffice -pt toPDF presentacion.sxi
+    
+
+Esto genera el fichero ~/pdf/presentacion.sxi.pdf.
+
+También podemos (con a2ps) generar PDF con 2 ó 3 páginas por hoja para cada documento y todo automatizado con un Makefile.
+
+Hay que tener en cuenta que OpenOffice.org nombra el PDF que genera con el título del documento (Archivo->Propiedades->Descripción); si el documento no tiene título entonces si utiliza el nombre del fichero fuente. Para hacer tratamiento automático de los ficheros resulta más cómodo no asignar titulos a los documentos.
+
+Enlaces
+* 	Crear documentos PDF usando OpenOffice.org  [es]
+
+
+Separación silábica
+
+Cuando se usan márgenes justificados, por defecto OpenOffice.org usa la conocida técnica que estirar los espacios; esto causa un horrible efecto visual, considerado por muchos un auténtico atentado tipográfico.
+
+Para evitar esto se puede optar por la separación silábica, por lo que será necesario instalar un diccionario de hypenations. Para ello, baja el siguiente fichero, ábrelo con openoffice y sigue las instrucciones.
+
+      <a href="http://ftp.services.openoffice.org/pub/OpenOffice.org/contrib/dictionaries/dicooo/DicOOo.sxw">http://ftp.services.openoffice.org/pub/OpenOffice.org/contrib/dictionaries/dicooo/DicOOo.sxw</a>
+    
+
+Cierra openoffice, vuelve a ejecutarlo y carga el menú Formato->Párrafo->Flujo del texto y activar la casilla Separación silábica->automáticamente.
+
+Ya sé que Word también hace esto, y muchos muchos años antes ya lo hacía Tex; además OpenOffice.org es libre, qué pasa? ;-)
+
+
+Autor: David Villa

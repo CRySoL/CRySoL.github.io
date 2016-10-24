@@ -1,0 +1,36 @@
+---
+migrated: node/638
+layout: post
+title: Mi sistema operativo se llama GNU
+created: 1176124429
+author: david_villa
+category: opinion
+---
+Hola:
+
+<!--break-->
+
+
+De todos es conocido el clásico debate de si llama GNU, Linux, GNU/Linux o la madre que lo trujo. Cuando uno intenta razonar con un _linuxero_ y hacerle ver que Linux es sólo el núcleo y que hay que dar crédito a la gente de GNU (que fueron los que empezaron y *mantienen* en pié todo esto, no sólo desde el punto de vista legal, también en la mayor parte de los casos desde el práctico) te suelen soltar ese "razonamiento" en el que no creen que dice que "no todo el software de una distro es GNU"; que si habría que llamarlo GNU/Apache/BSD/Python/.../Linux y cosas del estilo. 
+
+Claro, esto te lo dicen con ironía porque ¡¿cómo lo vas a llamar así?! ¡qué locura intentar ser tan exacto! Es mucho mejor, por lo visto, cometer el error más gordo posible, llamarlo Linux y darle a Linus Torvalds el mérito de todo el trabajo, que empezó cuando el todavía jugaba a Mazinguer Z. Y de paso olvidar todos los valores que acompañan a la idea original de sofrware libre, dejando que el pollo de Linus sea el paladín del Open Source a expensas del trabajo de decenas de miles de personas (estén o no de acuerdo con el Open Source). Está muy bien, llamar al todo por el nombre de una de las partes más pequeñas (importante pero reemplazable)...
+
+Para mí cualquier sistema basado en software libre que utilice ampliamente GNU (en especial la libc, que es casi o más importante que el propio núcleo) es un sistema operativo GNU. Y sí, ya sé que hay móviles y reproductores de DivX y mil cosas más que usan Linux y no llevan nada de GNU. De acuerdo, si solo llevan Linux, se llama Linux; si es muy fácil.
+
+Últimamente han empezado a aparecer variantes del sistema operativo GNU que utilizan núcleos distintos de Linux y es el mayor de los absurdos llamar a eso "Linux", porque no llevan *NADA* de Linux! ¿Qué ingeniosa excusa se les ocurrirá a los <em>linuxeros</em> ahora?
+
+Incluso desde el punto de vista del "porcentaje" de software que es GNU (otro argumento absurdo de los linuxeros) *mi* sistema sigue siendo GNU. A saber:
+
+* Arranque del PC: AMI BIOS (esto no sé si se considera software)
+* GNU grub (*GNU*)
+* Linux (esto es lo que hace que a veces se cuelgue mi PC)
+* libc, la auténtica piedra angular del sistema (*GNU*)
+* xorg
+* gdm (*GNU*)
+* GNOME (*GNU*)
+* GNU bash (*GNU*)
+* GNU emacs (*GNU*)
+* GNU gcc, GNU make y GNU gdb (*GNU*)
+* gnash (*GNU*)
+* GNU wget (*GNU*)
+

@@ -17,7 +17,7 @@ Cómo instalar la máquina virtual Java de Blackdown en Debian GNU/Linux
 
 h1. Ingredientes
 
-"Blackdown":http://<a href="http://www.blackdown.org/">www.blackdown.org/</a> dispone de paquetes Debian. Para instalarlos incluir esta línea en el @/etc/apt/sources.list@
+"Blackdown":http://www.blackdown.org/ dispone de paquetes Debian. Para instalarlos incluir esta línea en el @/etc/apt/sources.list@
 
 <pre>deb ftp://ftp.tux.org/java/debian/ sarge non-free</pre>
 
@@ -51,4 +51,4 @@ Si no existe (que puede que si) hay que hacer un enlace desde el directorio de p
 
 h1. Referencias
 
-* "Blackdown":http://<a href="http://www.blackdown.org">www.blackdown.org</a>
+* "Blackdown":http://www.blackdown.org

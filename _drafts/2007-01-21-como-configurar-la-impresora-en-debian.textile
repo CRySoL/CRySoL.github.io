@@ -1,0 +1,43 @@
+---
+migrated: node/520
+layout: post
+title: Como configurar la impresora en Debian
+created: 1169411120
+author: fsancho
+category: recipe
+---
+
+
+<!--break-->
+
+Veremos a través de un ejemplo con la HP 2100M como configurar una impresora en Debian y dejarla compartida para el resto del mundo.
+
+1. Programas necesarios
+- 	lprngtool - Utilidad de Red Hat empaquetada para Debian que nos hace la vida mucho mas facil en este caso.
+- 	samba-server - Servidor samba para poder exportar nuestra impresora dentro de una red windows.
+
+
+2. Configuración de la impresora
+- 	Arrancamos como root el programa lprngtool y pulsamos en el botón Add para añadir una nueva.
+- 	Seleccionar la opción "Localy attached printer"
+- 	Asignamos un nombre a la impresora (pe. hp) y pulsamos el botón Select para seleccionar el filtro que utilizaremos.
+- 	Lo más común en estos casos es seleccionar un filtro PostScript que es el más compatible y casi todas las impresoras entienden. Después de esto tenemos que seleecionar la resolución de la impresora, en nuestro caso 600x600, y un tamaño de papel por defecto, que será A4.
+- 	Una vez configurado todo pulsamos el botón Modificar para aplicar los cambios. Si queremos asegurarnos de que funciona, podemos pulsar en el menú Test y seleccionar cualquiera de los 3 tests que se nos ofrecen. Si todo va bien ya tenemos la primera parte del trabajo hecha.
+
+En este punto ya tenemos una impresora funcionando en la máquina que hemos configurado y está exportada mediante lpr al resto de la red.
+
+3. Configuración de la impresora para acceso remoto
+
+Si queremos configurar un equipo que hará uso de esa impresora remotamente seguiremos estos pasos desde el equipo cliente:
+- 	Arrancamos como root el programa lprngtool y pulsamos el botón Add para añadir una nueva.
+- 	Seleccionamos la opción "Remote Unix Print Queue".
+- 	Los únicos datos que tenemos que introducir desde teclado son los referidos a "Remote Host" y "Remote Queue" que en nuestro caso es "hp".
+- 	Pulsamos el botón Select y procedemos de la misma manera que si la instalásemos localmente, esto es, filtro PostScript, resolución 600x600 y tamaño de papel A4.
+- 	Pulsamos Modificar y ya tenemos impresora.
+
+Si queremos que nuestra impresora esté accesible para una red windows, tenemos que exportarla con samba. Por fortuna la instalación por defecto de samba nos deja exportada la impresora que tengamos configurada con lprngtool por lo que tan solo será necesario crear un usuario para imprimir o usar un usuario existente. Por ejemplo, si tenemos al usuario "impresora" creado en la máquina solo tenemos que crearle una password para samba con el comando smbpasswd.
+
+Una vez hecho esto, para configurar nuestra impresora en windows, tenemos que tener presente que el nombre del recurso compartido es //maquina/impresora. Otra cosa que tenemos que tener presente es que el usuario que estemos empleando en la máquina con windows ha de existir en la máquina que tiene la impresora y debe tener la misma contraseña en el windows y en samba.
+
+
+Autor: Fernando Sancho

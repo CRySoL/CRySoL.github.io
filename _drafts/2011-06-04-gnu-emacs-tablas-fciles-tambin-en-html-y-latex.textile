@@ -1,0 +1,59 @@
+---
+migrated: node/1521
+layout: post
+title: 'GNU Emacs: Tablas fáciles (también en HTML y LaTeX)'
+created: 1307210939
+author: david_villa
+category: recipe
+tags:
+- LaTeX
+- emacs
+---
+Comandos imprescindibles para crear tablas con Emacs
+
+
+<!--break-->
+
+
+h2. Insertar una nueva tabla
+
+* table-insert
+
+h2. Editar una tabla
+
+* table-insert-row
+* table-insert-column
+
+* table-delete-row
+* table-delete-column
+
+
+h3. Dividir y unir celdas
+
+* table-split-cell
+* table-span-cell
+
+
+h3. Cambiar el tamaño de la celda
+
+* table-heighten-cell
+* table-shorten-cell
+* table-widen-cell
+* table-narrow-cell
+
+h3. Justificado de celdas
+
+* table-justify
+
+h2. «Capturar» una tabla
+
+* table-capture
+* table-release
+
+h2. Convertir una tabla a HTML o LaTeX
+
+* table-generate-source
+
+h2. Referencias
+
+<a href="http://www.gnu.org/software/libtool/manual/emacs/Text-Based-Tables.html">http://www.gnu.org/software/libtool/manual/emacs/Text-Based-Tables.html</a>

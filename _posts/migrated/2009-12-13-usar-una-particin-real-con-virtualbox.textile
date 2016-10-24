@@ -21,4 +21,4 @@ $ VBoxManage internalcommands createrawvmdk -filename /path/to/file.vmdk -rawdis
 
 h2. Referencias
 
-* "Using a raw host hard disk from a guest":http://<a href="http://www.virtualbox.org/manual/UserManual.html#rawdisk">www.virtualbox.org/manual/UserManual.html#rawdisk</a>
+* "Using a raw host hard disk from a guest":http://www.virtualbox.org/manual/UserManual.html#rawdisk

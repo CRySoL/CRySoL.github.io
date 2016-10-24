@@ -1,0 +1,46 @@
+---
+migrated: node/512
+layout: post
+title: WINCVS
+created: 1169404678
+author: admin
+category: recipe
+---
+
+
+<!--break-->
+
+WinCVS es un cliente CVS sobre plataformas windows, basado en un interfaz gráfico. WinCvs se distribuye bajo licencia GPL.
+
+Configuración
+- 	Selección del depósito (repository) CVS
+- 	Admin=>Preferences
+- 	En la pestaña general especificar CVSROOT y Authetication (generalmente "passwd file on the cvs server").
+
+- 	Indicar el password correspondiente al usuario indicado en CVSROOT: Admin=>login
+
+
+¿Cómo copiar un módulo en la máquina local?
+- 	Create=>Checkout module. En el cuadro de diálogo indicar Module Name (el nombre del módulo a importar), y Local folder (el lugar donde se copiarán los archivos locales).
+
+
+¿Cómo actualizar el repositorio con los cambios realizados?
+- 	Si se han añadido nuevos ficheros, seleccionarlos, y notificar al CVS que los incluya en el depósito: Modify=>Add selection
+- 	Seleccionar los ficheros que se quiera actualizar
+- 	Modify=>Commit Selection
+- 	En la ventana Commit Settings escribir el mensaje que irá asociado a la modificación. P. ej.:
+
+nombre_fichero: nueva creación
+
+nombre_fichero_2: añadida la señal s
+
+
+¿Cómo actualizar la copia local?
+- 	Seleccionar los ficheros que se quiera actualizar
+- 	Modify=>Update Selection
+
+
+Otros enlaces
+
+Tema 	Servidor 	Descripción 	Idioma
+Guía  	<a href="http://devguy.com/fp/cfgmgmt/cvs/startup/">http://devguy.com/fp/cfgmgmt/cvs/startup/</a>  	Mini guía de referencia de uso de WinCVS  	en 

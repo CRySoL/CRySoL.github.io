@@ -1,0 +1,19 @@
+---
+migrated: node/1067
+layout: post
+title: Preforking TCP Server
+created: 1229364505
+author: david_villa
+category: recipe
+tags:
+- Python
+---
+h2. Referencias
+
+<!--break-->
+
+
+* <a href="http://www.devshed.com/c/a/Administration/Design-and-Architecture/">http://www.devshed.com/c/a/Administration/Design-and-Architecture/</a>
+* <a href="http://utcc.utoronto.ca/~cks/space/blog/python/PreforkingNetworkServer">http://utcc.utoronto.ca/~cks/space/blog/python/PreforkingNetworkServer</a>
+* <a href="http://www.fmc-modeling.org/category/projects/apache/amp/4_3Multitasking_server.html">http://www.fmc-modeling.org/category/projects/apache/amp/4_3Multitasking_server.html</a>
+* <a href="http://www.cs.rpi.edu/academics/courses/netprog/c08.html">http://www.cs.rpi.edu/academics/courses/netprog/c08.html</a>

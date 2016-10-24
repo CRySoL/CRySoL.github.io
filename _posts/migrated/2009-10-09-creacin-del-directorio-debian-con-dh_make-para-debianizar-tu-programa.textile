@@ -81,7 +81,7 @@ h4. control
 
 Contiene la descripción de los paquetes Debian. El primero de todos es el paquete fuente, con sus "build-depends", esto es, las dependencias necesarias para compilar y construir los paquetes binarios. Tras éste, vienen listados todos los paquetes binarios que se generarán (separados por una línea en blanco). 
 
-Para más información sobre cada uno de los campos posibles, consulta "Control files and their fields":http://<a href="http://www.debian.org/doc/debian-policy/ch-controlfields.html">www.debian.org/doc/debian-policy/ch-controlfields.html</a>.
+Para más información sobre cada uno de los campos posibles, consulta "Control files and their fields":http://www.debian.org/doc/debian-policy/ch-controlfields.html.
 
 h4. rules
 
@@ -115,4 +115,4 @@ h2. Referencias
 $ man dh_make
 {% endhighlight %}
 </div>
-* "Debian Policy Manual":http://<a href="http://www.debian.org/doc/debian-policy/">www.debian.org/doc/debian-policy/</a>
+* "Debian Policy Manual":http://www.debian.org/doc/debian-policy/

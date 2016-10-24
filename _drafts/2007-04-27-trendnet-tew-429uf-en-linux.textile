@@ -1,0 +1,32 @@
+---
+migrated: node/658
+layout: post
+title: TRENDnet TEW-429UF en Linux
+created: 1177663123
+author: paco
+tags:
+- networking
+---
+bq(head). Primero las presentaciones. ¿Has visto alguna vez uno de esos pinchos de TRENDnet? Pues es igual que el ZyXEL AG-225H, que está descrito <a href="http://www.maushammer.com/systems/wififinder/index.html">aquí</a>. ¡OJO! Esto está a medias pero no tengo ni idea de como hacer que esto no sea visible!
+
+<!--break-->
+
+
+/etc/udev/rules.d/zd1211rw.rules
+
+<pre>
+SUBSYSTEM!="usb_device", ACTION!="add", GOTO="zd1211rw_rules_end"
+
+ACTION=="add", SYSFS{idVendor}=="1307", SYSFS{idProduct}=="0169", MODE="660", GROUP="netdev", RUN+="/sbin/modprobe zd1211rw"
+
+ACTION=="remove", SYSFS{idVendor}=="1307", SYSFS{idProduct}=="0169", MODE="660", GROUP="netdev", RUN+="/sbin/rmmod zd1211rw"
+
+LABEL="zd1211rw_rules_end"
+</pre>
+
+/etc/modutils/zd1211rw
+
+<pre>
+alias usb:v1307p0169d*dc*dsc*dp*ic*isc*ip* zd1211rw
+alias wlan0 zd1211rw
+</pre>
