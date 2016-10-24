@@ -4,6 +4,7 @@ layout: post
 title: Hacer y aplicar parches
 created: 1179181144
 author: david_villa
+comments: true
 category: recipe
 ---
 patch -p0 < patch-splash-2.4.17.diff

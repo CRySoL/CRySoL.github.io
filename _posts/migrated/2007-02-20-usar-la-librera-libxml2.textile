@@ -4,6 +4,7 @@ layout: post
 title: Usar la librería libxml2
 created: 1171962195
 author: magmax
+comments: true
 category: recipe
 ---
 libxml2 es una librería que facilita el manejo de los XMLs. La librería permite el acceso tanto para lectura como para escritura. Si dispones de DTD, también trae funciones para su uso.

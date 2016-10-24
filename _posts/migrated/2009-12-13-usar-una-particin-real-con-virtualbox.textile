@@ -4,6 +4,7 @@ layout: post
 title: Usar una partición real con Virtualbox
 created: 1260669931
 author: david_villa
+comments: true
 category: recipe
 ---
 Virtualbox permite crear un fichero .vmdk especial que «apunta» a una partición real de un disco duro. De ese modo es posible arrancar un sistema operativo instalado realmente en la máquina pero virtualizado dentro de otro S.O. El comando para lograrlo es:

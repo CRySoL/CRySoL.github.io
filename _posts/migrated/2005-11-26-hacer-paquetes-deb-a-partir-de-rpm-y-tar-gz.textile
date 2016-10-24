@@ -4,6 +4,7 @@ layout: post
 title: Hacer paquetes.deb a partir de .rpm y .tar.gz
 created: 1133040032
 author: aledelgal
+comments: true
 category: recipe
 ---
 En esta pequeña receta veremos como hacer paquetes .deb a partir de .rpm y .tar.gz , ya que es mucho más fácil, cómoda y limpia su instalación (con dpkg). Para mucha gente será algo trivial, pero creo que a gente como yo le puede venir bien :)
