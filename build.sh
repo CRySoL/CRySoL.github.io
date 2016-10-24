@@ -14,8 +14,8 @@ fi
 
 git --git-dir=_site/.git --work-tree=$(pwd)/_site pull
 jekyll build
-date >> history.html
-echo "<br/>" >> history.html
+
+echo "$(date)<br/>" >> history.html
 git commit -a -m "automatic compilation"
 git push
 touch _site/.nojekyll
