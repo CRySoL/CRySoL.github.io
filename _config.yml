@@ -143,38 +143,38 @@ JB :
   # where [HELPER] is the name of the helper you are overriding.
 
 category_icons:
-  cooking:    http://crysol.org/files/category_pictures/cocina.png
+  cooking:    /assets/files/category_pictures/cocina.png
 
 tag_icons:
-  arco:         http://crysol.org/files/category_pictures/arco_3D_taxonomy.png
-  python:       http://crysol.org/files/category_pictures/python.png
-  android:      http://crysol.org/files/category_pictures/android.png
-  blender:      http://crysol.org/files/category_pictures/blender.png
-  ceslcam:      http://crysol.org/files/category_pictures/ceslcam.png
-  chumby:       http://crysol.org/files/category_pictures/chumby.png
-  debian:       http://crysol.org/files/category_pictures/debian.png
-  debian-devel: http://crysol.org/files/category_pictures/debian-devel.png
-  emacs:        http://crysol.org/files/category_pictures/emacs.png
-  embedded:     http://crysol.org/files/category_pictures/embedded.png
-  git:          http://crysol.org/files/category_pictures/git.png
-  gnome:        http://crysol.org/files/category_pictures/gnome.png
-  gstreamer:    http://crysol.org/files/category_pictures/gstreamer.png
-  gtk:          http://crysol.org/files/category_pictures/gtk2.png
-  hurd:         http://crysol.org/files/category_pictures/hurd.png
-  ice:          http://crysol.org/files/category_pictures/zeroc_logo.png
-  ingsoft:      http://crysol.org/files/category_pictures/ingsoft.png
-  jdk:          http://crysol.org/files/category_pictures/openjdk.png
-  latex:        http://crysol.org/files/category_pictures/LaTeX_logo.png
-  linux:        http://crysol.org/files/category_pictures/linux.png
-  mercurial:    http://crysol.org/files/category_pictures/hg.png
-  molinux:      http://crysol.org/files/category_pictures/molinux.png
-  nds:          http://crysol.org/files/category_pictures/nds_gnu.png
-  networking:   http://crysol.org/files/category_pictures/networking.png
-  oreto:        http://crysol.org/files/category_pictures/oreto.gif
-  platanada:    http://crysol.org/files/category_pictures/platanada.png
-  proselitism:  http://crysol.org/files/category_pictures/ignucious.png
-  security:     http://crysol.org/files/category_pictures/seguridad_taxonomy.png
-  shell:        http://crysol.org/files/category_pictures/shell.png
+  arco:         /assets/files/category_pictures/arco_3D_taxonomy.png
+  python:       /assets/files/category_pictures/python.png
+  android:      /assets/files/category_pictures/android.png
+  blender:      /assets/files/category_pictures/blender.png
+  ceslcam:      /assets/files/category_pictures/ceslcam.png
+  chumby:       /assets/files/category_pictures/chumby.png
+  debian:       /assets/files/category_pictures/debian.png
+  debian-devel: /assets/files/category_pictures/debian-devel.png
+  emacs:        /assets/files/category_pictures/emacs.png
+  embedded:     /assets/files/category_pictures/embedded.png
+  git:          /assets/files/category_pictures/git.png
+  gnome:        /assets/files/category_pictures/gnome.png
+  gstreamer:    /assets/files/category_pictures/gstreamer.png
+  gtk:          /assets/files/category_pictures/gtk2.png
+  hurd:         /assets/files/category_pictures/hurd.png
+  ice:          /assets/files/category_pictures/zeroc_logo.png
+  ingsoft:      /assets/files/category_pictures/ingsoft.png
+  jdk:          /assets/files/category_pictures/openjdk.png
+  latex:        /assets/files/category_pictures/LaTeX_logo.png
+  linux:        /assets/files/category_pictures/linux.png
+  mercurial:    /assets/files/category_pictures/hg.png
+  molinux:      /assets/files/category_pictures/molinux.png
+  nds:          /assets/files/category_pictures/nds_gnu.png
+  networking:   /assets/files/category_pictures/networking.png
+  oreto:        /assets/files/category_pictures/oreto.gif
+  platanada:    /assets/files/category_pictures/platanada.png
+  proselitism:  /assets/files/category_pictures/ignucious.png
+  security:     /assets/files/category_pictures/seguridad_taxonomy.png
+  shell:        /assets/files/category_pictures/shell.png
   jekyll:       http://jekyllrb.com/img/logo-2x.png
 
 authors:

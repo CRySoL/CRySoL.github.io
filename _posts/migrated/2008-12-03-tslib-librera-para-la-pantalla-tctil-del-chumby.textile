@@ -22,9 +22,9 @@ h2. Preparándolo todo
 
 Para poder compilar esta librería para el Chumby necesitarás tener lo siguiente:
 
-# "Un Chumby con acceso por SSH":http://crysol.org/node/950.
-# "Un entorno de desarrollo preparado para el Chumby":http://crysol.org/node/959.
-# "Un directorio compartido por NFS":http://crysol.org/node/64 para pasarle al Chumby los ficheros (no es obligatorio, se puede hacer con un pendrive USB)
+# "Un Chumby con acceso por SSH":/node/950.
+# "Un entorno de desarrollo preparado para el Chumby":/node/959.
+# "Un directorio compartido por NFS":/node/64 para pasarle al Chumby los ficheros (no es obligatorio, se puede hacer con un pendrive USB)
 
 Una vez tengas todos estos ingredientes solo te queda ponerte manos a la obra:
 
@@ -195,6 +195,6 @@ Para probar si hemos compilado/instalado todo correctamente necesitarías crear 
 
 Cuando lo ejecutes deberá aparecerte en la pantalla del Chumby algo como esto:
 
-!/assets/files/capture1.jpg!
+!<a href="/assets/files/capture1.jpg">/assets/files/capture1.jpg</a>!
 
 Simplemente tienes que pulsar en la cruz tantas veces como va cambiando de sitio. En la terminal SSH podrśa ver cuando termina el proceso. Es importante que cuando termines compruebes que se ha creado un fichero llamado *pointercal* en el directorio _/etc_ de tu directorio NFS/pincho USB.

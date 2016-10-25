@@ -19,7 +19,7 @@ En esta receta se explica como configurar un _hook_ de *Mercurial* para lanzar u
 
 h2. Necesidad
 
-Esta receta está hermanada con "su equivalente en Subversion":http://crysol.org/es/node/1429. En ella se explica cual es la necesidad y la ventaja, desde el punto de vista del TDD, de ejecutar las pruebas tras cada cambio (por pequeño que sea). No me repetiré aquí, ya que David lo explica suficientemente bien en su receta.
+Esta receta está hermanada con "su equivalente en Subversion":/node/1429. En ella se explica cual es la necesidad y la ventaja, desde el punto de vista del TDD, de ejecutar las pruebas tras cada cambio (por pequeño que sea). No me repetiré aquí, ya que David lo explica suficientemente bien en su receta.
 
 h2. Configuración del repositorio
 

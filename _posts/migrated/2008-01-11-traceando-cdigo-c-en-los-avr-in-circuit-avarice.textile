@@ -14,7 +14,7 @@ tags:
 
 <h2>Introducción</h2>
 
-Bueno, como lo prometido es deuda he conseguido tracear un programa escrito en C para un ATMEGA128 en la propia placa de desarrollo utilizando solamente software libre. Aquí explicaré como lo he hecho y además, como extensión a la receta anterior sobre <a href="http://crysol.org/node/833">simulación de código para AVR</a> explicaré como depurar con la herramienta libre <tt>ddd</tt>, que es básicamente un <em>front-end</em> para <tt><a href="node/313">gdb</a></tt> muy fácil y cómodo de utilizar.
+Bueno, como lo prometido es deuda he conseguido tracear un programa escrito en C para un ATMEGA128 en la propia placa de desarrollo utilizando solamente software libre. Aquí explicaré como lo he hecho y además, como extensión a la receta anterior sobre <a href="/node/833">simulación de código para AVR</a> explicaré como depurar con la herramienta libre <tt>ddd</tt>, que es básicamente un <em>front-end</em> para <tt><a href="node/313">gdb</a></tt> muy fácil y cómodo de utilizar.
 Así pues, sin mas preámbulos ¡¡¡¡Al turrónnnnn!!!! :-P
 
 <h2>Preparando el terreno</h2>

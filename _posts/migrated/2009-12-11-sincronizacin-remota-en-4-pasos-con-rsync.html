@@ -127,7 +127,7 @@ $ rsync -av ruta_origen_en_portátil [usuario@]nombre-domino-sobremesa:/ruta_des
 {% endhighlight %}
 </div>
 
-Cuando rsync logre conectar por ssh al sobremesa, te pedirá la contraseña del usuario en el sobremesa (aunque puedes evitar que lo haga, mirando <a href="http://crysol.org/es/node/6">esta otra receta de David Villa</a>) y una vez todo esté bien, rsync hará dos tablas de archivos: una del portátil y otra del sobremesa. Los archivos que no estén en el sobremesa los copiará, y si hay archivos más recientes los sobreescribirá. Hay que tener cuidado al usar esto, ya que podemos sobreescribir algo que no queríamos sobreescribir, añadir algo que no queríamos añadir...o borrar algo que no queríamos borrar, por eso lo mejor es trabajar con directorios vacíos en destino y directorios con sólo lo que nos interesa en el origen.
+Cuando rsync logre conectar por ssh al sobremesa, te pedirá la contraseña del usuario en el sobremesa (aunque puedes evitar que lo haga, mirando <a href="/node/6">esta otra receta de David Villa</a>) y una vez todo esté bien, rsync hará dos tablas de archivos: una del portátil y otra del sobremesa. Los archivos que no estén en el sobremesa los copiará, y si hay archivos más recientes los sobreescribirá. Hay que tener cuidado al usar esto, ya que podemos sobreescribir algo que no queríamos sobreescribir, añadir algo que no queríamos añadir...o borrar algo que no queríamos borrar, por eso lo mejor es trabajar con directorios vacíos en destino y directorios con sólo lo que nos interesa en el origen.
 
 Si lo que queremos es hacer lo de antes desde el portátil pero que el sobremesa sea el origen, pues lo mismo pero cambiando el orden:
 
@@ -209,7 +209,7 @@ o viceversa, como hemos visto antes.
 
 <h2>Para finalizar</h2>
 
-Aquí en <a href="http://crysol.org">CRySoL</a> hay más recetas sobre sincronización, control de versiones y ssh. Esta es sólo una forma más para sincronizar de forma remota un par de ordenadores. Con otras recetas se puede mejorar mucho lo que he explicado aquí, e insto a los curiosos e interesados en el tema a leerlas (por ejemplo sobre <a href="http://crysol.org/es/search/node/unison">unison</a> y <a href="http://crysol.org/es/search/node/git">git</a>).
+Aquí en <a href="http://crysol.org">CRySoL</a> hay más recetas sobre sincronización, control de versiones y ssh. Esta es sólo una forma más para sincronizar de forma remota un par de ordenadores. Con otras recetas se puede mejorar mucho lo que he explicado aquí, e insto a los curiosos e interesados en el tema a leerlas (por ejemplo sobre <a href="/search/node/unison">unison</a> y <a href="/search/node/git">git</a>).
 
 <h2>Referencias</h2>
 <ul>
@@ -217,5 +217,5 @@ Aquí en <a href="http://crysol.org">CRySoL</a> hay más recetas sobre sincroniz
 <li><a href="http://www.samba.org/ftp/rsync/rsync.html">rsync man pages</a></li>
 <li><a href="http://www.openssh.com/">Open SSH</a></li>
 <li><a href="ttp://unixhelp.ed.ac.uk/CGI/man-cgi?ssh+1">ssh man pages</a></li>
-<li>Experiencias de ensayo-error con rsync proporcionadas por <a href="http://crysol.org/es/user/26">Lk2</a></li>
+<li>Experiencias de ensayo-error con rsync proporcionadas por <a href="/user/26">Lk2</a></li>
 </ul>

@@ -30,7 +30,7 @@ Para esta receta necesitarás soporte Bluetooth en el PC y algunas cosillas como
 <li>nbc
 </ul>
 
-Los paquetes relacionados con Bluetooth los puedes instalar como de costumbre: usando <i>apt[-get,itude]</i>. El <b>NXTRC</b> es una herramienta que permite comunicarse con el NXT usando Bluetooth. Es libre y su código fuente es muy útil para aprender muchas cosas. La puedes descargar de la página del autor, que está en las referencias. En cuanto a <b>nbc</b>, ya lo conocerás, hablamos de él en <a href="http://crysol.org/node/777">Lego Mindstorms NXT: programar con NXC</a>. La instalación del NXTRC es similar al 'Talk 2 NXT': simplemente copia el binario en una carpeta que esté en el PATH y listo.
+Los paquetes relacionados con Bluetooth los puedes instalar como de costumbre: usando <i>apt[-get,itude]</i>. El <b>NXTRC</b> es una herramienta que permite comunicarse con el NXT usando Bluetooth. Es libre y su código fuente es muy útil para aprender muchas cosas. La puedes descargar de la página del autor, que está en las referencias. En cuanto a <b>nbc</b>, ya lo conocerás, hablamos de él en <a href="/node/777">Lego Mindstorms NXT: programar con NXC</a>. La instalación del NXTRC es similar al 'Talk 2 NXT': simplemente copia el binario en una carpeta que esté en el PATH y listo.
 
 <b>Nota:</b> EL <i>sdptool</i>, en su versión 3.13, no funciona correctamente con los kernels nuevos (no sé la causa), pero el problema está corregido en la versión 3.18. Te la puedes descargar de su página y compilarla (aunque quizá ya esté empaquetada).
 
@@ -175,7 +175,7 @@ Ahora veamos el código que se ejecutará en el NXT:
 // NXT: maestro, PC: esclavo
 
 // compilar con: nbc bttest1.nxc -O=bttest1.rxc
-// mas info en: http://crysol.org/node/777
+// mas info en: /node/777
 
 #define BTCON 1
 

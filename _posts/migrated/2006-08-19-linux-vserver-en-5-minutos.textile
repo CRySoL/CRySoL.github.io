@@ -23,7 +23,7 @@ Todos son paquetes Debian:
 
 h2. Introducción
 
-En una receta anterior "hablábamos de Xen 3.0":http://crysol.inf-cr.uclm.es/node/352 como una buena forma de implementar servidores virtuales en GNU/Linux sin mucho esfuerzo y con poca sobrecarga.  Pero cuando el número de servidores virtuales sobre una misma máquina empieza a crecer es el momento de mirar otras alternativas complementarias.
+En una receta anterior "hablábamos de Xen 3.0":/node/352 como una buena forma de implementar servidores virtuales en GNU/Linux sin mucho esfuerzo y con poca sobrecarga.  Pero cuando el número de servidores virtuales sobre una misma máquina empieza a crecer es el momento de mirar otras alternativas complementarias.
 
 Xen ofrece un aislamiento total, permitiendo la ejecución simultánea de varios núcleos.  ¿Pero y si no necesitamos varios núcleos?  ¿Y si tan solo queremos limitar el riesgo ante una posible intrusión?  ¿Y si tan solo queremos delegar permisos de administración sobre unos servicios?
 

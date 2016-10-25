@@ -34,7 +34,7 @@ En este ejemplo voy a suponer que partes de una estructura de directorios como l
 </div>
 
 
-El objetivo es empaquetar el binario "ejemplo" generado por el Makefile. El Makefile debe tener un objetivo "install" para que debhelper construya el paquete correctamente. Dicha regla debería tener una acción como esta (consulta cómo "hacer un Makefile para un paquete Debian":http://crysol.org/es/node/1234 para más información):
+El objetivo es empaquetar el binario "ejemplo" generado por el Makefile. El Makefile debe tener un objetivo "install" para que debhelper construya el paquete correctamente. Dicha regla debería tener una acción como esta (consulta cómo "hacer un Makefile para un paquete Debian":/node/1234 para más información):
 
 
 
@@ -49,7 +49,7 @@ install:
 </div>
 
 
-Si no tienes el directorio "debian" "es necesario que lo crees":http://crysol.org/es/node/1231. Además, también voy a suponer que el paquete fuente se llama "ejemplo" y el paquete binario "ejemplo-package"; y que para construir "ejemplo.c" es necesaria la librería "libslab-dev". Además, el paquete binario dependerá del programa "sl".
+Si no tienes el directorio "debian" "es necesario que lo crees":/node/1231. Además, también voy a suponer que el paquete fuente se llama "ejemplo" y el paquete binario "ejemplo-package"; y que para construir "ejemplo.c" es necesaria la librería "libslab-dev". Además, el paquete binario dependerá del programa "sl".
 
 h2. Archivo debian/control
 
@@ -128,7 +128,7 @@ Una vez tengamos todo en orden basta con realizar lo siguiente:
 {% endhighlight %}
 </div>
 
-La orden anterior construye el paquete binario y nos deja el resultado en "..", o sea, en /home/pepito. También puedes construirlo con "pbuilder":http://crysol.org/es/node/1227.
+La orden anterior construye el paquete binario y nos deja el resultado en "..", o sea, en /home/pepito. También puedes construirlo con "pbuilder":/node/1227.
 
 h2. Referencias
 

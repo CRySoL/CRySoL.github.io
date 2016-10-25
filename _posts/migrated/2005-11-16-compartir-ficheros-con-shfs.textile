@@ -49,7 +49,7 @@ o bien, puedes usar <tt>mount</tt>
 {% endhighlight %}
 </div>
 
-o puedes meterlo en <tt>/etc/fstab</tt> si tienes configurada una "clave pública SSH":http://crysol.inf-cr.uclm.es/node/6:
+o puedes meterlo en <tt>/etc/fstab</tt> si tienes configurada una "clave pública SSH":/node/6:
 
 <pre>
 usuario@servidor.net:/ruta/en/servidor    /ruta/en/cliente   shfs   defaults   0  0

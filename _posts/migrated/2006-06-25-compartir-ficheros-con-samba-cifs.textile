@@ -192,7 +192,7 @@ Domain=[GROUP] OS=[Unix] Server=[Samba 3.0.22]
 
 h2. Seguridad
 
-Si tienes un ordenador que usas como "router":http://crysol.inf-cr.uclm.es/node/96 y quieres utilizarlo como servidor de ficheros con Samba, es buena idea que sólo sea accesible desde la red interna. Para ello edita @/etc/samba/smb.conf@ y en la sección @[global]@ añade (o descomenta) algo como:
+Si tienes un ordenador que usas como "router":/node/96 y quieres utilizarlo como servidor de ficheros con Samba, es buena idea que sólo sea accesible desde la red interna. Para ello edita @/etc/samba/smb.conf@ y en la sección @[global]@ añade (o descomenta) algo como:
 
 <pre>
 interfaces = 127.0.0.1 eth1

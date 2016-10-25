@@ -126,7 +126,7 @@ ctx.rectangle(event.area.x, event.area.y, event.area.width, event.area.height)
 ctx.clip()
 </pre>
 
-<li><b>Crear una ventana transparente:</b> para poder probar esto, es necesario tener habilitado el <i><a href="http://crysol.org/es/node/1090">compositing</a></i> en el gestor de ventanas. El truco básicamente consiste en crear una ventana sin decoraciones, y con el colormap adecuado (uno que soporte canales <i>alpha</i>), y pintar sobre ella con cairo.</li>
+<li><b>Crear una ventana transparente:</b> para poder probar esto, es necesario tener habilitado el <i><a href="/node/1090">compositing</a></i> en el gestor de ventanas. El truco básicamente consiste en crear una ventana sin decoraciones, y con el colormap adecuado (uno que soporte canales <i>alpha</i>), y pintar sobre ella con cairo.</li>
 
 <u>Ejemplo</u>
 

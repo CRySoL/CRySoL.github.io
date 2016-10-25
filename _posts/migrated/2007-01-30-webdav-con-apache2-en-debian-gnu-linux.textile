@@ -182,7 +182,7 @@ La configuración para la carpeta DAV pero usando LDAP sería algo como:
 
 h2. Un poquillo de seguridad
 
-Si vas a enviar claves por la red (como es el caso de lo descrito anteriormente), lo mejor es que sirvas la carpeta por SSL. Mira la receta de "Crear un sitio web SSL con Apache2":http://crysol.inf-cr.uclm.es/node/198.
+Si vas a enviar claves por la red (como es el caso de lo descrito anteriormente), lo mejor es que sirvas la carpeta por SSL. Mira la receta de "Crear un sitio web SSL con Apache2":/node/198.
 
 
 h2. Referencias

@@ -26,7 +26,7 @@ Tenemos una máquina con una única IP pública que hace de fachada de una red c
                   +--zope 8081
 </pre>
 
-En realidad este tinglado es "virtual", porque no son máquinas reales sino "VServers":http://crysol.inf-cr.uclm.es/node/378, pero a efectos de configuración y mantenimiento es igual que si estuviera montado con máquinas reales.
+En realidad este tinglado es "virtual", porque no son máquinas reales sino "VServers":/node/378, pero a efectos de configuración y mantenimiento es igual que si estuviera montado con máquinas reales.
 
 La configuración del iptables de @router@ es:
 

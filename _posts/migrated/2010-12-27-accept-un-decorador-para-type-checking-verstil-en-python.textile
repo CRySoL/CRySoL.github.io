@@ -46,7 +46,7 @@ Bueno, esto es más de lo que tenía pensado contar sobre decoradores. Algún d�
 
 h2. Implementando type-checking con un decorador
 
-Como decía, no soy el primero al que se le ocurre forzar tipos con un decorador (aplico la máxima de "copiar-antes-que-innovar":http://crysol.org/node/1377 que tan buen resultado suele dar). El decorador más completo que he encontrado es el de la "PythonDecoratorLibrary":http://wiki.python.org/moin/PythonDecoratorLibrary#TypeEnforcement.28accepts.2BAC8-returns.29. Éste tiene una «feature» muy interesante: Puedes decidir qué ocurrirá si falla la comprobación de tipo: nada, un mensaje por stderr o una excepción. Aquí va un ejemplo (sacado de la página):
+Como decía, no soy el primero al que se le ocurre forzar tipos con un decorador (aplico la máxima de "copiar-antes-que-innovar":/node/1377 que tan buen resultado suele dar). El decorador más completo que he encontrado es el de la "PythonDecoratorLibrary":http://wiki.python.org/moin/PythonDecoratorLibrary#TypeEnforcement.28accepts.2BAC8-returns.29. Éste tiene una «feature» muy interesante: Puedes decidir qué ocurrirá si falla la comprobación de tipo: nada, un mensaje por stderr o una excepción. Aquí va un ejemplo (sacado de la página):
 
 
 <div>

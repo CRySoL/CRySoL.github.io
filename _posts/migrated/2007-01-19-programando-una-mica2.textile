@@ -28,7 +28,7 @@ Las micas2dot son algo mas limitadas como podemos ver en su <a href="http://www.
 
 <h1>Programando la Mica2</h1>
 
-La instalación del tinyOS y del toolchain ya lo vimos en la <a href="http://crysol.inf-cr.uclm.es/node/405">receta anterior</a>
+La instalación del tinyOS y del toolchain ya lo vimos en la <a href="/node/405">receta anterior</a>
 
 Esta aplicación basicamente lo que hace es encender y apagar el led rojo de la mota a una frecuencia de 1Hz. La aplicación se encuentra en el directorio:
 

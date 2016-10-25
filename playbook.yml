@@ -11,7 +11,6 @@
   - apt: name=git
   - apt: name=jekyll
 
-
   # - apt: name=ruby
   # - apt: name=ruby-dev
   # - apt: name=ruby-redcloth
@@ -31,10 +30,9 @@
   - apt: name=ruby-safe-yaml
   - apt: name=ruby-rinku
   - apt: name=libmysqlclient-dev
-  - gem: name=mysql
+  - gem: name=mysql user_install=no
 
 - hosts: all
 
   tasks:
   - git: repo=https://github.com/CRySoL/drupal-import dest=/home/{{ ansible_user_id }}/drupal-import
-  # - git: repo=https://github.com/CRySoL/web.source dest=/home/{{ ansible_user_id }}/web.source

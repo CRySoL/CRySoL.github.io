@@ -48,7 +48,7 @@ $ ssh -N -D localhost:1080 micasa.example.net -p 443
 {% endhighlight %}
 </div>
 
-Si no tienes configurada una "clave pública":http://crysol.org/node/6 para acceder a esa máquina (algo que te recomiendo) te pedirá la clave. Si todo va bien se quedará ahí haciendo su trabajo como buen túnel que es. No cierres esa consola. 1080 es el puerto estándar para SOCKS pero puedes usar otro si quieres.
+Si no tienes configurada una "clave pública":/node/6 para acceder a esa máquina (algo que te recomiendo) te pedirá la clave. Si todo va bien se quedará ahí haciendo su trabajo como buen túnel que es. No cierres esa consola. 1080 es el puerto estándar para SOCKS pero puedes usar otro si quieres.
 
 h2. Configurando las aplicaciones
 

@@ -28,7 +28,7 @@ A través de PycURL podemos solicitar una página web. Por ejemplo, para descarg
 {% highlight python %}
 import pycurl
 
-url = http://crysol.org/es/node/
+url = /node/
 
 c = pycurl.Curl()
 c.setopt(pycurl.URL, url)

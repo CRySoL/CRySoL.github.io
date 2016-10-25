@@ -28,7 +28,7 @@ La opción que me he planteado, además de ser más divertida e instructiva, te 
 
 <h2>Creando la jaula</h2>
 
-Para hacer el entorno chroot, he seguido la receta de <a href="http://crysol.org/node/933">javieralso</a>, con algunas modificaciones (pero no muchas, porque esto es muy sencillo). Básicamente lo que hay que hacer es buscarse una carpeta donde hacer el despliegue (os aconsejo no poner espacios en el nombre, o quizá tengáis problemas): 
+Para hacer el entorno chroot, he seguido la receta de <a href="/node/933">javieralso</a>, con algunas modificaciones (pero no muchas, porque esto es muy sencillo). Básicamente lo que hay que hacer es buscarse una carpeta donde hacer el despliegue (os aconsejo no poner espacios en el nombre, o quizá tengáis problemas): 
 
 
 <div class="console">
@@ -227,7 +227,7 @@ Si quieres probarlo, de nuevo hay que llevarlo al Chumby. Esto, al ser Flash, pr
 <h2>Exportando por NFS</h2>
 
 El objetivo es tener una carpeta donde podamos intercambiar ficheros con nuestro aparatito. Quizá lo más sencillo sea usar un PenDrive, pero montar una partición por NFS es sin duda mas cómodo a largo plazo. Como hay muchas recetas ya, simplemente enlazo una:
-<ul><li><a href="http://crysol.org/node/64">Compartir ficheros con NFS</a></li></ul>
+<ul><li><a href="/node/64">Compartir ficheros con NFS</a></li></ul>
 
 Como el Chumby lo usamos siempre como usuario root tenemos que tener en cuenta una funcionaldiad sobre seguridad hecha por NFS: no permite montar en modo escritura archivos pertenecientes al usuario "root" y grupo "root". Ese caso es el nuestro, si montamos por NFS un directorio dentro del chroot. Para saltarnos esa feature tan sólo añadir a la línea de configuración del archivo <i>/etc/exports</i> la opción "no_root_squash".
 
@@ -236,7 +236,7 @@ La parte de configuración del Chumby explica como montar esa partición para pr
 <h2>Configurar el Chumby</h2>
 
 Pues eso, veamos principalmente como configurar el Chumby para que monte la partición NFS automáticamente en el arranque. Antes de nada, es necesario que consigas acceso por ssh, permanente o no. Para ello, esta receta te viene que ni pintada ;-) : 
-<ul><li><a href="http://crysol.org/node/950">SSH en el Chumby</a></li></ul>
+<ul><li><a href="/node/950">SSH en el Chumby</a></li></ul>
 Tenemos dos formas de automatizar el montado: usando un PenDrive o modificando los scripts de inicio del GNU/Linux.
 
 La opción más sencilla sin duda es la del PenDrive, pero un tanto incómoda. Hacemos uso de una característica del GNU que lleva el cacharro: cuando arranca, comprueba si hay un fichero en el Pen, llamado <i>debugchumby</i> con permisos de ejecución. Si lo hay, lo ejecuta. Obviamente, lo que hacemos es crearlo y meter el comando pertinente:
@@ -299,8 +299,8 @@ Esta receta la terminé de hacer en julio de 2008. Al momento de redactarla, pro
 <li><a href="http://www.chumby.com">Web oficial</a></li>
 <li><a href="http://www.chumby.com/developers">Chumby para desarrolladores</a></li>
 <li><a href="http://wiki.chumby.com/mediawiki/index.php/Main_Page">Wiki de Chumby</a></li>
-<li><a href="http://crysol.org/node/933">Entornos chroot con cdebootstrap en Debian</a></li>
+<li><a href="/node/933">Entornos chroot con cdebootstrap en Debian</a></li>
 <li><a href="http://wiki.chumby.com/mediawiki/index.php/GNU_Toolchain">La GNU ToolChain desde Chumby.com</a></li>
-<li><a href="http://crysol.org/node/950">SSH en el Chumby</a></li>
+<li><a href="/node/950">SSH en el Chumby</a></li>
 <li><a href="http://haxe.org/">Haxe, Flash para GNU</a></li>
 </ol>

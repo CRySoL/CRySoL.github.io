@@ -7,7 +7,7 @@ author: javieralso
 comments: true
 category: recipe
 ---
-<blockquote>En anteriores recetas escribí sobre <a href="http://crysol.org/es/node/1241">cómo compilar e instalar u-boot en una tarjeta mini2440</a>, cómo <a href="http://crysol.org/es/node/1273">compilar Linux para la misma tarjeta</a> y finalmente sobre como <a href="http://crysol.org/es/node/1384">prepararle una bonita imagen Emdebian</a>. Ahora, para terminar, vamos a compilar una imagen <a href="http://opie.handhelds.org/overview.php">Opie</a> haciendo uso de la toolchain <a href="http://wiki.openembedded.net/index.php/Main_Page">OpenEmbedded</a>.</blockquote>
+<blockquote>En anteriores recetas escribí sobre <a href="/node/1241">cómo compilar e instalar u-boot en una tarjeta mini2440</a>, cómo <a href="/node/1273">compilar Linux para la misma tarjeta</a> y finalmente sobre como <a href="/node/1384">prepararle una bonita imagen Emdebian</a>. Ahora, para terminar, vamos a compilar una imagen <a href="http://opie.handhelds.org/overview.php">Opie</a> haciendo uso de la toolchain <a href="http://wiki.openembedded.net/index.php/Main_Page">OpenEmbedded</a>.</blockquote>
 
 <!--break-->
 
@@ -258,7 +258,7 @@ Aunque <em>bitbake</em> descargó los fuentes y compiló el núcleo, no vamos a 
 
 La instalación es tan sencilla como mover el archivo <em>Angstrom-opie-image-glibc-ipk-2010.7-test-20100922-mini2440.rootfs.tar.gz</em> (en tu caso puede que se llame de forma distinta) que encontrarás en el subdirectorio comentado anteriormente, a la partición 2 de tu SD y después descomprimir ahí su contenido.
 
-Después de ésto aún tenemos que sustituir los módulos del núcleo que se ha compilado con la distribución por los módulos del núcleo que compilamos nosotros. Borramos el contenido del directorio <em>lib/modules</em> de la tarjeta <b>¡¡¡¡OJO!!! DE LA TARJETA</b> a ver si la vais a liar.... Después volvemos al directorio de nuestra máquina en el que <a href="http://crysol.org/es/node/1273">compilamos el núcleo</a> e instalamos los módulos del núcleo:
+Después de ésto aún tenemos que sustituir los módulos del núcleo que se ha compilado con la distribución por los módulos del núcleo que compilamos nosotros. Borramos el contenido del directorio <em>lib/modules</em> de la tarjeta <b>¡¡¡¡OJO!!! DE LA TARJETA</b> a ver si la vais a liar.... Después volvemos al directorio de nuestra máquina en el que <a href="/node/1273">compilamos el núcleo</a> e instalamos los módulos del núcleo:
 
 
 <div class="console">

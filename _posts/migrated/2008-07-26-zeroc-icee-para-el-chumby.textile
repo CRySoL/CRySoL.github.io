@@ -17,12 +17,12 @@ Veamos una forma de compilar ZeroC-IceE para usarlo en el Chumby.
 <!--break-->
 
 
-Esta receta se parecerá mucho a su análoga de <a href="http://crysol.org/node/698">Ice en la fonera: Ice-E en OpenWRT</a>. La diferencia estriba en que la plataforma destino, en vez de ser MIPS es ARM. Realmente, esta vez creo que va a ser más sencillo :-p
+Esta receta se parecerá mucho a su análoga de <a href="/node/698">Ice en la fonera: Ice-E en OpenWRT</a>. La diferencia estriba en que la plataforma destino, en vez de ser MIPS es ARM. Realmente, esta vez creo que va a ser más sencillo :-p
 
 
 <h2>Ingredientes (para todos los Chumbys :-))</h2>
 
-<ul><li>Tener la toolchain afilada y lista para usar. Puedes seguir mi anterior receta (<a href="http://crysol.org/node/959">Entorno de desarrollo para el Chumby</a>), o no. Para esta receta, asumiré que así es.</li>
+<ul><li>Tener la toolchain afilada y lista para usar. Puedes seguir mi anterior receta (<a href="/node/959">Entorno de desarrollo para el Chumby</a>), o no. Para esta receta, asumiré que así es.</li>
 <li>Las fuentes de ZeroC-IceE</li></ul>
 
 

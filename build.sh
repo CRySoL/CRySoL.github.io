@@ -19,6 +19,13 @@ echo "$(date)<br/>" >> history.html
 git commit -a -m "automatic compilation"
 git push
 touch _site/.nojekyll
-git --git-dir=_site/.git --work-tree=$(pwd)/_site add --all
-git --git-dir=_site/.git --work-tree=$(pwd)/_site commit -a -m "automatic compilation"
-git --git-dir=_site/.git --work-tree=$(pwd)/_site push
+
+echo "pushing _site"
+cd _site
+rm -rf files node
+ln -s p/node node
+ln -s assets/files files
+
+git add --all
+git commit -a -m "automatic compilation"
+git push

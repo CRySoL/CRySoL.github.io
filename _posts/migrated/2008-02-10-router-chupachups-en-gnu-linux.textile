@@ -25,7 +25,7 @@ La intención es compartir una conexión a internet a través de un modem con co
 
 h2. Configuración de la interfaz de red
 
-En la receta "Compartir la conexión a Internet (y algo más) con GNU/Linux":http://crysol.org/node/96, se utilizaban dos interfaces de red Ethernet: *eth0* para la conexión a Internet y *eth1* para la red local. 
+En la receta "Compartir la conexión a Internet (y algo más) con GNU/Linux":/node/96, se utilizaban dos interfaces de red Ethernet: *eth0* para la conexión a Internet y *eth1* para la red local. 
 
 En el caso que nos ocupa, voy a substituir *eth1* por un interfaz virtual de *eth0* de modo que la mayoría de lo que se cuenta en la citada receta es válido. Sólo voy a poner aquí las diferencias.
 
@@ -64,7 +64,7 @@ dhcp-option=6,192.168.0.1
 </div>
 
 
-Es decir, tendrás DNS y DHCP en las dos interfaces. Como eso no es deseable ni conveniente, puedes cerrar los puertos correspondientes con las siguientes reglas "iptables". No olvides echar un vistazo a nuestra receta "La enésima receta de iptables":http://crysol.org/node/339.
+Es decir, tendrás DNS y DHCP en las dos interfaces. Como eso no es deseable ni conveniente, puedes cerrar los puertos correspondientes con las siguientes reglas "iptables". No olvides echar un vistazo a nuestra receta "La enésima receta de iptables":/node/339.
 
 
 

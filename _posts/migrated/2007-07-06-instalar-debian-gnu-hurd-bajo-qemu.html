@@ -78,7 +78,7 @@ Ahora inicializamos y activamos la partición <em>swap</em> (opción 3) y le dec
 Ahora ya podemos instalar el sistema base (opción 6) y seleccionamos como origen <em>CD-ROM drive</em>. Nos preguntará el punto de montaje del mismo, que es el que aparece por defecto. Cuando finalice, reinciamos la máquina virtual (opción 7) y cuando vuelva a aparecer <em>lilo</em> cerraremos <em>qemu</em> para cambiar las opciones de la máquina virtual y no usar esa imagen de CD.
 
 <h2>Instalando GRUB</h2>
-Ahora nos encontramos con un problema: este proceso prepara una partición y copia unos ficheros, pero no instala <em>grub</em>, por tanto no podemos iniciar nuestro disco virtual con <em>qemu</em>. La forma en la que yo he instalado <em>grub</em> es la siguiente: vamos a arrancar el <em>liveCD</em> con <em>qemu</em> de la misma forma que arrancábamos la instalación de <em>hurd</em> y <a href="http://crysol.org/node/714">restauraremos GRUB</a> (en el ejemplo he usado el CD de instalación de <em>debian</em>):
+Ahora nos encontramos con un problema: este proceso prepara una partición y copia unos ficheros, pero no instala <em>grub</em>, por tanto no podemos iniciar nuestro disco virtual con <em>qemu</em>. La forma en la que yo he instalado <em>grub</em> es la siguiente: vamos a arrancar el <em>liveCD</em> con <em>qemu</em> de la misma forma que arrancábamos la instalación de <em>hurd</em> y <a href="/node/714">restauraremos GRUB</a> (en el ejemplo he usado el CD de instalación de <em>debian</em>):
 
 
 <div class="console">

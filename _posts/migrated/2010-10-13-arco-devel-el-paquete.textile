@@ -118,7 +118,7 @@ h3. devel.sh
 
 Se supone que es un fichero que tendrá alias y funciones bash varias. Ahora mismo solo tiene una, pero acabamos de empezar:
 
-* *fexec*: Ejecuta el comando indicado y queda a la espera. Cuando algún fichero cambie, ejecuta de nuevo el comando de forma automática. Esto es posible gracias al comando "inotifywait":http://crysol.org/es/node/1374.
+* *fexec*: Ejecuta el comando indicado y queda a la espera. Cuando algún fichero cambie, ejecuta de nuevo el comando de forma automática. Esto es posible gracias al comando "inotifywait":/node/1374.
 
 * *fmake*: Es un alias para ejecutar @fexec(make)@. Es decir, sirve para recompilar un programa o documento en cuanto cambia un fichero del directorio o subdirectorios.
 

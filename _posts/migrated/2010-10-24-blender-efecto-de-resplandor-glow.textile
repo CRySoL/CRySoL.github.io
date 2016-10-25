@@ -17,7 +17,7 @@ Seleccionamos el objeto que queremos que brille y le aplicamos un material de co
 En el panel de propiedades de renderizado, desplegamos la pestaña *Layers* y comprobamos que la opción *Object Index* esté activa.
 
 <h2>Composición</h2>
-Supongo que ya tenéis un nodo *Render Layers* y otro *Composite*, además de *Use nodes* activo. (ver <a href="http://crysol.org/es/node/1416">receta dof</a>)
+Supongo que ya tenéis un nodo *Render Layers* y otro *Composite*, además de *Use nodes* activo. (ver <a href="/node/1416">receta dof</a>)
 
 Añadimos un nodo *ID Mask* (add->convertor->id mask) y conectamos a su entrada la salida *Object index* del nodo _Render Layers_ (si no la ves, revisa la sección anterior). Elegimos el valor del índice que le pusimos a nuestro objeto brillante (en nuestro ejemplo, 1).
 

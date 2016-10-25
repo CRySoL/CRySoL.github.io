@@ -34,7 +34,7 @@ Para instalarlo mediante el instalador oficial de Nvidia lo descargaremos a nues
 
 Una vez descargado el comportamiento a seguir es el mismo para todas las versiones.
 
-# Desinstalamos las versiones previas que tengamos instaladas, ya sea mediante apt si usamos el "método de module-assistant":http://crysol.org/node/121 como si usamos el mismo instalador de la web de Nvidia. Si estamos en este último caso deberemos ejecutar como root:
+# Desinstalamos las versiones previas que tengamos instaladas, ya sea mediante apt si usamos el "método de module-assistant":/node/121 como si usamos el mismo instalador de la web de Nvidia. Si estamos en este último caso deberemos ejecutar como root:
 
 <div class="console">
 {% highlight console %}

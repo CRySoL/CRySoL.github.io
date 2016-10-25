@@ -28,12 +28,12 @@ Lo que pretendemos es poder poner un servidor que sustituya al que hay para pode
 
 <h2>Ingredientes</h2>
 <ul>
-<li>Un pc con 2 tarjetas de red y configurado con la receta <a href="http://crysol.org/es/node/717">Ethernet Bridging en GNU/Linux</a>
+<li>Un pc con 2 tarjetas de red y configurado con la receta <a href="/node/717">Ethernet Bridging en GNU/Linux</a>
 <li>ebtables</li>
 </ul>
 
 <h2>Configuración</h2>
-En este ejemplo vamos a intentar suplantar el servidor <tt>DHCP</tt> para que, además de direcciones IP, nos proporcione también arranque por PXE. La configuración para el arranque por PXE podéis hacerla siguiendo la receta <a href="http://crysol.org/es/node/1080">Instalar Debian desde red con PXE (nunca fue tan fácil)</a>.
+En este ejemplo vamos a intentar suplantar el servidor <tt>DHCP</tt> para que, además de direcciones IP, nos proporcione también arranque por PXE. La configuración para el arranque por PXE podéis hacerla siguiendo la receta <a href="/node/1080">Instalar Debian desde red con PXE (nunca fue tan fácil)</a>.
 
 Ahora, lo que tenemos que hacer es que el PC que actúa de <em>bridge</em> no reenvíe las peticiones DHCP hacia el exterior, y que bloquee también los paquetes DHCP que vengan desde el exterior hacia nuestra red. Aquí es donde entra en juego <tt>ebtables</tt>. Es una utilidad parecida a iptables, específico para bridging y firewall (o sea, lo que nosotros queremos).
 Ejecutamos los siguientes comandos para añadir las reglas (tenéis que cambiar $PUB y $PRV por los correspondientes nombres de vuestras tarjetas de red):
