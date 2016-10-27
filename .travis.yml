@@ -1,3 +1,8 @@
+# Get a "Personal access token"
+# - https://github.com/settings/tokens
+# Add to .travis.yml
+# - $ travis encrypt DEPLOY_TOKEN=<token> -r CRySoL/web.source  --add
+
 language: ruby
 cache: bundler
 install:
@@ -6,4 +11,4 @@ script:
 - "./build-travis.sh"
 env:
   global:
-    secure: vwJq/weaWdojZkzrJkjH5n+hk+EuzAFsk/TlAQC/Ml3ojJcwWR0QDhNuvWUS3oD2qwDJIUzXey85rmPGKMOC3ju7xPXpRr1NL5cqb/HzN2jlksQRcp4XDeNpRR+ZD7Nohh0gDm0oddVG/aLG+cSTgG8XVR2YonXFvFka+Jc60Hc=
+    secure: uzYOKNxktAt1mOnhMoUg8YPNfnN976G81I9ZGaMjxbOOcYPpOgPpNdTG57CC3FRVVLo8QSFIr3tJgihY2JsVwJxx0Xw2XXcw38dk2ROESUYvN9oeWhQUAPrGyLbWIC+wGTUxuxugq1yFLiHuK3/Ss0JYMbEWeM6f1C8I+2aoSTU=
