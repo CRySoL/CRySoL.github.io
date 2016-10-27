@@ -4,6 +4,6 @@ install:
 - bundle install
 script:
 - "./build-travis.sh"
-env:
-  global:
-    secure: vwJq/weaWdojZkzrJkjH5n+hk+EuzAFsk/TlAQC/Ml3ojJcwWR0QDhNuvWUS3oD2qwDJIUzXey85rmPGKMOC3ju7xPXpRr1NL5cqb/HzN2jlksQRcp4XDeNpRR+ZD7Nohh0gDm0oddVG/aLG+cSTgG8XVR2YonXFvFka+Jc60Hc=
+# env:
+#   global:
+#     secure: vwJq/weaWdojZkzrJkjH5n+hk+EuzAFsk/TlAQC/Ml3ojJcwWR0QDhNuvWUS3oD2qwDJIUzXey85rmPGKMOC3ju7xPXpRr1NL5cqb/HzN2jlksQRcp4XDeNpRR+ZD7Nohh0gDm0oddVG/aLG+cSTgG8XVR2YonXFvFka+Jc60Hc=
