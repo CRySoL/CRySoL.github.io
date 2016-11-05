@@ -3,7 +3,7 @@ layout: post
 title: "How to annotate/tag stdout and stderr outputs with bash"
 author: david_villa
 category: recipe
-tags: bash
+tags: bash shell
 lang: en
 comments: true
 ---
