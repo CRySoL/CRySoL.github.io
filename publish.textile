@@ -1,16 +1,12 @@
 ---
-layout: post
-title: "Cómo publicar en CRySoL"
-author: david_villa
-category: recipe
-tags: jekyll
-# sticky: true
+layout: page
+title: Publish
+tagline: Cómo publicar en CRySoL
+group: navigation
 #refs:
 # - "Blogging with git, emacs and jekyll":http://metajack.im/2009/01/23/blogging-with-git-emacs-and-jekyll
 ---
 Esta receta explica cómo crear posts en tu propio blog de CRySoL o colaborar con el sitio.
-
-<!--break-->
 
 La web de CRySoL es estática. Se genera a partir de un conjunto de ficheros markdown y textile y se compila a HTML/CCS usando el programa "jekyll":http://jekyllrb.com. Utiliza un conjunto de plantillas "Liquid":http://wiki.shopify.com/Liquid.
 
