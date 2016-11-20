@@ -30,6 +30,7 @@
   - apt: name=ruby-safe-yaml
   - apt: name=ruby-rinku
   - apt: name=libmysqlclient-dev
+  - apt: name=ruby-bundler
   - gem: name=mysql user_install=no
 
 - hosts: all
