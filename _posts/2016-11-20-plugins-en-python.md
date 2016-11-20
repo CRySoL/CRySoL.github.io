@@ -15,7 +15,7 @@ La verdad es que me he sentido como un auténtico estúpido al descubrir que Pyt
 
 **Puedes encontrar el artículo original en: [MagMax Blog](<http://magmax.org/blog/plugins-en-python/>)**.
 
-<!-- break -->
+<!--break-->
 
 Qué voy a hacer
 ---------------
