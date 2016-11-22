@@ -23,22 +23,22 @@ IceGrid.Registry.AdminCryptPasswords=admin-passwords
 Esta propiedad se debe escribir en el fichero de cofiguración del nodo que va a contener el Registry. Esta propiedad acepta un fichero con la siguiente estructura:
 
 <pre>
-usuario Clave_encriptada
+usuario hash_de_la_clave
 </pre>
 
 Este fichero tiene la misma estructura que el fichero de claves que utiliza Glacier2 para las sesioes seguras a los routers que define.  Las contraseñas del fichero se pueden encriptan mediante ssl. Por ejemplo:
 
 <pre class="console">
-$ openssl passwd >> admin-passwords
+$ pip install zeroc-icehashpassword
+$ icehashpassword
+Password:
+$5$rounds=110000$5rM9XIDChkgEu.S3$ov7yip4NOi1wymAZmamEv1uKPQRB0WzasoJsWMpRT19
 </pre>
 
 h2. Referencias
-
-* Cifrado por defecto de openssl:
-  http://stackoverflow.com/questions/7402230/what-is-default-cipher-for-pem-format-in-openssl
 
 * Fichero de claves para Glacier2:
   http://doc.zeroc.com/display/Ice/Getting+Started+with+Glacier2#GettingStartedwithGlacier2-WritingaPasswordFile
 
 * Propiedad AdminCryptPasswords:
-  http://doc.zeroc.com/display/Ice/IceGrid+Properties#IceGridProperties-IceGrid.Registry.AdminCryptPasswords
+  http://doc.zeroc.com/pages/viewpage.action?pageId=16716660#IceGrid.*-IceGrid.Registry.AdminCryptPasswords
