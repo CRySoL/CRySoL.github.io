@@ -17,7 +17,7 @@ Filchero @/etc/apt/sources.list@:
 
 <pre>
 deb http://ftp.fi.debian.org/debian stable main non-free contrib
-deb http://ftp.fi.debian.org/debian stable main non-free contrib
+deb http://ftp.fi.debian.org/debian testing main non-free contrib
 deb http://ftp.fi.debian.org/debian unstable main non-free contrib
 </pre>
 
@@ -42,14 +42,13 @@ Esto fija el orden de preferencia en orden stable, testing y unstable.
 
 h2. Instalando paquetes
 
-No olvidar actualizar indices de paquetes:
+No olvides actualizar los indices de paquetes:
 
 <pre class="console">
 $ sudo apt-get update
 </pre>
 
-El comando @apt-get@ instalará la versión disponible con mayor prioridad, aunque sea una
-versión inferior. Para cambiar este compartamiento debe indicarlo explícitamente:
+El comando @apt-get@ instalará la versión disponible con mayor prioridad, aunque no sea la última. Para cambiar este compartamiento debes indicarlo explícitamente:
 
 <pre class="console">
 $ sudo apt-get install mplayer/unstable
