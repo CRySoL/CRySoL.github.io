@@ -6,7 +6,7 @@ DEPLOY_REPO="https://${DEPLOY_TOKEN}@github.com/CRySoL/CRySoL.github.io.git"
 
 function clean {
     echo "cleaning _site folder"
-    if [ -d "_site" ]; then rm -Rf _site; fi
+    [ -d "_site" ] && rm -Rf _site
 }
 
 function get_current_site {
@@ -24,12 +24,12 @@ function deploy {
 
 	if [ -z "$TRAVIS_PULL_REQUEST" ]; then
 	    echo "except don't publish site for pull requests"
-	    exit 0
+	    exit 1
 	fi
 
 	if [ "$TRAVIS_BRANCH" != "master" ]; then
 	    echo "except we should only publish the master branch. stopping here"
-	    exit 0
+	    exit 1
 	fi
 
 	cd _site
