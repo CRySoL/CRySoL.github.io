@@ -51,7 +51,7 @@ $ sudo apt-get update
 El comando @apt-get@ instalará la versión disponible con mayor prioridad, aunque no sea la última. Para cambiar este compartamiento debes indicarlo explícitamente:
 
 <pre class="console">
-$ sudo apt-get install mplayer/unstable
+$ sudo apt-get install -t unstable mplayer
 </pre>
 
 
