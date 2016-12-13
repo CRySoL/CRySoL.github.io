@@ -20,10 +20,21 @@ En lugar de eso, pongo aquí un código QR para descargarlo automáticamente:
 
 <!--break-->
 
-Cuando pinches el enlace, saldrá un formulario similar a:
+Cuando pinches el enlace, te pedirá un nombre y un tipo (algo como esto):
 
-<img src="http://si.ua.es/es/wifi/imagenes/eduroam/peap/android/certificadouawifi.png" alt="save pem"/>
+<img src="/files/android-install-wlan-certificate.jpg" alt="save pem"/>
 
-Escribe «UCLM» y después sigue "estas instrucciones":http://si.ua.es/es/wifi/eduroam/peap/eduroam-instalacion-para-android.html y las de la "UCLM":http://www.uclm.es/wifi/android.html
+Escribe «UCLM», elige tipo "WLAN" (no VPN).
 
-Saludos
+Para conectar, al elegir la red «eduroam»:
+
+* Security: WPA & WPA2 Enterprise
+* Authentication / Método EAP: Protected EAP (PEAP)
+* Inner Authentication / Autenticación de fase 2: MSCHAPv2
+* CA Certificate: UCLM
+* PEAP Version: Automático
+
+* User Name: Fulano.DeTal@uclm.es
+* Password: 12345
+
+Para más información mira "estas instrucciones":http://si.ua.es/es/wifi/eduroam/peap/eduroam-instalacion-para-android.html y las de la "UCLM":http://www.uclm.es/wifi/android.html
