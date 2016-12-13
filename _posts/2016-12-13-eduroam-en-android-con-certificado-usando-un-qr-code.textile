@@ -1,13 +1,12 @@
 ---
-migrated: node/1549
 layout: post
 title: eduroam en Android con certificado usando un QR code
-created: 1317308374
 author: david_villa
 comments: true
 category: recipe
 tags:
 - android
+- eduroam
 ---
 
 El certificado raíz que utiliza la UCLM a día de hoy (13-12-2016) es "DigiCert Assured ID Root CA":https://www.digicert.com/CACerts/DigiCertAssuredIDRootCA.crt .
@@ -22,7 +21,7 @@ En lugar de eso, pongo aquí un código QR para descargarlo automáticamente:
 
 Cuando pinches el enlace, te pedirá un nombre y un tipo (algo como esto):
 
-<img src="/files/android-install-wlan-certificate.jpg" alt="save pem"/>
+<img src="/files/android-install-wlan-certificate.jpg" alt="save pem" width="200px"/>
 
 Escribe «UCLM», elige tipo "WLAN" (no VPN).
 
