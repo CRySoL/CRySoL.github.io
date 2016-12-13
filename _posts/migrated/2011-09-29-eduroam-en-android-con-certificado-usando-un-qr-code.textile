@@ -9,9 +9,10 @@ category: recipe
 tags:
 - android
 ---
-La UCLM tiene instrucciones para "conectar a eduroam con Android":http://www.uclm.es/wifi/android.html y también explica cómo "utilizar un certificado":http://www.uclm.es/wifi/android_certificado.html, pero indica que hay que copiar el fichero a la memoria SD.
 
-El certificado raíz a día de hoy (13-12-2016) es "DigiCert Assured ID Root CA":https://www.digicert.com/CACerts/DigiCertAssuredIDRootCA.crt
+El certificado raíz que utiliza la UCLM a día de hoy (13-12-2016) es "DigiCert Assured ID Root CA":https://www.digicert.com/CACerts/DigiCertAssuredIDRootCA.crt .
+
+La UCLM tiene instrucciones para "conectar a eduroam con Android":http://www.uclm.es/wifi/android.html y también explica cómo "utilizar un certificado":http://www.uclm.es/wifi/android_certificado.html, pero indica que hay que copiar el fichero a la memoria SD.
 
 En lugar de eso, pongo aquí un código QR para descargarlo automáticamente:
 
