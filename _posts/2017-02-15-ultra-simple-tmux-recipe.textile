@@ -1,0 +1,31 @@
+---
+layout: post
+title: Ultra simple tmux recipe
+author: david_villa
+comments: true
+category: recipe
+tags:
+- tmux
+- shell
+---
+
+This is a new try to start using tmux. I am absolutly convenced about advantages of tmux, but for some strange reason, I am not able to learn its key combos...
+
+I hope this recipe should be a way to have the very basic functions always at a glance.
+
+|_. Panes           |_.           |
+| horizontal split  | C-b %       |
+| vertical split    | C-b "       |
+| move cursor       | C-b <arrow> |
+| close             | C-b x       |
+| maximize/minimize | C-b z       |
+
+|_. Windows         |_.       |
+| create            | C-b c   |
+| change            | C-b <n> |
+
+|_. Session         |_.                        |
+| detach            | C-b d                    |
+| attach            | tmux attach -t <n>       |
+| list              | tmux list-sessions       |
+| kill              | tmux kill-session -t <n> |
