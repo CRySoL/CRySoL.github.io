@@ -13,18 +13,24 @@ This is a new try to start using tmux. I am absolutly convenced about advantages
 
 I hope this recipe should be a way to have the very basic functions always at a glance.
 
-|_. Panes           |_.           |
+|^.
+|\2=. Panes                      |
+|-.
 | horizontal split  | C-b %       |
 | vertical split    | C-b "       |
 | move cursor       | C-b <arrow> |
 | close             | C-b x       |
 | maximize/minimize | C-b z       |
 
-|_. Windows         |_.       |
+|^.
+|\2=. Windows                 |
+|-.
 | create            | C-b c   |
 | change            | C-b <n> |
 
-|_. Session         |_.                        |
+|^.
+|\2=. Session                                  |
+|-.
 | detach            | C-b d                    |
 | attach            | tmux attach -t <n>       |
 | list              | tmux list-sessions       |
