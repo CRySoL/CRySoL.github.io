@@ -28,6 +28,6 @@ I hope this recipe should be a way to have the very basic functions always at a 
 
 |_. Sessions                                 | |
 | detach            | C-b d                    |
-| attach            | tmux attach -t <n>       |
+| attach            | tmux a                   |
 | list              | tmux list-sessions       |
 | kill              | tmux kill-session -t <n> |
