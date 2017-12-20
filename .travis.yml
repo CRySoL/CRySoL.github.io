@@ -11,4 +11,4 @@ script:
 - "./build-travis.sh"
 env:
   global:
-    secure: CSgZVo+8HbIKLwTdYqAziiEGSOl4qks9KwzsAfBBvMSMgDlA/v3S9NzEaNVX1ZYdrsOOIzF+fk2XWJXExO5XsE1M5TU9IG2JTKcAcwSMJUexarxPh1LhZCSdV/VOhmJUwjTvK93FNrEwnl149tDxJT8KaI8VbbwpSxKpF5Z0FCg=
+    secure: qe/U3eZ1HXYA2H8febc0ybmwESYAwlk0owxuuSQtcNKddNP+y+J2bgyrp6w3/wAokkhQG32EdJm6eEqxBFQAWqRv1d8x54VNIb6a5srM5U5zCu7CFa9WB5rwZCicw+q6xGD0gG1DJWHukB5mmPb5HP0BD4Ltwbc3x1cRdprL6Uk=
