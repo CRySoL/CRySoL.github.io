@@ -59,7 +59,7 @@ tags:
 
 
 7. Añadir al fichero .ssh/config:
-    Host arcorepo
+    Host debrepo
         Hostname debrepo.example.net
         User debrepo
         IdentityFile ~/.ssh/id_rsa
