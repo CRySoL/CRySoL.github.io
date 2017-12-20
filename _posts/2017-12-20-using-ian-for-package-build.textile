@@ -1,0 +1,74 @@
+---
+layout: post
+title: Contruir paquetes debian con ian
+author: ana_rubio
+comments: true
+category: recipe
+draft: true
+tags:
+- debian
+---
+
+1. Generar clave GPG:
+    gpg --gen-key
+    - DIRECTORIO CLAVE GPG: ~/.gnupg
+
+* Aunque no es necesario en esta receta, es conveniente exportar la clave privada y almacenarla en un lugar seguro:
+    gpg --export-secret-keys -a <huella_digital> > ~/<nombre-fichero>.asc
+
+2. Listar claves:
+    gpg --list-keys
+
+3. Añadir clave a un servidor (ej: pgp.mit.edu) servidor:
+    gpg --keyserver <servidor> --send-key <huella_digital>
+
+4. Generar clave SSH:
+    ssh-keygen -b 4096
+    - CLAVE PÚBLICA SSH: ~/.ssh/id_rsa.pub
+    - CLAVE PRIVADA SSH: ~/.ssh/id_rsa
+
+5. Añadir datos en ~/.config/ian/config (para ian) o ~/.bashrc (para el sistema). Ian buscará en .bashrc la configuración que necesita si no la encuentra en ~/.config/ian/config:
+    - ~/.config/ian/config
+      DEBFULLNAME="Ana Rubio Ruiz"
+      DEBEMAIL=ana.rubio.ruiz@gmail.com
+      DEBSIGN_KEYID=<huella_digital>
+      DEBREPO_URL=debrepoo@debrepo/shared
+
+* Ian necesita que un editor por defecto (ej: emacs). En caso de no tenerlo, especificamos cuál será en ~/.config/ian/config (para Ian) o en ~/.bashrc (para el sistema). Igual que en el paso anterior, Ian buscará primero en ~/.config/ian/config:
+    - ~/.config/ian/config
+      EDITOR="emacs -nw"
+
+6. Crear fichero ~/.dupload.conf con:
+      package config;
+
+      $default_host = "debrepo";
+
+      $cfg{'debrepo'} = {
+         fqdn => "debrepo",
+         login => "repouser",
+         method => "scpb",
+         incoming => "/shared/incoming/",
+
+         # The dinstall on ftp-master sends emails itself
+         dinstall_runs => 1,
+      };
+
+      $postupload{'changes'} = 'ssh debrepo "reprepro -V -b /shared processincoming sid-process"';
+
+      1;  # DO NOT remove this line!
+
+
+7. Añadir al fichero .ssh/config:
+    Host arcorepo
+        Hostname debrepo.example.net
+        User debrepo
+        IdentityFile ~/.ssh/id_rsa
+
+Fecha de última versión:
+    ian release-date -y
+
+Compilar:
+    ian build -c
+
+Subir paquete:
+    ian upload
