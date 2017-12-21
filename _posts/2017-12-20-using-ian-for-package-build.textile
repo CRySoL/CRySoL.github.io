@@ -17,8 +17,11 @@ h2. 1. Generar clave GPG:
 
 Los ficheros generados quedan en @~/.gnupg@.
 
-* Aunque no es necesario en esta receta, es conveniente exportar la clave privada y almacenarla en un lugar seguro:
+Aunque no es necesario en esta receta, es conveniente exportar la clave privada y almacenarla en un lugar seguro:
+
+<pre class=“console”>
     gpg --export-secret-keys -a <huella_digital> > ~/<nombre-fichero>.asc
+</pre>
 
 h2. 2. Listar claves:
 
