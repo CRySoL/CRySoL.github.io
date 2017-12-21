@@ -4,9 +4,9 @@ title: Construir paquetes debian con ian
 author: ana_rubio
 comments: true
 category: recipe
-draft: true
 tags:
-- Debian-devel
+  - Debian-devel
+
 ---
 
 Esto es una receta rápida para configurar y empezar a usar @ian@, una pequeña aplicación que simplifica algunos de los problemas habituales con los que se enfrenta cualquier mantenedor de paquetes Debian.
