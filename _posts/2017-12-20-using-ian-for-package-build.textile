@@ -9,11 +9,13 @@ tags:
 - debian
 ---
 
+h2. Firma GPG
+
 Para poder subir paquetes debian a un repositorio una vez compilados debes firmarlos. El repositorio de paquetes también tiene una clave. Tu clave GPG debe estar firmada con la clave del repositorio. De ese modo cualquiera que vaya a instalar un paquete puede verificar que los paquetes efectivamente corresponden a ese repositorio.
 
 Por eso, lo primero es disponer de una clave GPG. Aquí tienes unos pasos para crearla y comprobarla, en el caso de que no tengas.
 
-h3. Generar clave GPG:
+h3. Generar clave GPG
 
 <pre class=“console”>
     gpg --gen-key
@@ -39,12 +41,10 @@ h3. Añadir clave a un servidor (ej: pgp.mit.edu) servidor
     gpg --keyserver <servidor> --send-key <huella_digital>
 </pre>
 
-4. Generar clave SSH:
-    ssh-keygen -b 4096
-    - CLAVE PÚBLICA SSH: ~/.ssh/id_rsa.pub
-    - CLAVE PRIVADA SSH: ~/.ssh/id_rsa
 
-5. Añadir datos en ~/.config/ian/config (para ian) o ~/.bashrc (para el sistema). Ian buscará en .bashrc la configuración que necesita si no la encuentra en ~/.config/ian/config:
+h2. Configuración de @ian@
+
+Añadir datos en ~/.config/ian/config (para ian) o ~/.bashrc (para el sistema). Ian buscará en .bashrc la configuración que necesita si no la encuentra en ~/.config/ian/config:
     - ~/.config/ian/config
       DEBFULLNAME="Ana Rubio Ruiz"
       DEBEMAIL=ana.rubio.ruiz@gmail.com
@@ -55,7 +55,9 @@ h3. Añadir clave a un servidor (ej: pgp.mit.edu) servidor
     - ~/.config/ian/config
       EDITOR="emacs -nw"
 
-6. Crear fichero ~/.dupload.conf con:
+h2. Configuración de @dupload@
+
+Crear fichero ~/.dupload.conf con:
       package config;
 
       $default_host = "debrepo";
@@ -75,11 +77,27 @@ h3. Añadir clave a un servidor (ej: pgp.mit.edu) servidor
       1;  # DO NOT remove this line!
 
 
-7. Añadir al fichero .ssh/config:
+h3. Configuración de SSH para acceder al repositorio
+
+h3. Generar clave SSH
+
+<pre class=“console”>
+    ssh-keygen -b 4096
+</pre>
+    
+    - CLAVE PÚBLICA SSH: ~/.ssh/id_rsa.pub
+    - CLAVE PRIVADA SSH: ~/.ssh/id_rsa
+
+h3. Configuración SSH
+
+Añadir al fichero .ssh/config:
+
     Host debrepo
         Hostname debrepo.example.net
         User debrepo
         IdentityFile ~/.ssh/id_rsa
+
+h2. Comando básicos @ian@
 
 Fecha de última versión:
     ian release-date -y
