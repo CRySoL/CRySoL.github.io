@@ -9,14 +9,16 @@ tags:
 - debian
 ---
 
-1. Generar clave GPG:
+h2. 1. Generar clave GPG:
+
     gpg --gen-key
     - DIRECTORIO CLAVE GPG: ~/.gnupg
 
 * Aunque no es necesario en esta receta, es conveniente exportar la clave privada y almacenarla en un lugar seguro:
     gpg --export-secret-keys -a <huella_digital> > ~/<nombre-fichero>.asc
 
-2. Listar claves:
+h2. 2. Listar claves:
+
     gpg --list-keys
 
 3. Añadir clave a un servidor (ej: pgp.mit.edu) servidor:
