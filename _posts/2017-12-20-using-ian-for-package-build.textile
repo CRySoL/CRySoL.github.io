@@ -9,7 +9,11 @@ tags:
 - debian
 ---
 
-h2. 1. Generar clave GPG:
+Para poder subir paquetes debian a un repositorio una vez compilados debes firmarlos. El repositorio de paquetes también tiene una clave. Tu clave GPG debe estar firmada con la clave del repositorio. De ese modo cualquiera que vaya a instalar un paquete puede verificar que los paquetes efectivamente corresponden a ese repositorio.
+
+Por eso, lo primero es disponer de una clave GPG. Aquí tienes unos pasos para crearla y comprobarla, en el caso de que no tengas.
+
+h3. Generar clave GPG:
 
 <pre class=“console”>
     gpg --gen-key
@@ -23,12 +27,17 @@ Aunque no es necesario en esta receta, es conveniente exportar la clave privada 
     gpg --export-secret-keys -a <huella_digital> > ~/<nombre-fichero>.asc
 </pre>
 
-h2. 2. Listar claves:
+h3. Listar claves
 
+<pre class=“console”>
     gpg --list-keys
+</pre>
 
-3. Añadir clave a un servidor (ej: pgp.mit.edu) servidor:
+h3. Añadir clave a un servidor (ej: pgp.mit.edu) servidor
+
+<pre class=“console”>
     gpg --keyserver <servidor> --send-key <huella_digital>
+</pre>
 
 4. Generar clave SSH:
     ssh-keygen -b 4096
