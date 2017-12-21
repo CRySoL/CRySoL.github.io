@@ -13,6 +13,7 @@ Esto es una receta rápida para configurar y empezar a usar @ian@, una pequeña 
 
 <!--break-->
 
+
 h2. Firma GPG
 
 Para poder subir paquetes debian a un repositorio una vez compilados debes firmarlos. El repositorio de paquetes también tiene una clave. Tu clave GPG debe estar firmada con la clave del repositorio. De ese modo cualquiera que vaya a instalar un paquete puede verificar que los paquetes efectivamente corresponden a ese repositorio.
