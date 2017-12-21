@@ -11,8 +11,11 @@ tags:
 
 h2. 1. Generar clave GPG:
 
+<pre class=“console”>
     gpg --gen-key
-    - DIRECTORIO CLAVE GPG: ~/.gnupg
+</pre>
+
+Los ficheros generados quedan en @~/.gnupg@.
 
 * Aunque no es necesario en esta receta, es conveniente exportar la clave privada y almacenarla en un lugar seguro:
     gpg --export-secret-keys -a <huella_digital> > ~/<nombre-fichero>.asc
