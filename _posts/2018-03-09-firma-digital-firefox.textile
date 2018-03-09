@@ -1,5 +1,15 @@
-Autofirma, firefox y DNIe
--------------------------
+---
+layout: post
+title: Autofirma con firefox y DNIe
+author: oscar_acena
+comments: true
+draft: true
+category: recipe
+tags:
+  - security
+
+---
+
 
 sudo apt install pcscd pcsc-tools opensc-pkcs11
 
