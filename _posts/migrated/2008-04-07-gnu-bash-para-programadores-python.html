@@ -42,7 +42,7 @@ len(cadena)
 {% highlight console %}
 
 cadena=holamundo
-${#cadena} 
+${#cadena}
 {% endhighlight %}
 </div>
 
@@ -71,7 +71,7 @@ ${#cadena}
 <div class="console">
 {% highlight console %}
 
-${cadena:2:3}   
+${cadena:2:3}
 lam
 {% endhighlight %}
 </div>
@@ -183,6 +183,9 @@ path = ${foo%/*}     # /tmp/mi.directorio
 file = ${foo##*/}    # imagen.png
 base = ${file%%.*}    # imagen
 ext = ${file#*.}      # png
+
+fqdn = www.example.net
+server = ${fqdn%%.*}  # www
 {% endhighlight %}
 </div>
 
@@ -219,7 +222,7 @@ EOF
 {% endhighlight %}
 </div>
 
-<h3> os.path.isdir(nombre) </h3> 
+<h3> os.path.isdir(nombre) </h3>
 
 
 <div>
