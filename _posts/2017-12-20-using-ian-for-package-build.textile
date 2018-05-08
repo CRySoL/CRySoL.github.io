@@ -63,6 +63,10 @@ h2. Configuración de @dupload@
 
 Crear fichero @~/.dupload.conf@ con:
 
+{% highlight text %}
+prueba
+{% endhighlight %}
+
 highlight text
 package config;
 
