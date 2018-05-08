@@ -64,10 +64,6 @@ h2. Configuración de @dupload@
 Crear fichero @~/.dupload.conf@ con:
 
 {% highlight text %}
-prueba
-{% endhighlight %}
-
-highlight text
 package config;
 
 $default_host = "debrepo";
@@ -85,14 +81,14 @@ $cfg{'debrepo'} = {
 $postupload{'changes'} = 'ssh debrepo "reprepro -V -b /shared processincoming sid-process"';
 
 1;  # DO NOT remove this line!
-highlight
+{% endhighlight %}
 
 h3. Configuración de SSH para acceder al repositorio
 
 h3. Generar clave SSH
 
 <pre class=“console”>
-ssh-keygen -b 4096
+$ ssh-keygen -b 4096
 </pre>
 
     - CLAVE PÚBLICA SSH: ~/.ssh/id_rsa.pub
@@ -102,12 +98,12 @@ h3. Configuración SSH
 
 Añadir al fichero @.ssh/config@:
 
-highlight text
+{% highlight text %}
 Host debrepo
     Hostname debrepo.example.net
     User debrepo
     IdentityFile ~/.ssh/id_rsa
-highlight
+{% endhighlight %}
 
 h2. Comando básicos @ian@
 
