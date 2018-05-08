@@ -31,3 +31,13 @@ I hope this recipe should be a way to have the very basic functions always at a 
 | attach            | tmux a                   |
 | list              | tmux ls                  |
 | kill              | tmux kill-session -t <n> |
+
+h2. Config file
+
+In your ~/.tmux.conf
+
+<pre>
+set -g mouse on
+setw -g monitor-activity on
+set -g visual-activity on
+</pre>
