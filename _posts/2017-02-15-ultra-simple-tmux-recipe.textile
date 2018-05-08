@@ -16,21 +16,21 @@ I hope this recipe should be a way to have the very basic functions always at a 
 |_. Panes                       | |
 | horizontal split  | C-b %       |
 | vertical split    | C-b "       |
-| move cursor       | C-b <arrow> |
+| move cursor       | C-b {arrow} |
 | close             | C-b x       |
 | maximize/minimize | C-b z       |
 
 
 |_. Windows                 | |
 | create            | C-b c   |
-| change            | C-b <n> |
+| change            | C-b {n} |
 
 
 |_. Sessions                                 | |
 | detach            | C-b d                    |
 | attach            | tmux a                   |
 | list              | tmux ls                  |
-| kill              | tmux kill-session -t <n> |
+| kill              | tmux kill-session -t {n} |
 
 h2. Config file
 
