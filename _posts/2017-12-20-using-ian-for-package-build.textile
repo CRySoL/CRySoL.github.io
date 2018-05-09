@@ -48,14 +48,15 @@ $ gpg --keyserver <servidor> --send-key <huella_digital>
 
 h2. Configuración de @ian@
 
-Añadir datos en ~/.config/ian/config (para ian) o ~/.bashrc (para el sistema). Ian buscará en .bashrc la configuración que necesita si no la encuentra en ~/.config/ian/config:
-    - ~/.config/ian/config
+Añadir datos en @~/.config/ian/config@ (para ian) o ~/.bashrc (para el sistema). ian buscará en .bashrc la configuración que necesita si no la encuentra en ~/.config/ian/config:
+{% highlight text %}
       DEBFULLNAME="Ana Rubio Ruiz"
       DEBEMAIL=ana.rubio.ruiz@gmail.com
-      DEBSIGN_KEYID=<huella_digital>
-      DEBREPO_URL=debrepoo@debrepo/shared
+      DEBSIGN_KEYID=<huella_GPG>
+      DEBREPO_URL=debrepo@debrepo/shared
+{% endhighlight %}
 
-* Ian necesita que un editor por defecto (ej: emacs). En caso de no tenerlo, especificamos cuál será en ~/.config/ian/config (para Ian) o en ~/.bashrc (para el sistema). Igual que en el paso anterior, Ian buscará primero en ~/.config/ian/config:
+* Ian necesita que un editor por defecto (ej: emacs). En caso de no tenerlo, especificamos cuál será en ~/.config/ian/config (para ian) o en ~/.bashrc (para todo el sistema):
     - ~/.config/ian/config
       EDITOR="emacs -nw"
 
