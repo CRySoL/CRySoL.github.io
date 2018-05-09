@@ -48,7 +48,7 @@ $ gpg --keyserver <servidor> --send-key <huella_digital>
 
 h2. Configuración de @ian@
 
-Añadir datos en @~/.config/ian/config@ (para ian) o @~/.bashrc@ (para el sistema). ian buscará en .bashrc la configuración que necesita si no la encuentra en @~/.config/ian/config@:
+* Añadir configuración en @~/.config/ian/config@ (para ian) o @~/.bashrc@ (para el sistema).
 {% highlight text %}
       DEBFULLNAME="Ana Rubio Ruiz"
       DEBEMAIL=ana.rubio.ruiz@gmail.com
@@ -56,9 +56,12 @@ Añadir datos en @~/.config/ian/config@ (para ian) o @~/.bashrc@ (para el sistem
       DEBREPO_URL=debrepo@debrepo/shared
 {% endhighlight %}
 
-* Ian necesita que un editor por defecto (ej: emacs). En caso de no tenerlo, especificamos cuál será en ~/.config/ian/config (para ian) o en @~/.bashrc@ (para todo el sistema):
-    - ~/.config/ian/config
+* Ian necesita que un editor por defecto (ej: emacs). 
+{% highlight text %}
       EDITOR="emacs -nw"
+{% endhighlight %}
+
+ian prioriza los valores indicados en @~/.config/ian/config@ por encima de los de @~/.bashrc@.
 
 h2. Configuración de @dupload@
 
