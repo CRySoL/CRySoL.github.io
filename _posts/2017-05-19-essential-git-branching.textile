@@ -19,10 +19,19 @@ $ git branch -a
 </pre>
 
 
-h2. Change to branch
+h2. Change to a existing remote branch
+
+Make the branch locally available:
 
 <pre class="console">
-$ git checkout origin/foo
-Switched to a new branch 'origin/foo'
+$ git branch --track foo origin/foo
+Branch foo set up to track remote branch foo from origin.
+</pre>
 
+Move to local branch 'foo':
+
+<pre class="console">
+$ git checkout foo
+Switched to branch 'foo'
+Your branch is up-to-date with 'origin/foo.
 </pre>
