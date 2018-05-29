@@ -1,0 +1,28 @@
+---
+layout: post
+title: Essential git branching
+author: david_villa
+comments: true
+category: recipe
+tags:
+- git
+---
+
+h2. List (all) branches
+
+<pre class="console">
+$ git branch -a
+* master
+ origin/foo
+ origin/bar
+
+</pre>
+
+
+h2. Change to branch
+
+<pre class="console">
+$ git checkout origin/foo
+Switched to a new branch 'origin/foo'
+
+</pre>
