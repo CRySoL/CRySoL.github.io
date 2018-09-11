@@ -1,0 +1,22 @@
+---
+layout: post
+title: Mercurial useful commands
+author: oscarah
+comments: true
+draft: true
+category: recipe
+tags:
+  - security
+
+---
+
+<pre class="console">
+sudo apt install pcscd pcsc-tools opensc-pkcs11
+</pre>
+
+el paquete de AutoFirma para linux (http://firmaelectronica.gob.es/Home/Descargas.html)
+
+y añadir el pkcs11 como dispositivo en tu firefox
+
+Preferencias > Avanzado > Certificados > Dispositivos de seguridad > 
+Cargar: @/usr/lib/x86_64-linux-gnu/pkcs11/opensc-pkcs11.so@
