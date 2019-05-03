@@ -27,7 +27,7 @@ $ gpg --gen-key
 
 Los ficheros generados quedan en @~/.gnupg@.
 
-Aunque no es necesario en esta receta, es conveniente exportar la clave privada y almacenarla en un lugar seguro:
+Es conveniente exportar la clave privada y almacenarla en un lugar seguro. Si la pierdes u olvidas la passphrase tendrás problemas, tendrás que crear una nueva y dar la lata a alguien para hacer el cambio. En resumen, no la pierdas.
 
 <pre class="console">
 $ gpg --export-secret-keys -a <huella_digital> > ~/<nombre-fichero>.asc
@@ -39,7 +39,7 @@ h3. Listar claves
 $ gpg --list-keys
 </pre>
 
-h3. Añadir clave a un servidor (ej: pgp.mit.edu) servidor
+h3. Añadir clave a un servidor (ej: pgp.mit.edu):
 
 <pre class="console">
 $ gpg --keyserver <servidor> --send-key <huella_digital>
@@ -56,7 +56,7 @@ h2. Configuración de @ian@
       DEBREPO_URL=debrepo@debrepo/shared
 {% endhighlight %}
 
-* Ian necesita que un editor por defecto (ej: emacs). 
+* Ian necesita un editor por defecto (ej: emacs).
 {% highlight text %}
       EDITOR="emacs -nw"
 {% endhighlight %}
@@ -65,7 +65,8 @@ ian prioriza los valores indicados en @~/.config/ian/config@ por encima de los d
 
 h2. Configuración de @dupload@
 
-Crear fichero @~/.dupload.conf@ con:
+@dupload@ es la herramienta oficial para subir paquetes a un repositorio. Crea un fichero
+@~/.dupload.conf@ con este contenido:
 
 {% highlight text %}
 package config;
@@ -95,8 +96,8 @@ h3. Generar clave SSH
 $ ssh-keygen -b 4096
 </pre>
 
-    - CLAVE PÚBLICA SSH: ~/.ssh/id_rsa.pub
-    - CLAVE PRIVADA SSH: ~/.ssh/id_rsa
+* CLAVE PÚBLICA SSH: @~/.ssh/id_rsa.pub@
+* CLAVE PRIVADA SSH: @~/.ssh/id_rsa@
 
 h3. Configuración SSH
 
@@ -112,10 +113,15 @@ Host debrepo
 h2. Comando básicos @ian@
 
 Fecha de última versión:
-    ian release-date -y
+
+@ian release-date -y@
 
 Compilar:
-    ian build -c
+
+@ian build -c@
 
 Subir paquete:
-    ian upload
+
+@ian upload@
+
+Más en: https://bitbucket.org/DavidVilla/ian/src/default/README.rst
