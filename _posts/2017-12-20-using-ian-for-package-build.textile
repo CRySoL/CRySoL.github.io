@@ -90,6 +90,17 @@ $postupload{'changes'} = 'ssh debrepo "reprepro -V -b /shared processincoming si
 
 h3. Configuración de SSH para acceder al repositorio
 
+Añade en tu @~/.ssh/config@ una sección para el host @debrepo@ similar a ésta:
+
+{% highlight text %}
+Host debrepo
+     Hostname example.net
+     User john
+     IdentityFile ~/.ssh/debian-repo
+{% endhighlight %}
+
+
+
 h3. Generar clave SSH
 
 <pre class="console">
