@@ -10,7 +10,7 @@ tags:
 - Python
 ---
 <blockquote>
-Un minúsculo tutorial para quién necesite o simplemente le apetezca aprender Python. 
+Un minúsculo tutorial para quién necesite o simplemente le apetezca aprender Python.
 </blockquote>
 
 <h2>Introducción</h2>
@@ -28,8 +28,8 @@ Nada como usar algo para aprender a usarlo. El intérprete de Python se puede ut
 
 <div class="console">
 {% highlight console %}
-$ $ python3
-Python 3.3.4rc1 (default, Jan 27 2014, 11:28:31) 
+$ python3
+Python 3.3.4rc1 (default, Jan 27 2014, 11:28:31)
 [GCC 4.8.2] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
@@ -75,7 +75,7 @@ TypeError: Can't convert 'int' object to str implicitly
 {% endhighlight %}
 </div>
 
-Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las excepciones son el mecanismo más común de notificación de errores. 
+Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las excepciones son el mecanismo más común de notificación de errores.
 
 Pero se puede cambiar el tipo de una variable sobre la marcha (como en Python :-) ).
 
@@ -98,7 +98,7 @@ Una variable puede existir sin tener valor ni tipo, para ello se asigna el valor
 <pre class="console">
 >>> a = None
 >>> a
- 
+
 >>>
 </pre>
 
@@ -149,10 +149,10 @@ No hay tipo carácter, se utilizan <b>cadenas</b> de tamaño 1. Las cadenas admi
 
 <div class="console">
 {% highlight console %}
->>> cad = 'hola '
->>> cad + 'mundo'
+>>> greeting = 'hola '
+>>> greeting + 'mundo'
 'hola mundo'
->>> cad * 3
+>>> greeting * 3
 'hola hola hola '
 
 {% endhighlight %}
@@ -163,7 +163,7 @@ Las <b>tuplas</b> son una agrupación de valores similar al concepto matemático
 
 <div class="console">
 {% highlight console %}
->>> x = cad, 'f', 3.0
+>>> x = greeting, 'f', 3.0
 >>> x
 ('hola ', 'f', 3.0)
 >>> v1, v2, v3 = x
@@ -206,14 +206,14 @@ Las listas y las cadenas se pueden indexar mediante «rodajas» (<em>slices</em>
 
 <div class="console">
 {% highlight console %}
->>> cad = 'holamundo'
->>> cad[1:6]
+>>> greeting = 'holamundo'
+>>> greeting[1:6]
 'olamu'
->>> cad[:3]
+>>> greeting[:3]
 'hol'
->>> cad[3:]
+>>> greeting[3:]
 'amundo'
->>> cad[-6:-2]
+>>> greeting[-6:-2]
 'amun'
 
 {% endhighlight %}
@@ -224,8 +224,8 @@ Los <b>diccionarios</b> son <em>tablas asociativas</em>:
 
 <div class="console">
 {% highlight console %}
->>> notas = {'antonio':6, 'maria':9}
->>> notas['antonio']
+>>> grades = {'antonio':6, 'maria':9}
+>>> grades['antonio']
 6
 
 {% endhighlight %}
@@ -287,13 +287,13 @@ En muchos lenguajes se aconseja «tabular» de determinada manera para facilitar
 {% highlight python %}
 total = 0
 aprobados = 0
-notas = {'antonio':6, 'maria':9}
-for i in notas.values():
+grades = {'antonio':6, 'maria':9}
+for i in grades.values():
    total += i
    if i >= 5:
       aprobados += 1
 
-print('La media es:', total / len(notas))
+print('La media es:', total / len(grades))
 {% endhighlight %}
 </div>
 
@@ -308,7 +308,7 @@ Nada mejor para explicar su sintaxis que un ejemplo:
 <div>
 {% highlight python %}
 def factorial(n):
-    if n == 0: 
+    if n == 0:
        return 1
     return n * factorial(n-1)
 
