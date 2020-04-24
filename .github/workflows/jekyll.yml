@@ -18,7 +18,7 @@ jobs:
         docker run \
         -v ${{ github.workspace }}:/srv/jekyll \
         jekyll/jekyll:3.8 \
-        /bin/bash -c "chown -R jekyll:jekyll /srv/jekyll && jekyll build --trace -d docs -b crysol.org"
+        /bin/bash -c "chmod 777 -R /srv/jekyll/docs && jekyll build --trace -d docs -b crysol.org"
         
     - name: commit result
       run: |
