@@ -20,7 +20,7 @@
 
     <li>created: {{ page.date | date: "%Y-%m-%d" }} </li>
 
-    <li><a href="https://github.com/CRySoL/web.source/raw/master/{{page.path}}">source</a> / <a href="https://github.com/CRySoL/web.source/edit/master/{{page.path}}">edit</a></li>
+    <li><a href="https://github.com/CRySoL/CRySoL.github.io/raw/master/source/{{page.path}}">source</a> / <a href="https://github.com/CRySoL/CRySoL.github.io/edit/master/source/{{page.path}}">edit</a></li>
 
   {% unless page.categories == empty %}
     <li>categories:
