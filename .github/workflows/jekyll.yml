@@ -18,3 +18,8 @@ jobs:
         docker run \
         -v ${{ github.workspace }}:/srv/jekyll \
         jekyll/jekyll:3.8 /bin/bash -c "chmod 777 /srv/jekyll && jekyll build --trace"
+        
+    - name: commit _site
+      run: |
+        git add _site/*
+        git commit -a -m "github action jekyll build"
