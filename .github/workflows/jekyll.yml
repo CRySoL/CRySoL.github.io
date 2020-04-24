@@ -19,7 +19,7 @@ jobs:
         
     - name: commit result
       run: |
-        cp source/_site/* .
+        cp -r source/_site/* .
         git add .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
