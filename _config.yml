@@ -1,8 +1,3 @@
-# gems:
-#   - jekyll-paginate
-#   - jekyll-gist
-#   - jekyll-textile-converter
-
 plugins:
   - jekyll-paginate
   - jekyll-gist
@@ -28,6 +23,7 @@ exclude:
   - "Rakefile"
   - "changelog.md"
   - "docs"
+  - "old"
 
 # highlighter: pygments
 excerpt_separator: "<!--break-->"
