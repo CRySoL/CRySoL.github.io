@@ -15,19 +15,13 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the site in the jekyll/builder container
       run: |
-        cd ${{ github.workspace }}
-        export GLOBIGNORE=temp
-        mkdir temp
-        cp -r * temp
         docker run \
-        -v ${{ github.workspace }}/temp:/srv/jekyll \
+        -v ${{ github.workspace }}:/srv/jekyll \
         jekyll/jekyll:3.8 \
-        /bin/bash -c "chown -R jekyll:jekyll /srv/jekyll && jekyll build --trace -d docs -b crysol.org"
+        /bin/bash -c "chmod g+w -R /srv/jekyll && jekyll build --trace -d docs -b crysol.org"
         
     - name: commit result
       run: |
-        cp -r temp/docs/* docs/
-        git add docs/*
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -a -m "github action jekyll build"
