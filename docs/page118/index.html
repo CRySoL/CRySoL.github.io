@@ -8492,10 +8492,10 @@ Nada mejor para explicar su sintaxis que un ejemplo:
 
 Aunque Python se puede utilizar como un lenguaje convencional (tipo Java), siempre hay una manera más «pythónica» de hacer las cosas, utilizando por ejemplo las características de programación funcional que incorpora. Como ejemplo, el factorial se puede hacer aún más corto con algo como:
 
-
 <div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="nb">reduce</span>
-<span class="n">factorial</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">reduce</span><span class="p">(</span><span class="nb">int</span><span class="p">.</span><span class="n">__mul__</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">mul</span>
+<span class="n">factorial</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">reduce</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span></code></pre></figure>
 </div>
 
@@ -9437,10 +9437,11 @@ Los parámetros para poder añadir y eliminar direcciones de éstas listas son l
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-24 08:38:29 -0500
+	  Generated at 2020-04-24 11:30:11 -0500
 	  <br/>
-		<a href="https://travis-ci.org/CRySoL/web.source">
-		   travis-CI <img src="https://api.travis-ci.org/CRySoL/web.source.png?branch=master" alt="_built_"></a>
+		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
+		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">
+		</a>
 	</p>
 	<p>
 	  Visit <a href="https://groups.google.com/forum/?hl=es#!forum/crysol">our forum</a>.
