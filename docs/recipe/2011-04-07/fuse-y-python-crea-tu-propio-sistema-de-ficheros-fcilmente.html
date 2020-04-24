@@ -1,0 +1,6001 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>FUSE y python: crea tu propio sistema de ficheros fácilmente</title>
+    
+    <meta name="author" content="CRySoL">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/javascripts/main.js"></script>
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/stylesheets/pygment_trac.css" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+    
+
+  </head>
+
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+<!--
+	  <a class="brand-image" href="/"><img class="brand-image" src="/assets/themes//logo.png"/></a>
+-->
+          <a class="brand" href="/">CRySoL</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/about.html">About</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/publish.html">Publish</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/recipes.html">Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/users.html">Users</a></li>
+      	
+      
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="row-fluid">
+	<div class="content">
+          
+<div class="sidebar span3">
+  <div id="logo">
+  <a href="/">
+    <img src="/assets/images/logo.png" alt="logo"/>
+  </a>
+</div>
+
+  <div class="metadata">
+  <h2>this</h2>
+  <ul>
+    
+      <li>author: 
+  <a href="/users.html#int-0">
+   int-0
+  </a>
+
+
+        
+        <span class="author-photo">
+
+  
+    <img src="/assets/files/pictures/picture-8.jpg" width="48" alt="picture"/>
+  
+
+</span>
+
+      </li>
+      
+      
+    
+
+    <li>created: 2011-04-07 </li>
+
+    <li><a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2011-04-07-fuse-y-python-crea-tu-propio-sistema-de-ficheros-fcilmente.html">source</a> / <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2011-04-07-fuse-y-python-crea-tu-propio-sistema-de-ficheros-fcilmente.html">edit</a></li>
+
+  
+    <li>categories:
+    
+      <a href="/categories.html#recipe-ref">recipe</a>
+    
+    </li>
+  
+
+  
+      <li>migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1491">node/1491</a></li>
+  
+
+  
+    <li>tags:
+    
+      <a href="/tags.html#drivers-ref">drivers</a>
+    
+    </li>
+  
+  </ul>
+
+  
+     
+     
+  
+
+  
+     
+     
+  
+
+  <!-- AddThis Button BEGIN -->
+<div class="share addthis_toolbox addthis_default_style addthis_16x16_style">
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51cdd0d57c014017"></script>
+<!-- AddThis Button END -->
+
+</div>
+
+<div class="related">
+  <h2>related</h2>
+
+  <ul>
+   
+   
+      
+        
+          
+          <li><a href="/recipe/2013-10-10/change-primary-monitor.html">Changing primary monitor</a></li>
+        
+      
+        
+          
+          <li><a href="/recipe/2013-08-11/hp-p1005-debian.html">HP LaserJet P1005 with Debian and the free driver</a></li>
+        
+      
+        
+          
+          <li><a href="/recipe/2013-06-20/configure-wireless-rtl8723ae.html">Configurar tarjeta Realtek 8723AE en Debian</a></li>
+        
+      
+        
+          
+          <li><a href="/recipe/2013-02-10/altavoces-bluetooth-en-gnome.html">Altavoces bluetooth en GNOME</a></li>
+        
+      
+        
+          
+          <li><a href="/recipe/2011-07-01/apple-wireless-keyboard-con-debian.html">Apple Wireless Keyboard con Debian</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+   
+  </ul>
+
+  
+</div>
+
+<div class="recent">
+  <h2>recent</h2>
+  <ul>
+  
+    <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
+  
+    <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
+  
+    <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
+  
+    <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
+  
+    <li><a href="/recipe/2017-02-15/ultra-simple-tmux-recipe.html">Ultra simple tmux recipe</a></li>
+  
+  </ul>
+</div>
+
+</div>
+
+<div class="node span9">
+  <div class="page-header">
+    <h1>FUSE y python: crea tu propio sistema de ficheros fácilmente </h1>
+  </div>
+
+  <div class="row-fluid post-full">
+    <div class="span12">
+      <div class="content">
+	<blockquote>Buenas!Hace un par de días, en uno de mis ratos libres se me ocurrió buscar información sobre cómo crear tu propio sistema de ficheros para Linux (si, el kernel). En los nomerosos foros comentaban que era algo muy díficil y que requería mucho tiempo y esfuerzo. Bien, esto es verdad... pero también es verdad que no tenemos porqué enfrentarnos al problema en todo su esplendor. Existe un modulito para los Linux 2.4 y 2.6 que permite montar sistemas de ficheros en espacio de usuario. Esta receta explicará como crearnos nuestro propio <em>filesystem</em> para montarse mediante <em>fuse</em> y para ello nada mejor que crearnos nuestro propio FS.</blockquote>
+
+<!-- break -->
+
+<h2>Qué es <em>FUSE</em></h2>
+Inicialmente <em>FUSE</em> era un componente de <em>AFS</em>. Finalmente se desarrolló como componente independiente y <em>AFS</em> se convirtió en un módulo de <em>AFS</em>.
+
+<em>FUSE</em> se compone de un módulo que se carga en el kernel y una biblioteca que facilita el acceso al mismo. Además, para desarrollar módulos en un determinado lenguaje debe existir un <em>wrapper</em> para dicho lenguaje. Afortunadamente para nosotros existe uno para <em>python</em>, en Debian y similares:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>aptitude <span class="nb">install </span>python-fuse</code></pre></figure>
+</div>
+
+A la hora de utilizar un FS determinado <em>FUSE</em> se encargará de realizar todas las tareas comunes y cuando haya que realizar algo específico de nuestro FS se invocará a alguno de los métodos escritos por nosotros.
+
+<em>FUSE</em> está diseñado para ofrecer soporte absoluto a FS's que cumplan <em>todas</em> las normas <em>Posix</em>. Evidentemente no es necesario para el funcionamiento de cualquier FS que se implementen <em>todas</em> esas funciones (como veremos más adelante), así que si alguna acción no la hemos implementado <em>FUSE</em> se las arreglará con lo que tenga. Si finalmente no se puede realizar la acción se eleva un error que nos mostrará el sistema operativo (por ejemplo: sistema de ficheros de sólo lectura).
+
+<h2>Nuestro sistema de ficheros</h2>
+Nosotros vamos a crear un sistema de ficheros con las siguientes características:
+<ul><li><b>NO</b> es persistente, es decir: cuando desmontemos volarán todos los datos.</li>
+<li><b>NO</b> soportará gestión de permisos.</b></li>
+<li><b>NO</b> soportará fechas (ni de creación, modificación, etc.)</b></li>
+<li><b>NO</b> permitirá enlaces simbólicos.</li></ul>
+
+Vaya guarrería de sistema de ficheros... ¡pues claro! la primera versión está escrita en unas horas de tiempo libre además pretende ser <em>muy</em> simple para que sirva de ejemplo. Nosotros implementaremos lo siguiente:
+<ul><li>Creación/eliminación de directorios</li>
+<li>Creación/eliminación de ficheros</li>
+<li>Modificación de ficheros</li>
+<li>Mover/renombrar ficheros y directorios</li>
+<li>Nivel de anidamiento ilimitado (teórico, claro)</li></ul>
+
+¿Cómo implementaremos nuestro FS? pues de una forma muy simple: un directorio será un diccionario en python, la clave será el nombre (del fichero o directorio) y el valor será:
+<ul><li>Una cadena si se trata de un fichero</li>
+<li>Otro diccionario si se trata de un subdirectorio</li></ul>
+
+<h2>Cómo escribir un módulo para <em>FUSE</em></h2>
+Bueno, nuestros módulos van a ser ejecutables que aceptarán opciones similares a <em>mount</em> y mediante los cuales podremos montar directamente nuestro FS en la estructura de directorios de nuestro sistema.
+
+A la hora de depurar nuestro FS debéis saber que los <em>print</em> no se van a mostrar por pantalla (se acabó la depuración por <em>chivatos</em>) y que las excepciones no capturadas se las comerá <em>FUSE</em> y como mucho obtendremos por consola un <em>"imposible hacer XXX: argumento no válido"</em>. Así que puede ser una buena tarea estudiar un poquito el módulo <em>logging</em> de <em>python</em> ;).
+
+A la hora de implementar los métodos a los que invocará <em>FUSE</em> tenemos tres opciones:
+<ul><li>No escribir el método: se elevará una excepción que capturará <em>FUSE</em> y obtendremos un mesaje similar a <em>"imposible hacer XXX: no implementado"</em>.</li>
+<li>Escribir un método hueco que devuelva <em>error</em>: obtendremos el mensaje de antes, sin embargo nos resultará útil para saber qué acciones en el FS ocasionan llamadas a unos métodos u otros (cosa que supongo podríamos ver estudiando código y documentación).</li>
+<li>Implementar el método y que devuelva un valor correcto o error en caso de fallo: cuantos más de estos tengamos, mejor será nuestro FS :D.</li></ul>
+
+La clase principal, la que utilizará <em>FUSE</em> deberá heredar de la clase <em>Fuse</em> y cuando creemos una instacia de nuestro FS le pasaremos unos parámetros que indicarán a <em>FUSE</em> la clase de FS que va a manejar, si el módulo permite acceso concurrente, cómo debe tratar el carácter de separación de directorios, etc.
+
+Así de buenas a primeras el esqueleto de aplicación <em>FUSE</em> podría ser como sigue:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/env python
+</span>
+<span class="kn">import</span> <span class="nn">fuse</span>
+<span class="kn">from</span> <span class="nn">fuse</span> <span class="kn">import</span> <span class="n">Fuse</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fuse</span><span class="p">,</span> <span class="s">'__version__'</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="nb">RuntimeError</span><span class="p">,</span> \
+        <span class="s">"python-fuse doesn't know of fuse.__version__, probably it's too old."</span>
+<span class="n">fuse</span><span class="p">.</span><span class="n">fuse_python_api</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># My FS, only stored in memory :P
+#
+</span><span class="k">class</span> <span class="nc">DictFS</span><span class="p">(</span><span class="n">Fuse</span><span class="p">):</span>
+    <span class="s">"""
+    """</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="n">Fuse</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+        <span class="c1"># Root dir
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">root</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">usage</span> <span class="o">=</span> <span class="s">"""
+Userspace filesystem example
+
+"""</span> <span class="o">+</span> <span class="n">Fuse</span><span class="p">.</span><span class="n">fusage</span>
+    
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">DictFS</span><span class="p">(</span><span class="n">version</span> <span class="o">=</span> <span class="s">'%prog'</span> <span class="o">+</span> <span class="n">fuse</span><span class="p">.</span><span class="n">__version__</span><span class="p">,</span>
+                <span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span><span class="p">,</span>
+                <span class="n">dash_s_do</span><span class="o">=</span><span class="s">'setsingle'</span><span class="p">)</span>
+    <span class="n">fs</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">errex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">fs</span><span class="p">.</span><span class="n">main</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span></code></pre></figure>
+</div>
+
+Como véis en el constructor nos hemos creado el directorio raíz de nuestro FS. Si no hubiésemos necesitado nada, podríamos habernos ahorrado el método completo.
+
+<h2>Entradas de directorio y atributos</h2>
+Como ya sabéis, una entrada de directorio en nuestro FS será un fichero o un directorio. Cada vez que <em>FUSE</em> entre en un directorio o vaya a leer un fichero, preguntará primero por sus atributos. Para ello invocará al método <em>getstats(path)</em> de nuestra clase y le pasará la ruta <em>ruta completa</em> dentro de nuestro FS. El raíz de nuestro FS será '/' que no tiene porqué coincidir con el '/' de nuestro sistema. Este método es básico en nuestro FS y debe retornar un objeto de tipo <em>fuse.stats</em>.
+
+Podemos crearnos nosotros nuestra propia clase de atributos:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MyStat</span><span class="p">(</span><span class="n">fuse</span><span class="p">.</span><span class="n">Stat</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_mode</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_ino</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_dev</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_nlink</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_uid</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_gid</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_atime</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_mtime</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_ctime</span> <span class="o">=</span> <span class="mi">0</span></code></pre></figure>
+</div>
+
+Vamos a hacer esto porque en nuestro ejemplo siempre vamos a devolver un objeto de estos, pero modificando algunos atributos según sea el caso.
+<h3>Atributos de directorio</h3>
+Cambiaremos los siguientes valores:
+<ul><li>st_mode  = stat.S_IFDIR | 0755 (recordad que deben ser ejecutables)</li>
+<li>st_nlink = 2 (numero de enlaces al fichero, debe ser distinto de 0, en directorios se usa 2)</li></ul>
+
+El resto de parámetros podemos dejarlos intactos, ya hemos dicho que no trataremos al dueño del fichero ni las fechas de modificacion, acceso, etc. Además, para los directorios se asumen que tienen tamaño 0.
+
+<h3>Atributos de archivo</h3>
+Ahora los valores serán:
+<ul><li>st_mode = stat.S_IFREG | 0666 (así impedimos ejecución de ficheros en nuestro FS)</li>
+<li>st_link = 1 (en nuestro FS siempre será 1, 0 indicaría archivo borrado)</li>
+<li>st_size = <em>longitud del fichero (de la cadena en nuestro caso)</em></li></ul>
+
+<h2>Nuestas funciones auxiliares</h2>
+Bueno, lo suyo es que si nos hacemos un FS nos hagamos una clase a parte que implemente nuestro FS y el modulito de <em>FUSE</em> sirva de <em>wrapper</em> entre nuestra clase y el <em>FUSE</em>. Pero bueno, voy a pasar y como queremos un ejemplo <em>simple</em> lo metemos todo en la misma clase. Un ejemplo de esto serán las funciones auxiliares que nos vamos a crear.
+
+La principal es <em>__get_dir(path)</em> que, siendo <em>path</em> una lista de elementos (nombres de directorio), <em>caminará</em> desde el diccionario <em>root</em> hasta llegar al último elemento de la lista (directorio hoja) y nos lo devolverá.
+
+Los métodos <em>__join_path(path)</em> y <em>__path_list(path)</em> convierten una lista de elementos en una cadena del tipo <em>"/elemento1/elemento2"</em> y viceversa (si, conozco <em>os.path.join()</em> y tal pero preferí escribirlos yo).
+
+Por último está <em>__navigate(path)</em>. Este método nos resultará muy útil porque cada vez que <em>FUSE</em> se refiere a un elemento de nuestro FS lo hace utilizando la ruta completa dentro de nuestro FS. Así, si nos indicase <em>"/dir1/dir2/elemento1"</em>, este método nos devolvería el directorio <em>dir2</em> y el nombre de <em>elemento1</em>. Como veréis más adelante, esto nos hará todo el trabajo.
+
+El código de las funciones es el siguiente, no hay mucho más que comentar sobre ellas:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># Return string path as list of path elements
+</span>    <span class="k">def</span> <span class="nf">__path_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">raw_path</span> <span class="o">=</span> <span class="n">path</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'/'</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">raw_path</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">entry</span> <span class="o">!=</span> <span class="s">''</span><span class="p">:</span>
+                <span class="n">path</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span>
+
+    <span class="c1"># Return list of path elements as string
+</span>    <span class="k">def</span> <span class="nf">__join_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">joined_path</span> <span class="o">=</span> <span class="s">'/'</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+            <span class="n">joined_path</span> <span class="o">+=</span> <span class="p">(</span><span class="n">element</span> <span class="o">+</span> <span class="s">'/'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">joined_path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Return dict of a given path
+</span>    <span class="k">def</span> <span class="nf">__get_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">root</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__path_list</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+                    <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Walk over files?
+</span>                    <span class="k">return</span> <span class="p">{}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Walk over non-existent dirs?
+</span>                <span class="k">return</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="n">level</span>
+
+    <span class="c1"># Return dict of a given path plus last name of path
+</span>    <span class="k">def</span> <span class="nf">__navigate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__path_list</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">path</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="c1"># Get level
+</span>        <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__get_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__join_path</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">level</span><span class="p">,</span> <span class="n">entry</span></code></pre></figure>
+</div>
+
+<h2>Los métodos propios de nuestro FS</h2>
+Bien, ya tenemos todos los ingredientes, pero si ahora intentásemos montar un directorio con nuestro módulo nos daría error porque <em>FUSE</em> no sería capaz de leer el directorio raíz de nuestro FS. La primera llamada que intenta <em>FUSE</em> es: <em>getattr('/')</em> así pues, lo primero que tenemos que implementar es ese método:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="n">MyStat</span><span class="p">()</span>
+
+        <span class="c1"># Ask for root dir
+</span>        <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="s">'/'</span><span class="p">:</span>
+            <span class="c1">#return self.root.stats
+</span>            <span class="n">st</span><span class="p">.</span><span class="n">st_mode</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">S_IFDIR</span> <span class="o">|</span> <span class="mi">0755</span>
+            <span class="n">st</span><span class="p">.</span><span class="n">st_nlink</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="k">return</span> <span class="n">st</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">entry</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+            <span class="c1"># Entry found
+</span>            <span class="c1"># is a directory?
+</span>            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+                <span class="n">st</span><span class="p">.</span><span class="n">st_mode</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">S_IFDIR</span> <span class="o">|</span> <span class="mi">0755</span>
+                <span class="n">st</span><span class="p">.</span><span class="n">st_nlink</span> <span class="o">=</span> <span class="mi">2</span>
+                <span class="k">return</span> <span class="n">st</span>
+            <span class="c1"># is a file?
+</span>            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="n">st</span><span class="p">.</span><span class="n">st_mode</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">S_IFREG</span> <span class="o">|</span> <span class="mi">0666</span>
+                <span class="n">st</span><span class="p">.</span><span class="n">st_nlink</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">st</span><span class="p">.</span><span class="n">st_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span>
+                <span class="k">return</span> <span class="n">st</span>
+
+        <span class="c1"># File not found
+</span>        <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span></code></pre></figure>
+</div>
+Este método creo que es un poco <em>spaguetti</em> porque el caso especial del <em>root</em> realmente no existiría. A parte de esto el funcionamiento es simple: creamos un objeto <em>stats</em>. Cuando nos preguntan por un elemento, si existe y es un directorio (un diccionario) ponemos unos valores a los atributos y lo retornamos. Si era un archivo (una cadena) pues ponemos otros valores y lo retornamos. Si la función no retorna nada obtendremos un <em>parámetro inválido</em> y la operación sobre nuestro FS fallará. Si retornamos <em>-errno.ENOENT</em> obtendremos un <em>fichero no encontrado</em>.
+
+<h2>Operaciones con directorios</h2>
+Ahora mismo ya podríamos montar nuestro FS, pero un simple <em>ls</em> sobre él nos daría error. Ahora hay que implementar tres operaciones para poder listar, crear y borrar directorios: <em>readdir(path, offset)</em>, <em>mkdir(path, mode)</em> y <em>rmdir(path)</em> respectivamente.
+
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">readdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="n">file_entries</span> <span class="o">=</span> <span class="p">[</span><span class="s">'.'</span><span class="p">,</span><span class="s">'..'</span><span class="p">]</span>
+
+        <span class="c1"># Get filelist
+</span>        <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__get_dir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">file_entries</span> <span class="o">+=</span> <span class="n">level</span><span class="p">.</span><span class="n">keys</span><span class="p">()</span>
+
+        <span class="n">file_entries</span> <span class="o">=</span> <span class="n">file_entries</span><span class="p">[</span><span class="n">offset</span><span class="p">:]</span>
+        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">file_entries</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">fuse</span><span class="p">.</span><span class="n">Direntry</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></code></pre></figure>
+</div>
+Este método recibe el <em>path</em> sobre el que obtener el contenido y un <em>offset</em> que indica cual es el primer elemento de la lista a devolver (en todas mis pruebas siempre valía 0). Como véis hay que añadir a pelo los directorios "," (por eso en directorios st_nlink = 2) y el enlace al padre (esto es: ".."). En vez de retornar una lista pasamos directamente el iterador. Usamos un método de <em>python-fuse</em> que construye una entrada de directorio a partir del nombre.
+
+Con este método podremos hacer ahora <em>ls</em> en nuestro FS que no dará error... pero claro, tampoco mostrará nada porque nuestro FS está vacío... Vamos a permitir la creación de directorios, para ello implementamos el siguiente método:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">mkdir</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mode</span> <span class="p">):</span>
+        <span class="n">level</span><span class="p">,</span> <span class="n">entry</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Make new dir
+</span>        <span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></code></pre></figure>
+</div>
+
+Es tan fácil que no hay nada que explicar... ;) Si ahora montamos nuestro FS (al final tenéis un ejemplo de cómo) veréis que podemos crear directorios, ir a ellos y listarlos... ¡todo un avance! Si intentamos borrarlos... ¡fail! así que añadimos esa posibilidad:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">rmdir</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span> <span class="p">):</span>
+        <span class="n">level</span><span class="p">,</span> <span class="n">entry</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
+
+        <span class="c1"># Delete entry
+</span>        <span class="k">del</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span></code></pre></figure>
+</div>
+Ahora también podremos hacer <em>rmdir</em> o <em>rm</em> sobre un directorio... pero cuidado que si un directorio no está vacío, se eliminará también (aquí no comprobamos que no lo esté). No es demasiado grave puesto que <em>python</em> tiene <em>garbage collector</em> y no se nos quedarán por ahí directorios sin enlazar ocupando memoria...
+
+<h2>Operaciones con ficheros</h2>
+Bien, ya podemos trabajar con directorios como con cualquier otro FS... pero... ¿y los ficheros? estos son bastante más chicha...
+
+Si montáis nuestro FS y hacéis un <em>touch</em> os dará un <em>unimplemented error</em>, nos hacen falta dos métodos (además del <em>getstat()</em>) para poder realizarlo: <em>mknod(path, mode, dev)</em> y <em>open(path, flags)</em>. El primero creará el enlace y el segundo intentará abrirlo (aunque luego no realice operaciones sobre él). Estas dos operaciones no deben devolver error (o elevar una excepción) para que <em>touch</em> funcione. La primera es bastante sencilla:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">mknod</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">dev</span> <span class="p">):</span>
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Make empty file
+</span>        <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="s">''</span></code></pre></figure>
+</div>
+
+Nuestro método no retornará nada (ni elevará ninguna excepción) lo cual indicará a <em>FUSE</em> que todo ha ido bien. Del modo de creación pasamos completamente (ya que no mantenemos un objeto <em>stats</em> por cada elemento del FS). El parámetro <em>dev</em> es un identificador interno del kernel que representa al manejador de dispositivo asociado al FS... también pasaremos de él :).
+
+El segundo método tampoco es complicado:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">open</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">flags</span> <span class="p">):</span>
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span></code></pre></figure>
+</div>
+Símplemente verificamos que exista o no el fichero. Daos cuenta que en un FS real esto es más complicado puesto que deberíamos comprobar los flags con los permisos del fichero. También mantendríamos una lista de ficheros abiertos si quisiéramos controlar la concurrencia, etc.
+
+En este momento el <em>touch</em> crearía ficheros vacíos... pero después daría un error extraño. ¡Pues claro! porque hemos implementado el <em>open()</em> pero no el <em>close()</em>... que en este caso se llama <em>release(path)</em>:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">release</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">flags</span> <span class="p">):</span>
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span></code></pre></figure>
+</div>
+Todo lo dicho para el <em>open()</em> es válido ahora para <em>release()</em> así que poco más que comentar.
+
+En este punto ya podemos trabajar con directorios en nuestro FS y crear archivos vacíos con <em>touch</em>... pero si creamos un fichero con <em>emacs</em> por ejemplo y le damos a guardar... ¡error! pues claro... para leer y escribir de un fichero necesitamos dos métodos nuevos: <em>read(path, length, offset)</em> y <em>write(path, buf, offset)</em>.
+
+La función <em>read()</em> debe retornar un <em>buffer</em> (una cadena, <em>en python</em>) de <b>como mucho</b> <em>length</em> bytes, leídos del elemento <em>path</em> a partir del byte <em>offset</em>. O dicho en <em>pythonés</em>:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">read</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">offset</span> <span class="p">):</span>
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
+
+        <span class="c1"># Check ranges
+</span>        <span class="n">file_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">file_size</span><span class="p">:</span>
+            <span class="c1"># Fix size
+</span>            <span class="k">if</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">file_size</span><span class="p">:</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="n">file_size</span> <span class="o">-</span> <span class="n">offset</span>
+            <span class="n">buf</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">][</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span> <span class="o">+</span> <span class="n">length</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Invalid range returns no data, instead error!
+</span>            <span class="n">buf</span> <span class="o">=</span> <span class="s">''</span>
+        <span class="k">return</span> <span class="n">buf</span></code></pre></figure>
+</div>
+El método es bastante simple, pero hay que tener cuidado con los rangos y demás. Con el método <em>write()</em> tenemos menos problemas:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">write</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">offset</span> <span class="p">):</span>
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Write data into file
+</span>        <span class="k">if</span> <span class="n">offset</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]):</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]))</span>
+        <span class="c1"># This operation could be truncate the file!!
+</span>        <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">][:</span><span class="n">offset</span><span class="p">]</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+        
+        <span class="c1"># Return written bytes
+</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span></code></pre></figure>
+</div>
+
+¡Y listo! ya podemos leer y escribir dentro de los ficheros de nuestro FS... ahora abrimos un fichero existente, le añadimos algunos bytes, le damos a aguardar y... ¡¡error!! ¿y esto? pues... ¿qué va a ser? esa operación también hay que implementarla y se llama <em>truncate(path, size)</em>: permite modificar el tamaño de un fichero existente. El método es sencillo: truncar la cadena o concatenarla según sea necesario...
+
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">truncate</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">size</span> <span class="p">):</span>
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">size</span><span class="p">:</span>
+            <span class="c1"># Truncate file to specified size
+</span>            <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">][:</span><span class="n">size</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Add more bytes
+</span>            <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">+=</span> <span class="s">' '</span> <span class="o">*</span> <span class="p">(</span><span class="n">size</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]))</span></code></pre></figure>
+</div>
+
+Y ahora sí... montad el FS y perrear con él... veréis que <em>casi</em> todo funciona. ¿Todo? pues si intentáis mover/renombrar un fichero o directorio... ¡¡FAIL!!... aún nos queda un método más: <em>rename(oldPath, newPath)</em>. Implementar el movimiento/renombrado de ficheros en nuestro FS tampoco es muy difícil :P. A ver qué os parece:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">rename</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">oldPath</span><span class="p">,</span> <span class="n">newPath</span> <span class="p">):</span>
+        <span class="n">oldLevel</span><span class="p">,</span> <span class="n">oldFilename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">oldPath</span><span class="p">)</span>
+
+        <span class="c1"># Can't use __navigate() because newPath-filename not exists
+</span>        <span class="n">newPath</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__path_list</span><span class="p">(</span><span class="n">newPath</span><span class="p">)</span>
+        <span class="n">newFilename</span> <span class="o">=</span> <span class="n">newPath</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">newLevel</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__get_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__join_path</span><span class="p">(</span><span class="n">newPath</span><span class="p">))</span>
+
+        <span class="c1"># Make new link
+</span>        <span class="n">newLevel</span><span class="p">[</span><span class="n">newFilename</span><span class="p">]</span> <span class="o">=</span> <span class="n">oldLevel</span><span class="p">[</span><span class="n">oldFilename</span><span class="p">]</span>
+
+        <span class="c1"># Remove old
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">oldPath</span><span class="p">)</span></code></pre></figure>
+</div>
+Tampoco hay mucho que comentar así que ya os dejo de dar la lata... ¡ahora a probarlo!
+
+<h2>Probando el invento</h2>
+Supongamos que habéis creado el archivo <em>dictfs.py</em> con permisos de ejecución y toda la pesca. Si estáis en el grupo de <em>FUSE</em> o sois <em>sudoers</em>:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span><span class="nb">mkdir </span>mymnt
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo</span> ./dictfs.py mymnt/</code></pre></figure>
+</div>
+
+Y ya está... ¡montadito! (hombres de poca fé, tecleen <em>mount</em> para verificarlo!). Para desmontar pues el <em>umount</em> de toda la vida ;)
+
+<h2>El código completo</h2>
+Bueno, tengo el ejemplo en <a href="https://github.com/int-0/sillygames">mi github</a> pero aquí os voy a copiar la versión inicial (supongo que si actualizo, también lo haré aquí):
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/env python
+#
+# Released under GPLv3 license
+# Read full text at: gnu.org/licenses/gpl-3.0.html
+#
+</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">stat</span>
+<span class="kn">import</span> <span class="nn">errno</span>
+
+<span class="kn">import</span> <span class="nn">fuse</span>
+<span class="kn">from</span> <span class="nn">fuse</span> <span class="kn">import</span> <span class="n">Fuse</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fuse</span><span class="p">,</span> <span class="s">'__version__'</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="nb">RuntimeError</span><span class="p">,</span> \
+        <span class="s">"python-fuse doesn't know of fuse.__version__, probably it's too old."</span>
+<span class="n">fuse</span><span class="p">.</span><span class="n">fuse_python_api</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">LOG_FILENAME</span> <span class="o">=</span> <span class="s">'dictfs.log'</span>
+<span class="n">logging</span><span class="p">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">LOG_FILENAME</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="p">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="c1"># Only make one of this whe getstat() is called. Real FS has one per entry (file
+# or directory).
+#
+</span><span class="k">class</span> <span class="nc">MyStat</span><span class="p">(</span><span class="n">fuse</span><span class="p">.</span><span class="n">Stat</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_mode</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_ino</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_dev</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_nlink</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_uid</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_gid</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_atime</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_mtime</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">st_ctime</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># My FS, only stored in memory :P
+#
+</span><span class="k">class</span> <span class="nc">DictFS</span><span class="p">(</span><span class="n">Fuse</span><span class="p">):</span>
+    <span class="s">"""
+    """</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="n">Fuse</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+        <span class="c1"># Root dir
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">root</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Return string path as list of path elements
+</span>    <span class="k">def</span> <span class="nf">__path_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">raw_path</span> <span class="o">=</span> <span class="n">path</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'/'</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">raw_path</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">entry</span> <span class="o">!=</span> <span class="s">''</span><span class="p">:</span>
+                <span class="n">path</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">path</span>
+
+    <span class="c1"># Return list of path elements as string
+</span>    <span class="k">def</span> <span class="nf">__join_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">joined_path</span> <span class="o">=</span> <span class="s">'/'</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+            <span class="n">joined_path</span> <span class="o">+=</span> <span class="p">(</span><span class="n">element</span> <span class="o">+</span> <span class="s">'/'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">joined_path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Return dict of a given path
+</span>    <span class="k">def</span> <span class="nf">__get_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">root</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__path_list</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+                    <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Walk over files?
+</span>                    <span class="k">return</span> <span class="p">{}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Walk over non-existent dirs?
+</span>                <span class="k">return</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="n">level</span>
+
+    <span class="c1"># Return dict of a given path plus last name of path
+</span>    <span class="k">def</span> <span class="nf">__navigate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="c1"># Path analysis
+</span>        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__path_list</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">path</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="c1"># Get level
+</span>        <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__get_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__join_path</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">level</span><span class="p">,</span> <span class="n">entry</span>
+
+    <span class="c1">### FILESYSTEM FUNCTIONS ###
+</span>
+    <span class="k">def</span> <span class="nf">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="n">MyStat</span><span class="p">()</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** getattr(%s)'</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Ask for root dir
+</span>        <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="s">'/'</span><span class="p">:</span>
+            <span class="c1">#return self.root.stats
+</span>            <span class="n">st</span><span class="p">.</span><span class="n">st_mode</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">S_IFDIR</span> <span class="o">|</span> <span class="mi">0755</span>
+            <span class="n">st</span><span class="p">.</span><span class="n">st_nlink</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="k">return</span> <span class="n">st</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">entry</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+            <span class="c1"># Entry found
+</span>            <span class="c1"># is a directory?
+</span>            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+                <span class="n">st</span><span class="p">.</span><span class="n">st_mode</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">S_IFDIR</span> <span class="o">|</span> <span class="mi">0755</span> <span class="c1"># rwx r-x r-x
+</span>                <span class="n">st</span><span class="p">.</span><span class="n">st_nlink</span> <span class="o">=</span> <span class="mi">2</span>
+                <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** getattr_dir_found: %s'</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">st</span>
+            <span class="c1"># is a file?
+</span>            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="n">st</span><span class="p">.</span><span class="n">st_mode</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">S_IFREG</span> <span class="o">|</span> <span class="mi">0666</span> <span class="c1"># rw- rw- rw-
+</span>                <span class="n">st</span><span class="p">.</span><span class="n">st_nlink</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">st</span><span class="p">.</span><span class="n">st_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span>
+                <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** getattr_file_found: %s'</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">st</span>
+
+        <span class="c1"># File not found
+</span>        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** getattr_entry_not_found'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
+
+    <span class="k">def</span> <span class="nf">readdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** readdir(%s, %d)'</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>       
+
+        <span class="n">file_entries</span> <span class="o">=</span> <span class="p">[</span><span class="s">'.'</span><span class="p">,</span><span class="s">'..'</span><span class="p">]</span>
+
+        <span class="c1"># Get filelist
+</span>        <span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__get_dir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Get all directory entries
+</span>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">file_entries</span> <span class="o">+=</span> <span class="n">level</span><span class="p">.</span><span class="n">keys</span><span class="p">()</span>
+
+        <span class="n">file_entries</span> <span class="o">=</span> <span class="n">file_entries</span><span class="p">[</span><span class="n">offset</span><span class="p">:]</span>
+        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">file_entries</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">fuse</span><span class="p">.</span><span class="n">Direntry</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">mkdir</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mode</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** mkdir(%s, %d)'</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">entry</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Make new dir
+</span>        <span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">mknod</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">dev</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** mknod(%s, %d, %d)'</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">dev</span><span class="p">)</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Make empty file
+</span>        <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="s">''</span>
+
+    <span class="c1"># This method could maintain opened (or locked) file list and,
+</span>    <span class="c1"># of course, it could check file permissions.
+</span>    <span class="c1"># For now, only check if file exists...
+</span>    <span class="k">def</span> <span class="nf">open</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">flags</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** open(%s, %d)'</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
+
+        <span class="c1"># No exception or no error means OK
+</span>
+    <span class="c1"># In this example this method is the same as open(). This method
+</span>    <span class="c1"># is called by close() syscall, it's means that if open() maintain
+</span>    <span class="c1"># an opened-file list, or lock files, or something... this method
+</span>    <span class="c1"># must do reverse operation (refresh opened-file list, unlock files...
+</span>    <span class="k">def</span> <span class="nf">release</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">flags</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** release(%s, %d)'</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
+
+    <span class="k">def</span> <span class="nf">read</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">offset</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** read(%s, %d, %d)'</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
+
+        <span class="c1"># Check ranges
+</span>        <span class="n">file_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">file_size</span><span class="p">:</span>
+            <span class="c1"># Fix size
+</span>            <span class="k">if</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">file_size</span><span class="p">:</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="n">file_size</span> <span class="o">-</span> <span class="n">offset</span>
+            <span class="n">buf</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">][</span><span class="n">offset</span><span class="p">:</span><span class="n">offset</span> <span class="o">+</span> <span class="n">length</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Invalid range returns no data, instead error!
+</span>            <span class="n">buf</span> <span class="o">=</span> <span class="s">''</span>
+        <span class="k">return</span> <span class="n">buf</span>
+
+    <span class="k">def</span> <span class="nf">rmdir</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** rmdir(%s)'</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">entry</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
+
+        <span class="c1"># Delete entry
+</span>        <span class="k">del</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">truncate</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">size</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** truncate(%s, %d)'</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">size</span><span class="p">:</span>
+            <span class="c1"># Truncate file to specified size
+</span>            <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">][:</span><span class="n">size</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Add more bytes
+</span>            <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">+=</span> <span class="s">' '</span> <span class="o">*</span> <span class="p">(</span><span class="n">size</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]))</span>
+    
+    <span class="k">def</span> <span class="nf">unlink</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** unlink(%s)'</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">entry</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># File exists?
+</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span><span class="p">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
+
+        <span class="c1"># Remove entry
+</span>        <span class="k">del</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">write</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">offset</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** write(%s, %s, %d)'</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span> <span class="n">offset</span><span class="p">)</span>
+
+        <span class="n">level</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># Write data into file
+</span>        <span class="k">if</span> <span class="n">offset</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]):</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]))</span>
+        <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">][:</span><span class="n">offset</span><span class="p">]</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+        
+        <span class="c1"># Return written bytes
+</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">rename</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">oldPath</span><span class="p">,</span> <span class="n">newPath</span> <span class="p">):</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** rename(%s, %s)'</span><span class="p">,</span> <span class="n">oldPath</span><span class="p">,</span> <span class="n">newPath</span><span class="p">)</span>
+
+        <span class="n">oldLevel</span><span class="p">,</span> <span class="n">oldFilename</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__navigate</span><span class="p">(</span><span class="n">oldPath</span><span class="p">)</span>
+        <span class="c1"># Can't use __navigate() because newPath-filename not exists
+</span>        <span class="n">newPath</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__path_list</span><span class="p">(</span><span class="n">newPath</span><span class="p">)</span>
+        <span class="n">newFilename</span> <span class="o">=</span> <span class="n">newPath</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">newLevel</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__get_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__join_path</span><span class="p">(</span><span class="n">newPath</span><span class="p">))</span>
+
+        <span class="c1"># Make new link
+</span>        <span class="n">newLevel</span><span class="p">[</span><span class="n">newFilename</span><span class="p">]</span> <span class="o">=</span> <span class="n">oldLevel</span><span class="p">[</span><span class="n">oldFilename</span><span class="p">]</span>
+
+        <span class="c1"># Remove old
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">oldPath</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">usage</span> <span class="o">=</span> <span class="s">"""
+Userspace filesystem example
+
+"""</span> <span class="o">+</span> <span class="n">Fuse</span><span class="p">.</span><span class="n">fusage</span>
+    
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">DictFS</span><span class="p">(</span><span class="n">version</span> <span class="o">=</span> <span class="s">'%prog'</span> <span class="o">+</span> <span class="n">fuse</span><span class="p">.</span><span class="n">__version__</span><span class="p">,</span>
+                <span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span><span class="p">,</span>
+                <span class="n">dash_s_do</span><span class="o">=</span><span class="s">'setsingle'</span><span class="p">)</span>
+    <span class="n">fs</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">errex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">fs</span><span class="p">.</span><span class="n">main</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span></code></pre></figure>
+</div>
+
+Va con comentarios del director y <em>logging</em>, muy útil... ;)
+
+<h2>Enlaces interesantes</h2>
+<ul><li><a href="http://fuse.sourceforge.net/">http://fuse.sourceforge.net/</a></li>
+<li><a href="http://www.ibm.com/developerworks/linux/library/l-fuse/">http://www.ibm.com/developerworks/linux/library/l-fuse/</a></li>
+<li><a href="http://sourceforge.net/apps/mediawiki/fuse/index.php?title=FUSE_Python_tutorial">http://sourceforge.net/apps/mediawiki/fuse/index.php?title=FUSE_Python_tutorial</a></li>
+<li>/usr/share/doc/python-fuse/examples/</li></ul>
+
+      </div>
+
+      
+
+      <hr/>
+
+      <div class="pagination pagination-centered">
+  <ul>
+    
+      <li class="prev"><a href="/2011-04-07/antiprogramacin.html" title="Antiprogramación">&larr; Previous</a></li>
+    
+
+    <li><a href="/archive.html">Archive</a></li>
+
+    
+      <li class="next"><a href="/2011-04-12/atajos-en-bash.html" title="Atajos en bash">Next &rarr;</a></li>
+    
+  </ul>
+</div>
+
+
+      <hr/>
+
+      
+
+<div id="show_comments"> [ <a onclick="show_comments();"> show comments </a> ] </div>
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'crysol'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+	</div>
+      </div>
+
+      <hr/>
+
+      <footer>
+        <p>&copy; 2020 CRySoL
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
+	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
+	  <br/>
+	  Generated at 2020-04-24 08:38:29 -0500
+	  <br/>
+		<a href="https://travis-ci.org/CRySoL/web.source">
+		   travis-CI <img src="https://api.travis-ci.org/CRySoL/web.source.png?branch=master" alt="_built_"></a>
+	</p>
+	<p>
+	  Visit <a href="https://groups.google.com/forum/?hl=es#!forum/crysol">our forum</a>.
+	</p>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
+

