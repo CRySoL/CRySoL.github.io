@@ -26,7 +26,7 @@ jobs:
         
     - name: commit result
       run: |
-        cp -r temp/* docs/
+        cp -r temp/docs/* docs/
         git add docs/*
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
