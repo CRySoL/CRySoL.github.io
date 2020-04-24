@@ -321,11 +321,11 @@ print(factorial(10))
 
 Aunque Python se puede utilizar como un lenguaje convencional (tipo Java), siempre hay una manera más «pythónica» de hacer las cosas, utilizando por ejemplo las características de programación funcional que incorpora. Como ejemplo, el factorial se puede hacer aún más corto con algo como:
 
-
 <div>
 {% highlight python %}
 from functools import reduce
-factorial = lambda x: reduce(int.__mul__, range(1, x+1), 1)
+from operator import mul
+factorial = lambda x: reduce(mul, range(1, x+1), 1)
 print(factorial(10))
 {% endhighlight %}
 </div>
