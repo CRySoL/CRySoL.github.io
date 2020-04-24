@@ -3,7 +3,7 @@ layout: post
 title: "Plugins en Python"
 author: magmax
 category: recipe
-tags: python
+tags: Python
 lang: es
 ---
 
