@@ -1,18 +1,15 @@
 name: Jekyll automatic build
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    name: compile jekyll site
     steps:
     - uses: actions/checkout@v2
+      
     - name: Build the site in the jekyll/builder container
       run: |
         docker run \
@@ -26,11 +23,4 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -a -m "github action jekyll build"
-
-
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-  
-
+        git push
