@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - Debian-devel
+render_with_liquid: false
 ---
 bq(head). *Pbuilder* es un sistema de construcción automática de paquetes Debian. El principal objetivo de este sistema es poder generar paquetes Debian (o Ubuntu) sin "ensuciar" nuestro sistema con las dependencias de los paquetes que estemos generando.
 

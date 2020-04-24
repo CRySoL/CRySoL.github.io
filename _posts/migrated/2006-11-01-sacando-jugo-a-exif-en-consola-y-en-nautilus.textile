@@ -6,6 +6,7 @@ created: 1162384820
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Esta receta recoge algunas herramientas que pueden resultar interesantes para trabajar con las cabeceras EXIF de los JPEG. Si lo que buscas es modificar la imagen propiamente dicha, mira la receta titulada "Edición de imágenes en consola, con ImageMagick":/node/280.
 
@@ -35,7 +36,7 @@ h3. Con exiftran
 
 <div class="console">
 {% highlight console %}
-$ exiftran -api *.jpg 
+$ exiftran -api *.jpg
 {% endhighlight %}
 </div>
 
@@ -44,7 +45,7 @@ h3. Con jhead
 
 <div class="console">
 {% highlight console %}
-$ jhead -autorot *.jpg 
+$ jhead -autorot *.jpg
 {% endhighlight %}
 </div>
 
@@ -71,24 +72,24 @@ Lo más práctico es poner un nombre del tipo @año-mes-día_hora:minuto.jpg@ po
 ==
 <div class="console">
 {% highlight console %}
- $ jhead -exonly -n%Y-%m-%d_%H:%M_ *.jpg 
+ $ jhead -exonly -n%Y-%m-%d_%H:%M_ *.jpg
 {% endhighlight %}
 </div>==
 
-Usando @-exonly@, el programa pasará por alto todos los .jpg que no tengan información EXIF, es decir, que no proceden de la cámara digital. 
+Usando @-exonly@, el programa pasará por alto todos los .jpg que no tengan información EXIF, es decir, que no proceden de la cámara digital.
 
 Si quieres hacerte otro g-script para nautilus también con esto, ya has visto que es complicadísimo. ;-)
 
 
 h2. Fechar ficheros según la fecha de captura
 
-Muchos de los programas que se utilizan para extraer las fotos de la cámara ponen a los ficheros la fecha del momento de la extracción. Esta fecha también cambia se editas la foto para arreglar algún problema o añadir un efecto. 
+Muchos de los programas que se utilizan para extraer las fotos de la cámara ponen a los ficheros la fecha del momento de la extracción. Esta fecha también cambia se editas la foto para arreglar algún problema o añadir un efecto.
 
-La idea es poner a los ficheros la fecha del momento de la captura para (como en el caso anterior) poder ordenar las fotos en un navegador de ficheros conforme a su fecha. 
+La idea es poner a los ficheros la fecha del momento de la captura para (como en el caso anterior) poder ordenar las fotos en un navegador de ficheros conforme a su fecha.
 
 
 <div class="console">
 {% highlight console %}
-$ jhead -ft *.jpg 
+$ jhead -ft *.jpg
 {% endhighlight %}
 </div>

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Debian-devel
+render_with_liquid: false
 ---
 Esta receta explica de forma muy resumida los pasos más importantes para crear y mantener un paquetillo Debian, y cumpliendo la política de Debian.
 
@@ -95,7 +96,7 @@ La primera está en formato nroff y las otras dos en DocBook. Lo más fácil es 
 
 <div class="console">
 {% highlight console %}
- pyhello-0.1$ *mv debian/manpage.xml.ex debian/pyhello.xml* 
+ pyhello-0.1$ *mv debian/manpage.xml.ex debian/pyhello.xml*
 {% endhighlight %}
 </div>
 
@@ -205,7 +206,7 @@ Ejecuta:
 
 <div class="console">
 {% highlight console %}
- pyhello-0.1$ *dpkg-buildpackage -rfakeroot* 
+ pyhello-0.1$ *dpkg-buildpackage -rfakeroot*
 {% endhighlight %}
 </div>
 
@@ -244,14 +245,14 @@ h2. Limpieza
 
 <div class="console">
 {% highlight console %}
- pyhello-0.1$ fakeroot debian/rules clean 
+ pyhello-0.1$ fakeroot debian/rules clean
 {% endhighlight %}
 </div>
 
 
 h2. Mantenimiento básico
 
-Una vez terminado el paquete, lo lógico es distribuirlo de algún modo, ya sea como parte de Debian, en un repositorio de paquetes no-oficial o incluso en tu propia página web. 
+Una vez terminado el paquete, lo lógico es distribuirlo de algún modo, ya sea como parte de Debian, en un repositorio de paquetes no-oficial o incluso en tu propia página web.
 
 En cualquier caso, debes tener claro un principio universal: "no hay nada definitivo". Es decir, que más tarde o más temprano tendrás que hacer cambios en el paquete, ya sea para adoptar los cambios que el autor haga en su programa o para arreglar bugs cometidos por él o por ti (no es relevante que el autor y el mantenedor sean la misma persona). También puede que a los simpáticos Debian Developers les dé por hacer cambios en la _policy_.
 
@@ -264,7 +265,7 @@ En estos casos, debes solucionar el problema y crear una nueva revisión del paq
 
 <div class="console">
 {% highlight console %}
- pyhello-0.1$ dch -i 
+ pyhello-0.1$ dch -i
 {% endhighlight %}
 </div>
 
@@ -278,7 +279,7 @@ La otra tarea importante que realiza un mantenedor es empaquetar las nuevas vers
 
 <div class="console">
 {% highlight console %}
- pyhello-0.1$ uupdate -u pyhello-0.2.tar.gz 
+ pyhello-0.1$ uupdate -u pyhello-0.2.tar.gz
 {% endhighlight %}
 </div>
 

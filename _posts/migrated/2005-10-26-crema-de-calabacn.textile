@@ -6,8 +6,9 @@ created: 1130366207
 author: gloria
 comments: true
 category: cooking
+render_with_liquid: false
 ---
-h1. Ficha 
+h1. Ficha
 
 <!--break-->
 
@@ -17,7 +18,7 @@ h1. Ficha
 * Comensales: 2
 
 
-h1. Ingredientes: 
+h1. Ingredientes:
 
 * 650 g de calabacines
 * 3 quesitos ligeros
@@ -44,4 +45,3 @@ h1. Preparación
 h1. Comentarios
 
 Es una receta rápida, barata, sana y sabrosa. Ideal como cena ligera para quedar bien con las visitas.
-

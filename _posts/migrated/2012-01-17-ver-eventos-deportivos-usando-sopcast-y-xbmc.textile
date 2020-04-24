@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - multimedia
+render_with_liquid: false
 ---
 Que XBMC es el mejor software para media-centers es algo que poca gente discute. La receta que os traigo os permitirá ver todo tipo de eventos deportivos usando XBMC desde vuestra GNU/Linux usando el protocolo Sopcast.
 
@@ -22,7 +23,7 @@ El segundo paso es instalar el plugin que nos permitirá acceder a multitud de e
 Para instalarlo debemos descargar el siguiente fichero
 <a href="http://xbmc-development-with-passion.googlecode.com/files/repository.MaxMustermann.xbmc-1.0.1.zip">http://xbmc-development-with-passion.googlecode.com/files/repository.MaxMustermann.xbmc-1.0.1.zip</a>
 
-Una vez descargado, arrancamos xbmc y vamos a Sistema->Add-ons->Instalar desde un archivo zip. Seleccionamos el fichero zip que acamos de descargar 
+Una vez descargado, arrancamos xbmc y vamos a Sistema->Add-ons->Instalar desde un archivo zip. Seleccionamos el fichero zip que acamos de descargar
 
 Una vez instalado el fichero zip, vamos a la opción Conseguir Add-ons->MaxMustermann's add-ons->Add-ons de Video->SportsDevil Y seleccionamos la opción Instalar.
 

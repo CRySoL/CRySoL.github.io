@@ -10,6 +10,7 @@ tags:
 - Arco
 - drivers
 - Debian
+render_with_liquid: false
 ---
 En esta micro-receta voy a explicar que hay que hacer para que Debian y, en concreto, Xorg, detecte el _stylus_ de esta tablet PC
 

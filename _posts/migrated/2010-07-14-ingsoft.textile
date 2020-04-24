@@ -8,6 +8,7 @@ comments: true
 category: opinion
 tags:
 - INGSOFT
+render_with_liquid: false
 ---
 Tras el _pseudo-orwelliano_ término «INGSOFT» me propongo escribir algunos posts (breves) sobre *ingeniería de software «práctica»*. ¡¿Y eso existe?!
 
@@ -15,7 +16,7 @@ Tras el _pseudo-orwelliano_ término «INGSOFT» me propongo escribir algunos po
 <!--break-->
 
 
-Pues sí, aunque a muchos informáticos de carrera nos cueste mucho creerlo, lo cierto es que hay una cantidad importante de gente por ahí interesada en resolver los problemas reales que tiene la profesión. Sorprendente ¿verdad? Y no estoy hablando de las atribuciones y los colegios profesionales, estoy hablando del diseño e implementación de programas que tengan la inaudita cualidad de funcionar, y además funcionar bien. 
+Pues sí, aunque a muchos informáticos de carrera nos cueste mucho creerlo, lo cierto es que hay una cantidad importante de gente por ahí interesada en resolver los problemas reales que tiene la profesión. Sorprendente ¿verdad? Y no estoy hablando de las atribuciones y los colegios profesionales, estoy hablando del diseño e implementación de programas que tengan la inaudita cualidad de funcionar, y además funcionar bien.
 
 Los <a href="http://en.wikipedia.org/wiki/List_of_software_development_philosophies">«principios o filosofías de diseño de software»</a> me parecen un buen sitio para empezar. Los principios de diseño hablan (razonadamente) sobre cosas que deberíamos hacer y cosas que no deberíamos. No se puede decir que sean de precisión matemática ni mucho menos (ojalá) pero lo cierto es que seguirlos nos puede ayudar a hacer un trabajo de calidad (qué palabra!). Hace unos días hablaba sobre uno de estos principios ("YAGNI":http://en.wikipedia.org/wiki/You_ain%27t_gonna_need_it) en el post "Procrastinación y el «mal de la computadora»":/node/1371 que bien podría haber sido el primer post de esta serie.
 
@@ -25,8 +26,8 @@ En casi todas las ingenieras está muy claro qué está bien y que está mal, cu
 
 Por eso me atrevería a decir que el principal problema de la profesión de informático es la «imaginación» ya sea por defecto o por exceso. Me explico, ante un problema, el informático novato tiene la impresión de ser el primero del mundo al que se le presenta algo así. En lugar de buscar la «solución correcta» (que suele estar en los libros) lo que hace es crear una propia. Aquí hay dos posibilidades:
 
-* el novato imagina alguna solución maravillosa y creativa, o 
-* el novato diseña/escribe lo primero que se le ocurre, aún a sabiendas de que es una chapuza. 
+* el novato imagina alguna solución maravillosa y creativa, o
+* el novato diseña/escribe lo primero que se le ocurre, aún a sabiendas de que es una chapuza.
 
 Para el primero hay esperanza, el segundo NO ES un profesional (es lo que hace, un chapuza) al menos por el momento. Pero, en ambos casos, el resultado es parecido: un completo desastre, código espaquetti, inmantenible e inútil. «El novato» no tiene porqué ser un recién llegado, si no se toman medidas, si no se aprende y avanza, uno puede ser novato toda la vida.
 

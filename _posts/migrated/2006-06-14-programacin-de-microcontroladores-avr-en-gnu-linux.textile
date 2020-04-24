@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - embedded
+render_with_liquid: false
 ---
 <blockquote>
 Los microcontroladores AVR de ATMEL son una familia bastante potente y asequible. Son RISC y ofrecen características como la programación ISP (en el propio circuito), temporizadores, comparadores analógicos, PWM, RS232 y un largo etcétera. Aquí se explica qué se necesita para poder escribir programas en C y C++
@@ -45,22 +46,22 @@ El siguiente ejemplo de Makefile sería para poder compilar un programa dividido
 MCU=at90s8515
 CC=avr-gcc
 OBJCOPY=avr-objcopy
-CFLAGS=-g -mmcu=$(MCU) -Wall -Wstrict-prototypes 
+CFLAGS=-g -mmcu=$(MCU) -Wall -Wstrict-prototypes
 #-------------------
 all: prueba.hex
 #-------------------
-prueba.hex : prueba.out 
-	$(OBJCOPY) -R .eeprom -O ihex prueba.out prueba.hex 
+prueba.hex : prueba.out
+	$(OBJCOPY) -R .eeprom -O ihex prueba.out prueba.hex
 
 prueba.out : prueba.o williams_8515.o potencia.o
 	$(CC) $(CFLAGS) -o prueba.out -Wl,-Map,prueba.map\
                        prueba.o williams_8515.o potencia.o
 	avr-objdump -S prueba.out > prueba.des
 
-prueba.o : prueba.c 
+prueba.o : prueba.c
 	$(CC) $(CFLAGS) -Os -c prueba.c
 
-potencia.o : potencia.c 
+potencia.o : potencia.c
 	$(CC) $(CFLAGS) -Os -c potencia.c
 
 williams_8515.o: williams_8515.c

@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Debian
 - drivers
+render_with_liquid: false
 ---
 bq(head). Cómo configurar y usar el control remoto de la Leadtek Winfast TV 2000 en un sistema Debian GNU/Linux.
 

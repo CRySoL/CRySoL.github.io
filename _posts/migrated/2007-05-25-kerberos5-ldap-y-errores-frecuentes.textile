@@ -7,6 +7,7 @@ author: paco
 comments: true
 tags:
 - Debian
+render_with_liquid: false
 ---
 h2. Autenticación Kerberos o ActiveDirectory
 
@@ -45,7 +46,7 @@ Pedirá la clave del dominio.  Si no da error ya tienes un ticket Kerberos sin d
 
 <div class="console">
 {% highlight console %}
-~$ klist  
+~$ klist
 {% endhighlight %}
 </div>
 
@@ -69,7 +70,7 @@ Ahora sabemos que al menos Kerberos funciona.  Ya podemos destruir el ticket:
 
 <div class="console">
 {% highlight console %}
-~$ kdestroy 
+~$ kdestroy
 {% endhighlight %}
 </div>
 
@@ -82,7 +83,7 @@ Además vamos a crear una cuenta de usuario para cada uno de los usuarios que qu
 
 <div class="console">
 {% highlight console %}
-$ adduser francisco.moya 
+$ adduser francisco.moya
 {% endhighlight %}
 </div>
 
@@ -100,7 +101,7 @@ Si kinit funciona es posible que te encuentres un error del estilo "cannot retri
 
 <div class="console">
 {% highlight console %}
-$ getent passwd francisco.moya 
+$ getent passwd francisco.moya
 {% endhighlight %}
 </div>
 
@@ -115,4 +116,3 @@ francisco.moya:*:13475:0:99999:7:::
 </div>
 
 h2. Datos de usuario compartidos con LDAP
-

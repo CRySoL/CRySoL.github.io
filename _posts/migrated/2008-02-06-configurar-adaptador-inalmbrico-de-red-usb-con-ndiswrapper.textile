@@ -8,8 +8,9 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
-<blockquote class="head"> 
+<blockquote class="head">
        Esta receta lo que pretende es mostrar cómo se puede configurar un adaptador inalámbrico de red USB  mediante el programa ndiswrapper. Dicho programa se debe utilizar cuando el adaptador de red USB carece de drivers para GNU/Linux.
 
         En concreto lo he probado para Molinux, que a su vez se basa en Ubuntu, que a su vez se basa en Debian, que a su vez se basa en Dios.Por lo tanto creo que para esas cuatro distribuciones debería valer.
@@ -22,7 +23,7 @@ tags:
 
 
 <h2>Si no posee drivers para GNU/Linux deberás utilizar ndiswrapper</h2>
-         Ndiswrapper es un sistema que nos va a permitir usar los drivers para windows "envolviendolos" para que puedan funcionar en un kernel linux. 
+         Ndiswrapper es un sistema que nos va a permitir usar los drivers para windows "envolviendolos" para que puedan funcionar en un kernel linux.
 
 
 <h2>¿Cómo se instala ndiswrapper?</h2>
@@ -46,26 +47,26 @@ $  make install
 
 
 <h2>Descargar drivers de Windows</h2>
-         Deberás descargar los drivers que hay disponibles para windows. Normalmente deberán estar en la página web del fabricante.  
+         Deberás descargar los drivers que hay disponibles para windows. Normalmente deberán estar en la página web del fabricante.
 
 
-<h2>Instalar drivers</h2>    
-        Vete al directorio donde se encuentren los archivos con los drivers de windows y haz como root.   
+<h2>Instalar drivers</h2>
+        Vete al directorio donde se encuentren los archivos con los drivers de windows y haz como root.
 
 <div class="console">
 {% highlight console %}
-$  ndiswrapper -i nombre_del_driver.inf 
+$  ndiswrapper -i nombre_del_driver.inf
 {% endhighlight %}
-</div> 
+</div>
          La -i es de install. Lo que hará ndiswrapper es copiar el archivo .sys y crear una configuración para él. Lo podemos encontrar en @/etc/ndiswrapper@.
 
 
-<h2>¿Cómo comprobar si el driver se ha instalado correctamente?</h2>  
+<h2>¿Cómo comprobar si el driver se ha instalado correctamente?</h2>
         Teclea
 
 <div class="console">
 {% highlight console %}
-$  ndiswrapper -l 
+$  ndiswrapper -l
 {% endhighlight %}
 </div>
 Esto nos lista los drivers que tenemos instalados con ndiswrapper y si su hardware está presente o no.
@@ -99,7 +100,7 @@ y otro es Wifi-Radar, para instalarlo:
 
 <div class="console">
 {% highlight console %}
-$ sudo apt-get install wifi-radar 
+$ sudo apt-get install wifi-radar
 {% endhighlight %}
 </div>
 
@@ -119,15 +120,3 @@ Esto ya es a gusto de consumidores libres.
 2)Gracias al amigo que me regaló este adaptador USB inalámbrico sin driver para GNU/Linux.
 
 3)Gracias a Crysol que me de la oportunidad de compartir conocimiento.
-
-
-
-
-
-
-
-
-
-
-
-

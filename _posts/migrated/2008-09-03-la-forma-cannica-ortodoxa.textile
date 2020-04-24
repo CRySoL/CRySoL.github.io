@@ -9,6 +9,7 @@ category: recipe
 tags:
 - patterns
 - C++
+render_with_liquid: false
 ---
 La Forma Canónica Ortodoxa u <em>Orthodox Canonical Form</em> (OCF) es un modismo muy utilizado en C++ y definido por James Coplien en su libro <em> Advanced C++: Programming Styles and Idioms</em>. Este modismo permite que un tipo(clase) definido por el programador se comporte como un «tipo concreto de dato», es decir, tenga las mismas características que un tipo proporcionado por el lenguaje.
 
@@ -23,7 +24,7 @@ Imagina que quieres hacer una clase <tt>String</tt> para manejar cómodamente ca
 
 Si quieres que cumpla la OCF...
 
-h3. Debe tener un *constructor sin argumentos*  
+h3. Debe tener un *constructor sin argumentos*
 
 Si no es así, será imposible definir arrays o colecciones(contenedores) de instancias de esa clase. Debes tener presente que si tu clase no tiene ningún constructor, el compilador creará un constructor sin argumentos que hará una inicialización básica de los atributos, los atributos sin constructor por defecto no se inicializarían.
 

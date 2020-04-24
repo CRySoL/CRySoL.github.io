@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - emacs
+render_with_liquid: false
 ---
 GNU Emacs 24 is now available for debian/ubuntu in an unofficial package repository. You can install running that:
 
@@ -21,4 +22,3 @@ GNU Emacs 24 is now available for debian/ubuntu in an unofficial package reposit
 # aptitude install emacs-snapshot-gtk
 {% endhighlight %}
 </div>
-

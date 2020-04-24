@@ -6,6 +6,7 @@ created: 1137714954
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Cómo activar el soporte SSL de apache-2 para utilizar HTTPS y navegación segura. Los pasos que se describen son para una Debian o sucedaneos, pero supongo que no será muy distinto  a otra distro.
 
@@ -107,7 +108,7 @@ Y ejecuta:
 <div class="console">
 {% highlight console %}
 
-# a2ensite redir 
+# a2ensite redir
 # /etc/init.d/apache2 restart
 {% endhighlight %}
 </div>

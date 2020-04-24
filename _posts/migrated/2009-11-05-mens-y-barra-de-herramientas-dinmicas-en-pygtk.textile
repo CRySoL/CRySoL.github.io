@@ -8,6 +8,7 @@ comments: true
 tags:
 - gtk
 - Python
+render_with_liquid: false
 ---
 Desde hace algunas versiones, GTK incorpora la capacidad para crear menús, barras de herramientas y menús desplegables (alias menú _popup_) a través de descripciones textuales similares a XML.
 
@@ -51,7 +52,7 @@ En este ejemplo se observa lo siguiente:
 # Todo está en un entorno <ui></ui>
 # Hay dos partes diferenciadas: la _"Menubar"_ y la _"Toolbar"_.
 # Dentro de la _"Menubar"_ tenemos menús, y dentro de estos, _menuitem_ s. En nuestro caso, dos menús con una acción cada uno.
-# Dentro de la _"Toolbar"_ sin embargo tenemos solamente _toolitem_ s. También hay _"separator"_ s, que me imagino que supones que puede ser... En nuestro caso tenemos dos elementos en el *Toolbar* 
+# Dentro de la _"Toolbar"_ sin embargo tenemos solamente _toolitem_ s. También hay _"separator"_ s, que me imagino que supones que puede ser... En nuestro caso tenemos dos elementos en el *Toolbar*
 
 Necesitaremos obviamente un *UIManager*, y asociarle a éste la descripción:
 
@@ -84,7 +85,7 @@ Observa como se añaden las acciones de varias formas:
 actiongroup.add_action(gtk.Action('Button1', 'Button one', 'First button', gtk.STOCK_OK))
 actiongroup.add_actions([
      ('Menu1', None, 'Menu one', None, 'First menu', None),
-     ('Menu2', None, 'Menu two', None, 'Second menu', None), 
+     ('Menu2', None, 'Menu two', None, 'Second menu', None),
      ('Button2', gtk.STOCK_QUIT, 'Button two', None, 'Second button', self.button2_cb),
      ('Button3', gtk.STOCK_OPEN, 'Button three', None, 'Third button', self.button3_cb),
  ])

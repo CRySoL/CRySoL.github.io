@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - emacs
+render_with_liquid: false
 ---
 bq(head). Esta receta explica cómo usar las utilidades de comprobación de ortografía «mientras escribe» que trae GNU Emacs en su distribución oficial. Por mucho que insistas, no tienes excusa para escribir mal.
 
@@ -61,7 +62,7 @@ o en el @.emacs@ con:
 
 h3. Elegir el diccionario en cada fichero
 
-Si escribes habitualmente en más de un idioma, es bastante latazo tener que estar cambiando el diccionario activo para que corresponda con el fichero que estás editando. Es ese caso, lo más cómodo es definir una "variable de fichero":http://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables que se aplicará únicamente a ese fichero concreto en el momento de cargarlo. 
+Si escribes habitualmente en más de un idioma, es bastante latazo tener que estar cambiando el diccionario activo para que corresponda con el fichero que estás editando. Es ese caso, lo más cómodo es definir una "variable de fichero":http://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables que se aplicará únicamente a ese fichero concreto en el momento de cargarlo.
 
 Por ejemplo, para un documento LaTeX en inglés, escribe lo siguiente al final del texto:
 
@@ -83,7 +84,7 @@ Como casi cualquier _minor mode_, puedes hacer que emacs lo cargue automáticame
 
 h2. Correcciones
 
-Para corregir un <span style="color: #ff4500; font-weight:bold; text-decoration: underline">herror</span> (resaltado en rojo), simplemente pulsa el botón central del ratón sobre la palabra y aparecerá un lista con las alternativas más probables; elige una soltando el botón y la substituirá. Como suele ser habitual en estos casos, también puedes añadir la palabra a tu diccionario personal o aceptar la palabra sólo para este fichero. 
+Para corregir un <span style="color: #ff4500; font-weight:bold; text-decoration: underline">herror</span> (resaltado en rojo), simplemente pulsa el botón central del ratón sobre la palabra y aparecerá un lista con las alternativas más probables; elige una soltando el botón y la substituirá. Como suele ser habitual en estos casos, también puedes añadir la palabra a tu diccionario personal o aceptar la palabra sólo para este fichero.
 
 Si la palabra aparece marcada en amarillo significa que ese mismo error ya ha sido marcado más arriba. También aparecen marcadas en amarillo las palabras <span style="color: #cdae06; font-weight:bold; text-decoration: underline">palabras</span> repetidas.
 

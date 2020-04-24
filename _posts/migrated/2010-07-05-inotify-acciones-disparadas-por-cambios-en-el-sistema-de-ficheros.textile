@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
 Esta receta explica cómo incorporar a tus programas la posibilidad de realizar acciones cuando se crean, borran, cambian, etc. ficheros o directorios concretos.
 
@@ -22,7 +23,7 @@ h2. Ingredientes
 
 h2. Introducción
 
-"inotify":http://en.wikipedia.org/wiki/Inotify es un servicio de Linux (el kernel, ¿qué si no?) que simplifica enormemente la monitorización de cambios en el sistema de ficheros. Se trata de una implementación casi «de libro» del patrón "observador":http://en.wikipedia.org/wiki/Observer_pattern. 
+"inotify":http://en.wikipedia.org/wiki/Inotify es un servicio de Linux (el kernel, ¿qué si no?) que simplifica enormemente la monitorización de cambios en el sistema de ficheros. Se trata de una implementación casi «de libro» del patrón "observador":http://en.wikipedia.org/wiki/Observer_pattern.
 
 Los pasos son sencillos, se define lo que se quiere observar (el observable) que será uno o más ficheros o directorios, bajo qué condiciones debe notificarse y quién recibirá esas notificaciones (los observadores) que normalmente ocurre como una invocación a una función o método.
 
@@ -64,7 +65,7 @@ En la página web de pyinotify puedes encontrar un "tutorial":http://trac.dbztea
 
 h2. inotify desde consola
 
-El comando @inotifywait@ del paquete @inotify-tools@ permite disparar comandos de un modo muy sencillo. El siguiente comando (candidato a alias) ejecuta @make@ cada vez que cambia alguno de los ficheros del directorio. 
+El comando @inotifywait@ del paquete @inotify-tools@ permite disparar comandos de un modo muy sencillo. El siguiente comando (candidato a alias) ejecuta @make@ cada vez que cambia alguno de los ficheros del directorio.
 
 
 <div class="console">

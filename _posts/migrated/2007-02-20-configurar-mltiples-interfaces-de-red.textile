@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 bq(head). Esta receta explica cómo evitar que las interfaces de red cambien arbitrariamente de nombre.
 
@@ -35,7 +36,7 @@ Sólo dos programitas: @ifrename@ y @ethtool@, los debianeros ya saben:
 
 <div class="console">
 {% highlight console %}
-# apt-get install ifrename ethtool 
+# apt-get install ifrename ethtool
 {% endhighlight %}
 </div>
 
@@ -48,7 +49,7 @@ Si quieres obtener información sobre tus interfaces basta con teclear:
 
 <div class="console">
 {% highlight console %}
-$ ifconfig 
+$ ifconfig
 {% endhighlight %}
 </div>
 
@@ -84,7 +85,7 @@ Pues si tienes una fstab (File System TABle), ¿por qué no tener una iftab (Int
 
 <div class="console">
 {% highlight console %}
- $ vi /etc/iftab 
+ $ vi /etc/iftab
 {% endhighlight %}
 </div>
 

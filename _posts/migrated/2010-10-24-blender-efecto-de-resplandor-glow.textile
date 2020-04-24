@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - blender
+render_with_liquid: false
 ---
 <blockquote>En esta receta veremos cómo añadir un efecto de resplandor a un objeto, gracias a los nodos de composición.</blockquote>
 
@@ -29,6 +30,6 @@ Añadimos un nodo para desenfocar (add->filter->blur), elegimos fast-gaussian e 
 
 A continuación, utilizaremos el mezclador de color (add->color->mix) para unir el resultado del _blur_ con la imagen original, y uniremos este resultado con el nodo *Composite*.
 
-Si queréis que el brillo sea de un color, en lugar de blanco, podéis añadir un nodo *Color Ramp* (add->convertor->color ramp) y colocarlo entre el nodo de Blur y el de Color Mix. 
+Si queréis que el brillo sea de un color, en lugar de blanco, podéis añadir un nodo *Color Ramp* (add->convertor->color ramp) y colocarlo entre el nodo de Blur y el de Color Mix.
 
 <img src="/assets/files/glow-render.png"/>

@@ -10,6 +10,7 @@ tags:
 - mercurial
 - VCS
 - Arco
+render_with_liquid: false
 ---
 El objetivo es simple, pero útil. Tenemos un repositorio de mercurial (hg), al que accedemos por SSH. Queremos compartirlo con el mundo, pero no queremos abrirle cuanta ssh al mundo en nuestro servidor. ¿Solución? Compartirlo por HTTP.
 
@@ -54,6 +55,6 @@ $ hg clone static-http://maquina/recurso
 
 h2. Referencias
 
-# <a href="http://www.selenic.com/mercurial/wiki/index.cgi/StaticHTTP">http://www.selenic.com/mercurial/wiki/index.cgi/StaticHTTP</a> 
+# <a href="http://www.selenic.com/mercurial/wiki/index.cgi/StaticHTTP">http://www.selenic.com/mercurial/wiki/index.cgi/StaticHTTP</a>
 # <a href="http://www.selenic.com/mercurial/wiki/index.cgi/CGIinstall">http://www.selenic.com/mercurial/wiki/index.cgi/CGIinstall</a>
 # <a href="http://www.selenic.com/mercurial/wiki/index.cgi/HgWebDirStepByStep">http://www.selenic.com/mercurial/wiki/index.cgi/HgWebDirStepByStep</a>

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Arco
+render_with_liquid: false
 ---
 Cómo configurar Apache para mejorar la seguridad de un sitio Zope, utilizando _mod_proxy_ y _VirtualHostMonster_.
 
@@ -69,18 +70,18 @@ Sobre el mismo fichero que has hecho para el sitio SSL, haz las siguientes modif
 <VirtualHost *:443>
   ...
   ProxyRequests Off
-  
+
   <Proxy *>
      Order deny,allow
      Allow from all
   </Proxy>
-  
+
   # Zope site management
   <Location /zope>
     ProxyPass http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443//VirtualHostRoot/_vh_zope
     ProxyPassReverse http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443//VirtualHostRoot/_vh_zope
   </Location>
-  
+
   <Location /miSitio>
     ProxyPass http://zope:8081/VirtualHostBase/https/IP_PUBLICA/xm/VirtualHostRoot/_vh_miSitio
     ProxyPassReverse http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443/xm/VirtualHostRoot/_vh_miSitio
@@ -91,7 +92,7 @@ Sobre el mismo fichero que has hecho para el sitio SSL, haz las siguientes modif
 </div>
 
 
-Se trata de un "Reverse Proxy":http://en.wikipedia.org/wiki/Reverse_proxy, es decir, no se puede usar como un proxy web al uso, sino simplemente como un intermediario transparente hacia otro site. 
+Se trata de un "Reverse Proxy":http://en.wikipedia.org/wiki/Reverse_proxy, es decir, no se puede usar como un proxy web al uso, sino simplemente como un intermediario transparente hacia otro site.
 
 En este fichero, se definen dos redirecciones: la primera es para el interfaz de administración de Zope, y la segunda es un sitio Plone llamado "miSitio".
 

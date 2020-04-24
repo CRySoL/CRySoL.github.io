@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Python
 - INGSOFT
+render_with_liquid: false
 ---
 Sometimes interaction among your "SUT":http://en.wikipedia.org/wiki/System_under_test class and their collaborators does not meet a synchronous behavior. That may happen when the SUT perform collaborator invocations in a different thread, or when the invocation pass across a message queue, publish/subscribe service, etc.
 
@@ -84,7 +85,7 @@ You may be tempted to put a @sleep@ before the assertion, but this is a bad solu
 
 The @spy.write.attach()@ is part of the "doublex testing framework":https://bitbucket.org/DavidVilla/python-doublex and provides stub-observers. That is, a way to run arbitrary code when stubbed methods are called.
 
-That works because the @called()@ assertion is performed only when the spy release the barrier. It the @write()@ invocation never happen, the @barrier.wait()@ continues after 1 second and the test fail, as must do. When all is right, the barrier waits just the required time. 
+That works because the @called()@ assertion is performed only when the spy release the barrier. It the @write()@ invocation never happen, the @barrier.wait()@ continues after 1 second and the test fail, as must do. When all is right, the barrier waits just the required time.
 
 Well, this mechanism is a doublex builtin in the last release (1.5.1) and provide the same behavior in a clearer way. The next is functionally equivalent to the second test version above:
 

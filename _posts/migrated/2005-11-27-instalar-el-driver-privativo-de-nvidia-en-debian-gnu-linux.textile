@@ -6,6 +6,7 @@ created: 1133086200
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>
 Cómo utilizar <tt>module-assistant</tt> para instalar el driver propietario para las tarjetas gráficas de nvidia en Debian GNU/Linux, Ubuntu y demás distros derivadas.
@@ -76,7 +77,7 @@ Y ese programilla se encarga de compilar, crear el paquete Debian correspondient
 </div>
 
 
-Si todo ha ido bien deberías tener tu driver funcionando. 
+Si todo ha ido bien deberías tener tu driver funcionando.
 
 h2. Y el GLX
 

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Debian
+render_with_liquid: false
 ---
 Algunos detalles para instalar Debian GNU/Linux en el Acer Aspire Revo. La conexión entre el Revo y la tele se hace con un cable HDMI 1.3.
 
@@ -42,7 +43,7 @@ options snd-hda-intel model=3stack-6ch-dig
 {% endhighlight %}
 </div>
 
-Una vez en uso (quizá tengas que reiniciar) busca y activa un control en el mixer llamado @S/PDIF 1@. Si no lo ves con el mixer de GNOME, prueba con @alsamixer@. 
+Una vez en uso (quizá tengas que reiniciar) busca y activa un control en el mixer llamado @S/PDIF 1@. Si no lo ves con el mixer de GNOME, prueba con @alsamixer@.
 
 h2. Referencias
 

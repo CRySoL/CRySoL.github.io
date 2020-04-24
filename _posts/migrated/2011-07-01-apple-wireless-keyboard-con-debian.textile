@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - drivers
+render_with_liquid: false
 ---
 Cómo configurar "este estupendo teclado inalámbrico":http://www.apple.com/es/keyboard/ bluetooth en Debian.
 

@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Ice
 - Arco
+render_with_liquid: false
 ---
 bq(head). Cómo ejecutar una (o varias) funciones periódicas en un servidor Ice.
 
@@ -37,7 +38,7 @@ class Server(Ice.Application):
         adapter.activate()
 
         self.shutdownOnInterrupt()
-        self.communicator().waitForShutdown()            
+        self.communicator().waitForShutdown()
         return 0
 
 sys.exit(Server().main(sys.argv))

@@ -9,6 +9,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 Esta receta es una copia (gracias a su licencia CC) de un post del blog de "Vicente Navarro":http://www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh (un blog con un contenido estupendo por cierto). La pongo aquí porque me parece un material muy bueno y en previsión de que (FSM no lo quiera) dicho blog desaparezca repentinamente.
 
@@ -85,7 +86,7 @@ para conectarnos al servidor VNC de interno1.
 
 Nota: Esta forma de cambiar el puerto del no está documentada en el "man vncviewer":http://www.realvnc.com/products/free/4.1/man/vncviewer.html. Aparece en: "About VNCViewer configuration of the output TCP port":http://www.realvnc.com/pipermail/vnc-list/2006-April/054551.html. También es así como lo hace "el vncviewer de TightVNC":http://www.tightvnc.com/vncviewer.1.html.
 
-h2. Escenario 2: Usar en externo2 un servicio TCP ofrecido por interno1 
+h2. Escenario 2: Usar en externo2 un servicio TCP ofrecido por interno1
 
 *(Local port forwarding / bind_address=0.0.0.0 / host=localhost)*
 

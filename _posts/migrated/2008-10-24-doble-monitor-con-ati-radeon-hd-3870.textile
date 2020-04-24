@@ -10,6 +10,7 @@ tags:
 - Arco
 - drivers
 - Debian
+render_with_liquid: false
 ---
 <blockquote>
 Configurar la tarjeta gráfica ATI radeon HD 3870 con dos monitores
@@ -19,9 +20,9 @@ h2. Ingredientes
 
 * module-assistant
 * linux-headers de la versión de Linux que tengas corriendo
-* fglrx-control 
-* fglrx-kernel-src 
-* fglrx-driver 
+* fglrx-control
+* fglrx-kernel-src
+* fglrx-driver
 * mesa-utils
 * Una tarjeta ATI radeon HD 3870 :-)
 
@@ -67,7 +68,7 @@ EndSection
 
 
 Con esto ya deberías tener funcionando la ATI con un solo monitor. Para comprobar si el 3d te rula, ya sabes:
- 
+
 
 
 <div class="console">

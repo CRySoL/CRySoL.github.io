@@ -9,6 +9,7 @@ category: recipe
 tags:
 - networking
 - Debian
+render_with_liquid: false
 ---
 bq(head). La receta describe cómo preparar un servidor DHCP para instalar Debian (por PXE o Etherboot) en otras máquinas de la misma red ("netboot" lo llaman). Esto es especialmente útil cuando el PC en el que quieres instalar Debian no tiene lector de CD-ROM, como pasa en los netbooks (EeePC, Aspire One, etc) y otras cosas más "raras" como el fit-PC. Si lo pruebas verás que es más sencillo, cómodo y rápido que recurrir al arranque por USB.
 
@@ -25,7 +26,7 @@ h2. Requisitos
 
 h2. Desactivar otros servidores DHCP
 
-Durante el proceso, es conveniente deshabilitar el servidor DHCP de tu router doméstico para evitar problemas ya que tú vas s a poner otro en *fileserver*. 
+Durante el proceso, es conveniente deshabilitar el servidor DHCP de tu router doméstico para evitar problemas ya que tú vas s a poner otro en *fileserver*.
 
 Incluso si no tienes la posibilidad de apagar el servidor DHCP porque es el de la empresa/facultad, el proceso también debería funcionar, pero en ese caso tu DHCP debe dar direcciones IP de un *rango distinto* al del de la empresa o la puedes liar parda y además el *fileserver* en ese caso también tiene que hacer de router al estilo de "Router «chupachups» en GNU/Linux":/node/852. Esto lo dejo para otra receta pero con esto ya tienes una pista.
 
@@ -51,7 +52,7 @@ Por si no se ve la dirección completa, la ruta es: /debian/dists/testing/main/i
 
 h2. Instalar el servidor DHCP + TFTP
 
-@dnsmasq@ a parte de ser caché DNS y servidor DHCP también dispone de un servidor TFTP incorporado de modo que se convierte por méritos propios en la solución ideal para montar un servidor de instalación por PXE. 
+@dnsmasq@ a parte de ser caché DNS y servidor DHCP también dispone de un servidor TFTP incorporado de modo que se convierte por méritos propios en la solución ideal para montar un servidor de instalación por PXE.
 
 Instala @dnsmasq@ en <b>fileserver</b> y suponiendo que la dirección IP de tu router fuese 192.168.0.1, edita el fichero @/etc/dnsmasq.conf@ para que quede así (es posible que las líneas existan, pero comentadas):
 

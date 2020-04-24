@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - embedded
+render_with_liquid: false
 ---
 <blockquote>Cómo depurar un programa en C para AVR en GNU/Linux con <b>avr-gdb</b></blockquote>
 
@@ -38,21 +39,21 @@ Para poder simular el código, debemos pasar la opción <b>-g</b> a <em>avr-gcc<
 MCU=atmega128
 CC=avr-gcc
 OBJCOPY=avr-objcopy
-CFLAGS=-g -mmcu=$(MCU) -Wall -Wstrict-prototypes 
+CFLAGS=-g -mmcu=$(MCU) -Wall -Wstrict-prototypes
 #-------------------
 all: rs232toRS485.hex rs232toRS485.bin
 #-------------------
-%.hex : %.out 
-	$(OBJCOPY) -j .text -O  ihex rs232toRS485.out rs232toRS485.hex 
+%.hex : %.out
+	$(OBJCOPY) -j .text -O  ihex rs232toRS485.out rs232toRS485.hex
 
 %.bin : %.out
 	$(OBJCOPY) -j .text -O binary rs232toRS485.out rs232toRS485.bin
 
-rs232toRS485.out : main.o 
+rs232toRS485.out : main.o
 	$(CC) $(CFLAGS) -o rs232toRS485.out -Wl,-Map,rs232toRS485.map <b>-Wa,-gstabs</b> main.o
 	avr-objdump -S rs232toRS485.out > rs232toRS485.lst
 
-%.o : %.c 
+%.o : %.c
 	$(CC) $(CFLAGS) -O0 -c $^
 
 </pre>
@@ -69,7 +70,7 @@ Para nuestros propósitos <em>simulavr</em> funcionará como un <em>gdbserver</e
 
 <div class="console">
 {% highlight console %}
-javieralso@avalon:~$ simulavr -d atmega128 -P simulavr-disp -g rs232toRS485.bin 
+javieralso@avalon:~$ simulavr -d atmega128 -P simulavr-disp -g rs232toRS485.bin
 
 {% endhighlight %}
 </div>
@@ -91,7 +92,7 @@ Lanzamos <avr>avr-gdb</em> (a mi en especial me gusta mas <em>avr-gdbtui</em>) d
 
 <div class="console">
 {% highlight console %}
-javieralso@avalon:~$ avr-gdbtui -x comandos.gdb 
+javieralso@avalon:~$ avr-gdbtui -x comandos.gdb
 
 {% endhighlight %}
 </div>

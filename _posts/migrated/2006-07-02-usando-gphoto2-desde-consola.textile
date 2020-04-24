@@ -6,6 +6,7 @@ created: 1151859061
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>
 Esta receta recoge algunas <em>features</em> interesantes del <em>frontend</em> de consola de gphoto2
@@ -30,7 +31,7 @@ Situados en un directorio creado al efecto simplemente ejecuta:
 
 <div class="console">
 {% highlight console %}
- $ gphoto2 -P ==--filename "%Y-%m-%d_%H:%M_%n.%C"== 
+ $ gphoto2 -P ==--filename "%Y-%m-%d_%H:%M_%n.%C"==
 {% endhighlight %}
 </div>
 

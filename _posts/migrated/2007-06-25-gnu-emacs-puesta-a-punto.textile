@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - emacs
+render_with_liquid: false
 ---
 h2. Configuración básica
 
@@ -31,7 +32,7 @@ h2. Ficheros
 <div>
 {% highlight text %}
 ;; Dar permisos de ejecución al fichero si es un script
-(setq after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))  
+(setq after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))
 {% endhighlight %}
 </div>
 

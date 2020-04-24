@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - mercurial
+render_with_liquid: false
 ---
 En esta receta veremos cómo hacer un script «hook» que impide a los usuarios puedan subir ficheros que no cumplan los criterios que decidamos. En concreto, vamos a evitar que puedan subir ficheros binarios al repositorio.
 
@@ -117,7 +118,7 @@ Primero, añade un fichero de texto normal y corriente, y verifica que no hay pr
 
 box$ cd copia
 box$ echo "esto es algo de texto" > file.txt
-box$ hg add file.txt 
+box$ hg add file.txt
 box$ hg ci -m "commit correcto"
 box$ hg push
 pushing to /tmp/tests/base
@@ -129,14 +130,14 @@ added 1 changesets with 1 changes to 1 files
 {% endhighlight %}
 </div>
 
-Ok, en eso no hay problema. Veamos ahora que pasa si se añade un fichero binario, por ejemplo, una imagen. 
+Ok, en eso no hay problema. Veamos ahora que pasa si se añade un fichero binario, por ejemplo, una imagen.
 
 
 <div class="console">
 {% highlight console %}
 
 box$ cp /usr/share/pixmaps/nobody.png data.png
-box$ hg add data.png 
+box$ hg add data.png
 box$ hg ci -m "commit incorrecto"
 box$ hg push
 pushing to /tmp/tests/base
@@ -153,13 +154,13 @@ abort: pretxnchangegroup hook exited with status 1
 {% endhighlight %}
 </div>
 
-Como vemos, el fichero @data.png@ no ha satisfecho la política, y por tanto, no podrá ser subido al repositorio. 
+Como vemos, el fichero @data.png@ no ha satisfecho la política, y por tanto, no podrá ser subido al repositorio.
 
 h2. Posibles problemas
 
 Cuando lanzamos un push, y se ejecuta el script @check.sh@, los cambios ya han sido actualizados en el repositorio base. Mercurial está a la espera de que el script acabe correctamente para hacerlos definitivos o descartarlos. Esto implica que todos los 'commit' que se han hecho estarán accesibles para otros *mientras* se esté ejecutando el script. Si el proceso de verificación es muy largo, puede que alguien haga un 'pull' de un changeset que no es válido, lo que causará problemas.
 
-Para evitarlo, en el wiki de mercurial, se dan posibles soluciones. La más sencilla implica evitar que se hagan dos 'push' concurrentemente, y proporcionar una copia "valida" mientras se verifican los commits. 
+Para evitarlo, en el wiki de mercurial, se dan posibles soluciones. La más sencilla implica evitar que se hagan dos 'push' concurrentemente, y proporcionar una copia "valida" mientras se verifican los commits.
 
 h2. Referencias
 

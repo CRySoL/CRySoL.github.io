@@ -9,8 +9,9 @@ category: recipe
 tags:
 - embedded
 - Arco
+render_with_liquid: false
 ---
-bq(head). Primeros pasos con el robotito Lego Mindstorms NXT. Información útil en la red sobre programación, comunicación, hardware, etc. 
+bq(head). Primeros pasos con el robotito Lego Mindstorms NXT. Información útil en la red sobre programación, comunicación, hardware, etc.
 
 <!--break-->
 
@@ -25,7 +26,7 @@ Bueno, pues el caso es que este cacharrito está bastante chulo. Lo que sigue es
 Las especificaciones del dispositivo son:
 
 * Micro principal: ARM7 de 32 bits (a 48 MHz), que cuenta con 256 KiB de Flash y 64 KiB de RAM (ya sé que parece poco, pero es suficiente para muchas cosas)
-* Micro de sensores: AVR de 8 bits (a 8 MHz), con 4 KiB de Flash y 512 bytes de RAM 
+* Micro de sensores: AVR de 8 bits (a 8 MHz), con 4 KiB de Flash y 512 bytes de RAM
 * Bluetooth (SPP, Serial Port Profile, class II Device, 10 metros)
 * USB 2.0 (12 Mib/s)
 * 7 conectores (RJ-12 con el tope a la derecha, de 6 hilos) para sensores/motores/etc.
@@ -37,7 +38,7 @@ Además, internamente tenemos un conector JTAG conectado directamente al micro A
 
 Bueno, no está mal, el ladrillo (¡ehh, que se llama así, brick!) tiene un micro principal, encargado de ejecutar el software que quieras (de fábrica cuenta con un firmware de LEGO) y del bluetooth, y uno secundario encargado de los sensores y los motores.
 
-Una posible pega: las baterías, que lleva 6 pilas. La autonomía depende del uso que le demos, pero si no tiras mucho de los motores, no es del todo mala. Resolverlo es fácil: usar pilas recargables o alimentarlo directamente desde una fuente externa (con un par de pinzas de cocodrilo bastaría). 
+Una posible pega: las baterías, que lleva 6 pilas. La autonomía depende del uso que le demos, pero si no tiras mucho de los motores, no es del todo mala. Resolverlo es fácil: usar pilas recargables o alimentarlo directamente desde una fuente externa (con un par de pinzas de cocodrilo bastaría).
 
 <h2>Software</h2>
 
@@ -45,7 +46,7 @@ Por desgracia, el software que te proporciona LEGO es para Windows. Este softwar
 
 Buscando en la página de Mindstorms, no se vé por ningún lado que haya una versión compatible de su software, pero sí se puede ver algo bastante interesante: ¡el sistema operativo que lleva el chisme tiene una licencia "Open Source"! Bien, es un buen indicativo. Además, Lego proporciona herramientas para desarrollar: SDK (Software Development Kit), HDK (Hardware D. K.) y BDK (Bluetooth D. K.). Todo se puede descargar desde "NXTreme":http://mindstorms.lego.com/Overview/NXTreme.aspx.
 
-Bien, parece que se pueden hacer cosillas. En mi caso, lo primero que hice fue echar un vistazo al código fuente del firmware. En el EULA se nos explica que usaron el IAR Embedded Workbench que, en teoría, se adapta al ANSI C/C++. Si navegas un poco por las fuentes, descubrirás que el firmware es una implementación de una máquina virtual. Luego todo software que queramos correr sobre el NXT debe estar compilado para el bytecode que interpretará esa máquina virtual, en vez de ser código nativo para el ARM. Eso si no queremos hacer cambios sustanciales en el firmware (es decir, cambiarlo y poner otro, de lo que ya hablaremos). 
+Bien, parece que se pueden hacer cosillas. En mi caso, lo primero que hice fue echar un vistazo al código fuente del firmware. En el EULA se nos explica que usaron el IAR Embedded Workbench que, en teoría, se adapta al ANSI C/C++. Si navegas un poco por las fuentes, descubrirás que el firmware es una implementación de una máquina virtual. Luego todo software que queramos correr sobre el NXT debe estar compilado para el bytecode que interpretará esa máquina virtual, en vez de ser código nativo para el ARM. Eso si no queremos hacer cambios sustanciales en el firmware (es decir, cambiarlo y poner otro, de lo que ya hablaremos).
 
 Vale. Ahora echemos un vistazo a los SDK's que ofrecen. El primero que aparece es el Fantom SDK, que no es otra cosa que el driver para Windows/Osx. Puede que haya algo de información en él, pero de momento, obviémoslo.
 
@@ -55,7 +56,7 @@ El siguiente enlace (el de HDK) nos provee una inmensa cantidad de información 
 
 También tenemos el BDK, Bluetooth Development Kit, que nos explica la interfaz entre el ARM y el core bluetooth. También los comandos que podemos enviar por bluetooth al NXT para controlarlo remotamente. Esto incluye el tratamiento de ficheros, upload, download, etc. Además, la capa de control de estos servicios está por debajo de la de bluetooth, lo que permite que los utilicemos tanto desde el bluetooth como desde el puerto USB.
 
-Bien, hasta ahora tenemos suficiente información como para saber cualquier detalle de todo el juguetito. Además tenemos el código fuente del firmware oficial, detalles de programación, etc. Podemos modificar el sistema operativo o incluso crear uno nuevo. De hecho, ya lo han hecho, pero de eso hablaremos más tarde. Ahora, lo siguiente que puede interesarnos es comunicarnos con el chisme desde nuestro equipo. 
+Bien, hasta ahora tenemos suficiente información como para saber cualquier detalle de todo el juguetito. Además tenemos el código fuente del firmware oficial, detalles de programación, etc. Podemos modificar el sistema operativo o incluso crear uno nuevo. De hecho, ya lo han hecho, pero de eso hablaremos más tarde. Ahora, lo siguiente que puede interesarnos es comunicarnos con el chisme desde nuestro equipo.
 
 Googleamos un poco, y tenemos:
 
@@ -75,7 +76,7 @@ Como ves, muchas opciones, de hecho para todos los gustos. Todo esto para escrib
 
 Ahora bien, quizá quieras hacer algo más chulo, y el firmware original no te lo permita. Evidentemente, se puede modificar, ya que disponemos del código. Quizá, con pocos arreglillos, sea compilable con GCC. De todos modos, también podemos instalar un nuevo firmware. Por ejemplo:
 
-* "LeJOS NXJ":http://lejos.sourceforge.net/p_technologies/nxt/nxj/nxj.php, máquina virtual de Java para NXT (Lejos NXJ). 
+* "LeJOS NXJ":http://lejos.sourceforge.net/p_technologies/nxt/nxj/nxj.php, máquina virtual de Java para NXT (Lejos NXJ).
 * "LeJOS OSEK":http://lejos-osek.sourceforge.net/, RTOS escrito en Ansi C/C++ para el NXT.
 * "pbLua":http://www.hempeldesigngroup.com/lego/pbLua/, interesante firmware que permite usar el brick como un periférico más, compilando software en el mismo. El lenguaje elegido es el casi desconocido "Lua.":http://es.wikipedia.org/wiki/Lua
 * "NXOS":http://nxt.natulte.net/nxos/trac otro firmware, escrito en C. Todavía en fase beta.

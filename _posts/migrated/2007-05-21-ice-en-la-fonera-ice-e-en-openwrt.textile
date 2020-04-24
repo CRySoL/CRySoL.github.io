@@ -11,6 +11,7 @@ tags:
 - embedded
 - Ice
 - Arco
+render_with_liquid: false
 ---
 Esto va sobre "Ice-E":http://zeroc.com/icee/index.html, que es simplemente Ice para dispositivos empotrados. Veamos como configurar el entorno de desarrollo necesario para compilar aplicaciones con Ice-E que funcionen en OpenWRT, concretamente en un MIPS: el de la fonera.
 
@@ -38,7 +39,7 @@ lab@bart:fonera$ pwd
 lab@bart:fonera$ wget -c http://downloads.openwrt.org/snapshots/atheros-2.6/OpenWrt-SDK-atheros-2.6-for-Linux-i686.tar.bz2
 </pre>
 
-Paciencia, son unos 42 MiB. 
+Paciencia, son unos 42 MiB.
 
 También necesitas las fuentes de ZeroC Ice-E, que están en <a href="http://www.zeroc.com/icee/download.html">la web de ZeroC Ice</a>:
 
@@ -57,20 +58,20 @@ Bien, una vez aquí, podemos desempaquetarlo todo:
 <pre class="console">
 lab@bart:fonera$ ls
 IceE-1.2.0.tar.gz  IceE-trans-1.2.0.tar.gz  OpenWrt-SDK-atheros-2.6-for-Linux-i686.tar.bz2
-lab@bart:fonera$ tar zxf IceE-1.2.0.tar.gz 
-lab@bart:fonera$ tar zxf IceE-trans-1.2.0.tar.gz 
-lab@bart:fonera$ tar jxf OpenWrt-SDK-atheros-2.6-for-Linux-i686.tar.bz2 
+lab@bart:fonera$ tar zxf IceE-1.2.0.tar.gz
+lab@bart:fonera$ tar zxf IceE-trans-1.2.0.tar.gz
+lab@bart:fonera$ tar jxf OpenWrt-SDK-atheros-2.6-for-Linux-i686.tar.bz2
 lab@bart:fonera$ ls
 IceE-1.2.0         IceE-trans-1.2.0         OpenWrt-SDK-atheros-2.6-for-Linux-i686
 IceE-1.2.0.tar.gz  IceE-trans-1.2.0.tar.gz  OpenWrt-SDK-atheros-2.6-for-Linux-i686.tar.bz2
-lab@bart:fonera$ 
+lab@bart:fonera$
 </pre>
 
 <h2>Compilando</h2>
 
-Ahora toca configurar y compilar. Primero necesitas la toolchain del OpenWRT, que está disponible en el buildroot que te acabas de bajar. Ya te viene precompilado, pero tienes que comprobar que es la misma versión que la del kernel del chisme final (aunque esto no suele ser crítico). Si no es así, tienes que compilar e instalar el nuevo kernel. En la <a href="http://wiki.openwrt.org/OpenWrtDocs/Hardware/Fon/Fonera">página sobre la fonera</a> de OpenWRT encontrarás información sobre cómo hacer esto. También te puedes bajar el kernel compilado junto con el SDK, así te ahorras un paso. 
+Ahora toca configurar y compilar. Primero necesitas la toolchain del OpenWRT, que está disponible en el buildroot que te acabas de bajar. Ya te viene precompilado, pero tienes que comprobar que es la misma versión que la del kernel del chisme final (aunque esto no suele ser crítico). Si no es así, tienes que compilar e instalar el nuevo kernel. En la <a href="http://wiki.openwrt.org/OpenWrtDocs/Hardware/Fon/Fonera">página sobre la fonera</a> de OpenWRT encontrarás información sobre cómo hacer esto. También te puedes bajar el kernel compilado junto con el SDK, así te ahorras un paso.
 
-De cualquier modo, en la carpeta <i>staging_dir_mips</i> tienes todas las herramientas necesarias para compilar Ice-E (y casi cualquier cosa en ANSI C/C++). Así que añade al principio del PATH la carpeta bin. Además, siguiendo las directivas de README correspondiente, tienes que establecer el compilador que usarás: mips-linux-c++ 
+De cualquier modo, en la carpeta <i>staging_dir_mips</i> tienes todas las herramientas necesarias para compilar Ice-E (y casi cualquier cosa en ANSI C/C++). Así que añade al principio del PATH la carpeta bin. Además, siguiendo las directivas de README correspondiente, tienes que establecer el compilador que usarás: mips-linux-c++
 
 <pre class="console">
 lab@bart:staging_dir_mips$ pwd
@@ -85,7 +86,7 @@ Ya que estamos aquí, un breve apunte. Si tu dispositivo tiene poco espacio disp
 lab@bart:staging_dir_mips$ export AR=mips-linux-ar
 </pre>
 
-En esta carpeta has terminado. Es hora de compilar IceE-trans. Evidentemente, slice2cppe lo vas a usar en la máquina de desarrollo, por lo que debes compilarlo con las herramientas habituales. Abre un nuevo terminal y vete a donde descomprimiste IceE-trans. Puedes ejecutar make sin miedo... e irte a tomar algo :-p 
+En esta carpeta has terminado. Es hora de compilar IceE-trans. Evidentemente, slice2cppe lo vas a usar en la máquina de desarrollo, por lo que debes compilarlo con las herramientas habituales. Abre un nuevo terminal y vete a donde descomprimiste IceE-trans. Puedes ejecutar make sin miedo... e irte a tomar algo :-p
 
 ¿Ya? Bien, pues ahora instálalo con el consabido <i>make install</i> como root. Te creará una carpeta en /opt/ llamada IceE-1.2.0 con los binarios necesarios. Esto también lo necesitarás en el PATH, así que en el otro terminal (en el que empezaste), añádelo:
 
@@ -93,10 +94,10 @@ En esta carpeta has terminado. Es hora de compilar IceE-trans. Evidentemente, sl
 lab@bart:IceE-trans-1.2.0$ ls /opt/IceE-1.2.0/bin/
 icecpp  slice2cppe  slice2javae
 lab@bart:IceE-trans-1.2.0$ export PATH=/opt/IceE-1.2.0/bin/:$PATH
-lab@bart:IceE-trans-1.2.0$ 
+lab@bart:IceE-trans-1.2.0$
 </pre>
 
-¿Listo para compilar IceE? Vale, pues vete a la carpeta donde se extrajo. Antes de compilar, tienes que editar las reglas del make, para reducir el tamaño de las librerías y hacerlas estáticas (si quieres). Si no cambias nada, sólo las librerías te ocuparán unos 20 MiB, porque se añaden los símbolos para depuración. Yo en mi caso, las hice estáticas y además com optimización de tamaño (sin símbolos) y me ocupan sobre los 3 MiB. 
+¿Listo para compilar IceE? Vale, pues vete a la carpeta donde se extrajo. Antes de compilar, tienes que editar las reglas del make, para reducir el tamaño de las librerías y hacerlas estáticas (si quieres). Si no cambias nada, sólo las librerías te ocuparán unos 20 MiB, porque se añaden los símbolos para depuración. Yo en mi caso, las hice estáticas y además com optimización de tamaño (sin símbolos) y me ocupan sobre los 3 MiB.
 
 Edita el fichero Make.rules que está dentro de </i>config</i>. Está muy bien documentado, por lo que no creo que tengas muchos problemas. Descomenta las líneas siguientes:
 

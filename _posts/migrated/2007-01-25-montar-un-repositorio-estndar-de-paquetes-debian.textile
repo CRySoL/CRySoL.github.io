@@ -8,8 +8,9 @@ comments: true
 category: recipe
 tags:
 - Debian
+render_with_liquid: false
 ---
-Ya vimos <a href="/node/506">como montar un repositorio trivial de paquetes Debian</a>. Ahora vamos a hacer un repositorio general de paquetes, algo más avanzado y general que lo anterior pero se basa en la misma filosofía. 
+Ya vimos <a href="/node/506">como montar un repositorio trivial de paquetes Debian</a>. Ahora vamos a hacer un repositorio general de paquetes, algo más avanzado y general que lo anterior pero se basa en la misma filosofía.
 
 
 <!--break-->
@@ -171,7 +172,7 @@ Este script debemos ejecutarlo cada vez que añadamos un paquete binario o fuent
 Una vez que hemos hecho todo lo anterior podemos añadir la siguiente línea a nuestro <em>/etc/apt/sources.list</em> para utilizar el repositorio de forma local:
 <pre>deb file:///var/mirepo unstable main contrib non-free</pre>
 La línea anterior utilizaría la distribución <em>unstable</em>, con las tres ramas.
- 
+
 Si quieres tenerlo accesible de forma remota, puedes crear un enlace simbólico en <em>/var/www/</em> para redireccionar la consulta <em>http</em> a tu servidor Apache:
 
 

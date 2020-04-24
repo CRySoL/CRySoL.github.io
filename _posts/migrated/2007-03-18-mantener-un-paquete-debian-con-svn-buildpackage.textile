@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Debian-devel
 - VCS
+render_with_liquid: false
 ---
 bq(head). Esta receta explica cómo usar la herramienta @svn-buildpackage@ para mantener un paquete Debian existente.
 
@@ -116,7 +117,7 @@ Y cuando todo sea correcto, sube los cambios al repo con:
 
 <div class="console">
 {% highlight console %}
-~/prj/pyhello$ svn ci 
+~/prj/pyhello$ svn ci
 {% endhighlight %}
 </div>
 
@@ -131,7 +132,7 @@ Cuando el autor produce una nueva versión de su programa, tú como mantenedor d
 
 <div class="console">
 {% highlight console %}
-~/prj/pyhello/trunk$ svn-upgrade /tmp/pyhello-0.2.tar.gz 
+~/prj/pyhello/trunk$ svn-upgrade /tmp/pyhello-0.2.tar.gz
 {% endhighlight %}
 </div>
 

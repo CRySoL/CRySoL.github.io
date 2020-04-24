@@ -9,6 +9,7 @@ category: recipe
 tags:
 - embedded
 - Arco
+render_with_liquid: false
 ---
 <blockquote>Vamos a tratar de describir el proceso de programación de un nodo Mica2 con un ejemplo mínimo. Para ello vamos a usar el equivalente para sistemas empotrados del hola mundo que es la aplicación Blink para el tinyOS. Adicionalmente iremos ampliando este tema con las herramientas que nos proporciona la toolchain.</blockquote>
 
@@ -20,9 +21,9 @@ Los equipos adquiridos en el grupo Arco son las micas2 uno de los equipos mas am
 Hay dos tipos de dispositivos, las micas2 (4 nodos) y las micas2dot (4 nodos) ademas de un programador MIB510.
 
 Las micas2 cuentan con un puerto de extensión dónde se le pueden conectar plaquitas con sensores, nuestras micas2 tienen las placas MTS310CA que cuentan con sensor de luz, temperatura, micrófono y un pequeño altavoz ademas
-de un acelerómetro y un sensor magnético. 
+de un acelerómetro y un sensor magnético.
 
-El procesador y la radio de las micas2 cuenta con un MPR400CB que esta basado en el procesador Atmel ATmega128L, para mas datos mirar el <a href="http://www.xbow.com/Products/Product_pdf_files/Wireless_pdf/MICA2_Datasheet.pdf">datasheet</a> 
+El procesador y la radio de las micas2 cuenta con un MPR400CB que esta basado en el procesador Atmel ATmega128L, para mas datos mirar el <a href="http://www.xbow.com/Products/Product_pdf_files/Wireless_pdf/MICA2_Datasheet.pdf">datasheet</a>
 
 Las micas2dot son algo mas limitadas como podemos ver en su <a href="http://www.xbow.com/Products/productsdetails.aspx?sid=73">página web</a>
 
@@ -124,7 +125,7 @@ app.c  ident_flags.txt  main.exe  main.ihex  main.srec  tos_image.xml
 {% endhighlight %}
 </div>
 
-donde aparecen diversos archivos como las imágenes generadas por avr-objcopy como són el formato de intel (.ihex) y el de motorola (.srec) 
+donde aparecen diversos archivos como las imágenes generadas por avr-objcopy como són el formato de intel (.ihex) y el de motorola (.srec)
 
 Para instalarlo concectar físicamente el nodo a la interfaz de programación (la placa mib510) y esta al puerto serie mediante un cable RS232, por último  ejecutar el siguiente comando:
 
@@ -174,4 +175,4 @@ Los enlaces básicos son los de la receta anterior:
 
 ---------------------------------------
 felixjesus.villanueva(la arroba)uclm.es
-<a href="http://arco.inf-cr.uclm.es/~felixjesus.villanueva">Mi web</a> 
+<a href="http://arco.inf-cr.uclm.es/~felixjesus.villanueva">Mi web</a>

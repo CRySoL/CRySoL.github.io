@@ -8,6 +8,7 @@ comments: true
 category: tale
 tags:
 - graphics
+render_with_liquid: false
 ---
 Hace poco, un forero bajo el seudónimo de M.Sameer se hacía la siguiente pregunta:
 
@@ -71,7 +72,7 @@ Cuando ATI empezó a competir en la carrera de las tarjetas gráficas con la Rad
 
 Podría parecer un error por parte de D3D. Pero fracaso y éxito son cuestión de grados. Y un fracaso _tremendo_ estaba gestándose en Villa OpenGL.
 
-A NVIDIA le encantaba OpenGL, así que cuando salió la GeForce 3, lanzaron un montón de extensiones de OpenGL. Extensiones _propietarias_. Sólo para NVIDIA. naturalmente, cuando la 8500 apareció, no podía usar ninguna de ellas. 
+A NVIDIA le encantaba OpenGL, así que cuando salió la GeForce 3, lanzaron un montón de extensiones de OpenGL. Extensiones _propietarias_. Sólo para NVIDIA. naturalmente, cuando la 8500 apareció, no podía usar ninguna de ellas.
 
 Al menos, en D3D v8 podías ejecutar tus _shaders_ de SM 1.0 en hardware ATI. Sí, tenías que escribir shaders nuevos para poder aprovechar las maravillas de la 8500, pero al menos tu código _funcionaba_.
 
@@ -91,7 +92,7 @@ Al final, la ARB, posiblemente bajo la amenaza de ATI y NVIDIA (ambos miembros a
 
 T&L por hardware. Algo que OpenGL tuvo _antes_. Para obtener el máximo rendimiento posible del T&L por hardware, necesitas almacenar los datos de tus vértices en la GPU. Al fin y al cabo, es la GPU la que realmente quiere usar los datos de tus vértices.
 
-En D3D v7, Microsoft introdujo el concepto de Vertex Buffers. Son franjas de memoria de GPU que almacenan datos de vértices. 
+En D3D v7, Microsoft introdujo el concepto de Vertex Buffers. Son franjas de memoria de GPU que almacenan datos de vértices.
 
 ¿Queréis saber cuándo tuvo OpenGL su equivalente para esto? NVIDIA, a quien le encantaban todas las cosas de OpenGL (siempre y cuando fueran extensiones propietarias NVIDIA), lanzó la extensión Vertex Array Range cuando salió la GeForce 256. Pero.. ¿cuándo decidió la ARB dar una funcionalidad similar?
 

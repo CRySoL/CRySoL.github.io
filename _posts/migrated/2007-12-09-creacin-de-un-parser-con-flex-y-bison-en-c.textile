@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - C++
+render_with_liquid: false
 ---
 <blockquote>La siguiente receta explica como construir un analizador léxico con Flex y un analizador sintáctico con Bison, utilizando C++. Además, incluye un pequeño Makefile para el enlazado de todos los archivos y un ejemplo mínimo de uso.</blockquote>
 
@@ -21,7 +22,7 @@ El paquete <em>bison++</em> instalará también lo necesario de flex.
 
 <h2>Construcción</h2>
 <h3>scanner.l</h3>
-Este archivo es el que va contener la especificación Flex del analizador léxico. Si estudias el código siguiente verás 
+Este archivo es el que va contener la especificación Flex del analizador léxico. Si estudias el código siguiente verás
 que el analizador es muy simple: sólo reconoce números enteros.
 
 

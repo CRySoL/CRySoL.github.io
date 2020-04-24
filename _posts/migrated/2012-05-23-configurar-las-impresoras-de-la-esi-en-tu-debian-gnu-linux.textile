@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Debian
+render_with_liquid: false
 ---
 Haz un archivo <b>/etc/cups/client.conf</b> con el siguiente contenido:
 

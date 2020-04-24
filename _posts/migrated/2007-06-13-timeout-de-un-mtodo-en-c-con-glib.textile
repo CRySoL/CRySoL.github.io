@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - C++
+render_with_liquid: false
 ---
 h2. Primera aproximación
 
@@ -59,7 +60,7 @@ public:
 
     static gboolean tick_adaptor(gpointer p) {
         (static_cast<A*>(p))->tick();
-	return TRUE;        
+	return TRUE;
     }
 };
 

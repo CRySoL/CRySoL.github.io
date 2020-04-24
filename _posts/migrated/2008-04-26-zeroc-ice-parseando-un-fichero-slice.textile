@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Ice
+render_with_liquid: false
 ---
 <blockquote>Cómo parsear un archivo Slice (el lenguaje de especificación de interfaces de <a href="http://en.wikipedia.org/wiki/Internet_Communications_Engine"><acronym title="Internet Communications Engine">ICE</acronym></a>) para obtener toda la información semántica que contiene utilizando libSlice (el Parser proporcionado por <a href="www.zeroc.com">ZeroC</a>)</blockquote>
 
@@ -48,7 +49,7 @@ OurParser::OurParser(const string& path, const string& filename)
   vector<string> dummyArgs;
   _pp = new Preprocessor(path,filename,dummyArgs);
   FILE* cppHandle = _pp->preprocess(false);
-    
+
   UnitPtr u = Unit::createUnit(false, true, true, true);
   int parseStatus = u->parse("", cppHandle, false);
 
@@ -78,7 +79,7 @@ main(int argc, char* argv[])
   FILE* cppHandle = _pp->preprocess(false);
 {% endhighlight %}
 </div>
-    
+
 Después se instancia el parser propiamente dicho, y se parsea el Slice
 
 
@@ -117,7 +118,7 @@ class OurVisitor: public ParserVisitor
 public:
   OurVisitor(SymbolTable&);
   ~OurVisitor();
-  
+
   virtual bool visitModuleStart(const ModulePtr&);
   virtual void visitModuleEnd(const ModulePtr&);
   virtual void visitClassDecl(const ClassDeclPtr&);
@@ -187,18 +188,18 @@ El procedimiento encargado de obtener la información de las operaciones es <em>
 {% highlight cpp %}
 void
 OurVisitor::visitOperation(const OperationPtr& p)
-{ 
+{
 
   size_t strIndex;
   string metadataName, metadataValue;
   StringList operationMetaData;
-  
+
   cout "Nombre: " << p->name() << endl;
   cout "Ambito de declaracion: " << p->scope() << endl;
   TypePtr ret = p->returnType();
   string retS = returnTypeToString(ret, "", p->getMetaData());
   cout << "Tipo de retorno: " << retS << endl;
-  
+
   if(p->mode() == Operation::Idempotent || p->mode() == Operation::Nonmutating){
     // Idempotent operation
     cout << "Funcion idempotente" << endl;
@@ -265,7 +266,7 @@ Slice::outputTypeToString(const TypePtr& type, bool useWstring, const StringList
         "ObjectPrx",
         "LocalObjectPtr"
     };
-    
+
     BuiltinPtr builtin = BuiltinPtr::dynamicCast(type);
     if(builtin)
     {
@@ -302,13 +303,13 @@ Slice::outputTypeToString(const TypePtr& type, bool useWstring, const StringList
         }
         return fixKwd(st->scoped());
     }
-            
+
     ProxyPtr proxy = ProxyPtr::dynamicCast(type);
     if(proxy)
     {
         return fixKwd(proxy->_class()->scoped() + "Prx");
     }
-            
+
     SequencePtr seq = SequencePtr::dynamicCast(type);
     if(seq)
     {

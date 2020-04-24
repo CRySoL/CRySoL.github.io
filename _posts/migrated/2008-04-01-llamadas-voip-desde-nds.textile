@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - NDS
+render_with_liquid: false
 ---
 bq(head). Si ya podemos conectar nuestra NDS a "la  Fonera" ¿por qué no utilizar esa conexión para hacer algo más? Podemos hacer llamadas por VoIP a números fijos, sin ningún coste, y lo mejor de todo, DESDE NUESTRA NDS!  gracias a SVSIP.
 
@@ -19,11 +20,11 @@ bq(head). Si ya podemos conectar nuestra NDS a "la  Fonera" ¿por qué no utiliz
 
 
 <h2> Instalación y configuración</h2>
-Antes de descargarnos la aplicación, lo primero que necesitamos en una cuenta con alguno de los proveedores de telefonía IP, <a href="http://svsip.free.fr/spip.php?article14"> aquí</a> encontraréis algunos junto con su configuración.  (Nota: Skype no es válido porque no utiliza SIP). 
+Antes de descargarnos la aplicación, lo primero que necesitamos en una cuenta con alguno de los proveedores de telefonía IP, <a href="http://svsip.free.fr/spip.php?article14"> aquí</a> encontraréis algunos junto con su configuración.  (Nota: Skype no es válido porque no utiliza SIP).
 
-Yo he utilizado VoipBuster, aunque aviso que para poder crear una cuenta de usuario con este proveedor hay que descargarse un .exe desde su página. La instalación no ha dado problemas con el wine, pero no he conseguido ejecutarlo... 
+Yo he utilizado VoipBuster, aunque aviso que para poder crear una cuenta de usuario con este proveedor hay que descargarse un .exe desde su página. La instalación no ha dado problemas con el wine, pero no he conseguido ejecutarlo...
 
-Una vez que ya tenemos una cuenta con algún proveedor, pasamos a descarganos la aplicación SVSIP de la <a href= "http://svsip.free.fr/spip.php?rubrique17"> página del autor </a>. 
+Una vez que ya tenemos una cuenta con algún proveedor, pasamos a descarganos la aplicación SVSIP de la <a href= "http://svsip.free.fr/spip.php?rubrique17"> página del autor </a>.
 
 Una vez que hemos descargado y descomprimido el archivo, en el directorio svsip está el archivo config.txt, que tendremos que completar con los datos del proveedor de telefonía IP y de la cuenta de usuario, quedando de la siguiente manera:
 <pre>
@@ -46,7 +47,7 @@ Una vez que hemos descargado y descomprimido el archivo, en el directorio svsip 
 --mic-level 3.0
 
 # Nuevo control de altavoz (default 1.0)
---speaker-level 2.0 
+--speaker-level 2.0
 
 </pre>
 

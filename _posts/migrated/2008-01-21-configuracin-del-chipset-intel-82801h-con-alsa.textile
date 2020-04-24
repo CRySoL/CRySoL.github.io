@@ -8,8 +8,9 @@ comments: true
 category: recipe
 tags:
 - drivers
+render_with_liquid: false
 ---
-bq(head). Los nuevos portátiles ahtec vienen con tarjetas de sonido Intel con chipset Realtek, el problema es que aunque no te encuentras con ningún problema en la configuración de ALSA a la hora de la verdad no se reproduce ningún sonido. 
+bq(head). Los nuevos portátiles ahtec vienen con tarjetas de sonido Intel con chipset Realtek, el problema es que aunque no te encuentras con ningún problema en la configuración de ALSA a la hora de la verdad no se reproduce ningún sonido.
 
 
 <!--break-->
@@ -18,7 +19,7 @@ bq(head). Los nuevos portátiles ahtec vienen con tarjetas de sonido Intel con c
 
 <h2> Configuración de la tarjeta de sonido</h2>
 
-La salida del lspci te dice con qué tipo de tarjeta estás trabajando, en este caso: 
+La salida del lspci te dice con qué tipo de tarjeta estás trabajando, en este caso:
 
 
 <div class="console">
@@ -64,7 +65,6 @@ Reinicia ALSA y todo listo
 
 <div class="console">
 {% highlight console %}
-# /etc/init.d/alsasound restart 
+# /etc/init.d/alsasound restart
 {% endhighlight %}
 </div>
-

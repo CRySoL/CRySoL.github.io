@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - Debian
+render_with_liquid: false
 ---
 En esta receta pretendo contar como configurar algunas cosas de esta _tablet PC_ para funcionar en Debian.
 
@@ -39,7 +40,7 @@ Guárdalo y hazlo ejecutable con @chmod +x@. Un buen sitio para el fichero serí
 
 h2. Utilizar las teclas laterales de la _tablet_
 
-Esta _tablet_ tiene 4 teclas laterales y una rueda. Dos de las teclas laterales son "Esc" y "tab", que son "clones" de las teclas escape y tabulador del teclado, respectivamente. Sobre la rueda hablaré un poco más adelante, pero para poder usar los dos botones restantes (Q y los dos "cuadrados concéntricos", por llamarlo de alguna forma), puedes usar @xbindkeys@. 
+Esta _tablet_ tiene 4 teclas laterales y una rueda. Dos de las teclas laterales son "Esc" y "tab", que son "clones" de las teclas escape y tabulador del teclado, respectivamente. Sobre la rueda hablaré un poco más adelante, pero para poder usar los dos botones restantes (Q y los dos "cuadrados concéntricos", por llamarlo de alguna forma), puedes usar @xbindkeys@.
 
 Este comando está en su paquete homónimo, por lo que no debería ser problema para instalarlo si no lo tienes. Con él podemos asignar teclas o combinaciones de éstas a acciones (ejecución de comandos).
 

@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Debian-devel
 - VCS
+render_with_liquid: false
 ---
 bq(head). svn-buildpackage es una herramienta para construir y mantener paquetes Debian utilizando un repositorio subversion.
 
@@ -45,7 +46,7 @@ Tienes que descargar los fuentes de los paquetes. svn-buildpackage no requiere q
 
 <div class="console">
 {% highlight console %}
- devel$ svn co svn://svn.debian.org/pkg-bluetooth/gnome-bluetooth 
+ devel$ svn co svn://svn.debian.org/pkg-bluetooth/gnome-bluetooth
 {% endhighlight %}
 </div>
 
@@ -54,7 +55,7 @@ Y también habrá que empaquetar una librería que viene con gnome-bluetooth lla
 
 <div class="console">
 {% highlight console %}
- devel$ svn co svn://svn.debian.org/pkg-bluetooth/libbtctl 
+ devel$ svn co svn://svn.debian.org/pkg-bluetooth/libbtctl
 {% endhighlight %}
 </div>
 
@@ -66,7 +67,7 @@ Empezamos por la librería, porque es una dependencia del paquete principal. Lo 
 
 <div class="console">
 {% highlight console %}
- # apt-get install python-support  intltool  libopenobex-1.0-0-dev libbluetooth2-dev python-gtk2-dev gtk-doc-tools 
+ # apt-get install python-support  intltool  libopenobex-1.0-0-dev libbluetooth2-dev python-gtk2-dev gtk-doc-tools
 {% endhighlight %}
 </div>
 
@@ -101,9 +102,9 @@ Las _build-depends_ son:
 
 <div class="console">
 {% highlight console %}
- # apt-get install gob2 libgnomeui-dev libgconf2-dev libbtctl2-dev libgnomevfs2-dev librsvg2-dev libgnome2-dev 
+ # apt-get install gob2 libgnomeui-dev libgconf2-dev libbtctl2-dev libgnomevfs2-dev librsvg2-dev libgnome2-dev
 {% endhighlight %}
-</div> 
+</div>
 
 Como ves hacen falta muchos paquetes para compilar paquetes ;-)
 

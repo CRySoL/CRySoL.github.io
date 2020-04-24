@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - LaTeX
+render_with_liquid: false
 ---
 Hay un pequeño bug en @babel@ que da la lata si usas también el paquete @enumitem@. El error dice algo como:
 
@@ -21,7 +22,7 @@ No file examples.aux.
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd))
 ! Incomplete \iffalse; all text was ignored after line 19.
-<inserted text> 
+<inserted text>
 {% endhighlight %}
 </div>
 
@@ -51,4 +52,3 @@ Para parchear este problema hasta que lo arreglen basta con añadir esto:
 
 
 Más información y detalles en <a href="http://www.tex-tipografia.com/spanish.html">http://www.tex-tipografia.com/spanish.html</a>
-

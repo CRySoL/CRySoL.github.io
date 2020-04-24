@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Debian
+render_with_liquid: false
 ---
 Las recetas anteriores sobre este portátil aún dejaban algunos problemas sin resolver:
 

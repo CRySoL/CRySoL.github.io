@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Debian
+render_with_liquid: false
 ---
 bq(head). Recetilla con los pormenores para instalar Debian en el Dell XPS 420.
 
@@ -82,7 +83,7 @@ Si has montado 4 GiB de RAM en tu XPS, debes usar un Linux con soporte para <a h
 <div class="console">
 {% highlight console %}
 
-$ cat /proc/meminfo 
+$ cat /proc/meminfo
 MemTotal:      4084320 KiB
 ...
 {% endhighlight %}
@@ -91,7 +92,7 @@ MemTotal:      4084320 KiB
 
 Si te interesa saber a qué se debe la limitación de 3 GiB en los sistemas de 32 bits te recomiendo esta interesante receta: "La odisea de ampliar la memoria a 4 GiB":http://www.vicente-navarro.com/blog/2008/07/14/la-odisea-de-ampliar-la-memoria-a-4-gib/
 
-h2. Suspender / Hibernar 
+h2. Suspender / Hibernar
 
 Para poder utilizar el gnome-power-manager debes pertenecer al grupo <tt>powerdev</tt>. Algo tan simple como:
 

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - LaTeX
+render_with_liquid: false
 ---
 h2. Modo PDF-Tex
 
@@ -41,7 +42,7 @@ h2. Usar otro visor para los PDF
 {% highlight text %}
 M-x customize-group
 TeX-command
-Tex Output View Style 
+Tex Output View Style
 Extension ^pdf$
 Command: evince %o %(outpage)
 {% endhighlight %}

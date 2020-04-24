@@ -10,6 +10,7 @@ tags:
 - Arco
 - Python
 - patterns
+render_with_liquid: false
 ---
 Esta receta incluye una implementación «comentada» del patrón de diseño «<a href="http://es.wikipedia.org/wiki/Flyweight_%28patr%C3%B3n_de_dise%C3%B1o%29">Flyweight</a>» (peso mosca) usando una metaclase Python.
 
@@ -23,7 +24,7 @@ Para una mejor comprensión y máximo aprovechamiento, se recomienda al lector n
 
 h2. Patrón _flyweight_
 
-El <a href="http://es.wikipedia.org/wiki/Flyweight_%28patr%C3%B3n_de_dise%C3%B1o%29"><em>peso mosca</em></a> es un patrón muy útil en aplicaciones que utilizan muchos objetos parecidos o idénticos. El objetivo es compartir parte del estado del objeto. Cuando varias instancias comporten los mismos valores para sus atributos (tamaño, color, forma, etc.) realmente el objeto solo se crea una vez y las siguientes instancias referencian el estado del objeto existente. 
+El <a href="http://es.wikipedia.org/wiki/Flyweight_%28patr%C3%B3n_de_dise%C3%B1o%29"><em>peso mosca</em></a> es un patrón muy útil en aplicaciones que utilizan muchos objetos parecidos o idénticos. El objetivo es compartir parte del estado del objeto. Cuando varias instancias comporten los mismos valores para sus atributos (tamaño, color, forma, etc.) realmente el objeto solo se crea una vez y las siguientes instancias referencian el estado del objeto existente.
 
 El patrón "Memoization":http://en.wikipedia.org/wiki/Memoization se puede considerar una particularización de _flyweight_ para funciones. _Memoization_ cachea el resultado de una función o método de modo que la siguiente vez que se invoque la misma función con los mismos argumentos se obtiene el valor cacheado en lugar de recalcularse.
 
@@ -46,7 +47,7 @@ Es posible aplicar _flyweight_ aunque los objetos solo compartan una parte de su
 </div>
 
 
-Esa es la teoría, en la práctica las limitaciones de los lenguajes de programación no siempre permiten que el patrón se pueda implementar de una forma tan transparente. En esos casos (Java, C++, etc.) la implementación del patrón incluye una «factoría», es decir, una función u objeto que crea, almacena y devuelve las instancias a los objetos conforme se le piden. 
+Esa es la teoría, en la práctica las limitaciones de los lenguajes de programación no siempre permiten que el patrón se pueda implementar de una forma tan transparente. En esos casos (Java, C++, etc.) la implementación del patrón incluye una «factoría», es decir, una función u objeto que crea, almacena y devuelve las instancias a los objetos conforme se le piden.
 
 h2. _flyweight_ como metaclase
 
@@ -89,7 +90,7 @@ class Astro:
 
 a = Astro("luna")
 b = Astro("luna")
-assert a is b 
+assert a is b
 {% endhighlight %}
 </div>
 
@@ -102,7 +103,7 @@ Puedes descargar el código de nuestro "repo público":http://arco.esi.uclm.es/s
 <div class="console">
 {% highlight console %}
 
-$ python flyweight.py 
+$ python flyweight.py
 Creando la instancia 'luna'...
 'luna' creado
 Creando la instancia 'sol'...

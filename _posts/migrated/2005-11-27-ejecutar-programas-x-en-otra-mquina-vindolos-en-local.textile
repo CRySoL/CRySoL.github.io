@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 <blockquote class="head">
 A veces se necesita ejecutar un programa con interfaz gráfica que reside en una máquina distinta y queremos verlo en la máquina que estamos. Esta receta explica cómo conseguirlo sin tener que abrir una sesión X ni tener que utilizar un "escritorio remoto" como <tt>vnc</tt>.
@@ -17,7 +18,7 @@ A veces se necesita ejecutar un programa con interfaz gráfica que reside en una
 <h2>Método 1: Exportar display</h2>
 
 El método 'clásico' cuando queremos ejecutar un programa en una máquina remota y ver su interfaz en nuestro cliente X local es:
-      
+
 
 <div class="console">
 {% highlight console %}
@@ -28,7 +29,7 @@ user@local:~$
 </div>
 
 Con eso se consigue que el servidor X, que corre en nuestra máquina, acepte conexiones externas de la máquina "remoto". Pero si queremos que admita conexiones de cualquier máquina hay que poner:
-      
+
 
 <div class="console">
 {% highlight console %}
@@ -39,7 +40,7 @@ user@local:~$
 </div>
 
 Aunque esto puede suponer un problema de seguridad grave.
-    
+
 Ahora accede a la máquina remota con <tt>telnet</tt> o algo similar y exporta el 'display' para aplicaciones X.
 
 
@@ -49,7 +50,7 @@ user@remoto:~$ export DISPLAY=local:0
 user@remoto:~$
 {% endhighlight %}
 </div>
-    
+
 La instrucción <tt>export</tt> declara una variable de entorno de la _shell_ (no tiene nada que ver con la expresión exportar display).
 
 Con esto, la aplicación X sabrá que debe utilizar el servidor X de la máquina llamada 'local' en lugar de usar el de la máquina en la que se ejecuta. Puedes comprobar que funciona con algo como:
@@ -98,7 +99,7 @@ root@remoto:~# /etc/init.d/ssh restart
 root@remoto:~#
 {% endhighlight %}
 </div>
-    
+
 Y ya tienes el efecto deseado, compruébalo con <tt>xeyes</tt>... (por ejemplo)
 
 <h2>Enlaces</h2>

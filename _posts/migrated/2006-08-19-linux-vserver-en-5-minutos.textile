@@ -6,6 +6,7 @@ created: 1156007811
 author: paco
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 bq(head). Linux-Vserver es similar a las zonas de Solaris 9 o a las jaulas de FreeBSD.  Permite ejecutar procesos de forma totalmente aislada respecto a los demás, lo que lo convierte en una especie de máquina virtual ultra-rápida.
 
@@ -66,7 +67,7 @@ Crear nuevas máquinas virtuales es tan sencillo como:
 
 Donde <em>nombreDelVserver</em> es el nombre del nuevo servidor (e.g. atlante), <em>dominioDelVserver</em> es el dominio del nuevo servidor (e.g. dyndns.org) y <em>direccionIp</em> es la dirección IP del nuevo servidor (e.g. 192.168.1.145).  La dirección IP puede ser de un rango privado o público, por supuesto.
 
-Tras un rato tendremos un nuevo directorio en /var/lib/vservers que contiene un filesystem completo.  
+Tras un rato tendremos un nuevo directorio en /var/lib/vservers que contiene un filesystem completo.
 
 Se puede arrancar el nuevo servidor con:
 

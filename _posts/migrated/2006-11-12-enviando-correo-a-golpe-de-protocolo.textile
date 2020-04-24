@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 <blockquote>Estás en Siberia, sólo tienes acceso a un terminal en modo texto, no tienes ningún cliente de correo y quieres enviar un email. ¿Imposible? Apúntate estos pasos y lo conseguirás. La receta explica cómo enviar correo usando directamente el protocolo que entiende el servidor.
 </blockquote>
@@ -53,7 +54,7 @@ Escape character is '^]'.
 <b>To: recipient@address</b>                     # opcional
 <b>Subject: Let's have a cup of tea.</b>         # opcional
 <b>Hola, esto ya es el cuerpo del mensaje. Cuando hayas terminado el correo,
-terminalo con una línea que contenga únicamente un punto, 
+terminalo con una línea que contenga únicamente un punto,
 como la que viene a continuación.
 .
 </b>

@@ -6,6 +6,7 @@ created: 1171558144
 author: fsancho
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Este documento pretende servir de introducción a Wiki, para que te vayas familiarizando con este entorno de edición.
 
@@ -29,16 +30,16 @@ Una vez instalado moin-wiki, es necesario configurar un lugar donde alojar el wi
 
 <div class="console">
 {% highlight console %}
- # mkdir /var/lib/arcowiki 
+ # mkdir /var/lib/arcowiki
 {% endhighlight %}
 </div>
 
-* Copia en el directorio creado el contenido de @/usr/share/moin/cgi-bin/@ 
+* Copia en el directorio creado el contenido de @/usr/share/moin/cgi-bin/@
 
 
 <div class="console">
 {% highlight console %}
- $ cp -r /usr/share/moin/data /usr/share/moin/cgi-bin/*  /var/lib/arcowiki 
+ $ cp -r /usr/share/moin/data /usr/share/moin/cgi-bin/*  /var/lib/arcowiki
 {% endhighlight %}
 </div>
 
@@ -61,4 +62,3 @@ ScriptAlias /wiki "/var/lib/arcowiki/moin.cgi"
 </pre>
 
 Una vez realizados estos pasos tan solo queda reiniciar apache y empezar a editar tus documentos.
- 

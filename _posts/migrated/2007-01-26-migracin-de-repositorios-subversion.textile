@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - VCS
+render_with_liquid: false
 ---
 Esta receta explica cuales son las herramientas básicas de administración útiles para migración de repositorios
 
@@ -35,7 +36,7 @@ Para hacer un volcado completo del repositorio:
 
 <div class="console">
 {% highlight console %}
- serverA:/var/svn$ svnadmin dump quake > quake.dump 
+ serverA:/var/svn$ svnadmin dump quake > quake.dump
 {% endhighlight %}
 </div>
 
@@ -59,7 +60,7 @@ El tipo de filtrado que podemos hacer con las herramientas estándar es bastante
 
 <div class="console">
 {% highlight console %}
- cat quake.dump | svndumpfilter include src/engine > quake_engine.dump 
+ cat quake.dump | svndumpfilter include src/engine > quake_engine.dump
 {% endhighlight %}
 </div>
 
@@ -68,7 +69,7 @@ Y si quieres todo menos el arte pues:
 
 <div class="console">
 {% highlight console %}
- cat quake.dump | svndumpfilter exclude src/art > quake_source.dump 
+ cat quake.dump | svndumpfilter exclude src/art > quake_source.dump
 {% endhighlight %}
 </div>
 

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
 "pyPdf":http://pybrary.net/pyPdf/ es un modulo muy interesante para manipular páginas y contenido de documentos PDF, en la receta pongo algún ejemplo
 

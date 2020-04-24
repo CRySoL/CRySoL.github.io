@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Debian
+render_with_liquid: false
 ---
 Desde que los indices de paquetes en los repositorios incluyen traducciones, las actualizaciones son aún más lentas. Esos ficheros pueden tener tamaños de varios megabytes. Pero como estas traducciones no son muy necesarias que digamos podemos configurar @apt@ para indicarle qué traducciones queremos. Para eso, escribe un fichero @/etc/apt/apt.conf.d/99Translations@ con el siguiente contenido:
 
@@ -19,4 +20,3 @@ Acquire::Languages "none";
 </div>
 
 Como podrás imaginar, esta configuración hace que @apt@ no descargue _ninguna_ traducción. Verás que un @apt-get update@, y sobre todo un @aptitude update@, es bastante más rápido.
-

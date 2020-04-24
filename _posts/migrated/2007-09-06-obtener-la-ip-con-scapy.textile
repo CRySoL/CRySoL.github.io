@@ -9,6 +9,7 @@ category: recipe
 tags:
 - scapy
 - networking
+render_with_liquid: false
 ---
 bq(head). Un pequeño script para averiguar "la IP del equipo"
 

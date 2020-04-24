@@ -6,6 +6,7 @@ created: 1169410799
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 bq(head). Cómo configurar la impresora HP LaserJet 1000 USB en GNU/Linux
 
@@ -71,7 +72,7 @@ Edita @/etc/cups/cupsd.conf@ y busca una sección con esta pinta:
    Deny From All
    Allow Frow 127.0.0.1
 </Location>
-</pre>      
+</pre>
 
 Añade otras líneas "Allow" que permitan acceder a los clientes o a toda un red, por ejemplo:
 
@@ -83,14 +84,14 @@ Añade otras líneas "Allow" que permitan acceder a los clientes o a toda un red
    Allow Frow 140.20.10.1
    Allow Frow 192.168.0.*
 </Location>
-</pre>      
+</pre>
 
 Reinicia cups:
 
 
 <div class="console">
 {% highlight console %}
-# /etc/init.d/cups restart 
+# /etc/init.d/cups restart
 {% endhighlight %}
 </div>
 

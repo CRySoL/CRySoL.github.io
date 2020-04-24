@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 <blockquote>
 Esta receta es para todos aquellos que estais en un entorno restrictivo en el que solo hay acceso al exterior a través de un proxy HTTP, como es mi caso actualmente.
@@ -69,7 +70,7 @@ y en el fichero anterior (<tt>ssh_proxy</tt>) ponemos:
 Si os pasa, además de todo lo anterior, que vuestra conexión se corta cada dos por tres por falta de actividad basta con añadir esto en el fichero <tt>ssh_proxy</tt>
 
 <pre>ServerAliveInterval 60
-ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p 
+ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p
 </pre>
 
 <h2>¿Utilidad final de todo esto?</h2>

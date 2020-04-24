@@ -10,6 +10,7 @@ tags:
 - Arco
 - security
 - networking
+render_with_liquid: false
 ---
 Cómo interconectar dos redes inaccesibles entre sí ya sea porque ambas están detrás de NAT o por consecuencias de las nuevas e incomprensibles «políticas de seguridad» de la empresa.
 
@@ -40,7 +41,7 @@ Ejecuta lo siguiente:
 </div>
 
 
-h3. Clave para el servidor. 
+h3. Clave para el servidor.
 
 El servidor debería ser una máquina con una IP pública. Si no es posible, se puede hacer en una máquina con IP privada pero habrá que redireccionar el puerto desde el router. El servidor va a rutar tráfico entre la red remota y redes locales que son accesibles para él pero no lo son remotamente.
 
@@ -113,7 +114,7 @@ group nogroup
 persist-key
 persist-tun
 status openvpn-status.log
-verb 4 
+verb 4
 {% endhighlight %}
 </div>
 
@@ -128,14 +129,14 @@ tls-client
 client
 dev tun
 proto udp
-remote server.example.org  # El nombre público del servidor 
+remote server.example.org  # El nombre público del servidor
 float                      # Solo si el servidor tiene IP dinámica
 resolv-retry infinite
 nobind
 persist-key
 persist-tun
 ca ca.crt
-cert marcial.crt           # Aquí tu certificado 
+cert marcial.crt           # Aquí tu certificado
 key marcial.key            # y clave
 comp-lzo
 verb 4
@@ -167,7 +168,7 @@ Si todo ha ido bien tendrás una nueva interfaz de red llamada @tun0@ con una IP
 
 # ip addr show tun0
 10: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 100
-    link/[65534] 
+    link/[65534]
     inet 10.1.1.10 peer 10.1.1.9/32 scope global tun0
 {% endhighlight %}
 </div>
@@ -181,10 +182,10 @@ Y tendrás también rutas nuevas para usar ese enlace:
 {% highlight console %}
 
 # ip route show
-10.1.1.0/24 via 10.1.1.9 dev tun0 
-10.1.1.9 dev tun0  proto kernel  scope link  src 10.1.1.10 
-192.168.1.0/24 dev eth0  proto kernel  scope link  src 192.168.1.4  metric 1 
-default via 192.168.1.1 dev eth0  proto static 
+10.1.1.0/24 via 10.1.1.9 dev tun0
+10.1.1.9 dev tun0  proto kernel  scope link  src 10.1.1.10
+192.168.1.0/24 dev eth0  proto kernel  scope link  src 192.168.1.4  metric 1
+default via 192.168.1.1 dev eth0  proto static
 {% endhighlight %}
 </div>
 

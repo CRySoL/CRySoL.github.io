@@ -6,6 +6,7 @@ created: 1141038177
 author: goyo
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>
 Esta receta describe cómo configurar una grabadora de CD/DVD para aprovechar todas sus posibilidades y velocidad.
@@ -15,7 +16,7 @@ Esta receta describe cómo configurar una grabadora de CD/DVD para aprovechar to
 Es muy posible que aunque <a href="http://www.k3b.org/">k3b</a> detecte perfectamente tu grabadora, luego resulte que la velocidad de grabación no llegue a la que teóricamente tiene la unidad.
 
 
-Es normal que no se alcance la velocidad máxima que proporciona el fabricante y, además, la velocidad no es continua (es más lenta cuando graba en el interior del cd que en el exterior). Esto puede ser debido a que, por motivos de seguridad y, para que no se produzcan conflictos entre determinados tipos de placas base y dispositivos de almacenamiento, algunas distros (caso de mi Ubuntu Breezy) no activan el DMA por defecto. 
+Es normal que no se alcance la velocidad máxima que proporciona el fabricante y, además, la velocidad no es continua (es más lenta cuando graba en el interior del cd que en el exterior). Esto puede ser debido a que, por motivos de seguridad y, para que no se produzcan conflictos entre determinados tipos de placas base y dispositivos de almacenamiento, algunas distros (caso de mi Ubuntu Breezy) no activan el DMA por defecto.
 
 <h1>Ver estado por defecto</h1>
 
@@ -32,7 +33,7 @@ Para ver la configuración de nuestro dispositivo usa @hdparm <dispositivo>@, po
  HDIO_GETGEO failed: Invalid argument
 </pre>
 
-Como ves, el DMA está desactivado. 
+Como ves, el DMA está desactivado.
 
 
 <h1>Cambiando la configuración</h1>

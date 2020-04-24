@@ -10,6 +10,7 @@ tags:
 - Arco
 - Python
 - networking
+render_with_liquid: false
 ---
 bq(head). Esta receta es una pequeña introducción a la programación de sockets «raw».
 
@@ -19,7 +20,7 @@ bq(head). Esta receta es una pequeña introducción a la programación de socket
 
 h2. Introducción
 
-Los sockets son el API por excelencia para programación de aplicaciones de red en prácticamente todos los sistemas operativos. Los sockets más "famosos" son los de la familia de Internet, concretamente aquellos para programación de servidores y clientes TCP y UDP, aunque hay muchos otros tipos de sockets para muchos otros protocolos, como por ejemplo BlueTooth. 
+Los sockets son el API por excelencia para programación de aplicaciones de red en prácticamente todos los sistemas operativos. Los sockets más "famosos" son los de la familia de Internet, concretamente aquellos para programación de servidores y clientes TCP y UDP, aunque hay muchos otros tipos de sockets para muchos otros protocolos, como por ejemplo BlueTooth.
 
 En el "repo público de arco":https://bitbucket.org/arco_group/python-net/src/tip/upper tengo unos cuantos ejemplos que pueden servir para empezar con sockets AF_INET:SOCK_STREAM(TCP) y AF_INET:SOCK_DGRAM(UDP). Sin embargo, el objetivo de esta receta es otro.
 
@@ -143,7 +144,7 @@ import socket, struct
 s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.getprotobyname("udp"))
 
 payload = "hola Inet"
-udp_pkt = struct.pack('!4h', 0, 2000, 8+len(payload), 0) + payload 
+udp_pkt = struct.pack('!4h', 0, 2000, 8+len(payload), 0) + payload
 s.sendto(udp_pkt, ('161.67.27.1', 0))
 {% endhighlight %}
 </div>

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - VCS
+render_with_liquid: false
 ---
 Subversion es un sistema de <a href="http://es.wikipedia.org/wiki/Sistema_de_control_de_versión">control de versiones</a> concurrente. Su objetivo es muy similar al de CVS aunque tiene grandes ventajas sobre éste, y por eso, cada día muchos proyectos de desarrollo de software cambian a subversion.
 
@@ -65,7 +66,7 @@ ToDo
 
 h2. Añadir un fichero
 
-Si has creado un fichero nuevo al módulo y quieres que esté en el repositorio tienes que añadirlo explícitamente. Recuerda que un repositorio está pensado para "fuentes" (no binarios). No subas nada que se pueda generar a partir de otros ficheros. Nada de binarios, ficheros objeto, copias de seguridad, pdf o cualquier cosa que se pueda obtener como resultado de una compilación. 
+Si has creado un fichero nuevo al módulo y quieres que esté en el repositorio tienes que añadirlo explícitamente. Recuerda que un repositorio está pensado para "fuentes" (no binarios). No subas nada que se pueda generar a partir de otros ficheros. Nada de binarios, ficheros objeto, copias de seguridad, pdf o cualquier cosa que se pueda obtener como resultado de una compilación.
 
 
 <div class="console">

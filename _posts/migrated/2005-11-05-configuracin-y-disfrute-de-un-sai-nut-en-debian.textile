@@ -6,6 +6,7 @@ created: 1131191140
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>
 Esta receta explica cómo instalar y configurar la herramienta <acronym title="Network UPS Tools">NUT</acronym> para aprovechar al máximo las posibilidades de un <acronym title="Sistema de Alimentación Ininterrumpida">SAI</acronym> en un sistema Debian GNU/Linux. Concretamente, los pasos son para un MGE Pulsar Extreme 1500C
@@ -69,10 +70,10 @@ Al volver la corriente:
   </li>
 </ul>
 
-No todos los SAIs pueden hacer todo lo que se índica. Tendrás más o menos posibilidades dependiendo de la gama y precio del SAI. 	
+No todos los SAIs pueden hacer todo lo que se índica. Tendrás más o menos posibilidades dependiendo de la gama y precio del SAI.
 
 <h2>Configuración</h2>
-    
+
 <h3>Configuración común</h3>
 
 Lo primero, y antes de que se nos olvide, será cambiar los permisos del puerto serie (<tt>/dev/ttyS0</tt> o <tt>/dev/ttyS1</tt>), pues nos debe dejar leer y escribir en él como <tt>root</tt>. En Debian, los puertos serie suelen pertenecer al grupo <tt>dialout</tt>, así que la manera más fácil de conseguir permiso es:
@@ -80,10 +81,10 @@ Lo primero, y antes de que se nos olvide, será cambiar los permisos del puerto 
 
 <div class="console">
 {% highlight console %}
-# addgrp nut dialout 
+# addgrp nut dialout
 {% endhighlight %}
 </div>
- 
+
 En <tt>/etc/nut/ups.conf</tt> habrá que realizar algunos cambios (tanto en cliente como en servidor). Aquí es donde se añade el driver (cada familia de SAIs tiene su propio driver):
 
 
@@ -109,7 +110,7 @@ Por ejemplo, para un SAI "MGE Pulsar Extreme" será:</p>
 </div>
 
 <h3>Configuración del servidor</h3>
-    
+
 Edita el fichero <tt>/etc/default/nut</tt> modificando la línea <tt>"START_UPSD=no"</tt> por <tt>"START_UPSD=yes"</tt>
 
 En el fichero <tt>/etc/nut/upsd.conf</tt> tienes que crear la lista de control de acceso (ACL). Para ello incluye (si no existe ya):</p>
@@ -154,7 +155,7 @@ Lo siguiente será <tt>/etc/nut/upsmon.conf</tt>. Éste es el fichero de configu
 MONITOR [id]@[ip] 1 [password] slave|master
 {% endhighlight %}
 </div>
-    
+
 Lo normal para el equipo que tiene la conexión de datos al SAI es que funcione en modo "master". Eso significa que debe esperar a que los "slaves" apaguen antes de hacerlo él. Así que quedará algo como esto:
 
 
@@ -163,7 +164,7 @@ Lo normal para el equipo que tiene la conexión de datos al SAI es que funcione 
 MONITOR mge@192.168.0.1 1 [password] master
 {% endhighlight %}
 </div>
- 
+
 Ahora debes reniciar el servicio de la forma habitual:
 
 

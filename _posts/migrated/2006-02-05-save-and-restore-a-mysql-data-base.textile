@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - MySQL
+render_with_liquid: false
 ---
 This recipe explain how to make a backup of a complete database in a easy way. Then, the backup file can be restored when a disaster occurs.
 

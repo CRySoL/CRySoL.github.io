@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - embedded
+render_with_liquid: false
 ---
 bq(head). Comunicar el NXT con el PC por medio de Bluetooth. Se explica brevemente el protocolo de comunicaciones y se presenta un ejemplo: un servidor de <i>echo</i>.
 
@@ -38,7 +39,7 @@ Los paquetes relacionados con Bluetooth los puedes instalar como de costumbre: u
 
 Antes de nada, un pequeño detalle. Ya sabes que el perfil que vamos a usar es el SP. En el caso que veremos, tiene ciertas restricciones: en la comunicación entre el NXT y nuestro PC se establece un maestro y un esclavo. El que inicia las comunicaciones es el maestro y es el que toma el rol activo en la conversación. Es decir, el esclavo <i>sólo responde</i> a los mensajes, nunca empieza las transmisiones.
 
-Teniendo esto en mente, podemos establecer la comunicación de dos formas: usando el NXT como maestro o como esclavo. Por tanto, si desde el PC te conectas al NXT (el PC se convierte en maestro) y quieres, por ejemplo, saber el estado de un sensor, primero le envias un comando para que ejecute una determinada acción (leer el valor del sensor) y luego otro para leer la respuesta. Es una limitación del protocolo, pero hay que atenerse a ella. 
+Teniendo esto en mente, podemos establecer la comunicación de dos formas: usando el NXT como maestro o como esclavo. Por tanto, si desde el PC te conectas al NXT (el PC se convierte en maestro) y quieres, por ejemplo, saber el estado de un sensor, primero le envias un comando para que ejecute una determinada acción (leer el valor del sensor) y luego otro para leer la respuesta. Es una limitación del protocolo, pero hay que atenerse a ella.
 
 Otro apunte, el core del bluetooth tiene su propio firmware, que interpreta los mensajes que envíes siguiendo un formato de paquete bastante sencillo. Esto está pensado para que puedas controlar el NXT remotamente sin tener un servidor corriendo en el brick. Así pues, si quieres activar un motor o leer un fichero de la flash, el core del bluetooth lo hace transparentemente. Esto implica que si quieres hablar con un programa que corre dentro del NXT OS, tienes que usar el protocolo que habla el core bluetooth, que ofrece un 'método' para pasar mensajes (como strings) al programa activo en el ladrillo. Así mismo, ofrece otro 'método' para leer los mensajes que el programa quiera enviar al PC (todo esto, teniedo en cuenta que el maestro es el PC).
 
@@ -68,7 +69,7 @@ $ NXTRC -a 00:11:22:33:44:55 -i # muestra información del ladrillo
 
 $ NXTRC -a 00:11:22:33:44:55 -l # lista el contenido de la Flash
 
-=: Files: 
+=: Files:
                 Name     Size
         NVConfig.sys        1
        RPGReader.sys    14346
@@ -155,7 +156,7 @@ Recuerda tener los servicios Bluetooth activos. Ahora, nos ponermos a escuchar e
 Waiting for connection on channel 3
 </pre>
 
-Se especifica el dispositivo (/dev/rfcomm0) que se creará cuando se enlace a dicho canal (3) un cacharro Bluetooth (en este caso, el NXT). Ahora, en el brick, busca el PC y enlázate (usando el endpoint que quieras, por ejemplo, el 1). Si obtienes un mensaje de tipo "line busy" es que ha habido un problema. Usa de nuevo <i>hcidump</i> para ver que puede ser. Si todo va bien, en el terminal que ejecutaste <i>rfcomm</i> deberías ver un mensaje avisándote de la conexión establecida... 
+Se especifica el dispositivo (/dev/rfcomm0) que se creará cuando se enlace a dicho canal (3) un cacharro Bluetooth (en este caso, el NXT). Ahora, en el brick, busca el PC y enlázate (usando el endpoint que quieras, por ejemplo, el 1). Si obtienes un mensaje de tipo "line busy" es que ha habido un problema. Usa de nuevo <i>hcidump</i> para ver que puede ser. Si todo va bien, en el terminal que ejecutaste <i>rfcomm</i> deberías ver un mensaje avisándote de la conexión establecida...
 
 <pre class="console">
 # rfcomm listen /dev/rfcomm0 3
@@ -191,7 +192,7 @@ task main(){
 
   // Enviamos el texto adecuado
   TextOut(10,LCD_LINE1, "Enviando texto...");
-  BluetoothWrite(BTCON, "Hola desde el NXT!"); 
+  BluetoothWrite(BTCON, "Hola desde el NXT!");
   TextOut(10,LCD_LINE2, "Hecho");
   Wait(2000);
 }
@@ -210,7 +211,7 @@ Lo siguiente es enviar el mensaje, con <b>BluetoothWrite()</b>. Existen otras pr
 Al ejecutar el código, si todo salió bien, podrás leer en /dev/rfcomm0 el mensaje "Hola desde el NXT!" (cierto, no es el "hello world" prometido, pero fué un alarde de inspiración cambiar el mensaje :-P). Puedes verlo usando <i>cat, minicom, cutecom</i> o lo que más te guste, mientras tenga permisos de lectura en el dispositivo:
 
 <pre class="console">
-# cat /dev/rfcomm0 
+# cat /dev/rfcomm0
   Hola desde el NXT!
 </pre>
 
@@ -243,18 +244,18 @@ void BTWaitReady(int con){
   until(BluetoothStatus(con) == NO_ERR);
 }
 
-// Lee del mbox especificado el contenido 
+// Lee del mbox especificado el contenido
 int BTReadMsg(byte con, byte inbox, string &data){
   int retval;
-  
-  BTWaitReady(con);                   
-  retval = ReceiveMessage(inbox, true, data); 
-  BTWaitReady(con);                   
+
+  BTWaitReady(con);
+  retval = ReceiveMessage(inbox, true, data);
+  BTWaitReady(con);
   return retval;
 }
 
 // Escribe en el mbox el mensaje especificado
-void BTWriteMsg(byte con, byte outbox, string msg){ 
+void BTWriteMsg(byte con, byte outbox, string msg){
 
   BTWaitReady(con);
   SendMessage(outbox, msg);
@@ -272,8 +273,8 @@ task main(){
     data = "\0";
     BTReadMsg(BTCNN, INBOX, data);
     if (StrLen(data) > 0){
-      BTWriteMsg(BTCNN, OUTBOX, data);      
-    }    
+      BTWriteMsg(BTCNN, OUTBOX, data);
+    }
   }
 }
 </pre>
@@ -324,31 +325,31 @@ int BTConnect(char *dest){
 }
 
 
-/* Envía una cadena de texto 'msg', de 'len' bytes usando el socket 'sfd' al 
+/* Envía una cadena de texto 'msg', de 'len' bytes usando el socket 'sfd' al
  * mailbox especificado por 'inbox'
  */
 int BTSendMSG(int sfd, char *msg, int len, int inbox){
 
 /* Máximo número de caracteres a enviar (con '\0' incluido) */
-#define MAX 64  
+#define MAX 64
 
   if (len > MAX) {
     printf("ERROR: el mensaje excede el tamaño máximo, %d bytes!", MAX);
     return -1;
   }
-  
+
   /* LSB, MSB, CMD_TYPE, CMD, INBOX, MSG_LEN, MSG */
   unsigned char cmd[MAX] = {len+5, 0x0, 0x0, 0x9, inbox, len+1};
   int i, r;
 
   for (i=0; i<=len; i++)
     cmd[i+6] = *(msg+i);
-  
+
   /* Escribe los datos en el socket */
   len += 7;
   if (write(sfd, cmd, len) < len){
     perror("ERROR enviando msg");
-    return -1;        
+    return -1;
   }
 
   /* Si se requiere respuesta, leerla */
@@ -388,7 +389,7 @@ int BTRecvMSG(int sfd, char *ret, int outbox){
   /* Escribe los datos en el socket */
   if (write(sfd, cmd, 7) < 7){
     perror("ERROR enviando msg");
-    return -1;        
+    return -1;
   }
 
   /* Lee la respuesta, que son siempre 64 bytes */
@@ -433,11 +434,11 @@ int main(int argc, char **argv){
 }
 </pre>
 
-Aquí tenemos varias funciones, hechas <i>ad-hoc</i> para el ejemplo (y por supuesto mejorables). Algunas cosas están sacadas del código del NXTRC (GPL), así, si te animas... 
+Aquí tenemos varias funciones, hechas <i>ad-hoc</i> para el ejemplo (y por supuesto mejorables). Algunas cosas están sacadas del código del NXTRC (GPL), así, si te animas...
 
 La primera función que vemos, <b>BTConnect()</b> nos crea un socket a la dirección especificada. Con esto, ya podemos enviar y recibir datos.
 
-Las dos funciones siguientes se encargan de leer y escribir los mensajes. Están comentadas y además el código es sencillo de entender. Se crean las cabeceras de los mensajes como arrays de caracteres y se escriben en el socket con <i>write()</i>. En el caso de escribir un mensaje, esperamos una respuesta para comprobar si todo ha ido bien. 
+Las dos funciones siguientes se encargan de leer y escribir los mensajes. Están comentadas y además el código es sencillo de entender. Se crean las cabeceras de los mensajes como arrays de caracteres y se escriben en el socket con <i>write()</i>. En el caso de escribir un mensaje, esperamos una respuesta para comprobar si todo ha ido bien.
 
 Al recibir un mensaje, debemos leer la respuesta porque va contenido en esta.
 
@@ -451,7 +452,7 @@ Para probarlo, recuerda lanzar primero el servidor en el NXT, o te dirá que lo 
 
 <h2>Últimos apuntes</h2>
 
-Por supuesto, el código es mejorable en muchos aspectos (feel free :-d). Leer los mensajes de respuesta es buena idea si la latencia no es muy importante, ya que el cambio de modo en el core Bluetooth para pasar de leer a escribir es caro (unos 60 ms). 
+Por supuesto, el código es mejorable en muchos aspectos (feel free :-d). Leer los mensajes de respuesta es buena idea si la latencia no es muy importante, ya que el cambio de modo en el core Bluetooth para pasar de leer a escribir es caro (unos 60 ms).
 
 Otro detalle interesante es que la limitación de 64 bytes es sólo para los "Direct Commands", es decir, podemos enviar mensajes más largos si usamos comandos de sistema, pero debemos tener en cuenta que cuando superan dicho límite, el core de Bluetooth los guarda en Flash.
 

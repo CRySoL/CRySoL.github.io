@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Python
 - Debian-devel
+render_with_liquid: false
 ---
 Si eres un administrador de una máquina debian/ubuntu con un poco de amor propio seguramente no harás @configure/make/make install@ o al menos te lo pensarás dos veces.
 
@@ -28,7 +29,7 @@ $ python setup.py install
 {% endhighlight %}
 </div>
 
-que es el equivalente al @configure/make/make install@ para programas C/C++/otros 
+que es el equivalente al @configure/make/make install@ para programas C/C++/otros
 
 h2. stdeb al rescate
 

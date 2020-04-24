@@ -6,6 +6,7 @@ created: 1153820195
 author: paco
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Cómo instalar y poner en marcha Zope/Plone en Debian GNU/Linux
 
@@ -32,7 +33,7 @@ Instala los paquetes necesarios:
 
 <div class="console">
 {% highlight console %}
-# apt-get install plone 
+# apt-get install plone
 {% endhighlight %}
 </div>
 
@@ -53,7 +54,7 @@ Usa @dzhandle@ para añadir nuevos productos:
 
 <div class="console">
 {% highlight console %}
-$ dzhandle -z 2.8 add-product myPloneSite CMFPlone 
+$ dzhandle -z 2.8 add-product myPloneSite CMFPlone
 {% endhighlight %}
 </div>
 
@@ -62,7 +63,7 @@ Igual te interesa instalar alguno más.  Por ejemplo:
 
 <div class="console">
 {% highlight console %}
-$ dzhandle -z 2.8 add-product myPloneSite PloneCollectorNG RDFGrabber ExtFile ReplaceSupport exUserFolder COREBlog2 TinyTablePlus PloneExFile Formulator CMFForum CMFMember CMFSin PlacelessTranslationService LinguaPlone CMFPhotoAlbum 
+$ dzhandle -z 2.8 add-product myPloneSite PloneCollectorNG RDFGrabber ExtFile ReplaceSupport exUserFolder COREBlog2 TinyTablePlus PloneExFile Formulator CMFForum CMFMember CMFSin PlacelessTranslationService LinguaPlone CMFPhotoAlbum
 {% endhighlight %}
 </div>
 
@@ -71,7 +72,7 @@ Cuando termines reinicia la instancia:
 
 <div class="console">
 {% highlight console %}
-$ dzhandle zopectl myPloneSite restart 
+$ dzhandle zopectl myPloneSite restart
 {% endhighlight %}
 </div>
 

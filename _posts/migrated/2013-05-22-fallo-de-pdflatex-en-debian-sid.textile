@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Debian
 - LaTeX
+render_with_liquid: false
 ---
 Si tienes Debian sid y has actualizado hace poco probablemente pdflatex ha empezado a fallar:
 
@@ -16,7 +17,7 @@ Si tienes Debian sid y has actualizado hace poco probablemente pdflatex ha empez
 <div class="console">
 {% highlight console %}
 
-$ pdflatex main.tex 
+$ pdflatex main.tex
 This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian)
 
 kpathsea: Running mktexfmt pdflatex.fmt
@@ -29,4 +30,3 @@ Hay un bug abierto sobre esto: #709164
 La solución según este hilo es instalar una versión antigua de @libkpathsea6@, por ejemplo:
 
 <a href="http://ftp.de.debian.org/debian/pool/main/t/texlive-bin/libkpathsea6_2012.20120628-4_amd64.deb">http://ftp.de.debian.org/debian/pool/main/t/texlive-bin/libkpathsea6_2012.20120628-4_amd64.deb</a>
-

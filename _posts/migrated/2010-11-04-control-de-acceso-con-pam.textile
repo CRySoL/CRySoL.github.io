@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - security
+render_with_liquid: false
 ---
 Esta receta se muestra cómo crear un servicio PAM para discriminar el acceso entre diferentes usuarios y grupos.
 
@@ -37,7 +38,7 @@ Los módulos, normalmente, se llaman @pam_*.so@ y están muy bien documentados (
 * @auth@: referente a la comprobación de usuario y contraseña.
 * @account@: referente a la gestión de la cuenta de usuario (cuenta bloqueada, etc.).
 * @password@: referente a la gestión de la constraseña (caducada o no, etc.)
-* @session@: referente a las acciones a realizar sobre la sesión del usuario (registrarlo en un log, etc.) 
+* @session@: referente a las acciones a realizar sobre la sesión del usuario (registrarlo en un log, etc.)
 
 Por ejemplo, el módulo @pam_unix.so@ ofrece los cuatro componentes para la autenticación basada en los archivos @/etc/shadow@ y @/etc/password@. Otros módulos sólo ofrecen algunos componentes, normalmente @auth@.
 
@@ -48,7 +49,7 @@ Basicamente, los flags de control modifican la forma en la que se debe aplicar l
 * @sufficient@: si el módulo tiene éxito, se concede el acceso si todos los required han tenido éxito. Pero si falla, *se ignora*. Al igual que antes, un módulo hace que *importe* el orden.
 * @optional@: un componente de módulo con este flag sólo será tenido en cuenta si no hay otra regla que referencie al mismo componente.
 
-Utilizando la directiva @include@ es posible _apilar_ (o, simplemente, incluir) la política de autenticación de otro servicio de forma que las políticas "paranoicas" y de grano fino puedan implementarse. 
+Utilizando la directiva @include@ es posible _apilar_ (o, simplemente, incluir) la política de autenticación de otro servicio de forma que las políticas "paranoicas" y de grano fino puedan implementarse.
 
 Dicho esto, veamos algunos ejemplos útiles. Más información, en la "sintáxis de PAM":http://web.mit.edu/rhel-doc/4/RH-DOCS/rhel-rg-en-4/s1-pam-format.html.
 

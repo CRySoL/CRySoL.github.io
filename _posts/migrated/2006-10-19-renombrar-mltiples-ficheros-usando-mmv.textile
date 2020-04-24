@@ -6,6 +6,7 @@ created: 1161296142
 author: LaEspiral
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>
 Supongamos que tenemos 60 archivos con nombres "ficheroXXX.JPEG" y queremos cambiarles el nombre a todos para que queden "ficheroXXX.jpg" (XXX quiere decir tres dígitos cualquiera; cualquier otro significado de XXX será pura coincidencia :-) Se puede escribir un comando shell que busque todos los archivos y les cambie el nombre uno a uno. Pero más fácil aún es usar el programa mmv que viene en el paquete @mmv@ de Debian.
@@ -55,7 +56,7 @@ $ mcp ";*.html" "#1#2.html-backup"
 {% endhighlight %}
 </div>
 
-Por cada fichero terminado en @.html@, tendremos en el mismo directorio un fichero terminado en @.html-backup@ que es una copia idéntica. 
+Por cada fichero terminado en @.html@, tendremos en el mismo directorio un fichero terminado en @.html-backup@ que es una copia idéntica.
 
 h1. Autoría
 

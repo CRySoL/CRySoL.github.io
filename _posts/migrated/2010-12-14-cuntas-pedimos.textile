@@ -8,6 +8,7 @@ comments: true
 category: humor
 tags:
 - Debian
+render_with_liquid: false
 ---
 <center>
 	<img alt="http://svn.debianart.org/themes/spacefun/others/t-shirt.png"
@@ -18,4 +19,3 @@ tags:
 
 
 Creo que deberíamos interpretar "esto":http://wiki.debian.org/DebianArt/Themes/SpaceFun como una llamada de auxilio de Debian: "Necesitamos diseñadores gráficos..." ...como el respirar...
-

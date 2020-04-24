@@ -6,6 +6,7 @@ created: 1144670363
 author: aledelgal
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>
 ImageMagick es una colección de herramientas y librerías para leer, escribir y manipular una imagen en diversos formatos. Las operaciones de pocesamiento de imágenes están disponibles en línea de comandos. Se pueden redimensionar, cambiar su resolución, rotar, añadir texto, añadir efectos artísticos, etc..., lo que quieras.
@@ -17,12 +18,12 @@ Yo cuando lo descubrí ya lo tenía instalado, pero de todas formas está en los
 
 <div class="console">
 {% highlight console %}
- # apt-get install imagemagick 
+ # apt-get install imagemagick
 {% endhighlight %}
 </div>
 
 
-h2. Redimensionar una imagen. 
+h2. Redimensionar una imagen.
 
 Existen varias opciones:
 
@@ -31,7 +32,7 @@ Redimensionarla porcentualmente:
 
 <div class="console">
 {% highlight console %}
- $ convert -sample 50%x50% imgagen.jpg nuevaimagen.jpg 
+ $ convert -sample 50%x50% imgagen.jpg nuevaimagen.jpg
 {% endhighlight %}
 </div>
 
@@ -40,7 +41,7 @@ Cambiarle la resolución (a 800x600):
 
 <div class="console">
 {% highlight console %}
- $ convert -resize 800x600 imagen.jpg nuevaimagen.jpg 
+ $ convert -resize 800x600 imagen.jpg nuevaimagen.jpg
 {% endhighlight %}
 </div>
 
@@ -52,7 +53,7 @@ En este caso, al 85%:
 
 <div class="console">
 {% highlight console %}
- $  convert -quality 85 imagen.jpg nuevaimagen.jpg 
+ $  convert -quality 85 imagen.jpg nuevaimagen.jpg
 {% endhighlight %}
 </div>
 
@@ -66,7 +67,7 @@ Así rotaríamos 90 grados a la derecha:
 
 <div class="console">
 {% highlight console %}
- $ convert -rotate 90 input.jpg output.jpg 
+ $ convert -rotate 90 input.jpg output.jpg
 {% endhighlight %}
 </div>
 
@@ -81,9 +82,9 @@ Opciones:
 
 <div class="console">
 {% highlight console %}
- $ convert -font helvetica -fill white -pointsize 36 -draw 'text 10,50 "Dia de campo..." imagen.jpg imagencomentada.jpg 
+ $ convert -font helvetica -fill white -pointsize 36 -draw 'text 10,50 "Dia de campo..." imagen.jpg imagencomentada.jpg
 {% endhighlight %}
-</div> 
+</div>
 
 
 h2. Y mucho más

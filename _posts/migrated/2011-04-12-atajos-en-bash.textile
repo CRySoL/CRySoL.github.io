@@ -7,6 +7,7 @@ author: nacho
 comments: true
 tags:
 - shell
+render_with_liquid: false
 ---
 Algunos atajos útiles en bash, vía variables de entorno.
 
@@ -53,7 +54,7 @@ Cabe señalar que si el comando anterior tuviera más de un argumento, sólo se 
 <div class="console">
 {% highlight console %}
 
-$ cat uno dos 
+$ cat uno dos
 fichero uno
 fichero dos
 $ head $_
@@ -67,7 +68,7 @@ Si se quisieran obtener todos, hay que utilizar <tt>!*</tt>
 
 <div class="console">
 {% highlight console %}
-$ cat uno dos 
+$ cat uno dos
 fichero uno
 fichero dos
 $ echo !*

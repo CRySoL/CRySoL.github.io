@@ -8,12 +8,13 @@ comments: true
 category: recipe
 tags:
 - gtk
+render_with_liquid: false
 ---
 Permite asignar combinaciones de teclas personalizadas a cualquier opción de un menú solo con pulsarla mientras está seleccionado. Siempre me pareció una gran <em>feature</em>.
 
 
 <div class="console">
 {% highlight console %}
-$ gconftool-2 -t bool -s /desktop/gnome/interface/can_change_accels true 
+$ gconftool-2 -t bool -s /desktop/gnome/interface/can_change_accels true
 {% endhighlight %}
 </div>

@@ -6,8 +6,9 @@ created: 1150543510
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
-hdparm es una pequeña herramienta que sirve para manipular la configuración de las unidades de disco. El objetivo es optimizar el tiempo de acceso o la velocidad de transferencia. 
+hdparm es una pequeña herramienta que sirve para manipular la configuración de las unidades de disco. El objetivo es optimizar el tiempo de acceso o la velocidad de transferencia.
 
 
 <!--break-->
@@ -25,7 +26,7 @@ Con el siguiente comando puedes ver, entre otros muchos datos, el modo DMA más 
 
 <div class="console">
 {% highlight console %}
- # hdparm -i /dev/hda 
+ # hdparm -i /dev/hda
 {% endhighlight %}
 </div>
 
@@ -34,7 +35,7 @@ Lo mismo, pero mucho más verboso:
 
 <div class="console">
 {% highlight console %}
- #hdparm -I /dev/hda 
+ #hdparm -I /dev/hda
 {% endhighlight %}
 </div>
 
@@ -129,7 +130,3 @@ h2. Referencias
 * Fernando Sancho :-)
 * "Mejorando el rendimiento del disco duro con 'hdparm'":http://laespiral.org/recetas/1-100/receta36.html
 * @$ man hdparm@
-
-
-
-

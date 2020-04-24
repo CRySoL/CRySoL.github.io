@@ -6,6 +6,7 @@ created: 1128716589
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Uso básico de @mkisofs@ y @cdrecord@ para copiar y grabar CDs desde consola.
 
@@ -135,7 +136,7 @@ h2. Borrar un DVD regrabable
 
 <div class="console">
 {% highlight console %}
- #  dvd+rw-format /dev/dvd 
+ #  dvd+rw-format /dev/dvd
 {% endhighlight %}
 </div>
 

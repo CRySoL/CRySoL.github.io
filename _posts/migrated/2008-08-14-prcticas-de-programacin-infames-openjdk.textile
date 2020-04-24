@@ -6,6 +6,7 @@ created: 1218681258
 author: david_villa
 comments: true
 category: new
+render_with_liquid: false
 ---
 Más de una vez (y de dos) he oído hablar sobre extrañas normas no escritas (o eso espero) sobre «buenas prácticas» de programación. De entre todas ellas, me permito destacar:
 
@@ -82,7 +83,7 @@ $ grep -R "continue;" *  | wc -l
 1600
 $ grep -R "goto " * | wc -l
 447
-$ grep -R "return" * | wc -l        
+$ grep -R "return" * | wc -l
 133092
 {% endhighlight %}
 </div>

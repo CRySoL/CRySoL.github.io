@@ -6,6 +6,7 @@ created: 1156524153
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Programas disponibles en Debian para acceder al Motorola V3
 
@@ -33,7 +34,7 @@ Si tienes un Linux de los precompilados por Debian casi seguro que tendrás sopo
 
 <div class="console">
 {% highlight console %}
- # modprobe cdc_acm 
+ # modprobe cdc_acm
 {% endhighlight %}
 </div>
 
@@ -42,7 +43,7 @@ En cuanto a los programas, ya sabes:
 
 <div class="console">
 {% highlight console %}
- # apt-get install moto4lin wammu 
+ # apt-get install moto4lin wammu
 {% endhighlight %}
 </div>
 

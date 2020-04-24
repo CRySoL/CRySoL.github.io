@@ -10,8 +10,9 @@ tags:
 - Python
 - gtk
 - Arco
+render_with_liquid: false
 ---
-<blockquote>Esta receta pretende recoger una colección sobre pequeños 'trucos' de GTK que siempre viene bien tener a mano. 
+<blockquote>Esta receta pretende recoger una colección sobre pequeños 'trucos' de GTK que siempre viene bien tener a mano.
 </blockquote>
 
 <h2>GtkkTreeview</h2>
@@ -99,10 +100,10 @@ rect = win.allocation
 
 <div>
 {% highlight python %}
-# Callback del evento 'motion_notify_event' 
+# Callback del evento 'motion_notify_event'
 def on_motion_notify_event(self, widget, event):
     widget.handler_block_by_func(self.on_motion_notify_event)
-     
+
     # Your code goes here
 
     def _unblock():

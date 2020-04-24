@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - VCS
+render_with_liquid: false
 ---
 bq(head). Una pequeña introducción a *git*, el sistema de control de versiones de moda.
 
@@ -45,7 +46,7 @@ juan@example:~/iexplorer9$ git init
 Initialized empty Git repository in .git/
 
 {% endhighlight %}
-</div> 
+</div>
 
 
 
@@ -167,5 +168,3 @@ h2. Referencias
 * "Everyday GIT With 20 Commands Or So":http://www.kernel.org/pub/software/scm/git/docs/everyday.html
 * "Git - SVN Crash Course":http://git.or.cz/course/svn.html
 * "git for CVS users":http://www.kernel.org/pub/software/scm/git/docs/cvs-migration.html
-
-

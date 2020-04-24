@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 Cómo configurar «a mano» (sin DHCP) los parámetros más importantes de una tarjeta de red en GNU/Linux, utilizando el comando @ip@ del paquete @iproute2@.
 
@@ -30,7 +31,7 @@ Antes de comenzar debemos pedirle al administrador de la red que nos proporcione
 * Dirección IP de el/los DNS (en nuestro ejemplo:161.67.28.4 y 161.67.26.34).
 
 h2. Configuración
- 
+
 Veamos la configuración de la tarjeta:
 
 
@@ -38,10 +39,10 @@ Veamos la configuración de la tarjeta:
 {% highlight console %}
 
 ~# ip addr
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 16436 qdisc noqueue state UNKNOWN 
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 16436 qdisc noqueue state UNKNOWN
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
-    inet6 ::1/128 scope host 
+    inet6 ::1/128 scope host
        valid_lft forever preferred_lft forever
 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 100
     link/ether 00:37:56:34:21:c7 brd ff:ff:ff:ff:ff:ff
@@ -100,7 +101,7 @@ PING 161.67.28.150 (161.67.28.150): 56 data bytes
 64 bytes from 161.67.28.150: icmp_seq=0 ttl=255 time=2.0 ms
 64 bytes from 161.67.28.150: icmp_seq=1 ttl=255 time=0.3 ms
 64 bytes from 161.67.28.150: icmp_seq=2 ttl=255 time=0.3 ms
-  
+
   --- 161.67.28.150 ping statistics ---
 5 packets transmitted, 5 packets received, 0% packet loss
 round-trip min/avg/max = 0.3/0.6/2.0 ms
@@ -124,7 +125,7 @@ Siendo la dirección IP indicada la del router para nuestra red local. Si miramo
 
 ~# ip route
 161.67.28.28.0/24 dev eth0  proto kernel  scope link  src 161.67.28.216
-default via  161.67.28.28.1 dev eth0  proto static 
+default via  161.67.28.28.1 dev eth0  proto static
 {% endhighlight %}
 </div>
 
@@ -157,14 +158,14 @@ Modifica el archivo <tt>/etc/resolv.conf</tt> o lo crearemos, si no existe, con 
 <div>
 {% highlight text %}
 ### Comentarios varios
-domain inf-cr.uclm.es  
+domain inf-cr.uclm.es
 nameserver 161.67.26.34
-nameserver 161.67.27.4 
+nameserver 161.67.27.4
 {% endhighlight %}
 </div>
 
 Si queremos acceder a una máquina por medio de un nombre que no está en el DNS, podemos editar el archivo <tt>/etc/hosts</tt> e incluir en él una línea del tipo:
-   
+
 
 <div>
 {% highlight text %}

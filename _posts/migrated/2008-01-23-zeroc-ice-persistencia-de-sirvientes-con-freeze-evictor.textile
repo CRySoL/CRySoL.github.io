@@ -10,6 +10,7 @@ tags:
 - C++
 - Ice
 - Arco
+render_with_liquid: false
 ---
 Cómo integrar Freeze en aplicaciones existentes para obtener persistencia en los sirvientes.
 
@@ -27,7 +28,7 @@ Cómo integrar Freeze en aplicaciones existentes para obtener persistencia en lo
 
 <h2>Empezando</h2>
 
-Nuestro objetivo es simple: añadir persistencia a los sirvientes de nuestras aplicaciones. Con ello, es posible restaurar el estado de un sirviente, aunque la aplicación haya terminado. Además, puesto que usamos el Evictor de Freeze, tenemos gestión de recursos: reactivación de sirvientes bajo demanda y desactivación de objetos que no se usan. De esta forma, optimizamos los recursos de la máquina. 
+Nuestro objetivo es simple: añadir persistencia a los sirvientes de nuestras aplicaciones. Con ello, es posible restaurar el estado de un sirviente, aunque la aplicación haya terminado. Además, puesto que usamos el Evictor de Freeze, tenemos gestión de recursos: reactivación de sirvientes bajo demanda y desactivación de objetos que no se usan. De esta forma, optimizamos los recursos de la máquina.
 
 El Evictor mantiene una lista de los sirvientes más recientemente usados, y que están disponibles directamente. El resto de sirvientes están guardados en una base de datos. En caso de que sea necesario acceder a alguno de ellos, el Evictor se encarga de todo: crea un nuevo objeto de ese mismo tipo y actualiza su estado con información de la base de datos, para que sirva las peticiones convenientemente.
 
@@ -37,7 +38,7 @@ Es la implementación del patrón evictor. Para más información sobre este pat
 
 Supongamos que tenemos un sencillo sistema de mensajes. Consta de una aplicación que instancia tantos sirvientes como mensajes se deseen guardar. Estos sirvientes mantienen el contenido del mensaje, y aportan la interfaz para leerlo o modificarlo. La definición de dicho slice es:
 
-<b>Nota</b>: en [3] está disponible el código fuente completo de estos ejemplos. Te lo puedes descargar con subversion: 'svn co [3]' 
+<b>Nota</b>: en [3] está disponible el código fuente completo de estos ejemplos. Te lo puedes descargar con subversion: 'svn co [3]'
 
 <u>Message.ice</u>
 
@@ -81,7 +82,7 @@ namespace UCLM {
 
     virtual ::std::string read(const Ice::Current&);
 
-  private:  
+  private:
     ::std::string message;
   };
 }
@@ -89,7 +90,7 @@ namespace UCLM {
 #endif // __MessageI_h__
 {% endhighlight %}
 </div>
- 
+
 Tiene un constructor para inicializar el objeto desde el servidor. La implementación es trivial: leer <i>message</i> o escribirlo. Este ejemplo es bastante sencillo, pero podría ser una aplicación cualquiera. Para instanciar estos sirvientes, tenemos un servidor normal y corriente:
 
 <u>Server.cpp</u>
@@ -114,11 +115,11 @@ public:
   virtual int run(int argc, char* argv[]){
 
     _ic = communicator();
-    
+
     // Create the object adapter
     _adapter = _ic->createObjectAdapterWithEndpoints("MServer", "tcp -h 127.0.0.1 -p 11111");
     _adapter->activate();
-    
+
     // Create MAX_SERVS servants
     UCLM::MessagePtr serv;
     Ice::ObjectPrx prx;
@@ -158,7 +159,7 @@ Si ejecutamos el servidor, los 100.000 sirvientes (100.000 instancias de la clas
 
 <h2>Ejemplo con Freeze</h2>
 
-Por supuesto, es incómodo tener que rehacer todo nuestro software para añadir el Evictor de Freeze. Suerte que se lo han pensado bien para que no tengamos que sufrir mucho. 
+Por supuesto, es incómodo tener que rehacer todo nuestro software para añadir el Evictor de Freeze. Suerte que se lo han pensado bien para que no tengamos que sufrir mucho.
 
 Intentaremos modificar lo menos posible. Así pues, lo primero que hacemos es un estudio de impacto en nuestras aplicaciones. Si mantenemos las interfaces, los clientes no varían en absoluto, y es perfectamente posible hacerlo.
 
@@ -187,7 +188,7 @@ module UCLM {
 {% endhighlight %}
 </div>
 
-Puesto que, por defecto, Freeze considera que los métodos no modifican el estado, no es necesario especificarlo explícitamente para <i>read()</i>. Estas modificaciones no afectan en absoluto a compilaciones posteriores de la versión original del software, por lo que son inocuas. 
+Puesto que, por defecto, Freeze considera que los métodos no modifican el estado, no es necesario especificarlo explícitamente para <i>read()</i>. Estas modificaciones no afectan en absoluto a compilaciones posteriores de la versión original del software, por lo que son inocuas.
 
 Lo próximo es añadir los atributos que serán persistentes. En la implementación de nuestro ejemplo, guardamos el mensaje en una variable de tipo <i>string</i> llamada <i>message</i>. Ese será el atributo que añadiremos a una nueva clase, que implementará nuestra interfaz Message. Para mantener las cosas sencillas, aquí lo hago en un nuevo fichero (pero esto no es obligatorio):
 
@@ -240,7 +241,7 @@ namespace UCLM {
   public:
     PersistentMessageI();
     PersistentMessageI(::std::string);
-    virtual void write(const ::std::string&,		       
+    virtual void write(const ::std::string&,
 		       const Ice::Current&);
     virtual ::std::string read(const Ice::Current&);
 
@@ -253,7 +254,7 @@ namespace UCLM {
     virtual void destroy();
   };
 
-  
+
   class MessageInitializer : virtual public Freeze::ServantInitializer {
   public:
     virtual void initialize(const Ice::ObjectAdapterPtr&,
@@ -298,7 +299,7 @@ UCLM::PersistentMessageI::PersistentMessageI(string msg){
 void
 UCLM::PersistentMessageI::write(const string& msg,
                       const Ice::Current& current) {
-  
+
   cout << "Event: ++ write" << endl;
   message = msg;
 }
@@ -310,7 +311,7 @@ UCLM::PersistentMessageI::read(const Ice::Current& current) {
   return message;
 }
 
-Ice::ObjectPtr 
+Ice::ObjectPtr
 UCLM::MessageFactory::create(const ::std::string& type){
   cout << "MessageFactory::create(" << type << ")" << endl;
   if (type == "::UCLM::PersistentMessage") {
@@ -322,10 +323,10 @@ UCLM::MessageFactory::create(const ::std::string& type){
   }
 }
 
-void 
+void
 UCLM::MessageFactory::destroy() {}
 
-void 
+void
 UCLM::MessageInitializer::initialize(const Ice::ObjectAdapterPtr&,
 				     const Ice::Identity&,
 				     const std::string&,
@@ -356,7 +357,7 @@ using namespace UCLM;
 class PersistentMessageServer : virtual public Ice::Application {
 public:
   PersistentMessageServer(const string& dbName) :
-    _dbName(dbName) { 
+    _dbName(dbName) {
   }
 
   virtual int run(int argc, char* argv[]){
@@ -412,7 +413,7 @@ private:
   Ice::CommunicatorPtr _ic;
 };
 
-int 
+int
 main(int argc, char* argv[]){
 
   PersistentMessageServer srv("storage");
@@ -429,7 +430,7 @@ Una vez creado el adaptador como de costumbre, creamos el Evictor, que es el que
 
 Lo siguiente es crear los sirvientes. Si todavía no se han añadido a la base de datos, es necesario añadir el sirviente al Evictor para que lo haga. Pero, si el sirviente ya ha sido instanciado, no es necesario hacer nada. Por ello, lo primero que se hace es conseguir la identidad del objeto. Con esta, se pregunta al Evictor si tiene el objeto. Sólo en caso de que retorne falso instanciamos el sirviente y lo añadimos.
 
-El resto es conocido. Compilamos enlazando con Freeze (<i>-lFreeze</i> con Gcc) y listo. 
+El resto es conocido. Compilamos enlazando con Freeze (<i>-lFreeze</i> con Gcc) y listo.
 
 <h2>Resultados</h2>
 
@@ -460,11 +461,11 @@ Waiting events...
 $ ./Client 'Post100 -t:tcp -h 127.0.0.1 -p 11112' read
 COMMAND: read
 VALUE: 'hola'
-$ 
+$
 {% endhighlight %}
 </div>
 
-Y si no te lo crees, pruébalo tu mismo :-p. 
+Y si no te lo crees, pruébalo tu mismo :-p.
 
 Puedes jugar con las propiedades de Freeze para afinar mucho el resultado. En concreto, puedes modificar el número máximo de sirvientes activos. Una cosa a tener en cuenta es la penalización que se obtiene al tener que reactivar el sirviente cuando llega una petición, por ello, también puedes tener en un momento dado, algún sirviente que nunca sea puesto a dormir. Para estos y más detalles, te remito al Ice.Book.
 

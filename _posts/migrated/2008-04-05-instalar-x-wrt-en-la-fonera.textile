@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 bq(head). "X-Wrt":http://x-wrt.org/install.html (a.k.a Webif<sup>2</sup>) es una interfaz web que facilita la administración y configuración de La Fonera y otros routers que usen "OpeWrt":http://wiki.openwrt.org. Webif<sup>2</sup> está disponible como paquete @ipkg@, así que su instalación resulta tremendamente simple.
 

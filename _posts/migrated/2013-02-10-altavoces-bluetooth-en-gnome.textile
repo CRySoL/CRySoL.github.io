@@ -9,6 +9,7 @@ category: recipe
 tags:
 - gnome
 - drivers
+render_with_liquid: false
 ---
 Algunos altavoces, auriculares u otras cosas, como el Belkin Music Receiver (belkin U15) no funcionan directamente con GNOME (al menos en Debian). La solución es simple, aunque no es fácil de encontrar. Basta con:
 
@@ -19,4 +20,3 @@ Algunos altavoces, auriculares u otras cosas, como el Belkin Music Receiver (bel
 # aptitude install pulseaudio-module-bluetooth pulseaudio-module-gconf
 {% endhighlight %}
 </div>
-

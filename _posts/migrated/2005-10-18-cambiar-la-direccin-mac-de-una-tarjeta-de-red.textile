@@ -6,6 +6,7 @@ created: 1129656126
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 En determinadas «circunstancias especiales» puede ser necesario que un PC tenga una tarjeta de red con una dirección MAC específica. Esta receta explica cómo conseguirlo con @ifconfig@, @iproute@ o @macchanger@
 
@@ -44,7 +45,7 @@ h2. Con <tt>ip</tt> (del paquete <tt>iproute</tt>)
 
 <tt>ip</tt> es una herramienta muy potente para obtener información y manipular rutas, dispositivos, políticas de rutado y túneles.
 
- 
+
 <div class="console">
 {% highlight console %}
 

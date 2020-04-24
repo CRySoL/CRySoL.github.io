@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 @ssh@ (entre otras muchas cosas) también sirve para crear túneles entre máquinas o simplemente redireccionar puertos en un misma máquina.
 

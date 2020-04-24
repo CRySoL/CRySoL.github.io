@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - multimedia
+render_with_liquid: false
 ---
 Como añadir un margen para el renderizado de subtítulos en mplayer
 
@@ -36,7 +37,7 @@ h2. Un ejemplo
 <div class="console">
 {% highlight console %}
 
-$ mplayer loveStory.avi -sub loveStory.en.avi -ass -ass-color ffff0000 -ass-border-color 00000000 -ass-font-scale 2 -fontconfig -ass-bottom-margin 55 -ass-use-margins 
+$ mplayer loveStory.avi -sub loveStory.en.avi -ass -ass-color ffff0000 -ass-border-color 00000000 -ass-font-scale 2 -fontconfig -ass-bottom-margin 55 -ass-use-margins
 {% endhighlight %}
 </div>
 

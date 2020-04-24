@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 <blockquote>
 Netcat es una de las herramientas más potentes y flexibles que existen en el campo de la programación, depuración, análisis y manipulación de redes y servicios TCP/IP. Es un recurso imprescindible tanto para expertos en seguridad de redes como para hackers. Esta receta incluye varios ejemplos de uso de  <b>GNU netcat</b>.
@@ -15,7 +16,7 @@ Netcat es una de las herramientas más potentes y flexibles que existen en el ca
 
 <h2> Introducción </h2>
 
-Aunque <tt>netcat</tt> puede hacer muchas cosas, su función principal es muy simple: 
+Aunque <tt>netcat</tt> puede hacer muchas cosas, su función principal es muy simple:
 
 <ol>
   <li>Crea un socket con el destino indicado si es cliente, o en el puerto indicado, si es servidor</li>
@@ -202,7 +203,7 @@ NOTICE AUTH :*** No identd (auth) response
 y a partir de ahí puedes introducir cualquier comando de IRC:
 
 * LIST
-* JOIN #canal 
+* JOIN #canal
 * PART #canal
 * PRIVMSG #canal :mensaje
 * WHO #canal
@@ -270,7 +271,7 @@ Un sencillo ejemplo para hacer <em>streaming</em> de un fichero <tt>.mp3</tt>:
 
 <div class="console">
 {% highlight console %}
-$ nc -l -p 2000 < fichero.mp3 
+$ nc -l -p 2000 < fichero.mp3
 {% endhighlight %}
 </div>
 
@@ -279,7 +280,7 @@ y para servir todos los .mp3 de un directorio:
 
 <div class="console">
 {% highlight console %}
-$ cat *.mp3 | nc -l -p 2000 
+$ cat *.mp3 | nc -l -p 2000
 {% endhighlight %}
 </div>
 
@@ -288,7 +289,7 @@ $ cat *.mp3 | nc -l -p 2000
 
 <div class="console">
 {% highlight console %}
-$ nc server.example.org 2000 | madplay - 
+$ nc server.example.org 2000 | madplay -
 {% endhighlight %}
 </div>
 
@@ -302,7 +303,7 @@ $ nc server.example.org 2000 | madplay -
 
 <div class="console">
 {% highlight console %}
-$ nc -l -p 2000 < pelicula.avi 
+$ nc -l -p 2000 < pelicula.avi
 {% endhighlight %}
 </div>
 
@@ -311,7 +312,7 @@ $ nc -l -p 2000 < pelicula.avi
 
 <div class="console">
 {% highlight console %}
-$ nc server.example.org 2000 | mplayer - 
+$ nc server.example.org 2000 | mplayer -
 {% endhighlight %}
 </div>
 
@@ -341,7 +342,7 @@ Es este ejemplo voy a copiar un pen drive USB que está conectado al servidor a 
 
 <div class="console">
 {% highlight console %}
-$ dd if=/dev/sda1 | nc -l -p 2000 
+$ dd if=/dev/sda1 | nc -l -p 2000
 {% endhighlight %}
 </div>
 
@@ -403,7 +404,7 @@ h3. Servidor
 
 <div class="console">
 {% highlight console %}
-$ nc -l -p 2000 | pv > /dev/null 
+$ nc -l -p 2000 | pv > /dev/null
 {% endhighlight %}
 </div>
 
@@ -412,7 +413,7 @@ h3. Cliente
 
 <div class="console">
 {% highlight console %}
-$ nc server.example.org 2000 < /dev/zero 
+$ nc server.example.org 2000 < /dev/zero
 {% endhighlight %}
 </div>
 

@@ -9,6 +9,7 @@ category: recipe
 tags:
 - drivers
 - Debian
+render_with_liquid: false
 ---
 How to install the device driver for a TDT receiver based on the chipset DVB-T Realtek. In my case, it's the Zaapa ZT- DVBTSTUSB
 
@@ -40,7 +41,7 @@ $ hg clone http://linuxtv.org/hg/~jhoogenraad/rtl2831-r2
 $  cd rtl2831-r2/
 $ make
 [...incomprehensible long long compilation output...]
-$ sudo make install 
+$ sudo make install
 [...linux things...]
 {% endhighlight %}
 </div>

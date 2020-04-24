@@ -6,6 +6,7 @@ created: 1149287815
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Esta receta explica qué hacer para poder reproducir DVD en nuestro sistema operativo favorito. Puede resultar trivial para un iniciado pero como ya me lo han preguntado alguna que otra vez lo dejo aquí para la posteridad :-)
 
@@ -21,7 +22,7 @@ Edita el @sources.lst@:
 
 <div class="console">
 {% highlight console %}
-# nano /etc/apt/sources.lst 
+# nano /etc/apt/sources.lst
 {% endhighlight %}
 </div>
 
@@ -34,7 +35,7 @@ Y que no se te olvide actulizar los índices de paquetes:
 
 <div class="console">
 {% highlight console %}
-# apt-get update 
+# apt-get update
 {% endhighlight %}
 </div>
 
@@ -44,7 +45,7 @@ h1. Instalar los paquetes
 
 <div class="console">
 {% highlight console %}
- # apt-get install libdvdcss2 totem-xine 
+ # apt-get install libdvdcss2 totem-xine
 {% endhighlight %}
 </div>
 

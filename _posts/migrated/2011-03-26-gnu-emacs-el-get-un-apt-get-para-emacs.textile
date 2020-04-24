@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - emacs
+render_with_liquid: false
 ---
 Si utilizas Emacs y tienes varios PCs ¿cómo te apañas para que todos se comporten igual? Las mismas fuentes, los mismos colores, las mismas combinaciones de teclas... Realmente todo eso no es un gran problema; basta con tener tu ficherito @.emacs@ en un repositorio personal para que todos los PCs tengan la misma configuración.
 

@@ -6,6 +6,7 @@ created: 1168289159
 author: int-0
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Los servicios que ofrece inetd se configuran en @/etc/inetd.conf@.
 
@@ -15,18 +16,18 @@ Los servicios que ofrece inetd se configuran en @/etc/inetd.conf@.
 El formato de cada entrada es:
 
 <pre>
-servicio  	tipo_socket  	protocolo  	flags  	usuario  	servidor  	argumentos 
+servicio  	tipo_socket  	protocolo  	flags  	usuario  	servidor  	argumentos
 </pre>
 
 Donde:
 
-* servicio -  	es el nombre de nuestro servicio (echo, ftp, telnet, etc) 
-* tipo_socket - se refiere al modo de comunicacion (stream, dgram, etc) 
-* protocolo - 	es el protocolo de transporte empleado (tcp, udp, etc) 
-* flags	- afectan al protocolo de transporte (nowait, wait, etc) 
-* usuario -  	define los privilegios del servidor 
-* servidor -  	es el programa servidor del protocolo de transporte y finalmente 
-* argumentos - 	hace referencia al programa que implementa el protocolo. 
+* servicio -  	es el nombre de nuestro servicio (echo, ftp, telnet, etc)
+* tipo_socket - se refiere al modo de comunicacion (stream, dgram, etc)
+* protocolo - 	es el protocolo de transporte empleado (tcp, udp, etc)
+* flags	- afectan al protocolo de transporte (nowait, wait, etc)
+* usuario -  	define los privilegios del servidor
+* servidor -  	es el programa servidor del protocolo de transporte y finalmente
+* argumentos - 	hace referencia al programa que implementa el protocolo.
 
 
 Para añadir un servicio de ftp por ejemplo:

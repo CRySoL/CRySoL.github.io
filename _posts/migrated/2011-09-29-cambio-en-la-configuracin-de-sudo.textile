@@ -6,6 +6,7 @@ created: 1317303855
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Con la versión 1.8.2-1 de @sudo@ es necesario añadir las rutas «seguras» al fichero @/etc/sudoers@.
 

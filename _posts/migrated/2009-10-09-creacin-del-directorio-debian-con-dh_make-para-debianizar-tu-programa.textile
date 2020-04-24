@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - Debian-devel
+render_with_liquid: false
 ---
 Esta receta muestra cómo crear el directorio debian necesario para empaquetar tu proyecto. Para ello, se utiliza la herramienta dh_make.
 
@@ -61,7 +62,7 @@ dh_make nos preguntará lo siguiente:
 {% highlight console %}
 
 Type of package: single binary, indep binary, multiple binary, library, kernel module, kernel patch or cdbs?
- [s/i/m/l/k/n/b] 
+ [s/i/m/l/k/n/b]
 {% endhighlight %}
 </div>
 La respuesta a esta pregunta dependerá del proyecto. A continuación, se describen las opciones más comunes:
@@ -80,7 +81,7 @@ Rellena los datos que se indican en la plantilla.
 
 h4. control
 
-Contiene la descripción de los paquetes Debian. El primero de todos es el paquete fuente, con sus "build-depends", esto es, las dependencias necesarias para compilar y construir los paquetes binarios. Tras éste, vienen listados todos los paquetes binarios que se generarán (separados por una línea en blanco). 
+Contiene la descripción de los paquetes Debian. El primero de todos es el paquete fuente, con sus "build-depends", esto es, las dependencias necesarias para compilar y construir los paquetes binarios. Tras éste, vienen listados todos los paquetes binarios que se generarán (separados por una línea en blanco).
 
 Para más información sobre cada uno de los campos posibles, consulta "Control files and their fields":http://www.debian.org/doc/debian-policy/ch-controlfields.html.
 

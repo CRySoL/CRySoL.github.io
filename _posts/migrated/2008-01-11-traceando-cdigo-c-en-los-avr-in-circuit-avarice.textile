@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - embedded
+render_with_liquid: false
 ---
 <blockquote>Cómo tracear un programa en C para AVR en GNU/Linux con <b>avarice</b> "in circuit"</blockquote>
 
@@ -44,7 +45,7 @@ Bueno, antes de empezar a tracear, voy a contar como utilizar <em>ddd</em> para 
 
 <div class="console">
 {% highlight console %}
-javieralso@avalon:~$ ddd --debugger avr-gdb -x comandos.gdb 
+javieralso@avalon:~$ ddd --debugger avr-gdb -x comandos.gdb
 
 {% endhighlight %}
 </div>

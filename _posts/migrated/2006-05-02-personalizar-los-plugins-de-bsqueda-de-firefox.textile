@@ -6,6 +6,7 @@ created: 1146566975
 author: Lk2
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Mozilla-Firefox tiene un gran conjunto de extensiones y plugins para gran variedad de cosas. Entre ellos están los plugins de búsqueda. Aquí explico como añadir nuevos buscadores (aunque sea trivial) y sobre todo, como eliminar los que añadas o los que vienen por defecto y que no puedes borrar de forma tan trivial.
 
@@ -31,7 +32,7 @@ Si quieres borrar algún buscador que no uses mucho de los que trae Firefox por 
 
 <div class="console">
 {% highlight console %}
-# cd /usr/share/firefox/searchplugins 
+# cd /usr/share/firefox/searchplugins
 {% endhighlight %}
 </div>
 

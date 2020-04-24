@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
 Esta receta es una pequeña introducción al soporte de Python para diseño orientado a objetos. Para programadores noveles, se aconseja primero la lectura de nuestra ya veterana receta "Mini tutorial de Python":/node/43.
 
@@ -16,7 +17,7 @@ Esta receta es una pequeña introducción al soporte de Python para diseño orie
 
 h2. Introducción
 
-Se dice que Python es un lenguaje multi-paradigma ya que incorpora facilidades para enfoques muy distintos a la hora de implementar un diseño. En esta ocasión voy a comentar el soporte de Python para el veterano paradigma de la "orientación a objetos". Para el programador Python novel puede resultar chocante algunas de las cosas que permite Python, por ejemplo, no hay mecanismos de protección en las clases. 
+Se dice que Python es un lenguaje multi-paradigma ya que incorpora facilidades para enfoques muy distintos a la hora de implementar un diseño. En esta ocasión voy a comentar el soporte de Python para el veterano paradigma de la "orientación a objetos". Para el programador Python novel puede resultar chocante algunas de las cosas que permite Python, por ejemplo, no hay mecanismos de protección en las clases.
 
 Los diseñadores de Python consideran que no es posible hacer lenguajes a prueba de tontos (aunque los de Java parece que sí), de modo que muchos mecanismos de programación "defensiva" incorporados en los lenguajes pueden ser complejos de implementar y en la práctica inútiles. La solución es *programar bien*, el lenguaje no puede (y según muchos, no debe) suplir las deficiencias del programador.
 
@@ -52,7 +53,7 @@ class A:
 {% endhighlight %}
 </div>
 
-En realidad el método @__init__()@ no construye la instancia, lo que hace (como su nombre indica) es _inicializar_ la instancia. Lo habitual es usar este método para dar valores iniciales correctos a los atributos de la instancia, quizá a partir de los parámetros. También se debe preocupar de que el objeto resultante es correcto, elevando alguna excepción de no ser posible. 
+En realidad el método @__init__()@ no construye la instancia, lo que hace (como su nombre indica) es _inicializar_ la instancia. Lo habitual es usar este método para dar valores iniciales correctos a los atributos de la instancia, quizá a partir de los parámetros. También se debe preocupar de que el objeto resultante es correcto, elevando alguna excepción de no ser posible.
 
 Para definir un objeto de clase A, simplemente escribe:
 
@@ -83,7 +84,7 @@ Un lenguaje orientado a objetos debería tener al menos las siguientes caracter�
 
 Veamos cómo las maneja Python.
 
-h3. Encapsulación 
+h3. Encapsulación
 
 Los detalles de cada tipo no son visibles desde fuera de la clase. Cada clase contiene atributos y métodos propios y  representa un concepto del mundo real maximizando la cohesión.
 
@@ -91,19 +92,19 @@ Python ofrece las herramientas habituales de todo lenguaje orientado a objetos a
 
 h3. Ocultación
 
-Cada objeto dispone de una interfaz bien especificado para poder solicitar sus servicios, normalmente por el envío de mensajes (invocación de métodos). Esto implica que las partes internas del objeto no son accesibles ni modificables desde fuera. 
+Cada objeto dispone de una interfaz bien especificado para poder solicitar sus servicios, normalmente por el envío de mensajes (invocación de métodos). Esto implica que las partes internas del objeto no son accesibles ni modificables desde fuera.
 
 Esta principio está muy relajado en Python. Al contrario que lenguajes como C++, Java o C#, en Python no existen los típicos mecanismos de control de acceso @public@, @protected@ y @private@. Se asume por diseño que el programador es responsable de usar la clase del modo adecuado. Uno de los pocos mecanismos de protección consiste en anteponer un doble guión bajo ("__") al nombre de los atributos y métodos que no puedan ser invocados desde fuera de la clase, y tampoco se trata de una imposición férrea.
 
 h3. Herencia
 
-Es el mecanismo que permite crear jerarquías de clases, de modo que es posible crear clases nuevas a partir de otras existentes por medio de la especialización (añadiendo o modificando comportamiento). 
+Es el mecanismo que permite crear jerarquías de clases, de modo que es posible crear clases nuevas a partir de otras existentes por medio de la especialización (añadiendo o modificando comportamiento).
 
 Python permite herencia múltiple. Como en casos anteriores, este es un mecanismo muy potente que puede dar muchos problemas (hasta el punto que lenguajes más conservadores como Java no lo permiten, aún). Sin embargo, resulta muy útil en muchas situaciones, por ejemplo para implementar "clases mix-in":http://en.wikipedia.org/wiki/Mixin.
 
 h3. Polimofismo
 
-Permite que cada clase pueda especificar el comportamiento de un método común (heredado) de modo que el método hará algo distinto dependiendo de la clase a la que corresponda el objeto. 
+Permite que cada clase pueda especificar el comportamiento de un método común (heredado) de modo que el método hará algo distinto dependiendo de la clase a la que corresponda el objeto.
 
 Python ofrece este mecanismo aunque no es posible definir varias funciones con el mismo nombre y distintos argumentos (como ocurre en otros lenguajes). Sí que permite realizar "sobrecarga de operadores":http://www.python.org/doc/2.5.2/ref/specialnames.html, algo muy valioso para conseguir programas más legibles y mantenibles y conseguir tipos que se compartan exactamente igual que los que incorpora el lenguaje.
 

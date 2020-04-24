@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Python
 - gtk
+render_with_liquid: false
 ---
 Una breve referencia sobre gtk.UIManager y gtk.Action
 

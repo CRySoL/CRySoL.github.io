@@ -9,6 +9,7 @@ category: recipe
 tags:
 - graphics
 - Oreto
+render_with_liquid: false
 ---
    De la mano de Miguel García Corchero, el desarrollador del nuevo museo interactivo de la ESI cuya inauguración es inminente, nos llega este estupendo "Howto sobre cómo programar shaders en GLSL bajo GNU/Linux":http://www.inf-cr.uclm.es/www/cglez/glslhowto/GLSLHowto.zip, tarea algo compleja en principio.
 

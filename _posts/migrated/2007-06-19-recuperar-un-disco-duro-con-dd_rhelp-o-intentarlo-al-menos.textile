@@ -6,6 +6,7 @@ created: 1182264234
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 bq(head). Como ya sabrás, los discos duros no son perfectos, y cuando hacen "crash!" no hay mucho que se pueda hacer. ¿o sí? Esta receta explica cómo recuperar datos de un disco duro durante su agonía, o intentarlo al menos.
 
@@ -33,7 +34,7 @@ h2. Ingredientes
 
 h2. Instalación
 
-Como pone ahí arriba, @dd_rescue@ es paquete Debian así que lo puede instalar con el típico @apt-get@, o @aptitude@ para los más quisquillosos. 
+Como pone ahí arriba, @dd_rescue@ es paquete Debian así que lo puede instalar con el típico @apt-get@, o @aptitude@ para los más quisquillosos.
 
 Sin embargo @dd_rhelp@ no está empaquetado pero te aconsejo que lo instales civilizadamente, es decir, en directorio vacío, creado al efecto:
 
@@ -67,7 +68,7 @@ Esto puede tardar muuuuucho, pero mucho, mucho, en función del tamaño de la pa
 
 h2. Accediendo a los datos
 
-Cuando @dd_rhelp@ "acabe" tendrás un bonito fichero @.img@ del tamaño aproximado al que tenía (en vida) la partición origen. 
+Cuando @dd_rhelp@ "acabe" tendrás un bonito fichero @.img@ del tamaño aproximado al que tenía (en vida) la partición origen.
 
 Antes de montar la imagen es conveniente que compruebes posibles errores. Obviamente la herramienta a usar depende del sistema de ficheros que tuviese la partición original). Por ejemplo, para ext3, sería:
 

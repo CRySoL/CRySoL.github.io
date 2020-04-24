@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - emacs
+render_with_liquid: false
 ---
 GNU Emacs puede ser un excelente editor (como no?) también para SGML, XML, o derivados tan populares com XHTML o DocBook. Esta receta concretamente introduce el uso del paquete *psgml*, aunque hay otros.
 
@@ -17,7 +18,7 @@ GNU Emacs puede ser un excelente editor (como no?) también para SGML, XML, o de
 
 h2. Introducción
 
-A parte del consabido resalte de sintaxis y la inestimable indentación automática de bloques, Emacs ofrece otra gran ayuda para la edición de XML. 
+A parte del consabido resalte de sintaxis y la inestimable indentación automática de bloques, Emacs ofrece otra gran ayuda para la edición de XML.
 
 Emacs entiende el DTD asociado al XML en cuestión y te ofrece una lista de los elementos XML susceptibles de ser insertados en un punto concreto del documento. Con esto te aseguras que validará el DTD o Schema que uses. Además te ahorra escribir los elementos en si y los paréntesis angulares (<>) que siempre son un latazo.
 

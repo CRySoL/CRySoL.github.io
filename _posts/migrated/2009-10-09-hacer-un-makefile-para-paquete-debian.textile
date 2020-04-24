@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - Debian-devel
+render_with_liquid: false
 ---
 En la siguiente receta se exponen algunas ideas y recomendaciones a la hora de crear un Makefile de tal forma que sea sencillo el proceso de creación de los paquetes Debian.
 
@@ -45,9 +46,9 @@ Description: Correct you if you type `sl' by mistake
 </div>
 
 
-Como se puede ver, el paquete fuente y el único paquete binario que genera se llaman igual. Esto se debe a que el programa "sl" es extremadamente sencillo y no es necesario dividirlo. Una librería es un caso típico donde un paquete fuente tiene asociado varios paquetes binarios (el de la propia librería y el -dev correspondiente). 
+Como se puede ver, el paquete fuente y el único paquete binario que genera se llaman igual. Esto se debe a que el programa "sl" es extremadamente sencillo y no es necesario dividirlo. Una librería es un caso típico donde un paquete fuente tiene asociado varios paquetes binarios (el de la propia librería y el -dev correspondiente).
 
-El término "dependencia" también es distinto si hablamos de un paquete fuente o de un binario. Las dependencias de un paquete fuente son de construcción, esto es, todo el software que se necesita para compilar y construir los paquetes. Mientras que las dependencias de un binario son los paquetes que tienen que estar instalados para su correcto funcionamiento. 
+El término "dependencia" también es distinto si hablamos de un paquete fuente o de un binario. Las dependencias de un paquete fuente son de construcción, esto es, todo el software que se necesita para compilar y construir los paquetes. Mientras que las dependencias de un binario son los paquetes que tienen que estar instalados para su correcto funcionamiento.
 
 Con todo ello, debhelper tiene 2 modos de funcionamiento básicos:
 * Crear un paquete binario a partir de un paquete fuente (1 fuente -> 1 binario).

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - VCS
+render_with_liquid: false
 ---
 Cómo montar un repositorio subversion, con Apache,  para que sea accesible remotamente
 

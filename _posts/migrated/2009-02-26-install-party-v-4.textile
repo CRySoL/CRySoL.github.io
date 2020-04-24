@@ -8,8 +8,9 @@ comments: true
 category: event
 tags:
 - Debian
+render_with_liquid: false
 ---
-Un año más, con idea de introducir a los alumnos de primero en el mundo del Software Libre, os invitamos a participar en la Install Party que tendrá lugar los días 6 y 7 de marzo. Viernes tarde y sábado mañana. 
+Un año más, con idea de introducir a los alumnos de primero en el mundo del Software Libre, os invitamos a participar en la Install Party que tendrá lugar los días 6 y 7 de marzo. Viernes tarde y sábado mañana.
 
 <!--break-->
 
@@ -18,10 +19,8 @@ La idea es instalar una distribución Debian, así como todo el software utiliza
 
 Por ahora, hay confirmados los siguientes talleres:
 
-* Homebrew para PSP 
+* Homebrew para PSP
 * Homebrew para Wii
 * P2P
 
 Esperamos veros por allí!
-
-

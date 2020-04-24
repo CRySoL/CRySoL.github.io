@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - drivers
+render_with_liquid: false
 ---
 Para aquellos que no conozcan la Hercules Webcam Deluxe es una webcam de alto rendimiento pero de bajo precio (entre 17€ y 25€).
 
@@ -50,4 +51,4 @@ sudo modprobe ov51x-jpeg
 Aplicaciones->Graficos->Cheese
 
 9. Si no lo tenemos instalado:
-sudo apt-get install cheese 
+sudo apt-get install cheese

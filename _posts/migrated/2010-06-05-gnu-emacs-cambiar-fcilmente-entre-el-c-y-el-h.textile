@@ -9,6 +9,7 @@ category: recipe
 tags:
 - emacs
 - devel
+render_with_liquid: false
 ---
 Cómo cambiar rápida y cómodamente entre el fichero de implementación (.c, .cc, .cpp) y el de cabecera (.h, hpp) cuando se trabaja con un proyecto C o C++ (por lo visto también funciona con Ada y VHDL).
 

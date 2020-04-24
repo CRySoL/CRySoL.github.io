@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - emacs
+render_with_liquid: false
 ---
 Cómo configurar el _encoding_ de un fichero en emacs.
 

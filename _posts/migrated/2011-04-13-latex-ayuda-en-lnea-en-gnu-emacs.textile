@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - LaTeX
+render_with_liquid: false
 ---
 Un par de trucos para conseguir ayuda sobre comandos y paquetes LaTeX desde GNU Emacs.
 
@@ -17,7 +18,7 @@ Un par de trucos para conseguir ayuda sobre comandos y paquetes LaTeX desde GNU 
 
 h2. Documentación de paquetes
 
-Casi cualquier paquete que se precie tiene asociado un fichero PDF que explica con todo detalle el uso, opciones y hasta la implementación de cada comando. La forma habitual de encontrar estos ficheros de documentación es ir a la página asociada al paquete en "CTAN":http://www.ctan.org. Por ejemplo, para el paquete @titlesec@ tendrías que ir a <a href="http://www.ctan.org/tex-archive/macros/latex/contrib/titlesec/">http://www.ctan.org/tex-archive/macros/latex/contrib/titlesec/</a>. obviamente google ayuda mucho en esa tarea tan poco gratificante. 
+Casi cualquier paquete que se precie tiene asociado un fichero PDF que explica con todo detalle el uso, opciones y hasta la implementación de cada comando. La forma habitual de encontrar estos ficheros de documentación es ir a la página asociada al paquete en "CTAN":http://www.ctan.org. Por ejemplo, para el paquete @titlesec@ tendrías que ir a <a href="http://www.ctan.org/tex-archive/macros/latex/contrib/titlesec/">http://www.ctan.org/tex-archive/macros/latex/contrib/titlesec/</a>. obviamente google ayuda mucho en esa tarea tan poco gratificante.
 
 Sin embargo, hay una alternativa a la búsqueda googlera, directamente desde el editor. Haz lo siguiente:
 
@@ -30,7 +31,7 @@ Emacs pregunta:
 
 <div>
 {% highlight text %}
-Package, command, or document: 
+Package, command, or document:
 {% endhighlight %}
 </div>
 

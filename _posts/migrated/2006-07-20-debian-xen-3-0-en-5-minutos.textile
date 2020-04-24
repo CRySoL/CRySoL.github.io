@@ -6,6 +6,7 @@ created: 1153387804
 author: paco
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Esta receta explica cómo instalar Xen y crear dominios fácilmente en un sistema Debian GNU/Linux
 
@@ -104,7 +105,7 @@ Y puedes arrancarla con:
 
 <div class="console">
 {% highlight console %}
- $ xm create myNewImage.cfg -c 
+ $ xm create myNewImage.cfg -c
 {% endhighlight %}
 </div>
 
@@ -113,7 +114,7 @@ Para salir de la consola pulsa Ctrl-] y para volver a la consola de esta imagen:
 
 <div class="console">
 {% highlight console %}
- $ xm console myNewImage 
+ $ xm console myNewImage
 {% endhighlight %}
 </div>
 

@@ -6,6 +6,7 @@ created: 1185206489
 author: paco
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 bq(head). Los usuarios de cualquier variante de GNU o de Unix buscan desde siempre el Santo Grial de la administración de sistemas: autenticación flexible y centralizada, backup flexible y sencillo, homes compartidos facilitos.  En esta receta nos ocupamos del primer ingrediente, la autenticación.
 
@@ -35,7 +36,7 @@ Vamos a asumir un entorno realista.  Osea, tremendamente complejo, como la vida 
 
 h2. Estrategia global
 
-Os propongo esta estrategia: 
+Os propongo esta estrategia:
 
 * En primer lugar los datos de las cuentas de usuario se gestionarán de forma centralizada en un servidor LDAP (la configuración del servidor LDAP queda fuera de esta receta, ya hay muchas sobre ese tema).  Es decir, el servidor LDAP sustituirá siempre que se pueda a los famosos ficheros /etc/passwd, /etc/group y /etc/shadow.
 * Sin embargo la password en principio será tomada directamente del servidor Active Directory de nuestra empresa, siempre que sea un usuario de la empresa, claro.  Si no es usuario de la empresa utilizaremos la password almacenada en el servidor LDAP.
@@ -64,7 +65,7 @@ group:     files db [NOTFOUND=continue] ldap
 shadow:  files ldap
 </pre>
 
-Esto le indica a NSS que primero debe mirar en los típicos archivos (/etc/passwd, /etc/group y /etc/shadow), después en el caché local y, si aún así no lo encuentra, debe buscar en el servidor LDAP. 
+Esto le indica a NSS que primero debe mirar en los típicos archivos (/etc/passwd, /etc/group y /etc/shadow), después en el caché local y, si aún así no lo encuentra, debe buscar en el servidor LDAP.
 
 Para que funcione la búsqueda en el servidor LDAP habrá que configurar el archivo /etc/libnss-ldap.conf con algo así:
 
@@ -226,7 +227,7 @@ auth required pam_ldap.so use_first_pass
 
 h2. Resumen
 
-¿Qué hemos conseguido? 
+¿Qué hemos conseguido?
 
 * Los usuarios de nuestros equipos pueden ser gestionados de forma centralizada en un servidor LDAP.
 * Las passwords que no tengamos que guardar nosotros no las guardamos, las delegamos en el Active Directory de nuestra empresa.

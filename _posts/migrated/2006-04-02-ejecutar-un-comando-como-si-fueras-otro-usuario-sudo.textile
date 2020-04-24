@@ -6,6 +6,7 @@ created: 1144008393
 author: arturo
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>
 Esta receta explica cómo ejecutar comandos del sistema con los permisos de otro usuario.
@@ -62,7 +63,7 @@ Por ejemplo, la siguiente línea permite al usuario <tt>webmaster</tt> parar y r
 
 <div>
 {% highlight text %}
-webmaster ALL= (root) NOPASSWD: /etc/init.d/apache2  
+webmaster ALL= (root) NOPASSWD: /etc/init.d/apache2
 {% endhighlight %}
 </div>
 
@@ -87,7 +88,7 @@ O ejecutando:
 
 
 <h2>Referencias</h2>
-<ul> 
+<ul>
 <li><a href="http://www.wikilearning.com/introduccion-wkccp-455-1.htm">Iniciación de sudo para bisoños</a></li>
-<li>man sudo</li> 
+<li>man sudo</li>
 </ul>

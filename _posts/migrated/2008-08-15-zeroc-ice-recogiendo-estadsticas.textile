@@ -10,8 +10,9 @@ tags:
 - C++
 - Ice
 - networking
+render_with_liquid: false
 ---
-<blockquote class="head"> 
+<blockquote class="head">
 Esta receta describe cómo recoger estadísticas de uso de red mediante la interfaz <em>Ice::Stats</em> en una aplicación que utilice ZeroC ICE.
 </blockquote>
 
@@ -48,7 +49,7 @@ using namespace std;
 
 class MyStats : public virtual Ice::Stats {
  public:
-  
+
   virtual void bytesSent(const string& prot, Ice::Int);
   virtual void bytesReceived(const string& prot, Ice::Int);
 };
@@ -61,7 +62,7 @@ using namespace std;
 void MyStats::bytesSent(const string& prot, Ice::Int num) {
   cerr << prot << ": sent " << num << "bytes" << endl;
 }
-  
+
 void MyStats::bytesReceived(const string& prot, Ice::Int num) {
   cerr << prot << ": received " << num << "bytes" << endl;
 }

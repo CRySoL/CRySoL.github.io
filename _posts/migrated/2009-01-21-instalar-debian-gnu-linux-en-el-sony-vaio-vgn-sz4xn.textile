@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Debian
+render_with_liquid: false
 ---
 bq(head). Cómo afinar la instalación de nuestra querida Debian en este "portátil":http://vaio.sony.es/view/ShowProduct.action?product=VGN-SZ4XN%2FC&site=voe_es_ES_cons&category=VN+SZ+Series.
 
@@ -33,7 +34,7 @@ Hay algunas otras cosillas que hay que pulir y por eso escribo esta receta, clar
 
 h2. Características
 
-Esta máquina tiene dos modos: stamina y speed. El modo "stamina" es para ahorrar batería y el modo speed es para sacar toda la potencia posible. Para cambiar de modo se utiliza un pequeño conmutador que hay al lado del botón de encendido y se reinicia el equipo. En cada modo se utiliza una tarjeta de vídeo distinta: una nVidia cuando quieres potencia y una Intel cuando quieres autonomía. 
+Esta máquina tiene dos modos: stamina y speed. El modo "stamina" es para ahorrar batería y el modo speed es para sacar toda la potencia posible. Para cambiar de modo se utiliza un pequeño conmutador que hay al lado del botón de encendido y se reinicia el equipo. En cada modo se utiliza una tarjeta de vídeo distinta: una nVidia cuando quieres potencia y una Intel cuando quieres autonomía.
 
 h3. Modo "stamina"
 
@@ -148,7 +149,7 @@ En una línea para cortar y pegar:
 
 <div class="console">
 {% highlight console %}
-# apt-get install ipw3945d firmware-ipw3945 ipw3945-modules-$(uname -r) 
+# apt-get install ipw3945d firmware-ipw3945 ipw3945-modules-$(uname -r)
 {% endhighlight %}
 </div>
 
@@ -258,7 +259,7 @@ Instala lo siguiente:
 
 * *spicctrl* - Sony Vaio controller program to set LCD backlight
 
-h2. ACPI: Suspender e hibernar 
+h2. ACPI: Suspender e hibernar
 
 h3. GNOME
 
@@ -267,7 +268,7 @@ Para utilizar las catacterísticas de gnome-power-manager tienes que ser del gru
 
 <div class="console">
 {% highlight console %}
-# addgroup usuario powerdev 
+# addgroup usuario powerdev
 {% endhighlight %}
 </div>
 
@@ -276,7 +277,7 @@ h3. Consola
 
 <div class="console">
 {% highlight console %}
- # echo disk > /sys/power/state  
+ # echo disk > /sys/power/state
 {% endhighlight %}
 </div>
 
@@ -304,7 +305,7 @@ Instala el paquete _nvclock_.
 
 <div class="console">
 {% highlight console %}
- # nvclock -S -10 
+ # nvclock -S -10
 {% endhighlight %}
 </div>
 
@@ -327,7 +328,7 @@ Reincia @acpid@:
 
 <div class="console">
 {% highlight console %}
- # /etc/init.d/acpid restart 
+ # /etc/init.d/acpid restart
 {% endhighlight %}
 </div>
 
@@ -396,7 +397,7 @@ Con el driver @intel@ y gracias al nuevo @xrandr@ se pueden hacer todo tipo de c
 
 h2. Por probar
 
-* Modem 
+* Modem
 * Lector de huella dactilar
 ** <a href="https://wiki.ubuntu.com/ThinkFinger">https://wiki.ubuntu.com/ThinkFinger</a>
 ** <a href="http://www.thinkwiki.org/wiki/How_to_enable_the_fingerprint_reader">http://www.thinkwiki.org/wiki/How_to_enable_the_fingerprint_reader</a>

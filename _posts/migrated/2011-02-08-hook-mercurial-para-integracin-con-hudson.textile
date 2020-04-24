@@ -10,6 +10,7 @@ tags:
 - INGSOFT
 - mercurial
 - VCS
+render_with_liquid: false
 ---
 En esta receta se explica como configurar un _hook_ de *Mercurial* para lanzar un proyecto en Hudson al enviar un conjunto de cambios (_push_).
 

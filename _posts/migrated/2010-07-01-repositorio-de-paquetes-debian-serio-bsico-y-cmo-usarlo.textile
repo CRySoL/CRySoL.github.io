@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - Debian-devel
+render_with_liquid: false
 ---
 Esta receta explica cómo montar un repositorio de paquetes medianamente decente, que se pueda manejar con las herramientas estándares de Debian y se puedan utilizar firmas PGP tanto para el repo como para los paquetes.
 

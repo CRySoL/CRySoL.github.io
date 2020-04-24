@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Debian
+render_with_liquid: false
 ---
 How to install Google Gears on Iceweasel.
 
@@ -15,7 +16,7 @@ How to install Google Gears on Iceweasel.
 <!--break-->
 
 
-Everybody knows Iceweasel is actually Firefox 3, everyboby except Google. When you visit <a href="http://gears.google.com">http://gears.google.com</a>, an ugly message says "your browser is not supported". 
+Everybody knows Iceweasel is actually Firefox 3, everyboby except Google. When you visit <a href="http://gears.google.com">http://gears.google.com</a>, an ugly message says "your browser is not supported".
 
 The solution is easy: trivial user agent cheating :-)
 

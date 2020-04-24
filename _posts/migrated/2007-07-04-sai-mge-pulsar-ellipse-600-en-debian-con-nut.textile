@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Arco
+render_with_liquid: false
 ---
 bq(head). Esta receta explica cómo instalar y configurar dicho SAI en un sistema Debian GNU/Linux o derivado para sacarle el máximo partido. Te recomiendo que leas al menos la introducción de "Configuración y disfrute de un SAI":node/82 para que tengas una idea de lo que se puede hacer y lo que necesitas, ya que no lo voy a repetir aquí.
 
@@ -50,7 +51,7 @@ Es muy importante que el fichero pueda ser leído por @upsd@ y otros programas. 
 <div class="console">
 {% highlight console %}
 $ chown root.nut /etc/nut/ups.conf
-$  chmod g+r /etc/nut/ups.conf 
+$  chmod g+r /etc/nut/ups.conf
 
 {% endhighlight %}
 </div>
@@ -190,7 +191,7 @@ Con esto puedes ver que todo se cierra convenientemente y comprobar lo que ocurr
 {% endhighlight %}
 </div>
 
-Es importante señalar que este comando deja conectado el SAI al terminar, es decir, todo lo que tengas conectado a sus salidas seguirá teniendo corriente. 
+Es importante señalar que este comando deja conectado el SAI al terminar, es decir, todo lo que tengas conectado a sus salidas seguirá teniendo corriente.
 
 h2. Afinando el funcionamiento del SAI
 

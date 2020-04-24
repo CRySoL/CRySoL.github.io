@@ -9,6 +9,7 @@ category: script
 tags:
 - Arco
 - NDS
+render_with_liquid: false
 ---
 Os presento una pequeña utilidad para la Nintendo DS que permite bajar y subir todo tipo de archivos a cualquiera de los dos slots y hacer copias de seguridad o restaurar las memorias EEPROM de los cartuchos de juegos.  En el lado del PC no necesitas nada especial, solo netcat.
 

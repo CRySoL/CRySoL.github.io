@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - Debian-devel
+render_with_liquid: false
 ---
 En esta receta se muestran los pasos básicos para crear un paquete binario Debian de forma que puedas empaquetar tu programa de forma fácil y sencilla.
 
@@ -81,7 +82,7 @@ Description: Un paquete de ejemplo
 
 En el campo Maintainer deben ir los datos del mantenedor del paquete y deben coincidir con los datos del cierre de una entrada en el fichero "debian/changelog".
 
-El campo Architecture del paquete binario indica en para qué plataforma el paquete es compatible. Con el valor "any" se asegura que, al menos, funciona para la plataforma de construcción y que para el resto debe compilarse. 
+El campo Architecture del paquete binario indica en para qué plataforma el paquete es compatible. Con el valor "any" se asegura que, al menos, funciona para la plataforma de construcción y que para el resto debe compilarse.
 
 Si te fijas en las dependencias del paquete binario verás que hay dependencias especiales encerradas con llaves. Estas dependencias serán resueltas por debhelper al finalizar el proceso de creación del paquete y, en función de lo que él decida, incluirá las referencias a los paquetes o no. Por ejemplo, "shlibs:Depends" son las librerías compartidas que necesita "ejemplo-package" tener instaladas. La fase "dh_shlibdeps" se encarga de detectarlas y de añadirlas, automáticamente, al control.
 
@@ -115,7 +116,7 @@ Con debhelper 7 y dado que lo que se pretende empaquetar es símplemente un bina
 
 h2. Archivo debian/copyright
 
-Asegúrate de que existe y que contiene los datos requeridos. 
+Asegúrate de que existe y que contiene los datos requeridos.
 
 h2. Construcción
 

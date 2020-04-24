@@ -6,6 +6,7 @@ created: 1146133279
 author: magmax
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>
 Ciertas tareas dependen del tiempo para funcionar (por ejemplo, el salvapantallas, make, cron, ...). Es interesante no tener que preocuparse de la hora del sistema, así como que la hora no cambie bruscamente. ¡Y es muy fácil!
@@ -27,7 +28,7 @@ h2. Explicación
 
 En el mundo hay una serie de relojes de alta precisión (relojes atómicos) que son los que de verdad llevan la hora del mundo (¿u os pensábais que lo hacía el reloj de la Puerta del Sol? :P). Mediante fibra óptica, están conectados una serie de servidores de acceso restringido. A éstos, se les conectan una serie de servidores de acceso restringido... y así un par de niveles más, hasta que llegan los servidores públicos. Así hay muchos y no los sobrecargamos.
 
-Cada vez que un host intenta sincronizarse lo que se hace es lanzar varias peticiones, calcular el tiempo de retardo existente debido a la red, tomar en cuenta varios factores y estimar la hora real. El error es mínimo (salvo algunas veces que casca todo el sistema y te pone la hora del día anterior, como me ha pasado hace un rato). 
+Cada vez que un host intenta sincronizarse lo que se hace es lanzar varias peticiones, calcular el tiempo de retardo existente debido a la red, tomar en cuenta varios factores y estimar la hora real. El error es mínimo (salvo algunas veces que casca todo el sistema y te pone la hora del día anterior, como me ha pasado hace un rato).
 
 Así, groso modo ==-como mandan las recetas-== es como funciona.
 

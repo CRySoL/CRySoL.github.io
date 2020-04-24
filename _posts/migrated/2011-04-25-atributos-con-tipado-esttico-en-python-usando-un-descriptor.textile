@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
 En esta receta voy a contar cómo utilizar los «descriptores» de Python para poder crear atributos (variables de instancia) que no puedan cambiar de tipo durante la vida del objeto. Por supuesto, también es una excusa para aprender algo sobre los descriptores en sí.
 
@@ -15,7 +16,7 @@ En esta receta voy a contar cómo utilizar los «descriptores» de Python para p
 <!--break-->
 
 
-h2. Requisitos 
+h2. Requisitos
 
 * Python >= 2.2 (se necesitan clases del «nuevo estilo», las que heredan de @object@).
 * Conocimientos precisos sobre los mecanismos de introspección de Python.
@@ -80,7 +81,7 @@ Y se usa de este modo:
 >>>
 >>> a1 = A()
 >>> a1.a = 'hi'
->>> 
+>>>
 >>> a1.a = 3
 >>> TypeError: 'int' given but 'str' expected
 {% endhighlight %}

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 Pequeña receta para montar un proxy SOCKS en tu PC para salir a internet a través de un túnel SSH.
 
@@ -24,7 +25,7 @@ h2. Ingredientes
 
 h2. ¿Para qué quiero yo esto?
 
-Buena pregunta. Pues sin entrar en detalles «podríamos decir» que un "proxy SOCKS":http://es.wikipedia.org/wiki/SOCKS es una buena forma de salir a Internet por un solo puerto aunque uses distintas aplicaciones y protocolos: web, jabber, FTP,... 
+Buena pregunta. Pues sin entrar en detalles «podríamos decir» que un "proxy SOCKS":http://es.wikipedia.org/wiki/SOCKS es una buena forma de salir a Internet por un solo puerto aunque uses distintas aplicaciones y protocolos: web, jabber, FTP,...
 
 h2. ¿Por qué querría yo hacer algo tan raro?
 
@@ -92,7 +93,7 @@ $ ssh -o "ProxyCommand /bin/nc.openbsd -x localhost %h %p" server.minimor.com
 
 h2. «socksificando» lo que haga falta
 
-Hay muchas aplicaciones (la mayoría) que no fueron diseñadas para utilizar proxies SOCKS. Sin embargo hay un medio muy sencillo para lograr que usen el proxy sin que lo sepan. 
+Hay muchas aplicaciones (la mayoría) que no fueron diseñadas para utilizar proxies SOCKS. Sin embargo hay un medio muy sencillo para lograr que usen el proxy sin que lo sepan.
 
 Se basa en interceptar la invocación a la llamada @connect()@  de la librería de sockets, de modo que cuando la aplicación abra ingenuamente una conexión normal hacia un servidor remoto, los datos serán enviados de forma transparente hacia el proxy SOCKS configurado. Esta magia (que no es tal) es posible gracias a la precarga de librería de los sistemas GNU (@LD_PRELOAD@) y el programa @tsocks@ que aprovecha este principio.
 

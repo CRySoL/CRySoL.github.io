@@ -10,6 +10,7 @@ tags:
 - networking
 - security
 - Arco
+render_with_liquid: false
 ---
 bq(head). Cómo instalar y configurar @knockd@, un demonio de _port-knocking_
 
@@ -20,7 +21,7 @@ bq(head). Cómo instalar y configurar @knockd@, un demonio de _port-knocking_
 
 h2. Introducción
 
-El "port-knocking":es una técnica de seguridad muy peculiar, tan sencilla como eficaz. Sirve para no dejar expuesto un puerto ante el público general, evitando que sea vulnerable ante muchos ataques e incluso ante simples escaneos de puertos. 
+El "port-knocking":es una técnica de seguridad muy peculiar, tan sencilla como eficaz. Sirve para no dejar expuesto un puerto ante el público general, evitando que sea vulnerable ante muchos ataques e incluso ante simples escaneos de puertos.
 
 El uso más habitual es ocultar el puerto del servidor SSH, y para eso lo vamos a usar en la receta. La idea es que la máquina aparentemente no tiene ningún puerto abierto (de eso se encarga el firewall) pero al realizar intentos de conexión a ciertos puertos (cerrados), el demonio abre temporalmente el puerto "oculto" (con ayuda del firewall) y el cliente puede entonces realizar la conexión.
 
@@ -65,7 +66,7 @@ $ knock server.example.org 2222 3333 4444; ssh usuario@server.example.org
 {% endhighlight %}
 </div>
 
-Lo más cómodo es hacerte un scriptillo, que tendrás que poner a buen recaudo si tiene la secuencia en claro. 
+Lo más cómodo es hacerte un scriptillo, que tendrás que poner a buen recaudo si tiene la secuencia en claro.
 
 h2. Conclusiones
 

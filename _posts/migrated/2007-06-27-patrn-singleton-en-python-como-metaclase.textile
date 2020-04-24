@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Python
 - patterns
+render_with_liquid: false
 ---
 Esta receta incluye la implementación «comentada» del patrón de diseño «Singleton» usando una metaclase Python.
 
@@ -50,7 +51,7 @@ class Singleton(type):
     def __init__(cls, name, bases, dct):
         cls.__instance = None
         type.__init__(cls, name, bases, dct)
-        
+
     def __new__(cls, name, bases, dct):
         if cls.__instance is None:
             cls.__instance = type.__new__(cls, name, bases, dct)
@@ -67,7 +68,7 @@ assert a == b  # False, no funciona  :-(
 </div>
 
 
-Pero esto *no funciona*. Esto se debe a que tanto @__new__@ como @__init__@ sólo se ejecutan una vez: *cuando se crea la clase*. 
+Pero esto *no funciona*. Esto se debe a que tanto @__new__@ como @__init__@ sólo se ejecutan una vez: *cuando se crea la clase*.
 
 Sin embargo, para el _singleton_ hace falta poder controlar la instancia de la clase (el objeto creado). Y para eso se puede utilizar otro interesante método de la metaclase. Se trata de @__call__@, el operador de invocación, que también se puede sobrecargar como ocurre con la mayoría de los operadores de Python. Siempre que tengas "algo llamable" (invocable) entra en juego el operador de llamada, incluso en las funciones convencionales. Cuando creas un objeto escribiendo el nombre de una clase y unos paréntesis, realmente estás utilizando el operador de invocación de su metaclase, así que aprovechemos eso!
 
@@ -81,7 +82,7 @@ class Singleton(type):
     def __init__(cls, name, bases, dct):
         cls.__instance = None
         type.__init__(cls, name, bases, dct)
-        
+
     def __call__(cls):
         if cls.__instance is None:
             cls.__instance = type.__call__(cls)

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - emacs
+render_with_liquid: false
 ---
 Cómo definir, guardar y utilizar macros de teclado en emacs.
 
@@ -25,7 +26,7 @@ h2. Macros de usar y tirar
 
 * Pulsa F3, que indica el comienzo de la grabación de la macro.
 * Edita el texto de la forma habitual, incluyendo la ejecución de comandos que necesites.
-* Pulsa F4, que indica que la macro ha terminado. 
+* Pulsa F4, que indica que la macro ha terminado.
 
 Ahora está lista para usar, simplemente pulsa F4 cada vez que quieras ejecutarla. Obviamente si vuelves a pulsar F3 la macro anterior se pierde y empezarías a grabar una nueva.
 
@@ -76,7 +77,7 @@ Y te pedirá que teclees la combinación de teclas que quieres asociar a la últ
 
 h2. Guarda la macro para usarla mañana
 
-Y si le has cogido cariño a la macro probablemente te gustará poder ponerla a buen recaudo. Para guardar una macro necesitas que tenga nombre (ya sabes cómo se hace eso). La combinación de teclas no es necesaria para poder guardar la macro aunque yo creo que es muy útil. 
+Y si le has cogido cariño a la macro probablemente te gustará poder ponerla a buen recaudo. Para guardar una macro necesitas que tenga nombre (ya sabes cómo se hace eso). La combinación de teclas no es necesaria para poder guardar la macro aunque yo creo que es muy útil.
 
 Pues una vez tengas tu macro con su nombre y (opcionalmente) su combinación, ejecuta:
 

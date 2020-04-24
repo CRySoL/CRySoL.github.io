@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - sysadm
+render_with_liquid: false
 ---
 Comandos básicos para crear un sistema LVM
 
@@ -22,7 +23,7 @@ Primero un gráfico muy ilustrativo (sacado de la primera referencia):
 </center>
 
 
-h3. Crear volúmenes físicos (<b>p</b>hysical <b>v</b>olumes) 
+h3. Crear volúmenes físicos (<b>p</b>hysical <b>v</b>olumes)
 
 para cada partición o disco que se quiera utilizar:
 
@@ -37,7 +38,7 @@ para cada partición o disco que se quiera utilizar:
 
 Se puede comprobar con @pvdisplay@.
 
-h3. Crear un grupo virtual (<b>v</b>irtual <b>g</b>roup) 
+h3. Crear un grupo virtual (<b>v</b>irtual <b>g</b>roup)
 
 a partir de los volúmenes físicos.
 

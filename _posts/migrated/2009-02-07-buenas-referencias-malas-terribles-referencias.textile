@@ -6,6 +6,7 @@ created: 1234036066
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Esta receta incluye unas simples pautas para decidir qué referencias son adecuadas a la hora de elaborar cualquier documento técnico. En particular voy a hablar de referencias a documentos electrónicos aunque mucho de lo que digo creo que podría aplicarse también a libros y artículos científicos. Siento que los ejemplos que voy a poner sean tan mono-temáticos pero obviamente no me atrevo a hablar de buenas o malas referencias en campos que no conozco.
 
@@ -33,7 +34,7 @@ Que cómo se sabe si una referencia tiene credibilidad. La mejor forma quizá se
 * No tienen banners con juegos en flash en los que hay que disparar a un chimpancé u otro tipo de primate.
 * Los autores de los documentos no suelen tener nombres como _MegaMax_ o _Frexita_.
 * No tienen faltas de ortografía y tampoco ti3n3n p4l4br4s e5krit4s d 3st3 m0d0.
-* El fondo de la web no es de color _verde lima_ ni _rosa chicle_. 
+* El fondo de la web no es de color _verde lima_ ni _rosa chicle_.
 * Las webs no se llaman «supergeek», «orgullo linuxero» ni «el blog del maniaco». Se llaman más bien ISO, OMG, IEEE y todas esas aburridas siglas.
 
 
@@ -93,7 +94,7 @@ h2. Cuidado con el plagio
 Si utilizas texto literal de un documento ajeno *no basta con poner la fuente en las referencias*. Debes ponerlo como una cita entre comillas («latinas»), y si es un párrafo, indicar al final la fuente exacta (autor y obra).
 
 
-h2. Conclusiones 
+h2. Conclusiones
 
 Estas pautas digamos que son, a mi modo de ver, _la forma correcta_. Sin embargo, a veces te encontrarás que tu profesor/ jefe/ tribunal tiene sus propios criterios. En ese caso, aplica la máxima de "conoce a tu enemigo" y trata de hacer lo que sepas que le va a gustar. Ya sé que es un asco, pero bueno, lo importante es el resultado. ¿O lo importante era aprender? Ya no me acuerdo...
 

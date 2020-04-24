@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - MySQL
+render_with_liquid: false
 ---
 Esto es sólo una pequeña referencia rápida de operaciones habituales con MySQL. Siéntete libre de añadir otras como comentarios si te apetece.
 
@@ -24,7 +25,7 @@ h3. Listar todas
 
 <div class="console">
 {% highlight console %}
- mysql> SHOW DATABASES; 
+ mysql> SHOW DATABASES;
 {% endhighlight %}
 </div>
 
@@ -33,7 +34,7 @@ h3. Seleccionar
 
 <div class="console">
 {% highlight console %}
- mysql> USE database; 
+ mysql> USE database;
 {% endhighlight %}
 </div>
 
@@ -42,7 +43,7 @@ h3. Crear
 
 <div class="console">
 {% highlight console %}
- mysql> CREATE DATABASE database; 
+ mysql> CREATE DATABASE database;
 {% endhighlight %}
 </div>
 
@@ -51,7 +52,7 @@ h3. Borrar
 
 <div class="console">
 {% highlight console %}
- mysql> DROP DATABASE database; 
+ mysql> DROP DATABASE database;
 {% endhighlight %}
 </div>
 
@@ -67,19 +68,19 @@ Habiendo seleccionado previamente una base de datos.
 
 <div class="console">
 {% highlight console %}
- mysql> SHOW TABLES; 
+ mysql> SHOW TABLES;
 {% endhighlight %}
 </div>
 
 
-h3. Borrar una tabla 
+h3. Borrar una tabla
 
 Se supone que sabes lo que haces...
 
 
 <div class="console">
 {% highlight console %}
- mysql> DROP TABLE table; 
+ mysql> DROP TABLE table;
 {% endhighlight %}
 </div>
 
@@ -89,7 +90,7 @@ h3. Listar columnas de una tabla
 
 <div class="console">
 {% highlight console %}
- mysql> SHOW FIELDS FROM table; 
+ mysql> SHOW FIELDS FROM table;
 {% endhighlight %}
 </div>
 
@@ -98,7 +99,7 @@ h3. Listar columnas de una tabla
 
 <div class="console">
 {% highlight console %}
- mysql> DESCRIBE table; 
+ mysql> DESCRIBE table;
 {% endhighlight %}
 </div>
 
@@ -108,7 +109,7 @@ h3. Añadir una columna
 
 <div class="console">
 {% highlight console %}
- mysql> ALTER TABLE table ADD column type flags 
+ mysql> ALTER TABLE table ADD column type flags
 {% endhighlight %}
 </div>
 
@@ -117,7 +118,7 @@ Por ejemplo:
 
 <div class="console">
 {% highlight console %}
- mysql> ALTER TABLE users ADD age int 
+ mysql> ALTER TABLE users ADD age int
 {% endhighlight %}
 </div>
 
@@ -126,7 +127,7 @@ h3. Borrar una columna
 
 <div class="console">
 {% highlight console %}
- mysql> ALTER TABLE table DROP column 
+ mysql> ALTER TABLE table DROP column
 {% endhighlight %}
 </div>
 
@@ -140,13 +141,13 @@ h3. Insertar un registro
 
 <div class="console">
 {% highlight console %}
- mysql> INSERT INTO table SET column1=value1, column2=value2 WHERE id=key; 
+ mysql> INSERT INTO table SET column1=value1, column2=value2 WHERE id=key;
 {% endhighlight %}
 </div>
 
 <div class="console">
 {% highlight console %}
- mysql> INSERT INTO table (column1, column2) VALUES (value1, value2) WHERE id=key; 
+ mysql> INSERT INTO table (column1, column2) VALUES (value1, value2) WHERE id=key;
 {% endhighlight %}
 </div>
 
@@ -164,7 +165,7 @@ h3. Borrar un registro
 
 <div class="console">
 {% highlight console %}
- mysql> DELETE FROM table WHERE id=7; 
+ mysql> DELETE FROM table WHERE id=7;
 {% endhighlight %}
 </div>
 

@@ -10,6 +10,7 @@ tags:
 - Chumby
 - Ice
 - networking
+render_with_liquid: false
 ---
 Veamos una forma de compilar ZeroC-IceE para usarlo en el Chumby.
 
@@ -38,7 +39,7 @@ Como sabrás, para poder usar IceE, es necesario disponer de los <i>translators<
 
 {% endhighlight %}
 </div>
- 
+
 Esto sería lo ideal, pero si solo tienes los <i>sources</i> de SID, a día de hoy (28/07/08) te va dar un errorcito tal que así:
 
 
@@ -92,9 +93,9 @@ En <i>include/IceUtil/Config.h</i>:
 
 <div>
 {% highlight cpp %}
-//                                                                                                                                             
-// Some include files we need almost everywhere.                                                                                               
-//                                                                                                                                             
+//
+// Some include files we need almost everywhere.
+//
 #include <string.h>   /* <------ Esta linea */
 #include <limits.h>   /* <------ Esta linea */
 #include <cassert>
@@ -106,8 +107,8 @@ En <i>include/Slice/DoNetNames.h</i>:
 <div>
 {% highlight cpp %}
 #ifndef DOTNETNAMES_H
-#define DOTNETNAMES_H                                                                                                                          
-                                                                                                                                               
+#define DOTNETNAMES_H
+
 #include <string.h>    /* <------ Esta linea */
 #include <string>
 
@@ -173,5 +174,5 @@ Si tarda mucho la compilación, haztelo mirar, eso no es normal :-p Cuando haya 
 Para la ocasión, he empaquetado un pequeño ejemplo, que crea el servidor usando el compilador cruzado, y el cliente con el compilador para x86. De esta forma, puedes probar el ejemplo desde tu equipo y cerciorarte de que no te miento.
 
 Para probarlo haz lo siguiente:
- 
+
 FIXME: esta parte esta sin terminar. para ir abriendo boca, mírate los demos en IceE-1.2.0/demo/IceE/ :-)

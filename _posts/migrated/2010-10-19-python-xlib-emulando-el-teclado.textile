@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
 En el pasado post nos quedamos a medias. Vimos como hacer algunas cosillas con el ratón, pero no hicimos nada con el teclado. Intentémoslo ahora.
 
@@ -31,21 +32,21 @@ Supongo que todo este jaleo es conveniente para dar soporte a múltiples distrib
 
 <div>
 {% highlight python %}
-from Xlib.display import Display  
-from Xlib.ext import xtest  
-from Xlib import X, XK  
-  
-d = Display()  
-msg = "Hello World!"  
-  
-for c in msg:  
-    keysym = XK.string_to_keysym(c)  
-    keycode = d.keysym_to_keycode(keysym)  
-  
-    xtest.fake_input(d, X.KeyPress, keycode)  
-    xtest.fake_input(d, X.KeyRelease, keycode)  
-  
-d.flush()  
+from Xlib.display import Display
+from Xlib.ext import xtest
+from Xlib import X, XK
+
+d = Display()
+msg = "Hello World!"
+
+for c in msg:
+    keysym = XK.string_to_keysym(c)
+    keycode = d.keysym_to_keycode(keysym)
+
+    xtest.fake_input(d, X.KeyPress, keycode)
+    xtest.fake_input(d, X.KeyRelease, keycode)
+
+d.flush()
 {% endhighlight %}
 </div>
 

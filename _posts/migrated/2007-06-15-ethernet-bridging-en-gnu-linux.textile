@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 bq(head). Cómo hacer un bridge o switch software en GNU/Linux
 

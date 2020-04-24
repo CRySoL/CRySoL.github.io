@@ -6,6 +6,7 @@ created: 1131301891
 author: fsancho
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Esta receta explica como poner un fondo de pantalla muy resultón que consiste en una imagen realista de la Tierra con iluminación y nubes "reales", que además se va actualizando para representar la situación actual. Todo ello gracias a <a href="http://xplanet.sourceforge.net">xplanet</a>.
 
@@ -19,7 +20,7 @@ h2. xplanet
 
 Xplanet es una especie de planetario de bolsillo. Es capaz de representar 36 objetos celestes entre planetas y lunas del sistema solar en su posición actual e interpolada en cualquier momento de la historia. Además, permite superponer a la superficie del planeta un mapa de nubes. En Debian los paquetes se llaman @xplanet@ y @xplanet-images@.
 
-Xplanet puede usarse como salvapantallas, pero también puede volcar su salida a un fichero jpg, png, ppm, gif o tiff. 
+Xplanet puede usarse como salvapantallas, pero también puede volcar su salida a un fichero jpg, png, ppm, gif o tiff.
 
 
 h2. gconftool-2
@@ -78,7 +79,7 @@ En mi caso, y como el script es ejecutado por *cron* con permisos de superusuari
 
 <pre>defaultOutputFile = "/usr/share/xplanet/images/clouds_2048.jpg"</pre>
 
-Ya tenemos nuestro mapa de nubes actualizado. 
+Ya tenemos nuestro mapa de nubes actualizado.
 
 
 h2. Generando la imagen para el fondo
@@ -117,7 +118,7 @@ else
 fi
 
 # Comando que genera la imagen
-xplanet -num_times 1 -output "$PREFIX$OUTPUT" -geometry $GEOMETRY -longitude $LONGITUDE \ 
+xplanet -num_times 1 -output "$PREFIX$OUTPUT" -geometry $GEOMETRY -longitude $LONGITUDE \
 -latitude $LATITUDE
 
 gconftool-2 -t str -s /desktop/gnome/background/picture_filename "$PREFIX$OUTPUT"

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Debian
+render_with_liquid: false
 ---
 bq(head). Cómo configurar Debian para poder utilizar el escáner EPSON V10/V100.
 
@@ -65,7 +66,7 @@ Estos paquetes incluyen ficheros que también están en la distribución de SANE
 {% highlight console %}
 
 # dpkg -i --force-overwrite iscan_2.3.0-2_i386.deb
-# dpkg -i --force-overwrite iscan-plugin-gt-s600_2.0.0-2_i386.deb 
+# dpkg -i --force-overwrite iscan-plugin-gt-s600_2.0.0-2_i386.deb
 {% endhighlight %}
 </div>
 

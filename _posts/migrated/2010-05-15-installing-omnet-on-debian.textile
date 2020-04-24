@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 h2. Ingredients
 
@@ -43,4 +44,3 @@ You need to put the omnet @bin@ directory in you path. Write this in your @.bash
 export PATH=$PATH:/home/user/repos/omnetpp-4.0p1/bin
 {% endhighlight %}
 </div>
-

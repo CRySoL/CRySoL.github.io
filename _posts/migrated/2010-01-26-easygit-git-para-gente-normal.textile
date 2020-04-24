@@ -7,9 +7,9 @@ author: david_villa
 comments: true
 tags:
 - VCS
+render_with_liquid: false
 ---
 * "web de easygit":http://www.gnome.org/~newren/eg/
 * "easygit para usuarios de subversion":http://www.gnome.org/~newren/eg/git-for-svn-users.html
 
 Y es "paquete debian":http://packages.debian.org/unstable/vcs/easygit
-

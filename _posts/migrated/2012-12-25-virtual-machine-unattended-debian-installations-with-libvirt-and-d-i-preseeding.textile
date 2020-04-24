@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Debian
+render_with_liquid: false
 ---
 That recipe explains how to perform an unattended Debian GNU/Linux installation (thanks to *preseeds*) on a virtual machine using @libvirt@.
 
@@ -175,7 +176,7 @@ $ printf "r00tme" | mkpasswd -s -m md5
 
 h2. Serving the @preseed.cfg@ file
 
-You must make this file accesible for the installer. A simple way is to install @lighttpd@ and copy it in @/var/www/preseed.cfg@. 
+You must make this file accesible for the installer. A simple way is to install @lighttpd@ and copy it in @/var/www/preseed.cfg@.
 
 Other alternative is to run next commad in the directory containing the file.
 

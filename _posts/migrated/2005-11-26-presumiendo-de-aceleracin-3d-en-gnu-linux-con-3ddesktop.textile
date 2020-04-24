@@ -6,6 +6,7 @@ created: 1133004201
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote style="background-color: #fdd;">
 ATENCIÓN: Aunque los efectos visuales de 3ddesktop pueden seguir resultando interesantes para alguno, XGL deja a este programa bastante obsoleto. Mira la receta de <a href="/node/399">XGL y Beryl en Ubuntu Dapper</a> si de verdad quieres increibles efectos 3D en tu escritorio libre.
@@ -22,7 +23,7 @@ Esta receta explica cómo configurar el programa 3ddesktop. Se trata de un progr
 
 
 
-h1. Ingredientes 
+h1. Ingredientes
 
 * Una tarjeta de video con aceleración 3D perfectamente configurada
 * paquete 3ddesktop
@@ -34,7 +35,7 @@ Este programa tiene un demonio @3ddeskd@, que se queda residente y un programa @
 
 Lo mejor es ejecutar el demonio al arrancar la sesión. En gnome, ve a Escritorio -> Preferencias -> Sesiones : Programas al inicio.
 
-* Añade una entrada y escribe "3ddeskd&". 
+* Añade una entrada y escribe "3ddeskd&".
 * Añade otra entrada y escribe "3ddesk --acquire", y ponle una prioridad menor, es decir, un valor mayor.
 
 Ahora puedes cambiar de escritorio si ejecutas esto en un terminal
@@ -44,7 +45,7 @@ Ahora puedes cambiar de escritorio si ejecutas esto en un terminal
 {% highlight console %}
 ~$ 3ddesk
 {% endhighlight %}
-</div> 
+</div>
 
 La configuración está en @.3ddesktop/3ddesktop.conf@. En mi caso:
 
@@ -75,7 +76,7 @@ gotoleft     on
 </pre>
 </pre>
 
-h1. Mejorando la activación 
+h1. Mejorando la activación
 
 Evidentemente, tener que ejecutar algo en un terminal no resultame muy cómodo para cambiar de escritorio. Lo ideal es asociar la activación del comando a una tecla. Yo utilizo un programilla llamado @xbindkeys@
 

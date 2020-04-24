@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - ripping
+render_with_liquid: false
 ---
 Esta receta explica cómo convertir subtítulos de un DVD a formato VobSub con herramientas libres.
 
@@ -63,7 +64,7 @@ Tan fácil como:
 
 <div class="console">
 {% highlight console %}
-$ subtitle2vobsub -i lovestory.ifo -p lovestory-en.ps1 -o lovestory 
+$ subtitle2vobsub -i lovestory.ifo -p lovestory-en.ps1 -o lovestory
 {% endhighlight %}
 </div>
 
@@ -75,7 +76,7 @@ En lugar de usar @transcode@ y @subtitle2vobsub@ se puede utilizar @mencoder@ pa
 
 <div class="console">
 {% highlight console %}
-$ mencoder dvd://1 -ovc copy -o /dev/null -nosound -vobsubout lovestory-en -vobsuboutindex 0 -vobsuboutid en -sid 3 
+$ mencoder dvd://1 -ovc copy -o /dev/null -nosound -vobsubout lovestory-en -vobsuboutindex 0 -vobsuboutid en -sid 3
 {% endhighlight %}
 </div>
 
@@ -136,7 +137,7 @@ $(TITLE).rar: $(TITLE).sub
 $(TITLE).sub: $(FILE).ps1 $(TITLE).ifo
         subtitle2vobsub -i $(TITLE).ifo -p $(FILE).ps1 -o $(TITLE)
 
-$(FILE).ps1: 
+$(FILE).ps1:
 	tccat -i /dev/dvd -T $(TRACK),-1 | tcextract -x ps1 -t vob -a $(LANGid) > $@
 {% endhighlight %}
 </div>

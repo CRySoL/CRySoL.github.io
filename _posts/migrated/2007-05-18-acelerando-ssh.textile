@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 <blockquote class="head">Si usas con frecuencia ssh, habrás notado que muchas veces tarda muchísimo en conectar incluso aunque utilices autenticación por clave pública. Estos son algunos ajustes de configuración que pueden hacer que la conexión sea mucho más rápida.</blockquote>
 
@@ -27,7 +28,7 @@ Host example.com
 </pre>
 
 
-Otra cosa que hace SSH y que puede influir mucho en la duración del «login» es la opción «UseDNS». Según dice el manual: 
+Otra cosa que hace SSH y que puede influir mucho en la duración del «login» es la opción «UseDNS». Según dice el manual:
 
 UseDNS specifies whether sshd should look up the remote host name and check that the resolved host name for the remote IP address maps back to the very same IP address. The default is "yes".
 

@@ -6,6 +6,7 @@ created: 1172500718
 author: david_villa
 comments: true
 category: cooking
+render_with_liquid: false
 ---
 bq(head). Si quieres las tomas o si no las estudias y distribuyes las modificaciones.
 
@@ -42,4 +43,3 @@ h2. Preparación
 # Ahora echa las lentejas a la olla y la patata cortada en trozos.
 # Tapa la olla y déjalo a fuego mínimo durante unos 45 minutos.
 # Comprueba como anda de agua. Si ves que tiene mucha, dejalo otros 20 min, sin tapar.
-

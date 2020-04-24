@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Python
 - gtk
+render_with_liquid: false
 ---
 bq(head). Esta receta explica cómo usar la clase GladeWrapper para hacer programas PyGTK + glade del modo más sencillo jamás visto.
 
@@ -18,7 +19,7 @@ bq(head). Esta receta explica cómo usar la clase GladeWrapper para hacer progra
 
 h2. Introducción
 
-La clase GladeWrapper que propongo aquí es una forma de simplificar la carga y acceso de widgets GTK con glade. No es la única ni la primera pero creo que es lo suficientemente potente a la vez que sencilla comparada con otras implementaciones similares. 
+La clase GladeWrapper que propongo aquí es una forma de simplificar la carga y acceso de widgets GTK con glade. No es la única ni la primera pero creo que es lo suficientemente potente a la vez que sencilla comparada con otras implementaciones similares.
 
 h2. Ingredientes
 
@@ -61,7 +62,7 @@ class Wrapper(object):
 </div>
 
 
-Al sobreescribir el método @__getattr__()@ se puede referenciar un widget como si fuera un atributo del objeto que implemente esta clase. A pesar de eso, dispone de un método @get_widget()@ por si fuera necesario acceder a un widget del que se tiene su nombre como cadena, aunque eso no es lo habitual. 
+Al sobreescribir el método @__getattr__()@ se puede referenciar un widget como si fuera un atributo del objeto que implemente esta clase. A pesar de eso, dispone de un método @get_widget()@ por si fuera necesario acceder a un widget del que se tiene su nombre como cadena, aunque eso no es lo habitual.
 
 También notar que para acceder a un widget hay que poner "wg_" antes del nombre que le hayas dado en el .glade, Eso simplifica las cosas porque, de otro modo, al escribir mal el nombre de un atributo del objeto, el gladewrapper "pensaría" que te refieres a un widget; además es habitual usar atributos que se llaman igual que los widgets con los que tienen relación.
 

@@ -9,6 +9,7 @@ category: recipe
 tags:
 - android
 - devel
+render_with_liquid: false
 ---
 Si desarrollas con Eclipse aplicaciones para Android, y no tienes una máquina muy potente, te habrás dado cuenta de que usar el emulador y Eclipse al mismo tiempo, puede ser un problema. ¿Tienes una segunda máquina a tu disposición? Esta es tu receta entonces.
 
@@ -49,7 +50,7 @@ En la máquina de desarrollo, lo único necesario es conectar con este emulador,
 B$ adb connect 192.168.0.10
 connected to 192.168.0.10:5555
 B$ adb devices
-List of devices attached 
+List of devices attached
 192.168.0.10:5555	device
 {% endhighlight %}
 </div>

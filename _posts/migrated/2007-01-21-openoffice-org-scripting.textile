@@ -6,6 +6,7 @@ created: 1169393700
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Pequeña introducción a la programación de scripts para OpenOffice.org. La receta incluye una macro para convertir a PDF desde línea de comandos.
 
@@ -43,7 +44,7 @@ model = desktop.getCurrentComponent()
 text = model.Text
 cursor = text.createTextCursor()
 text.insertString(cursor, "Hello World", 0)
- 
+
 ctx.ServiceManager
 {% endhighlight %}
 </div>
@@ -80,7 +81,7 @@ Partiendo de "esta macro en OOBasic":http://www.oooforum.org/forum/viewtopic.pht
 import os
 
 def serviceManager():
-    return XSCRIPTCONTEXT.getComponentContext().getServiceManager()    
+    return XSCRIPTCONTEXT.getComponentContext().getServiceManager()
 
 # The CoreReflection object. It is cached in a global variable.
 goCoreReflection = None
@@ -97,7 +98,7 @@ def createUnoStruct(cTypeName):
     oXIdlClass = getCoreReflection().forName(cTypeName)
     # Create the struct.
     oReturnValue, oStruct = oXIdlClass.createObject(None)
-    return oStruct 
+    return oStruct
 
 def pathnameToUrl(cPathname):
     """Convert a Windows or GNU/Linux pathname into an OOo URL."""
@@ -109,7 +110,7 @@ def openURL(cUrl, tProperties=()):
     """Open or Create a document from it's URL."""
     oDesktop = XSCRIPTCONTEXT.getDesktop()
     return oDesktop.loadComponentFromURL(cUrl, "_blank", 0, tProperties)
-  
+
 def MakePropertyValue( cName=None, uValue=None, nHandle=None, nState=None ):
     """Create a com.sun.star.beans.PropertyValue struct and return it."""
     oPropertyValue = createUnoStruct("com.sun.star.beans.PropertyValue")
@@ -123,7 +124,7 @@ def MakePropertyValue( cName=None, uValue=None, nHandle=None, nState=None ):
     if nState != None:
         oPropertyValue.State = nState
 
-    return oPropertyValue 
+    return oPropertyValue
 
 def main(dummy):
     cSourceFile = os.environ['OOARG']
@@ -148,7 +149,7 @@ g_exportedScripts = main,
 
 Tienes que escribir esto en un fichero que se llame @~/.openoffice.org2/user/Scripts/python/oo2pdf.py@.
 
-h2. ¿Y cómo se usa? 
+h2. ¿Y cómo se usa?
 
 Pues "simplemente" tienes que ejecutar este comando:
 
@@ -177,7 +178,7 @@ Lo metes en @~/bin/oo2pdf@, le das permisos de ejecución y lo puedes ejecutar c
 
 <div class="console">
 {% highlight console %}
-$ oo2pdf fichero.odt 
+$ oo2pdf fichero.odt
 {% endhighlight %}
 </div>
 

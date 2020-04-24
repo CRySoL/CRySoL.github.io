@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - ripping
+render_with_liquid: false
 ---
 Esta receta explica cómo extraer los subtítulos de un DVD y convertirlos en formato "SRT":http://www.matroska.org/technical/specs/subtitles/srt.html.
 
@@ -119,7 +120,7 @@ $(FILE).srtx: $(FILE).ps1
 	subtitle2pgm -o $(FILE) -c 255,255,0,255 < $<
 	pgm2txt $(FILE)
 
-$(FILE).ps1: 
+$(FILE).ps1:
 	tccat -i /dev/dvd -T $(TRACK),-1 | tcextract -x ps1 -t vob -a $(LANGid) > $@
 {% endhighlight %}
 </div>

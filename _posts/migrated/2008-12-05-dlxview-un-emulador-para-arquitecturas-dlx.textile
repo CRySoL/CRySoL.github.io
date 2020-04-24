@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - embedded
+render_with_liquid: false
 ---
 Quien haya intentado hacer alguna práctica para alguna asignatura de <em>Arquitectura de Computadoras</em> o similares utilizando éste simulador, habrá observado que es una auténtica pesadilla utilizarlo: NO FUNCIONA. De ninguna de las maneras.
 

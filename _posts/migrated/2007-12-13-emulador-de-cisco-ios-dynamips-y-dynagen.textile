@@ -9,6 +9,7 @@ category: recipe
 tags:
 - networking
 - Arco
+render_with_liquid: false
 ---
 <blockquote>
 Esta receta es una introducción al uso de los programas libres dynamips y dynagen que nos permiten emular Cisco IOS. Las posibilidades son infinitas, aqui damos los pasos para poder empezar a trabajar de una forma básica.
@@ -55,22 +56,22 @@ A continuación arrancamos dynagen indicandole el escenario que queremos crear. 
 
 <div>
 {% highlight text %}
-# Ejemplo 
+# Ejemplo
 
 autostart = False
 
 [localhost]
-    
+
     [[7200]]
         image = /home/pepe/ciscoios/c7200-advsecurityk9-mz.124-15.T1.bin
         npe = npe-400
         ram = 160
-    
+
     [[ROUTER R1]]
         s1/0 = R2 S1/0
         model = 7200
 
-    
+
     [[ROUTER R2]]
         model = 7200
 {% endhighlight %}
@@ -93,12 +94,12 @@ Si arrancamos el dynagen pasándole como argumento este archivo, que llamaremos 
 
 <div class="console">
 {% highlight console %}
-$ dynagen simple.net 
+$ dynagen simple.net
 Reading configuration file...
 Network successfully loaded
 Dynagen management console for Dynamips
 Copyright (c) 2005-2007 Greg Anuzelli
-=> 
+=>
 
 {% endhighlight %}
 </div>
@@ -111,10 +112,10 @@ La cantidad de opciones y configuraciones posibles son infinitas, lo mas básico
 {% highlight console %}
 
 => list
-Name       Type       State      Server          Console   
-R1         7200       stopped    localhost:7200  2000      
-R2         7200       stopped    localhost:7200  2001      
-=> 
+Name       Type       State      Server          Console
+R1         7200       stopped    localhost:7200  2000
+R2         7200       stopped    localhost:7200  2001
+=>
 {% endhighlight %}
 </div>
 
@@ -139,7 +140,7 @@ y obtener una consola para trabajar con los distintos routers:
 <div class="console">
 {% highlight console %}
 => console /all
-=> 
+=>
 
 {% endhighlight %}
 </div>
@@ -154,5 +155,5 @@ Si quieres echarle un vistazo a las posibilidades de estos programas:
 
 <a href="http://www.dynagen.org/tutorial.htm">http://www.dynagen.org/tutorial.htm</a>
 
- 
+
 y David se ha encontrado una página con imágenes de Cisco IOS para bajárselas <a href=" http://aprendemas.educaleft.com/index.php?option=com_content&view=article&catid=40%3Acolaboraciones&id=83%3Apack-de-ios-cisco-utilizables-con-gns3&Itemid=1">aquí</a>

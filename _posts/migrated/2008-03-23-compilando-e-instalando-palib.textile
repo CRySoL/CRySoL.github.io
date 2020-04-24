@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - embedded
+render_with_liquid: false
 ---
 <blocquote>Cómo compilar e instalar <b>PAlib</b> para compilar aplicaciones para NDS.</blocquote>
 

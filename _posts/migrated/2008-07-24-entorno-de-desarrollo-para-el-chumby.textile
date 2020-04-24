@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Chumby
+render_with_liquid: false
 ---
 <blockquote>Se pretende construir un entorno de desarrollo para crear aplicaciones en diferentes lenguajes (c/c++ y flash mayormente) para el <a href="http://www.chumby.com">Chumby</a>
 </blockquote>
@@ -28,7 +29,7 @@ La opción que me he planteado, además de ser más divertida e instructiva, te 
 
 <h2>Creando la jaula</h2>
 
-Para hacer el entorno chroot, he seguido la receta de <a href="/node/933">javieralso</a>, con algunas modificaciones (pero no muchas, porque esto es muy sencillo). Básicamente lo que hay que hacer es buscarse una carpeta donde hacer el despliegue (os aconsejo no poner espacios en el nombre, o quizá tengáis problemas): 
+Para hacer el entorno chroot, he seguido la receta de <a href="/node/933">javieralso</a>, con algunas modificaciones (pero no muchas, porque esto es muy sencillo). Básicamente lo que hay que hacer es buscarse una carpeta donde hacer el despliegue (os aconsejo no poner espacios en el nombre, o quizá tengáis problemas):
 
 
 <div class="console">
@@ -38,7 +39,7 @@ user@box:~$ mkdir chumby
 {% endhighlight %}
 </div>
 
-Y ahora, si no tienes instalado <i>cdebootstrap</i> , ¿a que esperas? ;-) Ya sabes, puedes usar <i>apt*</i> para instalarlo de la forma usual. Si tienes dudas, pregunta. 
+Y ahora, si no tienes instalado <i>cdebootstrap</i> , ¿a que esperas? ;-) Ya sabes, puedes usar <i>apt*</i> para instalarlo de la forma usual. Si tienes dudas, pregunta.
 
 Lo siguiente es el despliegue, que consiste en instalar un sistema Debian básico para ir tirando... :P
 
@@ -81,7 +82,7 @@ Luego, ya que no hay usuarios, puedes crear en <i>/home</i> carpetas con los usu
 {% highlight console %}
 root@box:/# mkdir /home/user
 root@box:/# cd
-root@box:~# 
+root@box:~#
 
 {% endhighlight %}
 </div>
@@ -91,13 +92,13 @@ Este es el <i>.bashrc</i> que he puesto para mi usuario:
 <div class="console">
 {% highlight console %}
 
-alias ls='ls --color' 
-alias clean='rm *~ \#*\# -rfv' 
+alias ls='ls --color'
+alias clean='rm *~ \#*\# -rfv'
 alias emacs='emacs -nw'
 
-. /etc/bash_completion 
+. /etc/bash_completion
 
-PS1='\[\033[01;29m\]CHROOT@Chumby\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ ' 
+PS1='\[\033[01;29m\]CHROOT@Chumby\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 
 # Mount /proc filesystem
 if [ ! -f /proc/cpuinfo ];
@@ -146,7 +147,7 @@ Existen mil formas de instalarla. Desde la web de Chumby te aconsejan que te baj
 
 #include <iostream>
 
-int 
+int
 main(int argc, char* argv[]) {
   std::cout << “Hola desde el Chumby!” << std::endl;
   return 0;
@@ -154,7 +155,7 @@ main(int argc, char* argv[]) {
 {% endhighlight %}
 </div>
 
-Y lo puedes compilar así: 
+Y lo puedes compilar así:
 
 
 <div class="console">
@@ -172,7 +173,7 @@ Para ejecutarlo, hay que meterlo en el Chumby. Más abajo explico cómo montar u
 
 <h2>Flash con Haxe</h2>
 
-Haxe es un "lenguaje de programación <i>open source</i> multiplataforma" (sic) un tanto especial. Permite compilar el código a otros lenguajes (javascript, php) o al bytecode de ciertas máquinas virtuales (<a href="http://nekovm.org/">NekoVM</a>) y, que es lo que nos interesa, a Flash (swf). 
+Haxe es un "lenguaje de programación <i>open source</i> multiplataforma" (sic) un tanto especial. Permite compilar el código a otros lenguajes (javascript, php) o al bytecode de ciertas máquinas virtuales (<a href="http://nekovm.org/">NekoVM</a>) y, que es lo que nos interesa, a Flash (swf).
 
 La instalación es sencilla, puesto que es paquete Debian ;-):
 
@@ -186,7 +187,7 @@ La instalación es sencilla, puesto que es paquete Debian ;-):
 
 El lenguaje no es muy complejo, sintácticamente parecido a C++ o Java. Tiene algunas librerias interesantes y un sistema para instalarlas basado en repositorios, <a href="http://haxe.org/com/haxelib?lang=en">HaxeLib</a>. Pero, como dice el refrán, <i>un trozo de código vale más que mil comentarios</i> :-p . Veamos un ejemplo (el que viene en la documentación, por cierto):
 
-<b>Nota:</b> ¡Cuidado con los nombres! Sucede como en Java, el nombre del fichero .hx debe ser igual al nombre de la clase que contiene. El nombre del .hxml no es crítico.   
+<b>Nota:</b> ¡Cuidado con los nombres! Sucede como en Java, el nombre del fichero .hx debe ser igual al nombre de la clase que contiene. El nombre del .hxml no es crítico.
 
 <div>
 {% highlight java %}
@@ -216,7 +217,7 @@ Y para compilarlo, basta con:
 <b>CHROOT@Chumby</b>:samples# haxe compile.hxml
 <b>CHROOT@Chumby</b>:samples# ls
 compile.hxml  Test.hx  test.swf
-<b>CHROOT@Chumby</b>:~# file test.swf 
+<b>CHROOT@Chumby</b>:~# file test.swf
 test.swf: Macromedia Flash data (compressed), version 8
 
 {% endhighlight %}
@@ -231,11 +232,11 @@ El objetivo es tener una carpeta donde podamos intercambiar ficheros con nuestro
 
 Como el Chumby lo usamos siempre como usuario root tenemos que tener en cuenta una funcionaldiad sobre seguridad hecha por NFS: no permite montar en modo escritura archivos pertenecientes al usuario "root" y grupo "root". Ese caso es el nuestro, si montamos por NFS un directorio dentro del chroot. Para saltarnos esa feature tan sólo añadir a la línea de configuración del archivo <i>/etc/exports</i> la opción "no_root_squash".
 
-La parte de configuración del Chumby explica como montar esa partición para probar los tests. 
+La parte de configuración del Chumby explica como montar esa partición para probar los tests.
 
 <h2>Configurar el Chumby</h2>
 
-Pues eso, veamos principalmente como configurar el Chumby para que monte la partición NFS automáticamente en el arranque. Antes de nada, es necesario que consigas acceso por ssh, permanente o no. Para ello, esta receta te viene que ni pintada ;-) : 
+Pues eso, veamos principalmente como configurar el Chumby para que monte la partición NFS automáticamente en el arranque. Antes de nada, es necesario que consigas acceso por ssh, permanente o no. Para ello, esta receta te viene que ni pintada ;-) :
 <ul><li><a href="/node/950">SSH en el Chumby</a></li></ul>
 Tenemos dos formas de automatizar el montado: usando un PenDrive o modificando los scripts de inicio del GNU/Linux.
 
@@ -254,7 +255,7 @@ mount -t nfs -o nolock 192.168.0.1:/home/user/chumby/mnt/nfs nfs
 
 Por supuesto, cambia el comando con las opciones que quieras y que te apliquen.
 
-Si quieres hacer esto mismo sin usar el pen, tienes que seguir estas recomendaciones: <a href="http://wiki.chumby.com/mediawiki/index.php/Chumby_tricks#Running_something_at_boot_without_debugchumby">Running something at boot without debugchumby</a>. Es un <i>hack</i> muy chapucero, y susceptible a fallos ante actualizaciones grandes del sistema. Se me ocurre otra forma de hacerlo, pero pasa por actualizar el firmware, así que será carne de otra receta ;-) 
+Si quieres hacer esto mismo sin usar el pen, tienes que seguir estas recomendaciones: <a href="http://wiki.chumby.com/mediawiki/index.php/Chumby_tricks#Running_something_at_boot_without_debugchumby">Running something at boot without debugchumby</a>. Es un <i>hack</i> muy chapucero, y susceptible a fallos ante actualizaciones grandes del sistema. Se me ocurre otra forma de hacerlo, pero pasa por actualizar el firmware, así que será carne de otra receta ;-)
 
 Hay una tercera, que no deja de ser un hack chapucero, pero que es menos peligroso. Se trata de editar el fichero <i>/psp/.profile</i> que se ejecuta cada vez que inicias sesión en el sistema. Tiene el inconveniente de que no se montará automáticamente, a menos que entres por SSH al Chumby. Si te vale, edita el fichero <i>/psp/.profile</i> y añade estas lineas (o algo análogo):
 
@@ -279,10 +280,10 @@ chumby:/mnt/nfs# ls
 test      test.swf
 chumby:/mnt/nfs# ./test
 Hola desde el Chumby!
-chumby:/mnt/nfs# stop_control_panel 
+chumby:/mnt/nfs# stop_control_panel
 stopping control panel
 ...
-chumby:/mnt/nfs# chumbyflashplayer.x -i test.swf 
+chumby:/mnt/nfs# chumbyflashplayer.x -i test.swf
 ...
 {% endhighlight %}
 </div>

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - ripping
+render_with_liquid: false
 ---
 Esta receta pretende ser una chuleta de pequeños trucos y utilidades para manipular DVD Video, usando los programas libres habituales en un sistema GNU
 
@@ -163,7 +164,7 @@ Y con mplayer...
 
 <div class="console">
 {% highlight console %}
-$ mplayer  -dvd-device /punto/de/montaje dvd://1 -slang es 
+$ mplayer  -dvd-device /punto/de/montaje dvd://1 -slang es
 {% endhighlight %}
 </div>
 

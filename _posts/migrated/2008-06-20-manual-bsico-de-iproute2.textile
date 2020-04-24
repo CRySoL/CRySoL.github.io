@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 bq(head). Esta recetilla incluye algunos comandos sencillos para comprender y empezar a manejar el famoso pero desconocido comando @ip@.
 
@@ -112,17 +113,17 @@ Con este comando consigues (entre otras cosas) las direcciones lógicas y físic
 {% highlight console %}
 
 $ ip addr
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 16436 qdisc noqueue state UNKNOWN 
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 16436 qdisc noqueue state UNKNOWN
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
-    inet6 ::1/128 scope host 
+    inet6 ::1/128 scope host
        valid_lft forever preferred_lft forever
 2: eth1: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN qlen 1000
     link/ether 00:50:40:d6:09:af brd ff:ff:ff:ff:ff:ff
 3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
     link/ether 00:e0:4c:9a:60:00 brd ff:ff:ff:ff:ff:ff
     inet 161.67.38.135/24 brd 161.67.38.255 scope global eth0
-    inet6 fe80::2e0:4cff:fe00:4567/64 scope link 
+    inet6 fe80::2e0:4cff:fe00:4567/64 scope link
        valid_lft forever preferred_lft forever
 {% endhighlight %}
 </div>
@@ -139,7 +140,7 @@ $ ip addr show dev eth0
 3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000
     link/ether 00:e0:4c:9a:60:00 brd ff:ff:ff:ff:ff:ff
     inet 161.67.38.135/24 brd 161.67.38.255 scope global eth0
-    inet6 fe80::2e0:4cff:fe00:4567/64 scope link 
+    inet6 fe80::2e0:4cff:fe00:4567/64 scope link
        valid_lft forever preferred_lft forever
 {% endhighlight %}
 </div>
@@ -151,7 +152,7 @@ h3. Añadir una dirección a una interfaz
 
 <div class="console">
 {% highlight console %}
- $ ip addr *add* 192.168.0.1 dev eth0 
+ $ ip addr *add* 192.168.0.1 dev eth0
 {% endhighlight %}
 </div>
 
@@ -161,7 +162,7 @@ h3. Borrar una dirección de una interfaz
 
 <div class="console">
 {% highlight console %}
- $ ip addr *del* 192.168.0.1 dev eth0 
+ $ ip addr *del* 192.168.0.1 dev eth0
 {% endhighlight %}
 </div>
 
@@ -176,8 +177,8 @@ h3. Ver la tabla
 <div class="console">
 {% highlight console %}
  $ ip route
-192.168.0.0/24 dev eth0  proto kernel  scope link  src 192.168.0.23 
-default via 192.168.0.1 dev eth0 
+192.168.0.0/24 dev eth0  proto kernel  scope link  src 192.168.0.23
+default via 192.168.0.1 dev eth0
 
 {% endhighlight %}
 </div>

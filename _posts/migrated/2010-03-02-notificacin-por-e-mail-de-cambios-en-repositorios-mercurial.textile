@@ -10,6 +10,7 @@ tags:
 - mercurial
 - VCS
 - Arco
+render_with_liquid: false
 ---
 Cómo notificar de los cambios ocurridos en un repositorio "Mercurial":http://mercurial.selenic.com/ por correo electrónico.
 

@@ -6,6 +6,7 @@ created: 1191087679
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 bq(head). Desde hace ya algunos meses, nuestro teclado no es el que era. Me refiero a la forma de escribir el carácter "virgulilla":http://es.wikipedia.org/wiki/Virgulilla (también llamado 'tilde'). ¿Qué ha pasado?
 
@@ -15,9 +16,9 @@ bq(head). Desde hace ya algunos meses, nuestro teclado no es el que era. Me refi
 
 Bueno, pues resulta que ese carácter que solemos utilizar para indicar el directorio HOME, entrar en la página web de algún mengano, poner un espacio irrompible en LaTeX, como operador NOT en Python o  C, etc, en realidad es un signo de puntuación, de modo que se puede escribir cosas como "ã". Pero claro, para poder escribir algo como eso, la tecla debe poder funcionar como una "dead key":http://en.wikipedia.org/wiki/Dead_key (igual que pasa con los acentos,  diéresis y demás) y sin embargo, no lo era.
 
-Pues bien, eso era así hasta la versión del paquete @xkb-data@ del 2007-01-26. La tecla del número 4 (encima de la 'R') imprimía el anhelado carácter '~'. Sin embargo, una vez notificado y resulto el "bug":https://bugs.freedesktop.org/show_bug.cgi?id=9763, el keymap de castellano, que está en @/usr/share/X11/xkb/symbols/es@ fue modificado para convertir esa tecla en una "dead key". 
+Pues bien, eso era así hasta la versión del paquete @xkb-data@ del 2007-01-26. La tecla del número 4 (encima de la 'R') imprimía el anhelado carácter '~'. Sin embargo, una vez notificado y resulto el "bug":https://bugs.freedesktop.org/show_bug.cgi?id=9763, el keymap de castellano, que está en @/usr/share/X11/xkb/symbols/es@ fue modificado para convertir esa tecla en una "dead key".
 
-En realidad, en el keymap "es" había 3 teclas que se podían utilizar para imprimir la virgulilla: *AltGr - 4*,  *AltGr - ñ* y *AltGr - Shift - ¡* y ninguno de ellos era "dead key", así que era lógico cambiar alguno de ellos y la tecla "4" parecía la mejor opción porque ya es así en otros SSOO. 
+En realidad, en el keymap "es" había 3 teclas que se podían utilizar para imprimir la virgulilla: *AltGr - 4*,  *AltGr - ñ* y *AltGr - Shift - ¡* y ninguno de ellos era "dead key", así que era lógico cambiar alguno de ellos y la tecla "4" parecía la mejor opción porque ya es así en otros SSOO.
 
 Moraleja: Si quieres escribir la *~* sin tener que recurrir a *AltGr-4, SPACE* puedes usar *AltGr - ñ* que parece bastante fácil de recordar.
 

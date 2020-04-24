@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 Esta receta explica cómo utilizar SAMBA para servir ficheros y cómo acceder a ellos desde otro ordenador. Supondremos que en ambos equipos tienes Debian o sucedáneos.
 
@@ -17,7 +18,7 @@ Esta receta explica cómo utilizar SAMBA para servir ficheros y cómo acceder a 
 
 h2. Introducción
 
-Samba es una implementación libre del protocolo SMB(Server Message Block)/CIFS(Common Internet File System). Normalmente se utiliza como medio para interoperar con recursos (ficheros e impresoras) compartidos por máquinas Microsoft y también como servidor de dominio sin los problemas de seguridad y coste típicos de los sistemas Windows. 
+Samba es una implementación libre del protocolo SMB(Server Message Block)/CIFS(Common Internet File System). Normalmente se utiliza como medio para interoperar con recursos (ficheros e impresoras) compartidos por máquinas Microsoft y también como servidor de dominio sin los problemas de seguridad y coste típicos de los sistemas Windows.
 
 Sin embargo, Samba puede ser una buena solución como servidor de ficheros entre sistemas operativos libres, ya que ofrece más seguridad que otras alternativas como puede ser NFS(Network File System), aunque menor rendimiento.
 
@@ -41,7 +42,7 @@ Lo habitual:
 
 <div class="console">
 {% highlight console %}
- # apt-get install samba 
+ # apt-get install samba
 {% endhighlight %}
 </div>
 
@@ -61,7 +62,7 @@ Para habilitar un usuario para usar un directorio compartido con Samba dicho usu
 
 <div class="console">
 {% highlight console %}
- # smbpasswd -a <i>usuario</i> 
+ # smbpasswd -a <i>usuario</i>
 {% endhighlight %}
 </div>
 
@@ -74,7 +75,7 @@ La manera más fácil es editar el fichero @/etc/samba/smb.conf@ y añadir (al f
 [downloads]              # nombre del recurso
    path = /opt/files     # directorio compartido
    writable = yes        # el usuario puede borrar y crear ficheros remotamente
-   public = no           # se requiere clave para acceder 
+   public = no           # se requiere clave para acceder
    browseable = yes      # aparece en el listado de recursos compartidos
 </pre>
 
@@ -132,7 +133,7 @@ Smbfs permite montar un recurso remoto en un directorio, incluso sin ser superus
 
 <div class="console">
 {% highlight console %}
- $ smbmount //medusa/downloads directorio_local 
+ $ smbmount //medusa/downloads directorio_local
 {% endhighlight %}
 </div>
 
@@ -141,7 +142,7 @@ también puedes usar @mount@:
 
 <div class="console">
 {% highlight console %}
- # mount -t smbfs //medusa/downloads directorio_local -o username=richard 
+ # mount -t smbfs //medusa/downloads directorio_local -o username=richard
 {% endhighlight %}
 </div>
 
@@ -155,7 +156,7 @@ Puedes desmontar con @smbumount@ y @umount@ respectivamente.
 
 h3. smbclient
 
-Es similar a un cliente FTP en cuanto a su uso y sirve ara obtener mucha información. 
+Es similar a un cliente FTP en cuanto a su uso y sirve ara obtener mucha información.
 
 h5. Ver los recursos compartidos por otra máquina:
 
@@ -171,7 +172,7 @@ Domain=[GROUP] OS=[Unix] Server=[Samba 3.0.22]
 
         Sharename       Type      Comment
         ---------       ----      -------
-        downloads       Disk      
+        downloads       Disk
         IPC$            IPC       IPC Service (medusa server (Samba 3.0.22))
         ADMIN$          IPC       IPC Service (medusa server (Samba 3.0.22))
 Anonymous login successful

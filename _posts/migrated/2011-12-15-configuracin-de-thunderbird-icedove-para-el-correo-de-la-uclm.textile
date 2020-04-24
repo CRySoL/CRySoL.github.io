@@ -6,6 +6,7 @@ created: 1323944978
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 h2. Recepción
 
@@ -24,4 +25,3 @@ Puerto: 587
 Nombre de usuario: Pepito.Grillo
 Método de autenticación: Contraseña normal
 Seguridad de la conexión: STARTTLS
-

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - ripping
+render_with_liquid: false
 ---
 Esta receta es (o será) un compendio de pequeños trucos y utilidades para manipular ficheros AVI usando los programas libres habituales en un sistema GNU.
 
@@ -58,7 +59,7 @@ Con @avisplit@ del paquete @transcode@. Se pueden definir los trozos por su dura
 
 <div class="console">
 {% highlight console %}
- $ avisplit -i original.avi -t 1:30:00 
+ $ avisplit -i original.avi -t 1:30:00
 {% endhighlight %}
 </div>
 
@@ -67,7 +68,7 @@ O por su tamaño:
 
 <div class="console">
 {% highlight console %}
- $ avisplit -i original.avi -s 700MB 
+ $ avisplit -i original.avi -s 700MB
 {% endhighlight %}
 </div>
 
@@ -86,7 +87,7 @@ Utilizando @avimerge@ del paquete @transcode@.
 
 h2. Extraer el audio
 
-Es decir, demultiplexar la pista de audio de un fichero AVI. 
+Es decir, demultiplexar la pista de audio de un fichero AVI.
 
 Lo haremos con @mencoder@ (del paquete del mismo nombre).
 
@@ -102,11 +103,11 @@ Eso lo extrae en el formato original. Se puede recodificar cambiando @copy@ por 
 
 <div class="console">
 {% highlight console %}
-$ mencoder -aoc help 
+$ mencoder -aoc help
 {% endhighlight %}
 </div>
 
-Si el avi original tiene varias pistas de audio puedes elegir una con la opción @-aid n@. 
+Si el avi original tiene varias pistas de audio puedes elegir una con la opción @-aid n@.
 
 
 <div class="console">
@@ -121,7 +122,7 @@ h3. Con @ffmpeg@
 
 <div class="console">
 {% highlight console %}
-$ ffmpeg -i original.avi -vn -acodec copy soloaudio.mp3 
+$ ffmpeg -i original.avi -vn -acodec copy soloaudio.mp3
 {% endhighlight %}
 </div>
 
@@ -144,7 +145,7 @@ h3. Con @ffmpeg@
 
 <div class="console">
 {% highlight console %}
-$ ffmpeg -i original.avi -an -vcodec copy solovideo.avi 
+$ ffmpeg -i original.avi -an -vcodec copy solovideo.avi
 {% endhighlight %}
 </div>
 
@@ -191,7 +192,7 @@ h2. Arreglar un índice roto
 
 <div class="console">
 {% highlight console %}
- $ mencoder -idx original.avi -ovc copy -oac copy -o resultado.avi 
+ $ mencoder -idx original.avi -ovc copy -oac copy -o resultado.avi
 {% endhighlight %}
 </div>
 
@@ -213,7 +214,7 @@ $ avimerge -i lovestory-v.avi -p lovestory-es.mp3 -o lovestory-es.avi
 $ avimerge -i lovestory-es.avi -p lovestory-en.mp3 -o lovestory.avi
 </pre>
 
-Esto se puede repetir para cualquier número de pista de auido. Los ficheros de audio que se indican con @-p@ pueden ser tanto .mp3 como .avi. En caso de ser .avi obviamente el flujo de imagen se ignora. 
+Esto se puede repetir para cualquier número de pista de auido. Los ficheros de audio que se indican con @-p@ pueden ser tanto .mp3 como .avi. En caso de ser .avi obviamente el flujo de imagen se ignora.
 
 La mayoría de los reproductores libres soportan esto, incluidos mplayer, totem, xine, etc. En el caso de @mplayer@ puedes elegir el canal de audio con @-aid@ y el número de pista empezando en 1. Por ejemplo, el siguiente comando elige la pista de audio en inglés para el caso anterior.
 

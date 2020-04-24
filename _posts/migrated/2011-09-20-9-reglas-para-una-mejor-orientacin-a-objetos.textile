@@ -7,6 +7,7 @@ author: david_villa
 comments: true
 tags:
 - INGSOFT
+render_with_liquid: false
 ---
 En las conferencias de la "XPWeek":http://xpweek.es/?page_id=2, Sebastián Hermida nos explicaba los nueve reglas o (pasos) de Jeff Bay para conseguir mejores diseños orientados a objetos y, en general, código más limpio. Al loro, porque algunas te pueden sorprender:
 

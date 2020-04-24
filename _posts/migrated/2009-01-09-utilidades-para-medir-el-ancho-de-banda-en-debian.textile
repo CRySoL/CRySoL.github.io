@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - uclmwifi
+render_with_liquid: false
 ---
 Esta receta es una lista de programas de análisis de tráfico de red que están disponibles como paquetes Debian oficiales y que pueden resultar muy útiles
 
@@ -62,7 +63,7 @@ h3. "pmacct":http://www.pmacct.net/
 
 *[ToDo]*
 
-h2. Análisis instantáneo 
+h2. Análisis instantáneo
 
 Son programas que ofrecen información sobre la situación actual del uso de la red, o como mucho ofrecen un histórico desde el momento en que arrancó el programa, y al cerrarlos se pierde.
 
@@ -85,13 +86,13 @@ De repente ves en el monitor de red que el ratio de descarga o de subida se disp
 
 NetHogs version 0.6.2pre2
 
-  PID USER     PROGRAM                      DEV        SENT      RECEIVED       
+  PID USER     PROGRAM                      DEV        SENT      RECEIVED
 3947  bacula   /usr/sbin/bacula-sd          eth0  4284470.000 90966192.00B
 4078  root     icegridnode                  eth0     438.000     182.000 B
 4715  david    pidgin                       eth0     209.000     171.000 B
 0     root     unknown TCP                             0.000       0.000 B
 
-  TOTAL                                           4285117.000  90966545.0B      
+  TOTAL                                           4285117.000  90966545.0B
 {% endhighlight %}
 </div>
 
@@ -110,7 +111,7 @@ $ pktstat -i eth0
 interface: eth0
 bps
 
-   bps    % desc                                                                                                                                                                                              
+   bps    % desc
  13.6k  31% tcp barbyel:www <-> free:48823
             - 304 GET /debian/dists/unstable/non-free/binary-i386/Packages.bz2
  12.7k  29% tcp free:53578 <-> ug-in-f190:www
@@ -131,7 +132,7 @@ bps
 
 h3. "iftop":http://www.ex-parrot.com/~pdw/iftop/
 
-Lista flujos de tráfico indicando los ratios de subida y bajada para los últimos 2, 10 y 40 segundos. Permite filtrar por dirección IP y protocolo. 
+Lista flujos de tráfico indicando los ratios de subida y bajada para los últimos 2, 10 y 40 segundos. Permite filtrar por dirección IP y protocolo.
 
 
 
@@ -151,7 +152,7 @@ free.local                    => lobos.debian.org                  0b  1.45Kb   
                              <=                                    0b  2.21Kb   565b
 free.local                    => resolver1.opendns.com         1.69Kb  0.99Kb   254b
                              <=                                1.54Kb  1.24Kb   316b
- 
+
 ─────────────────────────────────────────────────────────────────────────────────────
 TX:             cumm:   112KB   peak:   32.8Kb       rates:   13.9Kb  9.37Kb  2.38Kb
 RX:                    4.11MB            206Kb                 206Kb  55.1Kb  13.8Kb
@@ -169,15 +170,15 @@ Monitoriza conexiones TCP indicando el estado de la conexión, el tiempo de inac
 <div class="console">
 {% highlight console %}
 
- Client                Server                State        Idle A Speed         
+ Client                Server                State        Idle A Speed
  192.168.100.2:48129  130.206.1.5:80        ESTABLISHED  7s     0 B/s
  192.168.100.2:60890  66.249.93.91:80       ESTABLISHED  7s     0 B/s
  192.168.100.2:60878  161.67.144.12:80      ESTABLISHED  7s     0 B/s
  192.168.100.2:40881  212.211.132.250:80    ESTABLISHED  7s     0 B/s
  192.168.100.2:47394  209.85.137.125:5222   ESTABLISHED  26s    0 B/s
 
- TOTAL                                                           0 B/s         
- Connections 1-5 of 5                         Unpaused  Sorted by rate         
+ TOTAL                                                           0 B/s
+ Connections 1-5 of 5                         Unpaused  Sorted by rate
 {% endhighlight %}
 </div>
 

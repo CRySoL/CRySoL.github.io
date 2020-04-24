@@ -9,6 +9,7 @@ category: recipe
 tags:
 - networking
 - Debian
+render_with_liquid: false
 ---
 Esta receta explica cómo utilizar un móvil "Nokia 6300":http://nds1.nokia.com/phones/files/guides/Nokia_6300_UG_en.pdf  como módem para conectar un ordenador a Internet.
 
@@ -59,9 +60,9 @@ Sale una ventanita de configuración muy simple en la que debes introducir estos
 
 # Después pulsa el botón "Configuración" y aparecerá otra ventana con tres solapas. En la solapa "Módem":
 ## En el campo Tipo, elige "Módem USB" y pulsa el botón "Detectar".
-## Pulsa el botón "Registro de inicio" 
+## Pulsa el botón "Registro de inicio"
 ## Pulsa al lado de la etiqueta "Init 3" y escribe:
- 
+
 <div>
 {% highlight text %}
 AT+CGDCONT=1; "IP","gprs-service.com"

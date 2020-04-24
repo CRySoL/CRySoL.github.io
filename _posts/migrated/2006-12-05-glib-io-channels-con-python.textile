@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
 Cómo utilizar los IO-Channels de "GLib":http://developer.gnome.org/doc/API/glib/ desde Python para implementar el patrón _reactor_.
 
@@ -25,9 +26,9 @@ En términos de diseño, se considera que el bucle de eventos de GLib es una imp
 
 h2. GLib para Python?
 
-Es obvio que no tiene mucho sentido un módulo @glib@ en Python, pues la mayoría de las _features_ de esta librería ya las soporta de serie el lenguaje. Tampoco tiene sentido un módulo GObject pues Python soporta orientación a objetos de forma nativa. 
+Es obvio que no tiene mucho sentido un módulo @glib@ en Python, pues la mayoría de las _features_ de esta librería ya las soporta de serie el lenguaje. Tampoco tiene sentido un módulo GObject pues Python soporta orientación a objetos de forma nativa.
 
-Sin embargo, el bucle de eventos de GTK está realmente en GObject y esa es la razón principal de que haya un módulo GObject para Python. Todo esto viene muy bien porque no hay una implementación "estándar" de un bucle de eventos genérico para Python. 
+Sin embargo, el bucle de eventos de GTK está realmente en GObject y esa es la razón principal de que haya un módulo GObject para Python. Todo esto viene muy bien porque no hay una implementación "estándar" de un bucle de eventos genérico para Python.
 
 Resumiendo, el módulo @gobject@ disponible en Python  es la respuesta si lo que buscamos es un "reactor" genérico y portable.
 
@@ -79,13 +80,13 @@ Para probar la fuente UDP se puede usar @netcat@:
 
 <div class="console">
 {% highlight console %}
-$ nc -u host 9000 
+$ nc -u host 9000
 {% endhighlight %}
 </div>
 
 h3. gobject.MainContext.iteration
 
-Si por cualquier circunstancia necesitas crear tú el bucle de eventos y no puedes usar MainLoop, todavía puedes usar la gestión de eventos de gobject por medio de @iteration()@. 
+Si por cualquier circunstancia necesitas crear tú el bucle de eventos y no puedes usar MainLoop, todavía puedes usar la gestión de eventos de gobject por medio de @iteration()@.
 
 Ten en cuenta que, en este caso, el tratamiento no es bloqueante. El bucle consumirá toda la CPU disponible, pero se supone que la necesitas para hacer algún tipo de cómputo intensivo. Si no es ese tu caso, deberías volver a plantearte si lo que te conviene es usar directamente el "mainloop", como en el ejemplo del punto anterior.
 

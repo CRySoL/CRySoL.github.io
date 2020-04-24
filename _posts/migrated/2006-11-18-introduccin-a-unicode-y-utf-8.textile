@@ -6,6 +6,7 @@ created: 1163867572
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Pequeña introducción sobre Unicode y la codificación UTF-8.
 
@@ -26,7 +27,7 @@ Pues bien:
 
 "UTF-8":http://www.ietf.org/rfc/rfc3629.txt es un formato para codificar caracteres UCS (o Unicode) utilizando secuencias de bytes.
 
-UTF-8 es una invención de "Ken Thompson":http://en.wikipedia.org/wiki/Ken_Thompson (sí, sí, el creador de Unix) como medio para resolver el problema de utilizar Unicode en sistemas tipo Unix. Cuando a Thompson se le ocurrió la idea de UTF-8 (septiembre 1992) trabajaba en el desarrollo de "Plan 9":http://plan9.bell-labs.com/plan9dist/ en Bell Labs. Una semana más tarde Plan 9 se convertía en el primer sistema operativo en tener soporte para UTF-8. 
+UTF-8 es una invención de "Ken Thompson":http://en.wikipedia.org/wiki/Ken_Thompson (sí, sí, el creador de Unix) como medio para resolver el problema de utilizar Unicode en sistemas tipo Unix. Cuando a Thompson se le ocurrió la idea de UTF-8 (septiembre 1992) trabajaba en el desarrollo de "Plan 9":http://plan9.bell-labs.com/plan9dist/ en Bell Labs. Una semana más tarde Plan 9 se convertía en el primer sistema operativo en tener soporte para UTF-8.
 
 
 h2. ¿Cómo funciona UTF-8?
@@ -48,7 +49,7 @@ Si no las tienes instaladas, simplemente ejecuta:
 
 <div class="console">
 {% highlight console %}
-# apt-get install locales 
+# apt-get install locales
 {% endhighlight %}
 </div>
 
@@ -57,7 +58,7 @@ Si ya las tenías instaladas puedes cambiar la configuración de la forma habitu
 
 <div class="console">
 {% highlight console %}
-# dpkg-reconfigure locales 
+# dpkg-reconfigure locales
 {% endhighlight %}
 </div>
 

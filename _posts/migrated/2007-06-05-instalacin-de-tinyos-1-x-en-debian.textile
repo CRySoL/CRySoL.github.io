@@ -9,6 +9,7 @@ category: recipe
 tags:
 - embedded
 - Arco
+render_with_liquid: false
 ---
 bq(head). Esta receta explica cómo instalar TinyOS 1.1.15
 
@@ -46,7 +47,7 @@ avr-binutils_2.13.2.1-2_i386.deb
 avr-gcc_3.3tinyos-2_i386.deb
 avr-libc_20030512cvs-2_i386.deb
 nesc_1.1.2a-2_i386.deb
-tinyos-tools_1.1.0-2_i386.deb 
+tinyos-tools_1.1.0-2_i386.deb
 </pre>
 
 A continuación con dpkg -i, vamos instalando los paquetes.
@@ -111,7 +112,7 @@ $ tar xvzf javax_comm-2_0_3-solsparc.tar.Z
 $ cp commapi/comm.jar $JDKROOT/jre/lib/ext/
 $ cp commapi/javax.comm.properties  JDKROOT/jre/lib/
 $ /bin/echo Driver=gnu.io.RXTXCommDriver > JDKROOT/jre/lib/javax.comm.properties
-$ cp commapi/libSolarisSerialParallel.so /usr/lib 
+$ cp commapi/libSolarisSerialParallel.so /usr/lib
 
 {% endhighlight %}
 </div>
@@ -127,7 +128,7 @@ export CLASSPATH=".:$TOSROOT/tools/java:$JAVAXROOT/jre/lib/ext/comm.jar:$TOSROOT
 export PATH="$PATH:$JDKROOT/bin"
 export TOSDIR=$TOSROOT/tos
 export MAKERULES="$TOSROOT/tools/make/Makerules"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/:$JAVAXROOT/jre/bin/" 
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/:$JAVAXROOT/jre/bin/"
 </pre>
 
 En teoría ya esta todo, para comprobar que esto rula ejecutamos el script *toscheck* que viene dentro del sistema operativo:

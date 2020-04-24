@@ -9,6 +9,7 @@ category: script
 tags:
 - shell
 - multimedia
+render_with_liquid: false
 ---
 Como algunos que me conocen saben, soy seguidor de la scene desde hace muchísimos años. Quizá últimamente no tengo tiempo de estar al día, pero me sigue gustando escuchar la música que sale de ese mundillo. Para los que lo conocen, el sitio <a href="http://modarchive.org">http://modarchive.org</a> es un buen punto donde descargar "mods" de todas las épocas.
 
@@ -39,11 +40,11 @@ usage: ./modarchive.sh [options]
 Modarchive Jukebox can be used with one of the following options:
    -h : Show this help message
 
-   -s <section> Play from selected section: Can be one of this 
+   -s <section> Play from selected section: Can be one of this
           uploads     This is a list of the recent member upload activity
           featured    These modules have been nominated by the crew for either outstanding quality, technique or creativity (or combination of).
-          favourites  These modules have been nominated by the members via their favourites. 
-          downloads   The top 1000 most downloaded modules, recorded since circa 2002. 
+          favourites  These modules have been nominated by the members via their favourites.
+          downloads   The top 1000 most downloaded modules, recorded since circa 2002.
           topscore    This chart lists the most revered modules on the archive.
           new         Same than uploads but using search engine
           random      Ramdom module from entire archive

@@ -6,6 +6,7 @@ created: 1173119726
 author: nachxs
 comments: true
 category: script
+render_with_liquid: false
 ---
 Este es un pequeño script que hice para realizar una busqueda de archivos de forma recursiva, A pedido de un compañero  8) , Espero les sirva.
 
@@ -35,5 +36,5 @@ def search(path,file_name):
 if __name__ == '__main__':
     path = raw_input("Directorio de búsqueda: ")
     file = raw_input("Archivo a buscar: ")
-    search(path,file) 
+    search(path,file)
 </pre>

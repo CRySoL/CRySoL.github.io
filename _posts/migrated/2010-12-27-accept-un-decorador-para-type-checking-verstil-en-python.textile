@@ -8,8 +8,9 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
-Una de las cosas que más chocan al empezar a utilizar un lenguaje dinámico (Python, Ruby, Lua, etc.) es que las variables no se declaran o definen con un tipo concreto. Eso normalmente no es un problema y de hecho resulta bastante cómodo. Pero cuando un programa adquiere cierta envergadura empiezan a surgir problemas. 
+Una de las cosas que más chocan al empezar a utilizar un lenguaje dinámico (Python, Ruby, Lua, etc.) es que las variables no se declaran o definen con un tipo concreto. Eso normalmente no es un problema y de hecho resulta bastante cómodo. Pero cuando un programa adquiere cierta envergadura empiezan a surgir problemas.
 
 Poder forzar la interfaz de un método, sobre todo de un constructor es más que conveniente. Permite detectar muchos usos inadecuados cuando el usuario de una clase y su programador son personas distintas (o uno mismo si ha pasado demasiado tiempo). Esto es básico para cosas como el "Diseño por contrato":http://en.wikipedia.org/wiki/Design_by_contract y otras metodologías en las que es imprescindible tener comprobación estricta de tipos.
 

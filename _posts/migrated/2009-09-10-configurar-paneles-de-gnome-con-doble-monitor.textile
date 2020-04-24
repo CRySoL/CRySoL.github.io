@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - gnome
+render_with_liquid: false
 ---
 Hoy, al configurar mi "layout" de escritorio en un PC con doble monitor, he descubierto algo desagradable: la configuración de paneles gráfica que proporciona Gnome (en su versión de Debian Sid) no permite seleccionar en que monitor aparece el panel. Esto hace imposible colocar  paneles en el monitor secundario.
 

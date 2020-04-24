@@ -9,6 +9,7 @@ category: recipe
 tags:
 - networking
 - Debian
+render_with_liquid: false
 ---
 El "fit-PC":http://www.fit-pc.com/new/about-fit-pc.html es un computador basado en el chip <a href="http://en.wikipedia.org/wiki/Geode_(processor)">Geode</a> con un tamaño realmente pequeño (12x12x4 cm) pero con características muy interesantes. Esta receta explica como instalar Debian para sacarle el máximo rendimiento al pequeño de la casa.
 
@@ -22,7 +23,7 @@ h2. Características
 
 Como puedes ver en las "especificaciones de fit-PC 1.0":http://www.fit-pc.com/new/fit-pc-1-0-specifications.html tiene:
 
-* Procesador Geode LX800 ("CS5536":http://www.amd.com/us-en/ConnectivitySolutions/ProductInformation/0,,50_2330_9863_9864%5E13054,00.html)  a 500 MHz 
+* Procesador Geode LX800 ("CS5536":http://www.amd.com/us-en/ConnectivitySolutions/ProductInformation/0,,50_2330_9863_9864%5E13054,00.html)  a 500 MHz
 * Tarjeta de vídeo Geode LX con una resolución máxima de 1920x1440  (conector VGA DB-15)
 * 256 MiB  de RAM DDR 333MHz
 * 60 GB (IDE de 2,5")
@@ -101,10 +102,10 @@ Para probar que funciona, cárgalos con @modprobe@ (o reinicia)  y ejecuta:
 # sensors
 lm99-i2c-0-4c
 Adapter: CS5536 ACB0
-G/C Temp:    +40.0°C  (low  =  +0.0°C, high = +70.0°C)  
-                      (crit = +85.0°C, hyst = +75.0°C)  
-GPU Temp:    +61.6°C  (low  = +16.0°C, high = +86.0°C)  
-                      (crit = +126.0°C, hyst = +116.0°C)  
+G/C Temp:    +40.0°C  (low  =  +0.0°C, high = +70.0°C)
+                      (crit = +85.0°C, hyst = +75.0°C)
+GPU Temp:    +61.6°C  (low  = +16.0°C, high = +86.0°C)
+                      (crit = +126.0°C, hyst = +116.0°C)
 {% endhighlight %}
 </div>
 

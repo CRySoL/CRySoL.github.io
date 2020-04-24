@@ -5,15 +5,16 @@ title: Aviso a los autores de recetas
 created: 1213546355
 author: admin
 comments: true
+render_with_liquid: false
 ---
-Con la reciente actualización del drupal de CRySoL hemos podido hacer el necesario upgrade a PHP5, y eso nos ha permitido instalar un módulo bastante decente para colorear listados de código con <a href="http://drupal.org/project/geshifilter">GeSHi</a>. 
+Con la reciente actualización del drupal de CRySoL hemos podido hacer el necesario upgrade a PHP5, y eso nos ha permitido instalar un módulo bastante decente para colorear listados de código con <a href="http://drupal.org/project/geshifilter">GeSHi</a>.
 
 
 <!--break-->
 
 
 
-Por contra, actualizar a PHP5 ha tenido algunas consecuencias, en especial aquellos que tuviesen código C++ en sus recetas y/o utilizan Textile para formatearlas. Pido la colaboración de TODOS los autores de recetas para que cada uno revise las suyas, y las arregle de ser necesario. No requiere mucho tiempo, los cambios son mínimos. 
+Por contra, actualizar a PHP5 ha tenido algunas consecuencias, en especial aquellos que tuviesen código C++ en sus recetas y/o utilizan Textile para formatearlas. Pido la colaboración de TODOS los autores de recetas para que cada uno revise las suyas, y las arregle de ser necesario. No requiere mucho tiempo, los cambios son mínimos.
 
 He escrito una receta que explica el nuevo formato que debe darse a los "Listados de código en CRySoL":node/931.
 

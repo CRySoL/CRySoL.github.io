@@ -8,6 +8,7 @@ comments: true
 category: new
 tags:
 - GNESIS
+render_with_liquid: false
 ---
 <table>
 
@@ -33,6 +34,6 @@ Después de casi un año de inactividad, "*gnesis*":http://arco.inf-cr.uclm.es/g
 </tr>
 </table>
 
-Está disponible para descarga la primera versión candidata, de modo que es muy de agradecer que la probéis e informéis de todos los errores que encontréis a fin de afinarla con objeto de poder hacer pública una versión definitiva. La idea es tener una versión estable para entregar con la mátricula a los nuevos alumnos de informática en Julio. 
+Está disponible para descarga la primera versión candidata, de modo que es muy de agradecer que la probéis e informéis de todos los errores que encontréis a fin de afinarla con objeto de poder hacer pública una versión definitiva. La idea es tener una versión estable para entregar con la mátricula a los nuevos alumnos de informática en Julio.
 
 Esta nueva "release" de Gnesis ha sido posible gracias a los denodados esfuerzos de *Cleto Martín* y a la indispensable colaboración de *Fernando Sancho*, ambos miembros muy activos de CRySoL, que han puesto en marcha esta distribución en un tiempo record (poco más de tres semanas). Muy importante también el trabajo del profesor *Carlos González Morcillo*, reponsable y creador del _artwork_, que ha hecho (como siempre) un trabajo totalmente profesional. Enhorabuena a los tres, sois unos fieras!

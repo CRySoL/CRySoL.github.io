@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - ripping
+render_with_liquid: false
 ---
 Esta receta explica cómo ajustar un archivo de subtítulos que van "descompasados" con la película a la que acompañan.
 
@@ -27,7 +28,7 @@ Si el texto de los subtítulos llega demasiado pronto o demasiado tarde puedes a
 
 <div class="console">
 {% highlight console %}
-$ mplayer -sub spanish.srt lovestory.avi 
+$ mplayer -sub spanish.srt lovestory.avi
 {% endhighlight %}
 </div>
 
@@ -52,7 +53,7 @@ Lo interesante es poder fijar ese "offset" en el propio fichero .srt. Para eso t
 
 <div class="console">
 {% highlight console %}
- $ srttool -d -2.3 < spanish.srt > arreglado.srt 
+ $ srttool -d -2.3 < spanish.srt > arreglado.srt
 {% endhighlight %}
 </div>
 
@@ -61,7 +62,7 @@ Otra forma es apuntar el momento exacto en el que debe aparecer el primer subtí
 
 <div class="console">
 {% highlight console %}
- $ srttool -a 00:13:24,5 < spanish.srt > arreglado.srt 
+ $ srttool -a 00:13:24,5 < spanish.srt > arreglado.srt
 {% endhighlight %}
 </div>
 

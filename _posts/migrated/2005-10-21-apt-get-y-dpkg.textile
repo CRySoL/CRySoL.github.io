@@ -6,6 +6,7 @@ created: 1129904471
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>
 Algunas posibilidades de las herramientas <tt>apt-get</tt> y <tt>dpkg</tt> de Debian GNU/Linux
@@ -141,7 +142,7 @@ h2. Reinstalar todos los paquetes instalados
       <a href="http://quark.fe.up.pt/laespiral/recetas/1-100/receta43.html">Configurar paquetes Debian</a>
    </li>
    <li>
-	  <a href="http://www.debian.org/doc/manuals/debian-tutorial/">Debian Tutorial</a> 
+	  <a href="http://www.debian.org/doc/manuals/debian-tutorial/">Debian Tutorial</a>
    </li>
    <li>
 	  <a href="http://quark.fe.up.pt/laespiral/recetas/1-100/receta56.html">Cómo buscar software y paquetes asociados en Debian</a>
@@ -150,7 +151,7 @@ h2. Reinstalar todos los paquetes instalados
 	<a href="http://www.courville.org/phpwiki/apt/dpkg">apt/dpkg</a>
    </li>
    <li>
-	  <a href="http://www.linuca.org/body.phtml?nIdNoticia=39">apt y dpkg. Herramientas de gestión de paquetes para Debian</a> 
+	  <a href="http://www.linuca.org/body.phtml?nIdNoticia=39">apt y dpkg. Herramientas de gestión de paquetes para Debian</a>
    </li>
    <li>
       <a href="http://linuxhelp.blogspot.com/2005/12/concise-apt-get-dpkg-primer-for-new.html"> A Concise apt-get / dpkg primer for new Debian users</a>

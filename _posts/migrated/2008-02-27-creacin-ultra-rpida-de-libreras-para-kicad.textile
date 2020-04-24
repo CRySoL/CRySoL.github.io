@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - embedded
+render_with_liquid: false
 ---
 <blockquote>Creando librerias para kicad como churros (y me quedo corto).</blocquote>
 

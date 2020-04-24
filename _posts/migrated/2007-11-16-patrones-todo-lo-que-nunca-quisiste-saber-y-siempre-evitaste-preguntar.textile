@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - patterns
+render_with_liquid: false
 ---
 bq(head). Primera de una serie de recetas sobre patrones de diseño.
 
@@ -37,7 +38,7 @@ Desde el punto de vista del programador "clásico", el patrón es un concepto qu
 
 * Un patrón no es una clase, ni una librería.
 * El patrón es una solución abstracta, no está ligado a ningún lenguaje de programación concreto.
-* Para usar un patrón hay que implementarlo y adaptarlo a la aplicación concreta. Pero la implementación no es lo mismo que el patrón en sí. 
+* Para usar un patrón hay que implementarlo y adaptarlo a la aplicación concreta. Pero la implementación no es lo mismo que el patrón en sí.
 * Un patrón es un elemento de diseño, no de la implementación.
 
 

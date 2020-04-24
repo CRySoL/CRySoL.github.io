@@ -8,8 +8,9 @@ comments: true
 category: recipe
 tags:
 - Arco
+render_with_liquid: false
 ---
-Cómo configurar Apache2 para disponer de un directorio  WebDAV, accesible para lectura/escritura desde GNOME VFS, konqueror, cadaver o como una "web folder" desde el "sistema operativo más rentable de todos los tiempos". 
+Cómo configurar Apache2 para disponer de un directorio  WebDAV, accesible para lectura/escritura desde GNOME VFS, konqueror, cadaver o como una "web folder" desde el "sistema operativo más rentable de todos los tiempos".
 
 
 <!--break-->
@@ -26,7 +27,7 @@ h2. Módulos
 
 <div class="console">
 {% highlight console %}
-# a2enmod dav_fs 
+# a2enmod dav_fs
 {% endhighlight %}
 </div>
 
@@ -170,7 +171,7 @@ La configuración para la carpeta DAV pero usando LDAP sería algo como:
    AuthType Basic
    AuthName DAV
    AuthBasicAuthoritative off
-   AuthUserFile none.passwd     # un fichero vacío 
+   AuthUserFile none.passwd     # un fichero vacío
 
    <LimitExcept GET OPTIONS>
       Require group staff

@@ -6,6 +6,7 @@ created: 1145356411
 author: noe
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Mi conexión a internet es ONO, mediante wifi, con Zyair pero no podía meterme en internet desde Linux (Molinux –kernel 2.6.12-9-386 ) y sin embargo, si podía hacerlo mediante windows. Si tienes el mismo problema te animo a que sigas estos pasos:
 
@@ -76,7 +77,7 @@ Aparecerá algo como:
 
 <div class="console">
 {% highlight console %}
- INSTALL zd1201.fw  zd1201-ap.fw => /usr/lib/hotplug/firmware/ 
+ INSTALL zd1201.fw  zd1201-ap.fw => /usr/lib/hotplug/firmware/
 {% endhighlight %}
 </div>
 
@@ -110,4 +111,3 @@ Y por fin podrás navegar por internet.
 Espero que con todo esto os funcione igual que a mí  y no tengáis problemas.
 
 SALUDOS
-

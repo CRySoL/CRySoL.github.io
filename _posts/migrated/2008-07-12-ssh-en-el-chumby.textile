@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Chumby
+render_with_liquid: false
 ---
 bq(head). En esta receta voy a contar cómo activar el SSH del Chumby de forma temporal y permanente, y también cómo ponerle una contraseña.
 
@@ -18,7 +19,7 @@ bq(head). En esta receta voy a contar cómo activar el SSH del Chumby de forma t
 
 h2. Introducción
 
-El "Chumby":http://www.chumby.com es un gadget que se distribuye en EEUU con bastante éxito al parecer. Su llegada al resto del mundo se está haciendo gracias a la red, ya que aún no se vende en Europa. El cacharrito en cuestión lleva un Linux modificado, bastante software libre y muchas cosas más que seguro iremos descubriendo. En cuanto a hardware el pequeño tiene una pantalla táctil, wi-fi, dos conectores USB externos (con soporte para iPod y todo), un micro ARM, etcétera etcétera. 
+El "Chumby":http://www.chumby.com es un gadget que se distribuye en EEUU con bastante éxito al parecer. Su llegada al resto del mundo se está haciendo gracias a la red, ya que aún no se vende en Europa. El cacharrito en cuestión lleva un Linux modificado, bastante software libre y muchas cosas más que seguro iremos descubriendo. En cuanto a hardware el pequeño tiene una pantalla táctil, wi-fi, dos conectores USB externos (con soporte para iPod y todo), un micro ARM, etcétera etcétera.
 
 
 h2. Activar el acceso SSH al Chumby

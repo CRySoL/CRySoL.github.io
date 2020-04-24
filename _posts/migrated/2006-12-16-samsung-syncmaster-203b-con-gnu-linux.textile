@@ -6,6 +6,7 @@ created: 1166266441
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Cómo configurar este monitor con xorg7 y sacarle todo el jugo.
 
@@ -18,7 +19,7 @@ h1. Introducción
 
 Recientemente ha caído en mis manos este magnifico monitor, aunque no es para mí :-(. El "SyncMaster 203B":http://www.samsung.com/es/products/monitor/mediumtoprangetft/ls20habbsqedc.asp?page=Specifications es un TFT de 20", resolución 1400x1050, 8ms y además con rotación.
 
-Si tratas de configurarlo para las X y recurres al manido: 
+Si tratas de configurarlo para las X y recurres al manido:
 
 
 <div class="console">

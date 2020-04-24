@@ -6,6 +6,7 @@ created: 1132088676
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>
 Esta receta es un compendio de pequeños trucos y utilidades para manipular ficheros PDF con los programas libres habituales en un sistema GNU
@@ -45,7 +46,7 @@ Con <tt>pdfjam</tt>
 
 <div class="console">
 {% highlight console %}
- $ pdfjam --no-landscape original.pdf  3,7,12-23,34 --outfile resultado.pdf 
+ $ pdfjam --no-landscape original.pdf  3,7,12-23,34 --outfile resultado.pdf
 {% endhighlight %}
 </div>
 
@@ -125,7 +126,7 @@ En realidad se trata de aumentar los márgenes reduciendo el tamaño del área i
 
 <div class="console">
 {% highlight console %}
- $ pdfnup --nup 1x1 --scale 0.9 original.pdf 
+ $ pdfnup --nup 1x1 --scale 0.9 original.pdf
 {% endhighlight %}
 </div>
 

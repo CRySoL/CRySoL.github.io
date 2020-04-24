@@ -10,6 +10,7 @@ tags:
 - INGSOFT
 - devel
 - VCS
+render_with_liquid: false
 ---
 Esta receta explica cómo configurar un repositorio subversion para lanzar una proyecto Hudson al hacer _commit_.
 
@@ -19,11 +20,11 @@ Esta receta explica cómo configurar un repositorio subversion para lanzar una p
 
 h2. Antecedentes
 
-"Hudson":http://hudson-ci.org/ es un sistema para realizar "integración continua":http://en.wikipedia.org/wiki/Continuous_integration. La integración es una de las «patas» del TDD y los métodos ágiles en general y consiste básicamente en descargar y compilar un programa o conjunto de programas y librerías relacionados, y después ejecutar baterías de pruebas, ya sean unitarias, de sistema, aceptación, etc. También se puede utilizar para comprobar otras cosas como cobertura u otras métricas de calidad del código. Lo importante e interesante de esto es que sea completamente automático y desatendido. 
+"Hudson":http://hudson-ci.org/ es un sistema para realizar "integración continua":http://en.wikipedia.org/wiki/Continuous_integration. La integración es una de las «patas» del TDD y los métodos ágiles en general y consiste básicamente en descargar y compilar un programa o conjunto de programas y librerías relacionados, y después ejecutar baterías de pruebas, ya sean unitarias, de sistema, aceptación, etc. También se puede utilizar para comprobar otras cosas como cobertura u otras métricas de calidad del código. Lo importante e interesante de esto es que sea completamente automático y desatendido.
 
 Hudson permite lanzar la integración de un proyecto sin más que visitar una URL con la forma @HUDSON_URL/job/PROJECT/build?token=TOKEN_NAME&Cause=motivo@ lo que simplifica mucho hacer scripts que se encarguen de la tarea.
 
-h2. Repositorio 
+h2. Repositorio
 
 Normalmente se recomienda realizar una integración completa una vez al día, pero otros expertos dicen que, si no supone una gran carga, lo ideal es integrar cada vez que se produce algún cambio en el proyecto, y eso nos lleva a los VCS (Version Control Systems). Lo que pretendemos es lanzar la integración cuando cualquier programador haga un commit.
 

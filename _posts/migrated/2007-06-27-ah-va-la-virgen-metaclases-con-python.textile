@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
 bq(head). Esta receta es una pequeña introducción a la meta-programación, concretamente voy a contar algunas cosillas sobre uno de los mecanismos más populares y potentes: las metaclases.
 
@@ -92,7 +93,7 @@ Y esto realmente ya es metaprogramación, pero sigue sin ser suficiente si lo qu
 
 h2. type, la madre de todas las metaclases
 
-A partir de Python 2.2 @type()@ tiene un significado nuevo muy especial: permite crear nuevos tipos, es decir, es una metaclase, de hecho es la metaclase con la que están creados todos los tipos "built-in" de Python y todas las clases de "nuevo-estilo" (las que heredan de @object@); como ya he dicho, obviaré las "clases clásicas". 
+A partir de Python 2.2 @type()@ tiene un significado nuevo muy especial: permite crear nuevos tipos, es decir, es una metaclase, de hecho es la metaclase con la que están creados todos los tipos "built-in" de Python y todas las clases de "nuevo-estilo" (las que heredan de @object@); como ya he dicho, obviaré las "clases clásicas".
 
 Para crear una clase con @type()@ se usa la siguiente sintaxis:
 
@@ -106,7 +107,7 @@ type(name, bases, dct)
 
 
 * *name*: es el nombre de la nueva clase
-* *bases*: son las clases de las que hereda 
+* *bases*: son las clases de las que hereda
 * *dct*: es un diccionario con los métodos que implementa
 
 Por ejemplo, puedes crear una nueva clase llamada @Saludo@ que implementa un método @hola()@ simplemente con:
@@ -137,7 +138,7 @@ def hola(self):
    return 'hola a todos!'
 
 SaludoClass = class_factory(hola)
-s = SaludoClass()  
+s = SaludoClass()
 print s.hola()
 {% endhighlight %}
 </div>
@@ -148,9 +149,9 @@ Pero @type@ no es una función, es una *metaclase* (una clase) y por tanto se pu
 
 h2. Antes de seguir: ==__new__ e __init__==
 
-@__new__@ e @__init__@ son dos de los métodos especiales que tienen todas las clases. Es muy habitual que el programador escriba un método @__init__@ para sus clases (tanto que ni siquiera voy a poner un ejemplo). Este método se ejecuta después de construirse la instancia y se utiliza para inicializar los atributos que lo requieran y, en general, hacer trabajo de "setup" de la instancia. 
+@__new__@ e @__init__@ son dos de los métodos especiales que tienen todas las clases. Es muy habitual que el programador escriba un método @__init__@ para sus clases (tanto que ni siquiera voy a poner un ejemplo). Este método se ejecuta después de construirse la instancia y se utiliza para inicializar los atributos que lo requieran y, en general, hacer trabajo de "setup" de la instancia.
 
-El uso de @__new__@ es mucho menos frecuente, hasta el punto de que muchos programadores con muchas horas de vuelo en Python nunca lo han usado. @__new__@ es el verdadero "constructor", es el encargado de crear la instancia y proporcionarle una ubicación en memoria. 
+El uso de @__new__@ es mucho menos frecuente, hasta el punto de que muchos programadores con muchas horas de vuelo en Python nunca lo han usado. @__new__@ es el verdadero "constructor", es el encargado de crear la instancia y proporcionarle una ubicación en memoria.
 
 @__new__@ es un método peculiar. Es estático (@staticmethod@), es decir, existe con independencia de las instancias de la clase y por tanto no tiene un argumento @self@. En su lugar, lo que se le pasa como argumento es la propia clase, normalmente nombrado como @cls@.
 
@@ -183,7 +184,7 @@ construyendo un nuevo objeto
 </div>
 
 
-Aunque sea un ejemplo muy simple y no tenga mucha utilidad, demuestra la forma en que se construye el objeto y permite algo que no puede hacerse de otro modo; puede decidir el valor de un objeto de tipo inmutable (como es @str@) en el único momento en que es posible: su creación. Si quieres, puedes comprobar que esto no se puede hacer utilizando @__init__@. 
+Aunque sea un ejemplo muy simple y no tenga mucha utilidad, demuestra la forma en que se construye el objeto y permite algo que no puede hacerse de otro modo; puede decidir el valor de un objeto de tipo inmutable (como es @str@) en el único momento en que es posible: su creación. Si quieres, puedes comprobar que esto no se puede hacer utilizando @__init__@.
 
 La sentencia @return@ invoca directamente el método @__new__@ de la superclase porque ése es el único modo de conseguir una creación limpia, es decir, evitando que se ejecute el método @__init__@ de la superclase. Para este ejemplo, lo podrías cambiar por:
 
@@ -282,7 +283,7 @@ import types
 class AutoNot(type):
     def __init__(cls, name, bases, dct):
        type.__init__(cls, name, bases, dct)
-       methods = [x for x in dct if isinstance(dct[x], types.FunctionType)] 
+       methods = [x for x in dct if isinstance(dct[x], types.FunctionType)]
        for m in methods:
            setattr(cls, 'not_%s' % m, lambda self: not dct[m](self))
 
@@ -309,13 +310,13 @@ import types
 class AutoNot(type):
     def __init__(cls, name, bases, dct):
        type.__init__(cls, name, bases, dct)
-       methods = [x for x in dct if isinstance(dct[x], types.FunctionType)] 
+       methods = [x for x in dct if isinstance(dct[x], types.FunctionType)]
        for m in methods:
            setattr(cls, 'not_%s' % m, lambda self: not dct[m](self))
 
 class A:
     __metaclass__ = AutoNot
-    
+
     def yes(self):
         return True
 

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
 bq(head). Esta receta explica cómo añadir de una forma muy fácil títulos a tu colección (gestionada con GCStar) mediante un scriptillo hecho en Python + amara. (menudo combo! :-))
 

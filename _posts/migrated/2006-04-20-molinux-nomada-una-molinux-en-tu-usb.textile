@@ -8,6 +8,7 @@ comments: true
 category: new
 tags:
 - Molinux
+render_with_liquid: false
 ---
 Tengo casi a punto un nuevo "sabor" de Molinux. En esta ocasión he conseguido meter la distribución en un "pendrive". Por ahora es la distribución Live estándar, por lo que hacen falta 620MB de espacio para hacerlo funcionar.
 

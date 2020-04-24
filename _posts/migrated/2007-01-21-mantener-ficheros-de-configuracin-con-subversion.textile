@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - VCS
+render_with_liquid: false
 ---
 bq(head). Se trata de usar subversion para controlar los cambios en un directorio, normalmente ficheros de configuración, para que si metes la pata, puedes saber qué demonios has cambiado.
 
@@ -34,16 +35,16 @@ root@my-box:/home/user# cd /
 
 {% endhighlight %}
 </div>
-  
+
 Crea un directorio vacio, por ejemplo, @dummy@. Esto es una chapucilla, si alguien sabe cómo hacerlo mejor que lo diga.
 
 
 <div class="console">
 {% highlight console %}
- root@my-box:/# mkdir dummy 
+ root@my-box:/# mkdir dummy
 {% endhighlight %}
 </div>
-  
+
 Crea un nuevo módulo para tu máquina en el repositorio que vayas a usar (en este caso un repo remoto en @server:/svn/etc@) indicando sólo el directorio recién creado.
 
 
@@ -57,7 +58,7 @@ root@my-box:/#
 
 {% endhighlight %}
 </div>
-  
+
 Borra el directorio dummy y haz checkout del repo.
 
 
@@ -68,7 +69,7 @@ root@my-box:/# svn co http://server/svn/etc/my-box ./
 
 {% endhighlight %}
 </div>
-  
+
 Añade los directorios (en modo no recursivo) en los que haya ficheros que quieras mantener controlados. El repo se utiliza de la forma habitual, pero con más cuidado :-D
 
 
@@ -81,16 +82,16 @@ root@my-box:/# svn ci
 
 {% endhighlight %}
 </div>
-  
+
 El directorio @dummy@ se puede eliminar ahora:
 
 
 <div class="console">
 {% highlight console %}
- root@my-box:/# svn del dummy 
+ root@my-box:/# svn del dummy
 {% endhighlight %}
 </div>
-  
+
 
 h2. Otra manera de hacerlo
 
@@ -107,17 +108,17 @@ root@my-box:~/repo/config$ svn mkdir my-box
 root@my-box:~/repo/config$ svn ci -m "configuración de my-box"
 
 {% endhighlight %}
-</div>    
+</div>
 
 Con lo anterior se ha creado un directorio @.svn@ en ese directorio. Ahora copia el directorio .svn creado al directorio inicial de tu configuración (a lo mejor necesitas permisos de root):
 
 
 <div class="console">
 {% highlight console %}
-root@my-box:~/repo/config# cp -r my-box/.svn  / 
+root@my-box:~/repo/config# cp -r my-box/.svn  /
 {% endhighlight %}
 </div>
-    
+
 Ahora ve añadiendo toda la ruta (en modo no recursivo) hasta meter los directorios que quieras controlar, y, una vez hecho eso, añade los ficheros que desees:
 
 
@@ -130,7 +131,7 @@ root@my-box:/# svn add etc/afbackup/changer.conf
 
 {% endhighlight %}
 </div>
-    
+
 Haz efectivos los cambios en el directorio donde copiaste el @.svn@
 
 

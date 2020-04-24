@@ -6,6 +6,7 @@ created: 1133887135
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 En esta recetilla se explica el uso de alguos programamas de Debian (o distros derivadas) que pueden ayudar a mantener el sistema limpio y no tener más basura de la deseada
 
@@ -81,9 +82,9 @@ El programa permite dos cosas:
 * Identificar aquellos paquetes que no son dependencias de nada que el usuario quiera tener instalado realmente.
 * Evitar que los paquetes que instalas "para probarlos" se queden ahí para siempre, consumiendo disco y ancho de banda cuando los actualizas.
 
-Después de instalar el paquete. ejecuta @debfoster@. 
+Después de instalar el paquete. ejecuta @debfoster@.
 
-El programa te preguntará que debe hacer con toooodos los programas instalados en ese momento. Es un poco pesado pero sólo ocurre la primera vez. Desde ahora cuando quieras instalar un paquete con la intención de que se quede utiliza @debfoster@ en lugar de @apt-get install@. 
+El programa te preguntará que debe hacer con toooodos los programas instalados en ese momento. Es un poco pesado pero sólo ocurre la primera vez. Desde ahora cuando quieras instalar un paquete con la intención de que se quede utiliza @debfoster@ en lugar de @apt-get install@.
 
 
 <div class="console">

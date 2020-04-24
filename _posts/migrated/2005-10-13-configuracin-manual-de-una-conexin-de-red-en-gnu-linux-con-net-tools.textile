@@ -8,8 +8,9 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
-<blockquote>Cómo configurar «a mano», es decir, sin DHCP, los parámetros más importantes de una tarjeta de red en Debian GNU/Linux, Ubuntu o similar. 
+<blockquote>Cómo configurar «a mano», es decir, sin DHCP, los parámetros más importantes de una tarjeta de red en Debian GNU/Linux, Ubuntu o similar.
 
 Hay otras posibilidades (como <tt>etherconf</tt>) pero la finalidad de esta receta es utilizar los comandos básicos disponibles en los sistemas GNU/Linux, en concreto con @ipconfig@ y @route@ del paquete @net-tools@.
 </blockquote>
@@ -30,7 +31,7 @@ Antes de comenzar debemos pedirle al administrador de la red que nos proporcione
 * Dirección IP de el/los DNS (en nuestro ejemplo:161.67.28.4 y 161.67.26.34).
 
 h2. Configuración
- 
+
 Veamos la configuración de la tarjeta:
 
 
@@ -38,21 +39,21 @@ Veamos la configuración de la tarjeta:
 {% highlight console %}
 
 ~# ifconfig
-eth0      Link encap:Ethernet  HWaddr 00:E0:4C:00:4C:79  
+eth0      Link encap:Ethernet  HWaddr 00:E0:4C:00:4C:79
           inet addr:161.67.28.216  Bcast:161.67.28.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:30360 errors:0 dropped:0 overruns:0 frame:0
           TX packets:9987 errors:0 dropped:0 overruns:0 carrier:0
           collisions:1590 txqueuelen:100
           RX bytes:7352067 (7.0 MiB)  TX bytes:1209496 (1.1 MiB)
-          Interrupt:11 Base address:0xd000 
+          Interrupt:11 Base address:0xd000
 
-lo        Link encap:Local Loopback 
+lo        Link encap:Local Loopback
           inet addr:127.0.0.1  Mask:255.0.0.0
           UP LOOPBACK RUNNING  MTU:16436  Metric:1
           RX packets:722 errors:0 dropped:0 overruns:0 frame:0
           TX packets:722 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
+          collisions:0 txqueuelen:0
           RX bytes:98985 (96.6 KiB)  TX bytes:98985 (96.6 KiB)
 {% endhighlight %}
 </div>
@@ -101,7 +102,7 @@ Por defecto, el sistema añade la entrada de enrutamiento correspondiente a la r
 <pre class="console">  ~# route
 Kernel IP routing table
 Destination Gateway Genmask         Flags Metric Ref  Use Iface
-localnet    *       255.255.255.0   U     0      0      0 eth0 
+localnet    *       255.255.255.0   U     0      0      0 eth0
 </pre>
 
 Quizá, en lugar de <em>localnet</em> aparezca una dirección IP del tipo: 161.67.28.0
@@ -117,7 +118,7 @@ PING 161.67.28.150 (161.67.28.150): 56 data bytes
 64 bytes from 161.67.28.150: icmp_seq=0 ttl=255 time=2.0 ms
 64 bytes from 161.67.28.150: icmp_seq=1 ttl=255 time=0.3 ms
 64 bytes from 161.67.28.150: icmp_seq=2 ttl=255 time=0.3 ms
-  
+
   --- 161.67.28.150 ping statistics ---
 5 packets transmitted, 5 packets received, 0% packet loss
 round-trip min/avg/max = 0.3/0.6/2.0 ms
@@ -135,9 +136,9 @@ Por tanto, queda indicar quién es el router que te permita comunicarte con la r
 
 Siendo la dirección IP indicada la del router para nuestra red local. Si miramos ahora la tabla de enrutamiento, aparecerá una nueva entrada:
 
-<pre class="console">  ~# route 
+<pre class="console">  ~# route
 Kernel IP routing table
-Destination   Gateway       Genmask         Flags  Metric  Ref Use Iface 
+Destination   Gateway       Genmask         Flags  Metric  Ref Use Iface
 161.67.28.0   *             255.255.255.0   U      0       0   0   eth0
 default       161.67.28.1   0.0.0.0         UG     0       0   0   eth0
 </pre>
@@ -171,14 +172,14 @@ Modifica el archivo <tt>/etc/resolv.conf</tt> o lo crearemos, si no existe, con 
 <div>
 {% highlight text %}
 ### Comentarios varios
-domain inf-cr.uclm.es  
+domain inf-cr.uclm.es
 nameserver 161.67.26.34
-nameserver 161.67.27.4 
+nameserver 161.67.27.4
 {% endhighlight %}
 </div>
 
 Si queremos acceder a una máquina por medio de un nombre que no está en el DNS, podemos editar el archivo <tt>/etc/hosts</tt> e incluir en él una línea del tipo:
-   
+
 
 <div>
 {% highlight text %}

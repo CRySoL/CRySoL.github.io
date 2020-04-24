@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - emacs
+render_with_liquid: false
 ---
 <blockquote class="warning">
 <b>ATENCIÓN:</b> Esta receta está OBSOLETA. Ver "emacs-pills":https://bitbucket.org/arco_group/emacs-pills
@@ -30,5 +31,3 @@ La nueva versión del paquete <a href="/arco-devel"><tt>arco-devel</tt></a> (la 
 
 
 <!--break-->
-
-

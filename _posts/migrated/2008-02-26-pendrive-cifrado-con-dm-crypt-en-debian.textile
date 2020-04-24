@@ -9,6 +9,7 @@ category: recipe
 tags:
 - security
 - Debian
+render_with_liquid: false
 ---
 bq(head). Esta receta explica como utilizar @dm-crypt@ para cifrar el sistema de ficheros de un pendrive o disco USB externo y luego montarlo cómodamente.
 
@@ -95,12 +96,12 @@ h2. Imágenes loop cifradas
 
 <p>
 
-h3. Crear el fichero 
+h3. Crear el fichero
 
 
 <div class="console">
 {% highlight console %}
-$ dd if=/dev/urandom of=container.loop bs=1M count=10 
+$ dd if=/dev/urandom of=container.loop bs=1M count=10
 {% endhighlight %}
 </div>
 
@@ -109,7 +110,7 @@ h3. Montar la imagen loop
 
 <div class="console">
 {% highlight console %}
-$ sudo losetup /dev/loop/0 container.loop 
+$ sudo losetup /dev/loop/0 container.loop
 {% endhighlight %}
 </div>
 
@@ -120,17 +121,17 @@ El resto del proceso es idéntico a la modalidad con partición cambiando @/dev/
 
 <div class="console">
 {% highlight console %}
- $ losetup -d /dev/loop/0 
+ $ losetup -d /dev/loop/0
 {% endhighlight %}
 </div>
 
 h2. Comentarios
 
-Una pequeña pega de *dm-crypt* es que no proporciona "negación plausible":http://en.wikipedia.org/wiki/Plausible_deniability. En cristiano:  si el soporte llega a manos de un "agente enemigo", sabrá que hay datos cifrados en él aunque no pueda leerlos, vamos, que sabrá que escondes algo. 
+Una pequeña pega de *dm-crypt* es que no proporciona "negación plausible":http://en.wikipedia.org/wiki/Plausible_deniability. En cristiano:  si el soporte llega a manos de un "agente enemigo", sabrá que hay datos cifrados en él aunque no pueda leerlos, vamos, que sabrá que escondes algo.
 
 Un criptosistema ideal no deja huellas de su uso, es decir, no hay manera de distinguir datos aleatorios de datos cifrados. Este tipo de _feature_  la proporciona por ejemplo "TrueCrypt":http://www.truecrypt.org/. Realmente yo creo que, a menos que seas espía o te dediques a pasar secretos militares en tus ratos libres, este nivel de privacidad es innecesario, al menos a día de hoy.
 
- 
+
 
 h2. Referencias
 

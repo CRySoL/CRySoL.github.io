@@ -6,6 +6,7 @@ created: 1167876215
 author: david_villa
 comments: true
 category: script
+render_with_liquid: false
 ---
 Un pequeño programa para ver y cambiar la etiqueta de volumen de tus discos y pen drives
 
@@ -18,7 +19,7 @@ h1. Introducción
 
 Cada vez es más habitual tener más de un disco USB conectado. No sólo los "pen drives", también cámaras de fotos, el reproductor de mp3 o discos duros externos (a veces con varias particiones). Y claro, como ahora todo se monta automáticamente, es fácil liarse en cuanto tienes dos o más conectados a la vez.
 
-Como siempre, la mejor forma de diferenciarlos es ponerles nombre. Consejo: Reprime tus ansias de llamar "Linux" a todo lo que pillas o de poco servirá. Usa nombres diferentes para cada disco :-P 
+Como siempre, la mejor forma de diferenciarlos es ponerles nombre. Consejo: Reprime tus ansias de llamar "Linux" a todo lo que pillas o de poco servirá. Usa nombres diferentes para cada disco :-P
 
 Ese nombre es la "etiqueta de volumen" y es lo que usa HAL y gvm para poner el icono es tu escritorio.
 
@@ -68,7 +69,7 @@ $ label.py /dev/sda1 "my_iPod"
 h2. Limitaciones
 
 * Tienes que ser @root@ (por razones obvias). Puedes usarlo con @sudo@.
-* El dispositivo indicado *debe estar montado* porque el programa utiliza <tt>df</tt> para averiguar el sistema de ficheros. 
+* El dispositivo indicado *debe estar montado* porque el programa utiliza <tt>df</tt> para averiguar el sistema de ficheros.
 * Por ahora sólo soporta vfat y ext2/3, pero extenderlo para otros FS es trivial.
 
 Quizá sería más sencillo hacerlo en C-Shell, pero me siento más cómodo con Python. Se admiten sugerencias.

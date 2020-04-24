@@ -9,6 +9,7 @@ category: script
 tags:
 - Python
 - drivers
+render_with_liquid: false
 ---
 bq(head). Se trata de un ejemplo mínimo de cómo hacer un cliente de "LIRC":http://www.lirc.org/ en Python usando "pyLirc":http://pylirc.mccabe.nu/.
 
@@ -17,7 +18,7 @@ bq(head). Se trata de un ejemplo mínimo de cómo hacer un cliente de "LIRC":htt
 
 
 
-h2. Ingredientes 
+h2. Ingredientes
 
 * Un mando a distancia soportado por LIRC
 * El paquete python-lirc (Debian)
@@ -58,4 +59,3 @@ $ ircat.py lirc_config mplayer
 </div>
 
 Como fichero @lircd_config@ puedes usar "éste":https://arco.inf-cr.uclm.es/svn/public/misc/lirc/.lircrc.
-

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
 bq(head). Esta receta es un pequeña introducción al uso de GConf desde un programa Python.
 
@@ -35,10 +36,10 @@ client = gconf.client_get_default()
 anchura = 10
 
 # guardar
-client.set_int('/app/prueba/anchura', anchura) 
+client.set_int('/app/prueba/anchura', anchura)
 
 #recuperar, 'valor' será None si la clave no existe
-valor = client.get_int('/app/prueba/anchura') 
+valor = client.get_int('/app/prueba/anchura')
 {% endhighlight %}
 </div>
 
@@ -71,7 +72,7 @@ class AutoPrefs:
                  gconf.VALUE_INT:    gconf.Value.get_int,
                  gconf.VALUE_FLOAT:  gconf.Value.get_float,
                  gconf.VALUE_STRING: gconf.Value.get_string}
-        
+
         for name in self.gconf_attributes():
             gval = self.client.get(self.app_key + name)
             if gval == None: continue
@@ -82,7 +83,7 @@ class AutoPrefs:
                  types.IntType:     gconf.Client.set_int,
                  types.FloatType:   gconf.Client.set_float,
                  types.StringType:  gconf.Client.set_string}
-        
+
         for name in self.gconf_attributes():
             value = getattr(self,name)
             casts[type(value)](self.client, self.app_key + name, value)

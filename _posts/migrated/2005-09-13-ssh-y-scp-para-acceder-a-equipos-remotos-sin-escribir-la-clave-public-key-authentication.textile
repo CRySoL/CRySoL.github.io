@@ -9,6 +9,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 Cómo configurar SSH para poder usar @ssh@ y @scp@ para acceder a otras máquinas autorizadas sin necesidad de indicar la clave de usuario cada vez que se conecta. También muy útil cuando se usan repositorios remotos que se acceden por SSH.
 
@@ -21,7 +22,7 @@ Cómo configurar SSH para poder usar @ssh@ y @scp@ para acceder a otras máquina
 <h2> Crear las claves </h2>
 
 Desde del directorio <tt>$HOME</tt> del usuario:
-   
+
 
 <div class="console">
 {% highlight console %}
@@ -29,7 +30,7 @@ pepe@cliente:~$ ssh-keygen -b 4096 -t rsa
 
 {% endhighlight %}
 </div>
-    
+
 Eso genera <tt>$HOME/.ssh/id_rsa</tt> y <tt>$HOME/.ssh/id_rsa.pub</tt> que son las claves privada y publica para el sistema RSA.
 
 <h2> Copiar la clave pública a otros hosts </h2>
@@ -71,7 +72,7 @@ Y lo mismo pero en un sólo comando:
 
 <div class="console">
 {% highlight console %}
-pepe@cliente$ cat ~/.ssh/id_rsa.pub | ssh pepe@servidor 'cat - >> ~/.ssh/authorized_keys' 
+pepe@cliente$ cat ~/.ssh/id_rsa.pub | ssh pepe@servidor 'cat - >> ~/.ssh/authorized_keys'
 {% endhighlight %}
 </div>
 

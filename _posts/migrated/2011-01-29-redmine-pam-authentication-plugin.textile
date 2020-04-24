@@ -6,6 +6,7 @@ created: 1296269544
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 That recipe shows how to configure "redmine":http://www.redmine.org/ to use PAM authentication. It includes the PAM authentication plugin code.
 

@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Ice
 - Debian
+render_with_liquid: false
 ---
 This recipe explain how to build a grid composed by 6 debian virtual machines running IceGrid. Once the setup is done, the whole process may be executed with absolutelly no user interaction. The process takes advantage from libvirt (for virtual machine installation), debian preseds (for unattended installation) and puppet (for configuration management).
 
@@ -38,7 +39,7 @@ Some scripts need guestfs. This requires a supermin appliance. To build it execu
 <div class="console">
 {% highlight console %}
 
-# update-guestfs-appliance 
+# update-guestfs-appliance
 {% endhighlight %}
 </div>
 
@@ -255,7 +256,7 @@ This is very rough manifest, but enough for this case.
 
 h2. IceGrid configuration
 
-You can see in the @sites.pp@ manifest that we are configuring icegrid nodes to connect to the IceGrid Registry in @node0@. node0 is an alias for the host computer private IP address (see @net-grid.xml@). The manifest create required directories and files to get icegridnode running. Note this is not the right way to execute the icegridnode service. It should have a init.d script to get easily managed with puppet. 
+You can see in the @sites.pp@ manifest that we are configuring icegrid nodes to connect to the IceGrid Registry in @node0@. node0 is an alias for the host computer private IP address (see @net-grid.xml@). The manifest create required directories and files to get icegridnode running. Note this is not the right way to execute the icegridnode service. It should have a init.d script to get easily managed with puppet.
 
 You must execute an IceGrid Registry in the host computer. You will need the file "registry.config":https://bitbucket.org/DavidVilla/libvirt-toys/src/tip/grid/icegrid/registry.config.
 

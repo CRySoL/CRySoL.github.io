@@ -8,8 +8,9 @@ comments: true
 category: recipe
 tags:
 - ocio
+render_with_liquid: false
 ---
-En esta recetilla cuento los pasos que he seguido para crear un pequeño _plugin_ para Freevo, con el que poder lanzar el juego "Stepmania":http://www.stepmania.com/. Como tengo la intención de incorporar más juegos al menú de Freevo, he intentado no hacer el plugin demasiado específico. 
+En esta recetilla cuento los pasos que he seguido para crear un pequeño _plugin_ para Freevo, con el que poder lanzar el juego "Stepmania":http://www.stepmania.com/. Como tengo la intención de incorporar más juegos al menú de Freevo, he intentado no hacer el plugin demasiado específico.
 
 
 <!--break-->
@@ -22,24 +23,24 @@ Es bastante sencillo crear un plugin. Veamos los elementos mínimos. Si atendemo
 
 * actions: que devuelve una lista de las posibles acciones del plugin (o una lista vacía)
 <pre>
-    def actions(self,item): 
+    def actions(self,item):
         if SOMECONDITION:
-            return [ (self.COMMAND,'Name of menu entry')] 
-        return [] 
+            return [ (self.COMMAND,'Name of menu entry')]
+        return []
 </pre>
 
 * Uno o varios comandos que deben estar disponibles.
 <pre>
     def COMMAND(self,arg=None, menuw=None):
-        item = self.item 
-        os.system('command') 
-        menuw.delete_menu(arg, menuw) 
+        item = self.item
+        os.system('command')
+        menuw.delete_menu(arg, menuw)
 </pre>
 
 Aunque se supone que eso es lo básico que hay que saber, resulta que siguiendo estos sencillos pasos no he sido capaz de hacer funcionar mi plugin correctamente. Así que como siempre que ocurre esto el procedimiento a seguir es:
 
 * Busca un plugin que funcione,
-* destrípalo 
+* destrípalo
 * y adáptalo a tus necesidades.
 
 
@@ -69,7 +70,7 @@ skin.register('Stepmania', ('screen', 'title', 'info', 'plugin'))
 
 </pre>
 
-Realmente solo se necesita el objeto <tt>skin</tt>, pero bueno. 
+Realmente solo se necesita el objeto <tt>skin</tt>, pero bueno.
 
 
 h2. Clase @PluginInterface@
@@ -92,7 +93,7 @@ class PluginInterface(plugin.MainMenuPlugin):
 </pre>
 
 
-Como puede verse, en el constructor se invoca el constructor de la clase madre <tt>MainMenuPlugin</tt>. Existen otros tipos de plugins. Este plugin podría ser del tipo <tt>ItemPlugin</tt> para incorporarse como una acción más dentro de la categoría <tt>video</tt>, <tt>image</tt> o <tt>tv</tt>. 
+Como puede verse, en el constructor se invoca el constructor de la clase madre <tt>MainMenuPlugin</tt>. Existen otros tipos de plugins. Este plugin podría ser del tipo <tt>ItemPlugin</tt> para incorporarse como una acción más dentro de la categoría <tt>video</tt>, <tt>image</tt> o <tt>tv</tt>.
 
 También puede verse que en vez de implementar una función <tt>actions</tt> creo una función <tt>items</tt>. Mi interpretación es que al crearse el plugin de tipo <tt>MainMenuPlugin</tt>, se obtiene una lista de items disponibles. Cada item retornado es una clase que sí que debe implementar los métodos <tt>actions</tt> y los comandos asociados.
 

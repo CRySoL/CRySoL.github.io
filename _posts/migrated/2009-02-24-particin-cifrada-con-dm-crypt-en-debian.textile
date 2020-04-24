@@ -9,6 +9,7 @@ category: recipe
 tags:
 - security
 - Debian
+render_with_liquid: false
 ---
 Esta receta explica como utilizar @dm-crypt@ para cifrar una partición completa y montarla/desmontarla cómodamente.
 
@@ -86,7 +87,7 @@ Y cuando quieras abrir el contenedor en cuestión, escribe:
 
 $ sudo cryptdisks_start cifrado
 Starting crypto disk...space (starting).
-Enter passphrase to unlock the disk /dev/hda4 (cifrado): 
+Enter passphrase to unlock the disk /dev/hda4 (cifrado):
 key slot 0 unlocked.
 Command successful.
 cifrado (started)...done.
@@ -116,7 +117,7 @@ Fichero @/etc/cryptmount/cmtab@:
 
 <div>
 {% highlight text %}
-cifrado {  
+cifrado {
   dev=/dev/hda4
   dir=/mnt/cifrado
   keyformat=luks

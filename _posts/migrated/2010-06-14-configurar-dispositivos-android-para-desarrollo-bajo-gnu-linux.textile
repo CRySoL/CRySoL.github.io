@@ -10,6 +10,7 @@ tags:
 - drivers
 - Debian
 - Arco
+render_with_liquid: false
 ---
 bq(head). ¿Tienes un teléfono con Android? ¿Quieres desarrollar aplicaciones desde tu Debian? Esta es tu receta :)
 
@@ -103,7 +104,7 @@ y comprobar si tu dispositivo es listado y reconocido (algo como lo siguiente):
 {% highlight console %}
 
 $ ./adb devices
-List of devices attached 
+List of devices attached
 HT043PL12817	device
 {% endhighlight %}
 </div>

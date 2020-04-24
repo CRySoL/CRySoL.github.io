@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - networking
+render_with_liquid: false
 ---
 bq(head). Esta receta es un resumen _quick & dirty_ de los pasos necesarios para instalar un sistema OpenWRT estándar en La Fonera. Básicamente es una traducción simplificada de las dos recetas que aparecen en las referencias.
 
@@ -52,7 +53,7 @@ root@OpenWrt:~# *sync; reboot*
 
 
 
-h2. Actualizando las particiones 
+h2. Actualizando las particiones
 
 
 
@@ -86,7 +87,7 @@ root@OpenWrt:~# *sync*
 root@OpenWrt:~# *md5sum out.hex /dev/mtd/6 mtd5 /dev/mtd/5*
 d5a5ee5817da231684c6198801b5cb1f  out.hex
 d5a5ee5817da231684c6198801b5cb1f  /dev/mtd/6
-2d5c82c2a7785e65640199987000cee5  mtd5    
+2d5c82c2a7785e65640199987000cee5  mtd5
 2d5c82c2a7785e65640199987000cee5  /dev/mtd/5
 {% endhighlight %}
 </div>
@@ -201,7 +202,7 @@ La imagen del sistema de ficheros...
 <div class="console">
 {% highlight console %}
 
-RedBoot> *load -r -b %{FREEMEMLO} squashfs*                   
+RedBoot> *load -r -b %{FREEMEMLO} squashfs*
 Using default protocol (TFTP)
 Raw file loaded 0x80040c00-0x80160bff, assumed entry at 0x80040c00
 {% endhighlight %}
@@ -225,7 +226,7 @@ RedBoot> *fis create -l 0x6f0000 rootfs*
 
 h2. Afinando
 
-Al reiniciar La Fonera, tiene un servidor telnet en la IP 192.168.1.1, puedes acceder como @root@, no tiene clave. Lo más recomendable es que quites el servidor telnet y arranques @dropbear@ (servidor SSH). 
+Al reiniciar La Fonera, tiene un servidor telnet en la IP 192.168.1.1, puedes acceder como @root@, no tiene clave. Lo más recomendable es que quites el servidor telnet y arranques @dropbear@ (servidor SSH).
 
 Para permitir SSH en la interfaz Ethernet escribe (o des-comenta) esto al final de @/etc/config/firewall@:
 

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 This recipe shows how to setup a basic synchronization mechanism (similar to DropBox) by means of conventional GNU/Linux tools. This does not require root privileges and no packages (except ssh-server) need to be installed in the server.
 
@@ -20,7 +21,7 @@ This recipe shows how to setup a basic synchronization mechanism (similar to Dro
 </center>
 <p/>
 
-h2. Ingredients 
+h2. Ingredients
 
 In the client:
 
@@ -147,7 +148,7 @@ h2. Improving performance
 
 Continuous ssh connections does not seems a good idea, but it is possible tweak your config by means of @ControlMaster@ and @KeepAlive@ ssh options.
 
-h2. Limitations 
+h2. Limitations
 
 Currently @incron@ does not detect recursive events (operations on subdirectories)
 

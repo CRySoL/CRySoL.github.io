@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - emacs
+render_with_liquid: false
 ---
 bq(head). Cómo utilizar los comandos de manipulación de rectángulos de Emacs, que facilitan enormemente ciertas tareas repetitivas.
 
@@ -24,11 +25,11 @@ Imagina que necesitas:
 * Cambiar de sitio una columna en un fichero CSV
 * Añadir asteriscos al principio de cada línea de un bloque
 
-Todas estas tareas implican escribir o borrar lo mismo en todas las líneas que pueden ser muchas, es decir, una tarea muy poco gratificante. Pues la solución a todas ellas es la "edición de rectángulos" . 
+Todas estas tareas implican escribir o borrar lo mismo en todas las líneas que pueden ser muchas, es decir, una tarea muy poco gratificante. Pues la solución a todas ellas es la "edición de rectángulos" .
 
 h2. Manipulación de rectángulos
 
-Los "rectángulos":http://www.gnu.org/software/emacs/manual/html_node/Rectangles.html#Rectangles son justo eso, zonas rectangulares acotadas por dos columnas y dos filas cualesquiera. Esto permite, por ejemplo, copiar, pegar, borrar o insertar columnas de texto en cualquier parte. 
+Los "rectángulos":http://www.gnu.org/software/emacs/manual/html_node/Rectangles.html#Rectangles son justo eso, zonas rectangulares acotadas por dos columnas y dos filas cualesquiera. Esto permite, por ejemplo, copiar, pegar, borrar o insertar columnas de texto en cualquier parte.
 
 Lo normal para usar estos comandos es definir primero la región o rectángulo sobre el que se va a aplicar el comando. Eso se hace poniendo la _marca_ (C-space) en una esquina y el cursor en la esquina diagonalmente opuesta.
 

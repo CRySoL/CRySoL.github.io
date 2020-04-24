@@ -9,6 +9,7 @@ category: recipe
 tags:
 - Arco
 - VCS
+render_with_liquid: false
 ---
 Cómo usar el servidor subversion para ejecutar automáticamente programas personalizados. Como ejemplo, la receta explica cómo actualizar una página web mantenida en un repositorio.
 
@@ -35,7 +36,7 @@ pepe@servidor:~/public_html$ svn ci
 
 Pero lo que queremos es que puedas descargar ese mismo repo en cualquier otra máquina y que al hacer _commit_, automáticamente se actualice el @public_html@ del servidor. De ese modo ni siquiera es preciso que tengas cuenta en la máquina @servidor@.
 
-h2. _hooks_ 
+h2. _hooks_
 
 Los eventos a los que se puede asociar un script son:
 
@@ -72,7 +73,7 @@ Dale permiso de ejecución:
 {% highlight console %}
 $ chmod +x post-commit
 {% endhighlight %}
-</div> 
+</div>
 
 
 h3. El repositorio está servido con Apache/DAV
@@ -137,7 +138,7 @@ pepe@server:/var/svn/pepeweb/hooks$ env - ./post-commit /var/svn/pepeweb
 Lo que ocurra en ese momento es lo mismo que pasará cuando el script se ejecuta de forma automática.
 
 
-h2. Referencias 
+h2. Referencias
 
 * "Control de versiones con Subversion":http://svnbook.red-bean.com/
 * "Subversion FAQ":http://subversion.tigris.org/faq.html

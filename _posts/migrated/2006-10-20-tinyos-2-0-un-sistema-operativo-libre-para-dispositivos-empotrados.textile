@@ -9,13 +9,14 @@ category: recipe
 tags:
 - embedded
 - Arco
+render_with_liquid: false
 ---
 <blockquote>Por que no sólo de GNU/Linux vive el hombre, vamos a describir brevemente la instalación y el uso de un sistema operativo libre denominado TinyOS. Este sistema operativo esta destinado a redes inalámbricas de sensores por lo que necesitaremos para probarlo alguna de las plataformas soportadas por el sistema operativo  o el simulador TOSSIM.
 </blockquote>
 
 
 <h2> Instalación TinyOS 2.0 </h2>
-Vamos a aprender su instalación y dejaremos para más adelante la construcción de un pequeño hello world o incluso la instalación del propio simulador. 
+Vamos a aprender su instalación y dejaremos para más adelante la construcción de un pequeño hello world o incluso la instalación del propio simulador.
 
 Se va a instalar todo en una debian con kernel 2.6.15.7
 
@@ -23,11 +24,11 @@ Los pasos a seguir son los siguientes (<a href="http://www.tinyos.net/tinyos-2.x
 
 h3. JDK
 
-Instala Java 1.5 JDK. Se necesita para comunicarse con el nodo desde el PC. 
+Instala Java 1.5 JDK. Se necesita para comunicarse con el nodo desde el PC.
 
 h3. Compilador cruzado
 
-Esto va a depender del dispositivo para el cual quieras desarrollar una aplicación y concretamente del procesador con el que estén desarrollados. Por ejemplo, para la familia de las MICAs (dispositivos para redes de sensores) se necesita la toolchain AVR, ya que llevan unos procesadores ATMEL. En la receta supondremos que vamos a trabajar con estas motas, por lo que instalamos todo lo relativo a la citada toolchain. En debian esto implica, instalar los siguientes paquetes: 
+Esto va a depender del dispositivo para el cual quieras desarrollar una aplicación y concretamente del procesador con el que estén desarrollados. Por ejemplo, para la familia de las MICAs (dispositivos para redes de sensores) se necesita la toolchain AVR, ya que llevan unos procesadores ATMEL. En la receta supondremos que vamos a trabajar con estas motas, por lo que instalamos todo lo relativo a la citada toolchain. En debian esto implica, instalar los siguientes paquetes:
 
 * gcc-avr, el gcc para los atmel
 * gdb-avr, el gdb para los atmel
@@ -52,7 +53,7 @@ tinyos-tools_1.2.2-2_i386.deb generated
 
 y luego ya sabes: @dpkg -i <paquete generado>@
 
-Con @alien@ tendrás este problema:      
+Con @alien@ tendrás este problema:
 
 
 <div class="console">
@@ -74,7 +75,7 @@ intentando sobreescribir `/usr/bin/uisp', que está también en el paquete uisp
 Configurando tinyos-tools (1.2.2-2) ...
 
 {% endhighlight %}
-</div> 
+</div>
 
 h2. El sistema operativo
 
@@ -85,7 +86,7 @@ h2. Configuración del entorno
 Configurar las variables de entorno (mételo en un script para configurarlo de forma automática), por ejemplo en @~/bin/tinyos-setup.sh@:
 
 <pre>
-export TOSROOT=/opt/tinyos-2.x  
+export TOSROOT=/opt/tinyos-2.x
 export TOSDIR=$TOSROOT/tos
 export CLASSPATH=$CLASSPATH:$TOSROOT/support/sdk/java/tinyos.jar:.
 export MAKERULES=$TOSROOT/support/make/Makerules
@@ -106,7 +107,7 @@ Cambia el propietario del directorio donde esta el tinyOS:
 
 <div class="console">
 {% highlight console %}
-$ chown -R felix /opt/tinyos-2.x 
+$ chown -R felix /opt/tinyos-2.x
 {% endhighlight %}
 </div>
 
@@ -115,18 +116,18 @@ y no olvides cambiar los permisos del dispositivo (puerto serie, paralelo, USB) 
 
 <div class="console">
 {% highlight console %}
- chmod 666 /dev/<devicename> 
+ chmod 666 /dev/<devicename>
 {% endhighlight %}
 </div>
 
 h2. graphviz
 
-Instalar Graphviz desde su paquete debian correspondiente con 
+Instalar Graphviz desde su paquete debian correspondiente con
 
 
 <div class="console">
 {% highlight console %}
- # apt-get install graphviz 
+ # apt-get install graphviz
 {% endhighlight %}
 </div>
 
@@ -149,7 +150,7 @@ Dentro de ese directorio, ejecuta el siguiente comando:
 
 <div class="console">
 {% highlight console %}
- $ make <plataforma_destino> 
+ $ make <plataforma_destino>
 {% endhighlight %}
 </div>
 
@@ -180,4 +181,4 @@ h1. Enlaces
 
 ---------------------------------------
 felixjesus.villanueva(la arroba)uclm.es
-<a href="http://arco.inf-cr.uclm.es/~felix">Mi web</a> 
+<a href="http://arco.inf-cr.uclm.es/~felix">Mi web</a>

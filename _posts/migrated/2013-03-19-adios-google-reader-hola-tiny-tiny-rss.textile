@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - ocio
+render_with_liquid: false
 ---
 Como todos sabréis a estas alturas, Google ha decidido dispararse en el pie otra vez. El próximo 1 de Julio cerrará el servicio Google Reader sin dar muchas mas explicaciones. No es este el sitio para entrar en las razones que pueda tener Google para cerrar este estupendo servicio. Las cosas que gratis vienen sin mas explicaciones se van, de manera que va siendo el momento de buscar una alternativa.
 
@@ -17,7 +18,7 @@ Como todos sabréis a estas alturas, Google ha decidido dispararse en el pie otr
 
 La solución mas directa sería volver al lector RSS de escritorio, y ahí Liferea es una opción mas que interesante. Si quieres seguir utilizando un lector en la nube y salvar así las restricciones de un proxy fascista, tienes estupendas alternativas como "Feedly":http://feedly.com o "TheOldReader":http://theoldreader.com, aunque ninguna, en mi opinión, consiguen devolver la experiencia de Google Reader, uno por exceso y el otro por defecto.
 
-Tras mucho trasegar (mentira, que fui a tiro hecho mas o menos), he encontrado una opción de Lector RSS en la nube que además es autogestionado . Es decir, lo montas es un servidor web y lo administras a tu gusto. Se trata de Tiny Tiny RSS. 
+Tras mucho trasegar (mentira, que fui a tiro hecho mas o menos), he encontrado una opción de Lector RSS en la nube que además es autogestionado . Es decir, lo montas es un servidor web y lo administras a tu gusto. Se trata de Tiny Tiny RSS.
 
 La ventaja de utilizar un lector RSS en la nube y autogestionado es que la probabilidad de que sea cortado por el proxy de tu trabajo es mucho mas baja, con lo que vas a poder procastinar mucho mas eficientemente.
 
@@ -125,7 +126,7 @@ Establecemos los valores que creamos convenientes. Por ejemplo
 
 Obviamente esta configuración hay que hacerla previamente en la base de datos antes de lanzar la aplicación.Una forma sencilla es usar _phpmyadmin_. Tenemos que crear un usuario y una base de datos. En este caso el usuario se llama @"ttrss"@ y la base de datos @"ttrss_db"@
 
-Con estos datos ya establecidos precargamos los datos inciales que se encuentran en el directorio _"schema/ttrss_schema_mysql.sql"_. Puedes hacerlo desde la linea de comandos o desde el propio phpmyadmin. 
+Con estos datos ya establecidos precargamos los datos inciales que se encuentran en el directorio _"schema/ttrss_schema_mysql.sql"_. Puedes hacerlo desde la linea de comandos o desde el propio phpmyadmin.
 
 
 <div class="console">
@@ -204,7 +205,7 @@ El otro procedimiento es mediante cron. Funciona en todas las distribuciones y e
 {% endhighlight %}
 </div>
 
-En la versión 1.7.5 cambia ligeramente la sintaxis que pasa a utilizar el doble guión. 
+En la versión 1.7.5 cambia ligeramente la sintaxis que pasa a utilizar el doble guión.
 
 <div>
 {% highlight bash %}
@@ -304,7 +305,7 @@ div.cdmHeader .title .titleAuthor {
 {% endhighlight %}
 </div>
 
-Este es el aspecto que tendrá. Como veis bastante parecido a Google Reader. 
+Este es el aspecto que tendrá. Como veis bastante parecido a Google Reader.
 <img src="/assets/files/Selección_001.png" width="750" />
 
 Por cierto, si queréis utilizar alguna aplicación externa para conectaros a ttRSS, como por ejemplo alguna de las que existen para "Android":https://play.google.com/store/search?q=tiny+tiny+rss , deberéis marcar la opción

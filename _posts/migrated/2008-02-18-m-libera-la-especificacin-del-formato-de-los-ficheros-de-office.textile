@@ -6,6 +6,7 @@ created: 1203344811
 author: nacho
 comments: true
 category: new
+render_with_liquid: false
 ---
 Me acabo de encontrar en barrapunto una <a href="http://barrapunto.com/article.pl?sid=08/02/18/0758232">noticia altamente gratificante</a>: al parecer, Microsoft ha liberado la <a href="http://www.microsoft.com/interop/docs/OfficeBinaryFormats.mspx"> especificación del formato de los ficheros de Office</a>.
 
@@ -15,4 +16,3 @@ Me acabo de encontrar en barrapunto una <a href="http://barrapunto.com/article.p
 Por fin podremos abrir documentos de Word sin que salga todo descolocado, y podremos pasar documentos a nuestros amigos güindoseros sin que se quejen porque no lo pueden ver.
 
 :D
-

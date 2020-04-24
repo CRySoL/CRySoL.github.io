@@ -9,6 +9,7 @@ category: recipe
 tags:
 - mercurial
 - VCS
+render_with_liquid: false
 ---
 Mercurial es otro sistema de control de versiones distribuido (otro más) que no tiene nada (o poco) que envidiar a git  (en lo referente a prestaciones) pero casi tan fácil de usar como subversion. Esta recetilla incluye unas nociones de su uso básico y algunas buenas referencias.
 
@@ -61,8 +62,8 @@ Mercurial dispone de los comandos habituales en un VCS tradicional:
 Pero al ser mercurial un VCS distribuido, estas operaciones ocurren sobre un repositorio local. Para trabajar con un repositorio ajeno dispone de comandos similares a @git@:
 
 * clone
-* pull  
-* push 
+* pull
+* push
 
 h2. Ver cambios respecto del repo master
 
@@ -122,14 +123,14 @@ bill@deathstar:~$ hg clone ssh://billy@example.org//home/juan/iexplorer9 micopia
 
 h2.  Crear un repositorio compartido (al estilo CVS)
 
-Necesitas crear un grupo UNIX y hacer que todos los usuarios que podrán utilizar el repositorio pertenezcan a dicho grupo. 
+Necesitas crear un grupo UNIX y hacer que todos los usuarios que podrán utilizar el repositorio pertenezcan a dicho grupo.
 
 
 
 <div class="console">
 {% highlight console %}
 
-# addgroup microchof 
+# addgroup microchof
 # adduser billy microchof
 # adduser steve microchof
 {% endhighlight %}

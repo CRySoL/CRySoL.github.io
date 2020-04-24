@@ -10,12 +10,13 @@ tags:
 - gstreamer
 - Arco
 - Python
+render_with_liquid: false
 ---
 <blockquote>Es muy sencillo construirse un reproductor/codificador/decodificador multimedia usando Gstreamer y Python. Aquí, haremos un reproductor de Ogg Vorbis básico.
 </blockquote>
 
 
-h1. Ingredientes 
+h1. Ingredientes
 
 * python-gst0.10
 
@@ -26,18 +27,18 @@ La instalación, como ya sabrás, es muy compleja y tediosa, pero no hay mas rem
 {% highlight console %}
  # apt-get install python-gst0.10
 {% endhighlight %}
-</div> 
+</div>
 
 
 h1. Introducción
 
-Antes de empezar a escribir código, unas breves líneas de como rula Gstreamer. Gstreamer es básicamente un framework para la manipulación multimedia. Con él se puede hacer casi de todo, desde un simple reproductor de Ogg Vorbis (como aqui veremos) hasta complejas aplicaciones distribuidas de streaming multimedia. Todo depende de los modulos y plugins de que dispongamos. 
+Antes de empezar a escribir código, unas breves líneas de como rula Gstreamer. Gstreamer es básicamente un framework para la manipulación multimedia. Con él se puede hacer casi de todo, desde un simple reproductor de Ogg Vorbis (como aqui veremos) hasta complejas aplicaciones distribuidas de streaming multimedia. Todo depende de los modulos y plugins de que dispongamos.
 
-Gstreamer funciona como un flujo de datos dentro de una tubería. Se selecciona una fuente de datos, un camino para estos (en el que se pueden modificar o no) y un destino. Podemos manipular los eventos que se produzcan en la tubería, controlar su estado e incluso inyectar más datos a nuestro antojo. Interiormente, en la tubería, los datos también pueden seguir diferentes caminos. Por ejemplo, el vídeo puede ir por un lado, mientras que el audio procesarse por otro. 
+Gstreamer funciona como un flujo de datos dentro de una tubería. Se selecciona una fuente de datos, un camino para estos (en el que se pueden modificar o no) y un destino. Podemos manipular los eventos que se produzcan en la tubería, controlar su estado e incluso inyectar más datos a nuestro antojo. Interiormente, en la tubería, los datos también pueden seguir diferentes caminos. Por ejemplo, el vídeo puede ir por un lado, mientras que el audio procesarse por otro.
 
 En Gstreamer, todas las partes que usamos para construir la tubería (la fuente, el destino, los codificadores, etc.) se llaman "Elementos", que tienen 'enchufes' (_Pads_). Entonces, cuando creamos la tubería conectamos unos enchufes con otros, para que el flujo siga su curso. Y estos Pads, tienen establecido un sentido para el flujo de datos: de salida (llamados Source) y de entrada (llamados Sink). Cada elemento de Gstreamer puede tener uno o varios pads, o ninguno (e incluso, es muy común que los pads se creen dinámicamente, segun sean necesarios).
 
-Por ejemplo, podemos crear una tubería con una fuente que lea de un fichero de audio en Ogg Vorbis, más un demultiplexor para el envoltorio del Vorbis (es decir, un elemento que extraiga del Ogg los datos 
+Por ejemplo, podemos crear una tubería con una fuente que lea de un fichero de audio en Ogg Vorbis, más un demultiplexor para el envoltorio del Vorbis (es decir, un elemento que extraiga del Ogg los datos
 codificados con Vorbis), más un decodificador de Vorbis, por supuesto. Además necesitamos un conversor de audio y por último, un destino, que podría ser por ejemplo ALSA. Simplemente con esto, nos construimos un reproductor de Ogg/Vorbis, que es lo que vamos a hacer.
 
 h1. Manos a la obra
@@ -53,10 +54,10 @@ Con lo que tendríamos:
 
 <div>
 {% highlight python %}
-import pygst  
+import pygst
 pygst.require("0.10")
 import sys, gst, gobject
-gobject.threads_init()  
+gobject.threads_init()
 {% endhighlight %}
 </div>
 
@@ -66,7 +67,7 @@ Bien, ahora creamos una función que haga las veces de main, y comprobamos que t
 <div>
 {% highlight python %}
 def main(args):
-    
+
     if len(args) != 2:
         print "Uso: " + args[0] + " <archivo Ogg>"
         return -1
@@ -82,7 +83,7 @@ Hasta ahí nada nuevo. Ahora tenemos que crear la tubería. Para esto hay divers
 {% endhighlight %}
 </div>
 
-Esta cadena contiene cada elemento (con el nombre por el cual está definido) más algun atributo de ese elemento, separados con el símbolo de admiración (!). 'filesrc' es el elemento que se encarga de leer de un fichero del disco, y con la propiedad 'location' establecemos la ruta al fichero que se tiene que leer; 'oggdemux' es el demultiplexor de Ogg, etc. 
+Esta cadena contiene cada elemento (con el nombre por el cual está definido) más algun atributo de ese elemento, separados con el símbolo de admiración (!). 'filesrc' es el elemento que se encarga de leer de un fichero del disco, y con la propiedad 'location' establecemos la ruta al fichero que se tiene que leer; 'oggdemux' es el demultiplexor de Ogg, etc.
 
 Pues si le pasamos esta cadena a parse_launch, intentará crearnos la tubería correspondiente, y además completamente funcional.
 
@@ -105,15 +106,15 @@ nos indica que debemos terminar (End Of Stream, o fin de flujo) y ERROR, que tam
 {% highlight python %}
     def eventos(bus, msg):
         t = msg.type
-        if t == gst.MESSAGE_EOS: 
+        if t == gst.MESSAGE_EOS:
             loop.quit()
-            
+
         elif t == gst.MESSAGE_ERROR:
             e, d = msg.parse_error()
             print "ERROR:",e
             loop.quit()
-        
-        return True    
+
+        return True
 {% endhighlight %}
 </div>
 
@@ -143,12 +144,12 @@ a PLAYING. Una vez ahí, el flujo de datos puede fluir por todos los elementos.
 {% highlight python %}
     loop = gobject.MainLoop()
     try:
-        print "Reproduciendo..."    
+        print "Reproduciendo..."
         loop.run()
-        
+
     except KeyboardInterrupt: # Por si se pulsa Ctrl+C
         pass
-    
+
     print "Parando... \n¡Adios!"
 {% endhighlight %}
 </div>
@@ -165,7 +166,7 @@ Ya esta sonando todo... bien. Ahora solo nos queda decidir que hacer cuando term
 {% endhighlight %}
 </div>
 
-Bien, pues ya tenemos nuestra función principal. Yo añado un par de lineas para que se llame a esa función principal cuando el script se ejecuta como tal, y no cuando se importa como módulo, pero esto es a gusto del consumidor ;-) 
+Bien, pues ya tenemos nuestra función principal. Yo añado un par de lineas para que se llame a esa función principal cuando el script se ejecuta como tal, y no cuando se importa como módulo, pero esto es a gusto del consumidor ;-)
 
 
 <div>
@@ -190,13 +191,13 @@ Para que no tengas que copiar y pegar muchas veces, aquí dejo todo el codigo de
 
 <div>
 {% highlight python %}
-import pygst  
+import pygst
 pygst.require("0.10")
 import sys, gst, gobject
-gobject.threads_init()  
+gobject.threads_init()
 
 def main(args):
-    
+
     if len(args) != 2:
         print "Uso:", args[0], " <archivo Ogg>"
         return -1
@@ -211,15 +212,15 @@ def main(args):
 
     def eventos(bus, msg):
         t = msg.type
-        if t == gst.MESSAGE_EOS: 
+        if t == gst.MESSAGE_EOS:
             loop.quit()
-            
+
         elif t == gst.MESSAGE_ERROR:
             e, d = msg.parse_error()
             print "ERROR:", e
             loop.quit()
-        
-        return True    
+
+        return True
 
     pipeline.get_bus().add_watch(eventos)
 
@@ -227,11 +228,11 @@ def main(args):
 
     loop = gobject.MainLoop()
     try:
-        print "Reproduciendo..."    
+        print "Reproduciendo..."
         loop.run()
     except KeyboardInterrupt: # Por si se pulsa Ctrl+C
          pass
-    
+
     print "Parando... \n¡Adios!"
 
     pipeline.set_state(gst.STATE_NULL)
@@ -256,8 +257,3 @@ Más:
 * <a href="http://www.jejik.com/articles/2007/01/python-gstreamer_threading_and_the_main_loop/">http://www.jejik.com/articles/2007/01/python-gstreamer_threading_and_the_main_loop/</a>
 * <a href="http://www.jonobacon.org/?p=750">http://www.jonobacon.org/?p=750</a>
 * <a href="http://www.jonobacon.org/?p=851">http://www.jonobacon.org/?p=851</a>
-
-
-
-
-

@@ -6,6 +6,7 @@ created: 1131307408
 author: fsancho
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 Más de uno, al pasarse a GNU/Linux se ha encontrado con el problema de no poder reproducir los ficheros midi porque su tarjeta no tiene ningún sintetizador midi integrado y los drivers alsa no lo emulan (cosa que suele venir de serie en los drivers de windows). Si te gustan los midis, o quieres recuperar el arte del karaoke desde GNU/Linux, ahí va esta pequeña receta.
 
@@ -19,7 +20,7 @@ h1. Ingredientes:
 * *timidity*, un "renderizador" de midi por software
 * *freepats*, samples de sonido.
 
-h1. ¿Cómo funciona el midi por software? 
+h1. ¿Cómo funciona el midi por software?
 
 Pues de manera idéntica al midi por hardware. Un fichero midi tan solo contiene las notas musicales que se han de interpretar y los nombres de los instrumentos que se deben usar. El dispositivo midi dispone de una lista de samples con cada uno de los instrumentos y al pasarle un fichero midi, interpreta en tiempo real la partitura que va en el fichero. Timidity hace lo mismo, pero para ello necesita un conjunto de samples o patches. En la calidad de estos patches reside la calidad del sonido final obtenido. Existen conjuntos de patches gratuitos e incluso libres (en Debian, Ubuntu y derivados está el paquete @freepats@), también existen conjuntos de patches comerciales de una calidad altísima, pero que no son necesarios para un uso cotidiano.
 

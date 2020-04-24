@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - networking
+render_with_liquid: false
 ---
 bq(head). Como el otro día avisé, en la facultad ya se divisa la nueva red wifi de la Universidad. Su SSID es "eduroam" y para conectarnos desde GNU podemos seguir varios métodos.
 

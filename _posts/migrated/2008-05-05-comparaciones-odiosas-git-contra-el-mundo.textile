@@ -6,8 +6,9 @@ created: 1210011525
 author: oscarah
 comments: true
 category: recipe
+render_with_liquid: false
 ---
-h2. Restaurar ficheros borrados: 
+h2. Restaurar ficheros borrados:
 
 * svn: @svn up@
 * mercurial: @hg reset --all@
@@ -21,7 +22,7 @@ h2. Aviso de que tu repo está desactualizado al intentar subir tus cambios
 
 <p>
 
-h3. Con svn: 
+h3. Con svn:
 
 
 <div class="console">

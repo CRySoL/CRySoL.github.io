@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - drivers
+render_with_liquid: false
 ---
 Esta receta explica (a modo de recordatorio) cómo configurar wminput para usar el mando de la Wii como mando a distancia para PC.
 
@@ -17,7 +18,7 @@ Esta receta explica (a modo de recordatorio) cómo configurar wminput para usar 
 
 h2. Ingredientes
 
-* wminput 
+* wminput
 
 h2. Cargar el módulo
 

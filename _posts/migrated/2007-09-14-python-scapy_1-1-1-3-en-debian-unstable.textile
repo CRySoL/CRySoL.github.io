@@ -9,6 +9,7 @@ category: new
 tags:
 - Debian
 - scapy
+render_with_liquid: false
 ---
 La nueva versión del paquete de *scapy* ya está en los repositorios de Debian. No es una nueva release, pero corrige un bug bastante tonto aunque importante que impedía utilizar scapy como módulo.
 <!-- break -->

@@ -9,6 +9,7 @@ category: recipe
 tags:
 - gnome
 - Oreto
+render_with_liquid: false
 ---
 Existe una forma muy sencilla de sincronizar el calendario de Gnome que aparece en la parte superior derecha del escritorio con los calendarios de Google Calendar.
 
@@ -31,6 +32,6 @@ $ /usr/lib/evolution-webcal/evolution-webcal URL
 {% endhighlight %}
 </div>
 
-donde URL es la dirección que hemos copiado en el paso 4. 
+donde URL es la dirección que hemos copiado en el paso 4.
 
 El proceso anterior se puede repetir varias veces, en el caso de disponer de varios calendarios en google. Finalmente, si pulsamos la fecha y hora situada en la parte superior derecha veremos como el calendario de gnome se sincroniza perfectamente con nuestro/os calendarios creados en google.

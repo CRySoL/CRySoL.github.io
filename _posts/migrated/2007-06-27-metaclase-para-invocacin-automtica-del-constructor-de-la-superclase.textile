@@ -5,6 +5,7 @@ title: Metaclase para invocación automática del "constructor" de la superclase
 created: 1182981171
 author: david_villa
 comments: true
+render_with_liquid: false
 ---
 Esta receta incluye la implementación "comentada" de una metaclase Python para conseguir que el constructor de la superclase se invoque automáticamente.
 
@@ -75,4 +76,4 @@ init A
 </div>
 
 
-Señalar que esta solución no es transitiva. La metaclase hace que se invoquen los @__init__@ de las superclases de esa clase. Es decir, sólo las superclases inmediatas, no se invocan los @__init__@ de ancestros indirectos. 
+Señalar que esta solución no es transitiva. La metaclase hace que se invoquen los @__init__@ de las superclases de esa clase. Es decir, sólo las superclases inmediatas, no se invocan los @__init__@ de ancestros indirectos.

@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - INGSOFT
+render_with_liquid: false
 ---
 Los principios FIRST son propiedades que deberían tener las pruebas unitarias.
 
@@ -19,9 +20,9 @@ Los principios FIRST son propiedades que deberían tener las pruebas unitarias.
 
 * *Fast*: El conjunto completo de las pruebas unitarias de un proyecto, o al menos las del módulo en el que se está trabajando, deberían poder ejecutarse en unos pocos segundos. El motivo es evitar que al programador le dé pereza ejecutarlas. Cuanto más frecuentemente se ejecuten, antes se detectarán problemas. Algunas herramientas  permiten ejecutar automáticamente las pruebas cada vez que algún fichero del proyecto cambia (auto-testing) que podríamos decir que es la situación extrema e ideal.
 * *Independent*: Las pruebas no deberían tener dependencias ni efectos unas con otras. Deben poder ejecutarse en cualquier orden o cualquier subconjunto de ellas sin que eso afecte al resultado. También es habitual que algunas herramientas permitan ejecutar las pruebas en orden aleatorio para verificar esta propiedad.
-* *Repeteable*: Se refiere al principio científico de «repetibilidad», es decir, a la posibilidad de conseguir los mismos resultados en otro entorno si se reproducen las mismas condiciones. En particular, las pruebas no deberían depender de la configuración de usuario ni de las herramientas. Dicho de otro modo, el «setup» de las pruebas debe ser autocontenido. La «integración continúa» intenta comprobar esta propiedad, aunque lo hace para todo el sistema, no solo para los tests unitarios. 
+* *Repeteable*: Se refiere al principio científico de «repetibilidad», es decir, a la posibilidad de conseguir los mismos resultados en otro entorno si se reproducen las mismas condiciones. En particular, las pruebas no deberían depender de la configuración de usuario ni de las herramientas. Dicho de otro modo, el «setup» de las pruebas debe ser autocontenido. La «integración continúa» intenta comprobar esta propiedad, aunque lo hace para todo el sistema, no solo para los tests unitarios.
 * *Self-validating*: Las pruebas deben ofrecer un resultado claro que indique si ha pasado o ha fallado. No debería ser necesario realizar absolutamente ninguna operación por parte del usuario, tal como comparar valores, leer un fichero de resultados, etc. De ese modo, las herramientas de pruebas pueden ofrecer un resultado global absoluto para el conjunto de pruebas.
-* *Timely*: Podría traducirse como «a tiempo». Quiere decir que las pruebas deberían escribirse _justo cuando se necesitan_, es decir, justo antes de escribir el código de producción asociado, ni antes ni después. Es mala idea escribir una colección de pruebas y después el código para todas ellas. Y tampoco debería dejarse la prueba para después, porque una vez que se tiene el código funcionando se utiliza como excusa para no escribirla. 
+* *Timely*: Podría traducirse como «a tiempo». Quiere decir que las pruebas deberían escribirse _justo cuando se necesitan_, es decir, justo antes de escribir el código de producción asociado, ni antes ni después. Es mala idea escribir una colección de pruebas y después el código para todas ellas. Y tampoco debería dejarse la prueba para después, porque una vez que se tiene el código funcionando se utiliza como excusa para no escribirla.
 
 Esta última propiedad nos recuerda cómo debemos proceder. El proceso de trabajo debería ser:
 

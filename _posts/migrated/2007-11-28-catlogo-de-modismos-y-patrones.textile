@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - patterns
+render_with_liquid: false
 ---
 bq(head). Esta receta incluye únicamente una clasificación de patrones a modo de catálogo y una pequeña descripción de cada uno. Desde aquí enlazaré las recetas específicas para cada patrón.
 
@@ -41,7 +42,7 @@ También llamado "constructor virtual". Es una interfaz para la creación de obj
 h3.  Prototype
 
 Permite crear objetos a partir de otros que sirven de prototipos.  A menudo se emplea como medio de construcción en factorìas. ("Definición":http://en.wikipedia.org/wiki/Prototype_pattern)
- 
+
 
 h3. "Singleton":singleton
 
@@ -185,12 +186,12 @@ h3. Mitad-síncrono, mitad-asíncrono
 
 <p/>
 
-h3. Líder-y-Seguidores 
+h3. Líder-y-Seguidores
 
 <p/>
 
 h2. Referencias
 
-* Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John (1994). Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley. ISBN 0-201-63361-2. 
+* Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John (1994). Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley. ISBN 0-201-63361-2.
 * "Patrones de diseño para aplicaciones concurrentes":http://trevinca.ei.uvigo.es/~formella/doc/cd03/node93.html
 * <a href="http://agamenon.uniandes.edu.co/~pfiguero/soo/">http://agamenon.uniandes.edu.co/~pfiguero/soo/</a>

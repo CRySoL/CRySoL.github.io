@@ -10,6 +10,7 @@ tags:
 - Arco
 - Python
 - gtk
+render_with_liquid: false
 ---
 En esta receta, crearemos una figura, o un Surface usando la nomenclatura de Cairo, a partir de una imagen en formato SVG.
 
@@ -105,9 +106,9 @@ As you can see, there are three drawn things. The first one is the SVG as is, us
 
 <center><img src="/assets/files/sc1.png" /></center>
 
-Of course, without the border and the shadows... :p The second item we see is more interesting. I'm going to use the alpha channel in the original SVG as a mask: where the image is transparent, nothing is drawn, so only the opaque pixels are used to paint. To achieve this, I'm using a feature of Cairo called *groups*. A group is like a layer where you can draw things. The difference is that this 'layer' can be used later as a pattern or as a surface. 
+Of course, without the border and the shadows... :p The second item we see is more interesting. I'm going to use the alpha channel in the original SVG as a mask: where the image is transparent, nothing is drawn, so only the opaque pixels are used to paint. To achieve this, I'm using a feature of Cairo called *groups*. A group is like a layer where you can draw things. The difference is that this 'layer' can be used later as a pattern or as a surface.
 
-This time, I'll only paint in black, which gives this: 
+This time, I'll only paint in black, which gives this:
 
 <center><img src="/assets/files/sc2.png" /></center>
 
@@ -115,14 +116,14 @@ This time, I'll only paint in black, which gives this:
 
 <center><img src="/assets/files/sc3.png" /></center>
 
-which is the third item in our example. :) And that's all, folks! 
-Thanks for reading. 
+which is the third item in our example. :) And that's all, folks!
+Thanks for reading.
 
 h2. Código fuente
 
 * "Cairo Groups example code":https://arco.esi.uclm.es/svn/public/samples/pygtk/cairo-groups/
 
-h2. Referencias 
+h2. Referencias
 
 * <a href="http://www.tortall.net/mu/wiki/CairoTutorial">http://www.tortall.net/mu/wiki/CairoTutorial</a>
 * <a href="http://cairographics.org/manual/">http://cairographics.org/manual/</a>

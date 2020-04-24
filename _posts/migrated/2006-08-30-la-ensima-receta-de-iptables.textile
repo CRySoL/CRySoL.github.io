@@ -6,6 +6,7 @@ created: 1156975200
 author: david_villa
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 bq(head). Esta receta explica los usos más habituales de @iptables@. No trata de ser un manual de uso, sólo son unos cuantos comandos que solucionan problemas frecuentes.
 
@@ -18,10 +19,10 @@ h2. Introducción
 Lo más normal para un usuario medio es utilizar @iptables@ para definir reglas de firewall en su router. Para simplificar la explicación de los ejemplos que aparecen en la receta voy a suponer una configuración concreta. Es importante tenerla en cuenta cuando tengas que hacer los cambios pertinentes para aplicarla a tu configuración concreta. Es ésta:
 
 <ul>
-  <li><b>Una conexión a Internet (eth0)</b>. 
+  <li><b>Una conexión a Internet (eth0)</b>.
 Debe ser algún tipo de conexión a Internet, que puede ser RTC, ADSL, cable-modem, etc. Supondremos para esta receta que usas un modem ADSL con conexión Ethernet.
   </li>
-  <li><b>Una conexión a tu red local (eth1)</b>: 
+  <li><b>Una conexión a tu red local (eth1)</b>:
 Será una tarjeta de red Ethernet 10/100. Esto permitirá que puedas enchufarle un conmutador y conectar "cienes y cienes" de ordenadores si quieres. Esta interfaz debes configurarla de forma estática, con una dirección IP privada, por ejemplo 192.168.0.1.
   </li>
 </ul>
@@ -59,7 +60,7 @@ La política se determina para cada tipo de regla por separado. Por ejemplo, par
 
 <div class="console">
 {% highlight console %}
- # iptables -P FORWARD DROP 
+ # iptables -P FORWARD DROP
 {% endhighlight %}
 </div>
 
@@ -92,7 +93,7 @@ h3. Borrar todas las reglas de una tabla
 
 <div class="console">
 {% highlight console %}
- # iptables -F [-t tabla] 
+ # iptables -F [-t tabla]
 {% endhighlight %}
 </div>
 
@@ -106,7 +107,7 @@ Enrutar tráfico de la red local a Internet aplicando NAT. Recuerda activar tamb
 
 <div class="console">
 {% highlight console %}
- # iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE 
+ # iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 {% endhighlight %}
 </div>
 
@@ -115,16 +116,16 @@ Aceptar todo el tráfico ICMP.
 
 <div class="console">
 {% highlight console %}
- # iptables -A INPUT -p ICMP -j ACCEPT 
+ # iptables -A INPUT -p ICMP -j ACCEPT
 {% endhighlight %}
 </div>
 
-Aceptar todo el tráfico de conexiones ya establecidas (ESTABLISHED) o relacionado con otras conexiones (RELATED). 
+Aceptar todo el tráfico de conexiones ya establecidas (ESTABLISHED) o relacionado con otras conexiones (RELATED).
 
 
 <div class="console">
 {% highlight console %}
- # iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT 
+ # iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 {% endhighlight %}
 </div>
 
@@ -133,7 +134,7 @@ Aceptar cualquier conexión que proceda de la red interna:
 
 <div class="console">
 {% highlight console %}
- # iptables -A INPUT -p tcp -i eth1 -j ACCEPT 
+ # iptables -A INPUT -p tcp -i eth1 -j ACCEPT
 {% endhighlight %}
 </div>
 
@@ -142,7 +143,7 @@ Aceptar conexiones web (80) desde cualquier origen:
 
 <div class="console">
 {% highlight console %}
- # iptables -A INPUT -p tcp --dport 80 -j ACCEPT 
+ # iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 {% endhighlight %}
 </div>
 
@@ -151,7 +152,7 @@ Aceptar todo el tráfico desde el _loopback_:
 
 <div class="console">
 {% highlight console %}
- # iptables -A INPUT -i lo -j ACCEPT 
+ # iptables -A INPUT -i lo -j ACCEPT
 {% endhighlight %}
 </div>
 
@@ -160,7 +161,7 @@ Descartar el resto:
 
 <div class="console">
 {% highlight console %}
- # iptables -A INPUT -j DROP 
+ # iptables -A INPUT -j DROP
 {% endhighlight %}
 </div>
 
@@ -169,7 +170,7 @@ Si quieres permitir algo más debes *insertar* la nueva regla *antes* del DROP. 
 
 <div class="console">
 {% highlight console %}
- # iptables *-I INPUT 7* -p tcp --dport https -j ACCEPT 
+ # iptables *-I INPUT 7* -p tcp --dport https -j ACCEPT
 {% endhighlight %}
 </div>
 
@@ -227,7 +228,7 @@ Para guardar las reglas activas (las que has ido poniendo hasta ahora) ejecuta:
 
 <div class="console">
 {% highlight console %}
-Router:~# iptables-save > /etc/iptables.up.rules 
+Router:~# iptables-save > /etc/iptables.up.rules
 {% endhighlight %}
 </div>
 

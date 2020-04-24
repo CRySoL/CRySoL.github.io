@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - VCS
+render_with_liquid: false
 ---
 CVS es un sistema de <a href="http://es.wikipedia.org/wiki/Sistema_de_control_de_versión">control de versiones</a> concurrente. Era hasta hace poco el más utilizado en proyectos de software libre, está siendo rapidamente reemplazado por "subversion":/drupal/node/181 por sus evitentes ventajas prácticas. En esta receta se explica cómo realizar las operaciones básicas con un repositorio CVS.
 
@@ -115,4 +116,3 @@ Host example
 h1. Referencias
 
 * "CVS Book":http://cvsbook.red-bean.com/
-

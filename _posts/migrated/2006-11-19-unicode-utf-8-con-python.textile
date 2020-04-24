@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Python
+render_with_liquid: false
 ---
 Cómo usar y aprovechar el soporte de Unicode que Python trae de serie. Si no tienes muy claro de que va esto del Unicode, te recomiendo leer primero la receta "Unicode y UTF-8":/node/453.
 
@@ -92,7 +93,7 @@ Los literales unicode pueden contener caracteres expresados por su número. Por 
 >>> cad = u'hola\u2605'
 >>> cad
 u'hola\u2605'
->>> print cad  
+>>> print cad
 hola★
 
 {% endhighlight %}
@@ -105,7 +106,7 @@ Como es dificil recordar secuencias de números, Python permite especificar un c
 
 <div class="console">
 {% highlight console %}
->>> cad = u'hola\N{BLACK STAR}' 
+>>> cad = u'hola\N{BLACK STAR}'
 {% endhighlight %}
 </div>
 

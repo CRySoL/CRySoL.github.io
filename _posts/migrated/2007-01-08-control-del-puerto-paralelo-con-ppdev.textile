@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Arco
+render_with_liquid: false
 ---
 Cómo leer y escribir en un puerto paralelo desde un programa C utilizando el driver @ppdev@ y la llamada al sistema @ioctl@
 
@@ -42,7 +43,7 @@ Para ver el funcionamiento de ioctl, lo mejor es un ejemplo:
 <div>
 {% highlight c %}
 /** Abrimos el fichero de dispositivo para lectura y escritura. **/
-fd = open("/dev/parport0", O_RDWR); 
+fd = open("/dev/parport0", O_RDWR);
 
 /** Lo primero es pedir el acceso al puerto. **/
 if( ioctl(fd, PPCLAIM)){
@@ -51,14 +52,14 @@ if( ioctl(fd, PPCLAIM)){
     return 1;
 }
 
-for (;;) { 
+for (;;) {
    /** Consultamos el registro de estado y el resultado se
        guarda en la variable status. **/
 
   ioctl(fd, PPRSTATUS, &status);
 
   /** Si se recibe un acknowledge salimos del bucle. **/
-  if((status & 0x40) == 0x00) 
+  if((status & 0x40) == 0x00)
       break;
 }
 {% endhighlight %}

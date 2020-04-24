@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - emacs
+render_with_liquid: false
 ---
 bq(head). Una utilidad muy interesante que incorpora el modo "dired" de Emacs
 
@@ -20,7 +21,7 @@ h2. Selección de ficheros
 
 Lo primero es abrir el directorio dónde están los ficheros a modificar. Lo puedes hacer con <tt>C-x d</tt> o bien con el menú en "File-> Open Directory".
 
-A continuación puedes mover el cursor sobre la lista de ficheros y marcar (<tt>m</tt>) o "desmarcar" (<tt>u</tt>) los ficheros que quieras. 
+A continuación puedes mover el cursor sobre la lista de ficheros y marcar (<tt>m</tt>) o "desmarcar" (<tt>u</tt>) los ficheros que quieras.
 
 Si quieres seleccionar con comodines, escribe <tt>% m</tt> y escribe un patrón, por ejemplo, para marcar todos los ficheros que acaban en "html":
 

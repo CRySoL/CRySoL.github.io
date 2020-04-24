@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - Arco
+render_with_liquid: false
 ---
 <blockquote>
 Esta receta pretende ser un pequeño tutorial de uso de Bluetooth en GNU/Linux
@@ -24,7 +25,7 @@ Todos ellos paqutes Debian/Ubuntu
 * *bluez-pin*: para gestionar los PIN
 * *bluez-utils*: servidores y utilidades
 * *bluez-hcidump* sniffer de tráfico HCI
- 
+
 
 h2. Comandos
 
@@ -65,16 +66,16 @@ h3. Escaner (usando una iface determinada)
 
 <div class="console">
 {% highlight console %}
- $ hcitool -a hci0 scan 
+ $ hcitool -a hci0 scan
 {% endhighlight %}
 </div>
-   
+
 h3. Sniffer de HCI
 
 
 <div class="console">
 {% highlight console %}
- hcidump 
+ hcidump
 {% endhighlight %}
 </div>
 
@@ -118,7 +119,7 @@ Services:
 </div>
 
 
-Es importante resaltar que para que un servicio sea descubierto, debes añadirlo mediante un @sdptool add &lt;servicio>@, la lista de abajo del comando anterior nos muestra los servicios disponibles. 
+Es importante resaltar que para que un servicio sea descubierto, debes añadirlo mediante un @sdptool add &lt;servicio>@, la lista de abajo del comando anterior nos muestra los servicios disponibles.
 
 h2. Algunos comando útiles
 
@@ -264,7 +265,7 @@ Para eso, tienes comandos muy interesantes:
 ** --listen para el servidor
 ** --connect <bluetooth_address> para el cliente
 * */etc/bluetooth/pan/dev-up*: pand ejecuta este script al levantar TCP/IP.
-* *dund*: Ejecutar PPP sobre Bluetooth RFCOMM 
+* *dund*: Ejecutar PPP sobre Bluetooth RFCOMM
 ** --listen para el servidor
 ** --connect <bluetooth_address> para el cliente
 
@@ -329,5 +330,3 @@ h2. Referencias
 * "bluetooth-alsa":http://sourceforge.net/projects/bluetooth-alsa/
 * "handset":http://gsyc.escet.urjc.es/~rocapal/documentos/handset-nokia/handset-nokia.html
 * "Bluez":http://www.bluez.org/
-
-

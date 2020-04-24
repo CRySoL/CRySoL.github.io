@@ -10,6 +10,7 @@ tags:
 - Arco
 - Ice
 - C++
+render_with_liquid: false
 ---
 Añadir nueva funcionalidad a ZeroC Ice es fácil: usando plugins. Ice provee una interfaz local, Ice::Plugin, que podemos usar para crearlos. Veamos un ejemplo sencillo. <b>Probado en Ice 3.3.</b>
 
@@ -17,7 +18,7 @@ Añadir nueva funcionalidad a ZeroC Ice es fácil: usando plugins. Ice provee un
 <!--break-->
 
 
-Puesto que un plugin no es lo primero que se suele hacer al trabajar con Ice, deduzco que ya tienes experiencia, y que tienes Ice instalado correctamente, las herramientas de compilación necesarias, etc. 
+Puesto que un plugin no es lo primero que se suele hacer al trabajar con Ice, deduzco que ya tienes experiencia, y que tienes Ice instalado correctamente, las herramientas de compilación necesarias, etc.
 
 h3. Interfaz
 
@@ -80,7 +81,7 @@ PluginI::destroy() {
 {% endhighlight %}
 </div>
 
-Por supuesto, puedes cambiar el nombre de la clase y el contenido... ;-) Como ves, tenemos dos métodos, _initialize_ y _destroy_. Quizá te preguntes porqué no usar el constructor y el destructor. Sencillo: para resolver problemas de dependencias entre los plugins, Ice los carga todos en primero lugar y luego los inicializa. Así, si necesitas usar otro plugin, en el _initialize_ sabes que ya estará cargado (pero puede no estar inicializado. Si necesitas un orden de carga determinado, puedes especificarlo en la configuración. Para más detalles, véase el manual). 
+Por supuesto, puedes cambiar el nombre de la clase y el contenido... ;-) Como ves, tenemos dos métodos, _initialize_ y _destroy_. Quizá te preguntes porqué no usar el constructor y el destructor. Sencillo: para resolver problemas de dependencias entre los plugins, Ice los carga todos en primero lugar y luego los inicializa. Así, si necesitas usar otro plugin, en el _initialize_ sabes que ya estará cargado (pero puede no estar inicializado. Si necesitas un orden de carga determinado, puedes especificarlo en la configuración. Para más detalles, véase el manual).
 
 Bien, ya tenemos el plugin propiamente dicho. El objeto puede implementar más métodos, y usando el PluginManager, puedes obtener una instancia para usarlo cuando lo necesites. Pero ¿cómo lo crea el PluginManager? Pues esa es nuestra siguiente tarea. Tenemos que definir una función que se encargue de instanciarlo, y que pueda ser llamada desde la factoría. He aquí una muestra:
 
@@ -112,7 +113,7 @@ createPluginSample(const Ice::CommunicatorPtr& communicator,
 {% endhighlight %}
 </div>
 
-Como ves, la definición debe ser en C, no en C++. Se recomienda en el manual usar la macro ICE_DECLSPEC_EXPORT para dotarlo de compatibilidad entre plataformas. Como es C, no tenemos _smart pointer_, por lo que retornamos un puntero. El nombre de la función puede ser cualquiera, pues luego debemos especificarlo en el fichero de configuración. 
+Como ves, la definición debe ser en C, no en C++. Se recomienda en el manual usar la macro ICE_DECLSPEC_EXPORT para dotarlo de compatibilidad entre plataformas. Como es C, no tenemos _smart pointer_, por lo que retornamos un puntero. El nombre de la función puede ser cualquiera, pues luego debemos especificarlo en el fichero de configuración.
 
 ¡Y ya lo tenemos! Esta es la estructura mínima de un plugin (a mi entender). Vamos a probarlo con un ejemplo muy sencillo:
 
@@ -152,7 +153,7 @@ Ice.Plugin.Sample=IcePluginSample:createPluginSample
 {% endhighlight %}
 </div>
 
-cargará nuestro plugin, y lo registrará en el PluginManager, disponible para que lo usemos cuando queramos (tip: el _communicator_ tiene un método llamado getPluginManager...). El nombre del plugin, en este caso _Sample_, puedes elegirlo tu... :-d. 
+cargará nuestro plugin, y lo registrará en el PluginManager, disponible para que lo usemos cuando queramos (tip: el _communicator_ tiene un método llamado getPluginManager...). El nombre del plugin, en este caso _Sample_, puedes elegirlo tu... :-d.
 
 h3. Compilando
 

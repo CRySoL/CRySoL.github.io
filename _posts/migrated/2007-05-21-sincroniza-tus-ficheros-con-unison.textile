@@ -6,6 +6,7 @@ created: 1179745522
 author: javieralso
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 <blockquote>Cómo mantener sincronizados directorios en varios PCs de forma rápida y sencilla utilizando la herramienta libre <b>unison-gtk</b>.</blockquote>
 
@@ -20,7 +21,7 @@ Si tienes varios PCs que usas frecuentemente (por ejemplo un portátil y el orde
   <li>unison-gtk</li>
 </ul>
 
-En mi caso concreto, he utilizado la versión <em>2.9.1</em>, es decir, los paquetes 
+En mi caso concreto, he utilizado la versión <em>2.9.1</em>, es decir, los paquetes
 
 <ul>
   <li>unison2.9.1</li>
@@ -59,7 +60,7 @@ En el campo <em>Host</em> escribe IP del host con el que deseas sincronizar o el
 
 <h2>Sincronizando</h2>
 
-Con lo anterior <em>unison</em> está configurado y listo para la sincronización. Ahora, en la ventana principal, selecciona el nombre del perfil que quieras. Dependiendo de la versión que tengas instalada, te pedirá la clave del usuario del equipo remoto, bien por consola (desde la que has invocado a <em>unison-gtk</em>) o bien en una ventana emergente. Una vez que introduces dicha contraseña, <em>unison</em> comenzará a escanear todos los archivos y subdirectorios contenidos en el directorio principal. La primera vez puede tardar tiempo. Cuando termine, verás aparecer una lista con todos los archivos y subdirectorios tanto en la máquina local como en la remota. <em>unison</em> hará una propuesta de actualización basada en la antiguedad de los archivos. Intentará que prevalezcan los archivos más modernos frente a los mas antiguos. 
+Con lo anterior <em>unison</em> está configurado y listo para la sincronización. Ahora, en la ventana principal, selecciona el nombre del perfil que quieras. Dependiendo de la versión que tengas instalada, te pedirá la clave del usuario del equipo remoto, bien por consola (desde la que has invocado a <em>unison-gtk</em>) o bien en una ventana emergente. Una vez que introduces dicha contraseña, <em>unison</em> comenzará a escanear todos los archivos y subdirectorios contenidos en el directorio principal. La primera vez puede tardar tiempo. Cuando termine, verás aparecer una lista con todos los archivos y subdirectorios tanto en la máquina local como en la remota. <em>unison</em> hará una propuesta de actualización basada en la antiguedad de los archivos. Intentará que prevalezcan los archivos más modernos frente a los mas antiguos.
 
 Todo ésto se verá con una flecha que indica la dirección en la que se llevará a cabo la actualización. Si hubiese dos archivos o subdirectorios con el mismo nombre y <em>unison</em> no supiese cual de los dos elegir, pondría una interrogación roja entre medias. Puedes cambiar la dirección de sincronización con las teclas de cursor. Cuando estés seguro, pulsa el botón <em>GO</em> y <em>unison</em> comenzará la sincronización.
 

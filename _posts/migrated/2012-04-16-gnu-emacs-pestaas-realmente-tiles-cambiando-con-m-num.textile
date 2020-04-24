@@ -8,6 +8,7 @@ comments: true
 category: recipe
 tags:
 - emacs
+render_with_liquid: false
 ---
 Hace tiempo que quería afinar la configuración del modo tabbar de emacs para poder cambiar entre pestañas usando la típica combinación de teclas alt-&lt;número> cual si fuera navegador o emulador de terminal. Como mis conocimientos de elisp son principalmente anecdóticos, traté de buscar algo parecido de lo que poder sacar factor común, pero nada... hasta ahora.
 

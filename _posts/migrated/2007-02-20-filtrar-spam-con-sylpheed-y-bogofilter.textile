@@ -6,6 +6,7 @@ created: 1172010010
 author: magmax
 comments: true
 category: recipe
+render_with_liquid: false
 ---
 
 
@@ -18,7 +19,7 @@ Lo primero es instalar la versión en desarrollo de sylpheed, llamada sylpheed-c
 
 <div class="console">
 {% highlight console %}
-  # apt-get install sylpheed-claws 
+  # apt-get install sylpheed-claws
 {% endhighlight %}
 </div>
 
@@ -27,7 +28,7 @@ Debes utilizar un filtro Bayesiano: bogofilter. Lo instalamos (Debian):
 
 <div class="console">
 {% highlight console %}
-  # apt-get install bogofilter 
+  # apt-get install bogofilter
 {% endhighlight %}
 </div>
 
