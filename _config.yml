@@ -3,6 +3,11 @@ gems:
   - jekyll-gist
   - jekyll-textile-converter
 
+plugins:
+  - jekyll-paginate
+  - jekyll-gist
+  - jekyll-textile-converter
+
 lsi: false
 
 # This is the default format.
@@ -17,7 +22,7 @@ defaults:
      permalink: /:categories/:year-:month-:day/:title:output_ext
 
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-highlighter: pygments
+# highlighter: pygments
 excerpt_separator: "<!--break-->"
 
 paginate: 10

@@ -15,7 +15,7 @@ js: [filter_by_url]
     <span class="author-name">{{ author.name }}'s blog</span>
   </h2>
 
-  {% for page in site.posts do %}
+  {% for page in site.posts %}
      {% if page.author == item[0] %}
        {% include custom/post_teaser %}
      {% endif %}
