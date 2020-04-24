@@ -22,8 +22,9 @@ jobs:
         
     - name: commit result
       run: |
-        git config --local user.email "david.villa@gmail.com"
-        git config --local user.name "David Villa Alises"
+        cd ${{ github.workspace }}
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git commit -a -m "github action jekyll build"
         
     - name: Push changes
