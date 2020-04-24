@@ -16,6 +16,7 @@ jobs:
     - name: Build the site in the jekyll/builder container
       run: |
         export GLOBIGNORE=temp
+        mkdir ${{ github.workspace }}/temp
         cp -r ${{ github.workspace }}/* ${{ github.workspace }}/temp
         docker run \
         -v ${{ github.workspace }}/temp:/srv/jekyll \
