@@ -20,11 +20,6 @@ jobs:
         jekyll/jekyll:3.8 \
         /bin/bash -c "chmod 777 /srv/jekyll && jekyll build --trace -d docs -b crysol.org"
         
-    - name: commit _site
-      run: |
-        git add _site/*
-        git commit -a -m "github action jekyll build"
-        
     - name: commit result
       run: |
         git add docs/*
