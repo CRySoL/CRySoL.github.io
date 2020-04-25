@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Debian
-render_with_liquid: false
 ---
 bq(head). Se trata de un frontend para bittorrent y wget escrito en PHP. "torrentflux-b4rt":http://tf-b4rt.berlios.de/ es un fork de "torrentflux":http://www.torrentflux.com/ más flexible, ligero y potente que el original. En esta receta se explica cómo instalarlo sobre @lighttpd@ y @sqlite@.
 
@@ -94,3 +93,4 @@ Una vez terminada la puesta en marcha, verás la página de configuración en la
 h2. Referencias
 
 * "Install Torrentflux-b4rt on Debian 4.0 Etch":http://howto.landure.fr/gnu-linux/debian-4-0-etch-en/install-torrentflux-b4rt-on-debian-4-0-etch
+

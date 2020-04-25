@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - networking
-render_with_liquid: false
 ---
 <blockquote class="head">Si usas con frecuencia ssh, habrás notado que muchas veces tarda muchísimo en conectar incluso aunque utilices autenticación por clave pública. Estos son algunos ajustes de configuración que pueden hacer que la conexión sea mucho más rápida.</blockquote>
 

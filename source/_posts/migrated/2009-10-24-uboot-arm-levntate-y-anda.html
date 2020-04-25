@@ -77,26 +77,26 @@ Hecho ésto, solo queda encender nuestra tarjeta y comprobar que supervivi arran
 {% highlight console %}
 ##### FriendlyARM BIOS for 2440 #####
 [x] bon part 0 320k 2368k
-[v] Download vivi 
-[k] Download linux kernel 
-[y] Download root_yaffs image 
-[c] Download root_cramfs image 
+[v] Download vivi
+[k] Download linux kernel
+[y] Download root_yaffs image
+[c] Download root_cramfs image
 [a] Absolute User Application
-[n] Download Nboot 
-[e] Download Eboot 
-[i] Download WinCE NK.nb0 
-[w] Download WinCE NK.bin 
-[d] Download & Run 
-[z] Download zImage into RAM 
-[g] Boot linux from RAM 
-[f] Format the nand flash 
-[p] Partition for Linux 
-[b] Boot the system 
-[s] Set the boot parameters 
-[t] Print the TOC struct of wince 
-[u] Backup NAND Flash to HOST through USB(upload) 
-[r] Restore NAND Flash from HOST through USB 
-[q] Goto shell of vivi 
+[n] Download Nboot
+[e] Download Eboot
+[i] Download WinCE NK.nb0
+[w] Download WinCE NK.bin
+[d] Download & Run
+[z] Download zImage into RAM
+[g] Boot linux from RAM
+[f] Format the nand flash
+[p] Partition for Linux
+[b] Boot the system
+[s] Set the boot parameters
+[t] Print the TOC struct of wince
+[u] Backup NAND Flash to HOST through USB(upload)
+[r] Restore NAND Flash from HOST through USB
+[q] Goto shell of vivi
 Enter your selection:
 {% endhighlight %}
 </div>
@@ -149,7 +149,7 @@ Found block size = 0x0003c000
 Erasing...    ... done
 Writing...    ... done
 Written 239016 bytes
-Supervivi> 
+Supervivi>
 {% endhighlight %}
 </div>
 
@@ -180,7 +180,7 @@ In:    serial
 Out:   serial
 Err:   serial
 MAC: 08:08:11:18:12:27
-Hit any key to stop autoboot:  0 
+Hit any key to stop autoboot:  0
 {% endhighlight %}
 </div>
 
@@ -202,7 +202,7 @@ Erasing at 0x3ffc000 -- 100% complete.
 Bad block table not found for chip 0
 Bad block table not found for chip 0
 OK
-MINI2440 # 
+MINI2440 #
 {% endhighlight %}
 </div>
 
@@ -214,11 +214,11 @@ Después de haber hecho la limpieza, creamos nuestra propia <em>BBT</em>:
 {% highlight console %}
 MINI2440 # nand createbbt
 Create BBT and erase everything ? <y/N>
-Skipping bad block at  0x03410000                                            
-Skipping bad block at  0x03ff0000                                            
-Skipping bad block at  0x03ff4000                                            
-Skipping bad block at  0x03ff8000                                            
-Skipping bad block at  0x03ffc000                                            
+Skipping bad block at  0x03410000
+Skipping bad block at  0x03ff0000
+Skipping bad block at  0x03ff4000
+Skipping bad block at  0x03ff8000
+Skipping bad block at  0x03ffc000
 Creating BBT. Please wait ...Bad block table not found for chip 0
 Bad block table not found for chip 0
 Bad block table written to 0x03ffc000, version 0x01

@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Python
 - gtk
-render_with_liquid: false
 ---
 bq(head). Esta receta explica cómo usar la clase GladeWrapper para hacer programas PyGTK + glade del modo más sencillo jamás visto.
 

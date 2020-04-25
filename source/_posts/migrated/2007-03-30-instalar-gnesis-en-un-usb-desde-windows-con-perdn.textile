@@ -1,0 +1,54 @@
+---
+migrated: node/633
+layout: post
+title: Instalar GNESIS en un USB, desde Windows (con perdón)
+created: 1175280423
+author: cleto
+comments: true
+category: recipe
+tags:
+- GNESIS
+---
+<blockquote class="head">
+Cómo crear una GNESIS USB si sólo dispones de un ordenador con Windows. Ya no tienes excusa, si sufres Windows es porque quieres.
+</blockquote>
+
+
+Si estás leyendo esta receta, a priori, pensaría que utilizas Microsoft Windows de forma habitual y eso no puede ser. Sin embargo, estoy seguro que no es así y que simplemente te has equivocado de sitio por un despiste. Por ello, es conveniente que consultes <a href="/node/598">Instalar GNESIS en un dispositivo USB desde GNU/Linux</a>, que es lo que realmente usas ;-).
+
+<h2>Ingredientes</h2>
+
+* Un pendrive USB
+* Microsft Windows XP (o sistema repugnante similar)
+* <a href="http://www.chrysocome.net/dd">GNU dd</a> para Windows
+
+Al igual que en GNU, el programa <tt>dd</tt> te permite volcar el contenido del archivo .img a tu dispositivo.
+
+<h2>Copiando GNESIS</h2>
+Descomprime el ejecutable <tt>dd.exe</tt> por ejemplo, en C:\. Seguidamente, abre una cosa fea, rara y sin transparencias que se llama <b>símbolo de sistema</b>. Se encuentra en la ruta "Inicio->Todos los programas->Accesorios->Símbolo de Sistema" . Una vez abierto situate en el directorio en el que hayas descomprimido el ejecutable de <tt>dd</tt>:
+
+
+<pre class="console">
+cd C:\
+</pre>
+
+Suponiendo que tienes el archivo .img el mismo sitio, es decir, en C:\; y que ya tienes enchufado el dispositivo USB, debes ejecutar lo siguiente:
+
+
+<pre class="console">
+dd if=c:\archivo.img of=\\?\Device\Harddisk1\Partition0 bs=1M --progress
+</pre>
+
+Windows es muy intuitivo...
+
+<h2>Creando la partición persistente para GNESIS</h2>
+Para tener la opción persistente de GNESIS es necesario utilizar un particionador (libre, por supuesto) con el que puedas crear una partición adicional (de tipo ext3). Puedes crear tantas particiones como quieras pero, al menos, una de ellas tiene que estar etiquetada como "casper-rw". Se recomienda que si el dispositivo tiene poca memoria (1-2GB)  sólo se haga una partición para persistencia.
+
+Para crear la partición, como he dicho, puedes utilizar cualquier particionador, o bien arrancar tu GNESIS y seguir <a href="/node/598">la otra receta</a>.
+
+<h2>Referencias</h2>
+<ul>
+<li>Para más información acerca del <a href="http://www.chrysocome.net/dd">dd para Windows</a> puedes ver su web oficial, llena de ejemplos.</li>
+<li><a href="http://atc.lab.inf-cr.uclm.es/gnesis">Página web de GNESIS</a>.</li>
+<li><a href="http://atc.lab.inf-cr.uclm.es/gnesis/descargas.html">Descarga la última versión de GNESIS</a>.</li>
+</ul>

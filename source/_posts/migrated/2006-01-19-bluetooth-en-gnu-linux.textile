@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Arco
-render_with_liquid: false
 ---
 <blockquote>
 Esta receta pretende ser un pequeño tutorial de uso de Bluetooth en GNU/Linux
@@ -330,3 +329,5 @@ h2. Referencias
 * "bluetooth-alsa":http://sourceforge.net/projects/bluetooth-alsa/
 * "handset":http://gsyc.escet.urjc.es/~rocapal/documentos/handset-nokia/handset-nokia.html
 * "Bluez":http://www.bluez.org/
+
+

@@ -9,7 +9,7 @@ category: recipe
 tags:
 - multimedia
 ---
-<blockquote class="head"> 
+<blockquote class="head">
 Esta receta ilustra cómo configurar el servidor RTSP Darwin Streaming Server en un sistema Debian GNU/Linux. Se ha configurado para que un dispositivo móvil pueda recibir flujo RTSP sin problemas.
 </blockquote>
 
@@ -30,7 +30,7 @@ Una vez descargado y descomprimido el <a href="http://dss.macosforge.org/post/41
 
 <div>
 {% highlight python %}
-sudo addgroup --system qtss	
+sudo addgroup --system qtss
 sudo adduser --system --no-create-home --group qtss
 {% endhighlight %}
 </div>
@@ -136,7 +136,7 @@ Una vez codificados los archivos solo hay que ubicarlos en el directorio donde s
 Si queremos crear una lista de reproducción sin utilizar la interfaz web deberemos crear una serie de archivos de configuración; éstos archivos deben pertenecer al grupo qtss, de lo contrario no aceptará la lista. A continuación se muestran los pasos a seguir para poner en marcha una lista de reproducción vía línea de comandos.
 <ul>
 <li>
-1.- Crear un directorio para la lista.  
+1.- Crear un directorio para la lista.
 
 
 <div class="console">

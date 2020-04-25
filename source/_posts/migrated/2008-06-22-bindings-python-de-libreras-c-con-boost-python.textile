@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Python
 - C++
-render_with_liquid: false
 ---
 bq(head). Ejemplos mínimos para empezar con Boost.Python, probablemente la mejor libreŕia de generación de bindings Python para C++.
 

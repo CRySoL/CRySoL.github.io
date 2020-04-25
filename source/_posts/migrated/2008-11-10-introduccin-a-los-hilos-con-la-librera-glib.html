@@ -7,7 +7,7 @@ author: manueldavid
 comments: true
 category: recipe
 ---
-<blockquote class="head"> 
+<blockquote class="head">
 Esta receta prentede ser una introducción a los hilos utilizando la librería glib.
 </blockquote>
 
@@ -32,10 +32,10 @@ int main(int argc, char *argv[])
 {
   char *mensaje1 = "mensaje_1";
   char *mensaje2 = "mensaje_2";
-    
+
   //inicializamos el soporte para hilos en glib
   if (!g_thread_supported ()) g_thread_init (NULL);
-  
+
   //reservamos memoria para los hilos de manera dinámica
   GThread *productor = (GThread *) malloc(sizeof(GThread));
   GThread *consumidor = (GThread *) malloc(sizeof(GThread));
@@ -43,11 +43,11 @@ int main(int argc, char *argv[])
   //creamos los hilos
   productor = g_thread_create( (GThreadFunc)funcion_de_prueba,(char *)mensaje1 ,TRUE,NULL);
   consumidor = g_thread_create( (GThreadFunc)funcion_de_prueba, (char *)mensaje2 ,TRUE,NULL);
-  
+
   //destruimos los hilos
   g_thread_join(productor);
   g_thread_join(consumidor);
-  
+
   //liberamos memoria
   free(productor);
   free(consumidor);
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
 
 //esta es la función que es llamada por los hilos
-GThreadFunc funcion_de_prueba(char *cadena){ 
+GThreadFunc funcion_de_prueba(char *cadena){
   printf("esta es la funcion de prueba\n");
   printf("mensaje  %s\n", cadena);
 }

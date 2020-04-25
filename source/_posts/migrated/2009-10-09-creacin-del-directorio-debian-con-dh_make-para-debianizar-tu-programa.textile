@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Arco
 - Debian-devel
-render_with_liquid: false
 ---
 Esta receta muestra cómo crear el directorio debian necesario para empaquetar tu proyecto. Para ello, se utiliza la herramienta dh_make.
 

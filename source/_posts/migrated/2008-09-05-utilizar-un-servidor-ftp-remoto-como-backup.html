@@ -39,14 +39,14 @@ cd $BAKCUP
 
 #Copia del archivo y renombrado con la fecha
 cp $SRC/mi_archivo_importante.txt mi_archivo_importante.txt.$(date +%Y%m%d)
-echo -e "---- BACKUP $(date +%Y%m%d) ----\n" 
+echo -e "---- BACKUP $(date +%Y%m%d) ----\n"
 
 ftp -n -v $HOST << EOT
 binary
 user $USER $PASSWD
 prompt
 
-cd $REMOTE                  
+cd $REMOTE
 mput mi_archivo_importante.txt.$(date +%Y%m%d)
 bye
 bye

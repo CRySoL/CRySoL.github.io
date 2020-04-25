@@ -16,7 +16,7 @@ Esta receta describe cómo configurar una red inalámbrica multisalto (<acronym 
 
 <h1>Introducción</h1>
 
-Las redes inalámbricas multisalto no necesitan de infraestructura fija para compartir datos entre distintos PC's, cada uno de los nodos que forman la red hacen las labores de un router de forma que se enrutan datos de unos a otros para formar una infraestructura de red dinámica. Si uno de los nodos tiene una conexión a Internet, los demas nodos pueden utilizar a éste como pasarela. 
+Las redes inalámbricas multisalto no necesitan de infraestructura fija para compartir datos entre distintos PC's, cada uno de los nodos que forman la red hacen las labores de un router de forma que se enrutan datos de unos a otros para formar una infraestructura de red dinámica. Si uno de los nodos tiene una conexión a Internet, los demas nodos pueden utilizar a éste como pasarela.
 
 <h1>Requisitos previos</h1>
 
@@ -41,8 +41,8 @@ El <tt>iwconfig</tt> nos dice que tenemos:
 
 <pre class="console">
 eth1      IEEE 802.11-DS  ESSID:"COMPAQ"  Nickname:"Prism  I"
-          Mode:Managed  Frequency:2.457GHz  Access Point: 00:02:A5:2D:06:35  
-          Bit Rate:11Mb/s   Tx-Power=15 dBm   Sensitivity:1/242700000  
+          Mode:Managed  Frequency:2.457GHz  Access Point: 00:02:A5:2D:06:35
+          Bit Rate:11Mb/s   Tx-Power=15 dBm   Sensitivity:1/242700000
           Retry min limit:8   RTS thr:off   Fragment thr:off
           Encryption key:off
           Power Management:off
@@ -62,8 +62,8 @@ homer:~# iwconfig eth1 mode ad-hoc
 homer:~# iwconfig eth1 essid ARCO
 homer:~# iwconfig
 eth1      IEEE 802.11-DS  ESSID:"ARCO"  Nickname:"Prism  I"
-          Mode:Ad-Hoc  Frequency:2.457GHz  Cell: 02:23:7A:CF:F1:E5  
-          Bit Rate:5.5Mb/s   Tx-Power=15 dBm   Sensitivity:1/242700000  
+          Mode:Ad-Hoc  Frequency:2.457GHz  Cell: 02:23:7A:CF:F1:E5
+          Bit Rate:5.5Mb/s   Tx-Power=15 dBm   Sensitivity:1/242700000
           Retry min limit:8   RTS thr:off   Fragment thr:off
           Encryption key:off
           Power Management:off
@@ -93,14 +93,14 @@ De forma que si ejecutamos:
 radia:~# ifdown eth1
 radia:~# ifup eth1
 radia:~# ifconfig
-eth1      Link encap:Ethernet  HWaddr 00:02:A5:6F:28:FC  
+eth1      Link encap:Ethernet  HWaddr 00:02:A5:6F:28:FC
           inet addr:10.10.0.4  Bcast:10.255.255.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:1091 errors:0 dropped:0 overruns:0 frame:0
           TX packets:89 errors:20 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:100 
+          collisions:0 txqueuelen:100
           RX bytes:81419 (79.5 KiB)  TX bytes:20266 (19.7 KiB)
-          Interrupt:11 Base address:0xd800 
+          Interrupt:11 Base address:0xd800
 </pre>
 
 Vemos la interfaz configurada con la dirección IP asociada.
@@ -122,7 +122,7 @@ homer:~# tar xvzf kernel-aodv_v2.2.2.tgz
 {% endhighlight %}
 </div>
 </li>
-<li> Ejecutas 
+<li> Ejecutas
 
 
 <div class="console">

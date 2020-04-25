@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Arco
-render_with_liquid: false
 ---
 Cómo configurar Apache2 para disponer de un directorio  WebDAV, accesible para lectura/escritura desde GNOME VFS, konqueror, cadaver o como una "web folder" desde el "sistema operativo más rentable de todos los tiempos".
 

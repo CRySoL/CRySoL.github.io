@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Debian
-render_with_liquid: false
 ---
 That recipe explains how to perform an unattended Debian GNU/Linux installation (thanks to *preseeds*) on a virtual machine using @libvirt@.
 

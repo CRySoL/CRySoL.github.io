@@ -9,7 +9,6 @@ category: recipe
 tags:
 - mercurial
 - VCS
-render_with_liquid: false
 ---
 Mercurial es otro sistema de control de versiones distribuido (otro más) que no tiene nada (o poco) que envidiar a git  (en lo referente a prestaciones) pero casi tan fácil de usar como subversion. Esta recetilla incluye unas nociones de su uso básico y algunas buenas referencias.
 

@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Python
-render_with_liquid: false
 ---
 Esta receta explica cómo incorporar a tus programas la posibilidad de realizar acciones cuando se crean, borran, cambian, etc. ficheros o directorios concretos.
 

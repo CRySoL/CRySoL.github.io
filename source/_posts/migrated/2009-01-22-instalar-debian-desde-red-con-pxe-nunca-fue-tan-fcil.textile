@@ -9,7 +9,6 @@ category: recipe
 tags:
 - networking
 - Debian
-render_with_liquid: false
 ---
 bq(head). La receta describe cómo preparar un servidor DHCP para instalar Debian (por PXE o Etherboot) en otras máquinas de la misma red ("netboot" lo llaman). Esto es especialmente útil cuando el PC en el que quieres instalar Debian no tiene lector de CD-ROM, como pasa en los netbooks (EeePC, Aspire One, etc) y otras cosas más "raras" como el fit-PC. Si lo pruebas verás que es más sencillo, cómodo y rápido que recurrir al arranque por USB.
 

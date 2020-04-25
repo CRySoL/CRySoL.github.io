@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - emacs
-render_with_liquid: false
 ---
 bq(head). Si, aunque parezca un título de broma estoy totalmente convencido de que Emacs es el mejor cliente de Twitter (al menos, libre y disponible en GNU/Linux). En esta receta explicaré como instalar *Twittering Mode*, un _plugin_ para Emacs que nos permite enviar y recibir mensajes de esta famosa red social
 

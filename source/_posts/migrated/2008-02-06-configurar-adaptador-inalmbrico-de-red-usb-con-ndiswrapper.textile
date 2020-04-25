@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - networking
-render_with_liquid: false
 ---
 <blockquote class="head">
        Esta receta lo que pretende es mostrar cómo se puede configurar un adaptador inalámbrico de red USB  mediante el programa ndiswrapper. Dicho programa se debe utilizar cuando el adaptador de red USB carece de drivers para GNU/Linux.
@@ -120,3 +119,15 @@ Esto ya es a gusto de consumidores libres.
 2)Gracias al amigo que me regaló este adaptador USB inalámbrico sin driver para GNU/Linux.
 
 3)Gracias a Crysol que me de la oportunidad de compartir conocimiento.
+
+
+
+
+
+
+
+
+
+
+
+

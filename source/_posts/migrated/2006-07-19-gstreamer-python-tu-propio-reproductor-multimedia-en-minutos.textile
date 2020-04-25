@@ -10,7 +10,6 @@ tags:
 - gstreamer
 - Arco
 - Python
-render_with_liquid: false
 ---
 <blockquote>Es muy sencillo construirse un reproductor/codificador/decodificador multimedia usando Gstreamer y Python. Aquí, haremos un reproductor de Ogg Vorbis básico.
 </blockquote>
@@ -257,3 +256,8 @@ Más:
 * <a href="http://www.jejik.com/articles/2007/01/python-gstreamer_threading_and_the_main_loop/">http://www.jejik.com/articles/2007/01/python-gstreamer_threading_and_the_main_loop/</a>
 * <a href="http://www.jonobacon.org/?p=750">http://www.jonobacon.org/?p=750</a>
 * <a href="http://www.jonobacon.org/?p=851">http://www.jonobacon.org/?p=851</a>
+
+
+
+
+

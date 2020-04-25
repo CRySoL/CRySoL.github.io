@@ -10,7 +10,6 @@ tags:
 - Arco
 - Python
 - gtk
-render_with_liquid: false
 ---
 In this recipe, we will create a shape, or a Surface using Cairo verbs, from an image in SVG format.
 

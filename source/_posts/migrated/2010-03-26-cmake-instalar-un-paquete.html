@@ -28,7 +28,7 @@ PROJECT
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
-# Librerías 
+# Librerías
 ADD_LIBRARY(dummy_shared SHARED dummy.cpp)
 SET_PROPERTY(TARGET dummy_shared PROPERTY SOVERSION 1.0)
 ADD_LIBRARY(dummy_static STATIC dummy.cpp)
@@ -49,7 +49,7 @@ Inicialmente, podrías añadir un comando por cada uno de los componentes que qu
 SET_TARGET_PROPERTIES(dummy_shared
       PROPERTIES    PUBLIC_HEADER  "${CMAKE_CURRENT_SOURCE_DIR}/dummy.h"
 
-INSTALL(TARGETS hello dummy_static dummy_shared 
+INSTALL(TARGETS hello dummy_static dummy_shared
 RUNTIME          DESTINATION    bin
 ARCHIVE          DESTINATION    lib/static
 LIBRARY          DESTINATION    lib

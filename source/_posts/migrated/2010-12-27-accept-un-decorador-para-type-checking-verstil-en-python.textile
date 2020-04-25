@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Python
-render_with_liquid: false
 ---
 Una de las cosas que más chocan al empezar a utilizar un lenguaje dinámico (Python, Ruby, Lua, etc.) es que las variables no se declaran o definen con un tipo concreto. Eso normalmente no es un problema y de hecho resulta bastante cómodo. Pero cuando un programa adquiere cierta envergadura empiezan a surgir problemas.
 

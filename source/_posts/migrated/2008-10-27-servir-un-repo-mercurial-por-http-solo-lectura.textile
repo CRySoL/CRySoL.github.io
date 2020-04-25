@@ -10,7 +10,6 @@ tags:
 - mercurial
 - VCS
 - Arco
-render_with_liquid: false
 ---
 El objetivo es simple, pero útil. Tenemos un repositorio de mercurial (hg), al que accedemos por SSH. Queremos compartirlo con el mundo, pero no queremos abrirle cuanta ssh al mundo en nuestro servidor. ¿Solución? Compartirlo por HTTP.
 

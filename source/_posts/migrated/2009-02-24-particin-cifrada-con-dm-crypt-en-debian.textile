@@ -9,7 +9,6 @@ category: recipe
 tags:
 - security
 - Debian
-render_with_liquid: false
 ---
 Esta receta explica como utilizar @dm-crypt@ para cifrar una partición completa y montarla/desmontarla cómodamente.
 

@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - LaTeX
-render_with_liquid: false
 ---
 Hay un pequeño bug en @babel@ que da la lata si usas también el paquete @enumitem@. El error dice algo como:
 
@@ -52,3 +51,4 @@ Para parchear este problema hasta que lo arreglen basta con añadir esto:
 
 
 Más información y detalles en <a href="http://www.tex-tipografia.com/spanish.html">http://www.tex-tipografia.com/spanish.html</a>
+

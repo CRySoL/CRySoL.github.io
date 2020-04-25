@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Arco
 - embedded
-render_with_liquid: false
 ---
 bq(head). Comunicar el NXT con el PC por medio de Bluetooth. Se explica brevemente el protocolo de comunicaciones y se presenta un ejemplo: un servidor de <i>echo</i>.
 

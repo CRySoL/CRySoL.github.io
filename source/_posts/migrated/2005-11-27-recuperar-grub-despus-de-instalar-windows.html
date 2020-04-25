@@ -19,16 +19,16 @@ Así que primero la desmontamos:
 
 <div class="console">
 {% highlight console %}
-# umount /mnt/hda3 
+# umount /mnt/hda3
 {% endhighlight %}
 </div>
 
-Y ahora la volvemos a montar partición con permisos de lectura-escritura. Suponemos que el disco es <tt>/dev/hda3</tt>, y se monta en el directorio <tt>/mnt/hda3</tt>. 
+Y ahora la volvemos a montar partición con permisos de lectura-escritura. Suponemos que el disco es <tt>/dev/hda3</tt>, y se monta en el directorio <tt>/mnt/hda3</tt>.
 
 
 <div class="console">
 {% highlight console %}
-# mount -t ext3 -o rw /dev/hda3 /mnt/hda3 
+# mount -t ext3 -o rw /dev/hda3 /mnt/hda3
 {% endhighlight %}
 </div>
 
@@ -37,7 +37,7 @@ Ahora montamos /proc:
 
 <div class="console">
 {% highlight console %}
-# mount -t proc /mnt/hda3/proc 
+# mount -t proc /mnt/hda3/proc
 {% endhighlight %}
 </div>
 
@@ -46,7 +46,7 @@ Ahora hacemos un poco de "magia":
 
 <div class="console">
 {% highlight console %}
-# chroot /mnt/hda3/ 
+# chroot /mnt/hda3/
 {% endhighlight %}
 </div>
 
@@ -55,7 +55,7 @@ Y ahora mismo estarás dentro del GNU/Linux que tienes en el disco duro. Has cam
 
 <div class="console">
 {% highlight console %}
-# grub-install /dev/hda 
+# grub-install /dev/hda
 {% endhighlight %}
 </div>
 

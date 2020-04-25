@@ -17,7 +17,7 @@ No os lo vais a creer: gimp.
 
 <div class="console">
 {% highlight console %}
- # apt-get install gimp 
+ # apt-get install gimp
 {% endhighlight %}
 </div>
 
@@ -28,7 +28,7 @@ Lo primero que necesitado ha sido una manera de ejecutar un script. Para ello, h
 
 <div class="console">
 {% highlight console %}
-$ gimp tab1.png 
+$ gimp tab1.png
 {% endhighlight %}
 </div>
 
@@ -57,7 +57,7 @@ Ahora que sabemos usar perfectamente script-fu, vamos con el script que recorta 
     (plug-in-autocrop 0 (car img)  (car drw)  )\
     (plug-in-colortoalpha 1 (car img) (car drw) '(0 0 0) )  \
     (gimp-file-save 1 (car img) (car drw )   "/ruta_hasta_la_imagen/ejemplo.png" "ejemplo.png") \
-) 
+)
 {% endhighlight %}
 </div>
 

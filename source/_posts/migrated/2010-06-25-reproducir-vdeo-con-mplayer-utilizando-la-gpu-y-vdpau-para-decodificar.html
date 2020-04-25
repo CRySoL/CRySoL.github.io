@@ -9,7 +9,7 @@ category: recipe
 tags:
 - multimedia
 ---
-<blockquote class="head"> 
+<blockquote class="head">
 Con esta receta dejaremos la carga de decodificar el vídeo a la <acronym title="Graphics Processing Unit">GPU,</acronym> con lo que notaremos una gran mejoría en la fluidez de reproducción del vídeo y una descarga de trabajo en la CPU.
 </blockquote>
 
@@ -34,7 +34,7 @@ Esta receta está destinada a tarjetas NVIDIA con soporte para vdpau, en <a href
 </div>
 </li>
 <li>Instalar mplayer:
-	
+
 <div class="console">
 {% highlight console %}
 # apt-get install mplayer
@@ -42,7 +42,7 @@ Esta receta está destinada a tarjetas NVIDIA con soporte para vdpau, en <a href
 </div>
 </li>
  <li>Reproducir vídeo:
-	
+
 <div class="console">
 {% highlight console %}
 $ mplayer -vo vdpau -vc ffh264vdpau video_a_reproducir
@@ -52,7 +52,7 @@ $ mplayer -vo vdpau -vc ffh264vdpau video_a_reproducir
 </ol>
 
 <h3> front-end</h3>
-Si quieres utilizar un front-end, yo recomiendo <tt>smplayer</tt>. 
+Si quieres utilizar un front-end, yo recomiendo <tt>smplayer</tt>.
 Para utilizar vdpau con smaplayer accede a configuración (botón del destornillador) y en esa ventana:
 
 General > Video > Driver de salida (estará la opción xv) substituye por vdpau y aplicar.

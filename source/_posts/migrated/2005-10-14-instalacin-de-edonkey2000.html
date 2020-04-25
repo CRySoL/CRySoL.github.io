@@ -17,7 +17,7 @@ Después de bajar el <em>core</em> desde <a href="http://forum.edonkey.com/viewt
 
 <div class="console">
 {% highlight console %}
-# dpkg -i el_core_que_sea.deb 
+# dpkg -i el_core_que_sea.deb
 {% endhighlight %}
 </div>
 
@@ -98,7 +98,7 @@ Y ahora lo que hacemos es volver a lanzar el mismo programa pero indicandole que
 
 <div class="console">
 {% highlight console %}
-$ edonkeyclc -g 
+$ edonkeyclc -g
 {% endhighlight %}
 </div>
 
@@ -167,7 +167,7 @@ Este script se copia en /etc/init.d/ y ahora nos hace falta crear los enlaces in
 
 <div class="console">
 {% highlight console %}
- # update-rc.d core-ed2k start 99 2 . stop 99 0 2 . 
+ # update-rc.d core-ed2k start 99 2 . stop 99 0 2 .
 {% endhighlight %}
 </div>
 
@@ -176,7 +176,7 @@ Si por alguna razón el core deja de ejecutarse o queremos pararlo hacemos:
 
 <div class="console">
 {% highlight console %}
- /etc/init.d/core-ed2k {start|stop} 
+ /etc/init.d/core-ed2k {start|stop}
 {% endhighlight %}
 </div>
 

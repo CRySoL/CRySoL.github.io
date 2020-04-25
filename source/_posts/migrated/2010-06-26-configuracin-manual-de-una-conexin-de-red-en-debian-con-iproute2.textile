@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - networking
-render_with_liquid: false
 ---
 Cómo configurar «a mano» (sin DHCP) los parámetros más importantes de una tarjeta de red en GNU/Linux, utilizando el comando @ip@ del paquete @iproute2@.
 

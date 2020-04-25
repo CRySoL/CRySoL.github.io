@@ -9,7 +9,6 @@ category: recipe
 tags:
 - shell
 - Python
-render_with_liquid: false
 ---
 Os dejo aquí un script que permite ejecutar comandos predefinidos en un conjunto de máquinas. En realidad es un @fabfile@, es decir, un script para ejecutar con "fabric":http://docs.fabfile.org/en/1.2.0/index.html.
 

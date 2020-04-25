@@ -21,10 +21,10 @@ Esta receta explica cómo configurar un ordenador con Debian (también Ubuntu y 
     Este equipo hará de <a href="http://es.wikipedia.org/wiki/Router">router</a>. Sirve cualquier cosa mayor de un Pentium. Un K6 o un PII con 64 MB de RAM es más que suficiente para los servicios básicos. Es una buena oportunidad para reciclar tu viejo sobremesa, una vez instalado le sobre el monitor, teclado, ratón, CD-ROM y tarjeta de sonido; la de vídeo déjala puesta por si acaso.
   </p>
   </li>
-  <li><b>iptables</b>: 
+  <li><b>iptables</b>:
   <p>
     Herramienta de administración de filtrado de paquetes IP.</li>
-  </p>  
+  </p>
   <li><b>Un Linux "de los nuevos":</b>
   <p>
 Como vas a utilizar <b>iptables</b> necesitas un Linux-2.6 o superior (aunque también serviría un 2.4).
@@ -41,14 +41,14 @@ Como vas a utilizar <b>iptables</b> necesitas un Linux-2.6 o superior (aunque ta
 
 Ese ordenador "de desecho" del que hablaba antes lo llamaremos a partir de ahora con el original nombre de <em>Router</em>. Bien, <em>Router</em> debe tener, al menos, dos interfaces de red:
 <ul>
-  <li><b>Una conexión a Internet (eth0)</b>. 
+  <li><b>Una conexión a Internet (eth0)</b>.
 <p>Debe ser algún tipo de conexión a Internet, que puede ser RTC, ADSL, cable-modem, etc. Supondremos para esta receta que usas un modem ADSL con conexión Ethernet.
 </p>
 
 <p>Conste que podría ser RDSI, ppp o cualquier otro tipo de interfaz de red sin que ello afecte al resto del procecimiento. Supondremos que esta interfaz ya la tienes configurada conforme a las instrucciones de tu ISP.
 </p>
   </li>
-  <li><b>Una conexión a tu red local (eth1)</b>: 
+  <li><b>Una conexión a tu red local (eth1)</b>:
 <p>Será una tarjeta de red Ethernet 10/100. Esto permitirá que puedas enchufarle un conmutador y conectar "cienes y cienes" de ordenadores si quieres.
 </p>
 
@@ -171,7 +171,7 @@ Para guardar las reglas activas (las que has ido poniendo hasta ahora) ejecuta:
 
 <div class="console">
 {% highlight console %}
-Router:~# iptables-save > /etc/iptables.up.rules 
+Router:~# iptables-save > /etc/iptables.up.rules
 {% endhighlight %}
 </div>
 

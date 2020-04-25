@@ -10,7 +10,6 @@ tags:
 - mercurial
 - git
 - VCS
-render_with_liquid: false
 ---
 Cómo usar repositorios git utilizando mercurial como cliente gracias a la extensión "hggit":http://hg-git.github.com/.
 

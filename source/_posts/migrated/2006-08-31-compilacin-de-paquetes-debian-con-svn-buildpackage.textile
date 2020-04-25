@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Debian-devel
 - VCS
-render_with_liquid: false
 ---
 bq(head). svn-buildpackage es una herramienta para construir y mantener paquetes Debian utilizando un repositorio subversion.
 

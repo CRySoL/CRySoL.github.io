@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Arco
-render_with_liquid: false
 ---
 Cómo configurar Apache para mejorar la seguridad de un sitio Zope, utilizando _mod_proxy_ y _VirtualHostMonster_.
 

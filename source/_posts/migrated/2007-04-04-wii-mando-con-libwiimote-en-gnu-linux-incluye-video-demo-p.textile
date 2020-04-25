@@ -9,7 +9,6 @@ category: recipe
 tags:
 - ocio
 - graphics
-render_with_liquid: false
 ---
 <blockquote class="head">
  Ampliando la información de Cleto sobre el Wiimando... De lo mejor que he visto son las librerías nativas de C libwiimote (paquete debian en su versión muy antigua), aunque a la fecha de escritura de este post van por la 0.4. Pueden descargarse en <a href="http://libwiimote.sourceforge.net/">http://libwiimote.sourceforge.net/</a>. Para compilarlas necesitarás tener libbluetooth y bluez.

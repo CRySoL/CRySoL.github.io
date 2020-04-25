@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - ocio
-render_with_liquid: false
 ---
 <blockquote>
 Hasta las narices de que me quieran sajar por un minuto de canción más o menos lo mismo que por una canción completa (con una calidad ridícula), aquí tenéis un manual para reducir el tamaño y la calidad de vuestras canciones favoritas. Eso sí: siempre y cuando tengáis un "título de propiedad" de la canción...
@@ -47,3 +46,4 @@ Ironic mode: OFF
 --
 
 <b>20070522</b> - Añadida opción "-m m" para transformar a Mono. Gracias, Paco; se me había pasado al transcribirlo.
+

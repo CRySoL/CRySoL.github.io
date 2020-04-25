@@ -69,7 +69,7 @@ Description-es.UTF-8: Esta es la pregunta?
 
 <li><b>config</b></li>
 <ul>
-Este bash script (ejecutable) permite que el script de post instalación (postinst) pueda recuperar la información que el usuario introduce. El archivo <b>config</b> carga el confmodule, inicializa la db del paquete y lanza las entradas por medio de <b>db_input</b>. Algo así: 
+Este bash script (ejecutable) permite que el script de post instalación (postinst) pueda recuperar la información que el usuario introduce. El archivo <b>config</b> carga el confmodule, inicializa la db del paquete y lanza las entradas por medio de <b>db_input</b>. Algo así:
 
 <div>
 {% highlight bash %}
@@ -92,7 +92,7 @@ db_go || true
 
 <li>Recuperación de la información</li>
 <ul>
-El script postinst puede recuperar la información proporcionada por el usuario, tras cargar debconf, por medio de <b>db_get</b>. 
+El script postinst puede recuperar la información proporcionada por el usuario, tras cargar debconf, por medio de <b>db_get</b>.
 
 
 <div>

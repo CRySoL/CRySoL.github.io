@@ -6,7 +6,6 @@ created: 1171558144
 author: fsancho
 comments: true
 category: recipe
-render_with_liquid: false
 ---
 Este documento pretende servir de introducción a Wiki, para que te vayas familiarizando con este entorno de edición.
 
@@ -62,3 +61,4 @@ ScriptAlias /wiki "/var/lib/arcowiki/moin.cgi"
 </pre>
 
 Una vez realizados estos pasos tan solo queda reiniciar apache y empezar a editar tus documentos.
+

@@ -161,7 +161,7 @@ int main(int argc, char *argv[]) {
     ytitle = 50 - (ztitle_rect.h / 2);
     title_dest.x = xtitle;
     title_dest.y = ytitle;
-    
+
     /* Dibujamos el titulo en el buffer (que se volcaba a cada frame) */
     SDL_BlitSurface(zoomed_title, NULL, scr_buffer, &title_dest);
     ...
@@ -237,7 +237,7 @@ DEFAULT_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 MORE_CFLAGS = -O2
 
 CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS)
-CXXFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -fno-exceptions \ 
+CXXFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -fno-exceptions \
      -fno-rtti
 
 LDLIBS = -lSDL_gfx -lSDL_image -lSDL_mixer -lSDL_ttf -lvorbisidec \
@@ -263,7 +263,7 @@ DEFAULT_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 MORE_CFLAGS = -G0 -O2 -DPSP
 
 CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS)
-CXXFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -fno-exceptions \ 
+CXXFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -fno-exceptions \
         -fno-rtti
 
 LIBS = -lSDL_gfx -lSDL_image -lSDL_mixer -lSDL_ttf -lvorbisidec \
@@ -332,7 +332,7 @@ int main(int argc, char *argv[]){
     }
     #endif
   } while(!done);
-  
+
   SDL_Quit();
   exit(0);
 }</pre>
@@ -380,13 +380,13 @@ int CallbackThread(SceSize args, void *argp)
 int SetupCallbacks(void)
 {
   int thid = 0;
-  
+
   thid = sceKernelCreateThread("update_thread", CallbackThread, 0x11, 0xFA0, 0, 0);
   if(thid >= 0)
     {
       sceKernelStartThread(thid, 0, 0);
     }
-  
+
   return thid;
 }
 #endif</pre>
@@ -543,7 +543,7 @@ int main(int argc, char *argv[]){
       c_wait = 100;
       cz_factor = -0.1;
       zoom_credit = 4;
-      
+
       /* Siguiente credito */
       in_c = (in_c + 1) % CREDITS;
       txt(credits[in_c], WHITE, 5, 5);
@@ -555,7 +555,7 @@ int main(int argc, char *argv[]){
     SDL_BlitSurface(scr_buffer, NULL, screen, &dest);
 
     SDL_Flip(screen);
-    
+
     SDL_FreeSurface(zoomed_title);
     SDL_FreeSurface(ttext);
 
@@ -564,7 +564,7 @@ int main(int argc, char *argv[]){
     /* Estas rutinas no son necesarias en la PSP puesto */
     /* que tenemos configurados los ExitCallbacks */
     #ifndef PSP
-    while(SDL_PollEvent(&event)) 
+    while(SDL_PollEvent(&event))
       {
 	if (event.type == SDL_QUIT)
 	  {
@@ -575,7 +575,7 @@ int main(int argc, char *argv[]){
     #endif
 
   } while(!done);
-    
+
   /* Venga, hasta luego */
   SDL_Quit();
 
@@ -603,7 +603,7 @@ int Init(){
   frame = 0;
 
   lastTock = 0;
-  
+
   /* Inicializacion de SDL */
   if (SDL_Init(SDL_INIT_VIDEO) &#60; 0)
     fatalError("No se pudo inicializar el sistema SDL\n\r");
@@ -619,7 +619,7 @@ int Init(){
   /* Cargamos los sonidos */
   if(!initSounds())
     fatalError("No se pudieron cargar los sonidos\n\r");
-  
+
   /* Borramos la pantalla */
   dest.x = 0;
   dest.y = 0;
@@ -630,7 +630,7 @@ int Init(){
   dest.x = 0;
   dest.y = 0;
   SDL_BlitSurface(background, NULL, screen, &dest);
-	
+
   credits[0] = "CRySoL SDL Demo";
   credits[1] = "by Int-0";
   credits[2] = "greetingzzz to";
@@ -654,10 +654,10 @@ int Init(){
   in_c = 0;
 
   txt(credits[in_c], WHITE, 5, 5);
-	
+
   /* Draw init screen */
   SDL_Flip(screen);
-	
+
   return 1;
 }
 
@@ -721,12 +721,12 @@ int initSounds(){
 int loadFonts(){
   if (TTF_Init() != 0)
     fatalError("Fallo al inicializar libreria TTF\r\n");
-  
+
   if (!(font = TTF_OpenFont("arial.ttf", 12)))
     fatalError("Error al abrir arial.ttf\r\n");
-  
+
   TTF_SetFontStyle(font, TTF_STYLE_NORMAL);
-  
+
   return 1;
 }
 
@@ -766,10 +766,10 @@ int txt(char * str, int colour, int v, int h){
 
   if(!(ttext = TTF_RenderText_Blended(font, str, c)))
     fatalError("Error renderizando fuente\r\n");
-		
+
   rect.x = v;
   rect.y = h;
-	
+
   return 1;
 }
 
@@ -795,13 +795,13 @@ int CallbackThread(SceSize args, void *argp)
 int SetupCallbacks(void)
 {
   int thid = 0;
-  
+
   thid = sceKernelCreateThread("update_thread", CallbackThread, 0x11, 0xFA0, 0, 0);
   if(thid &#62;= 0)
     {
       sceKernelStartThread(thid, 0, 0);
     }
-  
+
   return thid;
 }
 #endif</pre>
@@ -832,7 +832,7 @@ Vale... vagos... :-P
 <ul><li><a href="/node/720">"Programación de la PSP: Intros multimedia"</a></li>
 <li><a href="/node/216">"Kit de desarrollo completo para PSP"</a></li></ul></li>
 <li>Cortesía de vigilando:
-<ul><li><a href="	
+<ul><li><a href="
 http://www.vigilando.org/files/sdltest.zip">Código fuente</a></li>
 <li><a href="http://www.vigilando.org/files/arte.zip">Arte</a></li></ul>
 </li></ul></li></ul>

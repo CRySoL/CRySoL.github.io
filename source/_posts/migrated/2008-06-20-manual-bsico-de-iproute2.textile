@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - networking
-render_with_liquid: false
 ---
 bq(head). Esta recetilla incluye algunos comandos sencillos para comprender y empezar a manejar el famoso pero desconocido comando @ip@.
 

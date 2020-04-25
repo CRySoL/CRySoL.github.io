@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Debian
 - security
-render_with_liquid: false
 ---
 bq(head). ¿Harto de teclear la clave cuando te salta el salvapantallas? ¿Harto de que el vecino de cubículo cotillee to correo cuando se te olvida bloquear el escritorio?  Tenemos una solución. El Omnikey Cardman 5321 es un lector de tarjetas RFID y de tarjetas de contactos bastante barato, pero el fabricante no proporciona información :-( .  Esta recetilla explica como usarlo en Debian usando el driver binario que distribuyen ellos.
 

@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Arco
-render_with_liquid: false
 ---
 Cómo leer y escribir en un puerto paralelo desde un programa C utilizando el driver @ppdev@ y la llamada al sistema @ioctl@
 

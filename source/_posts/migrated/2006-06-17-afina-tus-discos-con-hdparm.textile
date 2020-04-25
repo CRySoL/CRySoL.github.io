@@ -6,7 +6,6 @@ created: 1150543510
 author: david_villa
 comments: true
 category: recipe
-render_with_liquid: false
 ---
 hdparm es una pequeña herramienta que sirve para manipular la configuración de las unidades de disco. El objetivo es optimizar el tiempo de acceso o la velocidad de transferencia.
 
@@ -130,3 +129,7 @@ h2. Referencias
 * Fernando Sancho :-)
 * "Mejorando el rendimiento del disco duro con 'hdparm'":http://laespiral.org/recetas/1-100/receta36.html
 * @$ man hdparm@
+
+
+
+

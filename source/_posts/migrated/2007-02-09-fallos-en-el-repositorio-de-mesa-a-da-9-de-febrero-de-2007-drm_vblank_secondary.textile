@@ -5,7 +5,6 @@ title: Fallos en el repositorio de Mesa (a día 9 de Febrero de 2007) DRM_VBLANK
 created: 1171042335
 author: brue
 comments: true
-render_with_liquid: false
 ---
 En el repo de Mesa hay un bug temporal. El que quiera compilar en debian, tras enfrentarse con los apt-get's pertinentes de desarrollo (importante x11proto*, libnurbs, libxmu, libxi, libmesa...etc -dev), tendrá que definir la contante DRM_VBLANK_SECONDARY en algún sitio visible para vblank.c.
 

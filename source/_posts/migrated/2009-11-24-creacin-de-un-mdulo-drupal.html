@@ -69,16 +69,16 @@ function feedback_schema ()
   $schema['feedback_messages'] = array
   (
     'description' => t('Tabla para mensajes de retroalimentacion'),
-    'fields' => array 
+    'fields' => array
     (
-      'id' => array 
+      'id' => array
       (
         'description' => t('Identificador de mensaje'),
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
-      'uid' => array 
+      'uid' => array
       (
         'description' => t('Identificador del usuario que realiza el feedback'),
         'type' => 'int',
@@ -211,14 +211,14 @@ La función hook_block (seguro que ya os lo esperábais) tiene tres parámetros:
 <div>
 {% highlight php %}
 <?php
-/** 
+/**
 * Implementation of hook_block().
 */
 function feedback_block ( $op = 'list', $delta = 0, $edit = array() )
 {
   if ( $op == "list")
   {
-      $blocks = array(); 
+      $blocks = array();
       $blocks[0]["info"] = t('Feedback');
       $blocks[1]["info"] = t('New Feedbacks');
       return $blocks;
@@ -316,7 +316,7 @@ En el apartado anterior nos dejamos pendiente el manejo de direcciones. Para est
 /**
 * Implementation of hook_menu().
 */
-function feedback_menu ( ) 
+function feedback_menu ( )
 {
   $items = array();
 
@@ -359,7 +359,7 @@ Vamos con el formulario de inserción de un feed. Comenzamos por la función que
 function feedback_message ()
 {
   $content = '';
-  
+
   $content .= drupal_get_form ( 'feedback_message_form' );
 
   return $content;
@@ -379,10 +379,10 @@ function feedback_message_form ()
 {
   $form = array
   (
-    'feedback' => array 
-    ( 
-      '#type' => 'fieldset', 
-      '#title' => t( 'Feedback' ), 
+    'feedback' => array
+    (
+      '#type' => 'fieldset',
+      '#title' => t( 'Feedback' ),
       'message' => array ( '#type' => 'textarea', "#description"=>"Write here your message" ),
       'submit' => array ( '#type' => 'submit',  '#value' => t('Submit'),  ),
     ),
@@ -447,7 +447,7 @@ function feedback_admin ()
   $queryResult =  db_query ( $query );
 
   $rows = array ();
-  while ( $message = db_fetch_object ( $queryResult ) ) 
+  while ( $message = db_fetch_object ( $queryResult ) )
   {
     $row = array ();
     $row['name'] = $message->name;

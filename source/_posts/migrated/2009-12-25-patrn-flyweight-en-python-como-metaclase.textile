@@ -10,7 +10,6 @@ tags:
 - Arco
 - Python
 - patterns
-render_with_liquid: false
 ---
 Esta receta incluye una implementación «comentada» del patrón de diseño «<a href="http://es.wikipedia.org/wiki/Flyweight_%28patr%C3%B3n_de_dise%C3%B1o%29">Flyweight</a>» (peso mosca) usando una metaclase Python.
 

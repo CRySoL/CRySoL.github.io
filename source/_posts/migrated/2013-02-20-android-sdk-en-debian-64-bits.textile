@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Debian
 - android
-render_with_liquid: false
 ---
 El SDK de android (en concreto @adb@) requiere algunas librerías para i386. Si tienes una distribución de 64 bits necesitas instalar algunos paquetes adicionales que permiten usar dichas librerías. Simplemente ejecuta:
 
@@ -23,3 +22,5 @@ $ sudo apt-get update
 $ sudo apt-get install libc6:i386 libstdc++6:i386
 {% endhighlight %}
 </div>
+
+

@@ -10,7 +10,6 @@ tags:
 - INGSOFT
 - devel
 - VCS
-render_with_liquid: false
 ---
 Esta receta explica cómo configurar un repositorio subversion para lanzar una proyecto Hudson al hacer _commit_.
 

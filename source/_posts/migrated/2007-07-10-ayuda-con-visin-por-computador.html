@@ -8,8 +8,8 @@ comments: true
 category: enquiry
 ---
 <h2>Reconstrucción 3D a partir de dos imágenes</h2>
-<blockquote class="head"> 
-   Intento realizar la reconstrucción 3D a partir de la visión estereo (dos imágenes o más) he llegado a un punto en el que me he quedado atascado. A ver si alguno de ustedes me puede orientar. 
+<blockquote class="head">
+   Intento realizar la reconstrucción 3D a partir de la visión estereo (dos imágenes o más) he llegado a un punto en el que me he quedado atascado. A ver si alguno de ustedes me puede orientar.
  </blockquote>
 
 
@@ -23,13 +23,13 @@ Para ello yo estoy utilizando dos cámaras.
   <li>Calibrar la cámara  izquierda (Obtenemos la matriz de cámara   KL) </li>
   <li>Calibrar la cámara derecha  (Obtenemos la matriz de cámara   KR)   </li>
   <li> Sacar una imagen desde el lado izquierdo</li>
-  <li> Sacar una imagen desde el lado derecho</li> 
+  <li> Sacar una imagen desde el lado derecho</li>
   <li> Detectar coordenadas en píxeles del objeto deseado de la imagen izquierda(mínimo 8 ) </li>
   <li> Detectar las mismas  coordenadas en píxeles del objeto deseado en la imagen derecha(mínimo 8 )</li>
   <li> Calcular la matriz fundamental a partir de los píxeles anteriormente calculados
 
 
-<blockquote class="head"> 
+<blockquote class="head">
    Para ello utilizo la función de OpenCV:
    cvFindFundamentalMatrix( points1, points2,8,0, fund_matrix);
  points1 corresponde a los puntos de la imagen de la izquierda, y points2 corresponde a los puntos de la imagen de la derecha, la matriz fundamental queda almacenada  en fund_matrix.
@@ -37,8 +37,8 @@ Para ello yo estoy utilizando dos cámaras.
 
 </li>
 
-<li> calcular la matriz esencial a partir de la matriz fundamental y la matriz de cámara de ambas cámaras 
-<blockquote class="head"> 
+<li> calcular la matriz esencial a partir de la matriz fundamental y la matriz de cámara de ambas cámaras
+<blockquote class="head">
    De la siguiente forma:
       ME=KLT  x  F x  KR
 
@@ -46,16 +46,16 @@ Para ello yo estoy utilizando dos cámaras.
           KLT la matriz transpuesta de KL(matriz de cámara izquierda).
            KR matriz de cámara derecha.
            F la matriz fundamental.
-             
+
  </blockuote>
 
 </li>
-<li> calcular la descomposición SVD de la matriz esencial 
-<blockquote class="head"> 
+<li> calcular la descomposición SVD de la matriz esencial
+<blockquote class="head">
     Para ello hay que utilzar la siguiente funcion de OpenCV.
 
 	void cvSVD( CvArr* A, CvArr* W, CvArr* U=0, CvArr* V=0, int flags=0 );
-         
+
            A es la matriz que queremos descomponer.
            U,W,V son la matrices en las que se descompone. Como vemos en la siguiente  línea de abajo.
 
@@ -65,10 +65,10 @@ Para ello yo estoy utilizando dos cámaras.
 
 </li>
 <li> Calculamos la matriz de rotación(R)
-<blockquote class="head"> 
+<blockquote class="head">
   de la siguiente forma:
- 
-                 
+
+
 U*P* VT
 
 donde P es :
@@ -76,15 +76,15 @@ donde P es :
 | 0 1 0 |
 | -1 0 0|
  | 0 0 1|
-                       
+
  </blockuote>
 
 </li>
 <li> Calculamos la matriz de traslacion(T)
-<blockquote class="head"> 
+<blockquote class="head">
   de la siguiente forma:
- 
-                 
+
+
 V*PP* VT
 
 donde PP es :
@@ -92,22 +92,22 @@ donde PP es :
 | 0 -1 0 |
 | 1 0 0|
  | 0 0 1|
-     
+
 
 
 A partir de aquí es cuando empiezan mis primeras dudas, a partir de la T de arriba, tengo que sacar un vector de 3 X 1.
 En uno de los documentos lo que hacen es formar esta matriz de 3 X 1, a partir del a02 y a21, de la siguiente forma:
                  |a21|
                  |a02|
-                 |a02|                  
+                 |a02|
  </blockuote>
 
 </li>
 
   <li> Con todas las matrices halladas anteriormente resolver las siguientes dos ecuaciones independientes
-<blockquote class="head"> 
+<blockquote class="head">
    m1=[K1|0]M
-m2=[(K2*R)|(-K2*R*T)]*M 
+m2=[(K2*R)|(-K2*R*T)]*M
 
 
 m1 es una matriz 3X1 (coordenadas en pixeles de la primera imagen)
@@ -115,7 +115,7 @@ m2 es una matriz de 3X1 (coordenadas en pixeles de la segunda imagen)
 K1 es una matriz de 3x3(matriz de cámara 1)
 K2 es una matriz de 3X3(matriz de cámara 2)
 R es una matriz de 3X3 (matriz de rotación)
-T es una matriz de 3X1 (vector de traslacion) 
+T es una matriz de 3X1 (vector de traslacion)
 M es el punto 3D que quiero obtener.
 
  </blockuote>
@@ -124,7 +124,7 @@ M es el punto 3D que quiero obtener.
 </ol>
 
 <h2>Mis dudas</h2>
-Aplicando algebra lineal he conseguido hallar los puntos 3D M en ambas ecuaciones, el problema que he encontrado es que el eje Z, es decir, la tercera dimensión, la profundidad del objeto me la calcula de forma erronea. 
+Aplicando algebra lineal he conseguido hallar los puntos 3D M en ambas ecuaciones, el problema que he encontrado es que el eje Z, es decir, la tercera dimensión, la profundidad del objeto me la calcula de forma erronea.
 
 ¿Alguno de ustedes sabe si   mi error radica en algún paso anterior?
 ¿Alguno de ustedes realiza la reconstrucción 3D de otra forma?

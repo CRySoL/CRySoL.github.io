@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - gtk
-render_with_liquid: false
 ---
 Como ayer pudiste ver en la receta "Menús y barra de herramientas dinámicas en PyGTK":/node/1256 es fácil crear estos menús y barras (incluso menús emergentes) usando *UIManager*, *ÂctionGroup* y *Action* s. En esta receta quiero mostrar como crear elementos diferentes a los vistos en aquella receta para nuestras _Toolbar_, _Menubar_ y _Popup_.
 

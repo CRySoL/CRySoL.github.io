@@ -6,7 +6,6 @@ created: 1146133279
 author: magmax
 comments: true
 category: recipe
-render_with_liquid: false
 ---
 <blockquote>
 Ciertas tareas dependen del tiempo para funcionar (por ejemplo, el salvapantallas, make, cron, ...). Es interesante no tener que preocuparse de la hora del sistema, así como que la hora no cambie bruscamente. ¡Y es muy fácil!

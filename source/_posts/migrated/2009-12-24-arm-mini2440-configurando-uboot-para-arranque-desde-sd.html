@@ -27,7 +27,7 @@ Una vez que  tienes la partición hecha, copias la imagen <em>uImage</em> que co
 
 <div class="console">
 {% highlight console %}
-U-Boot 1.3.2-mini2440 (Oct 15 2009 - 19:42:55)                                                      
+U-Boot 1.3.2-mini2440 (Oct 15 2009 - 19:42:55)
 I2C:   ready
 DRAM:  64 MB
 Flash:  2 MB
@@ -38,8 +38,8 @@ In:    serial
 Out:   serial
 Err:   serial
 MAC: 08:08:11:18:12:27
-Hit any key to stop autoboot:  0 
-MINI2440 # 
+Hit any key to stop autoboot:  0
+MINI2440 #
 
 {% endhighlight %}
 </div>
@@ -57,7 +57,7 @@ Manufacturing date: 12/2006
 CRC:                0x78, b0 = 1
 READ_BL_LEN=15, C_SIZE_MULT=7, C_SIZE=3453
 size = 2329935872
-MINI2440 # 
+MINI2440 #
 
 {% endhighlight %}
 </div>
@@ -67,7 +67,7 @@ Una vez que la tarjeta ha sido detectada e inicializada correctamente, se carga 
 {% highlight console %}
 MINI2440 # ext2load mmc 0:1 0x32000000 uImage
 2148500 bytes read
-MINI2440 # 
+MINI2440 #
 
 {% endhighlight %}
 </div>
@@ -105,7 +105,7 @@ Puesto que ya hemos visto que nuestra configuración funciona, la guardamos:
 <div class="console">
 {% highlight console %}
 MINI2440 # setenv bootcmd 'mmcinit; fat2load mmc 0:1 0x32000000 uImage; bootm'
-MINI2440 # saveenv 
+MINI2440 # saveenv
 Saving Environment to NAND...
 Erasing Nand...Writing to Nand... done
 
@@ -162,7 +162,7 @@ mtddevnum=0
 mtddevname=u-boot
 bootcmd=mmcinit; fat2load mmc 0:1 0x32000000 uImage; bootm
 Environment size: 1209/131068 bytes
-MINI2440 # 
+MINI2440 #
 
 {% endhighlight %}
 </div>

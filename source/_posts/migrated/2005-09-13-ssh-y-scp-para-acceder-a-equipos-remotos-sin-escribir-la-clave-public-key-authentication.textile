@@ -9,7 +9,6 @@ comments: true
 category: recipe
 tags:
 - networking
-render_with_liquid: false
 ---
 Cómo configurar SSH para poder usar @ssh@ y @scp@ para acceder a otras máquinas autorizadas sin necesidad de indicar la clave de usuario cada vez que se conecta. También muy útil cuando se usan repositorios remotos que se acceden por SSH.
 

@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - emacs
-render_with_liquid: false
 ---
 GNU Emacs puede ser un excelente editor (como no?) también para SGML, XML, o derivados tan populares com XHTML o DocBook. Esta receta concretamente introduce el uso del paquete *psgml*, aunque hay otros.
 

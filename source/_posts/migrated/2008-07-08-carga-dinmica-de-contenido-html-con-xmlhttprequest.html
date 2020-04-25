@@ -70,21 +70,21 @@ Función cambiaTexto():
 
 <div>
 {% highlight javascript %}
-function cambiaTexto(){	
+function cambiaTexto(){
 	var menu = window.document.getElementById("menu");
-	var capa = window.document.getElementById("texto");	
+	var capa = window.document.getElementById("texto");
 	xmlhttp.open("GET", menu.value);
 	xmlhttp.onreadystatechange = function(){
 		if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
-			capa.innerHTML = xmlhttp.responseText;			
-		}		
+			capa.innerHTML = xmlhttp.responseText;
+		}
 	}
-	xmlhttp.send(null);				
+	xmlhttp.send(null);
 }
 {% endhighlight %}
 </div>
 
-Para poder manipular el menú y la capa creada con código HTML, utilizamos la función getElementById. El valor actual del menú contendrá el enlace de la página que hemos elegido <i>menu.value</i>. Por tanto, podemos hacer la petición del contenido de dicha página con el objeto <i>xmlhttp</i> y la función <i>open</i>. Además, podemos apreciar que en este ejemplo hemos realizado la petición con el método GET, pero es importante saber que no es la única forma, ya que existe varios métodos: GET, POST, HEAD, DELETE, TRACE, OPTIONS y CONNECT. 
+Para poder manipular el menú y la capa creada con código HTML, utilizamos la función getElementById. El valor actual del menú contendrá el enlace de la página que hemos elegido <i>menu.value</i>. Por tanto, podemos hacer la petición del contenido de dicha página con el objeto <i>xmlhttp</i> y la función <i>open</i>. Además, podemos apreciar que en este ejemplo hemos realizado la petición con el método GET, pero es importante saber que no es la única forma, ya que existe varios métodos: GET, POST, HEAD, DELETE, TRACE, OPTIONS y CONNECT.
 
 Finalmente, cuando la petición es satisfecha podemos cargar el contenido que ha sido solicitado en la capa (<i>capa.innerHTML = xmlhttp.responseText</i>)
 

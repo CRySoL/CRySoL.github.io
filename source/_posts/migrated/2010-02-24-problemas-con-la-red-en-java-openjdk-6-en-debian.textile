@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Java
-render_with_liquid: false
 ---
 Edita el fichero @/etc/sysctl.d/bindv6only.conf@ para que quede:
 

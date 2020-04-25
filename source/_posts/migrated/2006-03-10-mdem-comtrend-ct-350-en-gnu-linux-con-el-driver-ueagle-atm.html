@@ -14,7 +14,7 @@ tags:
 <!--break-->
 
 
-Desde que cambié de kernel me quedé sin conexión a Internet. Compilaba y recompilaba los drivers de mi módem, pero no había manera, así que me puse a buscar información, hasta que por fin vi la luz: al parecer, desde el kernel 2.6.10 los drivers para modems adsl usb (eagle-usb) están siendo reemplazados por ueagle-atm, en especial y sobre todo a partir del kernel 2.6.15. 
+Desde que cambié de kernel me quedé sin conexión a Internet. Compilaba y recompilaba los drivers de mi módem, pero no había manera, así que me puse a buscar información, hasta que por fin vi la luz: al parecer, desde el kernel 2.6.10 los drivers para modems adsl usb (eagle-usb) están siendo reemplazados por ueagle-atm, en especial y sobre todo a partir del kernel 2.6.15.
 
 <h2>Ingredientes</h2>
 Esta es la configuración que yo tengo y con la que he conseguido ponerlo en marcha:
@@ -51,12 +51,12 @@ obj-m := ueagle-atm.o
 obj-m += usbatm.o
 
 all:
-	$(MAKE) -C $(KERNELDIR) M=$(PWD) 
+	$(MAKE) -C $(KERNELDIR) M=$(PWD)
 #EXTRA_CFLAGS="-DDEBUG"
 
 nodebug:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD)
-	
+
 clean:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
 

@@ -42,28 +42,28 @@ using namespace std;
 int main(int argc, char* argv[])
 {
   curl_global_init(CURL_GLOBAL_ALL);
-  //Lo primero es crear un contexto.                                                                                         
+  //Lo primero es crear un contexto.
   CURL* contexto = curl_easy_init();
   if( contexto == NULL ){
     cerr << "Unable to initialize cURL interface" << endl ;
     return 1;
   }
 
-  /*El contexto creado debe ser configurado antes de lanzarse                                                                
+  /*El contexto creado debe ser configurado antes de lanzarse
    a su ejecucion. Para ello, se utiliza curl_easy_setopt*/
 
-  //La url objetivo                                                                                                          
+  //La url objetivo
   curl_easy_setopt(contexto, CURLOPT_URL, argv[1]);
 
-  //Si barra de progreso                                                                                                     
-  //Los valores son TRUE=1 o FALSE=1                                                                                         
+  //Si barra de progreso
+  //Los valores son TRUE=1 o FALSE=1
   curl_easy_setopt(contexto, CURLOPT_NOPROGRESS, 1);
 
-  //WRITEHEADER necesita de un FILE* para escribir la cabecera                                                               
-  //WRITE=recibir datos READ=mandar datos                                                                                    
+  //WRITEHEADER necesita de un FILE* para escribir la cabecera
+  //WRITE=recibir datos READ=mandar datos
   curl_easy_setopt(contexto, CURLOPT_WRITEHEADER, stderr);
 
-  //Igual, pero para el contenido real de la respuesta                                                                       
+  //Igual, pero para el contenido real de la respuesta
   curl_easy_setopt(contexto, CURLOPT_WRITEDATA, stdout);
 
   /*Fin de configuración. Ahora acción!.*/
@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
   if(CURLE_OK != rc){
     cerr << "Error from cURL: " << curl_easy_strerror(rc) << endl;
   }else{
-    // Estudiar algunos parómetros de la respuesta                                                                           
+    // Estudiar algunos parómetros de la respuesta
     cout << "\n\n **STATS** \n\n" << endl;
     double valorDouble ;
     long valorLong ;

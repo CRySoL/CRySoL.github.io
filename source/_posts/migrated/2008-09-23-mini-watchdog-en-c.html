@@ -15,13 +15,13 @@ A continuación os propongo el codigo de un pequeño WATCHDOG: Yo por ejemplo lo
 <!--break-->
 
 
-Para ejecutarlo yo por ejemplo hago: 
+Para ejecutarlo yo por ejemplo hago:
 
 
 <div class="console">
 {% highlight console %}
 
-$ ./watchdog /usr/bin/amule 
+$ ./watchdog /usr/bin/amule
 {% endhighlight %}
 </div>
 
@@ -51,7 +51,7 @@ int main(int argc,char *argv[]){
 
     //iniciamos el WATCHDOG y mostramos su PID por si es necesario
     printf("\nWATCHDOG COMIENZA SU ACTIVIDAD [PID=%d]",getpid());
-  
+
     while (ret!=0){
          //ejecutamos el comando que le hemos indicado
          if((pid=fork())==0) {
@@ -63,16 +63,16 @@ int main(int argc,char *argv[]){
         //esperamos a que el programa acabe su ejecución
         wait (&ret);
         printf("\n%s HA DEVUELTO %d",argv[1],ret);
-     
+
         if (ret==0) {
              //si devuelve 0 el programa fue finalizado correctamente
-             printf("\n\nSALIDA CORRECTA\n");  
+             printf("\n\nSALIDA CORRECTA\n");
        }else {
             //sino, finalizo de manera erronea
             printf("\n\nDEBE VOLVER A CARGARSE\n");
        }
 
-      //sincronizamos el flujo stdout   
+      //sincronizamos el flujo stdout
       fflush(stdout);
   }
 } //fin main

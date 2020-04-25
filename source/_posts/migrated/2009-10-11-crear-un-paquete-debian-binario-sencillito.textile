@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Arco
 - Debian-devel
-render_with_liquid: false
 ---
 En esta receta se muestran los pasos básicos para crear un paquete binario Debian de forma que puedas empaquetar tu programa de forma fácil y sencilla.
 

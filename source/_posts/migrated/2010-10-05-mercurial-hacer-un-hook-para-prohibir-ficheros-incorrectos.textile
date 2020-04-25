@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - mercurial
-render_with_liquid: false
 ---
 En esta receta veremos cómo hacer un script «hook» que impide a los usuarios puedan subir ficheros que no cumplan los criterios que decidamos. En concreto, vamos a evitar que puedan subir ficheros binarios al repositorio.
 

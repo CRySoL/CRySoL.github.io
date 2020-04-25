@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - networking
-render_with_liquid: false
 ---
 bq(head). Esta receta explica cómo evitar que las interfaces de red cambien arbitrariamente de nombre.
 

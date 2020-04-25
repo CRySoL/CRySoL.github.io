@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Arco
 - VCS
-render_with_liquid: false
 ---
 Cómo usar el servidor subversion para ejecutar automáticamente programas personalizados. Como ejemplo, la receta explica cómo actualizar una página web mantenida en un repositorio.
 

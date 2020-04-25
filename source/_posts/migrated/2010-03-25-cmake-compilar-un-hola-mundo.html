@@ -31,7 +31,7 @@ ADD_EXECUTABLE(hello hello.cpp)
 {% endhighlight %}
 </div>
 
-En primer lugar, se especifica la versión mínima de CMake que se debe utilizar. A continuación, se debe dar un nombre al proyecto utilizando el comando PROJECT. 
+En primer lugar, se especifica la versión mínima de CMake que se debe utilizar. A continuación, se debe dar un nombre al proyecto utilizando el comando PROJECT.
 
 Como se trata de un proyecto archi-sencillo, sólo consta de un ejecutable y éste se debe generar a partir del fichero "hello.cpp" (su dependencia). El comando ADD_EXECUTABLE acepta una lista de dependencias. Como puedes ver, prácticamente es una regla de Makefile pero más abstracta de forma que sea posible no sólo crear Makefiles sino también exportar a proyectos de Eclipse y otros entornos de desarrollo privativos (a los cuales no recomiendo exportar).
 

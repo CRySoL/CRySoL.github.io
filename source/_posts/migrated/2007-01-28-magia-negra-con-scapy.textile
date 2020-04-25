@@ -10,7 +10,6 @@ tags:
 - security
 - scapy
 - networking
-render_with_liquid: false
 ---
 Esta receta en realidad es una traducción de un artículo de Rob Klein titulado "Packet Wizardry: Ruling the Network with Python":http://hackaholic.org/papers/blackmagic.txt usando la magnífica herramienta "scapy":http://www.secdev.org/projects/scapy/. Igual es un poco largo para receta, pero bueno, no tiene desperdicio.
 

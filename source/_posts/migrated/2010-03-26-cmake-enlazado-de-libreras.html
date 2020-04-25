@@ -21,7 +21,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(hello)
 
 # Para includes
-FIND_PATH(dummy_path dummy.h)  
+FIND_PATH(dummy_path dummy.h)
 
 IF(NOT dummy_path)
    MESSAGE(FATAL_ERROR "** Falta la cabecera dummy.h, dummy!")

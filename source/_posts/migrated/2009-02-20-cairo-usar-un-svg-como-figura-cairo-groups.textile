@@ -10,7 +10,6 @@ tags:
 - Arco
 - Python
 - gtk
-render_with_liquid: false
 ---
 En esta receta, crearemos una figura, o un Surface usando la nomenclatura de Cairo, a partir de una imagen en formato SVG.
 

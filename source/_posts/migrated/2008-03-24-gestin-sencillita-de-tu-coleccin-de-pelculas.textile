@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Python
-render_with_liquid: false
 ---
 bq(head). Esta receta explica cómo añadir de una forma muy fácil títulos a tu colección (gestionada con GCStar) mediante un scriptillo hecho en Python + amara. (menudo combo! :-))
 
@@ -34,6 +33,7 @@ Como verás, gracias a @amara@ el programa resulta muy sencillo:
 
 <div>
 {% highlight python %}
+{% raw %}
 #!/usr/bin/python
 import sys, os, amara
 
@@ -70,6 +70,7 @@ fd.write(doc.xml())
 fd.close()
 
 print count, 'new items'
+{% endraw %}
 {% endhighlight %}
 </div>
 
@@ -84,29 +85,23 @@ El script utiliza el último fichero de colección que hayas utilizado desde GCS
 Puedes ponerle un título desde la entrada estándar:
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
  echo "Love story" | gcstar_add.py
-{% endhighlight %}
-</div>
+</pre>
 
 Y claro, también un fichero de texto (en UTF-8) que contenga títulos (uno por línea):
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 gcstar_add.py ~/pelis.gcs < mis_pelis.txt
-{% endhighlight %}
-</div>
+</pre>
 
 O añadir todos los ficheros que un directorio:
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 $ ls *.avi | gcstar_add.py
-{% endhighlight %}
-</div>
+</pre>
 
 
 h2. Desde nautilus
@@ -118,6 +113,7 @@ Y para completar la jugada, el script para añadir películas directamente desde
 
 <div>
 {% highlight text %}
+{% raw %}
 !/bin/bash
 
 fname=/tmp/gcstar-$PPID
@@ -130,6 +126,7 @@ done
 ~/bin/gcstar_add.py < $fname
 
 rm $fname
+{% endraw %}
 {% endhighlight %}
 </div>
 

@@ -22,10 +22,10 @@ Si se desea instalar el fichero mi_ejecutable en la ubicación <tt>/usr/bin/mi_e
 
 <div class="console">
 {% highlight console %}
-./debian/usr/bin/mi_ejecutable 
+./debian/usr/bin/mi_ejecutable
 {% endhighlight %}
 </div>
-      
+
 
 
 <h1> Generación de los ficheros de control</h1>
@@ -40,7 +40,7 @@ Los ficheros de control deben almacenarse en la siguiente ubicación:
 debian/DEBIAN
 {% endhighlight %}
 </div>
-      
+
 
 
 <h2> El fichero Control</h2>
@@ -60,7 +60,7 @@ Maintainer: Chr. Clemens Lee <clemens@kclee.com>
 Description: Linux system information
  This script provides a broad overview of different
  system aspects.
-</pre>	
+</pre>
 
 
 <h2> Configuración mediante debconf</h2>
@@ -77,7 +77,7 @@ Desde el directorio inmediatamente superior al directorio de trabajo debian debe
 $ fakeroot dpkg-deb --build debian .
 {% endhighlight %}
 </div>
-      
+
 
 Esto generará un paquete con el nombre <paquete>_<versión>_<arquitectura>.deb.
 

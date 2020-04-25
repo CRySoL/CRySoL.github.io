@@ -6,7 +6,6 @@ created: 1296269544
 author: david_villa
 comments: true
 category: recipe
-render_with_liquid: false
 ---
 That recipe shows how to configure "redmine":http://www.redmine.org/ to use PAM authentication. It includes the PAM authentication plugin code.
 
@@ -22,20 +21,14 @@ h2. Ingredients
 
 h2. Install dependences
 
-
-<div class="console">
-{% highlight console %}
-
+<pre class="console">
 $ sudo aptitude install libpam0g-dev
 $ sudo gem install rpam
-{% endhighlight %}
-</div>
+</pre>
 
 h2. Testing @rpam@
 
 Write that in a @auth.rb@ file:
-
-
 
 <div>
 {% highlight ruby %}
@@ -61,15 +54,11 @@ end
 
 And run it with:
 
-
-<div class="console">
-{% highlight console %}
-
+<pre class="console">
 $ ruby ./auth.rb peter
 {write password here}
 Authenticate Successful
-{% endhighlight %}
-</div>
+</pre>
 
 h2. The plugin
 
@@ -99,10 +88,8 @@ class AuthSourcePam < AuthSource
   end
 
 end
-
 {% endhighlight %}
 </div>
-
 
 Put that file in @/usr/share/redmine/app/models/@ (in the case of Debian)
 
@@ -111,13 +98,10 @@ h2. Register the plugin
 Like the Authentication HowTo say, you must insert a record in the auth_sources database table. I use sqlite3 so in my case I did:
 
 
-<div class="console">
-{% highlight console %}
-
+<pre class="console">
 $ sqlite3 /var/lib/dbconfig-common/sqlite3/redmine/instances/default/redmine_default
 sqlite> insert into auth_sources values (NULL, 'AuthSourcePam', 'Pam', 'localhost', 1, 'user', 'pass', 'app', 'name', 'firstname', 'lastname', 'email', 1, 0);
-{% endhighlight %}
-</div>
+</pre>
 
 
 h2. Selecting authentication method

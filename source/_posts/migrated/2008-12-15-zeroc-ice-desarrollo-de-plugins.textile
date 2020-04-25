@@ -10,7 +10,6 @@ tags:
 - Arco
 - Ice
 - C++
-render_with_liquid: false
 ---
 Añadir nueva funcionalidad a ZeroC Ice es fácil: usando plugins. Ice provee una interfaz local, Ice::Plugin, que podemos usar para crearlos. Veamos un ejemplo sencillo. <b>Probado en Ice 3.3.</b>
 

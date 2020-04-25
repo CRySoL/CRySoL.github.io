@@ -13,7 +13,6 @@ tags:
 - C++
 - devel
 - Arco
-render_with_liquid: false
 ---
 Currently I am building tests for an existing implementation of IDM. I am using "google-mock":http://code.google.com/p/googlemock, a mocking library for C++ classes. Let's see an example of "dependency injection":http://en.wikipedia.org/wiki/Dependency_injection. This basic technique is used when you are mocking your classes and, thus, obtain non-fragile tests.
 

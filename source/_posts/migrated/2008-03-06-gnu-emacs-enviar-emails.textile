@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - emacs
-render_with_liquid: false
 ---
 <blockquote class="head">
    Esta receta explica como configurar GNU Emacs para poder enviar emails desde cuentas de Gmail.

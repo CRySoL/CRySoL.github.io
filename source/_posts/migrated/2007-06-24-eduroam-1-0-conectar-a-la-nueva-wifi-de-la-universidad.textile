@@ -9,7 +9,6 @@ category: recipe
 tags:
 - GNESIS
 - uclmwifi
-render_with_liquid: false
 ---
 Acabo de subir al repositorio de GNESIS un nuevo paquete para la conexión con la nueva red WiFi de la universidad: <b>eduroam</b>. El programa está basado, como se puede apreciar, en el funcionamiento de UCLM-WiFi y es muy fácil de utilizar. En principio debería funcionar sin problema en Debian, Ubuntu y otras distros derivadas.
 

@@ -9,7 +9,6 @@ category: recipe
 tags:
 - embedded
 - networking
-render_with_liquid: false
 ---
 Si tenéis un router "La Fonera", con versión del firmware 0.7.1 r2, esto te interesa. Hasta esta versión era muy sencillo acceder al shell por diferentes maneras, pero los de Fon se lo han currado y en la revisión 2 han cerrado muchos agujeros.
 

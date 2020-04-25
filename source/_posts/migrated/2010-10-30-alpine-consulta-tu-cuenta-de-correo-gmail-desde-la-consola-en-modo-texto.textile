@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - shell
-render_with_liquid: false
 ---
 <a href="http://www.washington.edu/pine/">Alpine</a> es una herramienta desarrollada por la Universidad de Washington que permite consultar noticias y el correo electrónico desde un terminal. En esta receta se describen los pasos necesarios para configurar tu cuenta Gmail.
 
@@ -54,3 +53,4 @@ h3. Importar firma
 
 * Copiar la firma desde la configuración de nuestra cuenta gmail
 * Copiar el contenido en el archivo  /home/usuario/.signature
+

@@ -10,7 +10,7 @@ tags:
 - Oreto
 - multimedia
 ---
-<blockquote class="head"> 
+<blockquote class="head">
 Esta receta pretende mostrar al usuario cómo conectar con una cámara Axis 211W de manera remota mediante OpenCV en Ubuntu 9.04.
 </blockquote>
 
@@ -48,7 +48,7 @@ $ tar xvf OpenCV-2.0.0.tar
 <div class="console">
 {% highlight console %}
 
-$ cd ~/OpenCV-2.0.0 
+$ cd ~/OpenCV-2.0.0
 {% endhighlight %}
 </div>
 
@@ -101,7 +101,7 @@ $ sudo make install
 Hay que utilizar la siguiente:
 
 <pre>
-cvCreateFileCapture 
+cvCreateFileCapture
 </pre>
 
 Puedes ver lo que hace la instrucción en el <a href="http://www.cognotics.com/opencv/docs/1.0/ref/opencvref_highgui.htm">manual</a>.
@@ -123,7 +123,7 @@ void run_camera() {
    int key = 0;
    CvCapture* capture = NULL;
    IplImage* frame = NULL;
-   CvSize imageSize; 
+   CvSize imageSize;
 
    imageSize.width=WIDTH;
    imageSize.height=HEIGHT;
@@ -131,11 +131,11 @@ void run_camera() {
    frame = cvCreateImage(imageSize,IPL_DEPTH_8U,3);
 
    cvNamedWindow("camera",-1);
-   cvMoveWindow("camera",POSITION_X,POSITION_Y); 
-  
+   cvMoveWindow("camera",POSITION_X,POSITION_Y);
+
    capture = cvCreateFileCapture("escribe_la_URL_de_la_cámara/mjpg/video.mjpg");
 
-   if (capture) {   
+   if (capture) {
       for (;;) {
          frame = cvQueryFrame(capture);
          cvShowImage("camera", frame );
@@ -143,11 +143,11 @@ void run_camera() {
          key = cvWaitKey(2);
          if((char) key == 27)
             break;
-      }	
+      }
    }
 
    cvReleaseCapture(&capture);
-   cvDestroyWindow("camera"); 
+   cvDestroyWindow("camera");
 }
 {% endhighlight %}
 </div>

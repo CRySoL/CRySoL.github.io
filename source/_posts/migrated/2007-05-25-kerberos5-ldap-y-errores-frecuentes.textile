@@ -7,7 +7,6 @@ author: paco
 comments: true
 tags:
 - Debian
-render_with_liquid: false
 ---
 h2. Autenticación Kerberos o ActiveDirectory
 
@@ -116,3 +115,4 @@ francisco.moya:*:13475:0:99999:7:::
 </div>
 
 h2. Datos de usuario compartidos con LDAP
+

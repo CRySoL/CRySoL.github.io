@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - networking
-render_with_liquid: false
 ---
 This recipe shows how to setup a basic synchronization mechanism (similar to DropBox) by means of conventional GNU/Linux tools. This does not require root privileges and no packages (except ssh-server) need to be installed in the server.
 

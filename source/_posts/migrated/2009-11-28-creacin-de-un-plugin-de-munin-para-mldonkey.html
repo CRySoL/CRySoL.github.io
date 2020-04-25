@@ -9,7 +9,7 @@ category: recipe
 tags:
 - shell
 ---
-<blockquote class="head"> 
+<blockquote class="head">
 Munin es una herramienta de monitorización que recopila multitud de datos del sistema y los presenta en forma de gráficas incrustadas en una página web. La gran virtud de munin es su extrema sencillez a la hora de instalarlo y configurarlo. Trae de serie una grandísima cantidad de plugins para monitorizar casi cualquier variable del sistema.
 
 En esta receta veremos que también es extremadamente sencillo crear nuevos plugins para munin. Como ejemplo crearemos un plugin para monitorizar el consumo de ancho de banda de la aplicación mldonkey.
@@ -31,7 +31,7 @@ $ /usr/lib/mldonkey/mldonkey_command -p "password" bw_stats
 > bw_stats
 Down: 11.4 KB/s ( 64 + 11592 ) | Up: 9.9 KB/s ( 17 + 10118 ) | Shared: 1118/98.95G | Downloaded: 33.7M | Uploaded: 52.1M
 MLdonkey command-line:
-> 
+>
 {% endhighlight %}
 </div>
 
@@ -83,7 +83,7 @@ Para que munin sepa mas acerca de la naturaleza de los datos, así como informac
 <tt>download.label download speed</tt>: Esto sirve para darle un nombre descriptivo a la variable.
 <tt>download.max 50000</tt>: Con esto establecemos un valor máximo. 50.000 bytes por segundo parece un buen valor.
 <tt>download.min 0</tt>: Este es el valor mínimo que puede alcanzar la variable.
-<tt>download.cdef download,1024,*</tt>: Por último, multiplicamos la lectura por 1024 para obtener el valor en bytes, ya que el servidor de mldonkey nos da el valor en KB, que asumiremos que se trata de KiB. 
+<tt>download.cdef download,1024,*</tt>: Por último, multiplicamos la lectura por 1024 para obtener el valor en bytes, ya que el servidor de mldonkey nos da el valor en KB, que asumiremos que se trata de KiB.
 
 Con la variable <em>upload</em> haremos exactamente lo mismo. Y con esto ya tenemos toda la información necesaria para montar nuestro plugin.
 
@@ -104,7 +104,7 @@ if [ "$1" = "autoconf" ]; then
         exit 0
      fi
 fi
-                                                
+
 if [ "$1" = "config" ]; then
     echo "graph_title MLDonkey traffic"
     echo 'graph_info This graph shows MLDonkey DL/UL rates.'
@@ -118,7 +118,7 @@ if [ "$1" = "config" ]; then
     echo 'download.max 50000'
     echo 'download.min 0'
     echo 'download.cdef download,1024,*'
-    
+
     echo 'upload.label upload speed'
     echo 'upload.max 50000'
     echo 'upload.min 0'
@@ -143,7 +143,7 @@ echo "upload.value $UP"
 
 <p>Cuando el script se invoca con el parámetro <em>autoconf</em> el plugin comprueba que tiene todo lo necesario para ejecutarse.  En el segundo bloque viene todo lo explicado anteriormente, que no es mas que una enumeración de todos los parámetros de la gráfica. Muchos de esos valores son opcionales y no dudes en jugar con ellos hasta dar con los mas adecuados. Puedes consultar una referencia completa de todos los argumentos en [3].
 
-Al final se ve que el plugin solo se limita a imprimir las variables con los valores de la forma que se explicó al principio de la receta. 
+Al final se ve que el plugin solo se limita a imprimir las variables con los valores de la forma que se explicó al principio de la receta.
 
 Sólo nos quedaría grabar el script en un fichero, darle atributos de ejecución, grabarlo en <em>/etc/munin/plugins</em> y reiniciar el demonio <em>munin-node</em>.
 

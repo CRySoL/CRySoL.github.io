@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - networking
-render_with_liquid: false
 ---
 Cómo montar un directorio de otra máquina que tenga un servidor de SSH utilizando el paquete sshfs
 

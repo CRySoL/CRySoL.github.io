@@ -45,9 +45,9 @@ class Impresora {
 public:
   Impresora(const string&);
   ~Impresora();
-  
+
   void imprimirLista(set<string>);
-    
+
 private:
   string nombre;
 };
@@ -74,7 +74,7 @@ Impresora::imprimirLista(set<string> lista) {
   set<string>::iterator it;
   for ( it=lista.begin() ; it != lista.end(); it++ )
     cout << " " << *it;
-  
+
   cout << "<--- Imprime " << nombre << endl;
 }
 {% endhighlight %}
@@ -91,7 +91,7 @@ LFLAGS = -shared
 all: libImpresora.so
 
 libImpresora.so: Impresora.o
-	$(CC) $(CXXFLAGS) $(LFLAGS) $^ -o $@ 
+	$(CC) $(CXXFLAGS) $(LFLAGS) $^ -o $@
 {% endhighlight %}
 </div>
 
@@ -112,8 +112,8 @@ class Impresora {
 public:
   Impresora(const char *);
   ~Impresora();
-  
-  void imprimirLista(SIP_PYLIST); 
+
+  void imprimirLista(SIP_PYLIST);
 };
 {% endhighlight %}
 </div>

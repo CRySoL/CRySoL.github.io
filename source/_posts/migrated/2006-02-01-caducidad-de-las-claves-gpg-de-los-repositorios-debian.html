@@ -21,7 +21,7 @@ W: Tal vez quiera ejecutar 'apt-get update' para corregir estos problemas
 </pre>
 
 Esto es debido a que hace ya tiempo que apt incluye un sistema de verificación de paquetes utilizando firma digital GPG.
-Esta clave se renueva anualmente. Por lo general instalando el paquete "debian-keyring" y añadiendo las claves que 
+Esta clave se renueva anualmente. Por lo general instalando el paquete "debian-keyring" y añadiendo las claves que
 contiene el anillo a las claves de nuestro apt bastaba. Esto se hace así:
 
 
@@ -38,7 +38,7 @@ Pero al hacer un update se sigue (o al menos a mi me pasa) que se vuelve a obten
 
 <div class="console">
 {% highlight console %}
-$ wget http://ftp-master.debian.org/ziyi_key_2006.asc -O - | apt-key add - 
+$ wget http://ftp-master.debian.org/ziyi_key_2006.asc -O - | apt-key add -
 {% endhighlight %}
 </div>
 

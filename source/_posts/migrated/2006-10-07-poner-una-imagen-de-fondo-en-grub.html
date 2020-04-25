@@ -30,16 +30,16 @@ Una imagen de arranque de GRUB puede tener una resolución máxima de 640X480 p�
 
 <h2>Comprimir la imagen</h2>
 
-Aunque  no es estrictamente necesario comprimir la imagen, reducirá el tiempo necesario para cargarla. Por lo que harás lo siguiente desde línea de comandos(accede al directorio en donde guardaste la imagen): 
+Aunque  no es estrictamente necesario comprimir la imagen, reducirá el tiempo necesario para cargarla. Por lo que harás lo siguiente desde línea de comandos(accede al directorio en donde guardaste la imagen):
 
 
 <div class="console">
 {% highlight console %}
-$ gzip nombre_que_hayas_elegido.xpm 
+$ gzip nombre_que_hayas_elegido.xpm
 {% endhighlight %}
 </div>
 
-esta instrucción creará un archivo de la forma <b>nombre_que_hayas_elegido.xpm.gz</b> 
+esta instrucción creará un archivo de la forma <b>nombre_que_hayas_elegido.xpm.gz</b>
 
 
 <h2>Copiar en el directorio /boot/grub</h2>
@@ -49,7 +49,7 @@ Ahora copia el fichero <b>nombre_que_hayas_elegido.xpm.gz</b> en el directorio <
 
 <div class="console">
 {% highlight console %}
-$ sudo  cp nombre_que_hayas_elegido.xpm.gz /boot/grub 
+$ sudo  cp nombre_que_hayas_elegido.xpm.gz /boot/grub
 {% endhighlight %}
 </div>
 

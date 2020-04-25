@@ -10,7 +10,6 @@ tags:
 - networking
 - security
 - Arco
-render_with_liquid: false
 ---
 bq(head). Cómo instalar y configurar @knockd@, un demonio de _port-knocking_
 

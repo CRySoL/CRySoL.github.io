@@ -6,7 +6,6 @@ created: 1155943639
 author: fsancho
 comments: true
 category: recipe
-render_with_liquid: false
 ---
 <blockquote>
 Pululando por el <a href="http://blogs.adobe.com/penguin.swf/">blog de desarrollo</a> de la próxima versión del plugin de flash para GNU/Linux, he visto una recetilla que explica cómo solucionar el problema de desincronización de audio y video que sufrimos los que usamos el plugin de flash en GNU/Linux, sobre todo aquellos que no disponen de un ordenador muy potente.
@@ -95,3 +94,4 @@ Después edita el fichero "/etc/firefox/firefoxrc" y déjalo de esta manera.
 # which /dev/dsp wrapper to use
 FIREFOX_DSP="aoss"
 </pre>
+

@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Python
 - patterns
-render_with_liquid: false
 ---
 Esta receta incluye la implementación «comentada» del patrón de diseño «Singleton» usando una metaclase Python.
 

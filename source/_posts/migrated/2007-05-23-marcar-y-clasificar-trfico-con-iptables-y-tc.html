@@ -17,7 +17,7 @@ Siguiendo el hilo de la receta anterior, vamos a ver cómo podemos clasificar el
 
 <h2>Clasificando paquetes</h2>
 
-Bueno, esta claro que si queremos establecer clases de tráfico podemos hacer dos cosas,  una marcar el tráfico de paquetes en el origen y sólo clasificar en el nodo que hace de enlace con, por ejemplo, Internet y otra, no marcar en el origen y filtrarlo (ademas de clasificar) todo en  el nodo que hace de enlace. 
+Bueno, esta claro que si queremos establecer clases de tráfico podemos hacer dos cosas,  una marcar el tráfico de paquetes en el origen y sólo clasificar en el nodo que hace de enlace con, por ejemplo, Internet y otra, no marcar en el origen y filtrarlo (ademas de clasificar) todo en  el nodo que hace de enlace.
 
 Si nos imaginamos un nodo con dos interfaces, una conectada a Internet y otra a una red ethernet  través de la cual se conectan otros nodos podemos establecer reglas de marcado en esos nodos mientras que en el enlace simplemente clasificamos el tráfico que le llega en el sistema de colas.
 
@@ -30,13 +30,13 @@ Para marcar un paquete debemos usar iptables. Si observamos una regla de iptable
 #iptables -t mangle -I POSTROUTING 1 -p tcp -s 111.11.11.105 -j TOS --set-tos 16
 
 {% endhighlight %}
-</div> 
+</div>
 
 Vemos que lo primero que nos encontramos es el "-t mangle" , que le indica la tabla dónde vamos a operar,  por la tabla mangle pasan todos los paquetes por lo que no se nos escapa ninguno, si quieres ver una descripción de las tablas, y su uso mira <a href="http://es.wikipedia.org/wiki/Netfilter/iptables">aquí</a>.
 
 Lo siguiente que viene es "-I POSTROUTING" que nos indica dónde vamos a aplicar la clasificación, como hemos dicho antes, estamos marcando el tráfico que el nodo genera por lo que lo marcamos despues del enrutado de los paquetes. En este punto hay que hacer una pequeña parada, el sitio ideal para marcar el paquete que ha sido originado en un sistema es en OUTPUT, ya que por ahí pasa todo el tráfico generado en un nodo, no obstante a mi me interesa hacerlo en POSTROUTING por que me interesa marcar tráfico que pasa por mi sistema y que no esta marcado (cosas del curro:-)).
 
-El 1 que viene a continuación es el número de la regla que vas a crear, acuerdate de esto si quieres borrarla luego. 
+El 1 que viene a continuación es el número de la regla que vas a crear, acuerdate de esto si quieres borrarla luego.
 
 A continación vienen las reglas que debe cumplir el paquete para marcarlo, en nuestro caso buscamos todo el tráfico tcp que viene de la dirección 111.11.11.105, "-p tcp -s 111.11.11.105". Y por último especificamos qué queremos hacer con esos paquetes, en nuestro caso vamos a poner el valor 16 en el campo TOS.
 

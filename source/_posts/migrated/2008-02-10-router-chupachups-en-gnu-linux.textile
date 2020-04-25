@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - networking
-render_with_liquid: false
 ---
 bq(head). Un "router chupachups" (más conocido como "router on a stick":http://en.wikipedia.org/wiki/One-armed_router) es una máquina que ruta tráfico entre dos o más redes que coexisten en la misma red física. Eso se consigue normalmente por medio de <a href="http://en.wikipedia.org/wiki/Virtual_LAN">VLAN</a>es (aunque éste no es el caso). Es decir, es un router con una única interfaz de red.
 

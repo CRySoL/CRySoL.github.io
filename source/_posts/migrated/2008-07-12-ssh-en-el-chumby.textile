@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Chumby
-render_with_liquid: false
 ---
 bq(head). En esta receta voy a contar cómo activar el SSH del Chumby de forma temporal y permanente, y también cómo ponerle una contraseña.
 

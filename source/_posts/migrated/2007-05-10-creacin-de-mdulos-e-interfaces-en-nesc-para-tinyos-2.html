@@ -29,7 +29,7 @@ Todo el código de ejemplo que se usa en esta receta puede descargarse, vía sub
 
 <div class="console">
 {% highlight console %}
-javieralso@richie:~$ svn co https://arco.inf-cr.uclm.es/svn/public/prj/tinyOS 
+javieralso@richie:~$ svn co https://arco.inf-cr.uclm.es/svn/public/prj/tinyOS
 {% endhighlight %}
 </div>
 
@@ -67,7 +67,7 @@ interface interfazPRB {
 
 para <em>interfazPRB.nc</em>
 
-Bueno. Se puedes ver, escribir una un interfaz es bastante simple. Lo único que hay que hacer es especificar el nombre de la y los comandos de que consta. Estos comandos son los prototipos (como se llama en <em>ANSI C</em>) de las funciones precedidos de la palabra reservada <b>command</b>. Si quisiesesmos declarar <em>señales</em>, utilizariamos el modificador <b>signal</b>. El nombre del archivo debe de ser el mismo que el del interfaz, respetando las mayúsculas y con extensión <em>.nc</em>. 
+Bueno. Se puedes ver, escribir una un interfaz es bastante simple. Lo único que hay que hacer es especificar el nombre de la y los comandos de que consta. Estos comandos son los prototipos (como se llama en <em>ANSI C</em>) de las funciones precedidos de la palabra reservada <b>command</b>. Si quisiesesmos declarar <em>señales</em>, utilizariamos el modificador <b>signal</b>. El nombre del archivo debe de ser el mismo que el del interfaz, respetando las mayúsculas y con extensión <em>.nc</em>.
 
 <h2>Módulos</h2>
 
@@ -83,7 +83,7 @@ module modulo2C {
   provides {
     interface interfaz2;
     /*
-      Única interfaz proporcionada por el módulo 
+      Única interfaz proporcionada por el módulo
     */
   }
 }
@@ -107,7 +107,7 @@ implementation
 {% endhighlight %}
 </div>
 
-para <em>modulo2C</em> y 
+para <em>modulo2C</em> y
 
 
 <div>
@@ -158,7 +158,7 @@ implementation  {
   components LedsC;
   components modulo2C;
   components moduloC;
-  
+
   moduloC.Leds -> LedsC;
   moduloC.interfaz2 -> modulo2C;
 
@@ -167,7 +167,7 @@ implementation  {
 {% endhighlight %}
 </div>
 
-Paso a paso para no liarnos: 
+Paso a paso para no liarnos:
 
 Lo primero que tenemos que hacer es indicar que estamos hablando de una configuración, en éste caso <em>moduloEjmC</em>. Como siempre, dicho nombre coincide con el del archivo en el que se aloja. Ésta configuración, provee una interfaz (aunque podrian ser mas), la interfaz <em>interfazPRB</em>.
 En la parte de implementación vemos que utilizamos tres módulos o componentes: <em>LedsC</em>,  <em>modulo2C</em> y <em>moduloC</em>. Éstos son los módulos cuya funcionalidad necesitaremos para llevar a cabo las tareas de la configuración en la que estamos trabajando.

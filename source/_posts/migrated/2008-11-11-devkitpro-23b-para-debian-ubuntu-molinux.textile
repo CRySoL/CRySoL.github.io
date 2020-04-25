@@ -8,7 +8,6 @@ comments: true
 category: new
 tags:
 - Debian
-render_with_liquid: false
 ---
 Con propósitos docentes he generado un paquetillo Debian que contiene <a href="http://www.devkitpro.org/">DevkitPro</a> 23b para ARM EABI, PPC y PSP completo, con las herramientas de manipulación de imágenes, generación de ROMs, depuración, etc.
 

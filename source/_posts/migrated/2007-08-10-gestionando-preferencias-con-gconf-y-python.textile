@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Python
-render_with_liquid: false
 ---
 bq(head). Esta receta es un pequeña introducción al uso de GConf desde un programa Python.
 

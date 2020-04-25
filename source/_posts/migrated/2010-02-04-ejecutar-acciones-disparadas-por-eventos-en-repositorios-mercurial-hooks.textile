@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Arco
 - VCS
-render_with_liquid: false
 ---
 "Mercurial":http://mercurial.selenic.com/, como ya vimos en la receta  "«Mercurial, por favor»":/node/919 es un sistema de control de versiones distribuido y demás info que podéis encontrar en los enlaces. En esta receta quiero explicar algo sobre el uso un poco más avanzado: los llamados _hooks_
 

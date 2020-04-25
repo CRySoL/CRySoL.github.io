@@ -9,7 +9,6 @@ category: recipe
 tags:
 - networking
 - Arco
-render_with_liquid: false
 ---
 <blockquote>Vamos a describir en esta receta algunos de los comandos útiles para lo que se ha venido a denominar traffic shaping, en cristiano, control de nuestro ancho de banda. Aviso a navegantes, este tema es un poco lioso y yo no soy ni mucho menos un experto por lo que, primero, espero comentarios, correcciones, mejoras, etc. y segundo, ojo con lo que haces!! </blockquote>
 
@@ -159,3 +158,4 @@ Cada sistema de colas diferentes tiene comandos y parámetros específicos , en 
 * <a href="http://www.roseindia.net/linux/tutorial/linux-howto/Adv-Routing-HOWTO/lartc.loadshare.html">http://www.roseindia.net/linux/tutorial/linux-howto/Adv-Routing-HOWTO/lartc.loadshare.html</a>
 * <a href="http://tldp.org/HOWTO/Traffic-Control-HOWTO/classless-qdiscs.html">http://tldp.org/HOWTO/Traffic-Control-HOWTO/classless-qdiscs.html</a>
 * <a href="http://www.rns-nis.co.yu/~mps/linux-tc.html">http://www.rns-nis.co.yu/~mps/linux-tc.html</a>
+

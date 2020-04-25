@@ -35,7 +35,7 @@ gp.plot(a)
 {% endhighlight %}
 </div>
 
-El anterior fragmento de código genera una gráfica cuyo contenido son los puntos contenido en la lista "a". 
+El anterior fragmento de código genera una gráfica cuyo contenido son los puntos contenido en la lista "a".
 
 No obstante, lo más habitual es que se quiera representar la línea que une los puntos dados en una lista. El siguiente fragmento hace esto mismo para los datos anteriores:
 
@@ -61,7 +61,7 @@ import Gnuplot
 
 gp = Gnuplot.Gnuplot(persist = 1)
 gp('set data style lines')
- 
+
 graf1 = [[1,2],[3,4],[5,6]]
 graf2 = [[1,3],[2,-1],[3,6],[4,2],[5,0]]
 plot1 = Gnuplot.PlotItems.Data(graf1, with_="lines", title="Temp./Tiempo")

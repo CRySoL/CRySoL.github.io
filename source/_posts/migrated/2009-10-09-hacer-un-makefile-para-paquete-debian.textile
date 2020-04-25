@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Arco
 - Debian-devel
-render_with_liquid: false
 ---
 En la siguiente receta se exponen algunas ideas y recomendaciones a la hora de crear un Makefile de tal forma que sea sencillo el proceso de creación de los paquetes Debian.
 

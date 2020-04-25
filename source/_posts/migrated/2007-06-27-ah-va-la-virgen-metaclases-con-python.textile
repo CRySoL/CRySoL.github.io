@@ -8,7 +8,6 @@ comments: true
 category: recipe
 tags:
 - Python
-render_with_liquid: false
 ---
 bq(head). Esta receta es una pequeña introducción a la meta-programación, concretamente voy a contar algunas cosillas sobre uno de los mecanismos más populares y potentes: las metaclases.
 

@@ -23,7 +23,7 @@ Suponiendo que tenemos instalado el sistema, tendremos que reiniciar en modo res
 <li>Una vez en el intérprete de comandos hacemos lo siguiente:</li> </ul>
 
 <pre class="console">
-# mount /dev/sda5 /mnt   
+# mount /dev/sda5 /mnt
 # mkdir -p /mnt/boot/efi/
 # mount /dev/sda1 /mnt/boot/efi
 # mkdir /mnt/dev
@@ -34,18 +34,18 @@ Suponiendo que tenemos instalado el sistema, tendremos que reiniciar en modo res
 # mount --bind /sys /mnt/sys
 # chroot /mnt
 
-# aptitude install grub-efi-amd64 
+# aptitude install grub-efi-amd64
 # grub-install --recheck --no-floppy --force
 # update-grub
  </pre>
 
-Haciendo esto ya conseguimos que arranque el grub y que podamos acceder a la partición donde está la debian, aunque seguimos teniendo dos problemas a estas alturas: 
+Haciendo esto ya conseguimos que arranque el grub y que podamos acceder a la partición donde está la debian, aunque seguimos teniendo dos problemas a estas alturas:
 <ul> <li>Windows 8 no está accesible desde el grub (sí desde el menú de la bios, pulsado dos veces la tecla ESC)</li> <li>La pantalla se queda en negro antes de que nos salga la consola de login y es necesario suspender y despertar el sistema para que ésta pantalla aparezca</li> </ul>
 
 Para solucionar el primer problema, el arranque de windows, hay que hacer lo siguiente:
 
-<ul> 
-<li> Obtener el UUID  de la partición EFI (/dev/sda1) 
+<ul>
+<li> Obtener el UUID  de la partición EFI (/dev/sda1)
 <pre># blkid </pre>
 </li>
 <li>Añadir la siguiente entrada al archivo /etc/grub.d/40_custom

@@ -88,7 +88,7 @@ def main():
 Userspace filesystem example
 
 """ + Fuse.fusage
-    
+
     fs = DictFS(version = '%prog' + fuse.__version__,
                 usage = usage,
                 dash_s_do='setsingle')
@@ -364,7 +364,7 @@ def write ( self, path, buf, offset ):
             offset = (offset % len(level[filename]))
         # This operation could be truncate the file!!
         level[filename] = level[filename][:offset] + str(buf)
-        
+
         # Return written bytes
         return len(buf)
 {% endhighlight %}
@@ -554,7 +554,7 @@ class DictFS(Fuse):
         return -errno.ENOENT
 
     def readdir(self, path, offset):
-        logging.debug('*** readdir(%s, %d)', path, offset)       
+        logging.debug('*** readdir(%s, %d)', path, offset)
 
         file_entries = ['.','..']
 
@@ -660,7 +660,7 @@ class DictFS(Fuse):
         else:
             # Add more bytes
             level[filename] += ' ' * (size - len(level[filename]))
-    
+
     def unlink ( self, path ):
         logging.debug('*** unlink(%s)', path)
 
@@ -682,7 +682,7 @@ class DictFS(Fuse):
         if offset > len(level[filename]):
             offset = (offset % len(level[filename]))
         level[filename] = level[filename][:offset] + str(buf)
-        
+
         # Return written bytes
         return len(buf)
 
@@ -706,7 +706,7 @@ def main():
 Userspace filesystem example
 
 """ + Fuse.fusage
-    
+
     fs = DictFS(version = '%prog' + fuse.__version__,
                 usage = usage,
                 dash_s_do='setsingle')

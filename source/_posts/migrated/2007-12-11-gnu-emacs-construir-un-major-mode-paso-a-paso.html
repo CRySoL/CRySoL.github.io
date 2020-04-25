@@ -29,7 +29,7 @@ Vamos a suponer que tenemos un lenguaje ya definido y que lo hemos llamado <b>CL
 BLOQUE inicio {
      ENTERO valor = 3;
      /*Hemos creado e igualado la variable entera valor a 3*/
-    
+
      BULEANO verdad = verdadero;
      SI ( verdad ) {
          IMPRIMIR "Valor de valor", valor;
@@ -55,7 +55,7 @@ El ejemplo, además de ser muy tonto, nos indica unas cuantas cosas a tener en c
 
 <h2>Creación del fichero y pequeños trucos</h2>
 
-Abrimos emacs con el archivo <b>lc-mode.el</b>. Puedes llamarlo como quieras pero suelen decir que los nombres "deben ser descriptivos", así que es mejor seguir los convenios. 
+Abrimos emacs con el archivo <b>lc-mode.el</b>. Puedes llamarlo como quieras pero suelen decir que los nombres "deben ser descriptivos", así que es mejor seguir los convenios.
 
 Automáticamente, emacs detectará que lo que tratas de escribir es "Emacs Lisp" y nos aparece un botón en la barra de menús muy útil para este modo. Si despliegas el el menú, verás una serie de acciones; entre las que se destacan:
 
@@ -137,7 +137,7 @@ Vamos ahora con el segundo nivel:
 {% endhighlight %}
 </div>
 
-Creamos otra constante con otro nivel más e indicamos a Emacs que el nivel que vamos a describir "concatenado" con el nivel anteriormente descrito. Por lo que lo ya descrito en el nivel se "hereda" en este nivel. 
+Creamos otra constante con otro nivel más e indicamos a Emacs que el nivel que vamos a describir "concatenado" con el nivel anteriormente descrito. Por lo que lo ya descrito en el nivel se "hereda" en este nivel.
 
 A los valores "BULEANOS" que hemos definido le ponemos aspecto de constante y, por último, pintamos los nombres de variables. Un nombre de variable va seguido, normalmente, por un tipo o, en general, por otro identificador. Por ello la expresión regular tiene una primera parte ([a-zA-Z0-9_]+) que no está encerrada entre el '\\<' que indica qué parte del token hay que pintar. Nótese que ya no se separan los argumentos por el signo '.', sino por '1'. Esto es necesario para que no pinte todo el token del aspecto que se especifica.
 
@@ -266,7 +266,7 @@ Si la variable 'cur-indent' no está definida o no tiene un valor positivo es qu
 
 <h3>Tabla de sintaxis</h3>
 
-Ahora debemos definir una tabla sintáctica (o de sintaxis) para aquellas producciones de tu lenguaje que no se puedan definir como una expresión regular. El ejemplo típico son los comentarios del tipo /* */. 
+Ahora debemos definir una tabla sintáctica (o de sintaxis) para aquellas producciones de tu lenguaje que no se puedan definir como una expresión regular. El ejemplo típico son los comentarios del tipo /* */.
 
 
 <div>
@@ -293,7 +293,7 @@ Ya estamos acabando :-). Sólo nos queda la función que se invocará cuando se 
   (interactive)
   (kill-all-local-variables)
   (use-local-map cl-mode-map)
-  (set (make-local-variable 'indent-line-function) 'cl-indent-line)  
+  (set (make-local-variable 'indent-line-function) 'cl-indent-line)
   (set (make-local-variable 'font-lock-defaults) '(cl-font-lock-keywords))
   (setq major-mode 'cl-mode)
   (setq mode-name "CL")

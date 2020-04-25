@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Arco
 - security
-render_with_liquid: false
 ---
 Esta receta se muestra cómo crear un servicio PAM para discriminar el acceso entre diferentes usuarios y grupos.
 

@@ -9,7 +9,6 @@ category: recipe
 tags:
 - Arco
 - networking
-render_with_liquid: false
 ---
 bq(head). Esta receta es un resumen _quick & dirty_ de los pasos necesarios para instalar un sistema OpenWRT estándar en La Fonera. Básicamente es una traducción simplificada de las dos recetas que aparecen en las referencias.
 
