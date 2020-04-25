@@ -5322,14 +5322,14 @@ SRC="/home/user"
 <span class="go">
 </span><span class="gp">#</span>Copia del archivo y renombrado con la fecha
 <span class="gp">cp $</span>SRC/mi_archivo_importante.txt mi_archivo_importante.txt.<span class="si">$(</span><span class="nb">date</span> +%Y%m%d<span class="si">)</span>
-<span class="gp">echo -e "---- BACKUP $</span><span class="o">(</span><span class="nb">date</span> +%Y%m%d<span class="o">)</span> <span class="nt">----</span><span class="se">\n</span><span class="s2">" 
+<span class="gp">echo -e "---- BACKUP $</span><span class="o">(</span><span class="nb">date</span> +%Y%m%d<span class="o">)</span> <span class="nt">----</span><span class="se">\n</span><span class="s2">"
 </span><span class="go">
 </span><span class="gp">ftp -n -v $</span>HOST <span class="o">&lt;&lt;</span> <span class="no">EOT</span><span class="sh">
 </span><span class="go">binary
 </span><span class="gp">user $</span>USER <span class="nv">$PASSWD</span>
 <span class="go">prompt
 
-</span><span class="gp">cd $</span>REMOTE                  
+</span><span class="gp">cd $</span>REMOTE
 <span class="gp">mput mi_archivo_importante.txt.$</span><span class="o">(</span><span class="nb">date</span> +%Y%m%d<span class="o">)</span>
 <span class="go">bye
 bye
@@ -5417,7 +5417,7 @@ Y añades la siguiente línea:
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

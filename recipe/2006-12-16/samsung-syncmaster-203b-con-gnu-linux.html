@@ -5158,10 +5158,7 @@
 <p>Recientemente ha caído en mis manos este magnifico monitor, aunque no es para mí :-(. El <a href="http://www.samsung.com/es/products/monitor/mediumtoprangetft/ls20habbsqedc.asp?page=Specifications">SyncMaster 203B</a> es un <span class="caps">TFT</span> de 20&quot;, resolución 1400&#215;1050, 8ms y además con rotación.</p>
 <p>Si tratas de configurarlo para las X y recurres al manido:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ dpkg-reconfigure xserver-xorg<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dpkg-reconfigure xserver-xorg</code></pre></figure></div>
 <p>comprobarás que en la máxima resulción (1400&#215;1050) la imagen aparece desplazada a la derecha unos 5 o 6 centímetros, de modo que es completamente inusable.</p>
 <h1>Configuración</h1>
 <p>Si le echas un vistazo al manual del monitor, verás alguna cosa interesante. Curiosamente explica cómo configurarlo en xorg sobre un sistema <span class="caps">GNU</span>, pero no da todos los detalles necesarios. Sí dice que debe utilizarse una frecuencia de refresco de <strong>60Hz</strong> pero con eso no es suficiente. Es necesario indicar un &#8220;Modeline&#8221; correcto en la sección &#8220;Monitor&#8221; de tu <code>/etc/X11/xorg.conf</code>.</p>
@@ -5200,16 +5197,10 @@ Reflections possible - none
 </pre>
 <p>Con este comando puedes cambiar de resolución &#8220;al vuelo&#8221; y también la rotación. Para este monitor, la única rotación que tiene sentido es:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ xrandr -o left<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr <span class="nt">-o</span> left</code></pre></figure></div>
 <p>Y para volver a la orientación normal, pues:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ xrandr -o normal<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr <span class="nt">-o</span> normal</code></pre></figure></div>
 <p>Así que, puedes poner estos comandos como &#8220;lanzadores&#8221; en el panel y Voilà (comodísimo).</p>
 <h1>Referencias</h1>
 <ul>
@@ -5280,7 +5271,7 @@ $ xrandr -o normal<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

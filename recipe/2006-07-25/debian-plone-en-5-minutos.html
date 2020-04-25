@@ -5160,46 +5160,26 @@
 <h1>Instalación</h1>
 <p>Instala los paquetes necesarios:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install plone<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>plone</code></pre></figure></div>
 <p>Crea una nueva instancia:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ dzhandle -z 2.8 make-instance myPloneSite -m manual -t tree-linked -r end -u initialuser:initialpasswd &#8212;service-user=user:group &#8212;service-port=8080</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dzhandle <span class="nt">-z</span> 2.8 make-instance myPloneSite <span class="nt">-m</span> manual <span class="nt">-t</span> tree-linked <span class="nt">-r</span> end <span class="nt">-u</span> initialuser:initialpasswd <span class="nt">--service-user</span><span class="o">=</span>user:group <span class="nt">--service-port</span><span class="o">=</span>8080</code></pre></figure></div>
 <p>Donde initialuser/initialpasswd son el usuario y passwd iniciales para Zope (no necesitan cuenta Unix), y el user:group son el usuario y grupo Unix que ejecutará la instancia.</p>
 <p>Usa <code>dzhandle</code> para añadir nuevos productos:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ dzhandle -z 2.8 add-product myPloneSite CMFPlone<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dzhandle <span class="nt">-z</span> 2.8 add-product myPloneSite CMFPlone</code></pre></figure></div>
 <p>Igual te interesa instalar alguno más.  Por ejemplo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ dzhandle -z 2.8 add-product myPloneSite PloneCollectorNG RDFGrabber ExtFile ReplaceSupport exUserFolder COREBlog2 TinyTablePlus PloneExFile Formulator CMFForum CMFMember CMFSin PlacelessTranslationService LinguaPlone CMFPhotoAlbum<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dzhandle <span class="nt">-z</span> 2.8 add-product myPloneSite PloneCollectorNG RDFGrabber ExtFile ReplaceSupport exUserFolder COREBlog2 TinyTablePlus PloneExFile Formulator CMFForum CMFMember CMFSin PlacelessTranslationService LinguaPlone CMFPhotoAlbum</code></pre></figure></div>
 <p>Cuando termines reinicia la instancia:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ dzhandle zopectl myPloneSite restart<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dzhandle zopectl myPloneSite restart</code></pre></figure></div>
 <h1>Instalando <span class="caps">LDAP</span></h1>
 <p>Plone 2.1 ya viene con <span class="caps">GRUF</span> y exUserFolder, lo que permite, entre otras cosas, utilizar un servidor <span class="caps">LDAP</span> para la autenticación.  Eso es muy cómodo en entornos como la Universidad, porque de esa forma los alumnos pasan a ser miembros del sitio plone sin necesidad de hacer nada.</p>
 <p>La forma más sencilla (con diferencia) de configurar un servidor <span class="caps">LDAP</span> como fuente de usuarios externa es con LDAPUserFolder.  Este es un paquete que estaba en Debian pero por desgracia el desinterés general ha hecho que desaparezca.  Es realmente trivial hacer un paquete Debian con LDAPUserFolder.  Basta tomar como ejemplo otro cualquiera de los que siguen mantenidos (zope-tinytableplus), traerte la distribución original de LDAPUserFolder, copiar su directorio debian, y editar un poco.  Si quieres ahorrarte el trabajo puedes cogerlo de <a href="http://atc.inf-cr.uclm.es/Members/paco/Debian/zope-ldapuserfolder_2.7-1_all.deb">zope-ldapuserfolder_2.7-1_all.deb</a>.</p>
 <p>Recuerda que para añadirlo a tu sitio debes usar:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ dzhandle add-product myPloneSite LDAPUserFolder</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dzhandle add-product myPloneSite LDAPUserFolder</code></pre></figure></div>
 <h1>Configurando Plone</h1>
 <p>Apunta con un browser de web a http://localhost:8080/manage.</p>
 <p>Usando el Combo de arriba a la derecha añade un Plone Site. Pincha en acl_users dentro del nuevo sitio. Selecciona la pestaña Sources y añade un <span class="caps">LDAP</span> User Folder.</p>
@@ -5289,7 +5269,7 @@ Owner
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5646,12 +5646,12 @@ Primeramente, tenemos que tener nuestro interfaz hello.ice:
 <pre>#include < Ice/Ice.h >
 #include < helloI.h >
 
-/*                                                                                                                           
- * Este fichero fue generado en primera instancia mediante:                                                                  
- *                                                                                                                           
- * $ slice2cpp --impl hello.ice                                                                                              
- *                                                                                                                           
- * y posteriormente modificado                                                                                               
+/*
+ * Este fichero fue generado en primera instancia mediante:
+ *
+ * $ slice2cpp --impl hello.ice
+ *
+ * y posteriormente modificado
  */
 
 using namespace std;
@@ -5695,7 +5695,7 @@ Y la implementación:
 #include "HelloService.h"
 using namespace std;
 
-extern "C"{                                                                                                                           
+extern "C"{
    HELLO_API ::IceBox::Service*
    create(::Ice::CommunicatorPtr communicator){
       return new HelloService;
@@ -5744,7 +5744,7 @@ Para que IceBox pueda linkar en tiempo de ejecución el servicio de "Hola Mundo"
 Una vez que ya tengas la librería compartida (servicio de IceBox) creada y todo accesible, tienes que configurar el servicio de IceBox (fichero icebox.config):
 <pre>IceBox.ServiceManager.Endpoints=tcp -p 10000
 IceBox.UseSharedCommunicator.HelloService=1
-IceBox.Service.HelloService=HelloService:create 
+IceBox.Service.HelloService=HelloService:create
 HelloService.Proxy=ServiceHola:tcp -p 9999
 HelloService.Endpoints=tcp -p 9999</pre>
 Finalmente, ejecutamos nuestro servicio con Icebox mediante el comando:
@@ -5822,7 +5822,7 @@ Finalmente, ejecutamos nuestro servicio con Icebox mediante el comando:
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

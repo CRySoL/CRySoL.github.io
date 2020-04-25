@@ -5166,16 +5166,10 @@
 <p>Hay varios programas libres que pueden leer la información de orientación de la cabecera <span class="caps">EXIF</span>, rotar la foto sin que pierda calidad y actualizar además la información de orientación, todo automágicamente.</p>
 <h3>Con exiftran</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ exiftran -api *.jpg<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>exiftran <span class="nt">-api</span> <span class="k">*</span>.jpg</code></pre></figure></div>
 <h3>Con jhead</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ jhead -autorot *.jpg<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>jhead <span class="nt">-autorot</span> <span class="k">*</span>.jpg</code></pre></figure></div>
 <p><code>jhead</code> tiene la ventaja de que sólo procesa las imágenes que realmente lo necesitan.</p>
 <p>Aquí pongo la versión &#8220;g-script&#8221; para hacerlo desde nautilus. Escribe lo siguiente en un fichero de texto llamado <code>.gnome2/nautilus-scripts/autorotate_jpgs</code> y dale permisos de ejecución:</p>
 <pre>
@@ -5189,9 +5183,7 @@ jhead -autorot $*
 <p><code>jhead</code> en realidad es muy flexible y permite indicar el formato de fecha que quieras. Se muestra un ejemplo para el formato del que hablaba antes:</p>
 <p>==<br />
 <div class="console"><br />
-{% highlight console <span>}<br />
- $ jhead <del>exonly -n%Y</del>%m-%d_%H:%M_ *.jpg<br />
-{</span> endhighlight %}</p>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>jhead <span class="nt">-exonly</span> <span class="nt">-n</span>%Y-%m-%d_%H:%M_ <span class="k">*</span>.jpg</code></pre></figure></p>
 <p></div>==</p>
 <p>Usando <code>-exonly</code>, el programa pasará por alto todos los .jpg que no tengan información <span class="caps">EXIF</span>, es decir, que no proceden de la cámara digital.</p>
 <p>Si quieres hacerte otro g-script para nautilus también con esto, ya has visto que es complicadísimo. ;-)</p>
@@ -5199,10 +5191,7 @@ jhead -autorot $*
 <p>Muchos de los programas que se utilizan para extraer las fotos de la cámara ponen a los ficheros la fecha del momento de la extracción. Esta fecha también cambia se editas la foto para arreglar algún problema o añadir un efecto.</p>
 <p>La idea es poner a los ficheros la fecha del momento de la captura para (como en el caso anterior) poder ordenar las fotos en un navegador de ficheros conforme a su fecha.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ jhead -ft *.jpg<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>jhead <span class="nt">-ft</span> <span class="k">*</span>.jpg</code></pre></figure></div>
       </div>
 
       
@@ -5267,7 +5256,7 @@ $ jhead -ft *.jpg<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

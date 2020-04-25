@@ -5532,10 +5532,10 @@
 <!--break-->
 
 
-Veamos, el 16F690 tiene varias fuentes de reloj, XT, LP, HS, etc.... y además tiene un par de osciladores internos que pueden ser utilizados como reloj del sistema. Uno de ellos, llamado <b>HFINTOSC</b>, es un oscilador calibrado a 8MHz, el otro, <b>LFINTOSC</b>, es por contra un oscilador de baja frecuencia (32KHz) y sin calibración. 
+Veamos, el 16F690 tiene varias fuentes de reloj, XT, LP, HS, etc.... y además tiene un par de osciladores internos que pueden ser utilizados como reloj del sistema. Uno de ellos, llamado <b>HFINTOSC</b>, es un oscilador calibrado a 8MHz, el otro, <b>LFINTOSC</b>, es por contra un oscilador de baja frecuencia (32KHz) y sin calibración.
 
 Para poder determinar la velocidad del sistema cuando utilicemos el reloj interno, debemos modificar el registro <b>OSSCON</b>. Para ello, los bits <b>IRCF&lt;2:0&gt;</b> de éste mismo registro permiten seleccionar la velocidad. Las posibles combinaciones son:
-<ul> <li> 000 = 31KHz </li> <li> 001 = 125KHz </li> <li> 010 = 250KHz </li> <li> 011 = 500KHz </li> <li> 100 = 1MHz </li> <li> 101 = 2MHz </li> <li> 110 = 4MHz </li> <li> 111 = 8MHz </li> </ul>  
+<ul> <li> 000 = 31KHz </li> <li> 001 = 125KHz </li> <li> 010 = 250KHz </li> <li> 011 = 500KHz </li> <li> 100 = 1MHz </li> <li> 101 = 2MHz </li> <li> 110 = 4MHz </li> <li> 111 = 8MHz </li> </ul>
 
 El bit 0, <b>SCS</b>, si vale 1, forzará a que el reloj utilizado sea el interno, independientemente del valor de los bits <b>FOSC&lt;2:0&gt;</b> del registro de opciones especiales de la CPU. En cambio, si dicho bit vale 0, la opción seleccionada será la indicada por los anteriores bits.
 
@@ -5605,7 +5605,7 @@ El bit 0, <b>SCS</b>, si vale 1, forzará a que el reloj utilizado sea el intern
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5197,22 +5197,12 @@
 <pre>mysqldump -u [user] -p [dbname] &gt; [backup.sql]</pre>
 <p>por ejemplo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mysqldump &#8212;single-transaction -u admin -p drupal &gt; drupal_backup.sql<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mysqldump <span class="nt">--single-transaction</span> <span class="nt">-u</span> admin <span class="nt">-p</span> drupal <span class="o">&gt;</span> drupal_backup.sql</code></pre></figure></div>
 <p>Puesto que se pretende obtener un &#8220;foto fija&#8221; de la base de datos, es conveniente evitar que un acceso inoportuno pueda dejar el fichero volcado es un estado inconsistente. Esto se puede conseguir con varias opciones aunque la recomendada es <code>--single-transaction</code>.</p>
 <h2>Recuperar la base de datos desde un fichero</h2>
 <p>Se utiliza el método habitual para ejecutar sentencias <span class="caps">SQL</span> desde un fichero. Para el ejemplo sería:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mysql -u admin -p drupal &lt; drupal_backup.sql<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mysql <span class="nt">-u</span> admin <span class="nt">-p</span> drupal &lt; drupal_backup.sql</code></pre></figure></div>
 <h2>Comentarios</h2>
 <p>El primer enlace que se adjunta se ha tomado como base para esta receta. En ese documento se explica también el uso de <code>mysqlimport</code>, sin embargo yo no he conseguido hacerlo funcionar tal como se indica. Se supone que se puede recuperar una base de datos que ya exista, pero la página de manual dice que sirve únicamente para recuperar una tabla, y no una base de datos completa.</p>
 <p>También está disponible el comando <code>mysqlhotcopy</code> que tiene una funcionalidad similar a <code>mysqldump</code>.</p>
@@ -5287,7 +5277,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

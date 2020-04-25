@@ -5456,12 +5456,7 @@
 <h2>Instalación</h2>
 <p>Lo primero de todo, como es natural, es instalar el paquete <strong>pbuilder</strong>. Para ello, como ya sabes, usa apt-get/aptitude/synaptics/tu-sistema-de-paquetes-favorito para hacerlo. Por ejemplo, con <code>aptitude</code>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>aptitude install pbuilder<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>aptitude <span class="nb">install </span>pbuilder</code></pre></figure></div>
 <h2>Configuración</h2>
 <p>El sistema <strong>pbuilder</strong> utiliza dos ficheros de configuración; el primero está en <code>/etc/pbuilderrc</code>, que será el utilizado por todos los usuarios si no definen el segundo fichero de configuración.</p>
 <p>Este segundo (y en mi opinión más importante fichero) se debe ubicar en el directorio del usuario que vaya a usar <strong>pbuilder</strong>. En tu caso, será <code>$HOME/.pbuilderrc</code></p>
@@ -5485,17 +5480,11 @@ MIRRORSITE=http://ftp.uk.debian.org/debian/
 <h2>Generar las imágenes de <strong>pbuilder</strong></h2>
 <p>El primer paso del proceso de uso de <strong>pbuilder</strong> es crear las imágenes para chroot de la distribución para la que queramos generar. Para hacerlo, simplemente escribe en tu terminal</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ sudo pbuilder create<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>pbuilder create</code></pre></figure></div>
 <p>El proceso tarda un poco (sobre todo dependiendo de la velocidad de la red). Como resultado obtendrás, en el directorio que hayas configurado (para el ejemplo <code>$HOME/pbuilder</code>) un par de directorios (build y el nombre de la distro que estés generando).</p>
 <p>De vez en cuando sería <span class="caps">MUY</span> conveniente que actualices esta imagen generada. Nada tan fácil:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ sudo pbuilder update<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>pbuilder update</code></pre></figure></div>
 <p>Una vez terminado sin errores, estás listo para generar tus paquetes.</p>
 <p><strong>Edición 1/10/2010</strong>: recientes cambios en la forma de funcionar de <em>sudo</em> hacen que algunas variables de entorno (en concreto <em>$<span class="caps">HOME</span></em>) se mantengan para el usuario destino del <em>sudo</em>. Es decir, que al ejecutar con <em>sudo</em> las ordenes explicadas en este apartado, al intentar leer el fichero de configuración <code>$HOME/.pbuilderrc</code> intentará leer <code>/root/.pbuilderrc</code>. Si esto os ocurre y queréis evitarlo deberéis añadir al fichero <code>/etc/sudoers</code> (configuración de <em>sudo</em>) la siguiente línea:</p>
 <pre>Defaults        env_keep += HOME</pre>
@@ -5504,13 +5493,10 @@ $ sudo pbuilder update<br />
 <p>Una vez terminado el proceso de creación de la imagen seguro que no puedes esperar para generar tu primer paquete ;). Empezaremos por algo sencillito como descargar el código fuente desde los repositorios <span class="caps">APT</span> de Debian (que ya incluye los ficheros necesarios para generar el paquete) y compilarlo usando <strong>pbuilder</strong>.</p>
 <p>Elige un paquete (el que más rabia te dé) y descarga su código fuente en el directorio que te apetezca (por ejemplo, en <code>/tmp</code>):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ cd /tmp<br />
-$ apt-get source gentoo<br />
-$ cd gentoo-0.15.3<br />
-$ pdebuild<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /tmp
+<span class="gp">$</span><span class="w"> </span>apt-get <span class="nb">source </span>gentoo
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>gentoo-0.15.3
+<span class="gp">$</span><span class="w"> </span>pdebuild</code></pre></figure></div>
 <p>Y a esperar toca&#8230; Pasado un tiempo (más o menos dependiendo del paquete que estés compilando) pbuilder terminará el proceso y encontrarás todos los ficheros necesarios en el directorio que tengas configurado como <code>BUILDRESULT</code> en el fichero de configuración.</p>
 <h2>Referencias</h2>
 <ul>
@@ -5580,7 +5566,7 @@ $ pdebuild<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

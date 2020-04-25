@@ -5163,39 +5163,26 @@
 <h2>Configuración</h2>
 <p>Crea el directorio <code>/srv/tftp</code> y ponle permisos para <code>nobody</code>. Aquí estarán los ficheros que gestionará el servidor.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mkdir /srv/tftp</li>
-	<li>chown nobody /srv/tftp</li>
-	<li>chmod 0600 /srv/tftp</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">mkdir</span> /srv/tftp
+<span class="gp">#</span><span class="w"> </span><span class="nb">chown </span>nobody /srv/tftp
+<span class="gp">#</span><span class="w"> </span><span class="nb">chmod </span>0600 /srv/tftp</code></pre></figure></div>
 <p>Edita el fichero <code>/etc/inetd.conf</code> y asegurate de que contiene esta línea (o des-coméntala si ya la tiene):</p>
 <pre>
 tftp            dgram   udp     wait    nobody  /usr/sbin/tcpd  /usr/sbin/in.tftpd /srv/tftp
 </pre>
 <p>Y reinicia/arranca el superserver:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/inetutils-inetd restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/inetutils-inetd restart</code></pre></figure></div>
 <h2>Uso</h2>
 <p>Pruébalo con el cliente:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ tftp example.org<br />
-tftp&gt; binary<br />
-tftp&gt; get loquesea.mp3<br />
-Received 2784015 bytes in 1.1 seconds<br />
-tftp&gt; put otracosa.ogg<br />
-Sent 2784015 bytes in 0.4 seconds<br />
-tftp&gt; quit</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>tftp example.org
+<span class="gp">tftp&gt;</span><span class="w"> </span>binary
+<span class="gp">tftp&gt;</span><span class="w"> </span>get loquesea.mp3
+<span class="go">Received 2784015 bytes in 1.1 seconds
+</span><span class="gp">tftp&gt;</span><span class="w"> </span>put otracosa.ogg
+<span class="go">Sent 2784015 bytes in 0.4 seconds
+</span><span class="gp">tftp&gt;</span><span class="w"> </span>quit</code></pre></figure></div>
       </div>
 
       
@@ -5260,7 +5247,7 @@ tftp&gt; quit</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

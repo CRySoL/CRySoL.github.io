@@ -5316,82 +5316,78 @@
 <h2>Guardar y recuperar una variable</h2>
 <p>Cada aplicación debe tener un lugar en el árbol. En el ejemplo será <code>/app/prueba</code>:</p>
 <div>
-<p>{% highlight python %}<br />
-client = gconf.client_get_default()</p>
-<p>anchura = 10</p>
-<ol>
-	<li>guardar<br />
-client.set_int(&#8216;/app/prueba/anchura&#8217;, anchura)</li>
-</ol>
-<p>#recuperar, &#8216;valor&#8217; será None si la clave no existe<br />
-valor = client.get_int(&#8216;/app/prueba/anchura&#8217;)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">client</span> <span class="o">=</span> <span class="n">gconf</span><span class="p">.</span><span class="n">client_get_default</span><span class="p">()</span>
+
+<span class="n">anchura</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># guardar
+</span><span class="n">client</span><span class="p">.</span><span class="n">set_int</span><span class="p">(</span><span class="s">'/app/prueba/anchura'</span><span class="p">,</span> <span class="n">anchura</span><span class="p">)</span>
+
+<span class="c1">#recuperar, 'valor' será None si la clave no existe
+</span><span class="n">valor</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">get_int</span><span class="p">(</span><span class="s">'/app/prueba/anchura'</span><span class="p">)</span></code></pre></figure></div>
 <h2>Automatizando</h2>
 <p>Estos valores tienen tipo, que puede ser bool, int, float, string, pair, list o schema. Pero si tu aplicación tiene muchos datos que se deben cargar/guardar es bastante rollo tener que utilizar el método set/get adecuado dependiendo del tipo. Pero con Python se puede simplificar mucho esta tarea utilizando sus potentes mecanismos de introspección. La siguiente clase encapsula todo lo necesario:</p>
 <div>
-<p>{% highlight python %}<br />
-#!/usr/bin/python<br />
-import gconf<br />
-import types, inspect</p>
-<p>class AutoPrefs:<br />
-    def <i>init</i>(self, key):<br />
-        self.app_key = key<br />
-        self.client = gconf.client_get_default()</p>
-def gconf_attributes(self):
-&#8216;returns a list with all the gconf attibute names&#8217;
-return [x<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup> for x in inspect.getmembers(self)
-if x<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>.startswith(&#8216;gc_&#8217;)]
-def gconf_load(self):
-casts = {gconf.VALUE_BOOL:   gconf.Value.get_bool,
-gconf.VALUE_INT:    gconf.Value.get_int,
-gconf.VALUE_FLOAT:  gconf.Value.get_float,
-gconf.VALUE_STRING: gconf.Value.get_string}
-for name in self.gconf_attributes():
-gval = self.client.get(self.app_key + name)
-if gval == None: continue
-setattr(self, name, casts[gval.type](gval))
-def gconf_save(self):
-casts = {types.BooleanType: gconf.Client.set_bool,
-types.IntType:     gconf.Client.set_int,
-types.FloatType:   gconf.Client.set_float,
-types.StringType:  gconf.Client.set_string}
-for name in self.gconf_attributes():
-value = getattr(self,name)
-casts[type(value)](self.client, self.app_key + name, value)
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+</span><span class="kn">import</span> <span class="nn">gconf</span>
+<span class="kn">import</span> <span class="nn">types</span><span class="p">,</span> <span class="n">inspect</span>
+
+<span class="k">class</span> <span class="nc">AutoPrefs</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">app_key</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">gconf</span><span class="p">.</span><span class="n">client_get_default</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">gconf_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">'returns a list with all the gconf attibute names'</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">inspect</span><span class="p">.</span><span class="n">getmembers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">startswith</span><span class="p">(</span><span class="s">'gc_'</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">gconf_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">casts</span> <span class="o">=</span> <span class="p">{</span><span class="n">gconf</span><span class="p">.</span><span class="n">VALUE_BOOL</span><span class="p">:</span>   <span class="n">gconf</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">get_bool</span><span class="p">,</span>
+                 <span class="n">gconf</span><span class="p">.</span><span class="n">VALUE_INT</span><span class="p">:</span>    <span class="n">gconf</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">get_int</span><span class="p">,</span>
+                 <span class="n">gconf</span><span class="p">.</span><span class="n">VALUE_FLOAT</span><span class="p">:</span>  <span class="n">gconf</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">get_float</span><span class="p">,</span>
+                 <span class="n">gconf</span><span class="p">.</span><span class="n">VALUE_STRING</span><span class="p">:</span> <span class="n">gconf</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">get_string</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">gconf_attributes</span><span class="p">():</span>
+            <span class="n">gval</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">client</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">app_key</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">gval</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">casts</span><span class="p">[</span><span class="n">gval</span><span class="p">.</span><span class="nb">type</span><span class="p">](</span><span class="n">gval</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">gconf_save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">casts</span> <span class="o">=</span> <span class="p">{</span><span class="n">types</span><span class="p">.</span><span class="n">BooleanType</span><span class="p">:</span> <span class="n">gconf</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">set_bool</span><span class="p">,</span>
+                 <span class="n">types</span><span class="p">.</span><span class="n">IntType</span><span class="p">:</span>     <span class="n">gconf</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">set_int</span><span class="p">,</span>
+                 <span class="n">types</span><span class="p">.</span><span class="n">FloatType</span><span class="p">:</span>   <span class="n">gconf</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">set_float</span><span class="p">,</span>
+                 <span class="n">types</span><span class="p">.</span><span class="n">StringType</span><span class="p">:</span>  <span class="n">gconf</span><span class="p">.</span><span class="n">Client</span><span class="p">.</span><span class="n">set_string</span><span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">gconf_attributes</span><span class="p">():</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">casts</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)](</span><span class="bp">self</span><span class="p">.</span><span class="n">client</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">app_key</span> <span class="o">+</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></code></pre></figure></div>
 <p>Como se puede comprobar, el &#8220;truco&#8221; es que la clase se preocupa sólo de los atributos cuyo nombre empiece por &#8220;gc_&#8221;. Y aquí va un ejemplo de uso:</p>
 <div>
-<p>{% highlight python %}<br />
-class Sample(AutoPrefs):<br />
-    def <i>init</i>(self):<br />
-        AutoPrefs.<i>init</i>(self, &#8216;/app/sample/&#8217;)</p>
-<ol>
-	<li>defaults<br />
-        self.gc_width = 10<br />
-        self.gc_open = False<br />
-        self.gc_name = &#8220;Sample&#8221;</li>
-</ol>
-self.gconf_load()
-<ol>
-	<li>main<br />
-s = Sample()<br />
-print s.gc_width<br />
-print s.gc_open<br />
-print s.gc_name</li>
-</ol>
-<p>s.gc_name = &#8220;Other&#8221;<br />
-s.gc_open = True</p>
-<p>s.gconf_save()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Sample</span><span class="p">(</span><span class="n">AutoPrefs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">AutoPrefs</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">'/app/sample/'</span><span class="p">)</span>
+
+        <span class="c1"># defaults
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">gc_width</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">gc_open</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">gc_name</span> <span class="o">=</span> <span class="s">"Sample"</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">gconf_load</span><span class="p">()</span>
+
+<span class="c1"># main
+</span><span class="n">s</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">s</span><span class="p">.</span><span class="n">gc_width</span>
+<span class="k">print</span> <span class="n">s</span><span class="p">.</span><span class="n">gc_open</span>
+<span class="k">print</span> <span class="n">s</span><span class="p">.</span><span class="n">gc_name</span>
+
+<span class="n">s</span><span class="p">.</span><span class="n">gc_name</span> <span class="o">=</span> <span class="s">"Other"</span>
+<span class="n">s</span><span class="p">.</span><span class="n">gc_open</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">s</span><span class="p">.</span><span class="n">gconf_save</span><span class="p">()</span></code></pre></figure></div>
 <p>Se puede comprobar (y modificar) el valor de estas variables usando <code>gconf-editor</code> de este modo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ gconf-editor /app/sample<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gconf-editor /app/sample</code></pre></figure></div>
 <p>La versión actualizada de este código esta disponible en un repositorio subversion: <a href="https://arco.inf-cr.uclm.es/svn/public/misc/gconf/autoprefs.py">https://arco.inf-cr.uclm.es/svn/public/misc/gconf/autoprefs.py</a></p>
 <h2>Referencias</h2>
 <ul>
@@ -5465,7 +5461,7 @@ $ gconf-editor /app/sample<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

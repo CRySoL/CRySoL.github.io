@@ -5160,25 +5160,15 @@
 <pre>deb ftp://ftp.tux.org/java/debian/ sarge non-free</pre>
 <p>E instalar de la forma habitual:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get update</li>
-	<li>apt-get install j2re1.4</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get update
+<span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>j2re1.4</code></pre></figure></div>
 <p>También se puede instalar el <span class="caps">SDK</span>, paquete <code>j2sdk1.4</code></p>
 <p>Si tienes cualquier problema usando <code>apt-get</code>, puedes descargar los paquetes de <code>&lt;a href="ftp://ftp.tux.org/java/debian/pool/non-free/j/j2se1.4-i586/</code>&quot;&gt;ftp://ftp.tux.org/java/debian/pool/non-free/j/j2se1.4-i586/@</a></p>
 <h1>Java plugin para Mozilla/Firefox/etc</h1>
 <p>Si no existe (que puede que si) hay que hacer un enlace desde el directorio de plugins del navegador a la librería del plugin. Para Firefox se haría:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ln -s /usr/lib/j2re1.4-blackdown/jre/plugin/i386/ns7/libjavaplugin_oji.so \<br />
-          /usr/lib/mozilla-firefox/plugins/</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /usr/lib/j2re1.4-blackdown/jre/plugin/i386/ns7/libjavaplugin_oji.so <span class="se">\</span>
+          /usr/lib/mozilla-firefox/plugins/</code></pre></figure></div>
 <h1>Referencias</h1>
 <ul>
 	<li><a href="http://www.blackdown.org">Blackdown</a></li>
@@ -5247,7 +5237,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

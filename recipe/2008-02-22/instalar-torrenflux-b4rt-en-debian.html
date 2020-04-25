@@ -5346,39 +5346,21 @@
 <h2>Configurar php5 con <code>lighttpd</code></h2>
 <p>lighhttpd viene sin configuración para php5, pero como vas a ver, es muy sencillo hacerla:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cd /etc/lighttpd/conf-available/<br />
-/etc/lighttpd# sed &#8216;s/php4/php5/g&#8217; 10-fastcgi.conf &gt; 10-fastcgi-php5.conf</li>
-	<li>lighty-enable-mod fastcgi-php5</li>
-	<li>/etc/init.d/lighttpd restart</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /etc/lighttpd/conf-available/
+<span class="gp">/etc/lighttpd#</span><span class="w"> </span><span class="nb">sed</span> <span class="s1">'s/php4/php5/g'</span> 10-fastcgi.conf <span class="o">&gt;</span> 10-fastcgi-php5.conf
+<span class="gp">#</span><span class="w"> </span>lighty-enable-mod fastcgi-php5
+<span class="gp">#</span><span class="w"> </span>/etc/init.d/lighttpd restart</code></pre></figure></div>
 <h2>Instalar <code>torrentflux-b4rt</code></h2>
 Descarga el tarball de la sección de descargas de la <a href="http://tf-b4rt.berlios.de/">web oficial</a>. En el momento de escribir esta receta era la versión <a href="http://prdownload.berlios.de/tf-b4rt/torrentflux-b4rt_1.0-beta1.tar.bz2">1.0-beta1</a>
 <p>Descomprime el fichero en algún sitio razonable, como <code>/usr/local/tfb/</code>:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-/usr/local/tfb$ unp torrentflux-b4rt_1.0-beta1.tar.bz2</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">/usr/local/tfb$</span><span class="w"> </span>unp torrentflux-b4rt_1.0-beta1.tar.bz2</code></pre></figure></div>
 <p>Enlaza el subdirectorio <code>html</code> desde un directorio visible por el servidor web (<code>/var/www</code>):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ln -s /usr/local/tfb/html /var/www/tfb<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /usr/local/tfb/html /var/www/tfb</code></pre></figure></div>
 <p>Y cambiar el propietario:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>chown -R www-data.www-data /usr/local/tf/html<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">chown</span> <span class="nt">-R</span> www-data.www-data /usr/local/tf/html</code></pre></figure></div>
 <h2>Configurar torrentflux</h2>
 <p>Carga en tu navegador la dirección http://localhost/tfb y sigue las instrucciones. Es importante que estés atento a los siguientes datos.</p>
 <ul>
@@ -5455,7 +5437,7 @@ Descarga el tarball de la sección de descargas de la <a href="http://tf-b4rt.be
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

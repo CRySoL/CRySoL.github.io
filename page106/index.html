@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,198 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-01-26/aplicaciones-multilinges-gettext.html">Aplicaciones multilingües: gettext</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-01-26
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-26-aplicaciones-multilinges-gettext.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-26-aplicaciones-multilinges-gettext.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/203">node/203</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<p>A menudo se piensa que una aplicación estaría mucho mejor si se encontrara en varios idiomas. Podemos pensar en distintas formas de soportar esto, pero otros ya lo han pensado por nosotros y han creado las fabulosas herramientas <i>gettext</i>. Este documento pretende ser una guía para el uso rápido (rápido de verdad) de estas herramientas.</p>
+</blockquote>
+<h2> Ingredientes</h2>
+<ul>
+<li>gettext</li>
+</ul>
+<h2> Modificaciones en el código </h2>
+<p>Lo primero es acordarse de evitar cadenas sin más (al menos las que se muestran) en nuestro código. Ahora importaremos la librería gettext y utilizaremos la función gettext. Se encuentra disponible para numerosos lenguajes, aunque aquí se explicará con ejemplos en python (las diferencias serán mínimas en el resto de lenguajes).</p>
+<p>En Python queda así:</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">gettext</span>
+<span class="n">gettext</span><span class="p">.</span><span class="n">textdomain</span><span class="p">(</span><span class="s">"programita"</span><span class="p">)</span>
+<span class="n">gettext</span><span class="p">.</span><span class="n">bindtextdomain</span><span class="p">(</span><span class="s">"programita"</span><span class="p">,</span> <span class="s">"./mo"</span><span class="p">)</span>
+<span class="n">gettext</span><span class="p">.</span><span class="n">gettext</span><span class="p">(</span><span class="s">"hello, world!"</span><span class="p">)</span></code></pre></figure></div>
+<p>No os asustéis: Las funciones &#8220;textdomain&#8221; y &#8220;bindtextdomain&#8221; sirven para decirle a gettext dónde se encuentran las traducciones. Aquí se está poniendo un ejemplo, así que sustituid &#8220;programita&#8221; por el nombre de vuestro programa, y &#8220;./mo&#8221; por el directorio donde vamos a meter las traducciones.</p>
+<p>A menudo, además, se suele importar la función <tt>gettext</tt> cambiándole el nombre a algo más sencillo como la barra baja. De esta manera, nos evitamos tener que escribir &#8220;<tt>gettext.gettext</tt>&#8221; cada vez. Para hacer esto hay distintas maneras, una de ellas es durante la importación:</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">gettext</span> <span class="kn">import</span> <span class="n">gettext</span> <span class="k">as</span> <span class="n">_</span></code></pre></figure></div>
+<h2> Generación de la plantilla de traducción (.pot)</h2>
+<p>Podemos obtener la plantilla del código en casi cualquier lenguaje: C, C++, Python, Perl, Glade, Java, &#8230; Y se hace así:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xgettext <span class="nt">--language</span><span class="o">=</span>Python <span class="nt">-j</span> programita.py</code></pre></figure></div>
+<p>Las opciones son: <i>&#8212;language</i> indicando el lenguaje del código, y <i>-j</i> que indica que, si hay ya un .pot existente, se deben mezclar los mensajes.</p>
+<p>Si hemos usado algún cambio y no aparece la función como &#8220;gettext&#8221;, será necesario usar también la opción <i>&#8212;keyword</i>. Por ejemplo:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xgettext <span class="nt">--language</span><span class="o">=</span>Python <span class="nt">-j</span> <span class="nt">-k</span> _ programita.py</code></pre></figure></div>
+<p>Ale, ya tenemos el <tt>messages.pot</tt>.</p>
+<h2> Generar el fichero de traducciones (*.po)</h2>
+<p>Ahora se utiliza el <tt>messages.pot</tt> para generar cada plantilla. Nosotros queremos la traducción al castellano, así que será <tt>es.po</tt>:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>msginit <span class="nt">-i</span> messages.pot <span class="nt">-o</span> es.po</code></pre></figure></div>
+<p>Ahora viene la parte en la que editamos el fichero es.po (yo suelo usar gtranslator o kbabel) y demás.</p>
+<h2> Mezclar el fichero de traducciones (.po) con una nueva plantilla (.pot)</h2>
+<p>Este sistema sería poco eficiente si tuviéramos que traducirlo todo de nuevo cada vez que se cambie el fuente. Por ello, hay un sistema por el que se mezcla el fichero ya traducido con la plantilla nueva (es decir: volvemos al paso de creación de plantilla y después ejecutamos esto):</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>msgmerge <span class="nt">-U</span> es.po messages.pot</code></pre></figure></div>
+<p>Y, nuevamente, volvemos a traducir :-D</p>
+<h2> Creación del fichero de equivalencias (.mo)</h2>
+<p>Realmente, el ficherito .po no se utiliza en el ejecutable. Es necesario utilizar un ficherito .mo. Aquí crearemos nuestro es.mo, como es lógico:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>msgfmt es.po mo/es/LC_MESSAGES/programita.mo</code></pre></figure></div>
+<p>Como podéis observar, el resultado lo dejamos en <tt>mo/es/LC_MESSAGES/</tt>. Eso lo hacemos así porque en el código fuente dijimos que las traducciones colgarían del directorio <tt>mo</tt>, el idioma es Español (las locales son &#8220;es&#8221;), y porque todos los .mo deben colgar de un directorio <tt>LC_MESSAGES</tt> dentro de las locales para que sea encontrado correctamente.</p>
+<h2> Utilización</h2>
+<p>Ya está. No hay nada más que contar. Si las locales son &#8220;es&#8221;, escribirá nuestra traducción, y si son &#8220;en&#8221;, lo escribirá en inglés. Eso es todo.</p>
+<h2>Ejemplo</h2>
+<p>Veamos un ejemplo, sugerencia hecha por <a href="/node/203#comment-4473">david.villa</a>:</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+</span>
+<span class="kn">import</span> <span class="nn">gettext</span>
+
+<span class="n">APP</span> <span class="o">=</span> <span class="s">"hello"</span>
+
+<span class="n">gettext</span><span class="p">.</span><span class="n">textdomain</span> <span class="p">(</span> <span class="n">APP</span> <span class="p">)</span>
+<span class="n">gettext</span><span class="p">.</span><span class="n">bindtextdomain</span> <span class="p">(</span> <span class="n">APP</span><span class="p">,</span> <span class="s">"./mo"</span> <span class="p">)</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">gettext</span><span class="p">.</span><span class="n">gettext</span>
+
+<span class="k">print</span> <span class="n">_</span><span class="p">(</span><span class="s">"hello, world!"</span><span class="p">)</span></code></pre></figure></div>
+<p>Como requisito, necesitaremos el directorio donde vamos adejar las cosas. En el código hemos puesto &#8220;./mo&#8221;, así que hay que ser consecuentes:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> <span class="nt">-p</span>  mo/es_ES/LC_MESSAGES</code></pre></figure></div>
+<p>Ahora inicializamos (llamaremos al <i>.pot</i> &quot;<i>messages.pot</i>:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xgettext <span class="nt">--language</span><span class="o">=</span>Python <span class="nt">--keyword</span><span class="o">=</span>_ <span class="nt">-o</span> messages.pot hello.py</code></pre></figure></div>
+<p>Y generamos nuestro primer <i>.po</i>:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>msginit <span class="nt">-i</span> messages.pot <span class="nt">-l</span> es_ES</code></pre></figure></div>
+<p>Editamos el archivo <tt>es.po</tt> que se nos habrá creado, traduciendo la única cadena. Mi archivo pinta así:</p>
+<div>
+<figure class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="c"># Spanish translations for PACKAGE package.
+# Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# miguel &lt;miguelangel.garcia@gmail.com&gt;, 2010.
+#
+</span><span class="err">msgid</span> <span class="err">""</span>
+<span class="err">msgstr</span> <span class="err">""</span>
+<span class="err">"Project-Id-Version:</span> <span class="err">PACKAGE</span> <span class="err">VERSION\n"</span>
+<span class="err">"Report-Msgid-Bugs-To:</span> <span class="err">\n"</span>
+<span class="err">"POT-Creation-Date:</span> <span class="err">2010-05-25</span> <span class="err">07:31+0200\n"</span>
+<span class="err">"PO-Revision-Date:</span> <span class="err">2010-05-25</span> <span class="err">07:32+0200\n"</span>
+<span class="err">"Last-Translator:</span> <span class="err">miguel</span> <span class="err">&lt;miguelangel.garcia@gmail.com&gt;\n"</span>
+<span class="err">"Language-Team:</span> <span class="err">Spanish</span> <span class="err">&lt;&gt;\n"</span>
+<span class="err">"MIME-Version:</span> <span class="err">1.0\n"</span>
+<span class="err">"Content-Type:</span> <span class="err">text/plain</span><span class="c">; charset=ASCII\n"
+</span><span class="err">"Content-Transfer-Encoding:</span> <span class="err">8bit\n"</span>
+<span class="err">"Plural-Forms:</span> <span class="py">nplurals</span><span class="p">=</span><span class="s">2; plural=(n != 1);</span><span class="se">\n</span><span class="s">"
+
+#: hello.py:12
+msgid "hello, world!"</span>
+<span class="err">msgstr</span> <span class="err">"hola,</span> <span class="err">mundo!"</span></code></pre></figure></div>
+<p>Por ahora no nos fijaremos mucho en las cosa que deberíamos cambiar, como el <i><span class="caps">PACKAGE</span></i> y demás. Sólo nos queda compilar:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>msgfmt <span class="nt">-o</span> mo/es_ES/LC_MESSAGES/hello.mo es.po</code></pre></figure></div>
+<p>y probarlo:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>es_ES ./hello.py
+<span class="go">hola, mundo!
+</span><span class="gp">$</span><span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>en_US ./hello.py
+<span class="go">hello, world!
+</span><span class="gp">$</span></code></pre></figure></div>
+<p>¡¡Gracias, David, por tu propuesta!!</p>
+<h2> Referencias</h2>
+<ul>
+	<li><a href="http://www.gnu.org/software/gettext/manual/">Manual de gettext</a></li>
+	<li><a href="http://www.pipiten.com.ar/archives/7">Traducir aplicaciones PyGTK/Glade</a></li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -7957,7 +8148,7 @@
     
       En la web del periódico <a href="http://www.elpais.es/articulo/elpportec/20060125elpepunet_2/Tes/internet/Microsoft/acata/exigencias/UE/facilita/parte/codigo">El país</a>
 
-Podeis encontrar una noticia que igual os interesa, y empieza así: 
+Podeis encontrar una noticia que igual os interesa, y empieza así:
 Erase que se era un señor llamado Bill Gates... y cito textualmente: "Microsoft acata una de las exigencias de la UE y facilita parte de su código".
 
     
@@ -8051,7 +8242,7 @@ Ahora no solo vamos a encender el ordenador, también le vamos a pasar el sistem
 
 <ul>
 <li> Un ordenador que soporte <em>Wake on Lan</em> o <em>Boot on Lan</em>.
-</ul> 
+</ul>
 Haber leido o tener a mano las recetas:
 <ul>
 <li>
@@ -8064,7 +8255,7 @@ Haber leido o tener a mano las recetas:
 
 <h1> Introducción </h1>
 
-El ordenador en cuestión se encenderá siguiendo los pasos dados en la receta <b>  Encendido remoto de un ordenador con Debian, mediante Wake On LAN </b>. Entonces pedirá un servidor PXE. Para ello utilizaremos el servidor de dhcp 3 que soporta este tipo de servicio. Se necesita un servidor tftp, ya que es el único servidor soportado por PXE para la transmisión de ficheros. TFTP es un servidor ftp ligero. No tiene ningún tipo de autentificación así que cuidado con lo que ponéis en su directorio. Usaremos el servidor atftp. Necesitaremos un archivo llamado <b> pxelinux.0 </b>. Este archivo es el encargado de cargar el arranque, algo así como el GRUB en versión red. Existe una versión del GRUB que permite el arranque en red, aúnque parece ser que todavía no funciona correctamente. <a href="http://cdimage.debian.org/debian-cd/3.1_r0a/i386/other/netboot/pxelinux.0"> 
+El ordenador en cuestión se encenderá siguiendo los pasos dados en la receta <b>  Encendido remoto de un ordenador con Debian, mediante Wake On LAN </b>. Entonces pedirá un servidor PXE. Para ello utilizaremos el servidor de dhcp 3 que soporta este tipo de servicio. Se necesita un servidor tftp, ya que es el único servidor soportado por PXE para la transmisión de ficheros. TFTP es un servidor ftp ligero. No tiene ningún tipo de autentificación así que cuidado con lo que ponéis en su directorio. Usaremos el servidor atftp. Necesitaremos un archivo llamado <b> pxelinux.0 </b>. Este archivo es el encargado de cargar el arranque, algo así como el GRUB en versión red. Existe una versión del GRUB que permite el arranque en red, aúnque parece ser que todavía no funciona correctamente. <a href="http://cdimage.debian.org/debian-cd/3.1_r0a/i386/other/netboot/pxelinux.0">
 pxelinux.0</a> es el que he usado yo. Seguramente existan versiones más nuevas, pero este me ha funcionado sin problemas. Necesitaremos también un núcleo para compilar y una imagen del sistema.
 
 <h1> Configuración de dhcp </h1>
@@ -8079,25 +8270,25 @@ group {
 }
 </pre>
 
-Aquí estamos indicando de donde se obtiene el pxelinux.0 y que grupo de máquinas van a obtener el arranque. La línea de <b> next-server </b> es por si el servidor tftp está en una máquina diferente a la del servidor dhcp. Si no es así, se puede eliminar. Le asignamos una ip fija. No es necesario, pero nos puede venir bien a la hora de hacer los primeros seguimientos de la máquina. 
+Aquí estamos indicando de donde se obtiene el pxelinux.0 y que grupo de máquinas van a obtener el arranque. La línea de <b> next-server </b> es por si el servidor tftp está en una máquina diferente a la del servidor dhcp. Si no es así, se puede eliminar. Le asignamos una ip fija. No es necesario, pero nos puede venir bien a la hora de hacer los primeros seguimientos de la máquina.
 
 <h1> Configuración del servidor tftp </h1>
 
-Necesitaremos el paquete debian <b> atftp </b>. 
+Necesitaremos el paquete debian <b> atftp </b>.
 Si lo usamos, deberemos tener en el archivo <tt> /etc/default/atftpd</tt> la siguiente configuración:
 
 <pre>
 USE_INETD=false
-OPTIONS="--daemon --port 69 --retry-timeout 5 --no-multicast --maxthread 100 
+OPTIONS="--daemon --port 69 --retry-timeout 5 --no-multicast --maxthread 100
 \ --verbose=6 --logfile /var/log/atftpd.log /tftpboot"
-</pre> 
- 
+</pre>
+
 Esta es mi configuración. /tftpboot es el directorio donde debe iremos poniendo los ficheros que vamos a enviar.
 
 <h1> Configurando el arranque </h1>
 
 
-Desde ahora tomamos como directorio de trabajo <b> /tftpboot</b>. Copiamos aquí el archivo pxelinus.0. Creamos un directorio llamado <b>  pxelinux.cfg </b>. Este contendrá los archivos de configuración para cada máquina. Yo usaré <b> Default </b>, genérico para todas las máquinas. Se puede llegar a personalizar para una máquina determinada o un grupo de maquinas. Este archivo contiene la configuración del arranque y una serie de parámetros que podemos indicarle al kernel. 
+Desde ahora tomamos como directorio de trabajo <b> /tftpboot</b>. Copiamos aquí el archivo pxelinus.0. Creamos un directorio llamado <b>  pxelinux.cfg </b>. Este contendrá los archivos de configuración para cada máquina. Yo usaré <b> Default </b>, genérico para todas las máquinas. Se puede llegar a personalizar para una máquina determinada o un grupo de maquinas. Este archivo contiene la configuración del arranque y una serie de parámetros que podemos indicarle al kernel.
 
 <pre>
 label linux
@@ -8107,35 +8298,35 @@ label linux
 
 <ul>
  <li><b> label </b>  indica el sistema operativo que vamos a arrancar.
- </li> 
+ </li>
   <li> <b>kernel </b> indica como se llama el fichero que contiene el kernel.
 </li>
   <li> <b>append </b> son una serie de parámetros que podemos pasar al 		kernel. En la configuración que os doy indicamos que el servidor nfs está 	  en un servidor concreto y donde monta el directorio raíz. Otra opción 		podría ser cargar el directorio raíz en RAM, siempre y cuando nuestros 		ordenadores dispongan de los suficientes megas.
 </li>
 </ul>
-  
+
 <h1> Configurando nuestro Linux </h1>
 
 Vamos a configurar el sistema que vamos a cargar en los clientes. Primero compilaremos el kernel. Simplemente sugeriros que incluyáis todo lo que valláis a usar en el núcleo, para no cargarlo como módulos. Aquí surge una duda de como seguir. Si vamos a montar el directorio raíz en RAM o NFS deberemos incluir diferentes módulos.
  <ul>
 	<li> NFS </li> requiere de los módulos <b> File systems </b> Kernel 		automonter support<b> File systems -> Network Filesystems:</b> NFS File 	System Suport y Root File System on NFS .
-	<li> RAM </li> no requiere de módulos especiales. 
+	<li> RAM </li> no requiere de módulos especiales.
  </ul>
 
 <h1> Creando nuestro sistema de ficheros </h1>
 
 Vamos a crear ahora nuestra imagen initrd. Esta es una imagen comprimida de nuestro sistema de ficheros que solo es necesaria si usamos RAM para montar nuestro sistema de ficheros. Si usamos NFS todos estos procesos quedarán reducidos a ejecutar la orden <b>debootstrap</b> sobre el directorio del NFS. Dicho directorio debe estar en el del servidor tftp (/tftpboot en nuestro caso)
- 
+
 <ul>
-	<li>Creamos un fichero del tamaño de nuestro file system <b> dd 		if=/dev/zero of=/home/pepe/fsfile bs=1K count=130000 </b>. Con esto he 		creado 	un archivo llamado fsfile con un tamaño de 130MB. 
-	<li>Lo formateamos. Aquí os sugiero que si vais a montar vuestro sistema 		de ficheros en RAM lo formateéis en ext2, el journalism no tiene sentido 		aquí. <b>mke2fs -j -b 4096 /home/pepe/fsfile </b>. Lo formateo a ext3 
-	(-j) con un inodo por cada 4 kb. 
-	<li> Montamos nuestro filesystem 
+	<li>Creamos un fichero del tamaño de nuestro file system <b> dd 		if=/dev/zero of=/home/pepe/fsfile bs=1K count=130000 </b>. Con esto he 		creado 	un archivo llamado fsfile con un tamaño de 130MB.
+	<li>Lo formateamos. Aquí os sugiero que si vais a montar vuestro sistema 		de ficheros en RAM lo formateéis en ext2, el journalism no tiene sentido 		aquí. <b>mke2fs -j -b 4096 /home/pepe/fsfile </b>. Lo formateo a ext3
+	(-j) con un inodo por cada 4 kb.
+	<li> Montamos nuestro filesystem
 	<b>mount -o loop -t ext3 /home/pepe/fsfile</b>
-	<li> Lo "llenamos". Podemos montar un sistema "mínimo" de muchas 		maneras. La mas fácil es la orden <b>debootstrap</b>, aunque de mínima 		tenga poco (104Mb). 
+	<li> Lo "llenamos". Podemos montar un sistema "mínimo" de muchas 		maneras. La mas fácil es la orden <b>debootstrap</b>, aunque de mínima 		tenga poco (104Mb).
 	<b> debootstrap sarge /home/pepe/fsfile <a href="http://ftp.debian.org/debian">http://ftp.debian.org/debian</a> </b>. 	En el caso de querer algún paquete más podéis usar la orden <b>chroot</b> 		para cambiar el directorio raíz y luego usar el <b>apt-get install</b>
 	<li> Cambiamos los archivos de configuración, los de arranque,etc.
-	<li> Desmontamos el sistema de ficheros. <b>umount /home/pepe/fsfile</b>   
+	<li> Desmontamos el sistema de ficheros. <b>umount /home/pepe/fsfile</b>
 	<li> Comprimimos nuestra imagen <b>gzip -9 < fsfile > initrd.img</b>
 	<li> Lo ponemos en el directorio del servidor tftp.
 </ul>
@@ -8143,10 +8334,10 @@ Vamos a crear ahora nuestra imagen initrd. Esta es una imagen comprimida de nues
 <h1> Enlaces de interes </h1>
 
 <ul>
- <il> <a href="http://www.linux.org/docs/ldp/howto/Bootdisk-HOWTO/buildroot.html"> Building a root filesystem </a> 
- <il><a href="http://frank.harvard.edu/~coldwell/diskless/"> Diskless Linux </a> 
+ <il> <a href="http://www.linux.org/docs/ldp/howto/Bootdisk-HOWTO/buildroot.html"> Building a root filesystem </a>
+ <il><a href="http://frank.harvard.edu/~coldwell/diskless/"> Diskless Linux </a>
 <il><a href="http://www.stanford.edu/~alfw/PXE-Kickstart/PXE-Kickstart.html#toc11"> How to Install Red Hat Linux via PXE </a>
-<il><a href="http://wiki.ltsp.org/twiki/bin/view/Ltsp/PXE#pxelinux_0_and_how_to_find_a_con"> Using PXE to boot </a> 
+<il><a href="http://wiki.ltsp.org/twiki/bin/view/Ltsp/PXE#pxelinux_0_and_how_to_find_a_con"> Using PXE to boot </a>
 </ul>
 
 
@@ -8725,174 +8916,141 @@ Que ilusión poder tocar a Ricardo SAltohombre!!
 <p>Entre los comandos que nos instalan estos paquetes, puedes encontrar:</p>
 <h2>Examinar la interface</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>hciconfig -a<br />
-hci0:   Type: <span class="caps">USB</span><br />
-        BD Address: 00:08:1B:03:05:25 <span class="caps">ACL</span> <span class="caps">MTU</span>: 192:8 <span class="caps">SCO</span> <span class="caps">MTU</span>: 64:8<br />
-        UP <span class="caps">RUNNING</span> <span class="caps">PSCAN</span> <span class="caps">ISCAN</span><br />
-        RX bytes:385 acl:0 sco:0 events:18 errors:0<br />
-        TX bytes:319 acl:0 sco:0 commands:17 errors:0<br />
-        Features: 0xff 0xff 0&#215;0f 0&#215;00 0&#215;00 0&#215;00 0&#215;00 0&#215;00<br />
-        Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3<br />
-        Link policy: <span class="caps">RSWITCH</span> <span class="caps">HOLD</span> <span class="caps">SNIFF</span> <span class="caps">PARK</span><br />
-        Link mode: <span class="caps">SLAVE</span> <span class="caps">ACCEPT</span><br />
-        Name: &#8216;homer&#8217;<br />
-        Class: 0&#215;3e0100<br />
-        Service Classes: Networking, Rendering, Capturing<br />
-        Device Class: Computer, Uncategorized<br />
-        <span class="caps">HCI</span> Ver: 1.1 (0&#215;1) <span class="caps">HCI</span> Rev: 0&#215;20d <span class="caps">LMP</span> Ver: 1.1 (0&#215;1) <span class="caps">LMP</span> Subver: 0&#215;20d<br />
-        Manufacturer: Cambridge Silicon Radio (10)<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>hciconfig <span class="nt">-a</span>
+<span class="go">hci0:   Type: USB
+        BD Address: 00:08:1B:03:05:25 ACL MTU: 192:8 SCO MTU: 64:8
+        UP RUNNING PSCAN ISCAN
+        RX bytes:385 acl:0 sco:0 events:18 errors:0
+        TX bytes:319 acl:0 sco:0 commands:17 errors:0
+        Features: 0xff 0xff 0x0f 0x00 0x00 0x00 0x00 0x00
+        Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3
+        Link policy: RSWITCH HOLD SNIFF PARK
+        Link mode: SLAVE ACCEPT
+        Name: 'homer'
+        Class: 0x3e0100
+        Service Classes: Networking, Rendering, Capturing
+        Device Class: Computer, Uncategorized
+        HCI Ver: 1.1 (0x1) HCI Rev: 0x20d LMP Ver: 1.1 (0x1) LMP Subver: 0x20d
+        Manufacturer: Cambridge Silicon Radio (10)</span></code></pre></figure></div>
 <h3>Escaner (usando una iface determinada)</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ hcitool -a hci0 scan<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>hcitool <span class="nt">-a</span> hci0 scan</code></pre></figure></div>
 <h3>Sniffer de <span class="caps">HCI</span></h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- hcidump<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> hcidump</span></code></pre></figure></div>
 <h3>Servidor hci (hcid)</h3>
 <p>Su configuración está en <code>/etc/bluetooth/hcid.conf</code> y la base de datos con los pin en <code>/etc/bluetooth/pinDB</code></p>
 <h3>Descubrimiento de servicios</h3>
 <p>El demonio del protocolo de descubrimiento de servicios <span class="caps">SDP</span> (Service discovery protocol) es <code>sdpd</code></p>
 <h3>Gestión de <span class="caps">SDP</span></h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>sdptool<br />
-sdptool &#8211; <span class="caps">SDP</span> tool v2.24<br />
-Usage:<br />
-        sdptool [options] <command> [command parameters]<br />
-Options:<br />
-        -h              Display help<br />
-        -i              Specify source interface<br />
-Commands:<br />
-        search          Search for a service<br />
-        browse          Browse all available services<br />
-        records         Request all records<br />
-        add             Add local service<br />
-        del             Delete local service<br />
-        get             Get local service<br />
-        setattr         Set/Add attribute to a <span class="caps">SDP</span> record<br />
-        setseq          Set/Add attribute sequence to a <span class="caps">SDP</span> record</li>
-</ol>
-<p>Services:<br />
-        <span class="caps">DID</span> SP <span class="caps">DUN</span> <span class="caps">LAN</span> <span class="caps">FAX</span> <span class="caps">OPUSH</span> <span class="caps">FTP</span> HS HF <span class="caps">SAP</span> <span class="caps">NAP</span> GN <span class="caps">PANU</span> <span class="caps">HID</span> <span class="caps">CIP</span> <span class="caps">CTP</span><br />
-        A2SRC A2SNK <span class="caps">AVRCT</span> <span class="caps">AVRTG</span> SR1 <span class="caps">SYNCML</span> <span class="caps">ACTIVESYNC</span> <span class="caps">HOTSYNC</span> <span class="caps">PALMOS</span><br />
-        <span class="caps">NOKID</span> <span class="caps">PCSUITE</span><br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>sdptool
+<span class="go">sdptool - SDP tool v2.24
+Usage:
+</span><span class="gp">        sdptool [options] &lt;command&gt;</span><span class="w"> </span><span class="o">[</span><span class="nb">command </span>parameters]
+<span class="go">Options:
+        -h              Display help
+        -i              Specify source interface
+Commands:
+        search          Search for a service
+        browse          Browse all available services
+        records         Request all records
+        add             Add local service
+        del             Delete local service
+        get             Get local service
+        setattr         Set/Add attribute to a SDP record
+        setseq          Set/Add attribute sequence to a SDP record
+
+Services:
+        DID SP DUN LAN FAX OPUSH FTP HS HF SAP NAP GN PANU HID CIP CTP
+        A2SRC A2SNK AVRCT AVRTG SR1 SYNCML ACTIVESYNC HOTSYNC PALMOS
+        NOKID PCSUITE</span></code></pre></figure></div>
 <p>Es importante resaltar que para que un servicio sea descubierto, debes añadirlo mediante un <code>sdptool add &amp;lt;servicio&gt;</code>, la lista de abajo del comando anterior nos muestra los servicios disponibles.</p>
 <h2>Algunos comando útiles</h2>
 <p>Con <code>hcitool scan</code> obtendrás una lista de los dispositivos presentes a tu alrededor.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ hcitool scan<br />
-Scanning &#8230;<br />
-        00:15:A0:42:34:8D       Nokia 6680<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>hcitool scan
+<span class="go">Scanning ...
+        00:15:A0:42:34:8D       Nokia 6680</span></code></pre></figure></div>
 <p>Muestra la dirección bluetooth y el nombre, puedes comprobar la dirección bluetooth en los nokia 66** tecleando el código &#8220;*#2820#&#8221;</p>
 <p>Para obtener una lista de los servicios que ofrece cada dispositivo usamos la herramienta sdptool, en nuestro caso, y para ver lo que ofrece el móvil:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>sdptool browse 00:15:A0:42:34:8D</li>
-</ol>
-<p>Browsing 00:15:A0:42:34:8D &#8230;<br />
-Service Name: Hands-Free Audio Gateway<br />
-Service RecHandle: 0&#215;10003<br />
-Service Class ID List:<br />
-  &#8220;Handfree Audio Gateway&#8221; (0&#215;111f)<br />
-  &#8220;Generic Audio&#8221; (0&#215;1203)<br />
-Protocol Descriptor List:<br />
-  &#8220;L2CAP&#8221; (0&#215;0100)<br />
-  &#8220;<span class="caps">RFCOMM</span>&#8221; (0&#215;0003)<br />
-    Channel: 2<br />
-Language Base Attr List:<br />
-  code_ISO639: 0&#215;454e<br />
-  encoding:    0&#215;6a<br />
-  base_offset: 0&#215;100<br />
-Profile Descriptor List:<br />
-  &#8220;Handfree Audio Gateway&#8221; (0&#215;111f)<br />
-    Version: 0&#215;0101</p>
-<p>Service Name: Headset Audio Gateway<br />
-Service RecHandle: 0&#215;10004<br />
-Service Class ID List:<br />
-  &#8220;Headset Audio Gateway&#8221; (0&#215;1112)<br />
-  &#8220;Generic Audio&#8221; (0&#215;1203)<br />
-Protocol Descriptor List:<br />
-  &#8220;L2CAP&#8221; (0&#215;0100)<br />
-  &#8220;<span class="caps">RFCOMM</span>&#8221; (0&#215;0003)<br />
-    Channel: 3<br />
-Language Base Attr List:<br />
-  code_ISO639: 0&#215;454e<br />
-  encoding:    0&#215;6a<br />
-  base_offset: 0&#215;100<br />
-Profile Descriptor List:<br />
-  &#8220;Headset&#8221; (0&#215;1108)<br />
-    Version: 0&#215;0100</p>
-<p>&#8230;todos los servicios<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>sdptool browse 00:15:A0:42:34:8D
+<span class="go">
+Browsing 00:15:A0:42:34:8D ...
+Service Name: Hands-Free Audio Gateway
+Service RecHandle: 0x10003
+Service Class ID List:
+  "Handfree Audio Gateway" (0x111f)
+  "Generic Audio" (0x1203)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 2
+Language Base Attr List:
+  code_ISO639: 0x454e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  "Handfree Audio Gateway" (0x111f)
+    Version: 0x0101
+
+Service Name: Headset Audio Gateway
+Service RecHandle: 0x10004
+Service Class ID List:
+  "Headset Audio Gateway" (0x1112)
+  "Generic Audio" (0x1203)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 3
+Language Base Attr List:
+  code_ISO639: 0x454e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  "Headset" (0x1108)
+    Version: 0x0100
+
+...todos los servicios</span></code></pre></figure></div>
 <p>Esto proporciona toda la información que necesitas acerca de todos los servicios presentes en el dispositivo, en este caso el teléfono móvil.</p>
 <h2>Servicio dial-up networking</h2>
 <p>Nos vamos a centrar en el servicio dial-up networking, para ello observamos que la salida del comando anterior nos presenta la siguiente información:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>Service Name: Dial-Up Networking<br />
-Service RecHandle: 0&#215;1000e<br />
-Service Class ID List:<br />
-  &#8220;Dialup Networking&#8221; (0&#215;1103)<br />
-Protocol Descriptor List:<br />
-  &#8220;L2CAP&#8221; (0&#215;0100)<br />
-  &#8220;<span class="caps">RFCOMM</span>&#8221; (0&#215;0003)<br />
-    Channel: 3<br />
-Language Base Attr List:<br />
-  code_ISO639: 0&#215;454e<br />
-  encoding:    0&#215;6a<br />
-  base_offset: 0&#215;100<br />
-Profile Descriptor List:<br />
-  &#8220;Dialup Networking&#8221; (0&#215;1103)<br />
-    Version: 0&#215;0100<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">Service Name: Dial-Up Networking
+Service RecHandle: 0x1000e
+Service Class ID List:
+  "Dialup Networking" (0x1103)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 3
+Language Base Attr List:
+  code_ISO639: 0x454e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  "Dialup Networking" (0x1103)
+    Version: 0x0100</span></code></pre></figure></div>
 <p>Para indicarle al ordenador que vamos a usar ese servicio necesitas editar el archivos <code>/etc/bluetooth/rfcomm.conf</code> e insertar una entrada tal que:</p>
 <div>
-<p>{% highlight text <span>}<br />
-rfcomm1 {<br />
-        bind no;<br />
-        device 00:15:A0:42:34:8D;<br />
-        channel 3;<br />
-        comment &#8220;Dial-up networking&#8221;;<br />
-        }<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">rfcomm1 {
+        bind no;
+        device 00:15:A0:42:34:8D;
+        channel 3;
+        comment "Dial-up networking";
+        }</code></pre></figure></div>
 <p>donde el device es el identificador del movil y el channel el que nos indica el registro obtenido con sdptool, justo despues de &#8220;<span class="caps">RFCOMM</span>&#8221; (0&#215;0003).</p>
 <p>Reinicia para cargar la nueva configuración:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/bluez-utils restart<br />
-Restarting bluez-utils: hcid sdpd rfcomm.</li>
-</ol>
-<ol>
-	<li>rfcomm release 1</li>
-</ol>
-<ol>
-	<li>rfcomm connect 1<br />
-Connected /dev/rfcomm1 to 00:15:A0:42:34:8D on channel 10<br />
-Press <span class="caps">CTRL</span>-C for hangup<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/bluez-utils restart
+<span class="go">Restarting bluez-utils: hcid sdpd rfcomm.
+
+</span><span class="gp">#</span><span class="w"> </span>rfcomm release 1
+<span class="go">
+</span><span class="gp">#</span><span class="w"> </span>rfcomm connect 1
+<span class="go">Connected /dev/rfcomm1 to 00:15:A0:42:34:8D on channel 10
+Press CTRL-C for hangup</span></code></pre></figure></div>
 <p>Ya tienes una conexión lista, con lo cual, por ejemplo, si estas en un portátil en mitad del campo y quieres conectarte a internet con tu<br />
 portátil a través de tu móvil tienes que configurar un enlace ppp a través del móvil.</p>
 <p>Para eso, tienes comandos muy interesantes:</p>
@@ -8918,22 +9076,16 @@ portátil te pedirá en ambos dispositivos el pin.</p>
 <p>Para ello existe un interesante proyecto basado en Alsa, lo puedes encontrar en <a href="http://sourceforge.net/projects/bluetooth-alsa/">bluetooth-alsa</a> (no es paquete debian).</p>
 <p>Dos errores que surgieron en la configuración son:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>felix:# btsco<br />
-Error: control open (hw:0): No such device<br />
-Error: Can&#8217;t find device. Bail<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">felix:#</span><span class="w"> </span>btsco
+<span class="go">Error: control open (hw:0): No such device
+Error: Can't find device. Bail</span></code></pre></figure></div>
 <p>Esto indica que no tienes configurados los drivers de alsa y no encuentran los dispositivos. Prueba a instalar y ejecutar el alsaconf para instalar alsa.</p>
 <p>Otro problema, despues de instalar los drivers de alsa puede ser:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>felix:# btsco<br />
-Error: hwdep next device (hw:0): Operation not permitted<br />
-Error: control open (hw:1): No such device<br />
-Error: Can&#8217;t find device. Bail<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">felix:#</span><span class="w"> </span>btsco
+<span class="go">Error: hwdep next device (hw:0): Operation not permitted
+Error: control open (hw:1): No such device
+Error: Can't find device. Bail</span></code></pre></figure></div>
 <p>No tienes cargado el modulo del kernel <code>snd-bt-sco</code>, está en el directorio <code>kernel</code> del programa <code>btsco</code>, tienes que ejecutar <code>make; make install</code> en dicho directorio.</p>
 <p>Si al hacer <code>modprobe snd-bt-sco</code>, no lo encuentra  (y se te ha compilado todo bien) copia el .ko a mano a <code>/lib/modules/2.6.14-2-386/kernel/drivers/</code> poniendo la versión del kernel que tengas (la mia es una 2.6.14-2-386).</p>
 <h2>Comentarios</h2>
@@ -9040,87 +9192,6 @@ Error: Can&#8217;t find device. Bail<br />
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2006-01-18/como-funciona-lo-del-vmware-que-esta-instalado-en-los-equipos-de-la-esi.html">Como funciona lo del vmware que esta instalado en los equipos de la ESI</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-01-18
-    
-      
-  <a href="/users.html#matisnow">
-   matisnow
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-18-como-funciona-lo-del-vmware-que-esta-instalado-en-los-equipos-de-la-esi.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-18-como-funciona-lo-del-vmware-que-esta-instalado-en-los-equipos-de-la-esi.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/194">node/194</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Me gustaria saber el funcionamiento y la configuracion que debe de tener para su funcionamiento.
-
-Gracias de antemano!!!
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9161,7 +9232,7 @@ Gracias de antemano!!!
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

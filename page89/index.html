@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,138 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-10-21/xplanet-como-salvapantallas-con-gnome-screensaver.html">Xplanet como salvapantallas con gnome-screensaver</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-10-21
+    
+      
+  <a href="/users.html#fsancho">
+   fsancho
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-10-21-xplanet-como-salvapantallas-con-gnome-screensaver.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-10-21-xplanet-como-salvapantallas-con-gnome-screensaver.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#gnome-ref">gnome </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/406">node/406</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Muchos de los que usamos Ubuntu vimos con poco agrado que se prescindiese del gestor de Salvapantallas XScreensaver. El sustituto fue gnome-screensaver, mucho mas sencillo y con muchas menos funcionalidades.
+
+Con esta mini-receta trataré de devolver la sonrisa a aquellos que dejaron de poder utilizar Xplanet como salvapantallas.
+</blockquote>
+
+Aunque gnome-screensaver es mucho mas simplón, no limita las posibilidades. Simplemente están fuera de la interfaz de usuario, pero en la práctica sigue siendo perfectamente posible toquetear en sus tripas. Por ahora solo se puede hacer desde la consola, pero el equipo de gnome-screensaver tiene en mente extender su interfaz para que sea algo mas configurable (ya que a día de hoy no lo es en absoluto).
+
+En el paquete 'xscreensaver-data' podremos encontrar un montón de ficheros con extensión <tt>.desktop</tt>, estos ficheros contienen los lanzadores de los salvapantallas. Lo único que tendremos que hacer es crearnos nuestro propio lanzador y colocarlo en el sitio adecuado. Además tendremos que crear un enlace para Xplanet en el directorio donde se encuentran los salvapantallas.
+
+En primer lugar, creamos un fichero <tt>xplanet.desktop</tt> con este contenido.
+
+<pre>
+[Desktop Entry]
+Encoding=UTF-8
+Name=XPlanet
+Comment=This Shows random planets from random points of view using Xplanet.
+TryExec=xplanet
+Exec=xplanet -vroot -label -body random -origin random -radius 20 -range 10 -wait 30
+StartupNotify=false
+Terminal=false
+Type=Application
+Categories=Screensaver
+X-Ubuntu-Gettext-Domain=xscreensaver
+</pre>
+
+La etiqueta <tt>Exec</tt> es la que contiene el comando concreto que deberemos ejecutar para mostrar nuestro salvapantallas. En mi caso muestro un cuerpo aleatorio desde un origen aleatorio y lo cambio cada 30 segundos.
+
+Una vez creado el fichero lo copiamos al directorio <tt>/usr/share/gnome-screensaver/themes/</tt>.
+
+<b>Actualización:</b> Los usuarios de Ubuntu Edgy deben copiar el fichero en el directorio <tt>/usr/share/applications/screensavers/</tt>.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo cp </span>xplanet.desktop /usr/share/applications/screensavers/</code></pre></figure>
+</div>
+
+Por último creamos un enlace del binario de Xplanet en <tt>/usr/lib/xscreensaver</tt>
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo ln</span> <span class="nt">-s</span> /usr/bin/xplanet /usr/lib/xscreensaver/</code></pre></figure>
+</div>
+
+Y listo!, sólo tienes que ir al menú Sistema->Preferencias->Salvpantallas y seleccionar tu nuevo salvapantallas de Xplanet.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8069,38 +8200,28 @@
 <p>Si peiensas utilizar el <code>apt-get</code> para instalar todo eso será mejor que eches un vistazo a esta página de <a href="http://thomer.com/tinyos/">tinyOS</a>. En resumen dice que no es buena idea, ya que necesitamos versiones muy concretas. Lo mejor es bajarse los <a href="http://www.tinyos.net/tinyos-2.x/doc/html/upgrade-tinyos.html#external-tools">rpm</a> y pasar los paquetes a <code>.deb</code> con <code>alien</code>, para luego instalarlos. Un tema importante, primero desinstala todo lo que tengas de avr y no te olvides de bloquear todos los paquetes para que no se actulicen cuando hagas un &#8220;upgrade&#8221;.</p>
 <p>Una vez que tengas los compiladores cruzados (necesarios para compilar el sistema operativo TinyOS) necesitas el compilador de nesC. nesC es el lenguaje en el que está escrito tiniyOS y que se usa también para escribir las aplicaciones. En la página web tienes paquetes rpm para el nesC (que usará los compiladores y para la toolchain de tinyOS por lo que, como esto en una debian tienes que tirar de <code>alien</code> para convertir los paquetes.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>alien nesc-1.2.7a-1.i386.rpm<br />
-nesc_1.2.7a-2_i386.deb generated</li>
-	<li>alien tinyos-tools-1.2.2-1.i386.rpm<br />
-tinyos-tools_1.2.2-2_i386.deb generated</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>alien nesc-1.2.7a-1.i386.rpm
+<span class="go">nesc_1.2.7a-2_i386.deb generated
+</span><span class="gp">#</span><span class="w"> </span>alien tinyos-tools-1.2.2-1.i386.rpm
+<span class="go">tinyos-tools_1.2.2-2_i386.deb generated</span></code></pre></figure></div>
 <p>y luego ya sabes: <code>dpkg -i &lt;paquete generado&gt;</code></p>
 <p>Con <code>alien</code> tendrás este problema:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>alien tinyos-tools-1.2.2-1.i386.rpm<br />
-Warning: Skipping conversion of scripts in package tinyos-tools: postinst prerm<br />
-Warning: Use the &#8212;scripts parameter to include the scripts.<br />
-tinyos-tools_1.2.2-2_i386.deb generated</li>
-	<li>dpkg &#8212;force-overwrite -i  tinyos-tools_1.2.2-2_i386.deb<br />
-(Leyendo la base de datos &#8230;<br />
-161803 ficheros y directorios instalados actualmente.)<br />
-Desempaquetando tinyos-tools (de tinyos-tools_1.2.2-2_i386.deb) &#8230;<br />
-dpkg &#8211; aviso, no se tendrá en cuenta el problema por estar activa<br />
-una opción &#8212;force:<br />
-intentando sobreescribir `/usr/share/man/man1/uisp.1.gz&#8217;, que está también en el paquete uisp<br />
-dpkg &#8211; aviso, no se tendrá en cuenta el problema por estar activa<br />
-una opción &#8212;force:<br />
-intentando sobreescribir `/usr/bin/uisp&#8217;, que está también en el paquete uisp<br />
-Configurando tinyos-tools (1.2.2-2) &#8230;</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>alien tinyos-tools-1.2.2-1.i386.rpm
+<span class="go">Warning: Skipping conversion of scripts in package tinyos-tools: postinst prerm
+Warning: Use the --scripts parameter to include the scripts.
+tinyos-tools_1.2.2-2_i386.deb generated
+</span><span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">--force-overwrite</span> <span class="nt">-i</span>  tinyos-tools_1.2.2-2_i386.deb
+<span class="go">(Leyendo la base de datos ...
+161803 ficheros y directorios instalados actualmente.)
+Desempaquetando tinyos-tools (de tinyos-tools_1.2.2-2_i386.deb) ...
+dpkg - aviso, no se tendrá en cuenta el problema por estar activa
+una opción --force:
+intentando sobreescribir `/usr/share/man/man1/uisp.1.gz', que está también en el paquete uisp
+dpkg - aviso, no se tendrá en cuenta el problema por estar activa
+una opción --force:
+intentando sobreescribir `/usr/bin/uisp', que está también en el paquete uisp
+Configurando tinyos-tools (1.2.2-2) ...</span></code></pre></figure></div>
 <h2>El sistema operativo</h2>
 <p>Un paso similar se realiza para instalar el sistema operativo propiamente dicho, es decir el tinyOS. Se coge el paquete <code>.rpm</code> se pasa a <code>.deb</code> con <code>alien</code> y se instala con el dpkg.</p>
 <h2>Configuración del entorno</h2>
@@ -8113,31 +8234,17 @@ export MAKERULES=$TOSROOT/support/make/Makerules
 </pre>
 <p>Y ejecuta lo siguiente cuando vayas a compilar para TinyOS:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ . ~/bin/tinyOS.sh<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">.</span> ~/bin/tinyOS.sh</code></pre></figure></div>
 <p>Cambia el propietario del directorio donde esta el tinyOS:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ chown -R felix /opt/tinyos-2.x<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">chown</span> <span class="nt">-R</span> felix /opt/tinyos-2.x</code></pre></figure></div>
 <p>y no olvides cambiar los permisos del dispositivo (puerto serie, paralelo, <span class="caps">USB</span>) que uses para comunicarte con las motas.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- chmod 666 /dev/<devicename><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> chmod 666 /dev/&lt;devicename&gt;</span></code></pre></figure></div>
 <h2>graphviz</h2>
 <p>Instalar Graphviz desde su paquete debian correspondiente con</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install graphviz<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>graphviz</code></pre></figure></div>
 <h2>Probando</h2>
 <p>Bueno, enhorabuena, si has hecho todos estos pasos, ya tienes el tinyOS instalado en tu ordenador, ahora necesitas probar todo esto que hemos hecho. No está de más echarle un vistazo a la <a href="http://www.tinyos.net/tinyos-2.x/doc/html/overview.html#tep108">estructura general</a> del SO para entender como está estructurado y sus posibilidades.</p>
 <p>La mejor forma de ver si todo esta correctamente instalado es tratar de compilar y probar algunas de las aplicaciones de ejemplo que vienen con el propio sistema operativo. Como ya habrás notado el sistema operativo se ha instalado por defecto en el directorio <code>/opt/tinyos-2.x</code></p>
@@ -8150,10 +8257,7 @@ $ chown -R felix /opt/tinyos-2.x<br />
 <p>Puedes probar que todo está correcto compilado una aplicación de prueba que viene con el sistema. Copia el directorio <code>apps/Null</code> a algún sitio de tu <em>home</em>. Este directorio es un esqueleto de aplicación para tinyOS, que si bien no hace nada útil,  te permite comprobar que has realizado correctamente todos los pasos anteriores.</p>
 <p>Dentro de ese directorio, ejecuta el siguiente comando:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ make <plataforma_destino><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>make &lt;plataforma_destino&gt;</code></pre></figure></div>
 <p>donde <em>plataforma_destino</em> puede ser uno de los siguientes:</p>
 <pre>
  Valid targets: all clean eyesIFX eyesIFXv1 eyesIFXv2 intelmote2 mica2 mica2dot micaz null telos telosb tinynode tmote
@@ -9687,14 +9791,14 @@ Una imagen de arranque de GRUB puede tener una resolución máxima de 640X480 p�
 
 <h2>Comprimir la imagen</h2>
 
-Aunque  no es estrictamente necesario comprimir la imagen, reducirá el tiempo necesario para cargarla. Por lo que harás lo siguiente desde línea de comandos(accede al directorio en donde guardaste la imagen): 
+Aunque  no es estrictamente necesario comprimir la imagen, reducirá el tiempo necesario para cargarla. Por lo que harás lo siguiente desde línea de comandos(accede al directorio en donde guardaste la imagen):
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">gzip </span>nombre_que_hayas_elegido.xpm </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">gzip </span>nombre_que_hayas_elegido.xpm</code></pre></figure>
 </div>
 
-esta instrucción creará un archivo de la forma <b>nombre_que_hayas_elegido.xpm.gz</b> 
+esta instrucción creará un archivo de la forma <b>nombre_que_hayas_elegido.xpm.gz</b>
 
 
 <h2>Copiar en el directorio /boot/grub</h2>
@@ -9703,7 +9807,7 @@ Ahora copia el fichero <b>nombre_que_hayas_elegido.xpm.gz</b> en el directorio <
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo  cp </span>nombre_que_hayas_elegido.xpm.gz /boot/grub </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo  cp </span>nombre_que_hayas_elegido.xpm.gz /boot/grub</code></pre></figure>
 </div>
 
 
@@ -9738,100 +9842,6 @@ tras guardar la configuración, la próxima vez que arranques tu máquina aparec
   </div>
 
   <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-09-24/sensor-de-movimiento-del-ibook-powerbook-g4-bajo-gnu-linux.html">Sensor de movimiento del iBook/PowerBook G4 bajo GNU/Linux</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-09-24
-    
-      
-  <a href="/users.html#cleto">
-   cleto
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-09-24-sensor-de-movimiento-del-ibook-powerbook-g4-bajo-gnu-linux.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-09-24-sensor-de-movimiento-del-ibook-powerbook-g4-bajo-gnu-linux.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/397">node/397</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-Si posees un iBook o PowerBook comprado a mediados de 2005, tu ordenador tiene SMS (Suddent Motion Sensor) para proteger tu disco duro de caídas estrepitosas. Con esta receta lo harás funcionar en tu GNU/Linux y, si quieres, comenzar el desarrollo de aplicaciones para él. Este procedimiento está probado en un iBook G4 con Ubuntu Edgy.
-</blockquote>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2006-09-24/sensor-de-movimiento-del-ibook-powerbook-g4-bajo-gnu-linux.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
     
   </div>
 
@@ -9881,7 +9891,7 @@ Si posees un iBook o PowerBook comprado a mediados de 2005, tu ordenador tiene S
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

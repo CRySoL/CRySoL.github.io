@@ -5427,10 +5427,7 @@
 <p>Instala los paquetes de OpenOffice (al menos el Writer y el Base) y el paquetillo aneca2sql.</p>
 <p>Consigue uno de esos archivos <span class="caps">XML</span> que genera la aplicación web de la <span class="caps">ANECA</span>. Normalmente tendrá un nombre del tipo <em>XMLSolicitudDefinitiva-numerito.aneca</em> o algo así.  Aunque parezca mentira es preciso generar una solicitud definitiva para poder extraer los datos en <span class="caps">XML</span>.  Increible pero cierto. Conviértelo a <span class="caps">SQL</span> así</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ aneca2sql &#8212;create XMLSolicitudDefinitiva-numerito.aneca &gt; cv.sql</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>aneca2sql <span class="nt">--create</span> XMLSolicitudDefinitiva-numerito.aneca <span class="o">&gt;</span> cv.sql</code></pre></figure></div>
 <p>Con esto ya tendrás un archivo <em>cv.sql</em> que incluye la creación de las tablas y la inserción de todos los elementos.</p>
 <h2>Crear la base de datos en OpenOffice Base</h2>
 <p>Abre el archivo <em>cv.sql</em> en un editor como gedit, con buen soporte de cut&amp;paste entre aplicaciones <span class="caps">GNOME</span> (emacs da problemas).</p>
@@ -5448,10 +5445,7 @@ $ aneca2sql &#8212;create XMLSolicitudDefinitiva-numerito.aneca &gt; cv.sql</p>
 <h2>Actualizar la base de datos</h2>
 <p>Para actualizar la base de datos lo mejor es destruirla entera y volverla a crear.  Esto se puede hacer directamente desde el propio script <span class="caps">SQL</span> usando la opción &#8212;drop:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ aneca2sql &#8212;drop XMLSolicitudDefinitiva-numerito.aneca &gt; cv.sql</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>aneca2sql <span class="nt">--drop</span> XMLSolicitudDefinitiva-numerito.aneca <span class="o">&gt;</span> cv.sql</code></pre></figure></div>
 <p>Ten en cuenta que el interfaz <span class="caps">SQL</span> de OpenOffice no es muy listo.  Si encuentra un error en cualquier punto ya no sigue, asi que no es posible ignorar los insert que ya estaban en la base de datos.  No olvides pinchar en <em>Refresh tables</em>.</p>
 <h2>Pendiente</h2>
 <p>Obviamente todavía está incompleto, pero es útil para muchas cosas.  Alguien debería hacer una macro para actualizar todos los campos del documento: seleccionar una a una todas las tablas, seleccionar todos los registros de cada tabla y seleccionar <em>Data to fields</em>.</p>
@@ -5520,7 +5514,7 @@ $ aneca2sql &#8212;drop XMLSolicitudDefinitiva-numerito.aneca &gt; cv.sql</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

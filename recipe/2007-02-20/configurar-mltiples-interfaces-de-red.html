@@ -5343,44 +5343,27 @@
 <h2>Ingredientes</h2>
 <p>Sólo dos programitas: <code>ifrename</code> y <code>ethtool</code>, los debianeros ya saben:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install ifrename ethtool<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>ifrename ethtool</code></pre></figure></div>
 <p>Con <code>ifrename</code> podrás nombrar los dispositivos como quieras y con <code>ethtool</code> podrás ver qué drivers usan tus interfaces.</p>
 <h2>Averiguar qué interfaces tienes</h2>
 <p>Si quieres obtener información sobre tus interfaces basta con teclear:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ ifconfig<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ifconfig</code></pre></figure></div>
 <p>Aquí podrás ver direcciones <span class="caps">MAC</span>, protocolos del canal, etc. Si quieres identificar interfaces con la <span class="caps">MAC</span> pues con esto ves qué interfaz tiene tal o cual <span class="caps">MAC</span>. Para saber que driver es una u otra interfaz:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ ethtool -i interfaz<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ethtool <span class="nt">-i</span> interfaz</code></pre></figure></div>
 <p>Va, un ejemplo&#8230;</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ ethtool -i eth0<br />
-driver: 8139too<br />
-version: 0.9.27<br />
-firmware-version:<br />
-bus-info: 0000:00:12.0</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ethtool <span class="nt">-i</span> eth0
+<span class="go">driver: 8139too
+version: 0.9.27
+firmware-version:
+bus-info: 0000:00:12.0</span></code></pre></figure></div>
 <p>Como ves, la interfaz eth0 es la que &#8220;crea&#8221; el driver 8139too. También puedes ver la información del bus, otra forma de identificar una interfaz.</p>
 <h2>Configurar los nombres de las interfaces</h2>
 <p>Pues si tienes una fstab (File System TABle), ¿por qué no tener una iftab (InterFaz TABle)?, pues nada, haz una en <code>/etc</code>. En ella indica cómo se va a llamar la interfaz, qué atributo la identifica y cual debe ser el valor de ese atributo para esa interfaz. Para que nos entendamos:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ vi /etc/iftab<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>vi /etc/iftab</code></pre></figure></div>
 <p>Y creamos lo siguiente (este es el que uso en mi portátil):</p>
 <pre>
 eth0 driver 8139too
@@ -5467,7 +5450,7 @@ air* mac 00:07:0E:* arp 1
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

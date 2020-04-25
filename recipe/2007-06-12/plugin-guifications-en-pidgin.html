@@ -5154,40 +5154,24 @@
 <h2>Preparación</h2>
 <p>Para poder hacer esta receta supondremos un sistema con Debian instalado y en el que se tenga configurado en el sources.list de <span class="caps">APT</span> algún repositorio de fuentes oficial de Debian (por ejemplo rediris o es.debian.org). Ello lo sabremos ejecutando:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ cat /etc/apt/sources.list | grep deb-src</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> /etc/apt/sources.list | <span class="nb">grep </span>deb-src</code></pre></figure></div>
 <p>Si nos aparecen una o más líneas vamos bien.</p>
 <h2>Dependencias</h2>
 <p>Como el paquete en si no existe aún compilado en paquete binario, deberemos isntalarlo desde su paquete de fuentes y compilarlo por nosotros mismos. Para ello desde una consola como root:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get build-dep guifications</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get build-dep guifications</code></pre></figure></div>
 <p>Con ello instalaremos todas las dependencias de compilación para poder compilar más tarde guifications.</p>
 <h2>Compilando</h2>
 <p>Esto podemos hacerlo como usuario normal teniendo instalado &#8220;fakeroot&#8221;. En un directorio que crearemos para tal fin descargaremos el paquete de fuentes:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ cd guifications<br />
-$ apt-get source guifications<br />
-$ cd guifications-2.14/<br />
-$ fakeroot dpkg-buildpackage</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span><span class="nb">cd </span>guifications
+<span class="gp">$</span><span class="w"> </span>apt-get <span class="nb">source </span>guifications
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>guifications-2.14/
+<span class="gp">$</span><span class="w"> </span>fakeroot dpkg-buildpackage</code></pre></figure></div>
 <h2>Instalando</h2>
 <p>Si queremos instalarlo tan solo deberemos ir a la carpeta guifications (donde hicimos el apt-get source) y ahí encontraremos nuestro paquete deb listo para instalar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>dpkg -i pidgin-guifications_2.14-1_i386.deb</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>dpkg <span class="nt">-i</span> pidgin-guifications_2.14-1_i386.deb</code></pre></figure></div>
 <p>Para configurarlo ya tan sólo debemos ir a la lista de contactos de nuestro Pidgin y en &#8220;Herramientas&#8221; &#8220;Complementos&#8221; buscamos Guifications, lo activamos y lo configuramos a nuestro gusto.</p>
       </div>
 
@@ -5253,7 +5237,7 @@ $ fakeroot dpkg-buildpackage</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

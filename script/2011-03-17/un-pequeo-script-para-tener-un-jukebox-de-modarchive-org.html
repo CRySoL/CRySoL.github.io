@@ -5295,25 +5295,26 @@ Para reproducir los archivos uso audacious, que permite encolarlos conforme son 
 <h2>¿Cómo se usa el script?</h2>
 <p>Si atendemos a la ayuda incluida es bastante sencillo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>usage: ./modarchive.sh [options]</p>
-<p>Modarchive Jukebox can be used with one of the following options:<br />
-   -h : Show this help message</p>
--s <section> Play from selected section: Can be one of this
-uploads     This is a list of the recent member upload activity
-featured    These modules have been nominated by the crew for either outstanding quality, technique or creativity (or combination of).
-favourites  These modules have been nominated by the members via their favourites.
-downloads   The top 1000 most downloaded modules, recorded since circa 2002.
-topscore    This chart lists the most revered modules on the archive.
-new         Same than uploads but using search engine
-random      Ramdom module from entire archive
--a <artist>  Search in artist database
--m <module>  Search in module database (Title and Filename)
--n <number>  Number of tracks to play
--r           Shuffle playlist
-<p>Hint: Use + symbol instead blankspaces in search strings.</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">usage: ./modarchive.sh [options]
+
+Modarchive Jukebox can be used with one of the following options:
+   -h : Show this help message
+
+</span><span class="gp">   -s &lt;section&gt;</span><span class="w"> </span>Play from selected section: Can be one of this
+<span class="go">          uploads     This is a list of the recent member upload activity
+          featured    These modules have been nominated by the crew for either outstanding quality, technique or creativity (or combination of).
+          favourites  These modules have been nominated by the members via their favourites.
+          downloads   The top 1000 most downloaded modules, recorded since circa 2002.
+          topscore    This chart lists the most revered modules on the archive.
+          new         Same than uploads but using search engine
+          random      Ramdom module from entire archive
+</span><span class="gp">   -a &lt;artist&gt;</span><span class="w">  </span>Search <span class="k">in </span>artist database
+<span class="gp">   -m &lt;module&gt;</span><span class="w">  </span>Search <span class="k">in </span>module database <span class="o">(</span>Title and Filename<span class="o">)</span>
+<span class="go">
+</span><span class="gp">   -n &lt;number&gt;</span><span class="w">  </span>Number of tracks to play
+<span class="go">   -r           Shuffle playlist
+
+Hint: Use + symbol instead blankspaces in search strings.</span></code></pre></figure></div>
 <p>El script necesita que le digamos de qué sección descargar, una vez seleccionada descargará un fichero y los encolará en audacious. El script se ejecutará hasta recuperar todos los elementos de la búsqueda o hasta llegar al número de ficheros especificado con la opción -n. Si se escoge la seción &#8220;random&#8221; y no se especifica un número de ficheros el programa se ejecutará indefinidamente, o bien hasta que pulsemos Ctrl-C o se nos llene el disco duro ;)</p>
 <p>Y por fin el script. Gracias a David que me ha dado un espacio en el repositorio subversion público de Arco. Lo puedes descargar de aquí</p>
 <p><a href="https://arco.esi.uclm.es/svn/public/prj/modarchive/modarchive.sh">https://arco.esi.uclm.es/svn/public/prj/modarchive/modarchive.sh</a></p>
@@ -5382,7 +5383,7 @@ random      Ramdom module from entire archive
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5231,12 +5231,9 @@
 <p>Con esto ya tenemos <span class="caps">XBMC</span> y SportsDevil funcionando y tendremos acceso a multitud de emisiones deportivas, pero por ahora solo las que emitan en rtmp o flash. Para poder acceder a las que emitan usando Sopcast tendremos que hacer lo siguiente.</p>
 <p>Insalamos Sopcast. En Ubuntu es tan sencillo como seguir estos dos pasos.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>sudo add-apt-repository ppa:jason-scheunemann/ppa<br />
-sudo apt-get update<br />
-sudo apt-get install sp-auth mplayer<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo add-apt-repository ppa:jason-scheunemann/ppa
+sudo apt-get update
+sudo apt-get install sp-auth mplayer</span></code></pre></figure></div>
 <p>Seguramente también sirva para Debian aunque no lo he probado.<br />
 También instalamos el reproductor mplayer que es el que vamos a utilizar.</p>
 <p>Si quieres instalarlo desde el sitio oficial, el enlace de descarga es este<br />
@@ -5245,71 +5242,71 @@ También instalamos el reproductor mplayer que es el que vamos a utilizar.</p>
 <p>El script está adjunto a esta receta. Descarga el fichero sop-player.txt, renombralo a sop-player y dale atributos de ejecución y lo copias en /usr/local/bin.</p>
 <p>Ahora tenemos que indicarle a <span class="caps">XBMC</span> que utilice ese script para reproducir los enlaces sop://. Para ello editamos el fichero $<span class="caps">HOME</span>/.xbmc/userdata/playercorefactory.xml y lo dejamos así</p>
 <div>
-<p>{% highlight xml %}<br />
-<playercorefactory><br />
- <players><br />
-   <player name="sop-player" type="ExternalPlayer" audio="false" video="true"><br />
-     <filename>/usr/local/bin/sop-player</filename><br />
-     <args>&#8220;{1}&#8221;</args><br />
-     <islauncher>false</islauncher><br />
-     <hidexbmc>false</hidexbmc><br />
-     <hidecursor>true</hidecursor><br />
-     <forceontop>true</forceontop></p>
-</player>
-</players>
-<rules action="prepend">
-<rule protocols="sop" player="sop-player"/>
-</rules>
-</playercorefactory>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;playercorefactory&gt;</span>
+ <span class="nt">&lt;players&gt;</span>
+   <span class="nt">&lt;player</span> <span class="na">name=</span><span class="s">"sop-player"</span> <span class="na">type=</span><span class="s">"ExternalPlayer"</span> <span class="na">audio=</span><span class="s">"false"</span> <span class="na">video=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;filename&gt;</span>/usr/local/bin/sop-player<span class="nt">&lt;/filename&gt;</span>
+     <span class="nt">&lt;args&gt;</span>"{1}"<span class="nt">&lt;/args&gt;</span>
+     <span class="nt">&lt;islauncher&gt;</span>false<span class="nt">&lt;/islauncher&gt;</span>
+     <span class="nt">&lt;hidexbmc&gt;</span>false<span class="nt">&lt;/hidexbmc&gt;</span>
+     <span class="nt">&lt;hidecursor&gt;</span>true<span class="nt">&lt;/hidecursor&gt;</span>
+     <span class="nt">&lt;forceontop&gt;</span>true<span class="nt">&lt;/forceontop&gt;</span>
+   <span class="nt">&lt;/player&gt;</span>
+ <span class="nt">&lt;/players&gt;</span>
+ <span class="nt">&lt;rules</span> <span class="na">action=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;rule</span> <span class="na">protocols=</span><span class="s">"sop"</span> <span class="na">player=</span><span class="s">"sop-player"</span><span class="nt">/&gt;</span>
+ <span class="nt">&lt;/rules&gt;</span>
+<span class="nt">&lt;/playercorefactory&gt;</span></code></pre></figure></div>
 <p>Ya solo faltaría poder controlar mplayer con el mando a distancia. Tan sencillo como editar el fichero $<span class="caps">HOME</span>/.lircrc</p>
 <div>
-<p>{% highlight bash %}<br />
-begin<br />
-     button = VolUp<br />
-     prog = mplayer<br />
-     config = volume 1<br />
-     repeat = 1<br />
-end</p>
-<p>begin<br />
-     button = VolDown<br />
-     prog = mplayer<br />
-     config = volume -1<br />
-     repeat = 1<br />
-end</p>
-<p>begin<br />
-     button = Stop<br />
-     prog = mplayer<br />
-     config = stop<br />
-     repeat = 1<br />
-end</p>
-<p>begin<br />
-     button = Pause<br />
-     prog = mplayer<br />
-     config = pause<br />
-     repeat = 1<br />
-end</p>
-<p>begin<br />
-     button = Rewind<br />
-     prog = mplayer<br />
-     config = seek -10<br />
-     repeat = 1<br />
-end</p>
-<p>begin<br />
-     button = Forward<br />
-     prog = mplayer<br />
-     config = seek 10<br />
-     repeat = 1<br />
-end</p>
-<p>begin<br />
-     button = Mute<br />
-     prog = mplayer<br />
-     config = mute<br />
-     repeat = 0<br />
-end<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">begin
+     button <span class="o">=</span> VolUp
+     prog <span class="o">=</span> mplayer
+     config <span class="o">=</span> volume 1
+     repeat <span class="o">=</span> 1
+end
+
+begin
+     button <span class="o">=</span> VolDown
+     prog <span class="o">=</span> mplayer
+     config <span class="o">=</span> volume <span class="nt">-1</span>
+     repeat <span class="o">=</span> 1
+end
+
+begin
+     button <span class="o">=</span> Stop
+     prog <span class="o">=</span> mplayer
+     config <span class="o">=</span> stop
+     repeat <span class="o">=</span> 1
+end
+
+begin
+     button <span class="o">=</span> Pause
+     prog <span class="o">=</span> mplayer
+     config <span class="o">=</span> pause
+     repeat <span class="o">=</span> 1
+end
+
+begin
+     button <span class="o">=</span> Rewind
+     prog <span class="o">=</span> mplayer
+     config <span class="o">=</span> seek <span class="nt">-10</span>
+     repeat <span class="o">=</span> 1
+end
+
+begin
+     button <span class="o">=</span> Forward
+     prog <span class="o">=</span> mplayer
+     config <span class="o">=</span> seek 10
+     repeat <span class="o">=</span> 1
+end
+
+begin
+     button <span class="o">=</span> Mute
+     prog <span class="o">=</span> mplayer
+     config <span class="o">=</span> mute
+     repeat <span class="o">=</span> 0
+end</code></pre></figure></div>
 <p>Obviamente, esto está tomado de la configuracion de mi mando a distancia. Para adaptarlo al tuyo tienes que mirar en tu fichero /etc/lirc/lircd.conf y usar los nombres de los botones de tu mando.</p>
       </div>
 
@@ -5375,7 +5372,7 @@ end<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

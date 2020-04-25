@@ -5240,124 +5240,106 @@
 <h3>Debe tener un <strong>constructor sin argumentos</strong></h3>
 <p>Si no es así, será imposible definir arrays o colecciones(contenedores) de instancias de esa clase. Debes tener presente que si tu clase no tiene ningún constructor, el compilador creará un constructor sin argumentos que hará una inicialización básica de los atributos, los atributos sin constructor por defecto no se inicializarían.</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-String::String() {<br />
-  rep = new char<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>;<br />
-  rep<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup> = &#8216;\0&#8217;;<br />
-}<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">String</span><span class="o">::</span><span class="n">String</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">rep</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">rep</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <h3>Debe incluir el <strong>constructor de copia</strong></h3>
 <p>Se encarga de que todos los atributos se copien de la forma correcta para obtener una instancia independiente del original. Particularmente importante si la clase tiene atributos de tipo puntero, puesto que el constructor de copia generado por el compilador copiará los punteros y <strong>no</strong> las variables referenciadas por ellos. El constructor de copia acepta una referencia constante de su mismo tipo como único argumento. No confundir con el operador de asignación.</p>
 <p>Aprovecho para definir un método para obtener el tamaño de la cadena que vendrá bien para implementar los demás métodos:</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-int<br />
-String::size() const {<br />
-  return ::strlen(rep);<br />
-}<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span>
+<span class="n">String</span><span class="o">::</span><span class="n">size</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">::</span><span class="n">strlen</span><span class="p">(</span><span class="n">rep</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>Y ahora sí, el constructor de copia:</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-String::String(const String&amp; s) {<br />
-  rep = new char[s.size() + 1];<br />
-  ::strcpy(rep, s.rep);<br />
-}<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">String</span><span class="o">::</span><span class="n">String</span><span class="p">(</span><span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">rep</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+  <span class="o">::</span><span class="n">strcpy</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">rep</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure></div>
 <h3>Debe implementar el <strong>operador de asignación</strong></h3>
 <p>Se ejecuta cuando se asigna una instancia de la clase a otra. Es importante para evitar problemas en los «temporarios» y en los pasos por valor (por copia) en las llamadas a funciones.</p>
 <div>
-<p>{% highlight cpp %}<br />
-String&amp; String::operator=(const String&amp; s) {<br />
-  if (rep != s.rep) {<br />
-    delete[] rep;<br />
-    int lenOrig = s.size() + 1;<br />
-    rep = new char[lenOrig];<br />
-    ::strcpy(rep, s.rep);<br />
-  }</p>
-return *this;
-<p>}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">String</span><span class="o">&amp;</span> <span class="n">String</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">rep</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="n">rep</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">delete</span><span class="p">[]</span> <span class="n">rep</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">lenOrig</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">rep</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">lenOrig</span><span class="p">];</span>
+    <span class="o">::</span><span class="n">strcpy</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">rep</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <h3>Un <strong>destructor</strong></h3>
 <p>Que se encarga de liberar la memoria de los atributos dinámicos, cerrar ficheros, sockets, etc&#8230;</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-String::~String() {<br />
-  delete[] rep;<br />
-}<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">String</span><span class="o">::~</span><span class="n">String</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">delete</span><span class="p">[]</span> <span class="n">rep</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <h2>Ampliando la funcionalidad</h2>
 <p>Aparte de la <span class="caps">OCF</span> propiamente dicha, algunos métodos más simplificarán el uso del nuevo tipo.</p>
 <h3>Constructor de conversión</h3>
 <p>Para crear fácilmente un <tt>String</tt> a partir de una array de <tt>char</tt>.</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-String::String(const char *s) {<br />
-  int lenOrig = ::strlen(s) + 1;<br />
-  rep = new char[lenOrig];<br />
-  ::strcpy(rep, s);<br />
-}<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">String</span><span class="o">::</span><span class="n">String</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">lenOrig</span> <span class="o">=</span> <span class="o">::</span><span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">rep</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">lenOrig</span><span class="p">];</span>
+  <span class="o">::</span><span class="n">strcpy</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure></div>
 <h3>Operadores de adicción</h3>
 <div>
-<p>{% highlight cpp %}<br />
-String&amp;<br />
-operator+(String&amp; left, const String&amp; right) {<br />
-  char* rep = new char[left.size() + right.size() + 1];<br />
-  ::strcpy(rep, left.rep);<br />
-  ::strcat(rep, right.rep);<br />
-  delete[] left.rep;<br />
-  left.rep = rep;<br />
-  return left;<br />
-}</p>
-<p>const String<br />
-operator+(const String&amp; left, const String&amp; right) {<br />
-  String retval(left);<br />
-  return retval + right;<br />
-}</p>
-<p>String<br />
-operator+(const char* left, const String&amp; right) {<br />
-  return String(left) + right;<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">String</span><span class="o">&amp;</span>
+<span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">String</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">rep</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">left</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="n">right</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+  <span class="o">::</span><span class="n">strcpy</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">left</span><span class="p">.</span><span class="n">rep</span><span class="p">);</span>
+  <span class="o">::</span><span class="n">strcat</span><span class="p">(</span><span class="n">rep</span><span class="p">,</span> <span class="n">right</span><span class="p">.</span><span class="n">rep</span><span class="p">);</span>
+  <span class="k">delete</span><span class="p">[]</span> <span class="n">left</span><span class="p">.</span><span class="n">rep</span><span class="p">;</span>
+  <span class="n">left</span><span class="p">.</span><span class="n">rep</span> <span class="o">=</span> <span class="n">rep</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="n">String</span>
+<span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">String</span> <span class="n">retval</span><span class="p">(</span><span class="n">left</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">retval</span> <span class="o">+</span> <span class="n">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">String</span>
+<span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">String</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="n">right</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <h3>Ostream inserter</h3>
 <p>Para que las instancias se pueden imprimir fácilmente:</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-ostream&amp;<br />
-operator&lt;&lt;(ostream&amp; os, const String&amp; s) {<br />
-  os &lt;&lt; s.rep;<br />
-  return os;<br />
-}<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">ostream</span><span class="o">&amp;</span>
+<span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">os</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">rep</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">os</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <h2>Declaración de la clase</h2>
 <div>
-<p>{% highlight cpp %}<br />
-class String {<br />
-public:</p>
-String();
-String(const String&amp;);
-String(const char *);
-String&amp; operator=(const String&amp;);
-int size() const;
-~String();
-friend String&amp; operator+(String&amp; left, const String&amp; right);
-friend const String operator+(const String&amp; left, const String&amp; right);
-friend String operator+(const char* left, const String&amp; right);
-friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const String&amp; s);
-<p>private:<br />
-    char *rep;<br />
-};<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">String</span> <span class="p">{</span>
+<span class="nl">public:</span>
+
+  <span class="n">String</span><span class="p">();</span>
+  <span class="n">String</span><span class="p">(</span><span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="n">String</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+
+  <span class="n">String</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span><span class="p">);</span>
+
+  <span class="kt">int</span> <span class="n">size</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+  <span class="o">~</span><span class="n">String</span><span class="p">();</span>
+
+  <span class="k">friend</span> <span class="n">String</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">String</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">);</span>
+  <span class="k">friend</span> <span class="k">const</span> <span class="n">String</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">);</span>
+  <span class="k">friend</span> <span class="n">String</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">);</span>
+
+  <span class="k">friend</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">os</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">);</span>
+
+<span class="nl">private:</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">rep</span><span class="p">;</span>
+<span class="p">};</span></code></pre></figure></div>
 <h2>Download</h2>
 <p>Este ejemplo está disponible en el <a href="https://bitbucket.org/arco_group/patterns/src/tip/OCF/String.cc">repo público</a></p>
 <h2>Referencias</h2>
@@ -5433,7 +5415,7 @@ friend ostream&amp; operator&lt;&lt;(ostream&amp; os, const String&amp; s);
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

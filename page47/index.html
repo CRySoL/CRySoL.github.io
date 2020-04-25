@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -5496,6 +5496,8 @@
 
   
 
+  
+    
   
     
   
@@ -8195,20 +8197,20 @@ Función cambiaTexto():
 
 
 <div>
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">cambiaTexto</span><span class="p">(){</span>	
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">cambiaTexto</span><span class="p">(){</span>
 	<span class="kd">var</span> <span class="nx">menu</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">menu</span><span class="dl">"</span><span class="p">);</span>
-	<span class="kd">var</span> <span class="nx">capa</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">texto</span><span class="dl">"</span><span class="p">);</span>	
+	<span class="kd">var</span> <span class="nx">capa</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">texto</span><span class="dl">"</span><span class="p">);</span>
 	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span> <span class="nx">menu</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
 	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
 		<span class="k">if</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">){</span>
-			<span class="nx">capa</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>			
-		<span class="p">}</span>		
+			<span class="nx">capa</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
+		<span class="p">}</span>
 	<span class="p">}</span>
-	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>				
+	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
 </div>
 
-Para poder manipular el menú y la capa creada con código HTML, utilizamos la función getElementById. El valor actual del menú contendrá el enlace de la página que hemos elegido <i>menu.value</i>. Por tanto, podemos hacer la petición del contenido de dicha página con el objeto <i>xmlhttp</i> y la función <i>open</i>. Además, podemos apreciar que en este ejemplo hemos realizado la petición con el método GET, pero es importante saber que no es la única forma, ya que existe varios métodos: GET, POST, HEAD, DELETE, TRACE, OPTIONS y CONNECT. 
+Para poder manipular el menú y la capa creada con código HTML, utilizamos la función getElementById. El valor actual del menú contendrá el enlace de la página que hemos elegido <i>menu.value</i>. Por tanto, podemos hacer la petición del contenido de dicha página con el objeto <i>xmlhttp</i> y la función <i>open</i>. Además, podemos apreciar que en este ejemplo hemos realizado la petición con el método GET, pero es importante saber que no es la única forma, ya que existe varios métodos: GET, POST, HEAD, DELETE, TRACE, OPTIONS y CONNECT.
 
 Finalmente, cuando la petición es satisfecha podemos cargar el contenido que ha sido solicitado en la capa (<i>capa.innerHTML = xmlhttp.responseText</i>)
 
@@ -8308,7 +8310,7 @@ En esta receta intentaré explicar los pasos que he seguido para instalar ubuntu
 </blockquote>
 
 
-La primera piedra que encontramos en el camino es que el portátil carece de unidad de DVD o CD, por tanto, para instalar una nueva distribución necesitaremos una unidad externa o bien instalarla desde una memoria usb. Si finalmente optamos por esta última opción, en 
+La primera piedra que encontramos en el camino es que el portátil carece de unidad de DVD o CD, por tanto, para instalar una nueva distribución necesitaremos una unidad externa o bien instalarla desde una memoria usb. Si finalmente optamos por esta última opción, en
 
 <a href="http://www.pendrivelinux.com/2008/05/15/usb-ubuntu-804-persistent-install-from-linux/">http://www.pendrivelinux.com/2008/05/15/usb-ubuntu-804-persistent-install-from-linux/</a>
 
@@ -8320,7 +8322,7 @@ se explica paso a paso cómo preparar una imagen de ubuntu en una memoria usb pa
 - Tampoco funciona la salida VGA.
 - No monta correctamente los dispositivos usb.
 
-Para solucionar estos problemas vayamos por partes (como diría Jack el destripador). 
+Para solucionar estos problemas vayamos por partes (como diría Jack el destripador).
 
 1º) Para solucionar el problema de la wifi, lector de tarjetas y dispositivos usb seguí la siguiente guía:
 <a href="http://foro.airiskira.com/trucos-guias-y-manuales-f11/conseguir-que-funcione-todo-en-ubuntu-t292.htm">http://foro.airiskira.com/trucos-guias-y-manuales-f11/conseguir-que-funcione-todo-en-ubuntu-t292.htm</a>
@@ -8354,7 +8356,7 @@ Para instalarlo es muy sencillo, ejecutamos como super usuario:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./vinstall </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./vinstall</code></pre></figure>
 </div>
 
 Finalmente, sustituimos el archivo /etc/X11/xorg.conf por este otro:
@@ -8454,7 +8456,7 @@ El único problema que no he conseguido solucionar todavía es que la luz de la 
 
 
 
- 
+
 
 
 
@@ -9051,7 +9053,7 @@ El único problema que no he conseguido solucionar todavía es que la luz de la 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

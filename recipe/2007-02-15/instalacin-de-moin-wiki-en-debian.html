@@ -5159,31 +5159,18 @@
 	<li>Crea un directorio donde alojar el wiki <code>/var/lib/arcowiki/</code></li>
 </ul>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mkdir /var/lib/arcowiki<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span><span class="nb">mkdir</span> /var/lib/arcowiki</code></pre></figure></div>
 <ul>
 	<li>Copia en el directorio creado el contenido de <code>/usr/share/moin/cgi-bin/</code></li>
 </ul>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ cp -r /usr/share/moin/data /usr/share/moin/cgi-bin/*  /var/lib/arcowiki<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-r</span> /usr/share/moin/data /usr/share/moin/cgi-bin/<span class="k">*</span>  /var/lib/arcowiki</code></pre></figure></div>
 <ul>
 	<li>Haz al usuario de apache (www-data) propietario de estos archivos</li>
 </ul>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>chown -R www-data: /var/lib/arcowiki</li>
-	<li>chmod +x /var/lib/arcowiki/moin.cgi</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">chown</span> <span class="nt">-R</span> www-data: /var/lib/arcowiki
+<span class="gp">#</span><span class="w"> </span><span class="nb">chmod</span> +x /var/lib/arcowiki/moin.cgi</code></pre></figure></div>
 <ul>
 	<li>Añade estas líneas en el archivo de configuración correspondiente de apache o apache2. En el caso de apache este archivo es <code>/etc/apache/httpd.conf</code>. En tu caso, puesto que usas apache2 pon wiki tan sólo en el sitio seguro (<span class="caps">SSL</span>), y este archivo está en <code>/etc/apache2/sites-enabled/default</code>.</li>
 </ul>
@@ -5256,7 +5243,7 @@ ScriptAlias /wiki "/var/lib/arcowiki/moin.cgi"
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

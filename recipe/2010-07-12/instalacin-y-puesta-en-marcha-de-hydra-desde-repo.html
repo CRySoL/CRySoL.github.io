@@ -5447,10 +5447,7 @@
 <h2>Descarga y Compilación</h2>
 <p>En primer lugar, es necesario descargarse el código del repo público en el ordenador que vaya a actuar de Manager. Durante la receta, supondremos que el directorio de instalación será <tt>~/hydra</tt>, así que para descargarlo hay que ejecutar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>user@localhost:~$ svn co https://arco.esi.uclm.es/svn/public/prj/hydra<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@localhost:~$</span><span class="w"> </span>svn co https://arco.esi.uclm.es/svn/public/prj/hydra</code></pre></figure></div>
 <p>Una vez descargado el código, es necesario definir una variable de entorno <strong><span class="caps">HYDRADIR</span></strong> que contenga el path al directorio de instalación. Después, se ejecuta el comando <strong>make</strong> en dicho directorio.</p>
 <h2>Manager</h2>
 <p>En el Manager es necesario tener instalado también el paquete zeroc-ice33, y se editarán los ficheros <tt> manager.cfg</tt> y <tt>registry.cfg</tt> (que se encuentran en el directorio <tt>$<span class="caps">HYDRADIR</span>/manager/config/</tt>) según convenga.</p>
@@ -5460,10 +5457,7 @@
 También es necesario seguir la receta <a href="node/1321">Bridges y filtrado de protocolos</a></p>
 <p>Es necesario llevar control sobre qué nodos deben arrancar por <span class="caps">PXE</span> y cuáles no. Para ello, dnsmasq nos brinda la oportunidad de utilizar un fichero, mediante la opción <strong>dhcp-hostsfile</strong>. En este fichero añadiremos los nodos que no deben arrancar por <span class="caps">PXE</span>, es decir, debe denegárseles el arranque. Esto se hace añadiendo líneas como esta:</p>
 <div>
-<p>{% highlight bash <span>}<br />
-be:ba:00:fa:ba:da,net:nopxe<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">be:ba:00:fa:ba:da,net:nopxe</code></pre></figure></div>
 <h2>La Imagen <span class="caps">PXE</span></h2>
 <p>La imagen que se sirve por <span class="caps">PXE</span> debe contener todas las herramientas necesarias para el sistema <span class="caps">HYDRA</span>:</p>
 <ul>
@@ -5536,7 +5530,7 @@ be:ba:00:fa:ba:da,net:nopxe<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

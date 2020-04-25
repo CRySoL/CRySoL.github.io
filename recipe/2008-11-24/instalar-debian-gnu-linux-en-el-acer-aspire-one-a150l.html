@@ -5337,38 +5337,30 @@
 </ul>
 <h2>Configuración hardware</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ lspci<br />
-00:00.0 Host bridge: Intel Corporation Mobile 945GME Express Memory Controller Hub (rev 03)<br />
-00:02.0 <span class="caps">VGA</span> compatible controller: Intel Corporation Mobile 945GME Express Integrated Graphics Controller (rev 03)<br />
-00:02.1 Display controller: Intel Corporation Mobile 945GM/<span class="caps">GMS</span>/<span class="caps">GME</span>, 943/940GML Express Integrated Graphics Controller (rev 03)<br />
-00:1b.0 Audio device: Intel Corporation 82801G (ICH7 Family) High Definition Audio Controller (rev 02)<br />
-00:1c.0 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 1 (rev 02)<br />
-00:1c.1 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 2 (rev 02)<br />
-00:1c.2 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 3 (rev 02)<br />
-00:1c.3 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 4 (rev 02)<br />
-00:1d.0 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> Controller #1 (rev 02)<br />
-00:1d.1 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> Controller #2 (rev 02)<br />
-00:1d.2 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> Controller #3 (rev 02)<br />
-00:1d.3 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> Controller #4 (rev 02)<br />
-00:1d.7 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) USB2 <span class="caps">EHCI</span> Controller (rev 02)<br />
-00:1e.0 <span class="caps">PCI</span> bridge: Intel Corporation 82801 Mobile <span class="caps">PCI</span> Bridge (rev e2)<br />
-00:1f.0 <span class="caps">ISA</span> bridge: Intel Corporation 82801GBM (ICH7-M) <span class="caps">LPC</span> Interface Bridge (rev 02)<br />
-00:1f.2 <span class="caps">IDE</span> interface: Intel Corporation 82801GBM/<span class="caps">GHM</span> (ICH7 Family) <span class="caps">SATA</span> <span class="caps">IDE</span> Controller (rev 02)<br />
-00:1f.3 SMBus: Intel Corporation 82801G (ICH7 Family) SMBus Controller (rev 02)<br />
-02:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8101E/RTL8102E <span class="caps">PCI</span> Express Fast Ethernet controller (rev 02)<br />
-03:00.0 Ethernet controller: Atheros Communications Inc. AR242x 802.11abg Wireless <span class="caps">PCI</span> Express Adapter (rev 01)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>lspci
+<span class="go">00:00.0 Host bridge: Intel Corporation Mobile 945GME Express Memory Controller Hub (rev 03)
+00:02.0 VGA compatible controller: Intel Corporation Mobile 945GME Express Integrated Graphics Controller (rev 03)
+00:02.1 Display controller: Intel Corporation Mobile 945GM/GMS/GME, 943/940GML Express Integrated Graphics Controller (rev 03)
+00:1b.0 Audio device: Intel Corporation 82801G (ICH7 Family) High Definition Audio Controller (rev 02)
+00:1c.0 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 1 (rev 02)
+00:1c.1 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 2 (rev 02)
+00:1c.2 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 3 (rev 02)
+00:1c.3 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 4 (rev 02)
+</span><span class="gp">00:1d.0 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI Controller #</span>1 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="gp">00:1d.1 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI Controller #</span>2 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="gp">00:1d.2 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI Controller #</span>3 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="gp">00:1d.3 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI Controller #</span>4 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="go">00:1d.7 USB Controller: Intel Corporation 82801G (ICH7 Family) USB2 EHCI Controller (rev 02)
+00:1e.0 PCI bridge: Intel Corporation 82801 Mobile PCI Bridge (rev e2)
+00:1f.0 ISA bridge: Intel Corporation 82801GBM (ICH7-M) LPC Interface Bridge (rev 02)
+00:1f.2 IDE interface: Intel Corporation 82801GBM/GHM (ICH7 Family) SATA IDE Controller (rev 02)
+00:1f.3 SMBus: Intel Corporation 82801G (ICH7 Family) SMBus Controller (rev 02)
+02:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8101E/RTL8102E PCI Express Fast Ethernet controller (rev 02)
+03:00.0 Ethernet controller: Atheros Communications Inc. AR242x 802.11abg Wireless PCI Express Adapter (rev 01)</span></code></pre></figure></div>
 <h2>Instalación</h2>
 <p>Escribe la imagen de arranque en el pendrive (el dispositivo dependerá de tu configuración):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>zcat boot.img.gz &gt; /dev/sdb<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>zcat boot.img.gz <span class="o">&gt;</span> /dev/sdb</code></pre></figure></div>
 <p>Monta el pendrive (quizá tengas que extraerlo y volver a insertarlo) y copia en él la imagen <span class="caps">ISO</span> de lenny. El instalador la detectará y la utilizará durante la instalación.</p>
 <p>Reinicia el Aspire <span class="caps">ONE</span> con el pendrive conectado y cuando aparezca el mensaje de la <span class="caps">BIOS</span> pulsa F12 para elegirlo como dispositivo de arranque. Puedes instalar normalmente, la instalación gráfica funciona bien. Lo siguiente funciona recién instalado:</p>
 <ul>
@@ -5379,58 +5371,39 @@
 <h2>WiFi</h2>
 <p>Driver <code>madwifi</code> con module-assistant de toda la vida:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>m-a a-i madwifi<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>m-a a-i madwifi</code></pre></figure></div>
 <p>Un problema con el driver madwifi es que la wifi dejará de funcionar al volver de una hibernación. Para solucionarlo, crea un fichero llamado <code>/etc/pm/config.d/madwifi</code> que contenga lo siguiente:</p>
 <div>
-<p>{% highlight text <span>}<br />
-SUSPEND_MODULES=&#8220;ath_pci&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">SUSPEND_MODULES="ath_pci"</code></pre></figure></div>
 <p>Otra cosa, para que funcione el <span class="caps">LED</span> que hay encima del interruptor de la WiFi tiene que crear el fichero <code>/etc/sysctl.d/madwifi.conf</code> y escribir esto en él:</p>
 <div>
-<p>{% highlight text <span>}<br />
-dev.wifi0.ledpin=3<br />
-dev.wifi0.softled=1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">dev.wifi0.ledpin=3
+dev.wifi0.softled=1</code></pre></figure></div>
 <h2>Lector de tarjetas de memoria</h2>
 <p>Crea el fichero <code>/etc/modprobe.d/aspire-blacklist-memstick</code> y escribe dentro lo siguiente:</p>
 <div>
-<p>{% highlight text <span>}<br />
-blacklist jmb38x_ms<br />
-blacklist memstick<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">blacklist jmb38x_ms
+blacklist memstick</code></pre></figure></div>
 <p>Crea el fichero <code>/etc/modprobe.d/aspire-fix-sd-slots</code> y escribe dentro:</p>
 <div>
-<p>{% highlight text <span>}<br />
-options pciehp pciehp_force=1 pciehp_slot_with_bus=1<br />
-install sdhci for i in 2381 2382 2383 2384; do /usr/bin/setpci -d 197b:$i AE=47; done; /sbin/modprobe &#8212;ignore-install sdhci<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">options pciehp pciehp_force=1 pciehp_slot_with_bus=1
+install sdhci for i in 2381 2382 2383 2384; do /usr/bin/setpci -d 197b:$i AE=47; done; /sbin/modprobe --ignore-install sdhci</code></pre></figure></div>
 <p>Y añade una línea <code>pciehp</code> al fichero <code>/etc/modules</code>. De ese modo, al introducir una tarjeta debería montarse automáticamente, si usas <span class="caps">GNOME</span> o <span class="caps">KDE</span>. Lo que he puesto es lo que aconseja el wiki de Debian que referencio más abajo. Con esta configuración a mi solo me funciona el lector multitarjeta (el del lado derecho), el lector SD de la izquierda no funciona, pero no me parece grave porque el lector de la derecha también lee SD. Sigo sin saber porqué han puesto dos lectores SD&#8230;</p>
 <h2>Servidor X</h2>
 <p>Modifica el fichero <code>/etc/X11/xorg.conf</code> para que las secciones siguientes queden así:</p>
 <div>
-<p>{% highlight text %}<br />
-Section &#8220;Device&#8221;<br />
-        Identifier   &#8220;Configured Video Device&#8221;<br />
-        Driver       &#8220;Intel&#8221;<br />
-        Option       &#8220;AccelMethod&#8221; &#8220;exa&#8221;<br />
-        Option       &#8220;MigrationHeuristic&#8221; &#8220;greedy&#8221;<br />
-        Option       &#8220;NoDDC&#8221;<br />
-EndSection</p>
-<p>Section &#8220;Monitor&#8221;<br />
-        Identifier   &#8220;Configured Monitor&#8221;<br />
-        DisplaySize  195 113<br />
-EndSection<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Section "Device"
+        Identifier   "Configured Video Device"
+        Driver       "Intel"
+        Option       "AccelMethod" "exa"
+        Option       "MigrationHeuristic" "greedy"
+        Option       "NoDDC"
+EndSection
+
+Section "Monitor"
+        Identifier   "Configured Monitor"
+        DisplaySize  195 113
+EndSection</code></pre></figure></div>
 <p>Con esto tienes aceleración 3D y un rendimiento de unos 900 fps según glxgears, más que suficiente para ejecutar Compiz, suponiendo que quieras malgastar la batería en eso&#8230;</p>
 <h2>Referencias</h2>
 <ul>
@@ -5503,7 +5476,7 @@ EndSection<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

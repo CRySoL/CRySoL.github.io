@@ -5651,55 +5651,33 @@
 <p>Para la configuración inicial de la tarjeta seguimos los pasos listados <a href="http://wiki.forumdebian.com.br/index.php/Instalando_o_driver_da_ATI_no_Debian">aquí</a>, relativos al driver <span class="caps">FGLRX</span>. Podemos resumir estos pasos en:</p>
 <p>Utilizamos el module assistant:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>m-a update</li>
-	<li>m-a a-i fglrx-kernel-src<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>m-a update
+<span class="gp">#</span><span class="w"> </span>m-a a-i fglrx-kernel-src</code></pre></figure></div>
 <p>Generamos el archivo <code>xorg.conf</code> con (se hace una copia de seguridad):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>aticonfig &#8212;initial<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>aticonfig <span class="nt">--initial</span></code></pre></figure></div>
 <p>Lo único que tienes que añadir, al final del archivo:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Section &#8220;Extensions&#8221;<br />
-          Option &#8220;XVideo&#8221; &#8220;Enable&#8221;<br />
-EndSection<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Section "Extensions"
+          Option "XVideo" "Enable"
+EndSection</code></pre></figure></div>
 <p>Con esto ya deberías tener funcionando la <span class="caps">ATI</span> con un solo monitor. Para comprobar si el 3d te rula, ya sabes:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>#glxinfo | grep direct<br />
-direct rendering: Yes<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span>glxinfo | <span class="nb">grep </span>direct
+<span class="go">direct rendering: Yes</span></code></pre></figure></div>
 <p>Antes de hacer esto, he probado con el instalador de la <span class="caps">ATI</span> (bajandolo de su página web) y no rula.</p>
 <h2>Doble monitor</h2>
 <p>Para el doble monitor:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>#aticonfig &#8212;initial=dual-head<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span>aticonfig <span class="nt">--initial</span><span class="o">=</span>dual-head</code></pre></figure></div>
 <p>Con el <code>xorg.conf</code> que te genera, tienes dos escritorios distintos en cada monitor, puedes cambiar iconos de uno a otro pero no cambiar aplicaciones entre ellos. Si quieres verlo todo como un único monitor debes habilitar la opción Xinerama dentro del <code>ServerLayout</code> del <code>xorg.conf</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Section &#8220;ServerLayout&#8221;<br />
-        Identifier     &#8220;aticonfig Layout&#8221;<br />
-        Screen      0  &#8220;aticonfig-Screen<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>-0&#8221; 0 0<br />
-        Screen         &#8220;aticonfig-Screen<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>-1&#8221; RightOf &#8220;aticonfig-Screen<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>-0&#8221;<br />
-        Option         &#8220;Xinerama&#8221; &#8220;on&#8221;<br />
-EndSection<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Section "ServerLayout"
+        Identifier     "aticonfig Layout"
+        Screen      0  "aticonfig-Screen[0]-0" 0 0
+        Screen         "aticonfig-Screen[0]-1" RightOf "aticonfig-Screen[0]-0"
+        Option         "Xinerama" "on"
+EndSection</code></pre></figure></div>
 <p>Y ya esta todo, con eso debería funcionar.</p>
 <p>Saludos</p>
       </div>
@@ -5766,7 +5744,7 @@ EndSection<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

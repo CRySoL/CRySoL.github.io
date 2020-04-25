@@ -5427,12 +5427,7 @@ Recientes cambios en la versión 2.2.0 de <span class="caps">NUT</span> requiere
 <p>En la receta que cito ahí arriba se hablaba de un <span class="caps">SAI</span> <span class="caps">MGE</span> Pulsar Extreme 1500C con interfaz RS-232. Ese es un <span class="caps">SAI</span> de gama media que ronda los 1.000€. Está bien para un servidor corporativo, pero es demasiado para un servidor doméstico, a menos que tu economía funcione realmente bien. Como ése no es mi caso, yo compré un <span class="caps">MGE</span> Pulsar Ellipse 600, que es un <span class="caps">SAI</span> más modesto (~60€), es el más barato de <span class="caps">MGE</span> que tiene conexión de  datos (<span class="caps">USB</span> por cierto). Veremos ahora cómo configurarlo, dando servicio sólo a una máquina.</p>
 <p>Como utiliza un driver <span class="caps">USB</span> necesitas un paquete adicional:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install nut-usb<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>nut-usb</code></pre></figure></div>
 <h2>Driver</h2>
 <p>Crea un fichero <tt>/etc/nut/ups.conf</tt> y escribe:</p>
 <pre>
@@ -5442,21 +5437,14 @@ Recientes cambios en la versión 2.2.0 de <span class="caps">NUT</span> requiere
 </pre>
 <p>Es muy importante que el fichero pueda ser leído por <code>upsd</code> y otros programas. Para ello, haz que el fichero pertenezca al grupo <tt>nut</tt> y tenga permisos de lectura,</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ chown root.nut /etc/nut/ups.conf<br />
-$  chmod g+r /etc/nut/ups.conf</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">chown </span>root.nut /etc/nut/ups.conf
+<span class="gp">$</span><span class="w">  </span><span class="nb">chmod </span>g+r /etc/nut/ups.conf</code></pre></figure></div>
 <p>Necesitas un Linux 2.6 o más nuevo para que funcione este driver. Puedes comprobar que lo detecta correctamente con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/lib/nut/usbhid-ups <del>a mysai<br />
-Network <span class="caps">UPS</span> Tools: 0.29 <span class="caps">USB</span> communication driver &#8211; core 0.32 (2.2.1</del>)</li>
-</ol>
-<p>Using subdriver: <span class="caps">MGE</span> <span class="caps">HID</span> 1.01<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/lib/nut/usbhid-ups <span class="nt">-a</span> mysai
+<span class="go">Network UPS Tools: 0.29 USB communication driver - core 0.32 (2.2.1-)
+
+Using subdriver: MGE HID 1.01</span></code></pre></figure></div>
 <h2>Activar el servicio nut</h2>
 <p>Edita el fichero <tt>/etc/default/nut</tt> para que quede tal que:</p>
 <pre>
@@ -5468,126 +5456,87 @@ START_UPSMON=yes
 <h2>Usuarios</h2>
 <p>Copia el fichero <tt>/usr/share/doc/nut/examples/upsd.users.sample</tt> en <tt>/etc/nut/upsd.users</tt> y añade lo siguiente:</p>
 <div>
-<p>{% highlight text %}<br />
-[admin]<br />
-        password = mypass<br />
-        allowfrom = localhost<br />
-        actions = <span class="caps">SET</span><br />
-        instcmds = <span class="caps">ALL</span></p>
-<p>[monuser]<br />
-        password  = mypass<br />
-        allowfrom = localhost<br />
-        upsmon master<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[admin]
+        password = mypass
+        allowfrom = localhost
+        actions = SET
+        instcmds = ALL
+
+[monuser]
+        password  = mypass
+        allowfrom = localhost
+        upsmon master</code></pre></figure></div>
 <h2>Cliente local</h2>
 <p>Copia el fichero <tt>/usr/share/doc/nut/examples/upsmon.conf.sample</tt> en <tt>/etc/nut/upsmon.conf</tt> y añade lo siguiente:</p>
 <div>
-<p>{% highlight text <span>}<br />
-<span class="caps">MONITOR</span> mysai@localhost 1 monuser mypass master<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">MONITOR mysai@localhost 1 monuser mypass master</code></pre></figure></div>
 <p>Ahora reinicia el servicio:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/nut restart<br />
-Broadcast Message from nut@localhost<br />
-        (somewhere) at 15:59 &#8230;</li>
-</ol>
-<p>Communications with <span class="caps">UPS</span> mysai@localhost established<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/nut restart
+<span class="go">Broadcast Message from nut@localhost
+        (somewhere) at 15:59 ...
+
+Communications with UPS mysai@localhost established</span></code></pre></figure></div>
 <h2>Verificando la configuración</h2>
 <p>Al ejecutar <tt>upsc</tt> deberías ver algo similar a esto:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>upsc mysai@localhost<br />
-battery.charge: 100<br />
-battery.charge.low: 30<br />
-battery.runtime: 537<br />
-battery.type: PbAc<br />
-driver.name: usbhid-ups<br />
-driver.parameter.pollfreq: 30<br />
-driver.parameter.pollinterval: 2<br />
-driver.parameter.port: auto<br />
-driver.version: 2.2.1-<br />
-driver.version.data: <span class="caps">MGE</span> <span class="caps">HID</span> 1.01<br />
-driver.version.internal: 0.32<br />
-input.transfer.high: 264<br />
-input.transfer.low: 184<br />
-outlet.0.desc: Main Outlet<br />
-outlet.0.id: 1<br />
-outlet.0.switchable: no<br />
-outlet.1.desc: PowerShare Outlet 1<br />
-outlet.1.id: 2<br />
-outlet.1.status: on<br />
-outlet.1.switchable: no<br />
-outlet.2.desc: PowerShare Outlet 2<br />
-output.frequency.nominal: 50<br />
-output.voltage: 230.0<br />
-output.voltage.nominal: 230<br />
-ups.beeper.status: enabled<br />
-ups.delay.shutdown: -1<br />
-ups.delay.start: -10<br />
-ups.load: 21<br />
-ups.mfr: <span class="caps">MGE</span> <span class="caps">UPS</span> <span class="caps">SYSTEMS</span><br />
-ups.model: Ellipse 600<br />
-ups.power.nominal: 600<br />
-ups.productid: ffff<br />
-ups.serial: AP9F35029<br />
-ups.status: OL <span class="caps">CHRG</span><br />
-ups.vendorid: 0463<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>upsc mysai@localhost
+<span class="go">battery.charge: 100
+battery.charge.low: 30
+battery.runtime: 537
+battery.type: PbAc
+driver.name: usbhid-ups
+driver.parameter.pollfreq: 30
+driver.parameter.pollinterval: 2
+driver.parameter.port: auto
+driver.version: 2.2.1-
+driver.version.data: MGE HID 1.01
+driver.version.internal: 0.32
+input.transfer.high: 264
+input.transfer.low: 184
+outlet.0.desc: Main Outlet
+outlet.0.id: 1
+outlet.0.switchable: no
+outlet.1.desc: PowerShare Outlet 1
+outlet.1.id: 2
+outlet.1.status: on
+outlet.1.switchable: no
+outlet.2.desc: PowerShare Outlet 2
+output.frequency.nominal: 50
+output.voltage: 230.0
+output.voltage.nominal: 230
+ups.beeper.status: enabled
+ups.delay.shutdown: -1
+ups.delay.start: -10
+ups.load: 21
+ups.mfr: MGE UPS SYSTEMS
+ups.model: Ellipse 600
+ups.power.nominal: 600
+ups.productid: ffff
+ups.serial: AP9F35029
+ups.status: OL CHRG
+ups.vendorid: 0463</span></code></pre></figure></div>
 <h2>Simulación de un corte de luz</h2>
 <p>Con esto puedes ver que todo se cierra convenientemente y comprobar lo que ocurrirá en un corte de corriente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>upscmd -c fsd<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>upscmd <span class="nt">-c</span> fsd</code></pre></figure></div>
 <p>Es importante señalar que este comando deja conectado el <span class="caps">SAI</span> al terminar, es decir, todo lo que tengas conectado a sus salidas seguirá teniendo corriente.</p>
 <h2>Afinando el funcionamiento del <span class="caps">SAI</span></h2>
 <p>Puedes modificar algunas variables del <span class="caps">SAI</span>, como por ejemplo, el tiempo que tarda en desconectarse después de recibir el comando <tt>shutdown</tt>. Para ver qué variables puedes modificar usa:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>upsrw mysai@localhost<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>upsrw mysai@localhost</code></pre></figure></div>
 <p>Para modificar una variable usa algo como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>upsrw -s battery.charge.low=20 -u admin -p mypass mysai@localhost<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>upsrw <span class="nt">-s</span> battery.charge.low<span class="o">=</span>20 <span class="nt">-u</span> admin <span class="nt">-p</span> mypass mysai@localhost</code></pre></figure></div>
 <h2>Invocando comandos</h2>
 <p>Mediante comandos <span class="caps">NUT</span> se pueden hacer operaciones de mantenimiento con el <span class="caps">SAI</span>, como desactivarlo o comprobar el nivel de la batería.</p>
 <p>Puedes ver los comandos disponibles para tu driver con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>upscmd -l mysai@localhost<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>upscmd <span class="nt">-l</span> mysai@localhost</code></pre></figure></div>
 <h3>Apagar el <span class="caps">SAI</span> bajo demanda</h3>
 <p>Resulta muy útil poder apagar (y dejar apagado) el <span class="caps">SAI</span>. De ese modo te garantizas que todo lo que tengas conectado al <span class="caps">SAI</span> queda completamente apagado, con el consiguiente ahorro energético. Para eso tienes que ejecutar el siguiente comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>upscmd -u admin -p mypass mysai shutdown.stayoff; shutdown -h +0<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>upscmd <span class="nt">-u</span> admin <span class="nt">-p</span> mypass mysai shutdown.stayoff<span class="p">;</span> shutdown <span class="nt">-h</span> +0</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.networkupstools.org/">Network <span class="caps">UPS</span> Tools</a></li>
@@ -5659,7 +5608,7 @@ ups.vendorid: 0463<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

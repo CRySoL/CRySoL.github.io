@@ -5483,12 +5483,7 @@
 	<li>Por último haz un enlace a <code>dropbear</code> en <code>/etc/init.d/</code> para que se ejecute siempre al arranque:</li>
 </ul>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ln -s /etc/init.d/dropbear /etc/init.d/S50dropbear<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /etc/init.d/dropbear /etc/init.d/S50dropbear</code></pre></figure></div>
 <h2>Abrir <span class="caps">SSH</span> en la interfaz pública</h2>
 <p>Si quieres entrar a la fonera por <span class="caps">SSH</span> desde la interfaz <span class="caps">WAN</span> usando la IP pública tienes que descomentar las siguientes dos líneas del fichero <code>/etc/firewall.user</code> de la fonera:</p>
 <pre>
@@ -5570,7 +5565,7 @@ iptables        -A input_rule      -i $WAN -p tcp --dport 22 -j ACCEPT
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

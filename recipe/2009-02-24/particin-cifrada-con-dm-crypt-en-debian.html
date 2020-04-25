@@ -5396,77 +5396,49 @@
 <h2>Crear y probar la partición cifrada</h2>
 <p>Esto sólo hay que hacerlo cuando se crea la partición, una vez en la vida. Asumiendo que la partición que vas a cifrar es <code>/dev/hda4</code>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cryptsetup luksFormat /dev/hda4</li>
-	<li>cryptsetup luksOpen /dev/hda4 cifrado</li>
-	<li>mkfs.ext3 /dev/mapper/cifrado</li>
-	<li>mount /dev/mapper/cifrado /mnt/cifrado<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>cryptsetup luksFormat /dev/hda4
+<span class="gp">#</span><span class="w"> </span>cryptsetup luksOpen /dev/hda4 cifrado
+<span class="gp">#</span><span class="w"> </span>mkfs.ext3 /dev/mapper/cifrado
+<span class="gp">#</span><span class="w"> </span>mount /dev/mapper/cifrado /mnt/cifrado</code></pre></figure></div>
 <p>Y para desmontar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>umount /dev/mapper/cifrado</li>
-	<li>cryptsetup luksClose /dev/mapper/cifrado<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>umount /dev/mapper/cifrado
+<span class="gp">#</span><span class="w"> </span>cryptsetup luksClose /dev/mapper/cifrado</code></pre></figure></div>
 <h2>Montaje automático</h2>
 <p>Escribe esto en el fichero <code>/etc/crypttab</code></p>
 <div>
-<p>{% highlight text <span>}<br />
-cifrado /dev/hda4 none luks<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">cifrado /dev/hda4 none luks</code></pre></figure></div>
 <p>Y esto en el fichero <code>/etc/fstab</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-/dev/mapper/cifrado  /mnt/cifrado  ext3  rw,user  0 0<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/dev/mapper/cifrado  /mnt/cifrado  ext3  rw,user  0 0</code></pre></figure></div>
 <p>Con esto, durante el proceso de arranque se te pedirá la clave para abrir el contenedor <span class="caps">LUKS</span>. Así que con este invento puedes cifrar la partición de &#8220;home&#8221;, el swap y hasta el raíz, de modo que si tu portátil cae en manos de El Enemigo (a.k.a. Sauron) tendrá que torturarte como a Gollum para que cantes la clave y poder ver tus ficheros. Sí, ya lo sé ¿qué pasa?</p>
 <p>Si no vas usar siempre esa partición, es bastante latazo tener que poner la password cada vez que reinicias. Si quieres &#8220;abrirlo&#8221; bajo demanda añade <code>noauto</code> a la línea de antes en el <code>/etc/crypttab</code> para que quede así:</p>
 <div>
-<p>{% highlight text <span>}<br />
-cifrado /dev/hda4 none luks,noauto<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">cifrado /dev/hda4 none luks,noauto</code></pre></figure></div>
 <p>Y cuando quieras abrir el contenedor en cuestión, escribe:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo cryptdisks_start cifrado<br />
-Starting crypto disk&#8230;space (starting).<br />
-Enter passphrase to unlock the disk /dev/hda4 (cifrado):<br />
-key slot 0 unlocked.<br />
-Command successful.<br />
-cifrado (started)&#8230;done.<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>cryptdisks_start cifrado
+<span class="go">Starting crypto disk...space (starting).
+Enter passphrase to unlock the disk /dev/hda4 (cifrado):
+key slot 0 unlocked.
+Command successful.
+cifrado (started)...done.</span></code></pre></figure></div>
 <p>Después lo puedes montar del modo habitual, incluyendo las utilidades de <span class="caps">GNOME</span> o <span class="caps">KDE</span> para estos menesteres.</p>
 <p>Para cerrar el container:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo cryptdisks_stop cifrado<br />
-Stopping crypto disk&#8230;cifrado (stopping)&#8230;done.<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>cryptdisks_stop cifrado
+<span class="go">Stopping crypto disk...cifrado (stopping)...done.</span></code></pre></figure></div>
 <h2>cryptmount</h2>
 <p><strong>[ToDo]</strong></p>
 <p>Fichero <code>/etc/cryptmount/cmtab</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-cifrado {<br />
-  dev=/dev/hda4<br />
-  dir=/mnt/cifrado<br />
-  keyformat=luks<br />
-  keyfile=/dev/hda4<br />
-  fstype=ext3<br />
-}<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">cifrado {
+  dev=/dev/hda4
+  dir=/mnt/cifrado
+  keyformat=luks
+  keyfile=/dev/hda4
+  fstype=ext3
+}</code></pre></figure></div>
 <h2>Comentarios</h2>
 <p>En previsión de comentarios similares a los que hubo en la receta sobre el <em>pendrive</em>, he de decir que estoy convencido de que hay maneras mejores, más baratas y más bonitas de hacer lo mismo con Windows, Macos o cualquier otra movida privativa. En cualquier caso, como muy acertadamente diría Olivas, &#8220;me importa tres ***ones&#8221;. Por favor, ve a dar por saco a otro sitio, gracias. Si no sabes de qué va esto, haz como si no hubieras leído este párrafo. :-)</p>
 <h2>Referencias</h2>
@@ -5539,7 +5511,7 @@ cifrado {<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

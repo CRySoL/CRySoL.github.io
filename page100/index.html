@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,133 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-04-02/ejecutar-un-comando-como-si-fueras-otro-usuario-sudo.html">Ejecutar un comando como si fueras otro usuario: sudo</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-04-02
+    
+      
+  <a href="/users.html#arturo">
+   arturo
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-04-02-ejecutar-un-comando-como-si-fueras-otro-usuario-sudo.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-04-02-ejecutar-un-comando-como-si-fueras-otro-usuario-sudo.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/273">node/273</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<p>Esta receta explica cómo ejecutar comandos del sistema con los permisos de otro usuario.</p>
+</blockquote>
+<h2> Introducción </h2>
+<p>El principal objetivo de <tt>sudo</tt> es reemplazar al comando <tt>su</tt>. En algunas situaciones puede reemplazar al <span class="caps">SUID</span>. La principal ventaja de utilizar sudo es que no es necesario conocer la password de otro usuario para ejecutar comandos con permisos &#8220;especiales&#8221;.</p>
+<h2> Configuración </h2>
+<p>Lo primero será editar el fichero <tt>/etc/sudoers</tt>. Existe un comando llamado <tt>visudo</tt> que directamente edita el fichero con vi. Pero si alguno no sabe utilizar vi, puede utilizar cualquier otro editor. El fichero tiene el formato siguiente:</p>
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root    ALL=(ALL) ALL
+fulanito  ALL=(ALL) ALL</code></pre></figure></div>
+<p>En el podemos ver como el usuario root tiene permiso de todo al igual que el usuario fulanito. Muchos administradores opinan que hacer esto es &#8220;peligroso&#8221; si los usuarios son noveles, pero ese no es mi caso :-P.</p>
+<p>El fichero se divide en tres secciones:</p>
+<ul>
+<li> Definiciones de alias </li>
+<li> Ajuste de opciones por defecto</li>
+<li> Reglas de acceso</li>
+</ul>
+<p>La sección más importante son las reglas de acceso, que tienen esta forma:</p>
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">usuario host = (usuario_privilegiado) comando</code></pre></figure></div>
+<p>En el ejemplo de antes se ha utilizado un alias especial <tt><span class="caps">ALL</span></tt> que engloba a todos los comandos, usuarios y demás historias. Para hacer una configuración más afinada lo mejor es que cada uno se cree sus propios alias y configuraciones. El nombre de <em>usuario privilegiado</em> que se pone entre paréntesis es opcional, si no se pone es <code>root</code> por defecto.</p>
+<p>Otro punto a comentar es que cuando se ejecuta cualquier comando con sudo, al usuario se le pide su propia password. Esto impide que si un usuario deja una consola abierta otra persona puede realizar operaciones privilegiadas utilizando su sesión. Puedes evitar la comprobación de clave si escribes la palabra <code>NOPASSWD</code> antes del comando.</p>
+<p>Por ejemplo, la siguiente línea permite al usuario <tt>webmaster</tt> parar y reiniciar el servidor web sin tener que poner su clave:</p>
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">webmaster ALL= (root) NOPASSWD: /etc/init.d/apache2</code></pre></figure></div>
+<p>Para evitar esto lo mejor es añadir al usuario en cuestión al grupo sudo. Eso se puede conseguir editando el fichero <tt>/etc/group</tt></p>
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">sudo:x:27:fulanito</code></pre></figure></div>
+<p>O ejecutando:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>addgroup fulanito <span class="nb">sudo</span></code></pre></figure></div>
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://www.wikilearning.com/introduccion-wkccp-455-1.htm">Iniciación de sudo para bisoños</a></li>
+<li>man sudo</li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8450,7 +8576,7 @@ Para poder utilizar todas sus características, será necesario que, durante la 
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>gdb ejecutable </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>gdb ejecutable</code></pre></figure>
 </div>
 
 y se nos abrirá la línea de órdenes de gdb (todo en modo texto, claro).
@@ -8508,7 +8634,7 @@ Aunque muchas veces uso Emacs con gdb, debo admitir que mi favorito es ddd. Su i
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>ddd </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>ddd</code></pre></figure>
 </div>
 
 Seguro que los de Windows lo tienen más fácil. Bien. El caso es que la pantalla se divide en tres partes (si no es así mira las opciones del menú "View") en las que tenemos, de arriba abajo: datos, código y terminal gdb. Precioso. Si cargamos un programa con opciones de debug ("-ggdb") podremos ver cómo se mueven los punteritos, cómo cambian las direcciones a las que apuntan, cómo se construyen las estructuras, ... Vamos, muchas cosas que nos cuentan pero no se ven ;)
@@ -8682,11 +8808,11 @@ felix:~# sdptool browse 00:15:A0:42:34:8D
 Browsing 00:15:A0:42:34:8D ...
 
 ...todos los servicios
-</pre> 
+</pre>
 
 y ya esta todo, en teoría cuando recibas una llamada descuelgas y se escucha por los altavoces y hablas por el micro. Eso si, como dije al principio y dependiendo de la tarjeta de sonido puede sonar como los teleñecos :-).
 
-Es posible descolgar mediante comandos AT directamente desde el PC y utilizando el propio  programa. 
+Es posible descolgar mediante comandos AT directamente desde el PC y utilizando el propio  programa.
 
 Con esto y un poquito de shell puedes tener tu GNU/Linux siempre listo para atender llamadas.
 
@@ -8892,90 +9018,6 @@ Hace tiempo que llevo buscando la manera de bajarme los videos de YouTube pero a
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/opinion/2006-03-20/intel-core-duo-34-fallos.html">Intel Core Duo ... 34 fallos</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-03-20
-    
-      
-  <a href="/users.html#brue">
-   brue
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-03-20-intel-core-duo-34-fallos.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-03-20-intel-core-duo-34-fallos.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#opinion-ref">
-    		opinion
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/263">node/263</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Sin comentarios&#8230;</p>
-<p>Perdonad si ya lo sabíais.</p>
-<p><a href="http://geek.com/images/geeknews/2006Jan/core_duo_errata__2006_01_21__full.gif">http://geek.com/images/geeknews/2006Jan/core_duo_errata__2006_01_21__full.gif</a></p>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9016,7 +9058,7 @@ Hace tiempo que llevo buscando la manera de bajarme los videos de YouTube pero a
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

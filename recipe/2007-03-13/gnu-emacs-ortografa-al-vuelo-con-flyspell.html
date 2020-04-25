@@ -5288,24 +5288,15 @@
 </ul>
 <p>Ambas órdenes se ejecutan de la forma habitual:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-M-x flyspell-mode<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">M-x flyspell-mode</span></code></pre></figure></div>
 <h2>Diccionarios</h2>
 <p>flyspell no depende del idioma, sólo del diccionario. Así que lo único que tienes que hacer es elegir el tuyo, del mismo modo que para el resto de las utilidades de idioma de emacs, es decir:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- M-x ispell-change-dictionary<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> M-x ispell-change-dictionary</span></code></pre></figure></div>
 <p>Para español utiliza el diccionario <code>castellano</code>, el diccionario <code>castellano8</code> te dará problemas con las palabras acentuadas si utilizas encodings <span class="caps">UTF</span>-8, latin-1 o similar. Puedes fijar el diccionario por defecto para flyspell con:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- M-x customize-variable<br />
-flyspell-default-dictionary</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> M-x customize-variable
+flyspell-default-dictionary</span></code></pre></figure></div>
 <p>o en el <code>.emacs</code> con:</p>
 <pre>(flyspell-default-dictionary "castellano")</pre>
 <h3>Elegir el diccionario en cada fichero</h3>
@@ -5327,10 +5318,7 @@ flyspell-default-dictionary</p>
 <h2>Ortografía para programadores</h2>
 <p>Si no eres de los que buscan burdas excusas para saltarse las normas ortográficas, flyspell puede ayudarte incluso cuando escribes programas. Con la siguiente orden, sólo se comprobará la ortografía de los comentarios, pero no de las palabras reservadas del lenguaje ni de los nombres de variables::</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-M-x flyspell-prog-mode<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">M-x flyspell-prog-mode</span></code></pre></figure></div>
 <h2>Autodetección del idioma</h2>
 <p>Hay un par de paquetes emacs (no estándar) que cargan automáticamente el diccionario que corresponda utilizando el atributo <a href="http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/flyspell-xml-lang.el">xml:lang</a> en los fichero <span class="caps">XML</span> o el la opción <a href="http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/flyspell-babel.el">babel</a> en ficheros LaTeX. Si te interesa tendrás que instalarlos por tu cuenta.</p>
 <h2>Referencias</h2>
@@ -5406,7 +5394,7 @@ M-x flyspell-prog-mode<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

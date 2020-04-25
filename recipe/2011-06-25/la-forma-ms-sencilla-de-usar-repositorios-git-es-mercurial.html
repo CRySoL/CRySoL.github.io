@@ -5272,19 +5272,13 @@
 <p>Si utilizas Debian o sucedáneos (Ubuntu), instala el paquete <code>mercurial-git</code>. En otras distros puede llamarse de otro modo.</p>
 <p>Ahora modifica tu <code>~/.hgrc</code> para que quede así:</p>
 <div>
-<p>{% highlight text <span>}<br />
-[extensions]<br />
-git=<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[extensions]
+git=</code></pre></figure></div>
 <p>También puede depender de tu distribución, en otras puede ser «hggit=»</p>
 <p>Y eso es todo, ya puedes clonar (y todo lo demás) un repositorio git. Algunos ejemplos para las diferentes URLs de git:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ hg clone git://github.com/usuario/repo.git<br />
-$ hg clone git+ssh://git@github.com:usuario/lrepo.git<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>hg clone git://github.com/usuario/repo.git
+<span class="gp">$</span><span class="w"> </span>hg clone git+ssh://git@github.com:usuario/lrepo.git</code></pre></figure></div>
 <p>El transporte http(s) no está soportado por el momento.</p>
 <h2>Referencias</h2>
 <ul>
@@ -5355,7 +5349,7 @@ $ hg clone git+ssh://git@github.com:usuario/lrepo.git<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

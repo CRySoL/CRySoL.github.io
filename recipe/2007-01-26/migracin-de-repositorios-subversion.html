@@ -5232,48 +5232,30 @@
 <p>Se trata de almacenar todo el contenido del repositorio en un fichero estándar incluyendo toda la información sobre revisiones, comentarios, propiedades y todo tipo de metadatos utilizados por subversion.</p>
 <p>Para hacer un volcado completo del repositorio:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- serverA:/var/svn$ svnadmin dump quake &gt; quake.dump<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> serverA:/var/svn$</span><span class="w"> </span>svnadmin dump quake <span class="o">&gt;</span> quake.dump</code></pre></figure></div>
 <p>Este comando permite elegir una revisión o un conjunto de ellas:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>serverA:/var/svn$ svnadmin dump quake &#8212;revision 1000:2000 &gt; quake.dump<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">serverA:/var/svn$</span><span class="w"> </span>svnadmin dump quake <span class="nt">--revision</span> 1000:2000 <span class="o">&gt;</span> quake.dump</code></pre></figure></div>
 <h2>Filtrado</h2>
 <p>El tipo de filtrado que podemos hacer con las herramientas estándar es bastante limitado. Básicamente consiste en incluir o excluir rutas. Por ejemplo, si te quieres quedar sólo con el directorio <code>src/engine</code> harías:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- cat quake.dump | svndumpfilter include src/engine &gt; quake_engine.dump<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> cat quake.dump | svndumpfilter include src/engine &gt;</span><span class="w"> </span>quake_engine.dump</code></pre></figure></div>
 <p>Y si quieres todo menos el arte pues:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- cat quake.dump | svndumpfilter exclude src/art &gt; quake_source.dump<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> cat quake.dump | svndumpfilter exclude src/art &gt;</span><span class="w"> </span>quake_source.dump</code></pre></figure></div>
 <h2>Carga</h2>
 <p>En la máquina destino (serverB) utiliza de nuevo <code>svnadmin</code> para cargar el fichero volcado; algo así:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- serverB:/svn$ svnadmin create quake<br />
-serverB:/svn$ svnadmin load quake &lt; quake.dump</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> serverB:/svn$</span><span class="w"> </span>svnadmin create quake
+<span class="gp">serverB:/svn$</span><span class="w"> </span>svnadmin load quake &lt; quake.dump</code></pre></figure></div>
 <h2>Adaptar una copia local a la nuevo ubicación</h2>
 <p>Si tienes descargada una copia de un módulo del repositorio y te lo cambian, tienes un problema; sobre todo si tienes ficheros modificados o añadidos de los que no hiciste <em>commit</em>. Esta es una manera de solucionarlo.</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ svn co nueva_ubicación/modulo nuevo<br />
-$ cd viejo<br />
-~/viejo$ tar cvfz contenido.tgz * &#8212;exclude=&#8220;.svn&#8221;<br />
-~/viejo$ cd ../nuevo<br />
-~/nuevo$ tar xvfz ../viejo/contenido.tgz</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>svn co nueva_ubicación/modulo nuevo
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>viejo
+<span class="gp">~/viejo$</span><span class="w"> </span><span class="nb">tar </span>cvfz contenido.tgz <span class="k">*</span> <span class="nt">--exclude</span><span class="o">=</span><span class="s2">".svn"</span>
+<span class="gp">~/viejo$</span><span class="w"> </span><span class="nb">cd</span> ../nuevo
+<span class="gp">~/nuevo$</span><span class="w"> </span><span class="nb">tar </span>xvfz ../viejo/contenido.tgz</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://svnbook.red-bean.com/en/1.0/ch05s03.html">Repository Maintenance</a></li>
@@ -5343,7 +5325,7 @@ $ cd viejo<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

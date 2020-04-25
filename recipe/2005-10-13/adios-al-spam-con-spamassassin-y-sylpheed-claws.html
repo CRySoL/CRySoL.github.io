@@ -5152,7 +5152,7 @@
 Seguro que a todos nos pasa que recibimos montones de correos basura, publicidad, spam, archivos infectados y un largo etcétera que nos roban cantidad de tiempo aunque solo sea borrándolos de nuestro gestor de correo...   En GNU/Linux existen gran cantidad de herramientas que nos permiten gestionar todo nuestro correo electrónico, como evolution, sylpheed-claws, mozilla, etc... Además de numerosos filtros antiespam tales como pueden ser bogofilter y spamassassin. En mi caso en particular, utilizo <strong>spamassassin</strong> junto con <strong>sylpheed-claws</strong> para filtrar y gestionar todo mi correo electrónico y el resultado es bastante bueno. Spamassassin no sólo permite filtrar el correo "basura" distinguiéndolo del que no lo es con gran precisión, sino que además es fácil de configurar, es capaz de aprender de sus propios errores y tiene muchas opciones configurables que le hacen un filtro bastante potente. Aquí se describe su configuración y uso con el gestor de correo Sylpheed-claws.</blockquote>
 
 <h1>Qué necesitamos</h1>
-  
+
 Lo primero que tendremos que hacer es instalar en nuestra máquina tanto Sylpheed-claws como Spamassassin. En Debian:
 
 
@@ -5171,14 +5171,14 @@ Tampoco estaría de mas instalarnos los plugins y demás módulos para sylpheed-
 
 La configuración realizada aquí se ha hecho en sylpheed-claws. Si utilizas otro tipo de gestor como evolution o mozilla, deberás averiguar antes como crear y configurar reglas de filtrado, ya que es a través de éstas reglas como se configura spamassassin.
 
-En nuestro caso, una vez abierto sylpheed-claws nos iremos a <en>Configuración -> Filtrado...</en> Aquí se nos mostrará la ventana para edición de reglas de filtrado. Nosotros deberemos crear tres reglas de filtrado:   
+En nuestro caso, una vez abierto sylpheed-claws nos iremos a <en>Configuración -> Filtrado...</en> Aquí se nos mostrará la ventana para edición de reglas de filtrado. Nosotros deberemos crear tres reglas de filtrado:
 
 <ul>
   <li>Una para analizar todo el correo.</li>
   <li>Otra que nos permita marcar como válido un correo considerado spam por spamassassin.</li>
   <li>Una última que nos permita marcar un correo como spam en caso de que spamassassin lo pasase por alto.</li>
 </ul>
-  
+
 Creamos la primera regla, que hará que spamassassin revise todo el correo y decida según su criterio cual es spam y cual no. En la línea correspondiente a la condición escribiremos algo como:
 
   <pre>test "spamassassin &lt; %F | grep -c \"X-Spam-Flag: YES\""</pre>
@@ -5236,7 +5236,7 @@ Los parámetros para poder añadir y eliminar direcciones de éstas listas son l
   <li><cite> --add-addr-to-whitelist = addr</cite> Igual que la opción <cite>--add-to-whitelist</cite>, pero ahora la dirección se introduce de forma manual.</li>
   <li><cite> --add-addr-to-blacklist = addr</cite> Igual que la opción <cite>--add-to-blacklist</cite>, pero ahora la dirección se introduce de forma manual.</li>
   <li><cite> --remove-addr-from-whitelist = addr</cite> Igual que la opción <cite>--remove-from-whitelist</cite>, pero como antes, la dirección deberemos introducirla de forma manual.</li>
-  </ul> 
+  </ul>
 
 <h1>Enlaces</h1>
     <ul>
@@ -5311,7 +5311,7 @@ Los parámetros para poder añadir y eliminar direcciones de éstas listas son l
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

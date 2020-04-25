@@ -5311,43 +5311,47 @@
 <p>Deduzco que, por un lado tenemos un número asociado al caracter que queremos pulsar, y por otro, la tecla a la que se corresponde con la distribución del teclado actual (Spain, <span class="caps">USA</span>, etc). Por ejemplo, si quiero introducir el caracter &#8216;.&#8217;, primero tengo que identificar su keysym. Al parecer, es el 46, o XK_period (y además, se corresponde con el valor <span class="caps">ASCII</span> para el punto). Ahora, tenemos que traducir este keysym al valor de la tecla correspondiente, usando Display.keysym_to_keycode(). Y el valor retornado es el que podemos usar en fake_input().</p>
 <p>Supongo que todo este jaleo es conveniente para dar soporte a múltiples distribuciones de teclados, así como a diferentes juegos de caracteres. Veamos un ejemplo, el clásico &#8216;Hello World!&#8217;, que tiene un poco de todo.</p>
 <div>
-<p>{% highlight python %}<br />
-from Xlib.display import Display<br />
-from Xlib.ext import xtest<br />
-from Xlib import X, XK</p>
-<p>d = Display()<br />
-msg = &#8220;Hello World!&#8221;</p>
-<p>for c in msg:<br />
-    keysym = XK.string_to_keysym&#169;<br />
-    keycode = d.keysym_to_keycode(keysym)</p>
-xtest.fake_input(d, X.KeyPress, keycode)
-xtest.fake_input(d, X.KeyRelease, keycode)
-<p>d.flush()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">Xlib.display</span> <span class="kn">import</span> <span class="n">Display</span>
+<span class="kn">from</span> <span class="nn">Xlib.ext</span> <span class="kn">import</span> <span class="n">xtest</span>
+<span class="kn">from</span> <span class="nn">Xlib</span> <span class="kn">import</span> <span class="n">X</span><span class="p">,</span> <span class="n">XK</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">Display</span><span class="p">()</span>
+<span class="n">msg</span> <span class="o">=</span> <span class="s">"Hello World!"</span>
+
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+    <span class="n">keysym</span> <span class="o">=</span> <span class="n">XK</span><span class="p">.</span><span class="n">string_to_keysym</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">keycode</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">keysym_to_keycode</span><span class="p">(</span><span class="n">keysym</span><span class="p">)</span>
+
+    <span class="n">xtest</span><span class="p">.</span><span class="n">fake_input</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">KeyPress</span><span class="p">,</span> <span class="n">keycode</span><span class="p">)</span>
+    <span class="n">xtest</span><span class="p">.</span><span class="n">fake_input</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">KeyRelease</span><span class="p">,</span> <span class="n">keycode</span><span class="p">)</span>
+
+<span class="n">d</span><span class="p">.</span><span class="n">flush</span><span class="p">()</span></code></pre></figure></div>
 <p>He usado una función de XK que hace la traducción desde una cadena a un keysym (por ejemplo, convierte la cadena &#8220;space&#8221; al keysym XK_space). Lo probamos pero no muestra el resultado esperado, sino: &#8216;helloworld&#8217; ¿Qué ha pasado con el espacio, las mayúsculas y el símbolo de admiración? Bien, vayamos por partes. Es normal que no se muestren las mayúsculas porque realmente no son la pulsación de una tecla, sino dos (el &#8216;Bloq Mayus&#8217; se puede considerar como el uso repetido de &#8216;Shift&#8217;). Tendremos que tenerlo en cuenta. Lo mismo pasa con la admiración. El caso del espacio es diferente. La función string_to_keysym() sólo reconoce las cadenas que tengan una correspondencia directa con algún atributo del módulo XK. Es decir, lo que necesitamos es el nombre del keysym sin el prefijo XK_. En este caso, habrá que &#8220;traducir&#8221; ese espacio, &#8217; &#8216;, a la cadena &#8217;space&#8217;. Haciendo los cambios oportunos, tendríamos:</p>
 <div>
-<p>{% highlight python %}<br />
-from Xlib.display import Display<br />
-from Xlib.ext import xtest<br />
-from Xlib import X, XK</p>
-<p>d = Display()<br />
-msg = &#8220;Hello World!&#8221;<br />
-shift = d.keysym_to_keycode(XK.XK_Shift_L)</p>
-<p>for c in msg:<br />
-    if   c == &#8217; &#8216;: c = &#8220;space&#8221;<br />
-    elif c == &#8217;!&#8217;: c = &#8220;exclam&#8221;<br />
-    keysym = XK.string_to_keysym&#169;<br />
-    keycode = d.keysym_to_keycode(keysym)</p>
-if c in [&#8220;H&#8221;,&#8220;W&#8221;, &#8220;exclam&#8221;]:
-xtest.fake_input(d, X.KeyPress, shift)
-xtest.fake_input(d, X.KeyPress, keycode)
-xtest.fake_input(d, X.KeyRelease, keycode)
-if c in [&#8220;H&#8221;,&#8220;W&#8221;, &#8220;exclam&#8221;]:
-xtest.fake_input(d, X.KeyRelease, shift)
-d.flush()
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">Xlib.display</span> <span class="kn">import</span> <span class="n">Display</span>
+<span class="kn">from</span> <span class="nn">Xlib.ext</span> <span class="kn">import</span> <span class="n">xtest</span>
+<span class="kn">from</span> <span class="nn">Xlib</span> <span class="kn">import</span> <span class="n">X</span><span class="p">,</span> <span class="n">XK</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">Display</span><span class="p">()</span>
+<span class="n">msg</span> <span class="o">=</span> <span class="s">"Hello World!"</span>
+<span class="n">shift</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">keysym_to_keycode</span><span class="p">(</span><span class="n">XK</span><span class="p">.</span><span class="n">XK_Shift_L</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+    <span class="k">if</span>   <span class="n">c</span> <span class="o">==</span> <span class="s">' '</span><span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="s">"space"</span>
+    <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="s">'!'</span><span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="s">"exclam"</span>
+    <span class="n">keysym</span> <span class="o">=</span> <span class="n">XK</span><span class="p">.</span><span class="n">string_to_keysym</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">keycode</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">keysym_to_keycode</span><span class="p">(</span><span class="n">keysym</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s">"H"</span><span class="p">,</span><span class="s">"W"</span><span class="p">,</span> <span class="s">"exclam"</span><span class="p">]:</span>
+        <span class="n">xtest</span><span class="p">.</span><span class="n">fake_input</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">KeyPress</span><span class="p">,</span> <span class="n">shift</span><span class="p">)</span>
+
+    <span class="n">xtest</span><span class="p">.</span><span class="n">fake_input</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">KeyPress</span><span class="p">,</span> <span class="n">keycode</span><span class="p">)</span>
+    <span class="n">xtest</span><span class="p">.</span><span class="n">fake_input</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">KeyRelease</span><span class="p">,</span> <span class="n">keycode</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s">"H"</span><span class="p">,</span><span class="s">"W"</span><span class="p">,</span> <span class="s">"exclam"</span><span class="p">]:</span>
+        <span class="n">xtest</span><span class="p">.</span><span class="n">fake_input</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">X</span><span class="p">.</span><span class="n">KeyRelease</span><span class="p">,</span> <span class="n">shift</span><span class="p">)</span>
+
+    <span class="n">d</span><span class="p">.</span><span class="n">flush</span><span class="p">()</span></code></pre></figure></div>
 <p>Se nos ha complicado un poco el código. Como veis, la estrategia es pulsar la tecla <span class="caps">SHIFT</span> antes de cada caracter &#8216;especial&#8217;. Además, es necesario convertir los símbolos a nombres válidos para XK. Dentro de gext, haremos todas estas conversiones, para que introducir cualquier texto sea lo más sencillo posible.</p>
 <p>Espero no haberte aburrido mucho ;) Nos vemos en la siguiente entrada.<br />
 Happy hacking!</p>
@@ -5416,7 +5420,7 @@ Happy hacking!</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5168,64 +5168,40 @@ Listen 443
 </pre>
 <p>Crea un fichero nuevo en <code>/etc/apache2/sites-available</code> que representa un nuevo sitio web. Por ejemplo lo puedes llamar &#8220;site-ssl&#8221; y debe contener algo como esto:</p>
 <div>
-<p>{% highlight text %}<br />
-&lt;VirtualHost *:443&gt;<br />
-    ServerName www.example.com<br />
-    ServerAlias example</p>
-SSLEngine on
-SSLCertificateFile    /etc/apache2/ssl.crt/server.crt
-SSLCertificateKeyFile /etc/apache2/ssl.crt/server.key
-&#8230;
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;VirtualHost *:443&gt;
+    ServerName www.example.com
+    ServerAlias example
+
+    SSLEngine on
+    SSLCertificateFile    /etc/apache2/ssl.crt/server.crt
+    SSLCertificateKeyFile /etc/apache2/ssl.crt/server.key
+
+    ...</code></pre></figure></div>
 <h2>Habilita tu nuevo <em>site</em></h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>a2ensite site-ssl<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>a2ensite site-ssl</code></pre></figure></div>
 <h2>Activa el módulo <span class="caps">SSL</span></h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>a2enmod ssl<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>a2enmod ssl</code></pre></figure></div>
 <h2>Fuerza a apache a leer la nueva configuración</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/apache2 force-reload<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/apache2 force-reload</code></pre></figure></div>
 <p>Y si todo ha ido bien, ya tienes tu sitio <span class="caps">SSL</span> tan profesional como el que más.</p>
 <h2>Sólo <span class="caps">SSL</span></h2>
 <p>Es posible que quieras que tu website sólo esté accesible con <span class="caps">SSL</span>. El problema es que si alguien pone la <span class="caps">URL</span> con http:// en lugar de https:// obtendrá un bonito error.</p>
 <p>En ese caso, lo más fácil es crear un VirtualHost no-<span class="caps">SSL</span> que redireccione todas las peticiones al VirtualHost <span class="caps">SSL</span>. Para eso, crea un fichero <code>/etc/apache2/sites-available/redir</code> y escribe esto dentro:</p>
 <div>
-<p>{% highlight text %}<br />
-&lt;VirtualHost <strong>:80&gt;<br />
-    RewriteEngine on<br />
-    RewriteLog /var/log/apache2/https_rewrite.log<br />
-    RewriteLogLevel 1<br />
-    RewriteCond %{SERVER_PORT} !^443$<br />
-    RewriteRule ^/(.</strong>) https://%{SERVER_NAME}/$1 [L,R]</p>
-</VirtualHost>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;VirtualHost *:80&gt;
+    RewriteEngine on
+    RewriteLog /var/log/apache2/https_rewrite.log
+    RewriteLogLevel 1
+    RewriteCond %{SERVER_PORT} !^443$
+    RewriteRule ^/(.*) https://%{SERVER_NAME}/$1 [L,R]
+&lt;/VirtualHost&gt;</code></pre></figure></div>
 <p>Y ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>a2ensite redir</li>
-	<li>/etc/init.d/apache2 restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>a2ensite redir
+<span class="gp">#</span><span class="w"> </span>/etc/init.d/apache2 restart</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://httpd.apache.org/docs/2.0/rewrite/">Apache mod_rewrite</a></li>
@@ -5295,7 +5271,7 @@ SSLCertificateKeyFile /etc/apache2/ssl.crt/server.key
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

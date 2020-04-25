@@ -5208,10 +5208,7 @@
 <p><!--break--></p>
 <p>Se puede conseguir añadiendo lo siguiente a tu <tt>.emacs</tt></p>
 <div>
-<p>{% highlight text <span>}<br />
-(setq TeX-<span class="caps">PDF</span>-mode t)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(setq TeX-PDF-mode t)</code></pre></figure></div>
 <h2>Combinaciones</h2>
 <p>C-c C-c: Compilar, ver el resultado<br />
 C-c C-p C-b: Preview en buffer<br />
@@ -5220,14 +5217,11 @@ C-c ]: Cerrar entorno</p>
 C-c C-e: Entornos</p>
 <h2>Usar otro visor para los <span class="caps">PDF</span></h2>
 <div>
-<p>{% highlight text <span>}<br />
-M-x customize-group<br />
-TeX-command<br />
-Tex Output View Style<br />
-Extension ^pdf$<br />
-Command: evince %o %(outpage)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">M-x customize-group
+TeX-command
+Tex Output View Style
+Extension ^pdf$
+Command: evince %o %(outpage)</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li>&#8220;Creación de ficheros <span class="caps">LATEX</span> con <span class="caps">GNU</span> Emacs&#8221;:<a href="ftp://ftp.dante.de/tex-archive/info/spanish/guia-atx/guia-atx.pdf">ftp://ftp.dante.de/tex-archive/info/spanish/guia-atx/guia-atx.pdf</a></li>
@@ -5299,7 +5293,7 @@ Command: evince %o %(outpage)<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

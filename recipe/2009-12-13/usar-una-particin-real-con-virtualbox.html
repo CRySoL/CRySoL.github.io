@@ -5155,10 +5155,7 @@
 	<p>Virtualbox permite crear un fichero .vmdk especial que «apunta» a una partición real de un disco duro. De ese modo es posible arrancar un sistema operativo instalado realmente en la máquina pero virtualizado dentro de otro S.O. El comando para lograrlo es:</p>
 <p><!--break--></p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ VBoxManage internalcommands createrawvmdk -filename /path/to/file.vmdk -rawdisk /dev/sda -relative -register<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>VBoxManage internalcommands createrawvmdk <span class="nt">-filename</span> /path/to/file.vmdk <span class="nt">-rawdisk</span> /dev/sda <span class="nt">-relative</span> <span class="nt">-register</span></code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.virtualbox.org/manual/UserManual.html#rawdisk">Using a raw host hard disk from a guest</a></li>
@@ -5227,7 +5224,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

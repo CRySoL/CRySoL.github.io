@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -5496,6 +5496,8 @@
 
   
 
+  
+    
   
     
   
@@ -8248,7 +8250,7 @@ PROJECT
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 
-# Librerías 
+# Librerías
 ADD_LIBRARY(dummy_shared SHARED dummy.cpp)
 SET_PROPERTY(TARGET dummy_shared PROPERTY SOVERSION 1.0)
 ADD_LIBRARY(dummy_static STATIC dummy.cpp)
@@ -8267,7 +8269,7 @@ Inicialmente, podrías añadir un comando por cada uno de los componentes que qu
 SET_TARGET_PROPERTIES(dummy_shared
       PROPERTIES    PUBLIC_HEADER  "${CMAKE_CURRENT_SOURCE_DIR}/dummy.h"
 
-INSTALL(TARGETS hello dummy_static dummy_shared 
+INSTALL(TARGETS hello dummy_static dummy_shared
 RUNTIME          DESTINATION    bin
 ARCHIVE          DESTINATION    lib/static
 LIBRARY          DESTINATION    lib
@@ -8403,7 +8405,7 @@ A estas alturas ya conocemos cómo construir archivos binarios y librerías en C
 PROJECT(hello)
 
 # Para includes
-FIND_PATH(dummy_path dummy.h)  
+FIND_PATH(dummy_path dummy.h)
 
 IF(NOT dummy_path)
    MESSAGE(FATAL_ERROR "** Falta la cabecera dummy.h, dummy!")
@@ -8556,8 +8558,7 @@ CMake proporciona un comando muy útil llamado ADD_CUSTOM_COMMAND y que permite 
 
 
 <div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text"> 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+<figure class="highlight"><pre><code class="language-text" data-lang="text">CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 PROJECT(hello_ice)
 
@@ -8967,7 +8968,7 @@ PROJECT(hello)
 ADD_EXECUTABLE(hello hello.cpp)</code></pre></figure>
 </div>
 
-En primer lugar, se especifica la versión mínima de CMake que se debe utilizar. A continuación, se debe dar un nombre al proyecto utilizando el comando PROJECT. 
+En primer lugar, se especifica la versión mínima de CMake que se debe utilizar. A continuación, se debe dar un nombre al proyecto utilizando el comando PROJECT.
 
 Como se trata de un proyecto archi-sencillo, sólo consta de un ejecutable y éste se debe generar a partir del fichero "hello.cpp" (su dependencia). El comando ADD_EXECUTABLE acepta una lista de dependencias. Como puedes ver, prácticamente es una regla de Makefile pero más abstracta de forma que sea posible no sólo crear Makefiles sino también exportar a proyectos de Eclipse y otros entornos de desarrollo privativos (a los cuales no recomiendo exportar).
 
@@ -9149,7 +9150,7 @@ En este ejemplo se introduce el uso de módulos que se proporcionan en la distri
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

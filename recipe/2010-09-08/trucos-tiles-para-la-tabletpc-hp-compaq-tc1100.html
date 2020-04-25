@@ -5568,18 +5568,16 @@
 <h2>Rotar el escritorio</h2>
 <p>Con una <em>tablet</em> en las manos muchas veces es más cómodo sujetarla de forma vertical. En esos casos, si girásemos el escritorio acorde a nuestra posición (usando <code>xrandr</code> o la configuración del entorno gráfico), tendríamos un problema, ya que el detector del <em>stylus</em> no tiene ni idea de en que posición estamos y manda los eventos como si estuviéramos en horizontal. Para solucionarlo, puedes usar este <em>script</em>:</p>
 <div>
-<p>{% highlight bash <span>}#!/bin/sh<br />
-if [ -n &#8220;$(xrandr | grep 768&#215;1024)&#8221; ]; then<br />
-        xrandr -o normal<br />
-        xsetwacom set &#8220;Serial Wacom Tablet&#8221; Rotate <span class="caps">NONE</span><br />
-        xsetwacom set &#8220;Serial Wacom Tablet eraser&#8221; Rotate <span class="caps">NONE</span><br />
-else<br />
-        xrandr -o left<br />
-        xsetwacom set &#8220;Serial Wacom Tablet&#8221; Rotate <span class="caps">CCW</span><br />
-        xsetwacom set &#8220;Serial Wacom Tablet eraser&#8221; Rotate <span class="caps">CCW</span><br />
-fi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/sh</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-n</span> <span class="s2">"</span><span class="si">$(</span>xrandr | <span class="nb">grep </span>768x1024<span class="si">)</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+        </span>xrandr <span class="nt">-o</span> normal
+        xsetwacom <span class="nb">set</span> <span class="s2">"Serial Wacom Tablet"</span> Rotate NONE
+        xsetwacom <span class="nb">set</span> <span class="s2">"Serial Wacom Tablet eraser"</span> Rotate NONE
+<span class="k">else
+        </span>xrandr <span class="nt">-o</span> left
+        xsetwacom <span class="nb">set</span> <span class="s2">"Serial Wacom Tablet"</span> Rotate CCW
+        xsetwacom <span class="nb">set</span> <span class="s2">"Serial Wacom Tablet eraser"</span> Rotate CCW
+<span class="k">fi</span></code></pre></figure></div>
 <p>Guárdalo y hazlo ejecutable con <code>chmod +x</code>. Un buen sitio para el fichero sería en el directorio <code>/usr/local/bin</code>, pero para gustos&#8230;</p>
 <h2>Utilizar las teclas laterales de la <em>tablet</em></h2>
 <p>Esta <em>tablet</em> tiene 4 teclas laterales y una rueda. Dos de las teclas laterales son &#8220;Esc&#8221; y &#8220;tab&#8221;, que son &#8220;clones&#8221; de las teclas escape y tabulador del teclado, respectivamente. Sobre la rueda hablaré un poco más adelante, pero para poder usar los dos botones restantes (Q y los dos &#8220;cuadrados concéntricos&#8221;, por llamarlo de alguna forma), puedes usar <code>xbindkeys</code>.</p>
@@ -5587,26 +5585,19 @@ fi<br />
 <p>Si quieres ver un ejemplo de fichero de configuración puede usar <code>xbindkeys --defaults</code>. Para saber los <em>keycodes</em> de las dos teclas que queremos configurar, puedes usar <code>xev</code>, pero por rapidez te las &#8220;chivo&#8221;: <strong>156</strong> la de los cuadraditos y <strong>157</strong> la de la Q.</p>
 <p>el fichero de configuración se debe guardar en <code>$HOME/.xbindkeysrc</code>. Un ejemplo utilizando esos botones sería:</p>
 <div>
-<p>{% highlight text %}<br />
-&#8220;rotate_tablet&#8221;<br />
-  c:157</p>
-<p>&#8220;iceweasel&#8221;<br />
-  c:156<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">"rotate_tablet"
+  c:157
+
+"iceweasel"
+  c:156</code></pre></figure></div>
 <p>En lugar de Iceweasel, sería un lujo lanzar un teclado virtual del estilo de <code>matchbox-keyboard</code> o similares. Solo es una idea :P</p>
 <p>También es importante recordar que debes añadir <code>xbindkeys</code> a tus aplicaciones al inicio de Gnome (o de tu entorno gráfico).</p>
 <h2>Rueda lateral</h2>
 <p>Dicha rueda tan solo puede hacer tres cosas: darle hacia arriba, hacia abajo y pulsarla. Podríamos modificar su comportamiento con <code>xbindkeys</code>, sabiendo que sus <em>keycodes</em> son <strong>112</strong>, <strong>117</strong> y 36. Éste último recomiendo <strong>encarecidamente</strong> no utilizarlo, ya que es el <em>keycode</em> del intro.</p>
 <p>Por el contrario, si quieres lo que &#8220;se supone&#8221; que deben hacer (subir y bajar el brillo, según parece), tendrás que cargar un módulo y cambiar el valor de un fichero. Al lío:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>modprobe tc1100-wmi</li>
-	<li>echo tc1100-wmi &gt;&gt; /etc/modules<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>modprobe tc1100-wmi
+<span class="gp">#</span><span class="w"> </span><span class="nb">echo </span>tc1100-wmi <span class="o">&gt;&gt;</span> /etc/modules</code></pre></figure></div>
 <p>Con este par de líneas ya has cargado el módulo y has hecho que se vuelve a cargar solo a partir del próximo arranque.</p>
 <p>Ahora, si añades</p>
 <pre>echo 0 &gt; /sys/devices/platform/tc1100-wmi/jogdial</pre>
@@ -5677,7 +5668,7 @@ fi<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

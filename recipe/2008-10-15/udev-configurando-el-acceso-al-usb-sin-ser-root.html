@@ -5371,7 +5371,7 @@ En este archivo, deberemos escribir algo tal que así:
 
 <div>
 <figure class="highlight"><pre><code class="language-text" data-lang="text">SUBSYSTEM=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="2ffb", MODE="660", GROUP="plugdev", SYMLINK+="at90usb-%k"
-BUS=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="2ffb", MODE="660", GROUP="plugdev" </code></pre></figure>
+BUS=="usb", ACTION=="add", SYSFS{idVendor}=="03eb", SYSFS{idProduct}=="2ffb", MODE="660", GROUP="plugdev"</code></pre></figure>
 </div>
 
 Básicamente lo que se hace es indicar a <em>udev</em> que <em>dfu-programmer</em> usa el sistema <em>USB</em>, dando información detallada acerca del <em>vendorID</em> y el <em>productID</em> del dispositivo que se va a conectar al puerto. También indica con qué permisos se debe acceder al puerto y especifica el grupo cuyos permisos hereda la aplicación.
@@ -5445,7 +5445,7 @@ Básicamente lo que se hace es indicar a <em>udev</em> que <em>dfu-programmer</e
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

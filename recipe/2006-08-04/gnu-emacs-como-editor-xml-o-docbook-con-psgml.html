@@ -5289,36 +5289,29 @@
 <h2>Configurar Emacs</h2>
 <p>Para que el modo <span class="caps">XML</span> arranque automáticamente al iniciar Emacs y tengas un agradable coloreado de sintaxis es recomendable incluir estas pocas líneas en tu <code>.emacs</code>:</p>
 <div>
-<p>{% highlight text %}<br />
-(defun psgml-ext ()<br />
-(setq sgml-set-face t)  ; without this, all <span class="caps">SGML</span> text is in same color<br />
-(setq sgml-markup-faces<br />
-      &#8217;((comment   . font-lock-comment-face)<br />
-        (start-tag . font-lock-keyword-face)<br />
-        (end-tag   . font-lock-keyword-face)<br />
-        (doctype   . font-lock-builtin-face)<br />
-        (entity    . font-lock-constant-face)))<br />
-)</p>
-<p>(setq-default sgml-indent-data t)<br />
-(add-hook &#8217;sgml-mode-hook &#8217;psgml-ext)</p>
-<p>; immediate syntax coloring<br />
-(setq sgml-auto-activate-dtd t)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(defun psgml-ext ()
+(setq sgml-set-face t)  ; without this, all SGML text is in same color
+(setq sgml-markup-faces
+      '((comment   . font-lock-comment-face)
+        (start-tag . font-lock-keyword-face)
+        (end-tag   . font-lock-keyword-face)
+        (doctype   . font-lock-builtin-face)
+        (entity    . font-lock-constant-face)))
+)
+
+(setq-default sgml-indent-data t)
+(add-hook 'sgml-mode-hook 'psgml-ext)
+
+; immediate syntax coloring
+(setq sgml-auto-activate-dtd t)</code></pre></figure></div>
 <p>Aquí tienes muchas más <a href="http://es.tldp.org/Tutoriales/DOCBOOK/doctut/multiple-html/dotemacs">definiciones útiles para el .emacs</a> que sirve para afinar más aún el modo <span class="caps">SGML</span>.</p>
 <h2>Prólogo (declaración <span class="caps">DOCTYPE</span>)</h2>
 <p>Para muchos de los comandos que se incluyen a continuación es necesario que definas un prólogo en el documento. Por ejemplo, en el caso de <span class="caps">XHTML</span> puede ser algo como:</p>
 <div>
-<p>{% highlight xml <span>}<br />
-&lt;!<span class="caps">DOCTYPE</span> html <span class="caps">PUBLIC</span> &#8220;-//W3C//<span class="caps">DTD</span> <span class="caps">XHTML</span> 1.0 Transitional//EN&#8221; &#8220;http://www.w3.org/TR/xhtml1/<span class="caps">DTD</span>/xhtml1-transitional.dtd&#8221;&gt;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span></code></pre></figure></div>
 <p>y para DocBook</p>
 <div>
-<p>{% highlight xml <span>}<br />
-&lt;!<span class="caps">DOCTYPE</span> book <span class="caps">PUBLIC</span> &#8220;-//<span class="caps">OASIS</span>//<span class="caps">DTD</span> DocBook <span class="caps">XML</span> V4.3//EN&#8221; &#8220;http://www.docbook.org/xml/4.3/docbookx.dtd&#8221;&gt;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.docbook.org/xml/4.3/docbookx.dtd"&gt;</span></code></pre></figure></div>
 <h2>Combinaciones útiles</h2>
 <p>Como cualquier modo de Emacs digno de ser usado, <span class="caps">PSGML</span> tiene más combinaciones de teclas que las que cualquier humano podría aprender en su vida :-). Así que sólo pondré las que considero más útiles. Para algunos es determinante dónde esté el cursor o dónde se haga click.</p>
 <table style="margin-left: 20px">
@@ -5406,7 +5399,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,191 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-10-13/adios-al-spam-con-spamassassin-y-sylpheed-claws.html">Adios al spam con spamassassin y sylpheed-claws</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-13
+    
+      
+  <a href="/users.html#javieralso">
+   javieralso
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-13-adios-al-spam-con-spamassassin-y-sylpheed-claws.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-13-adios-al-spam-con-spamassassin-y-sylpheed-claws.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/34">node/34</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Cómo utilizar spamassassin junto con sylpheed-claws para filtrar todo el spam y correo basura que recibamos</blockquote>
+
+<h1>Introducción</h1>
+Seguro que a todos nos pasa que recibimos montones de correos basura, publicidad, spam, archivos infectados y un largo etcétera que nos roban cantidad de tiempo aunque solo sea borrándolos de nuestro gestor de correo...   En GNU/Linux existen gran cantidad de herramientas que nos permiten gestionar todo nuestro correo electrónico, como evolution, sylpheed-claws, mozilla, etc... Además de numerosos filtros antiespam tales como pueden ser bogofilter y spamassassin. En mi caso en particular, utilizo <strong>spamassassin</strong> junto con <strong>sylpheed-claws</strong> para filtrar y gestionar todo mi correo electrónico y el resultado es bastante bueno. Spamassassin no sólo permite filtrar el correo "basura" distinguiéndolo del que no lo es con gran precisión, sino que además es fácil de configurar, es capaz de aprender de sus propios errores y tiene muchas opciones configurables que le hacen un filtro bastante potente. Aquí se describe su configuración y uso con el gestor de correo Sylpheed-claws.</blockquote>
+
+<h1>Qué necesitamos</h1>
+
+Lo primero que tendremos que hacer es instalar en nuestra máquina tanto Sylpheed-claws como Spamassassin. En Debian:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>apt-get <span class="nt">-f</span> <span class="nb">install </span>spamassassin sylpheed-claws</code></pre></figure>
+</div>
+
+Tampoco estaría de mas instalarnos los plugins y demás módulos para sylpheed-claws si tenemos pensado utilizarlo de forma regular como nuestro gestor de correo. Para buscar qué módulos y/o plugins hay disponibles:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>apt-cache search sylpheed-claws</code></pre></figure>
+</div>
+
+<h1>Configuración de SpamAssassin</h1>
+
+La configuración realizada aquí se ha hecho en sylpheed-claws. Si utilizas otro tipo de gestor como evolution o mozilla, deberás averiguar antes como crear y configurar reglas de filtrado, ya que es a través de éstas reglas como se configura spamassassin.
+
+En nuestro caso, una vez abierto sylpheed-claws nos iremos a <en>Configuración -> Filtrado...</en> Aquí se nos mostrará la ventana para edición de reglas de filtrado. Nosotros deberemos crear tres reglas de filtrado:
+
+<ul>
+  <li>Una para analizar todo el correo.</li>
+  <li>Otra que nos permita marcar como válido un correo considerado spam por spamassassin.</li>
+  <li>Una última que nos permita marcar un correo como spam en caso de que spamassassin lo pasase por alto.</li>
+</ul>
+
+Creamos la primera regla, que hará que spamassassin revise todo el correo y decida según su criterio cual es spam y cual no. En la línea correspondiente a la condición escribiremos algo como:
+
+  <pre>test "spamassassin &lt; %F | grep -c \"X-Spam-Flag: YES\""</pre>
+
+Spamassassin recibe como entrada nuestro correo y su salida será el mismo correo pero con algunas líneas nuevas en la cabecera. En concreto nos interesa la existencia de la línea <cite>"X-Spam-Flag: YES"</cite>. Ésta línea indicará que el correo ha sido considerado como spam y por tanto deberá ser tratado.
+
+Como la salida de spamassassin tiene formato de texto, tan solo hará falta comprobar con el comando <en>grep</en> si existe dicha línea.
+
+Para la acción:
+
+  <pre>move "#mh/Buzon/Spam"</pre>
+
+La carpeta <cite>Spam</cite> dentro de <cite>Buzon</cite> es donde yo he elegido que guarde todo el correo spam que encuentre.
+
+Para el caso de la segunda regla, en la que un correo válido ha sido marcado como spam, la condición será:
+
+  <pre>colorlabel 6</pre>
+
+Si encontramos como spam algún correo que no lo es (nadie nace enseñado, y spamassassin tampoco) deberemos indicar que ese correo es válido. Para ello lo etiquetaremos de color verde y lo filtraremos.
+
+Para la acción:
+
+  <pre>execute "spamassassin -k &lt;%F" move "mh/Buzon/inbox"</pre>
+
+Así haremos que el correo vuelva de nuevo a la carpeta de entrada y spamassassin lo marque como válido para de ése modo "aprender" de su error.
+
+Por último, la última regla de filtrado, cuya misión es contraria a la anterior. Su condición es:
+
+  <pre>colorlabel 2</pre>
+
+Los correos spam que se le hayan "colado" a spamassassin los marcaremos con color rojo y volveremos a filtrar. La acción entonces será:
+
+  <pre>execute "spamassassin -r &lt;%F" move "mh/Buzon/Spam"</pre>
+
+Con ésto, el correo se marcará como spam y será enviado a la carpeta correspondiente.
+
+<h2>Notas importantes sobre la configuración</h2>
+
+<ul>
+<li>Éstas reglas de filtrado, deberán ser colocadas al principio para que sean las primeras en ser ejecutadas, ya que de lo contrario, el correo no se filtrará de forma adecuada.</li>
+
+<li>Cuando se filtra el correo con spamassassin, el proceso puede durar bastante tiempo, especialmente cuando spamassassin lleva bastante tiempo aprendiendo, ya que tendrá que comprobar mas reglas. Por ello no hay que perder la paciencia y pensar que algo va mal si el filtrado se toma varios minutos (a veces incluso media hora) cuando se tiene que filtrar una cantidad bastante elevada de correos electrónicos.</li>
+</ul>
+
+<h1>Otras opciones</h1>
+
+Spamassassin tiene varias características configurables que lo hacen bastante potente, pero tal vez dos de las características que mas útiles pueden llegar a ser en un momento dado sean la de <strong>whitelist</strong> y <strong>blacklist</strong>. Se trata de dos listas, una con direcciones de correo que se consideran como válidas (whitelist) y otra con direcciones de correo desde las cuales todo el correo recibido se tratará como spam (blacklist).
+
+Los parámetros para poder añadir y eliminar direcciones de éstas listas son los siguientes:
+  <ul>
+  <li><cite> --add-to-whitelist</cite> Añade la dirección del remitente del correo a la lista de direcciones válidas. Ningún correo que llegue desde ésta dirección será considerado como spam.</li>
+  <li><cite> --add-to-blacklist</cite> Añade la dirección del remitente del correo a la lista de direcciones no válidas.
+  Todos los correos recibidos desde esa dirección serán tratados como spam.</li>
+  <li><cite> --remove-from-whitelist</cite> Elimina la dirección del remitente del correo de la lista de direcciones válidas.</li>
+  <li><cite> --add-addr-to-whitelist = addr</cite> Igual que la opción <cite>--add-to-whitelist</cite>, pero ahora la dirección se introduce de forma manual.</li>
+  <li><cite> --add-addr-to-blacklist = addr</cite> Igual que la opción <cite>--add-to-blacklist</cite>, pero ahora la dirección se introduce de forma manual.</li>
+  <li><cite> --remove-addr-from-whitelist = addr</cite> Igual que la opción <cite>--remove-from-whitelist</cite>, pero como antes, la dirección deberemos introducirla de forma manual.</li>
+  </ul>
+
+<h1>Enlaces</h1>
+    <ul>
+      <li><a href="http://spamassassin.apache.org/index.html">spamassassin</a></li>
+      <li><a href="http://claws.sylpheed.org">sylpheed-claws</a></li>
+</ul>
+
+
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8171,102 +8355,63 @@ nc -l -p port [-options] [hostname] [port]
 <h2> Un chat para dos</h2>
 <h3>Servidor</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p 2000<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000</code></pre></figure></div>
 <h3>Cliente</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc localhost 2000<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc localhost 2000</code></pre></figure></div>
 <h2> Transferencia de ficheros</h2>
 <p>La instancia de <tt>nc</tt> que <em>escucha</em> recibe el fichero. El receptor ejecuta:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p 2000 &gt; fichero.recibido<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 <span class="o">&gt;</span> fichero.recibido</code></pre></figure></div>
 <p>Y el emisor:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc localhost 2000 &lt; fichero<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc localhost 2000 &amp;lt<span class="p">;</span> fichero</code></pre></figure></div>
 <h2>Servidor de <tt><a href="http://en.wikipedia.org/wiki/ECHO_protocol">echo</a></tt></h2>
 <p>Ponemos un servidor que ejecuta <tt>cat</tt> de modo que devolverá todo lo que<br />
 se le envíe</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p 2000 -e /bin/cat<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 <span class="nt">-e</span> /bin/cat</code></pre></figure></div>
 <p>Y en otra consola:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ nc localhost 2000<br />
-hola<br />
-hola<br />
-&#8230;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc localhost 2000
+<span class="go">hola
+hola
+</span><span class="c">...</span></code></pre></figure></div>
 <h2>Servidor de <tt><a href="http://www.ietf.org/rfc/rfc0867.txt">daytime</a></tt></h2>
 <p>Exactamente lo mismo que el ejemplo anterior pero ejecutando <tt>date</tt> en lugar de <tt>cat</tt>.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p 2000 -e /bin/date<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 <span class="nt">-e</span> /bin/date</code></pre></figure></div>
 <p>Y en otra consola:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ nc localhost 2000<br />
-lun feb 23 21:26:48 <span class="caps">CET</span> 2004</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc localhost 2000
+<span class="go">lun feb 23 21:26:48 CET 2004</span></code></pre></figure></div>
 <h2> shell remota estilo <a href="http://es.wikipedia.org/wiki/Telnet">telnet</a></h2>
 <h3>Servidor</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p 2000 -e /bin/bash<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 <span class="nt">-e</span> /bin/bash</code></pre></figure></div>
 <h3>Cliente</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc localhost 2000<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc localhost 2000</code></pre></figure></div>
 <h2>Telnet inverso</h2>
 <p>En esta ocasión es el cliente quien pone el terminal remoto</p>
 <h3> Servidor </h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p 2000<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000</code></pre></figure></div>
 <h3> Cliente </h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc server.example.org 2000 -e /bin/bash<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 <span class="nt">-e</span> /bin/bash</code></pre></figure></div>
 <h2>Cliente de <span class="caps">IRC</span></h2>
 <div class="console">
-<p>{% highlight console %}<br />
-$ <strong>nc irc.freenode.net 6666</strong><br />
-<span class="caps">NOTICE</span> <span class="caps">AUTH</span> :<b>* Looking up your hostname&#8230;<br />
-<span class="caps">NOTICE</span> <span class="caps">AUTH</span> :</b>* Found your hostname, welcome back<br />
-<span class="caps">NOTICE</span> <span class="caps">AUTH</span> :<b>* Checking ident<br />
-<span class="caps">NOTICE</span> <span class="caps">AUTH</span> :</b>* No identd (auth) response<br />
-<strong><span class="caps">NICK</span> nadie</strong><br />
-<strong><span class="caps">USER</span> nadie nadie nadie :nadie</strong><br />
-:kubrick.freenode.net 001 nadie :Welcome to the freenode <span class="caps">IRC</span> Network nadie<br />
-:kubrick.freenode.net 002 nadie :Your host is kubrick.freenode.net[kubrick.freenode.net/6666], running version hyperion-1.0.2b<br />
-[&#8230;]</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="k">*</span>nc irc.freenode.net 6666<span class="k">*</span>
+<span class="go">NOTICE AUTH :*** Looking up your hostname...
+NOTICE AUTH :*** Found your hostname, welcome back
+NOTICE AUTH :*** Checking ident
+NOTICE AUTH :*** No identd (auth) response
+*NICK nadie*
+*USER nadie nadie nadie :nadie*
+:kubrick.freenode.net 001 nadie :Welcome to the freenode IRC Network nadie
+:kubrick.freenode.net 002 nadie :Your host is kubrick.freenode.net[kubrick.freenode.net/6666], running version hyperion-1.0.2b
+[...]</span></code></pre></figure></div>
 <p>y a partir de ahí puedes introducir cualquier comando de <span class="caps">IRC</span>:</p>
 <ul>
 	<li><span class="caps">LIST</span></li>
@@ -8279,107 +8424,69 @@ $ <strong>nc irc.freenode.net 6666</strong><br />
 <h2> Cliente de correo <a href="http://es.wikipedia.org/wiki/SMTP"><span class="caps">SMTP</span></a></h2>
 <p>Podemos usar <tt>netcat</tt> para enviar correo electrónico por medio de un servidor <span class="caps">SMTP</span>, utilizando el protocolo directamente:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-~$ nc mail.servidor.com<br />
-220 mail.servidor.com <span class="caps">ESMTP</span> Postfix<br />
-<span class="caps">HELO</span> yo<br />
-250 mail.servidor.com<br />
-<span class="caps">MAIL</span> <span class="caps">FROM</span>:guillermito@microchof.com<br />
-250 Ok<br />
-<span class="caps">RCPT</span> TO:manolo@cocaloca.es<br />
-250 Ok<br />
-<span class="caps">DATA</span><br />
-354 End data with &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt;<br />
-Aviso: su licencia ha caducado. Me deben un pastón.<br />
-.<br />
-250 Ok: queued as D44314A607<br />
-<span class="caps">QUIT</span><br />
-221 Bye</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~$</span><span class="w"> </span>nc mail.servidor.com
+<span class="go">220 mail.servidor.com ESMTP Postfix
+HELO yo
+250 mail.servidor.com
+MAIL FROM:guillermito@microchof.com
+250 Ok
+RCPT TO:manolo@cocaloca.es
+250 Ok
+DATA
+</span><span class="gp">354 End data with &amp;lt;</span>CR&gt;&amp;lt<span class="p">;</span>LF&gt;.&amp;lt<span class="p">;</span>CR&gt;&amp;lt<span class="p">;</span>LF&gt;
+<span class="go">Aviso: su licencia ha caducado. Me deben un pastón.
+</span><span class="c">.
+</span><span class="go">250 Ok: queued as D44314A607
+QUIT
+221 Bye</span></code></pre></figure></div>
 <h2> <span class="caps">HTTP</span></h2>
 <p>Es sencillo conseguir un cliente y un servidor <span class="caps">HTTP</span> rudimentarios.</p>
 <h3> Servidor</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p http -c &#8220;cat index.html&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> http <span class="nt">-c</span> <span class="s2">"cat index.html"</span></code></pre></figure></div>
 <p>Al cual podemos conectar con cualquier navegador <span class="caps">HTTP</span>, como por ejemplo <a href="http://www.mozilla.org/products/firefox/">firefox</a>.</p>
 <h3> Cliente</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ echo &#8220;<span class="caps">GET</span> /&#8221; | nc www.google.com 80 &gt; index.html<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"GET /"</span> | nc www.google.com 80 <span class="o">&gt;</span> index.html</code></pre></figure></div>
 <h2> Streaming de audio</h2>
 <p>Un sencillo ejemplo para hacer <em>streaming</em> de un fichero <tt>.mp3</tt>:</p>
 <h3> Servidor </h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p 2000 &lt; fichero.mp3<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 &lt; fichero.mp3</code></pre></figure></div>
 <p>y para servir todos los .mp3 de un directorio:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ cat *.mp3 | nc -l -p 2000<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> <span class="k">*</span>.mp3 | nc <span class="nt">-l</span> <span class="nt">-p</span> 2000</code></pre></figure></div>
 <h3> Cliente </h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc server.example.org 2000 | madplay -<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 | madplay -</code></pre></figure></div>
 <h2> Streaming de video</h2>
 <p/>
 <h3> Servidor </h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p 2000 &lt; pelicula.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 &lt; pelicula.avi</code></pre></figure></div>
 <h3> Cliente </h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc server.example.org 2000 | mplayer -<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 | mplayer -</code></pre></figure></div>
 <h2> Proxy </h2>
 <p>Sirva para redirigir una conexión a otro puerto u otra máquina:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p 2000 -c &#8220;nc example.org 22&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 <span class="nt">-c</span> <span class="s2">"nc example.org 22"</span></code></pre></figure></div>
 <p>El tráfico recibido en el puerto 2000 de esta máquina se redirige a la máquina example.org:22. Permite incluso que la conexión entrante sea <span class="caps">UDP</span> pero la redirección sea <span class="caps">TCP</span> o viceversa!</p>
 <h2> Clonar un disco a través de la red </h2>
 <p>Esto se debe usar con muchísima precaución. ¡Si no estás 100% seguro, no lo hagas! No digas que no te avisé.</p>
 <p>Es este ejemplo voy a copiar un pen drive <span class="caps">USB</span> que está conectado al servidor a un fichero en el cliente y después lo voy a montar para acceder al contenido.</p>
 <h3> Servidor </h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ dd if=/dev/sda1 | nc -l -p 2000<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">dd </span><span class="k">if</span><span class="o">=</span>/dev/sda1 | nc <span class="nt">-l</span> <span class="nt">-p</span> 2000</code></pre></figure></div>
 <h3> Cliente </h3>
 <div class="console">
-<p>{% highlight console %}<br />
-$ nc server.example.org 2000 | dd of=pendrive.dump<br />
-$ mount pendrive.dump -r -t vfat -o loop /mnt/usb</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 | <span class="nb">dd </span><span class="nv">of</span><span class="o">=</span>pendrive.dump
+<span class="gp">$</span><span class="w"> </span>mount pendrive.dump <span class="nt">-r</span> <span class="nt">-t</span> vfat <span class="nt">-o</span> loop /mnt/usb</code></pre></figure></div>
 <h2>Ratón remoto</h2>
 <p>Es decir, usar el ratón conectado a una máquina para usar el entorno gráfico de otra. El ejemplo está pensado para Xorg.</p>
 <h3>Servidor</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>nc -l -p 2000 &lt; /dev/input/mice<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 &lt; /dev/input/mice</code></pre></figure></div>
 <h3>Cliente</h3>
 <p>Editar el fichero <code>/etc/X11/xorg.conf</code> y modificar la configuración del ratón para que queda así:</p>
 <pre>
@@ -8391,41 +8498,24 @@ Section "InputDevice"
 EndSection
 </pre>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ mkfifo /tmp/fakemouse<br />
-$ nc server.example.org 2000 &gt; /tmp/fakemouse</p>
-<ol>
-	<li>/etc/init.d/gdm restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkfifo</span> /tmp/fakemouse
+<span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 <span class="o">&gt;</span> /tmp/fakemouse
+<span class="gp">#</span><span class="w"> </span>/etc/init.d/gdm restart</code></pre></figure></div>
 <h2> Medir el ancho de banda </h2>
 <p/>
 <h3>Servidor</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -l -p 2000 | pv &gt; /dev/null<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 | pv <span class="o">&gt;</span> /dev/null</code></pre></figure></div>
 <h3>Cliente</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc server.example.org 2000 &lt; /dev/zero<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 &lt; /dev/zero</code></pre></figure></div>
 <h2> Imprimir un documento en formato <a href="http://en.wikipedia.org/wiki/PostScript">PostScript</a></h2>
 <p>Funciona en impresoras que soporten el estándar AppSocket/JetDirect, que son la mayoría de las que se conectan por Ethernet.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ cat fichero.ps | nc -q 1 nombre.o.ip.de.la.impresora 9100<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>fichero.ps | nc <span class="nt">-q</span> 1 nombre.o.ip.de.la.impresora 9100</code></pre></figure></div>
 <h2>Ver «La Guerra de las Galaxias»</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc towel.blinkenlights.nl 23<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc towel.blinkenlights.nl 23</code></pre></figure></div>
 <h2>Otros &quot;netcat&quot;s</h2>
 <ul>
 	<li><a href="http://farm9.org/Cryptcat/">cryptcat</a> &#8211; netcat cifrado.</li>
@@ -8643,7 +8733,7 @@ Hay otros:
 </ul>
 
 Al crear tu cuenta tendrás que indicar cómo se va a llamar tu máquina, por ejemplo, <tt>miservidor.dyndns.org</tt>.
- 
+
 <h2> Instalar <tt>ddclient</tt> </h2>
 
 Simplemente:
@@ -9126,99 +9216,6 @@ Como se trata de que sea todo muy sencillito, símplemente poned los apartados c
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-09-27/acceso-a-red-cmpus-con-firefox-y-greasemonkey.html">Acceso a Red C@mpus con Firefox y Greasemonkey</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-09-27
-    
-      
-  <a href="/users.html#Geronimo">
-   Geronimo
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-09-27-acceso-a-red-cmpus-con-firefox-y-greasemonkey.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-09-27-acceso-a-red-cmpus-con-firefox-y-greasemonkey.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/14">node/14</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Todos los alumnos y profesores de la UCLM que usan otro navegador web que no sea Internet Explorer saben lo "peculiar" que es la web de RedC@mpus. Esta receta explica cómo arreglar este incomprensible error.
-
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2005-09-27/acceso-a-red-cmpus-con-firefox-y-greasemonkey.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9259,7 +9256,7 @@ Como se trata de que sea todo muy sencillito, símplemente poned los apartados c
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

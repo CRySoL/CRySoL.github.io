@@ -5226,32 +5226,20 @@
 <p>Esta es la operación más habitual y también una de las más simples:</p>
 <p>Con pserver:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ cvs -d:pserver:pepe@example.com:/var/cvs co -d anotherjob projects/pepejob<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>cvs <span class="nt">-d</span>:pserver:pepe@example.com:/var/cvs co <span class="nt">-d</span> anotherjob projects/pepejob</code></pre></figure></div>
 <p>Con ssh:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ export CVS_RSH=ssh<br />
-$ cvs -d:ext:pepe@example.com:/var/cvs co -d anotherjob projects/pepejob<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">CVS_RSH</span><span class="o">=</span>ssh
+<span class="gp">$</span><span class="w"> </span>cvs <span class="nt">-d</span>:ext:pepe@example.com:/var/cvs co <span class="nt">-d</span> anotherjob projects/pepejob</code></pre></figure></div>
 <p>Esto obtiene una copia de la versión <acronym title="la última"><span class="caps">HEAD</span></acronym> del módulo <code>pepejob</code>. Crea un directorio <code>anotherjob</code> en el directorio actual.</p>
 <h1>Actualizar una copia local de un módulo</h1>
 <p>Suponiendo que haya nuevas versiones disponibles del módulo del ejemplo anterior, puedes actualizar tu copia a la última versión con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-anotherjob$ <strong>cvs update</strong><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">anotherjob$</span><span class="w"> </span><span class="k">*</span>cvs update<span class="k">*</span></code></pre></figure></div>
 <h1>Subir al repositorio cambios locales</h1>
 <p>Si eres tú el que desea subir al repositorio una nueva versión de los ficheros de ese módulo (que has modificado tú mismo), ejecuta esto:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-anotherjob$ <strong>cvs commit</strong><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">anotherjob$</span><span class="w"> </span><span class="k">*</span>cvs commit<span class="k">*</span></code></pre></figure></div>
 <p>Es este caso se abrirá el editor de texto por defecto para que añadas un comentario referente a las modificaciones que estás subiendo.</p>
 <h1>Crear una rama</h1>
 <p>ToDo</p>
@@ -5263,11 +5251,8 @@ ssh -p 22022 $*
 </pre>
 <p>Dale permisos de ejecución y actualiza la variable de entorno <code>CVS_RSH</code> para usar tu script:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ chmod 0700 <sub>/bin/myssh.sh<br />
-$ export CVS_RSH=</sub>/bin/myssh.sh</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">chmod </span>0700 ~/bin/myssh.sh
+<span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">CVS_RSH</span><span class="o">=</span>~/bin/myssh.sh</code></pre></figure></div>
 <p>Y ya puedes utilizar cvs de la forma habitual para el caso de ssh.</p>
 <h2>Un modo más elegante (menos chapuza)</h2>
 <p>Escribe un fichero <code>~/.ssh/config</code> y añade algo como:</p>
@@ -5344,7 +5329,7 @@ Host example
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

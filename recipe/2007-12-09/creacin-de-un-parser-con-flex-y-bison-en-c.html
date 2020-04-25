@@ -5214,97 +5214,104 @@
 <p>Este archivo es el que va contener la especificación Flex del analizador léxico. Si estudias el código siguiente verás<br />
 que el analizador es muy simple: sólo reconoce números enteros.</p>
 <div>
-<p>{% highlight cpp %}<br />
-%option c++<br />
-%option noyywrap</p>
-<p>%{<br />
-#include <sstream><br />
-#include <cstdlib><br />
-#include &#8220;parser.h&#8221;<br />
-using namespace std;<br />
-%}</p>
-<p><span class="caps">DIGIT</span>   [0-9]<br />
-DIGIT1  [1-9]</p>
-<p>%%</p>
-<ul style="DIGIT;">
-	<li>{<br />
-                   cout &lt;&lt; &quot;Lexer: &quot; &lt;&lt; yytext &lt;&lt; endl;<br />
-                   return Parser::<span class="caps">NUMBER</span>;<br />
-                  }</li>
-</ul>
-<p>.                 {<br />
-                   return Parser::<span class="caps">UNKNOWN</span>;<br />
-                  }</p>
-<p>&lt;<EOF>&gt;           {<br />
-                   yyterminate();<br />
-                  }<br />
-<span>%<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="o">%</span><span class="n">option</span> <span class="n">c</span><span class="o">++</span>
+<span class="o">%</span><span class="n">option</span> <span class="n">noyywrap</span>
+
+<span class="o">%</span><span class="p">{</span>
+<span class="cp">#include &lt;sstream&gt;
+#include &lt;cstdlib&gt;
+#include "parser.h"
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="o">%</span><span class="p">}</span>
+
+<span class="n">DIGIT</span>   <span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span>
+<span class="n">DIGIT1</span>  <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span>
+
+<span class="o">%%</span>
+
+<span class="p">{</span><span class="n">DIGIT1</span><span class="p">}{</span><span class="n">DIGIT</span><span class="p">}</span><span class="o">*</span>  <span class="p">{</span>
+                   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Lexer: "</span> <span class="o">&lt;&lt;</span> <span class="n">yytext</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+                   <span class="k">return</span> <span class="n">Parser</span><span class="o">::</span><span class="n">NUMBER</span><span class="p">;</span>
+                  <span class="p">}</span>
+
+<span class="p">.</span>                 <span class="p">{</span>
+                   <span class="k">return</span> <span class="n">Parser</span><span class="o">::</span><span class="n">UNKNOWN</span><span class="p">;</span>
+                  <span class="p">}</span>
+
+<span class="o">&lt;&lt;</span><span class="n">EOF</span><span class="o">&gt;&gt;</span>           <span class="p">{</span>
+                   <span class="n">yyterminate</span><span class="p">();</span>
+                  <span class="p">}</span>
+<span class="o">%%</span></code></pre></figure></div>
 <p>Es importante ver que el analizador sintáctico (&#8220;Parser&#8221;) ya conoce los tokens, por lo que el analizador léxico no tiene más que devolver el token encontrado.</p>
 <h3>parser.y</h3>
 <p>A continuación el analizador sintáctico, también sencillo, que sólo consta de una construcción válida para el lenguaje.</p>
 <div>
-<p>{% highlight cpp %}<br />
-%name Parser<br />
-%define LSP_NEEDED<br />
-%define <span class="caps">MEMBERS</span>                 \<br />
-    virtual ~Parser()   {} \<br />
-    private:                   \<br />
-       yyFlexLexer lexer;<br />
-%define LEX_BODY {return lexer.yylex();}</p>
-<p>%define ERROR_BODY {cerr &lt;&lt; &quot;error encountered at line: &#8220;&lt;&lt;lexer.lineno()&lt;&lt;&#8221; last word parsed:&#8220;&lt;&lt;lexer.YYText()&lt;&lt;&#8221;\n&quot;;}</p>
-<p>%header{<br />
-#include &lt; ostream &gt;<br />
-#include &lt; fstream &gt;<br />
-#include &lt; FlexLexer.h &gt;<br />
-using namespace std;<br />
-%}</p>
-<p>%union {<br />
-       int i_type;<br />
-}</p>
-<p>%token <span class="caps">UNKNOWN</span><br />
-%token &lt; i_type &gt; <span class="caps">NUMBER</span></p>
-<p>%type &lt; i_type &gt; number</p>
-<p>%start number</p>
-<p>%%<br />
-number</p>
-<p>: <span class="caps">NUMBER</span> { $$ = atoi(lexer.YYText()); cout &lt;&lt; &quot;Parser value &quot; &lt;&lt; $$ &lt;&lt; endl;}</p>
-<p>;</p>
-<p><span>%<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="o">%</span><span class="n">name</span> <span class="n">Parser</span>
+<span class="o">%</span><span class="n">define</span> <span class="n">LSP_NEEDED</span>
+<span class="o">%</span><span class="n">define</span> <span class="n">MEMBERS</span>                 \
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">Parser</span><span class="p">()</span>   <span class="p">{}</span> \
+    <span class="k">private</span><span class="o">:</span>                   \
+       <span class="n">yyFlexLexer</span> <span class="n">lexer</span><span class="p">;</span>
+<span class="o">%</span><span class="n">define</span> <span class="n">LEX_BODY</span> <span class="p">{</span><span class="k">return</span> <span class="n">lexer</span><span class="p">.</span><span class="n">yylex</span><span class="p">();}</span>
+
+<span class="o">%</span><span class="n">define</span> <span class="n">ERROR_BODY</span> <span class="p">{</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">"error encountered at line: "</span><span class="o">&lt;&lt;</span><span class="n">lexer</span><span class="p">.</span><span class="n">lineno</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="s">" last word parsed:"</span><span class="o">&lt;&lt;</span><span class="n">lexer</span><span class="p">.</span><span class="n">YYText</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;}</span>
+
+<span class="o">%</span><span class="n">header</span><span class="p">{</span>
+<span class="cp">#include &lt; ostream &gt;
+#include &lt; fstream &gt;
+#include &lt; FlexLexer.h &gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="o">%</span><span class="p">}</span>
+
+<span class="o">%</span><span class="k">union</span> <span class="p">{</span>
+       <span class="kt">int</span> <span class="n">i_type</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">%</span><span class="n">token</span> <span class="n">UNKNOWN</span>
+<span class="o">%</span><span class="n">token</span> <span class="o">&lt;</span> <span class="n">i_type</span> <span class="o">&gt;</span> <span class="n">NUMBER</span>
+
+<span class="o">%</span><span class="n">type</span> <span class="o">&lt;</span> <span class="n">i_type</span> <span class="o">&gt;</span> <span class="n">number</span>
+
+<span class="o">%</span><span class="n">start</span> <span class="n">number</span>
+
+<span class="o">%%</span>
+<span class="n">number</span>
+
+<span class="o">:</span> <span class="n">NUMBER</span> <span class="p">{</span> <span class="err">$$</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">lexer</span><span class="p">.</span><span class="n">YYText</span><span class="p">());</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Parser value "</span> <span class="o">&lt;&lt;</span> <span class="err">$$</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;}</span>
+
+<span class="p">;</span>
+
+<span class="o">%%</span></code></pre></figure></div>
 <h3>test.cc</h3>
 <p>Finalmente, el archivo de prueba que crea  el objeto parser que lanzará el comienzo de análisis (léxico y sintáctico).</p>
 <div>
-<p>{% highlight cpp %}<br />
-#include &#8220;parser.h&#8221;<br />
-#include &lt; iostream &gt;<br />
-using namespace std;</p>
-<p>int main(int argc, char ** argv)<br />
-{<br />
-       Parser parser;<br />
-       parser.yyparse();<br />
-       return 0;<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include "parser.h"
+#include &lt; iostream &gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+       <span class="n">Parser</span> <span class="n">parser</span><span class="p">;</span>
+       <span class="n">parser</span><span class="p">.</span><span class="n">yyparse</span><span class="p">();</span>
+       <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <h2>Makefile</h2>
 <p>Para compilar y enlazar todo es necesario seguir un orden específico. Como muestra el siguiente <em>Makefile</em>, es necesario mantener la consistencia de nombres y crear primero el parser, después el scanner y finalmente el programa de prueba.</p>
 <div>
-<p>{% highlight text %}<br />
-all: test</p>
-<p>parser.cc: parser.y<br />
-        bison++ -d -hparser.h -o $@ $&lt;</p>
-<p>scanner.cc: scanner.l<br />
-        flex++ -d -o$@ $&lt;</p>
-<p>test:  parser.o scanner.o test.o<br />
-        g++ -o $@ test.o parser.o scanner.o</p>
-<p>clean:<br />
-        $(RM) *~ *# test *.o *.h<br />
-        $(RM) parser.cc scanner.cc<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">all: test
+
+parser.cc: parser.y
+        bison++ -d -hparser.h -o $@ $&lt;
+
+scanner.cc: scanner.l
+        flex++ -d -o$@ $&lt;
+
+test:  parser.o scanner.o test.o
+        g++ -o $@ test.o parser.o scanner.o
+
+clean:
+        $(RM) *~ *# test *.o *.h
+        $(RM) parser.cc scanner.cc</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul><li><a href="http://compilers.iecc.com/comparch/article/05-03-112">A simple example of using bison++ and flex++</a></li></ul>
       </div>
@@ -5371,7 +5378,7 @@ all: test</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5152,12 +5152,7 @@
 <h2>Paquetes necesarios</h2>
 <p>Sólo necesitaremos un paquete: <tt>ntpdate</tt>. En nuestro sistema basado en Debian es tan sumamente complicado como de costumbre:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install ntpdate<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>ntpdate</code></pre></figure></div>
 <h2>Explicación</h2>
 <p>En el mundo hay una serie de relojes de alta precisión (relojes atómicos) que son los que de verdad llevan la hora del mundo (¿u os pensábais que lo hacía el reloj de la Puerta del Sol? :P). Mediante fibra óptica, están conectados una serie de servidores de acceso restringido. A éstos, se les conectan una serie de servidores de acceso restringido&#8230; y así un par de niveles más, hasta que llegan los servidores públicos. Así hay muchos y no los sobrecargamos.</p>
 <p>Cada vez que un host intenta sincronizarse lo que se hace es lanzar varias peticiones, calcular el tiempo de retardo existente debido a la red, tomar en cuenta varios factores y estimar la hora real. El error es mínimo (salvo algunas veces que casca todo el sistema y te pone la hora del día anterior, como me ha pasado hace un rato).</p>
@@ -5249,7 +5244,7 @@ NTPOPTIONS="-u -B"
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5256,16 +5256,10 @@
 <h2>Crear un repositorio</h2>
 <p>Partiendo de un directorio (vacío o no):</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-juan@example:~/iexplorer9$ hg init<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">juan@example:~/iexplorer9$</span><span class="w"> </span>hg init</code></pre></figure></div>
 <p>si quieres añadir al repo lo que hubiera en ese directorio:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-juan@example:~/iexplorer9$ hg add<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">juan@example:~/iexplorer9$</span><span class="w"> </span>hg add</code></pre></figure></div>
 <h2>Uso básico</h2>
 <p>Mercurial dispone de los comandos habituales en un <span class="caps">VCS</span> tradicional:</p>
 <ul>
@@ -5288,73 +5282,46 @@ juan@example:~/iexplorer9$ hg add<br />
 <h2>¿Qué es esto del <code>merge</code>?</h2>
 <p>Puede que te resulte raro ver un mensaje como este al hacer una operación <code>pull</code> o  <code>update</code>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ hg pull -u<br />
-pulling from ssh://example.org//var/repo<br />
-searching for changes<br />
-adding changesets<br />
-adding manifests<br />
-adding file changes<br />
-added 1 changesets with 2 changes to 2 files (+1 heads)<br />
-not updating, since new heads added<br />
-(run &#8216;hg heads&#8217; to see heads, &#8216;hg merge&#8217; to merge)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>hg pull <span class="nt">-u</span>
+<span class="go">pulling from ssh://example.org//var/repo
+searching for changes
+adding changesets
+adding manifests
+adding file changes
+added 1 changesets with 2 changes to 2 files (+1 heads)
+not updating, since new heads added
+(run 'hg heads' to see heads, 'hg merge' to merge)</span></code></pre></figure></div>
 <p>Si compartes el repositorio con otras personas (que para eso está) es muy habitual que te encuentres con que varias personas han hecho cambios a partir de la misma versión. Otros programas, como subversion, mezclan automáticamente estos cambios. Si eso afectaba a las mismas líneas de un fichero, subversion decía que había un «conflicto» y marcaba sobre el propio fichero la zona afectada.</p>
 <p>En mercurial esto es ligeramente distinto. Cuando hay más de un cambio sobre la última versión, se dice que hay varias «cabezas» (que se pueden ver con <code>hg heads</code>). Esas cabezas se pueden mezclar en una sola con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ hg merge<br />
-merging scripts/cv.py<br />
-3 files updated, 1 files merged, 0 files removed, 0 files unresolved<br />
-(branch merge, don&#8217;t forget to commit)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>hg merge
+<span class="go">merging scripts/cv.py
+3 files updated, 1 files merged, 0 files removed, 0 files unresolved
+(branch merge, don't forget to commit)</span></code></pre></figure></div>
 <p>Y tal como dice el aviso, debes hacer <code>hg commit</code> aunque lo hubieras hecho previamente, puesto que el <code>merge</code> cambia el contenido de los ficheros.</p>
 <h2>Clonar un repositorio remoto</h2>
 <p>Mercurial soporta varios protocolos: ssh, http(s), inotify. El siguiente comando clona un repositorio accesible por <span class="caps">SSH</span>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-bill@deathstar:~$ hg clone ssh://billy@example.org//home/juan/iexplorer9 micopia<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">bill@deathstar:~$</span><span class="w"> </span>hg clone ssh://billy@example.org//home/juan/iexplorer9 micopia</code></pre></figure></div>
 <h2>Crear un repositorio compartido (al estilo <span class="caps">CVS</span>)</h2>
 <p>Necesitas crear un grupo <span class="caps">UNIX</span> y hacer que todos los usuarios que podrán utilizar el repositorio pertenezcan a dicho grupo.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>addgroup microchof</li>
-	<li>adduser billy microchof</li>
-	<li>adduser steve microchof<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>addgroup microchof
+<span class="gp">#</span><span class="w"> </span>adduser billy microchof
+<span class="gp">#</span><span class="w"> </span>adduser steve microchof</code></pre></figure></div>
 <p>Luego crea un directorio e inicialízalo como repositorio mercurial:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mkdir /var/hg/windows9</li>
-	<li>cd /var/hg/windows9</li>
-	<li>hg init<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">mkdir</span> /var/hg/windows9
+<span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /var/hg/windows9
+<span class="gp">#</span><span class="w"> </span>hg init</code></pre></figure></div>
 <p>Después debes darle los permisos necesarios para que todos los usuarios del grupo puedan utilizarlo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>chgrp -R microchof .hg</li>
-	<li>chmod -R g+w .hg</li>
-	<li>chmod -R g+s .hg<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">chgrp</span> <span class="nt">-R</span> microchof .hg
+<span class="gp">#</span><span class="w"> </span><span class="nb">chmod</span> <span class="nt">-R</span> g+w .hg
+<span class="gp">#</span><span class="w"> </span><span class="nb">chmod</span> <span class="nt">-R</span> g+s .hg</code></pre></figure></div>
 <p>También es muy importante que el <code>umask</code> de los usuarios sea 002 o menos restrictivo. Puedes añadir la siguiente línea al <code>/etc/profile</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-umask 002<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">umask 002</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.selenic.com/mercurial/wiki/index.cgi/QuickStart">Quick Start</a></li>
@@ -5427,7 +5394,7 @@ umask 002<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

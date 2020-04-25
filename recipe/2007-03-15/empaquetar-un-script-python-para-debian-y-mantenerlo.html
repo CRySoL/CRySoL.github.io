@@ -5232,10 +5232,7 @@
 </ul>
 <p>Para seguir la receta vamos a empaquetar <a href="https://arco.inf-cr.uclm.es/svn/public/samples/debian-python-hello/">pyhello</a> (así que se trata del primer caso). En realidad, como habrás adivinado es un ejemplo hecho ex profeso para esta receta. Descarga y descomprime el archivo tal como sigue:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ wget https://bitbucket.org/crysol_org/samples/get/tip.tar.gz</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>wget https://bitbucket.org/crysol_org/samples/get/tip.tar.gz</code></pre></figure></div>
 <h2>Crear el paquete</h2>
 <p>Sea como fuere, debes asegurarte de que tienes los fuentes en un directorio con un nombre similar a <code>pyhello-0.1</code> (hay <a href="http://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Package">normas precisas</a> sobre este nombre, que debes cumplir) y un .tgz con el mismo contenido en el directorio padre de ese. A continuación:</p>
 <ul>
@@ -5244,20 +5241,17 @@
 	<li>Y ejecuta <code>dh_make</code> como se indica</li>
 </ul>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ cd pyhello-0.1/<br />
-pyhello-0.1$ export <span class="caps">DEBFULLNAME</span>=&#8220;Juan Nadie&#8221;<br />
-pyhello-0.1$ dh_make -f ../pyhello-0.1.tar.gz -e juan.nadie@loquesea.es -b -c gpl<br />
-Maintainer name : Juan Nadie<br />
-Email-Address   : juan.nadie@loquesea.es<br />
-Date            : Mon,  5 Jun 2006 19:07:39 +0200<br />
-Package Name    : pyhello<br />
-Version         : 0.1<br />
-License         : gpl<br />
-Type of Package : cdbs<br />
-Hit <enter> to confirm:<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>pyhello-0.1/
+<span class="gp">pyhello-0.1$</span><span class="w"> </span><span class="nb">export </span><span class="nv">DEBFULLNAME</span><span class="o">=</span><span class="s2">"Juan Nadie"</span>
+<span class="gp">pyhello-0.1$</span><span class="w"> </span>dh_make <span class="nt">-f</span> ../pyhello-0.1.tar.gz <span class="nt">-e</span> juan.nadie@loquesea.es <span class="nt">-b</span> <span class="nt">-c</span> gpl
+<span class="go">Maintainer name : Juan Nadie
+Email-Address   : juan.nadie@loquesea.es
+Date            : Mon,  5 Jun 2006 19:07:39 +0200
+Package Name    : pyhello
+Version         : 0.1
+License         : gpl
+Type of Package : cdbs
+</span><span class="gp">Hit &lt;enter&gt;</span><span class="w"> </span>to confirm:</code></pre></figure></div>
 <p><strong>Nota:</strong> Sólo hay que utilizar <code>dh_make</code> cuando se crea el paquete y nunca más.</p>
 <p>Cosas que ha hecho <code>dh_make</code>:</p>
 <ul>
@@ -5273,34 +5267,29 @@ Hit <enter> to confirm:<br />
 </ul>
 <p>La primera está en formato nroff y las otras dos en DocBook. Lo más fácil es usar el <span class="caps">XML</span>. Así que renombra el fichero:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- pyhello-0.1$ <strong>mv debian/manpage.xml.ex debian/pyhello.xml</strong><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> pyhello-0.1$</span><span class="w"> </span><span class="k">*</span><span class="nb">mv </span>debian/manpage.xml.ex debian/pyhello.xml<span class="k">*</span></code></pre></figure></div>
 <p>Después la editas convenientemente y borra las otras dos plantillas.</p>
 <h3>Licencia</h3>
 <p>dh_make ha dejado una plantilla de la licencia que hayas elegido en el fichero <code>pyhello-0.1/debian/copyright</code>. Simplemente rellena los datos que faltan.</p>
 <h3>Editar el fichero <code>debian/control</code></h3>
 <p>El fichero <code>control</code> dice <strong>qué</strong> es el paquete. A continuación puedes ver como quedaría para nuestro ejemplo, una vez hechos los cambios sobre lo generado por <code>dh_make</code>:</p>
 <div>
-<p>{% highlight text %}<br />
-Source: pyhello<br />
-Section: utils<br />
-Priority: optional<br />
-Maintainer: Juan Nadie &lt;juan.nadie@loquesea.es&gt;<br />
-Build-Depends: debhelper (&gt;= 5.0.38)<br />
-Build-Depends-Indep: cdbs (&gt;= 0.4.43), python-all-dev (&gt;= 2.3.5-11), python-central (&gt;= 0.5.6), docbook-xsl<br />
-Standards-Version: 3.7.2<br />
-XS-Python-Version: all</p>
-<p>Package: pyhello<br />
-Architecture: all<br />
-Depends: ${python:Depends}<br />
-XB-Python-Version: ${python:Versions}<br />
-Description: Ejemplo básico de script Python empaquetado en Debian <span class="caps">GNU</span>/Linux<br />
- Un script &#8220;hola mundo&#8221; que sirve únicamente para explicar cómo se<br />
- empaquetan scripts Python en <span class="caps">GNU</span>/Linux de forma adecuada.<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Source: pyhello
+Section: utils
+Priority: optional
+Maintainer: Juan Nadie &lt;juan.nadie@loquesea.es&gt;
+Build-Depends: debhelper (&gt;= 5.0.38)
+Build-Depends-Indep: cdbs (&gt;= 0.4.43), python-all-dev (&gt;= 2.3.5-11), python-central (&gt;= 0.5.6), docbook-xsl
+Standards-Version: 3.7.2
+XS-Python-Version: all
+
+Package: pyhello
+Architecture: all
+Depends: ${python:Depends}
+XB-Python-Version: ${python:Versions}
+Description: Ejemplo básico de script Python empaquetado en Debian GNU/Linux
+ Un script "hola mundo" que sirve únicamente para explicar cómo se
+ empaquetan scripts Python en GNU/Linux de forma adecuada.</code></pre></figure></div>
 <p>Básicamente debes elegir:</p>
 <ul>
 	<li><a href="http://www.debian.org/doc/debian-policy/ch-archive.html#s-subsections">Section</a></li>
@@ -5310,46 +5299,44 @@ Description: Ejemplo básico de script Python empaquetado en Debian <span class=
 <h3>Editar el fichero <code>debian/rules</code></h3>
 <p>El fichero <code>rules</code> es realmente un <code>Makefile</code> e indica <strong>cómo</strong> hacer todas las tareas relacionadas con el paquete: compilación, instalación, limpieza, etc. Este fichero solía tener un tamaño y complejidad considerable, incluso para un paquete tan simple como éste. Pero con la llegada de <span class="caps">CDBS</span>, todo es mucho más sencillo. Así quedaría en este caso:</p>
 <div>
-<p>{% highlight text %}<br />
-#!/usr/bin/make -f</p>
-<p>DEB_PYTHON_SYSTEM=pycentral<br />
-DBK2MAN_XSL=/usr/share/xml/docbook/stylesheet/nwalsh/manpages/docbook.xsl</p>
-<p>include /usr/share/cdbs/1/rules/debhelper.mk<br />
-include /usr/share/cdbs/1/class/python-distutils.mk</p>
-<p>build/pyhello::<br />
-	xsltproc &#8212;nonet $(DBK2MAN_XSL) debian/pyhello.xml</p>
-<p>install/pyhello::<br />
-        mv $(<span class="caps">CURDIR</span>)/debian/pyhello/usr/bin/pyhello.py $(<span class="caps">CURDIR</span>)/debian/pyhello/usr/bin/pyhello</p>
-<p>clean::<br />
-	-rm pyhello.1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">#!/usr/bin/make -f
+
+DEB_PYTHON_SYSTEM=pycentral
+DBK2MAN_XSL=/usr/share/xml/docbook/stylesheet/nwalsh/manpages/docbook.xsl
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/python-distutils.mk
+
+build/pyhello::
+	xsltproc --nonet $(DBK2MAN_XSL) debian/pyhello.xml
+
+install/pyhello::
+        mv $(CURDIR)/debian/pyhello/usr/bin/pyhello.py $(CURDIR)/debian/pyhello/usr/bin/pyhello
+
+clean::
+	-rm pyhello.1</code></pre></figure></div>
 <p>El <strong>mv</strong> se debe a que la política de Debian no permite que haya programas con extensión en los directorios <code>bin</code>, que es donde va a ir a parar el script.</p>
 <h3>El fichero <code>setup.py</code></h3>
 <p>En este ejemplo estamos utilizando <code>distutils</code>, que simplifica mucho las cosas (aprovechando que <span class="caps">CDBS</span> ofrece soporte específico). <a href="http://docs.python.org/lib/module-distutils.html">distutils</a> es un sistema para construir e instalar módulos Python. El <code>rules</code> era tan sencillo porque delega parte de la tarea de la instalación en <code>distutils</code>. Para usarlo simplemente hay que escribir un fichero <code>setup.py</code> muy sencillo y colocarlo en el directorio <code>pyhello-0.1/</code>:</p>
 <div>
-<p>{% highlight python %}<br />
-#!/usr/bin/env python</p>
-<p>from distutils.core import setup</p>
-<p>setup(name         = &#8216;pyhello&#8217;,<br />
-      version      = &#8216;0.1&#8217;,<br />
-      description  = &#8216;Ejemplo básico de script Python empaquetado en Debian&#8217;,<br />
-      author       = &#8216;Fulanito Mengano&#8217;,<br />
-      author_email = &#8216;&lt;FulanitoMengano@gmain.com&gt;&#8217;,<br />
-      url          = &#8216;https://arco.inf-cr.uclm.es/svn/public/prj/debian-python-hello/&#8217;,<br />
-      license      = &#8216;<span class="caps">GPL</span> v2 or later&#8217;,<br />
-      data_files   = [(&#8216;share/man/man1&#8217;,[&#8216;pyhello.1&#8217;])],<br />
-      scripts      = [&#8216;pyhello.py&#8217;]<br />
-      )<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/env python
+</span>
+<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span>         <span class="o">=</span> <span class="s">'pyhello'</span><span class="p">,</span>
+      <span class="n">version</span>      <span class="o">=</span> <span class="s">'0.1'</span><span class="p">,</span>
+      <span class="n">description</span>  <span class="o">=</span> <span class="s">'Ejemplo básico de script Python empaquetado en Debian'</span><span class="p">,</span>
+      <span class="n">author</span>       <span class="o">=</span> <span class="s">'Fulanito Mengano'</span><span class="p">,</span>
+      <span class="n">author_email</span> <span class="o">=</span> <span class="s">'&lt;FulanitoMengano@gmain.com&gt;'</span><span class="p">,</span>
+      <span class="n">url</span>          <span class="o">=</span> <span class="s">'https://arco.inf-cr.uclm.es/svn/public/prj/debian-python-hello/'</span><span class="p">,</span>
+      <span class="n">license</span>      <span class="o">=</span> <span class="s">'GPL v2 or later'</span><span class="p">,</span>
+      <span class="n">data_files</span>   <span class="o">=</span> <span class="p">[(</span><span class="s">'share/man/man1'</span><span class="p">,[</span><span class="s">'pyhello.1'</span><span class="p">])],</span>
+      <span class="n">scripts</span>      <span class="o">=</span> <span class="p">[</span><span class="s">'pyhello.py'</span><span class="p">]</span>
+      <span class="p">)</span></code></pre></figure></div>
 <h2>Generar el paquete &#8216;binario&#8217;</h2>
 <p>Ejecuta:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- pyhello-0.1$ <strong>dpkg-buildpackage -rfakeroot</strong><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> pyhello-0.1$</span><span class="w"> </span><span class="k">*</span>dpkg-buildpackage <span class="nt">-rfakeroot</span><span class="k">*</span></code></pre></figure></div>
 <p>Si la compilación del paquete ha funcionado sin problemas, habrán aparecido varios ficheros en el directorio &#8220;<tt>pyhello-0.1/..</tt>&#8221;. Por lo menos deberías tener los siguientes:</p>
 <table>
 <tr>
@@ -5377,10 +5364,7 @@ include /usr/share/cdbs/1/class/python-distutils.mk</p>
 </ul>
 <h2>Limpieza</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
- pyhello-0.1$ fakeroot debian/rules clean<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> pyhello-0.1$</span><span class="w"> </span>fakeroot debian/rules clean</code></pre></figure></div>
 <h2>Mantenimiento básico</h2>
 <p>Una vez terminado el paquete, lo lógico es distribuirlo de algún modo, ya sea como parte de Debian, en un repositorio de paquetes no-oficial o incluso en tu propia página web.</p>
 <p>En cualquier caso, debes tener claro un principio universal: &#8220;no hay nada definitivo&#8221;. Es decir, que más tarde o más temprano tendrás que hacer cambios en el paquete, ya sea para adoptar los cambios que el autor haga en su programa o para arreglar bugs cometidos por él o por ti (no es relevante que el autor y el mantenedor sean la misma persona). También puede que a los simpáticos Debian Developers les dé por hacer cambios en la <em>policy</em>.</p>
@@ -5388,18 +5372,12 @@ include /usr/share/cdbs/1/class/python-distutils.mk</p>
 <p>Como mantenedor del paquete serás responsable de solucionar los problemas que seguro tendrá el paquete. Estos problemas pueden ser errores de empaquetado, de aplicación de la política o también errores en la codificación del propio programa (que deberías notificar al autor).</p>
 <p>En estos casos, debes solucionar el problema y crear una nueva revisión del paquete, para eso ejecuta:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- pyhello-0.1$ dch -i<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> pyhello-0.1$</span><span class="w"> </span>dch <span class="nt">-i</span></code></pre></figure></div>
 <p>Después edita el <code>debian/changelog</code> y escribe una breve descripción de cómo has solucionado el error. Si se trata de un paquete oficial, deberás utilizar el <a href="http://www.debian.org/Bugs/"><span class="caps">DBTS</span>(Debian Bug Tracking System</a>, en el que cada bug notificado tiene un número asociado. Cuando resuelve el problema debes citar ese número con algo como &#8220;Closes: #5432&#8221;. Todo esto, también está <a href="http://sdn.vlsm.org/share/Debian-Doc/debian-policy/ch-source.html#s-dpkgchangelog">&#8220;legislado&#8221;</a> en Debian.</p>
 <h3>Nueva versión del &#8216;upstream&#8217;</h3>
 <p>La otra tarea importante que realiza un mantenedor es empaquetar las nuevas versiones que produce el autor (lo que se llama <em>upstream</em>). En este caso se procede de modo similar a cuando se creó el paquete: se copia el .tgz de rigor en el directorio padre del directorio de los fuentes y se ejecuta:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- pyhello-0.1$ uupdate -u pyhello-0.2.tar.gz<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> pyhello-0.1$</span><span class="w"> </span>uupdate <span class="nt">-u</span> pyhello-0.2.tar.gz</code></pre></figure></div>
 <p>Como en el caso anterior, deberías editar el fichero <code>debian/changelog</code> y explicar la jugada, normalmente algo del tipo &#8220;New uptream release&#8221; o similar.</p>
 <h2>Comentarios</h2>
 <p>No pretendo que esto sea una guía completa para crear paquetes, ¡eso es imposible! y para eso ya está la documentación oficial de referencia. Sólo pretendo que sea un punto de partida para quién quiera empaquetar sus programillas, y ¿por qué no? quizá para despertar el gusanillo de quien quiera ayudar a Debian manteniendo algún paquetillo que esté huerfanito. Si tienes alguna duda o crees que se me ha pasado algo importante, deja un comentario. Yo estoy empezando con esto, no soy ningún experto, así que entre todos igual hasta podemos aprender algo.</p>
@@ -5486,7 +5464,7 @@ include /usr/share/cdbs/1/class/python-distutils.mk</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

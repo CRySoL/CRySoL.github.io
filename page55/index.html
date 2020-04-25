@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,6 +7885,8 @@
   
     
   
+    
+  
 
   
     
@@ -7968,59 +7970,38 @@ Ndiswrapper es un sistema que nos va a permitir usar los drivers para windows &#
 <h2>¿Cómo se instala ndiswrapper?</h2>
 teclea:
 <div class="console">
-<p>{% highlight console %}<br />
-$  sudo apt-get install ndiswrapper-common</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>ndiswrapper-common</code></pre></figure></div>
 O si lo prefieres te puedes descargar el tar.gz desde <a href="http://sourceforge.net/projects/ndiswrapper/">su página web</a>
 <p>Después decomprimes y haces un</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$  make install</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>make <span class="nb">install</span></code></pre></figure></div>
 <h2>Descargar drivers de Windows</h2>
 Deberás descargar los drivers que hay disponibles para windows. Normalmente deberán estar en la página web del fabricante.
 <h2>Instalar drivers</h2>
 Vete al directorio donde se encuentren los archivos con los drivers de windows y haz como root.
 <div class="console">
-<p>{% highlight console <span>}<br />
-$  ndiswrapper -i nombre_del_driver.inf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>ndiswrapper <span class="nt">-i</span> nombre_del_driver.inf</code></pre></figure></div>
 La -i es de install. Lo que hará ndiswrapper es copiar el archivo .sys y crear una configuración para él. Lo podemos encontrar en <code>/etc/ndiswrapper</code>.
 <h2>¿Cómo comprobar si el driver se ha instalado correctamente?</h2>
 Teclea
 <div class="console">
-<p>{% highlight console <span>}<br />
-$  ndiswrapper -l<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>ndiswrapper <span class="nt">-l</span></code></pre></figure></div>
 <p>Esto nos lista los drivers que tenemos instalados con ndiswrapper y si su hardware está presente o no.</p>
 <h2>Cargar el módulo de ndiswrapper</h2>
 El siguiente paso es cargar el modulo de ndiswrapper de la siguiente manera:
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ modprobe ndiswrapper<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>modprobe ndiswrapper</code></pre></figure></div>
 <h2>Ultimo paso, creando el alias</h2>
 Si todo ha funcionado bien, sólo nos resta hacer un
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ ndiswrapper -m<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ndiswrapper <span class="nt">-m</span></code></pre></figure></div>
 <p>para crear el alias wlan0 ndiswrapper en <code>/etc/modprobe.d/ndiswrapper</code>. Esto hará que cada vez que usemos la interfaz wlan0, se cargue el módulo ndiswrapper. La interfaz se puede levantar normalmente con ifconfig wlan0 up.</p>
 <h2>¿Con qué programas puedo observar a qué redes me puedo conectar?</h2>
 Bien, yo al menos conozco dos:
 <p>Network-Manager. Molinux lo traía instalado por defecto.<br />
 y otro es Wifi-Radar, para instalarlo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ sudo apt-get install wifi-radar<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>wifi-radar</code></pre></figure></div>
 <p>Esto ya es a gusto de consumidores libres.</p>
 <h2>Bibliografía</h2>
 <p><a href="http://www.badopi.org/node/684">Receta principal en la que yo me base</a><br />
@@ -8826,36 +8807,27 @@ class MyTreeStore(gtk.TreeStore):<br />
 <li><b>Obtener el tamaño de un widget y su posición:</b> para conseguir esto, el widget ha de estar <i>realized</i>, es decir, ha de haberse llamado a las primitivas para construirlo antes de pintarlo. Si el widget es visible, esto ya ha ocurrido. Si no, es posible utilizar el método <i>realize()</i> para forzarlo. Una vez hecho esto, el objeto tiene su tamaño y sus coordenadas en el atributo <b>allocation</b>, que es un gdk.Rectangle. </li>
 <p><u>Ejemplo</u></p>
 <div>
-<p>{% highlight python %}</p>
-<ol>
-	<li>Tomado de http://faq.pygtk.org/index.py?req=show&amp;file=faq05.009.htp<br />
-win = gtk.Window()<br />
-win.realize() # o win.show()<br />
-rect = win.allocation<br />
-{% endhighlight %}<br />
-</div><br />
-</ul></li>
-</ol>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># Tomado de http://faq.pygtk.org/index.py?req=show&amp;file=faq05.009.htp
+</span><span class="n">win</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">Window</span><span class="p">()</span>
+<span class="n">win</span><span class="p">.</span><span class="n">realize</span><span class="p">()</span> <span class="c1"># o win.show()
+</span><span class="n">rect</span> <span class="o">=</span> <span class="n">win</span><span class="p">.</span><span class="n">allocation</span></code></pre></figure></div>
+</ul>
 <h2>Gtk.Events</h2>
 <ul>
 <li><b>Mejorar el rendimiento:</b> supongamos que tenemos un callback conectado al evento &#8220;motion_notify_event&#8221;, y que en ese callback dibujamos algo (por ejemplo, usando Cairo). Si el método tarda en dibujar, se encolarán un montón de eventos sin procesar, que se despacharán después de que el usuario haya empezado la sucesión de eventos. Esto provoca, por ejemplo, que al desplazar un elemento, este se mueva siempre por detrás de donde está el ratón, dando una desagradable sensación. Para evitar eso, podemos bloquear la emisión del evento, hasta que se pueda procesar.</li>
 <p><u>Ejemplo</u></p>
 <div>
-<p>{% highlight python %}</p>
-<ol>
-	<li>Callback del evento &#8216;motion_notify_event&#8217;<br />
-def on_motion_notify_event(self, widget, event):<br />
-    widget.handler_block_by_func(self.on_motion_notify_event)</li>
-</ol>
-<ol>
-	<li>Your code goes here</li>
-</ol>
-def _unblock():
-widget.handler_unblock_by_func(self.on_motion_notify_event)
-gobject.idle_add(_unblock)
-return True
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># Callback del evento 'motion_notify_event'
+</span><span class="k">def</span> <span class="nf">on_motion_notify_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="n">widget</span><span class="p">.</span><span class="n">handler_block_by_func</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">on_motion_notify_event</span><span class="p">)</span>
+
+    <span class="c1"># Your code goes here
+</span>
+    <span class="k">def</span> <span class="nf">_unblock</span><span class="p">():</span>
+        <span class="n">widget</span><span class="p">.</span><span class="n">handler_unblock_by_func</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">on_motion_notify_event</span><span class="p">)</span>
+    <span class="n">gobject</span><span class="p">.</span><span class="n">idle_add</span><span class="p">(</span><span class="n">_unblock</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">True</span></code></pre></figure></div>
 </ul>
 <h2>Cairo</h2>
 <ul>
@@ -8871,46 +8843,54 @@ ctx.clip()<br />
 <li><b>Crear una ventana transparente:</b> para poder probar esto, es necesario tener habilitado el <i><a href="/node/1090">compositing</a></i> en el gestor de ventanas. El truco básicamente consiste en crear una ventana sin decoraciones, y con el colormap adecuado (uno que soporte canales <i>alpha</i>), y pintar sobre ella con cairo.</li>
 <p><u>Ejemplo</u></p>
 <div>
-<p>{% highlight python %}<br />
-#!/usr/bin/env python</p>
-<ol>
-	<li><del>*</del> mode: python; coding: utf-8 <del>*</del></li>
-</ol>
-<p>import sys<br />
-import gtk<br />
-import cairo</p>
-<p>def expose_event(widget, event):<br />
-    cr = widget.window.cairo_create()<br />
-    size = widget.get_size()</p>
-cr.set_operator(cairo.OPERATOR_SOURCE)
-cr.rectangle(1, 1, size<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>-2, size<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>-2)
-cr.set_source_rgba(1, 1, 1, .8)
-cr.stroke_preserve()
-cr.set_source_rgba(1, 1, 1, .2)
-cr.fill()
-<p>def main():</p>
-win = gtk.Window()
-win.set_decorated(False)
-win.set_app_paintable(True)
-win.connect(&#8216;delete-event&#8217;, gtk.main_quit)
-win.connect(&#8216;expose-event&#8217;, expose_event)
-screen = win.get_screen()
-colormap = screen.get_rgba_colormap()
-win.set_colormap(colormap)
-<ol>
-	<li>avoid flick<br />
-    win.realize()<br />
-    win.window.set_back_pixmap(None, False)</li>
-</ol>
-win.show_all()
-gtk.main()
-<p>if <i>name</i> == &#8216;<i>main</i>&#8217;:<br />
-    try:<br />
-        main()<br />
-    except KeyboardInterrupt:<br />
-        pass<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/env python
+# -*- mode: python; coding: utf-8 -*-
+</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">gtk</span>
+<span class="kn">import</span> <span class="nn">cairo</span>
+
+
+<span class="k">def</span> <span class="nf">expose_event</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="n">cr</span> <span class="o">=</span> <span class="n">widget</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">cairo_create</span><span class="p">()</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">widget</span><span class="p">.</span><span class="n">get_size</span><span class="p">()</span>
+
+    <span class="n">cr</span><span class="p">.</span><span class="n">set_operator</span><span class="p">(</span><span class="n">cairo</span><span class="p">.</span><span class="n">OPERATOR_SOURCE</span><span class="p">)</span>
+    <span class="n">cr</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">cr</span><span class="p">.</span><span class="n">set_source_rgba</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">.</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">cr</span><span class="p">.</span><span class="n">stroke_preserve</span><span class="p">()</span>
+
+    <span class="n">cr</span><span class="p">.</span><span class="n">set_source_rgba</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">.</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">cr</span><span class="p">.</span><span class="n">fill</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="n">win</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">Window</span><span class="p">()</span>
+    <span class="n">win</span><span class="p">.</span><span class="n">set_decorated</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">win</span><span class="p">.</span><span class="n">set_app_paintable</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">win</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'delete-event'</span><span class="p">,</span> <span class="n">gtk</span><span class="p">.</span><span class="n">main_quit</span><span class="p">)</span>
+    <span class="n">win</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s">'expose-event'</span><span class="p">,</span> <span class="n">expose_event</span><span class="p">)</span>
+
+    <span class="n">screen</span> <span class="o">=</span> <span class="n">win</span><span class="p">.</span><span class="n">get_screen</span><span class="p">()</span>
+    <span class="n">colormap</span> <span class="o">=</span> <span class="n">screen</span><span class="p">.</span><span class="n">get_rgba_colormap</span><span class="p">()</span>
+    <span class="n">win</span><span class="p">.</span><span class="n">set_colormap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
+
+    <span class="c1"># avoid flick
+</span>    <span class="n">win</span><span class="p">.</span><span class="n">realize</span><span class="p">()</span>
+    <span class="n">win</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">set_back_pixmap</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+    <span class="n">win</span><span class="p">.</span><span class="n">show_all</span><span class="p">()</span>
+    <span class="n">gtk</span><span class="p">.</span><span class="n">main</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">main</span><span class="p">()</span>
+    <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="k">pass</span></code></pre></figure></div>
 <p><u>Resultado</u><br />
 <center><img src="/assets/files/window.png"/></center></p>
 </ul>
@@ -8927,10 +8907,7 @@ pixbuf = pbl.get_pixbuf()<br />
 <li><b>Cargar un gdk.Pixbuf desde stock:</b> aunque esto ya lo hemos visto más arriba, formaba parte de otro ejemplo. Aquí lo vemos más claro. Tenemos un Stock ID, y queremos cargar un gdk.Pixbuf a partir de él. Es fácil si usamos <strong>gtk.Widget.render_icon()</strong>. Te retorna el Pixbuf directamente.</li>
 <p><u>Ejemplo</u></p>
 <div>
-<p>{% highlight python <span>}<br />
-pixbuf = gtk.Invisible().render_icon(gtk.STOCK_ZOOM_100, gtk.ICON_SIZE_BUTTON)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pixbuf</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">Invisible</span><span class="p">().</span><span class="n">render_icon</span><span class="p">(</span><span class="n">gtk</span><span class="p">.</span><span class="n">STOCK_ZOOM_100</span><span class="p">,</span> <span class="n">gtk</span><span class="p">.</span><span class="n">ICON_SIZE_BUTTON</span><span class="p">)</span></code></pre></figure></div>
 </ul>
 <p><b>PD: Se admiten nuevos Tips &#8217;n Tricks :-D</b></p>
 <h2>Referencias</h2>
@@ -9097,7 +9074,7 @@ pixbuf = gtk.Invisible().render_icon(gtk.STOCK_ZOOM_100, gtk.ICON_SIZE_BUTTON)<b
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

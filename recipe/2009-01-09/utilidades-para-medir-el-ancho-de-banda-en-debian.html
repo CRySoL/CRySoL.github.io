@@ -5188,29 +5188,24 @@
 <p>Se trata de un programa realmente muy útil. Contabiliza todo el tráfico de subida y bajada acumulado y lo mantiene en una base de datos que se puede consultar en cualquier momento. Resulta muy útil para hacerte una idea del tráfico que genera un servidor o ver cuanto te queda para llegar a los 5GB mensuales que te permite simyo antes de empezar a clavarte de verdad.</p>
 <p>Para empezar a contabilizar el tráfico de una interfaz concreta ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>vnstat -u -i eth0<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>vnstat <span class="nt">-u</span> <span class="nt">-i</span> eth0</code></pre></figure></div>
 <p>Y para ver después los datos recopilados simplemente ejecuta <code>vnstat</code> (aunque tiene muchas opciones interesantes). Un pantallazo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ vnstat<br />
-Database updated: Fri Jan  9 01:00:01 2009</p>
-<p>eth0</p>
-<p>received:       1.97 GB (91.5%)<br />
-	transmitted:     187.77 MB (8.5%)<br />
-	      total:       2.16 GB</p>
-<p>rx     |     tx     |  total<br />
-	&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-<ins><del>-</del>&#8212;&#8212;&#8212;&#8212;-</ins>&#8212;&#8212;&#8212;&#8212;&#8212;-<br />
-	yesterday    221.92 MB |   17.94 MB |  239.87 MB<br />
-	    today    100.84 MB |   13.08 MB |  113.92 MB<br />
-	&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-<ins><del>-</del>&#8212;&#8212;&#8212;&#8212;-</ins>&#8212;&#8212;&#8212;&#8212;&#8212;-<br />
-	estimated      2.34 GB |     312 MB |    2.65 GB<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>vnstat
+<span class="go">Database updated: Fri Jan  9 01:00:01 2009
+
+	eth0
+
+	   received:       1.97 GB (91.5%)
+	transmitted:     187.77 MB (8.5%)
+	      total:       2.16 GB
+
+	                rx     |     tx     |  total
+	-----------------------+------------+-----------
+	yesterday    221.92 MB |   17.94 MB |  239.87 MB
+	    today    100.84 MB |   13.08 MB |  113.92 MB
+	-----------------------+------------+-----------
+	estimated      2.34 GB |     312 MB |    2.65 GB</span></code></pre></figure></div>
 <h3><a href="http://www.pmacct.net/">pmacct</a></h3>
 <p><strong>[ToDo]</strong></p>
 <h2>Análisis instantáneo</h2>
@@ -5223,112 +5218,100 @@ Database updated: Fri Jan  9 01:00:01 2009</p>
 <h3><a href="http://nethogs.sourceforge.net/">nethogs</a></h3>
 <p>De repente ves en el monitor de red que el ratio de descarga o de subida se dispara sin explicación. ¿A qué te gustaría saber qué programa es el responsable de tal despropósito? <code>nethogs</code> es la solución, muestra todos los procesos y la cantidad de tráfico de subida/bajada. No muestra el ratio sino la cantidad total de bytes que ha movido cada programa desde que ejecutaste <code>nethogs</code>, pero aún así es muy útil. Una &#8220;captura&#8221; del invento en acción:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>NetHogs version 0.6.2pre2</p>
-<span class="caps">PID</span> <span class="caps">USER</span>     <span class="caps">PROGRAM</span>                      <span class="caps">DEV</span>        <span class="caps">SENT</span>      <span class="caps">RECEIVED</span>
-<p>3947  bacula   /usr/sbin/bacula-sd          eth0  4284470.000 90966192.00B<br />
-4078  root     icegridnode                  eth0     438.000     182.000 B<br />
-4715  david    pidgin                       eth0     209.000     171.000 B<br />
-0     root     unknown <span class="caps">TCP</span>                             0.000       0.000 B</p>
-<span class="caps">TOTAL</span>                                           4285117.000  90966545.0B
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">NetHogs version 0.6.2pre2
+
+  PID USER     PROGRAM                      DEV        SENT      RECEIVED
+3947  bacula   /usr/sbin/bacula-sd          eth0  4284470.000 90966192.00B
+4078  root     icegridnode                  eth0     438.000     182.000 B
+4715  david    pidgin                       eth0     209.000     171.000 B
+0     root     unknown TCP                             0.000       0.000 B
+
+  TOTAL                                           4285117.000  90966545.0B</span></code></pre></figure></div>
 <h3>pktstat</h3>
 <p>Muestra un listado constantemente actualizado de tráfico para la interfaz especificada. El listado clasifica el tráfico por protocolo y conexión. Indica también el ratio y el porcentaje que supone sobre el total. Su forma más sencilla de uso es:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ pktstat -i eth0<br />
-interface: eth0<br />
-bps</p>
-bps    % desc
-13.6k  31% tcp barbyel:www &lt;&#8594; free:48823
-- 304 <span class="caps">GET</span> /debian/dists/unstable/non-free/binary-i386/Packages.bz2
-12.7k  29% tcp free:53578 &lt;&#8594; ug-in-f190:www
-- 200 <span class="caps">GET</span> /linux/deb/dists/stable/non-free/binary-i386/Packages.bz2
-7.0k  16% tcp free:39208 &lt;&#8594; wieck:www
-- 304 <span class="caps">GET</span> /dists/lenny/updates/main/source/Sources.bz2
-4.7k  10% tcp free:37204 &lt;&#8594; zeppo:www
-- 304 <span class="caps">GET</span> /debian/dists/lenny/main/source/Sources.diff/Index
-822.0   1% icmp unreach need-frag 192.168.200.1 &#8594; free
-529.4   1% tcp free:47394 &lt;&#8594; mg-in-f125:5222
-331.6   0% udp free:36146 &lt;&#8594; resolver1:domain
-319.0   0% udp free:51545 &lt;&#8594; resolver1:domain
-288.4   0% udp free:60641 &lt;&#8594; resolver1:domain
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pktstat <span class="nt">-i</span> eth0
+<span class="go">interface: eth0
+bps
+
+   bps    % desc
+</span><span class="gp"> 13.6k  31% tcp barbyel:www &lt;-&gt;</span><span class="w"> </span>free:48823
+<span class="go">            - 304 GET /debian/dists/unstable/non-free/binary-i386/Packages.bz2
+</span><span class="gp"> 12.7k  29% tcp free:53578 &lt;-&gt;</span><span class="w"> </span>ug-in-f190:www
+<span class="go">            - 200 GET /linux/deb/dists/stable/non-free/binary-i386/Packages.bz2
+</span><span class="gp">  7.0k  16% tcp free:39208 &lt;-&gt;</span><span class="w"> </span>wieck:www
+<span class="go">            - 304 GET /dists/lenny/updates/main/source/Sources.bz2
+</span><span class="gp">  4.7k  10% tcp free:37204 &lt;-&gt;</span><span class="w"> </span>zeppo:www
+<span class="go">            - 304 GET /debian/dists/lenny/main/source/Sources.diff/Index
+</span><span class="gp"> 822.0   1% icmp unreach need-frag 192.168.200.1 -&gt;</span><span class="w"> </span>free
+<span class="gp"> 529.4   1% tcp free:47394 &lt;-&gt;</span><span class="w"> </span>mg-in-f125:5222
+<span class="gp"> 331.6   0% udp free:36146 &lt;-&gt;</span><span class="w"> </span>resolver1:domain
+<span class="gp"> 319.0   0% udp free:51545 &lt;-&gt;</span><span class="w"> </span>resolver1:domain
+<span class="gp"> 288.4   0% udp free:60641 &lt;-&gt;</span><span class="w"> </span>resolver1:domain</code></pre></figure></div>
 <h3><a href="http://www.ex-parrot.com/~pdw/iftop/">iftop</a></h3>
 <p>Lista flujos de tráfico indicando los ratios de subida y bajada para los últimos 2, 10 y 40 segundos. Permite filtrar por dirección IP y protocolo.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iftop<br />
-                 1.91Mb           3.81Mb           5.72Mb           7.63Mb     9.54Mb<br />
-└────────────────┴────────────────┴────────────────┴────────────────┴────────────────<br />
-free.local                    =&gt; crysol.esi.uclm.es            11.9Kb  2.39Kb   612b<br />
-                             &lt;=                                 203Kb   0.5Kb  10.1Kb<br />
-free.local                    =&gt; barbyel.eso.ucla.eu               0b  2.71Kb   695b<br />
-                             &lt;=                                    0b  4.56Kb  1.14Kb<br />
-free.local                    =&gt; ug-in-f136.google.com             0b  1.25Kb   319b<br />
-                             &lt;=                                    0b  5.47Kb  1.37Kb<br />
-free.local                    =&gt; lobos.debian.org                  0b  1.45Kb   372b<br />
-                             &lt;=                                    0b  2.21Kb   565b<br />
-free.local                    =&gt; resolver1.opendns.com         1.69Kb  0.99Kb   254b<br />
-                             &lt;=                                1.54Kb  1.24Kb   316b</li>
-</ol>
-<p>─────────────────────────────────────────────────────────────────────────────────────<br />
-TX:             cumm:   112KB   peak:   32.8Kb       rates:   13.9Kb  9.37Kb  2.38Kb<br />
-RX:                    4.11MB            206Kb                 206Kb  55.1Kb  13.8Kb<br />
-<span class="caps">TOTAL</span>:                 4.21MB            220Kb                 220Kb  64.5Kb  16.2Kb<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>iftop
+<span class="go">                 1.91Mb           3.81Mb           5.72Mb           7.63Mb     9.54Mb
+└────────────────┴────────────────┴────────────────┴────────────────┴────────────────
+</span><span class="gp">free.local                    =&gt;</span><span class="w"> </span>crysol.esi.uclm.es            11.9Kb  2.39Kb   612b
+<span class="go">                             &lt;=                                 203Kb   0.5Kb  10.1Kb
+</span><span class="gp">free.local                    =&gt;</span><span class="w"> </span>barbyel.eso.ucla.eu               0b  2.71Kb   695b
+<span class="go">                             &lt;=                                    0b  4.56Kb  1.14Kb
+</span><span class="gp">free.local                    =&gt;</span><span class="w"> </span>ug-in-f136.google.com             0b  1.25Kb   319b
+<span class="go">                             &lt;=                                    0b  5.47Kb  1.37Kb
+</span><span class="gp">free.local                    =&gt;</span><span class="w"> </span>lobos.debian.org                  0b  1.45Kb   372b
+<span class="go">                             &lt;=                                    0b  2.21Kb   565b
+</span><span class="gp">free.local                    =&gt;</span><span class="w"> </span>resolver1.opendns.com         1.69Kb  0.99Kb   254b
+<span class="go">                             &lt;=                                1.54Kb  1.24Kb   316b
+
+─────────────────────────────────────────────────────────────────────────────────────
+TX:             cumm:   112KB   peak:   32.8Kb       rates:   13.9Kb  9.37Kb  2.38Kb
+RX:                    4.11MB            206Kb                 206Kb  55.1Kb  13.8Kb
+TOTAL:                 4.21MB            220Kb                 220Kb  64.5Kb  16.2Kb</span></code></pre></figure></div>
 <h3><a href="http://www.rhythm.cx/~steve/devel/tcptrack/">tcptrack</a></h3>
 <p>Monitoriza conexiones <span class="caps">TCP</span> indicando el estado de la conexión, el tiempo de inactividad y la velocidad instantánea:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-Client                Server                State        Idle A Speed
-192.168.100.2:48129  130.206.1.5:80        <span class="caps">ESTABLISHED</span>  7s     0 B/s
-192.168.100.2:60890  66.249.93.91:80       <span class="caps">ESTABLISHED</span>  7s     0 B/s
-192.168.100.2:60878  161.67.144.12:80      <span class="caps">ESTABLISHED</span>  7s     0 B/s
-192.168.100.2:40881  212.211.132.250:80    <span class="caps">ESTABLISHED</span>  7s     0 B/s
-192.168.100.2:47394  209.85.137.125:5222   <span class="caps">ESTABLISHED</span>  26s    0 B/s
-<span class="caps">TOTAL</span>                                                           0 B/s
-Connections 1-5 of 5                         Unpaused  Sorted by rate
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> Client                Server                State        Idle A Speed
+ 192.168.100.2:48129  130.206.1.5:80        ESTABLISHED  7s     0 B/s
+ 192.168.100.2:60890  66.249.93.91:80       ESTABLISHED  7s     0 B/s
+ 192.168.100.2:60878  161.67.144.12:80      ESTABLISHED  7s     0 B/s
+ 192.168.100.2:40881  212.211.132.250:80    ESTABLISHED  7s     0 B/s
+ 192.168.100.2:47394  209.85.137.125:5222   ESTABLISHED  26s    0 B/s
+
+ TOTAL                                                           0 B/s
+ Connections 1-5 of 5                         Unpaused  Sorted by rate</span></code></pre></figure></div>
 <h3><a href="http://www.gropp.org/?id=projects&amp;sub=bwm-ng">bwm-ng</a></h3>
 <p>Mide el ancho de banda total (lectura instantánea) no solo de las interfaces de red, también de los discos.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-bwm-ng v0.6 (probing every 0.500s), press &#8216;h&#8217; for help
-input: libstatdisk type: rate
--         iface                   Rx                   Tx                Total
-==================
-sda:           0.00 KB/s            0.00 KB/s            0.00 KB/s
-sdb:           0.00 KB/s           63.49 KB/s           63.49 KB/s
-sdc:           0.00 KB/s            0.00 KB/s            0.00 KB/s
-<del>-</del>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-
-total:           0.00 KB/s           63.49 KB/s           63.49 KB/s
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">  bwm-ng v0.6 (probing every 0.500s), press 'h' for help
+  input: libstatdisk type: rate
+  -         iface                   Rx                   Tx                Total
+  ==============================================================================
+              sda:           0.00 KB/s            0.00 KB/s            0.00 KB/s
+              sdb:           0.00 KB/s           63.49 KB/s           63.49 KB/s
+              sdc:           0.00 KB/s            0.00 KB/s            0.00 KB/s
+  ------------------------------------------------------------------------------
+            total:           0.00 KB/s           63.49 KB/s           63.49 KB/s</span></code></pre></figure></div>
 <h3><a href="http://www.roland-riegel.de/nload/">nload</a></h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>Device wlan0 [10.49.149.102] (1/1):<br />
-================<br />
-Incoming:</p>
-Curr: 0.00 kBit/s
-Avg: 1025.80 kBit/s
-.        .  .||. .                                Min: 0.00 kBit/s
-#.       ##########||                             Max: 3637.38 kBit/s
-####|&#8230;|############                             Ttl: 170.09 MByte
-<p>Outgoing:</p>
-Curr: 0.00 kBit/s
-Avg: 35.66 kBit/s
-Min: 0.00 kBit/s
-Max: 135.89 kBit/s
-Ttl: 7.86 MByte
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">Device wlan0 [10.49.149.102] (1/1):
+============================================================================
+Incoming:
+
+                                                    Curr: 0.00 kBit/s
+                                                    Avg: 1025.80 kBit/s
+  .        .  .||. .                                Min: 0.00 kBit/s
+</span><span class="gp">  #</span><span class="nb">.</span>       <span class="c">##########||                             Max: 3637.38 kBit/s</span>
+<span class="gp">  #</span><span class="c">###|...|############                             Ttl: 170.09 MByte</span>
+<span class="go">Outgoing:
+
+
+                                                    Curr: 0.00 kBit/s
+                                                    Avg: 35.66 kBit/s
+                                                    Min: 0.00 kBit/s
+                                                    Max: 135.89 kBit/s
+                                                    Ttl: 7.86 MByte</span></code></pre></figure></div>
 <h3><a href="http://www.noc.ucf.edu/Tools/Iperf/">iperf</a></h3>
 <p><strong>[ToDo]</strong></p>
 <h2>¿Más?</h2>
@@ -5403,7 +5386,7 @@ Ttl: 7.86 MByte
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

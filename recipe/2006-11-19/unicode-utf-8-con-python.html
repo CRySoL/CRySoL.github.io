@@ -5311,97 +5311,67 @@
 <h2>Introducción</h2>
 <p>Python tiene soporte nativo para Unicode y sus <em>encodings</em> más populares. Si ejecutas un interprete de Python en un terminal, lo habitual es que herede el <em>encoding</em> por defecto. Para esta receta se supone que tus &#8220;locales&#8221; son es_ES.<span class="caps">UTF</span>-8. Puedes comprobarlo con:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-&gt;&gt;&gt; import sys<br />
-&gt;&gt;&gt; sys.stdin.encoding<br />
-&#8216;<span class="caps">UTF</span>-8&#8217;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> import sys
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> sys.stdin.encoding
+<span class="go">'UTF-8'</span></code></pre></figure></div>
 <h2>Crear cadenas Unicode</h2>
 <p>Cualquier cadena Unicode debe estar expresada con un encoding concreto. Python intentará utilizar siempre su encoding por defecto, que se puede obtener con:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-&gt;&gt;&gt; sys.getdefaultencoding()<br />
-&#8216;ascii&#8217;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> sys.getdefaultencoding<span class="o">()</span>
+<span class="go">'ascii'</span></code></pre></figure></div>
 <p>Para indicar que una cadena es Unicode basta con escribir el caracter &#8216;u&#8217; delante de la cadena, o bien construir un objeto de tipo <code>unicode()</code>:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-&gt;&gt;&gt; u&#8217;hola&#8217;<br />
-u&#8217;hola&#8217;<br />
-&gt;&gt;&gt; unicode(&#8216;hola&#8217;)<br />
-u&#8217;hola&#8217;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> u<span class="s1">'hola'</span>
+<span class="go">u'hola'
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> unicode<span class="o">(</span><span class="s1">'hola'</span><span class="o">)</span>
+<span class="go">u'hola'</span></code></pre></figure></div>
 <p>Como verás, al indicar una variable o literal, el interprete muestra la representación interna de esa variable.</p>
 <p>Si sólo utilizas caracteres &#8216;ascii&#8217;, la representación interna es igual, como en el ejemplo anterior. Pero si utilizas caracteres no-ascii, la cosa cambia:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-&gt;&gt;&gt; u&#8217;año&#8217;<br />
-u&#8217;a\xf1o&#8217;<br />
-&gt;&gt;&gt; unicode(&#8216;año&#8217;)<br />
-UnicodeDecodeError: &#8216;ascii&#8217; codec can&#8217;t decode byte 0xc3 in position 1: ordinal not in range(128)</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> u<span class="s1">'año'</span>
+<span class="go">u'a\xf1o'
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> unicode<span class="o">(</span><span class="s1">'año'</span><span class="o">)</span>
+<span class="go">UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 1: ordinal not in range(128)</span></code></pre></figure></div>
 <p>En la primera sentencia del ejemplo de arriba, Python entiende que la cadena está escrita con el codec del terminal (utf-8) porque se está dando como un literal; pero en el segundo caso el interprete entiende (por defecto) que el string es &#8216;ascii&#8217;, lo cual es un error, puesto que &#8216;ascii&#8217; no puede representar el carácter unicode &#8216;ñ&#8217;. Por tanto, si la cadena está expresada en un codec diferente, es necesario indicarlo explícitamente:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-&gt;&gt;&gt; unicode(&#8216;año&#8217;, &#8216;utf-8&#8217;)<br />
-u&#8217;a\xf1o&#8217;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> unicode<span class="o">(</span><span class="s1">'año'</span>, <span class="s1">'utf-8'</span><span class="o">)</span>
+<span class="go">u'a\xf1o'</span></code></pre></figure></div>
 <h2>Insertar caracteres &#8216;raros&#8217;</h2>
 <p>Los literales unicode pueden contener caracteres expresados por su número. Por ejemplo:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-&gt;&gt;&gt; cad = u&#8217;hola\u2605&#8217;<br />
-&gt;&gt;&gt; cad<br />
-u&#8217;hola\u2605&#8217;<br />
-&gt;&gt;&gt; print cad<br />
-hola★</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad <span class="o">=</span> u<span class="s1">'hola\u2605'</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad
+<span class="go">u'hola\u2605'
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> print cad
+<span class="go">hola★</span></code></pre></figure></div>
 <p>En la última línea del ejemplo deberías ver un estrella negra de 5 puntas, pero eso depende de la calidad de tu navegador (usa firefox, o iceweasel si estás en Debian).</p>
 <p>Como es dificil recordar secuencias de números, Python permite especificar un carácter por su nombre. El equivalente de la asignación anterior es:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-&gt;&gt;&gt; cad = u&#8217;hola\N{BLACK STAR}&#8217;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad <span class="o">=</span> u<span class="s1">'hola\N{BLACK STAR}'</span></code></pre></figure></div>
 <p>El módulo <a href="http://docs.python.org/lib/module-unicodedata.html">unicodedata</a> tiene funciones específicas para las tareas de identificación y nombrado de caracteres unicode.</p>
 <p>También tienes una función estándar (<code>unichr()</code>) para convertir un código unicode a carácter:</p>
 <div>
-<p>{% highlight text <span>}<br />
-&gt;&gt;&gt; cad = unichr(0&#215;1d160)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&gt;&gt;&gt; cad = unichr(0x1d160)</code></pre></figure></div>
 <h2>Aplicar una codificación (encode)</h2>
 <p>A partir de una cadena Unicode se puede obtener su representación con diferentes codecs usando el método encode().</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>&gt;&gt;&gt; cad = u’año’<br />
-&gt;&gt;&gt; cad<br />
-u’a\xf1o’<br />
-&gt;&gt;&gt; print cad<br />
-año<br />
-&gt;&gt;&gt; cad.encode(‘utf-8’)<br />
-‘a\xc3\xb1o’<br />
-&gt;&gt;&gt; cad.encode(‘utf-16’)<br />
-‘\xff\xfea\x00\xf1\x00o\x00&#8217;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad <span class="o">=</span> u’año’
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad
+<span class="go">u’a\xf1o’
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> print cad
+<span class="go">año
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad.encode<span class="o">(</span>‘utf-8’<span class="o">)</span>
+<span class="go">‘a\xc3\xb1o’
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad.encode<span class="o">(</span>‘utf-16’<span class="o">)</span>
+<span class="go">‘\xff\xfea\x00\xf1\x00o\x00'</span></code></pre></figure></div>
 <p>Si el codec indicado no puede codificar la cadena unicode indicada, hay varias alternativas, dependiendo del 2º argumento del método encode()</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>&gt;&gt;&gt; cad.encode(‘ascii’, ‘strict’) # es el modo por defecto<br />
-UnicodeEncodeError: ‘ascii’ codec can’t encode character u’\xf1’ in position 1: ordinal not in range(128)<br />
-&gt;&gt;&gt; cad.encode(‘ascii’, ‘ignore’)<br />
-‘ao’<br />
-&gt;&gt;&gt; cad.encode(‘ascii’, ‘replace’)<br />
-‘a?o’<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad.encode<span class="o">(</span>‘ascii’, ‘strict’<span class="o">)</span> <span class="c"># es el modo por defecto</span>
+<span class="go">UnicodeEncodeError: ‘ascii’ codec can’t encode character u’\xf1’ in position 1: ordinal not in range(128)
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad.encode<span class="o">(</span>‘ascii’, ‘ignore’<span class="o">)</span>
+<span class="go">‘ao’
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad.encode<span class="o">(</span>‘ascii’, ‘replace’<span class="o">)</span>
+<span class="go">‘a?o’</span></code></pre></figure></div>
 <h2>Leer cadenas de un fichero (decode)</h2>
 <p>[Por hacer]</p>
 <h2>El módulo codecs</h2>
@@ -5479,7 +5449,7 @@ UnicodeEncodeError: ‘ascii’ codec can’t encode character u’\xf1’ in po
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

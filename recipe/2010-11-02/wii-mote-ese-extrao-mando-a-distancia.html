@@ -5249,53 +5249,34 @@
 <h2>Cargar el módulo</h2>
 <p><code>wminput</code> require tener cargado el módulo Linux <code>uinput</code>. Eso se hace con :</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>modprobe uinput<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>modprobe uinput</code></pre></figure></div>
 <p>Si no quieres tener que hacer esto cada vez, añadelo al final de <code>/etc/modules</code> con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>echo uinput &gt;&gt; /etc/modules<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">echo </span>uinput <span class="o">&gt;&gt;</span> /etc/modules</code></pre></figure></div>
 <h2>Permisos para usuarios rasos</h2>
 <p>Crea un fichero llamado <code>/etc/udev/rules.d/uinput.rules</code> y escribe esto:</p>
 <div>
-<p>{% highlight text <span>}<br />
-<span class="caps">KERNEL</span>==&#8220;uinput&#8221;, <span class="caps">MODE</span>=&#8220;0666&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">KERNEL=="uinput", MODE="0666"</code></pre></figure></div>
 <h2>wiimote para control multimedia</h2>
 <p>Con las siguiente configuración puedes utilizarlo para emular las teclas multimedia habituales en los teclados. Crea un fichero <code>~/.cwiid/wminput/default</code> (crea los directorios que no tengas) y escribe esto:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Wiimote.A	= KEY_PLAYPAUSE<br />
-Wiimote.B	= BTN_RIGHT<br />
-Wiimote.Up	= KEY_UP<br />
-Wiimote.Down	= KEY_DOWN<br />
-Wiimote.Left	= KEY_PREVIOUSSONG<br />
-Wiimote.Right	= KEY_NEXTSONG<br />
-Wiimote.Minus	= KEY_VOLUMEDOWN<br />
-Wiimote.Plus	= KEY_VOLUMEUP<br />
-Wiimote.Home	= KEY_MUTE<br />
-Wiimote.1	= KEY_PROG1<br />
-Wiimote.2	= KEY_PROG2<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Wiimote.A	= KEY_PLAYPAUSE
+Wiimote.B	= BTN_RIGHT
+Wiimote.Up	= KEY_UP
+Wiimote.Down	= KEY_DOWN
+Wiimote.Left	= KEY_PREVIOUSSONG
+Wiimote.Right	= KEY_NEXTSONG
+Wiimote.Minus	= KEY_VOLUMEDOWN
+Wiimote.Plus	= KEY_VOLUMEUP
+Wiimote.Home	= KEY_MUTE
+Wiimote.1	= KEY_PROG1
+Wiimote.2	= KEY_PROG2</code></pre></figure></div>
 <h2>En marcha</h2>
 <p>Ahora tienes que ejecutar <code>wminput</code> que es el programa que hace la <em>traducción</em>. Sigue las instrucciones:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ wminput<br />
-Put Wiimote in discoverable mode now (press 1+2)&#8230;<br />
-Ready.</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>wminput
+<span class="go">Put Wiimote in discoverable mode now (press 1+2)...
+Ready.</span></code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://abstrakraft.org/cwiid/wiki/wminput">wminput</a></li>
@@ -5366,7 +5347,7 @@ Ready.</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5289,41 +5289,41 @@
 <h2>Qué necesitamos</h2>
 Bueno, nuestra distro tiene que contar con los siguientes paquetes:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>aptitude <span class="nb">install </span>git libelf-dev python zlib-dev autotools autoconf automake bison flex gcc make autotools patch subversion wget texinfo</code></pre></figure>
-</div>
+<pre class="console">
+# aptitude install git libelf-dev python zlib-dev autotools autoconf automake bison flex gcc make autotools patch subversion wget texinfo
+</pre>
 Lamentablemente puede que se me olvide alguno, si es así rogaría que me lo comentaseis.
 
 Ahora necesitamos un sitio donde meterlo todo, es decir, <tt>/usr/local/</tt>. Ahí crearemos un directorio y le daremos permisos de escritura al grupo <em>staff</em> (al que perteneceremos) para no tener que hacer las cosas como <em>root</em>:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /usr/local
-<span class="gp">#</span><span class="w"> </span><span class="nb">mkdir </span>ps3dev
-<span class="gp">#</span><span class="w"> </span><span class="nb">chown </span>root:staff ps3dev
-<span class="gp">#</span><span class="w"> </span><span class="nb">chmod </span>775 ps3dev</code></pre></figure>
-</div>
+<pre class="console">
+# cd /usr/local
+# mkdir ps3dev
+# chown root:staff ps3dev
+# chmod 775 ps3dev
+</pre>
 
 Vale y ahora ajustaremos las variables de entorno para que todo quede bien organizadito (estas lineas, además de ejecutarlas, añadirlas en vuestro <tt>~/.bashrc</tt> o similar) (esto hacedlo ya como vuestro usuario):
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">PS3DEV</span><span class="o">=</span>/usr/local/ps3dev
-<span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$PS3DEV</span>/bin
-<span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$PS3DEV</span>/ppu/bin
-<span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$PS3DEV</span>/spu/bin</code></pre></figure>
-</div>
+<pre class="console">
+$ export PS3DEV=/usr/local/ps3dev
+$ export PATH=$PATH:$PS3DEV/bin
+$ export PATH=$PATH:$PS3DEV/ppu/bin
+$ export PATH=$PATH:$PS3DEV/spu/bin
+</pre>
 
 Bien, con esto podremos compilarnos e instalar la <em>toolchain</em>, pero nos hará falta el <em>SDK</em> para poder crear nuestros ejecutables para la PS3. Le haremos sitio al <em>SDK</em> de la siguiente manera:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> <span class="nv">$PS3DEV</span>
-<span class="gp">$</span><span class="w"> </span><span class="nb">mkdir </span>psl1ght</code></pre></figure>
-</div>
+<pre class="console">
+$ cd $PS3DEV
+$ mkdir psl1ght
+</pre>
 
 Y de la misma manera que antes, creamos la variable de entorno (meted esto también en vuestro <tt>~/.bashrc</tt>):
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">PSL1GHT</span><span class="o">=</span><span class="nv">$PS3DEV</span>/psl1ght</code></pre></figure>
-</div>
+<pre class="console">
+$ export PSL1GHT=$PS3DEV/psl1ght
+</pre>
 
 Vale, ya lo tenemos todo listo... ahora a descargar y compilar...
 
@@ -5331,22 +5331,22 @@ Vale, ya lo tenemos todo listo... ahora a descargar y compilar...
 
 Bueno, yo tengo mi directorio <tt>~/repos</tt> donde guardo todas estas cosas, vosotros podéis meterlo donde os plazca... si lo hacéis como yo:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~/repos</code></pre></figure>
-</div>
+<pre class="console">
+$ cd ~/repos
+</pre>
 
 Y a descargar:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git clone https://github.com/ooPo/ps3toolchain.git</code></pre></figure>
-</div>
+<pre class="console">
+$ git clone https://github.com/ooPo/ps3toolchain.git
+</pre>
 
 Cuando esto termine: a compilar, parchear e instalar, es decir:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>ps3toolchain
-<span class="gp">$</span><span class="w"> </span>./toolchain.sh</code></pre></figure>
-</div>
+<pre class="console">
+$ cd ps3toolchain
+$ ./toolchain.sh
+</pre>
 
 Y esto tardará la vidaaaa... (bueno, según vuestros sistemas...) el caso es que tiene que crear dos <em>toolchains</em> una para el <em>PowerPC</em> (conocido como <em>PPU</em>) y otra para los <em>Synergistic Processors</em> (conocidos como <em>SPU's</em>).
 
@@ -5359,43 +5359,43 @@ sustituirla por:
 
 Si todo ha salido bien podréis hacer algo como:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ppu-gcc <span class="nt">--version</span>
-<span class="go">ppu-gcc (GCC) 4.5.1
+<pre class="console">
+$ ppu-gcc --version
+ppu-gcc (GCC) 4.5.1
 Copyright (C) 2010 Free Software Foundation, Inc.
-</span><span class="gp">This is free software;</span><span class="w"> </span>see the <span class="nb">source </span><span class="k">for </span>copying conditions.  There is NO
-<span class="gp">warranty;</span><span class="w"> </span>not even <span class="k">for </span>MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</code></pre></figure>
-</div>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre>
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>spu-gcc <span class="nt">--version</span>
-<span class="go">spu-gcc (GCC) 4.5.1
+<pre class="console">
+$ spu-gcc --version
+spu-gcc (GCC) 4.5.1
 Copyright (C) 2010 Free Software Foundation, Inc.
-</span><span class="gp">This is free software;</span><span class="w"> </span>see the <span class="nb">source </span><span class="k">for </span>copying conditions.  There is NO
-<span class="gp">warranty;</span><span class="w"> </span>not even <span class="k">for </span>MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</code></pre></figure>
-</div>
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre>
 
 <h2>Compilar e instalar el <em>SDK</em>: <em>PSL1GHT</em></h2>
 
 Bueno, como antes, si tenéis vuestros repos en <tt>~/repos</tt> haced lo siguiente y si no, hacedlo donde queráis:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~/repos</code></pre></figure>
-</div>
+<pre class="console">
+$ cd ~/repos
+</pre>
 
 Descargamos el <em>SDK</em>:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git clone https://github.com/HACKERCHANNEL/PSL1GHT.git</code></pre></figure>
-</div>
+<pre class="console">
+$ git clone https://github.com/HACKERCHANNEL/PSL1GHT.git
+</pre>
 
 Cuando esto termine: a compilar, parchear e instalar, es decir:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>PSL1GHT
-<span class="gp">$</span><span class="w"> </span>make
-<span class="gp">$</span><span class="w"> </span>make <span class="nb">install</span></code></pre></figure>
-</div>
+<pre class="console">
+$ cd PSL1GHT
+$ make
+$ make install
+</pre>
 
 Como su nombre indica... es ligerito así que no tardará mucho... después de esto ya estaréis en condiciones de crear vuestros programas para la PS3... peero...
 
@@ -5403,22 +5403,22 @@ Como su nombre indica... es ligerito así que no tardará mucho... después de e
 Si queremos instalarnos algunas librerías portadas a la PS3 como <em>zlib</em>, <em>libpng</em>, <em>libjpeg</em>, <em>freetype</em>, <em>pixman</em>, <em>libogg</em>, <em>libvorbis</em>, <em>libzip</em> o incluso <em>cairo</em>, haremos lo siguiente:
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~/repos</code></pre></figure>
-</div>
+<pre class="console">
+$ cd ~/repos
+</pre>
 
 Descargamos los scripts de <em>ooPo</em> que es muy majo:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git clone https://github.com/ooPo/ps3libraries.git</code></pre></figure>
-</div>
+<pre class="console">
+$ git clone https://github.com/ooPo/ps3libraries.git
+</pre>
 
 Y a compilar e instalar, es decir:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>ps3libraries
-<span class="gp">$</span><span class="w"> </span>./libraries.sh</code></pre></figure>
-</div>
+<pre class="console">
+$ cd ps3libraries
+$ ./libraries.sh
+</pre>
 
 Ya tenemos bastantes cositas para empezar a programar un <em>hola mundo</em> y algo más... pero como ya os dije antes, hay muchas librerías útiles por ahí que podemos ir instalando según nuestra necesidad.
 
@@ -5430,28 +5430,28 @@ Bueno, esto necesita el <em>NVidia Cg Toolkit</em> que es un compilador/intérpr
 
 Ahora viene una cutrez: no vamos a instalar este paquete en nuestro sistema (bueno, si vosotros queréis dadle caña, lo tenéis también como paquete Debian). Como sólo necesitamos una biblioteca, vamos descomprimir el tgz y a copiar sólo lo que necesitamos en <tt>/usr/local</tt> (suponemos que estamos en el directorio donde descargamos el fichero):
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>unp Cg-3.0_November2010_x86.tgz
-<span class="gp">$</span><span class="w"> </span><span class="nb">cp </span>usr/lib/libCg.so /usr/local/lib/
-<span class="gp">$</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-r</span> usr/lib/include/Cg /usr/local/include/
-<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>ldconfig</code></pre></figure>
-</div>
+<pre class="console">
+$ unp Cg-3.0_November2010_x86.tgz
+$ cp usr/lib/libCg.so /usr/local/lib/
+$ cp -r usr/lib/include/Cg /usr/local/include/
+$ sudo ldconfig
+</pre>
 
 La última línea refresca la caché de bibliotecas, para asegurarnos que la tenemos "disponible".
 
 <h3>Compilar e instalar</h3>
 Bien, ya podemos volver al repositorio de <em>PSL1GHT</em> para compilarnos el <em>compilador</em>...
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span><span class="nb">cd </span>PSL1GHT/psl1ght/tools/vpcomp
-<span class="gp">$</span><span class="w"> </span>make</code></pre></figure>
-</div>
+<pre class="console">
+ $ cd PSL1GHT/psl1ght/tools/vpcomp
+$ make
+</pre>
 
 Se siente, el <tt>Makefile</tt> no tiene el target <em>install</em>, así que a <em>manímetro</em>:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span><span class="nb">cp </span>vpcomp <span class="nv">$PSL1GHT</span>/bin/</code></pre></figure>
-</div>
+<pre class="console">
+ $ cp vpcomp $PSL1GHT/bin/
+</pre>
 
 Y ya tenemos listo nuestro compilador de vértices... ;)
 
@@ -5464,11 +5464,12 @@ Todos los pasos anteriores, incluído el <em>vpcomp</em>.
 <h3>Compilación e instalación</h3>
 Pues nada, en nuestro directorio de repositorios:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git clone https://github.com/hermesEOL/tiny3d.git
-<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>tiny3d
-<span class="gp">$</span><span class="w"> </span>make all</code></pre></figure>
-</div>
+<pre class="console">
+$ git clone https://github.com/hermesEOL/tiny3d.git
+$ cd tiny3d
+$ make all
+
+</pre>
 
 Si no hay ningún error, estaremos listos para usar la biblioteca. En <tt>tiny3d/docs</tt> tenéis un documentillo sobre la biblioteca y el <em>RSX</em> de la PS3.
 
@@ -5479,12 +5480,12 @@ Los pasos para obtener la <em>toolchain</em> y el <em>PSL1GHT</em>, con eso es s
 <h3>Compilar e instalar</h3>
 Desde nuestro directorio de repositorios:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git clone https://github.com/hermesEOL/ps3soundlib.git
-<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>ps3soundlib
-<span class="gp">$</span><span class="w"> </span>make
-<span class="gp">$</span><span class="w"> </span>make <span class="nb">install</span></code></pre></figure>
-</div>
+<pre class="console">
+$ git clone https://github.com/hermesEOL/ps3soundlib.git
+$ cd ps3soundlib
+$ make
+$ make install
+</pre>
 
 Al igual que antes, si no obtuvimos ningún error, ya tendremos la biblioteca lista para usar en nuestros <em>homebrews</em>.
 
@@ -5497,13 +5498,13 @@ Los pasos para obtener la <em>toolchain</em>, el <em>PSL1GHT</em> y las <em>ps3l
 <h3>Compilación e instalación</h3>
 Como siempre, desde nuestro directorio de repositorios:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git clone https://github.com/cebash/SDL_PSL1GHT.git
-<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>SDL_PSL1GHT
-<span class="gp">$</span><span class="w"> </span>./script.sh
-<span class="gp">$</span><span class="w"> </span>make
-<span class="gp">$</span><span class="w"> </span>make <span class="nb">install</span></code></pre></figure>
-</div>
+<pre class="console">
+$ git clone https://github.com/cebash/SDL_PSL1GHT.git
+$ cd SDL_PSL1GHT
+$ ./script.sh
+$ make
+$ make install
+</pre>
 
 Y si no tuvimos ningún error tendremos <em>libSDL</em> listo para usar en nuestras aplicaciones <em>homebrew</em>.
 
@@ -5661,7 +5662,7 @@ Disfruten! :D
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5538,14 +5538,14 @@ Los dispositivos que utilizan el chip de radio <a href="http://www.chipcon.com/i
 <pre>
 #ifndef CC1K_DEF_PRESET
 #define CC1K_DEF_PRESET	(CC1K_915_998_MHZ)
-#endif 
+#endif
 </pre>
 
 De éste modo, en los futuros programas, la radio se configurará para funcionar a la frecuencia correcta.
 
 <h2>Longitud del campo de datos en la estructura <tt>message_t</tt></h2>
 
-La estructura <a href="http://www.tinyos.net/tinyos-2.x/doc/html/tep111.html"><em>message_t</em></a> proporciona una abstracción para enviar y recibir mensajes a través de la radio o del puerto serie. El campo de datos de ésta estructura, tiene una longitud máxima prefijada de 28 Bytes, que en muchos casos puede ser mas que suficiente, pero en otras ocasiones podemos quedarnos cortos. 
+La estructura <a href="http://www.tinyos.net/tinyos-2.x/doc/html/tep111.html"><em>message_t</em></a> proporciona una abstracción para enviar y recibir mensajes a través de la radio o del puerto serie. El campo de datos de ésta estructura, tiene una longitud máxima prefijada de 28 Bytes, que en muchos casos puede ser mas que suficiente, pero en otras ocasiones podemos quedarnos cortos.
 
 Para solucionar ésto, debemos pasar a <em>nesC</em> el flag <em>DTOSH_DATA_LENGTH</em> para indicar la longitud máxima que queremos que tenga dicho campo de datos.
 
@@ -5639,7 +5639,7 @@ Con esto, cuando compiles, se buscarán las librerías también en ese directori
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5387,180 +5387,144 @@
 <h2>guestfs</h2>
 <p>Some scripts need guestfs. This requires a supermin appliance. To build it execute:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>update-guestfs-appliance<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>update-guestfs-appliance</code></pre></figure></div>
 <h2>virtual network</h2>
 <p>We will use the next network definition. Write it in a file named <code>net-grid.xml</code>:</p>
 <p>[ <a href="https://bitbucket.org/DavidVilla/libvirt-toys/src/tip/grid/net-grid.xml">net-grid.xml</a> ]</p>
 <div>
-<p>{% highlight text %}<br />
-<network><br />
-  <name>grid</name><br />
-  <forward mode='nat'/><br />
-  <bridge name='virbr1' stp='on' delay='0'/>
-  <mac address='52:54:00:6F:5E:D8'/><br />
-  <dns><br />
-    <host ip='192.168.1.1'><br />
-      <hostname>node0</hostname><br />
-      <hostname>puppet</hostname></p>
-</host>
-</dns>
-<ip address='192.168.1.1' netmask='255.255.255.0'>
-<dhcp>
-<range start='192.168.1.2' end='192.168.1.254'/>
-<host mac="00:AA:00:00:00:11" name="node1" ip='192.168.1.11'/>
-<host mac="00:AA:00:00:00:12" name="node2" ip='192.168.1.12'/>
-<host mac="00:AA:00:00:00:13" name="node3" ip='192.168.1.13'/>
-<host mac="00:AA:00:00:00:14" name="node4" ip='192.168.1.14'/>
-<host mac="00:AA:00:00:00:15" name="node5" ip='192.168.1.15'/>
-<host mac="00:AA:00:00:00:16" name="node6" ip='192.168.1.16'/>
-</dhcp>
-</ip>
-</network>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;network&gt;
+  &lt;name&gt;grid&lt;/name&gt;
+  &lt;forward mode='nat'/&gt;
+  &lt;bridge name='virbr1' stp='on' delay='0'/&gt;
+  &lt;mac address='52:54:00:6F:5E:D8'/&gt;
+  &lt;dns&gt;
+    &lt;host ip='192.168.1.1'&gt;
+      &lt;hostname&gt;node0&lt;/hostname&gt;
+      &lt;hostname&gt;puppet&lt;/hostname&gt;
+    &lt;/host&gt;
+  &lt;/dns&gt;
+  &lt;ip address='192.168.1.1' netmask='255.255.255.0'&gt;
+    &lt;dhcp&gt;
+      &lt;range start='192.168.1.2' end='192.168.1.254'/&gt;
+      &lt;host mac="00:AA:00:00:00:11" name="node1" ip='192.168.1.11'/&gt;
+      &lt;host mac="00:AA:00:00:00:12" name="node2" ip='192.168.1.12'/&gt;
+      &lt;host mac="00:AA:00:00:00:13" name="node3" ip='192.168.1.13'/&gt;
+      &lt;host mac="00:AA:00:00:00:14" name="node4" ip='192.168.1.14'/&gt;
+      &lt;host mac="00:AA:00:00:00:15" name="node5" ip='192.168.1.15'/&gt;
+      &lt;host mac="00:AA:00:00:00:16" name="node6" ip='192.168.1.16'/&gt;
+    &lt;/dhcp&gt;
+  &lt;/ip&gt;
+&lt;/network&gt;</code></pre></figure></div>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>virsh net-define net-grid.xml</li>
-	<li>virsh net-start grid<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>virsh net-define net-grid.xml
+<span class="gp">#</span><span class="w"> </span>virsh net-start grid</code></pre></figure></div>
 <h2>node1 instalation</h2>
 <p>We make a minimal debian installation and then we will make 5 clones. Next script automates the installation process. Remember you need the <a href="https://bitbucket.org/DavidVilla/libvirt-toys/raw/tip/debian-pressed/preseed.cfg">preseed.cfg</a> file in current directory (the script web-servers it using Python).</p>
 <p>[ <a href="https://bitbucket.org/DavidVilla/libvirt-toys/src/tip/grid/install.sh">install.sh</a> ]</p>
 <div>
-<p>{% highlight text %}<br />
-#!/bin/bash &#8212;<br />
-export LIBVIRT_DEFAULT_URI=qemu:///system</p>
-<p>name=node1</p>
-<p>virsh destroy $name<br />
-virsh undefine $name</p>
-<p>python -m SimpleHTTPServer 80 &amp;</p>
-<p>virt-install \<br />
-  &#8212;debug \<br />
-  &#8212;name=$name \<br />
-  &#8212;ram=512 \<br />
-  &#8212;disk ./$name.img,size=1.2,sparse=true \<br />
-  &#8212;location=http://babel.esi.uclm.es/debian/dists/testing/main/installer-i386 \<br />
-  &#8212;network=network=grid,mac=00:AA:00:00:00:11 \<br />
-  &#8212;extra-args=&#8220;\<br />
-    auto=true priority=critical vga=normal hostname=$name \<br />
-    url=http://192.168.122.1/preseed.cfg&#8221;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/bash --
+export LIBVIRT_DEFAULT_URI=qemu:///system
+
+name=node1
+
+virsh destroy $name
+virsh undefine $name
+
+python -m SimpleHTTPServer 80 &amp;
+
+virt-install \
+  --debug \
+  --name=$name \
+  --ram=512 \
+  --disk ./$name.img,size=1.2,sparse=true \
+  --location=http://babel.esi.uclm.es/debian/dists/testing/main/installer-i386 \
+  --network=network=grid,mac=00:AA:00:00:00:11 \
+  --extra-args="\
+    auto=true priority=critical vga=normal hostname=$name \
+    url=http://192.168.122.1/preseed.cfg"</code></pre></figure></div>
 <h2>clonning nodes</h2>
 <p>Once the installation has finished, we can make clones. To build clean clones is required to remove some settings established during installation. Thanks to guestfs it is easy to remove than settings using <code>libguestfs-tools</code>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>export LIBVIRT_DEFAULT_URI=qemu:///system</li>
-	<li>virt-sysprep -d node1 &#8212;enable udev-persistent-net<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">export </span><span class="nv">LIBVIRT_DEFAULT_URI</span><span class="o">=</span>qemu:///system
+<span class="gp">#</span><span class="w"> </span>virt-sysprep <span class="nt">-d</span> node1 <span class="nt">--enable</span> udev-persistent-net</code></pre></figure></div>
 <p>This is a good moment to set the puppet agent execution using cron. To make this just copy a crontab file in the guest fs:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>export LIBVIRT_DEFAULT_URI=qemu:///system</li>
-	<li>guestfish &#8212;rw -i -d node1 copy-in puppet/puppet /etc/cron.d/<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">export </span><span class="nv">LIBVIRT_DEFAULT_URI</span><span class="o">=</span>qemu:///system
+<span class="gp">#</span><span class="w"> </span>guestfish <span class="nt">--rw</span> <span class="nt">-i</span> <span class="nt">-d</span> node1 copy-in puppet/puppet /etc/cron.d/</code></pre></figure></div>
 <p>You need the <a href="https://bitbucket.org/DavidVilla/libvirt-toys/src/tip/grid/puppet">puppet</a> directory.</p>
 <p>It is time to clone:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>export LIBVIRT_DEFAULT_URI=qemu:///system<br />
-for i in $(seq 2 6); do<br />
-    virt-clone &#8212;original node1 &#8212;name node$i &#8212;file ./node$i.img &#8212;mac 00:AA:00:00:00:1$i<br />
-    virt-sysprep -d node$i &#8212;enable hostname &#8212;hostname node$i<br />
-done<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">export LIBVIRT_DEFAULT_URI=qemu:///system
+</span><span class="gp">for i in $</span><span class="o">(</span><span class="nb">seq </span>2 6<span class="o">)</span><span class="p">;</span> <span class="k">do</span>
+<span class="gp">    virt-clone --original node1 --name node$</span>i <span class="nt">--file</span> ./node<span class="nv">$i</span>.img <span class="nt">--mac</span> 00:AA:00:00:00:1<span class="nv">$i</span>
+<span class="gp">    virt-sysprep -d node$</span>i <span class="nt">--enable</span> <span class="nb">hostname</span> <span class="nt">--hostname</span> node<span class="nv">$i</span>
+<span class="go">done</span></code></pre></figure></div>
 <p>The script set the mac address and hostname in the range node2 to node6. Due the network specification, these hosts will get predefined IP addresses.</p>
 <h2>starting nodes</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>export LIBVIRT_DEFAULT_URI=qemu:///system</p>
-<p>for dom in $(virsh list &#8212;all &#8212;name); do<br />
-    virsh start $dom<br />
-done<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">export LIBVIRT_DEFAULT_URI=qemu:///system
+
+</span><span class="gp">for dom in $</span><span class="o">(</span>virsh list <span class="nt">--all</span> <span class="nt">--name</span><span class="o">)</span><span class="p">;</span> <span class="k">do</span>
+<span class="gp">    virsh start $</span>dom
+<span class="go">done</span></code></pre></figure></div>
 <h2>puppetmaster</h2>
 <p>You need to install puppetmaster in the host machine. The next command configure master to autosign agent certificates. That is obviously not secure, but convenient for our purposes here. As soon as nodes send cert request, master will sign them and then all of them are ready to apply the manifest.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>hostname puppet</li>
-	<li>apt-get install puppetmaster</li>
-	<li>echo &#8216;*&#8217; &gt; /etc/puppet/autosign.conf</li>
-	<li>service puppetmaster restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">hostname </span>puppet
+<span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>puppetmaster
+<span class="gp">#</span><span class="w"> </span><span class="nb">echo</span> <span class="s1">'*'</span> <span class="o">&gt;</span> /etc/puppet/autosign.conf
+<span class="gp">#</span><span class="w"> </span>service puppetmaster restart</code></pre></figure></div>
 <h2>writing the puppet manifest</h2>
 <p>Our initial manifest is pretty simple. We want to install some packages: ice34-services, psmisc and configure the icegrid-node service. You must copy next file in <code>/etc/puppet/manifests/site.pp</code></p>
 <div>
-<p>{% highlight text %}<br />
-package {&#8217;ice34-services&#8217;:<br />
-  ensure =&gt; present,<br />
-}</p>
-<p>package {&#8217;psmisc&#8217;:<br />
-  ensure =&gt; present,<br />
-}</p>
-<p>file {&#8217;/etc/icegrid&#8217;:<br />
-  ensure =&gt; &#8216;directory&#8217;,<br />
-  mode =&gt; 755,<br />
-  owner =&gt; root,<br />
-}</p>
-<p>file {[&#8216;/var/icegrid&#8217;, &#8216;/var/icegrid/db&#8217;]:<br />
-  ensure =&gt; &#8216;directory&#8217;,<br />
-  mode =&gt; 755,<br />
-  owner =&gt; root,<br />
-}</p>
-<p>file {&#8217;/etc/icegrid/node.config&#8217;:<br />
-  mode =&gt; 644,<br />
-  owner =&gt; root,<br />
-  content =&gt; &quot;<br />
-Ice.Default.Locator=IceGrid/Locator -t:tcp -h node0 -p 4061<br />
-IceGrid.Node.Name=${hostname}<br />
-IceGrid.Node.Data=/var/icegrid/db<br />
-IceGrid.Node.Endpoints=tcp<br />
-&quot;<br />
-}</p>
-<p>service {&#8217;icegridnode&#8217;:<br />
-  provider =&gt; &#8216;base&#8217;,<br />
-  ensure =&gt; running,<br />
-  start =&gt; &#8216;/usr/bin/icegridnode &#8212;Ice.Config=/etc/icegrid/node.config &amp;&#8217;,<br />
-  stop  =&gt; &#8216;killall icegridnode&#8217;,<br />
-  status =&gt; &#8216;pgrep icegridnode&#8217;,<br />
-  require =&gt; Package[&#8216;ice34-services&#8217;, &#8216;psmisc&#8217;]<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">package {'ice34-services':
+  ensure =&gt; present,
+}
+
+package {'psmisc':
+  ensure =&gt; present,
+}
+
+file {'/etc/icegrid':
+  ensure =&gt; 'directory',
+  mode =&gt; 755,
+  owner =&gt; root,
+}
+
+file {['/var/icegrid', '/var/icegrid/db']:
+  ensure =&gt; 'directory',
+  mode =&gt; 755,
+  owner =&gt; root,
+}
+
+file {'/etc/icegrid/node.config':
+  mode =&gt; 644,
+  owner =&gt; root,
+  content =&gt; "
+Ice.Default.Locator=IceGrid/Locator -t:tcp -h node0 -p 4061
+IceGrid.Node.Name=${hostname}
+IceGrid.Node.Data=/var/icegrid/db
+IceGrid.Node.Endpoints=tcp
+"
+}
+
+service {'icegridnode':
+  provider =&gt; 'base',
+  ensure =&gt; running,
+  start =&gt; '/usr/bin/icegridnode --Ice.Config=/etc/icegrid/node.config &amp;',
+  stop  =&gt; 'killall icegridnode',
+  status =&gt; 'pgrep icegridnode',
+  require =&gt; Package['ice34-services', 'psmisc']
+}</code></pre></figure></div>
 <p>This is very rough manifest, but enough for this case.</p>
 <h2>IceGrid configuration</h2>
 <p>You can see in the <code>sites.pp</code> manifest that we are configuring icegrid nodes to connect to the IceGrid Registry in <code>node0</code>. node0 is an alias for the host computer private IP address (see <code>net-grid.xml</code>). The manifest create required directories and files to get icegridnode running. Note this is not the right way to execute the icegridnode service. It should have a init.d script to get easily managed with puppet.</p>
 <p>You must execute an IceGrid Registry in the host computer. You will need the file <a href="https://bitbucket.org/DavidVilla/libvirt-toys/src/tip/grid/icegrid/registry.config">registry.config</a>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ icegrid-node &#8212;Ice.Config=icegrid/registry.config<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>icegrid-node <span class="nt">--Ice</span>.Config<span class="o">=</span>icegrid/registry.config</code></pre></figure></div>
 <p>Then, you may connect to the registry with:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ icegrid-gui &#8212;Ice.Config=icegrid/locator.config<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>icegrid-gui <span class="nt">--Ice</span>.Config<span class="o">=</span>icegrid/locator.config</code></pre></figure></div>
 <p>If all is working fine, you will see the 6 nodes in the &#8220;live deployment&#8221; tab of icegrid-gui.</p>
 <h2>references</h2>
 <ul>
@@ -5630,7 +5594,7 @@ IceGrid.Node.Endpoints=tcp<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

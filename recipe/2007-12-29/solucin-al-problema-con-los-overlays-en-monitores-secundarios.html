@@ -5201,20 +5201,12 @@
 <h2>Solución de emergencia</h2>
 <p>Si lo que queremos es reproducir una película y contamos con un reproductor como <em>mplayer</em>, podemos decir al reproductor que construya una capa que <b>si</b> esté gestionada por el servidor X, por ejemplo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mplayer -vo xv [archivo_de_video]<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mplayer <span class="nt">-vo</span> xv <span class="o">[</span>archivo_de_video]</code></pre></figure></div>
 <p>Al seleccionar como salida <em>xv</em> creamos una capa que al estar gestionada por el servidor gráfico <b>si</b> se crean las copias de las capas necesarias.</p>
 <h2>Solución general</h2>
 <p>Si queremos una solución más general de forma que no sólo funcione con el <em>mplayer</em>, para ello tendríamos que encontrar una forma de seleccionar en que salida del servidor hay que volcar el <em>overlay</em>. Pues esa forma existe&#8230; instalemos <em>xvattr</em>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>aptitude install xvattr<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>aptitude <span class="nb">install </span>xvattr</code></pre></figure></div>
 <p>Si lo ejecutamos obtendremos algo parecido a:</p>
 <pre>Found Xv 2.2
 Adaptor: 0
@@ -5330,17 +5322,11 @@ Name: ATI Radeon Video Overlay
    Current value: 0</pre>
 <p>Son variables que controlan la visualización del video, una de ellas (<em>XV_CRTC</em>) indica dónde dibujar los <em>overlays</em>, si hacemos lo siguiente:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ xvattr -a XV_CRTC -v 1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xvattr <span class="nt">-a</span> XV_CRTC <span class="nt">-v</span> 1</code></pre></figure></div>
 <p>Tendremos lo que buscamos&#8230; si, todo este rollo de receta se resume en el título y en la línea de arriba. :P<br />
 Si queréis hacer más pruebas con <em>xvattr</em>, el formato es muy sencillo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ xvattr -a [atributo] -v [valor]<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xvattr <span class="nt">-a</span> <span class="o">[</span>atributo] <span class="nt">-v</span> <span class="o">[</span>valor]</code></pre></figure></div>
       </div>
 
       
@@ -5405,7 +5391,7 @@ $ xvattr -a [atributo] -v [valor]<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

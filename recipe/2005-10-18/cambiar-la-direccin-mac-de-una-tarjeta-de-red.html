@@ -5158,49 +5158,24 @@
 <h2>Lo primero</h2>
 <p>Para poder hacer el cambio de <acronym title="Media Access Control"><span class="caps">MAC</span></acronym>, ningún programa debe estar utilizando la interfaz de red correspondiente y además hay que &#8220;bajar&#8221; la interfaz.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/networking stop<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/networking stop</code></pre></figure></div>
 <h2>Con <code>ifconfig</code></h2>
 <p>La sintaxis es sencilla, pongo un ejemplo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ifconfig eth0 down hw ether 08:09:0a:fa:ba:da<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ifconfig eth0 down hw ether 08:09:0a:fa:ba:da</code></pre></figure></div>
 <h2>Con <tt>ip</tt> (del paquete <tt>iproute</tt>)</h2>
 <p><tt>ip</tt> es una herramienta muy potente para obtener información y manipular rutas, dispositivos, políticas de rutado y túneles.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ip link set eth0 down address 08:09:0a:fa:ba:da</li>
-	<li>ip link set eth0 up<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ip <span class="nb">link set </span>eth0 down address 08:09:0a:fa:ba:da
+<span class="gp">#</span><span class="w"> </span>ip <span class="nb">link set </span>eth0 up</code></pre></figure></div>
 <h2>Con <tt>macchanger</tt></h2>
 <p><a href="http://www.alobbs.com/modules.php?op=modload&amp;name=macc&amp;file=index"><span class="caps">GNU</span> <span class="caps">MAC</span> Changer</a> es un programa específico para nuestro proposito. Permite poner una <span class="caps">MAC</span> concreta, una aleatoria o elegir un fabricante de una lista, entre otras opciones. La sintaxis básica también es fácil. Pongo el ejemplo equivalente al anterior:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>macchanger -m 08:09:0a:fa:ba:da eth0<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>macchanger <span class="nt">-m</span> 08:09:0a:fa:ba:da eth0</code></pre></figure></div>
 <h2>Por último</h2>
 <p>Volver a activar la red.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/networking start<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/networking start</code></pre></figure></div>
 <p>Hay que tener en cuenta que si usamos <span class="caps">DHCP</span>, lo más probable es que el servidor <span class="caps">DHCP</span> nos asigne ahora una IP distinta ya que pensará que es otro PC.</p>
 <h2>Persistente</h2>
 <p>Si necesitas que el cambio sea &#8220;permanente&#8221; puedes indicarlo en <code>/etc/network/interfaces</code>:</p>
@@ -5279,7 +5254,7 @@ iface eth0 inet dhcp
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

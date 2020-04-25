@@ -5353,27 +5353,18 @@
 </center>
 <p>Lo conseguiremos con este comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -L 7900:localhost:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-L</span> 7900:localhost:5900 usuario@interno1</code></pre></figure></div>
 <p>Ahora en el sistema externo1 podemos comprobar que el puerto 7900 está esperando conexiones:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ netstat -ltn<br />
-Active Internet connections (only servers)<br />
-Proto Recv-Q Send-Q Local Address           Foreign Address         State<br />
-&#8230;<br />
-tcp        0      0 127.0.0.1:7900            0.0.0.0:*               <span class="caps">LISTEN</span><br />
-&#8230;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>netstat <span class="nt">-ltn</span>
+<span class="go">Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+</span><span class="c">...
+</span><span class="go">tcp        0      0 127.0.0.1:7900            0.0.0.0:*               LISTEN
+</span><span class="c">...</span></code></pre></figure></div>
 <p>Sólo necesitamos ejecutar ahora en externo1:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ vncviewer localhost::7900<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>vncviewer localhost::7900</code></pre></figure></div>
 <p>para conectarnos al servidor <span class="caps">VNC</span> de interno1.</p>
 <p>Nota: Esta forma de cambiar el puerto del no está documentada en el <a href="http://www.realvnc.com/products/free/4.1/man/vncviewer.html">man vncviewer</a>. Aparece en: <a href="http://www.realvnc.com/pipermail/vnc-list/2006-April/054551.html">About VNCViewer configuration of the output <span class="caps">TCP</span> port</a>. También es así como lo hace <a href="http://www.tightvnc.com/vncviewer.1.html">el vncviewer de TightVNC</a>.</p>
 <h2>Escenario 2: Usar en externo2 un servicio <span class="caps">TCP</span> ofrecido por interno1</h2>
@@ -5384,56 +5375,35 @@ tcp        0      0 127.0.0.1:7900            0.0.0.0:*               <span clas
 </center>
 <p>El comando adecuado sería este:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -L 0.0.0.0:7900:localhost:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-L</span> 0.0.0.0:7900:localhost:5900 usuario@interno1</code></pre></figure></div>
 <p>Es similar al del primer escenario; pero en aquél, si nos fijamos en la salida del netstat, el puerto 7900 se había asociado a la dirección de localhost, a la 127.0.0.1, por lo que sólo procesos locales podían conectarse a él. Esta vez especificamos que el puerto se asocie a 0.0.0.0, para que el sistema acepte conexiones a cualquier IP local de la máquina:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ netstat -ltn<br />
-Active Internet connections (only servers)<br />
-Proto Recv-Q Send-Q Local Address           Foreign Address         State<br />
-&#8230;<br />
-tcp        0      0 0.0.0.0:7900            0.0.0.0:*               <span class="caps">LISTEN</span><br />
-&#8230;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>netstat <span class="nt">-ltn</span>
+<span class="go">Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+</span><span class="c">...
+</span><span class="go">tcp        0      0 0.0.0.0:7900            0.0.0.0:*               LISTEN
+</span><span class="c">...</span></code></pre></figure></div>
 <p>De modo que ahora, desde externo2, podemos ejecutar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo2 $ vncviewer externo1::7900<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo2 $</span><span class="w"> </span>vncviewer externo1::7900</code></pre></figure></div>
 <p>para conectarnos al servidor <span class="caps">VNC</span> de interno1.</p>
 <p>En lugar de especificar la IP 0.0.0.0, también podríamos usar la opción -g (Allows remote hosts to connect to local forwarded ports) así:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -g -L 7900:localhost:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-g</span> <span class="nt">-L</span> 7900:localhost:5900 usuario@interno1</code></pre></figure></div>
 <p>con exactamente el mismo resultado que el comando anterior:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1$ ssh -L 0.0.0.0:7900:localhost:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1$</span><span class="w"> </span>ssh <span class="nt">-L</span> 0.0.0.0:7900:localhost:5900 usuario@interno1</code></pre></figure></div>
 <p>Por otra parte, si hubiéramos querido restringir la conexión a sólo alguna de las IPs locales del sistema, podríamos haber sido más específicos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -L 192.168.24.80:7900:localhost:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-L</span> 192.168.24.80:7900:localhost:5900 usuario@interno1</code></pre></figure></div>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ netstat -ltn<br />
-Active Internet connections (only servers)<br />
-Proto Recv-Q Send-Q Local Address           Foreign Address         State<br />
-&#8230;<br />
-tcp        0      0 192.168.24.80:7900            0.0.0.0:*               <span class="caps">LISTEN</span><br />
-&#8230;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>netstat <span class="nt">-ltn</span>
+<span class="go">Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+</span><span class="c">...
+</span><span class="go">tcp        0      0 192.168.24.80:7900            0.0.0.0:*               LISTEN
+</span><span class="c">...</span></code></pre></figure></div>
 <h2>Escenario 3: Usar en interno1 un servicio <span class="caps">TCP</span> ofrecido por externo1</h2>
 <p><strong>(Remote port forwarding / bind_address=localhost / host=localhost)</strong></p>
 <p>En el primer escenario, era el propio sistema con el servidor de <span class="caps">SSH</span> el que ofrecía otro servicio. Ahora el sistema con el cliente de <span class="caps">SSH</span> es el que ofrece el servicio que el sistema con el servidor de <span class="caps">SSH</span> quiere usar:</p>
@@ -5442,27 +5412,18 @@ tcp        0      0 192.168.24.80:7900            0.0.0.0:*               <span 
 </center>
 <p>El comando que usaremos es el mismo que en el primer escenario cambiando el parámetro -L por -R:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -R 7900:localhost:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-R</span> 7900:localhost:5900 usuario@interno1</code></pre></figure></div>
 <p>Y ahora donde veremos que tenemos el puerto 7900 escuchando es en interno1:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>interno1 $ netstat -lnt<br />
-Active Internet connections (only servers)<br />
-Proto Recv-Q Send-Q Local Address           Foreign Address         State<br />
-&#8230;<br />
-tcp        0      0 127.0.0.1:7900          0.0.0.0:*               <span class="caps">LISTEN</span><br />
-&#8230;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">interno1 $</span><span class="w"> </span>netstat <span class="nt">-lnt</span>
+<span class="go">Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+</span><span class="c">...
+</span><span class="go">tcp        0      0 127.0.0.1:7900          0.0.0.0:*               LISTEN
+</span><span class="c">...</span></code></pre></figure></div>
 <p>De modo que ahora desde interno1 podemos usar el servidor <span class="caps">VNC</span> de externo1 así:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>interno1 $ vncviewer localhost::7900<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">interno1 $</span><span class="w"> </span>vncviewer localhost::7900</code></pre></figure></div>
 <h2>Escenario 4: Usar en interno2 un servicio <span class="caps">TCP</span> ofrecido por externo1</h2>
 <p><strong>(Remote port forwarding / bind_address=0.0.0.0 / host=localhost)</strong></p>
 <p>Similar al tercer escenario pero ahora, igual que hacíamos en el segundo escenario, asociaremos el puerto reenviado a la IP 0.0.0.0 para que otros nodos puedan usar el servicio:</p>
@@ -5471,47 +5432,33 @@ tcp        0      0 127.0.0.1:7900          0.0.0.0:*               <span class=
 </center>
 <p>El comando apropiado es:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -R 0.0.0.0:7900:localhost:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-R</span> 0.0.0.0:7900:localhost:5900 usuario@interno1</code></pre></figure></div>
 <p>Sin embargo, es importante entender que, por motivos de seguridad, esto no funcionará si en la configuración del servidor de <span class="caps">SSH</span> no modificamos el valor del parámetro GatewayPorts que por defecto está a no:</p>
 <div>
-<p>{% highlight text %}<br />
-GatewayPorts</p>
-Specifies whether remote hosts are allowed to connect to ports forwarded for the client. By default, sshd(8) binds remote port
-<p>forwardings to the loopback address. This prevents other remote hosts from connecting to forwarded ports. GatewayPorts can be<br />
-used to specify that sshd should allow remote port forwardings to bind to non-loopback addresses, thus allowing other hosts to<br />
-connect. The argument may be “no” to force remote port forwardings to be available to the local host only, “yes” to force remote<br />
-port forwardings to bind to the wildcard address, or “clientspecified” to allow the client to select the address to which the<br />
-forwarding is bound. The default is “no”.<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">GatewayPorts
+
+    Specifies whether remote hosts are allowed to connect to ports forwarded for the client. By default, sshd(8) binds remote port
+forwardings to the loopback address. This prevents other remote hosts from connecting to forwarded ports. GatewayPorts can be
+used to specify that sshd should allow remote port forwardings to bind to non-loopback addresses, thus allowing other hosts to
+connect. The argument may be “no” to force remote port forwardings to be available to the local host only, “yes” to force remote
+port forwardings to bind to the wildcard address, or “clientspecified” to allow the client to select the address to which the
+forwarding is bound. The default is “no”.</code></pre></figure></div>
 <p>Si no tenemos la posibilidad de modificar la configuración del servidor, no podremos usar este tipo de reenvío de puertos. Al menos no de forma sencilla, ya que, si no hay otros impedimentos, un usuario puede abrir un puerto (&gt;1024) para escuchar conexiones externas y reenviar dicha petición a localhost:7900. Esto se podría hacer, por ejemplo, con netcat (Debian #310431: sshd_config should warn about GatewayPorts workaround.)</p>
 <p>De modo que en el /etc/ssh/sshd_config añadiremos:</p>
 <div>
-<p>{% highlight text <span>}<br />
-GatewayPorts clientspecified<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">GatewayPorts clientspecified</code></pre></figure></div>
 <p>tras lo cual tendremos que releer la configuración con “sudo /etc/init.d/ssh reload” (Debian y Ubuntu).</p>
 <p>Comprobamos que interno1 está escuchando peticiones de todas las IPs:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>interno1 $ netstat -ltn<br />
-Active Internet connections (only servers)<br />
-Proto Recv-Q Send-Q Local Address           Foreign Address         State<br />
-&#8230;<br />
-tcp        0      0 0.0.0.0:7900            0.0.0.0:*               <span class="caps">LISTEN</span><br />
-&#8230;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">interno1 $</span><span class="w"> </span>netstat <span class="nt">-ltn</span>
+<span class="go">Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+</span><span class="c">...
+</span><span class="go">tcp        0      0 0.0.0.0:7900            0.0.0.0:*               LISTEN
+</span><span class="c">...</span></code></pre></figure></div>
 <p>Y ya podremos usar el servicio de <span class="caps">VNC</span> desde interno2:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>interno2 $ vncviewer interno1::7900<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">interno2 $</span><span class="w"> </span>vncviewer interno1::7900</code></pre></figure></div>
 <h2>Escenario 5: Usar en externo1 un servicio <span class="caps">TCP</span> ofrecido por interno2</h2>
 <p><strong>(Local port forwarding / bind_address=localhost / host=interno2)</strong></p>
 <center>
@@ -5519,16 +5466,10 @@ tcp        0      0 0.0.0.0:7900            0.0.0.0:*               <span class=
 </center>
 <p>En este escenario usaremos el siguiente comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -L 7900:interno2:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-L</span> 7900:interno2:5900 usuario@interno1</code></pre></figure></div>
 <p>Y accederemos al servicio ejecutando en externo1 el comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ vncviewer localhost::7900<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>vncviewer localhost::7900</code></pre></figure></div>
 <h2>Escenario 6: Usar en interno1 un servicio <span class="caps">TCP</span> ofrecido por externo2</h2>
 <p><strong>(Remote port forwarding / bind_address=localhost / host=externo2)</strong></p>
 <center>
@@ -5536,16 +5477,10 @@ tcp        0      0 0.0.0.0:7900            0.0.0.0:*               <span class=
 </center>
 <p>En este escenario usaremos el siguiente comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -R 7900:externo2:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-R</span> 7900:externo2:5900 usuario@interno1</code></pre></figure></div>
 <p>Y accederemos al servicio ejecutando en interno1 el comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>interno1 $ vncviewer localhost::7900<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">interno1 $</span><span class="w"> </span>vncviewer localhost::7900</code></pre></figure></div>
 <h2>Escenario 7: Usar en externo2 un servicio <span class="caps">TCP</span> ofrecido por interno2</h2>
 <p><strong>(Local port forwarding / bind_address=0.0.0.0 / host=interno2)</strong></p>
 <center>
@@ -5553,22 +5488,13 @@ tcp        0      0 0.0.0.0:7900            0.0.0.0:*               <span class=
 </center>
 <p>En este escenario usaremos el siguiente comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -L 0.0.0.0:7900:interno2:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-L</span> 0.0.0.0:7900:interno2:5900 usuario@interno1</code></pre></figure></div>
 <p>o alternativamente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -g -L 7900:interno2:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-g</span> <span class="nt">-L</span> 7900:interno2:5900 usuario@interno1</code></pre></figure></div>
 <p>Y accederemos al servicio ejecutando en externo2 el comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo2 $ vncviewer externo1::7900<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo2 $</span><span class="w"> </span>vncviewer externo1::7900</code></pre></figure></div>
 <h2>Escenario 8: Usar en interno2 un servicio <span class="caps">TCP</span> ofrecido por externo2</h2>
 <p><strong>(Remote port forwarding / bind_address=0.0.0.0 / host=externo2)</strong></p>
 <center>
@@ -5576,17 +5502,11 @@ tcp        0      0 0.0.0.0:7900            0.0.0.0:*               <span class=
 </center>
 <p>En este escenario usaremos el siguiente comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>externo1 $ ssh -R 0.0.0.0:7900:externo2:5900 usuario@interno1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">externo1 $</span><span class="w"> </span>ssh <span class="nt">-R</span> 0.0.0.0:7900:externo2:5900 usuario@interno1</code></pre></figure></div>
 <p>El servidor <span class="caps">SSH</span> tiene que estar configurado con “GatewayPorts clientspecified“, como hemos visto en el escenario 4.</p>
 <p>Y accederemos al servicio ejecutando en interno2 el comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>interno2 $ vncviewer interno1::7900<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">interno2 $</span><span class="w"> </span>vncviewer interno1::7900</code></pre></figure></div>
 <p>:wq</p>
 <p><strong>[Nota de CRySoL]</strong></p>
 <p>Si tienes alguna duda o aportación que hacer sobre el tema, considera hacerla en <a href="http://www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh/">el post original</a> para así evitar «fragmentación». Por supuesto, si el comentario es para indicar un error por mi parte al copiar la receta, ponlo aquí.</p>
@@ -5654,7 +5574,7 @@ tcp        0      0 0.0.0.0:7900            0.0.0.0:*               <span class=
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

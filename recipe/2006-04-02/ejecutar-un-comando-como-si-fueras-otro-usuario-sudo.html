@@ -5156,23 +5156,15 @@
 <h2> Configuración </h2>
 <p>Lo primero será editar el fichero <tt>/etc/sudoers</tt>. Existe un comando llamado <tt>visudo</tt> que directamente edita el fichero con vi. Pero si alguno no sabe utilizar vi, puede utilizar cualquier otro editor. El fichero tiene el formato siguiente:</p>
 <div>
-<p>{% highlight text %}</p>
-<ol>
-	<li>Host alias specification</li>
-</ol>
-<ol>
-	<li>User alias specification</li>
-</ol>
-<ol>
-	<li>Cmnd alias specification</li>
-</ol>
-<ol>
-	<li>User privilege specification<br />
-root    <span class="caps">ALL</span>=(<span class="caps">ALL</span>) <span class="caps">ALL</span><br />
-fulanito  <span class="caps">ALL</span>=(<span class="caps">ALL</span>) <span class="caps">ALL</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root    ALL=(ALL) ALL
+fulanito  ALL=(ALL) ALL</code></pre></figure></div>
 <p>En el podemos ver como el usuario root tiene permiso de todo al igual que el usuario fulanito. Muchos administradores opinan que hacer esto es &#8220;peligroso&#8221; si los usuarios son noveles, pero ese no es mi caso :-P.</p>
 <p>El fichero se divide en tres secciones:</p>
 <ul>
@@ -5182,32 +5174,18 @@ fulanito  <span class="caps">ALL</span>=(<span class="caps">ALL</span>) <span cl
 </ul>
 <p>La sección más importante son las reglas de acceso, que tienen esta forma:</p>
 <div>
-<p>{% highlight text <span>}<br />
-usuario host = (usuario_privilegiado) comando<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">usuario host = (usuario_privilegiado) comando</code></pre></figure></div>
 <p>En el ejemplo de antes se ha utilizado un alias especial <tt><span class="caps">ALL</span></tt> que engloba a todos los comandos, usuarios y demás historias. Para hacer una configuración más afinada lo mejor es que cada uno se cree sus propios alias y configuraciones. El nombre de <em>usuario privilegiado</em> que se pone entre paréntesis es opcional, si no se pone es <code>root</code> por defecto.</p>
 <p>Otro punto a comentar es que cuando se ejecuta cualquier comando con sudo, al usuario se le pide su propia password. Esto impide que si un usuario deja una consola abierta otra persona puede realizar operaciones privilegiadas utilizando su sesión. Puedes evitar la comprobación de clave si escribes la palabra <code>NOPASSWD</code> antes del comando.</p>
 <p>Por ejemplo, la siguiente línea permite al usuario <tt>webmaster</tt> parar y reiniciar el servidor web sin tener que poner su clave:</p>
 <div>
-<p>{% highlight text <span>}<br />
-webmaster <span class="caps">ALL</span>= (root) <span class="caps">NOPASSWD</span>: /etc/init.d/apache2<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">webmaster ALL= (root) NOPASSWD: /etc/init.d/apache2</code></pre></figure></div>
 <p>Para evitar esto lo mejor es añadir al usuario en cuestión al grupo sudo. Eso se puede conseguir editando el fichero <tt>/etc/group</tt></p>
 <div>
-<p>{% highlight text <span>}<br />
-sudo:x:27:fulanito<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">sudo:x:27:fulanito</code></pre></figure></div>
 <p>O ejecutando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>addgroup fulanito sudo<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>addgroup fulanito <span class="nb">sudo</span></code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 <li><a href="http://www.wikilearning.com/introduccion-wkccp-455-1.htm">Iniciación de sudo para bisoños</a></li>
@@ -5277,7 +5255,7 @@ sudo:x:27:fulanito<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

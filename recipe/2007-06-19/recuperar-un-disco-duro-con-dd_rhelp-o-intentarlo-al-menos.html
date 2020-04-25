@@ -5171,44 +5171,26 @@
 <p>Como pone ahí arriba, <code>dd_rescue</code> es paquete Debian así que lo puede instalar con el típico <code>apt-get</code>, o <code>aptitude</code> para los más quisquillosos.</p>
 <p>Sin embargo <code>dd_rhelp</code> no está empaquetado pero te aconsejo que lo instales civilizadamente, es decir, en directorio vacío, creado al efecto:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz  # o versión posterior<br />
-$ ./configure prefix=/usr/local/stow/dd_rhelp<br />
-$ make<br />
-$ make install<br />
-$ cd /usr/local/stow<br />
-$ stow dd_rhelp</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>wget http://www.kalysto.org/pkg/dd_rhelp-0.1.2.tar.gz  <span class="c"># o versión posterior</span>
+<span class="gp">$</span><span class="w"> </span>./configure <span class="nv">prefix</span><span class="o">=</span>/usr/local/stow/dd_rhelp
+<span class="gp">$</span><span class="w"> </span>make
+<span class="gp">$</span><span class="w"> </span>make <span class="nb">install</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /usr/local/stow
+<span class="gp">$</span><span class="w"> </span>stow dd_rhelp</code></pre></figure></div>
 <p>En realidad no hace falta hacer el <em>install</em> porque sólo lo va a usar el root y lo podría invocar directamente con la ruta completa, no es un programa que vayas a necesitar usar mucho, o eso sería lo deseable. Si no sabes de que va esto de <code>stow</code>, mira la <a href="node/67">receta de stow</a>.</p>
 <h2>Cómo se usa</h2>
 <p>Suponiendo que la partición del disco moribundo que quieres recuperar es <code>/dev/sdb1</code> ejecuta algo como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>dd_rhelp /dev/sdb1 /root/home.img<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dd_rhelp /dev/sdb1 /root/home.img</code></pre></figure></div>
 <p>Esto puede tardar muuuuucho, pero mucho, mucho, en función del tamaño de la partición puede llevar varios días!. En cualquier caso, después de unas decenas de horas puedes cortarlo, porque una vez recuperado &#8220;lo fácil&#8221; este programa intentará recuperar &#8220;lo difícil&#8221; incansablemente para siempre jamás.</p>
 <h2>Accediendo a los datos</h2>
 <p>Cuando <code>dd_rhelp</code> &#8220;acabe&#8221; tendrás un bonito fichero <code>.img</code> del tamaño aproximado al que tenía (en vida) la partición origen.</p>
 <p>Antes de montar la imagen es conveniente que compruebes posibles errores. Obviamente la herramienta a usar depende del sistema de ficheros que tuviese la partición original). Por ejemplo, para ext3, sería:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>fsck -y /root/home.img<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>fsck <span class="nt">-y</span> /root/home.img</code></pre></figure></div>
 <p>Y luego la puedes montar de la forma habitual (aquí es dónde cruzas los dedos y rezas lo poco que sabes):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mount -o loop /root/home.img /mnt/directorio_vacio<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-o</span> loop /root/home.img /mnt/directorio_vacio</code></pre></figure></div>
 <h2>Comentarios</h2>
 <p>Parece que el asunto no va mal, pero a mi no me fue demasiado bien, recuperó toda la partición menos el &#8220;home&#8221; de mi usuario. Menos mal que todos hacemos backup diario&#8230; :-(</p>
 <h2>Referencias</h2>
@@ -5280,7 +5262,7 @@ $ stow dd_rhelp</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

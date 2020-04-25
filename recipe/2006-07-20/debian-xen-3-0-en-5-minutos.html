@@ -5166,11 +5166,8 @@
 <h2>Instalación</h2>
 <p>Hacer los initrd a mano (de momento el postinstall de las imágenes no lo hace):</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ mkinitrd -o /boot/initrd.img-2.6.16-2-xen-686 2.6.16-2-xen-686<br />
-$ mkinitrd -o /boot/initrd.img-2.6.16-2-xen-vserver-686 2.6.16-2-xen-vserver-686</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>mkinitrd <span class="nt">-o</span> /boot/initrd.img-2.6.16-2-xen-686 2.6.16-2-xen-686
+<span class="gp">$</span><span class="w"> </span>mkinitrd <span class="nt">-o</span> /boot/initrd.img-2.6.16-2-xen-vserver-686 2.6.16-2-xen-vserver-686</code></pre></figure></div>
 <p>Añadir a mano una entrada en <code>/boot/grub/menu.lst</code> (la actualización automática entiende de Xen, pero no pone el initrd):</p>
 <pre>
 title Debian GNU/Linux, Xen
@@ -5189,11 +5186,8 @@ boot
 </pre>
 <p>Elige una partición gordota que no estés usando para poner las imágenes y crea el grupo de volúmenes <span class="caps">LVM</span>:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ pvcreate /dev/hda5<br />
-$ vgcreate xen-img /dev/hda5</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pvcreate /dev/hda5
+<span class="gp">$</span><span class="w"> </span>vgcreate xen-img /dev/hda5</code></pre></figure></div>
 <p>Cambia el hda5 por la partición que elijas.</p>
 <p>Edita los parámetros por defecto de <code>/etc/xen-tools/xen-tools.conf</code> y asegurate de que tienes estas líneas:</p>
 <pre>
@@ -5207,22 +5201,13 @@ image = full
 <h2>Creando y arrancando imágenes</h2>
 <p>Ya puedes crear las imágenes que quieras con un simple:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ xen-create-image &#8212;hostname myNewImage</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>xen-create-image <span class="nt">--hostname</span> myNewImage</code></pre></figure></div>
 <p>Y puedes arrancarla con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ xm create myNewImage.cfg -c<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>xm create myNewImage.cfg <span class="nt">-c</span></code></pre></figure></div>
 <p>Para salir de la consola pulsa Ctrl-] y para volver a la consola de esta imagen:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ xm console myNewImage<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>xm console myNewImage</code></pre></figure></div>
 <p>Más fácil imposible&#8230;</p>
 <h2>Referencias</h2>
 <ul>
@@ -5292,7 +5277,7 @@ image = full
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

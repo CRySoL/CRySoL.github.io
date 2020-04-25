@@ -5339,24 +5339,15 @@
 <h2>Instalación</h2>
 <p>Sólo necesitas instalar las utilidades y el driver <span class="caps">SHFS</span>:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-~# apt-get install shfs-utils linux-headers-$(uname -r)<br />
-~# m-a a-i shfs</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>apt-get <span class="nb">install </span>shfs-utils linux-headers-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span>
+<span class="gp">~#</span><span class="w"> </span>m-a a-i shfs</code></pre></figure></div>
 <h2>Montando&#8230;</h2>
 <p>Puedes utilizar el comando <tt>shfsmount</tt>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# shfsmount usuario@servidor.net:/ruta/en/servidor /ruta/en/cliente<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>shfsmount usuario@servidor.net:/ruta/en/servidor /ruta/en/cliente</code></pre></figure></div>
 <p>o bien, puedes usar <tt>mount</tt></p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# mount -t shfs usuario@servidor.net:/ruta/en/servidor /ruta/en/cliente<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>mount <span class="nt">-t</span> shfs usuario@servidor.net:/ruta/en/servidor /ruta/en/cliente</code></pre></figure></div>
 <p>o puedes meterlo en <tt>/etc/fstab</tt> si tienes configurada una <a href="/node/6">clave pública <span class="caps">SSH</span></a>:</p>
 <pre>
 usuario@servidor.net:/ruta/en/servidor    /ruta/en/cliente   shfs   defaults   0  0
@@ -5368,25 +5359,14 @@ usuario@servidor.net:/ruta/en/servidor    /ruta/en/cliente   shfs   user   0  0
 </pre>
 <p>y poner el bit <span class="caps">SUIT</span> a <code>shfsmount</code>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>chmod u+s /usr/bin/shfsmount<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">chmod </span>u+s /usr/bin/shfsmount</code></pre></figure></div>
 <p>Y ahora ya puedes hacer:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-*usuario*@cliente:~$ mount /ruta/en/cliente<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">*usuario*@cliente:~$</span><span class="w"> </span>mount /ruta/en/cliente</code></pre></figure></div>
 <h2>Desmontar</h2>
 <p>De la forma habitual:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# umount /ruta/en/cliente<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>umount /ruta/en/cliente</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://shfs.sourceforge.net/">shfs: (Secure) SHell FileSystem Linux kernel module</a></li>
@@ -5456,7 +5436,7 @@ usuario@servidor.net:/ruta/en/servidor    /ruta/en/cliente   shfs   user   0  0
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

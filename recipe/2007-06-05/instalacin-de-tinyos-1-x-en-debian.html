@@ -5536,10 +5536,7 @@
 <p>Parece ser que el <a href="node/405">TinyOS 2.0</a> está en una Beta 2 por lo que no todo está muy probado, vamos a dar los pasos para la instalación de tinyOS 1.1.15 que parece ser que es la última versión del 1.&#215;.</p>
 <p>Si por curiosidad quieres bajarte la version del tinyOS 1.1.15 del <span class="caps">CVS</span> (ojo que son 210M !) ejecuta lo siguiente:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-cvs -d:pserver:anonymous@tinyos.cvs.sourceforge.net:/cvsroot/tinyos co -r tos-1-1-15Dec2005cvs-release tinyos-1.x<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">cvs -d:pserver:anonymous@tinyos.cvs.sourceforge.net:/cvsroot/tinyos co -r tos-1-1-15Dec2005cvs-release tinyos-1.x</span></code></pre></figure></div>
 <p>a continuación los pasos son mas sencillos  a los dados para el tinyOS 2.0. Quizás un poco mas laborioso por el tema de las versiones.</p>
 <h2>El compilador cruzado</h2>
 <p>Lo primero es instalarse las herramientas para el procesador de Atmel ya que es lo que tienen las micas que tenemos en el grupo Arco.</p>
@@ -5563,10 +5560,7 @@ deb http://www.comnets.uni-bremen.de/~mab/debian tinyos/
 </pre>
 <p>y luego:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-apt-get install tinyos-1.x<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">apt-get install tinyos-1.x</span></code></pre></figure></div>
 <p>Al instalarte el sistema operativo también te instala la versión 1.2.4 de nesc, debes reinstalar la versión 1.1.2 ya que de lo contrario te dan fallos al compilar.</p>
 <h2>Temas de java </h2>
 <p>Ahora instala el jdk de java. De java se recomienda el de <span class="caps">IBM</span> y la versión 1.4, en algunas web que he visitado optan por la de sun en 1.5, yo ni para uno ni para otro la de sun 1.4 y ya veremos si da problemas en el futuro.</p>
@@ -5577,26 +5571,20 @@ http://www.linux.org.uk/~ taj/rxtx-bins.1.tar.gz
 </pre>
 <p>te bajas el archivo y copias los archivos al jdk (tiene que ser la versión 1.4)</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$# cp rxtx-bins.1/1.4/i386-pc-linux/libSerial.so /usr/lib/j2sdk1.4-sun/jre/lib/i386/<br />
-$# cp rxtx-bins.1/1.4/i386-pc-linux/libParallel.so /usr/lib/j2sdk1.4-sun/jre/lib/i386/<br />
-$# cp rxtx-bins.1/1.4/jcl.jar /usr/lib/j2sdk1.4-sun/jre/lib/ext/</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="c"># cp rxtx-bins.1/1.4/i386-pc-linux/libSerial.so /usr/lib/j2sdk1.4-sun/jre/lib/i386/</span>
+<span class="gp">$</span><span class="c"># cp rxtx-bins.1/1.4/i386-pc-linux/libParallel.so /usr/lib/j2sdk1.4-sun/jre/lib/i386/</span>
+<span class="gp">$</span><span class="c"># cp rxtx-bins.1/1.4/jcl.jar /usr/lib/j2sdk1.4-sun/jre/lib/ext/</span></code></pre></figure></div>
 <p>Ahora lo mismo con la versión de solaris de javax.comm:</p>
 <pre>
 javashoplm.sun.com/ECom/docs/Welcome.jsp
 </pre>
 <p>Tienes que coger la versión 2, con la tres no va.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ tar xvzf javax_comm-2_0_3-solsparc.tar.Z<br />
-$ cp commapi/comm.jar $<span class="caps">JDKROOT</span>/jre/lib/ext/<br />
-$ cp commapi/javax.comm.properties  <span class="caps">JDKROOT</span>/jre/lib/<br />
-$ /bin/echo Driver=gnu.io.RXTXCommDriver &gt; <span class="caps">JDKROOT</span>/jre/lib/javax.comm.properties<br />
-$ cp commapi/libSolarisSerialParallel.so /usr/lib</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">tar </span>xvzf javax_comm-2_0_3-solsparc.tar.Z
+<span class="gp">$</span><span class="w"> </span><span class="nb">cp </span>commapi/comm.jar <span class="nv">$JDKROOT</span>/jre/lib/ext/
+<span class="gp">$</span><span class="w"> </span><span class="nb">cp </span>commapi/javax.comm.properties  JDKROOT/jre/lib/
+<span class="gp">$</span><span class="w"> </span>/bin/echo <span class="nv">Driver</span><span class="o">=</span>gnu.io.RXTXCommDriver <span class="o">&gt;</span> JDKROOT/jre/lib/javax.comm.properties
+<span class="gp">$</span><span class="w"> </span><span class="nb">cp </span>commapi/libSolarisSerialParallel.so /usr/lib</code></pre></figure></div>
 <h2> Probando </h2>
 <p>No te olvides del graphviz y de dar permisos a los puertos serie y paralelo. Ahora ponemos las variables de entorno:</p>
 <pre>
@@ -5697,7 +5685,7 @@ BlinkM.nc  Blink.nc  build  Makefile  README  SingleTimer.nc
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

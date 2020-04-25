@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -5496,6 +5496,8 @@
 
   
 
+  
+    
   
     
   
@@ -8349,72 +8351,72 @@ Y ahora, la próxima vez que se actualice nuestro reloj, con <em>ntpdate</em> po
 <h2>Uso de la interfaz <em>Ice::Stats</em></h2>
 <p>La interfaz <em>Ice::Stats</em> permite informar sobre el número de bytes enviados y recibidos por cada invocación:</p>
 <div>
-<p>{% highlight text <span>}<br />
-local interface Stats {<br />
-     void bytesSent(string protocol, int num);<br />
-     void bytesReceived(string protocol, int num);<br />
-};<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">local interface Stats {
+     void bytesSent(string protocol, int num);
+     void bytesReceived(string protocol, int num);
+};</code></pre></figure></div>
 <p>El proceso a seguir consiste en implementar la interfaz <em>Ice::Stats</em> y registrar ese sirviente a la hora de inicializar el <em>communicator</em>. Una implementación sencilla consistiría en imprimir la información de uso de red:</p>
 <div>
-<p>{% highlight cpp %}<br />
-// MyStats.h<br />
-#include &lt;Ice/Stats.h&gt;</p>
-<p>using namespace std;</p>
-<p>class MyStats : public virtual Ice::Stats {<br />
- public:</p>
-virtual void bytesSent(const string&amp; prot, Ice::Int);
-virtual void bytesReceived(const string&amp; prot, Ice::Int);
-<p>};</p>
-<p>// MyStats.cpp<br />
-#include <MyStats.h></p>
-<p>using namespace std;</p>
-<p>void MyStats::bytesSent(const string&amp; prot, Ice::Int num) {<br />
-  cerr &lt;&lt; prot &lt;&lt; &quot;: sent &quot; &lt;&lt; num &lt;&lt; &#8220;bytes&#8221; &lt;&lt; endl;<br />
-}</p>
-<p>void MyStats::bytesReceived(const string&amp; prot, Ice::Int num) {<br />
-  cerr &lt;&lt; prot &lt;&lt; &quot;: received &quot; &lt;&lt; num &lt;&lt; &#8220;bytes&#8221; &lt;&lt; endl;<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// MyStats.h</span>
+<span class="cp">#include &lt;Ice/Stats.h&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">MyStats</span> <span class="o">:</span> <span class="k">public</span> <span class="k">virtual</span> <span class="n">Ice</span><span class="o">::</span><span class="n">Stats</span> <span class="p">{</span>
+ <span class="nl">public:</span>
+
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">bytesSent</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">prot</span><span class="p">,</span> <span class="n">Ice</span><span class="o">::</span><span class="n">Int</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">bytesReceived</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">prot</span><span class="p">,</span> <span class="n">Ice</span><span class="o">::</span><span class="n">Int</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// MyStats.cpp</span>
+<span class="cp">#include &lt;MyStats.h&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="n">MyStats</span><span class="o">::</span><span class="n">bytesSent</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">prot</span><span class="p">,</span> <span class="n">Ice</span><span class="o">::</span><span class="n">Int</span> <span class="n">num</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">prot</span> <span class="o">&lt;&lt;</span> <span class="s">": sent "</span> <span class="o">&lt;&lt;</span> <span class="n">num</span> <span class="o">&lt;&lt;</span> <span class="s">"bytes"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">MyStats</span><span class="o">::</span><span class="n">bytesReceived</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">prot</span><span class="p">,</span> <span class="n">Ice</span><span class="o">::</span><span class="n">Int</span> <span class="n">num</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">prot</span> <span class="o">&lt;&lt;</span> <span class="s">": received "</span> <span class="o">&lt;&lt;</span> <span class="n">num</span> <span class="o">&lt;&lt;</span> <span class="s">"bytes"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>A continuación, tendremos que <em>instalar</em> un objeto de la clase <em>MyStats</em> en el <em>communicator</em> del cliente, del servidor o de ambos. Este paso se lleva a cabo a la hora de crear el <em>communicator</em> y mediante una estructura del tipo <em>Ice::InitializationData</em>. Como lo normal es que utilicemos la clase <em>Ice::Application</em>, el código del cliente, por ejemplo, quedaría más o menos así:</p>
 <div>
-<p>{% highlight cpp %}<br />
-#include &lt;Ice/Ice.h&gt;<br />
-#include <Demo.h><br />
-#include <MyStats.h></p>
-<p>using namespace std;<br />
-using namespace Demo;</p>
-<p>class Client : public Ice::Application {<br />
-public:<br />
-  virtual int run (int argc, char* argv[])   {<br />
-    Ice::ObjectPrx prx = communicator()&#8594;stringToProxy(&#8220;dummy:default -p 9999&#8221;);<br />
-    Demo::DummyPrx dummy = Demo::DummyPrx::uncheckedCast(prx);</p>
-dummy&#8594;hello();
-return 0;
-}
-<p>};</p>
-<p>int<br />
-main (int argc, char* argv[]) {<br />
-  Client app;<br />
-  Ice::InitializationData id;<br />
-  id.stats = new MyStats;<br />
-  return app.main(argc, argv, id);<br />
-  return app.main(argc, argv);<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;Ice/Ice.h&gt;
+#include &lt;Demo.h&gt;
+#include &lt;MyStats.h&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">Demo</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Client</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Ice</span><span class="o">::</span><span class="n">Application</span> <span class="p">{</span>
+<span class="nl">public:</span>
+  <span class="k">virtual</span> <span class="kt">int</span> <span class="n">run</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>   <span class="p">{</span>
+    <span class="n">Ice</span><span class="o">::</span><span class="n">ObjectPrx</span> <span class="n">prx</span> <span class="o">=</span> <span class="n">communicator</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">stringToProxy</span><span class="p">(</span><span class="s">"dummy:default -p 9999"</span><span class="p">);</span>
+    <span class="n">Demo</span><span class="o">::</span><span class="n">DummyPrx</span> <span class="n">dummy</span> <span class="o">=</span> <span class="n">Demo</span><span class="o">::</span><span class="n">DummyPrx</span><span class="o">::</span><span class="n">uncheckedCast</span><span class="p">(</span><span class="n">prx</span><span class="p">);</span>
+
+    <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">hello</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+  <span class="n">Client</span> <span class="n">app</span><span class="p">;</span>
+  <span class="n">Ice</span><span class="o">::</span><span class="n">InitializationData</span> <span class="n">id</span><span class="p">;</span>
+  <span class="n">id</span><span class="p">.</span><span class="n">stats</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyStats</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">app</span><span class="p">.</span><span class="n">main</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">id</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">app</span><span class="p">.</span><span class="n">main</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>En este caso, en la parte del cliente obtendríamos una salida similar a ésta al invocar la operación <em>hello</em> del proxy <em>dummy</em>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>tcp: received 14bytes<br />
-tcp: sent 40bytes<br />
-tcp: received 14bytes<br />
-tcp: received 11bytes<br />
-tcp: sent 14bytes<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">tcp: received 14bytes
+tcp: sent 40bytes
+tcp: received 14bytes
+tcp: received 11bytes
+tcp: sent 14bytes</span></code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 <li><a href="http://zeroc.com/doc/Ice-3.3.0/manual/Adv_server.29.20.html">Manual</a> de ZeroC <span class="caps">ICE</span>.</li>
@@ -8922,7 +8924,7 @@ Un saludo desde Lituania.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

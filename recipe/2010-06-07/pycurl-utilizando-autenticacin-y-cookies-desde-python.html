@@ -5596,15 +5596,14 @@
 <h2>Ejemplo mínimo de uso</h2>
 <p>A través de PycURL podemos solicitar una página web. Por ejemplo, para descargar esta receta, podremos utilizar este código:</p>
 <div>
-<p>{% highlight python %}<br />
-import pycurl</p>
-<p>url = /node/</p>
-<p>c = pycurl.Curl()<br />
-c.setopt(pycurl.<span class="caps">URL</span>, url)<br />
-c.perform()<br />
-c.close()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pycurl</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="o">/</span><span class="n">node</span><span class="o">/</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">pycurl</span><span class="p">.</span><span class="n">Curl</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">setopt</span><span class="p">(</span><span class="n">pycurl</span><span class="p">.</span><span class="n">URL</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+<span class="n">c</span><span class="p">.</span><span class="n">perform</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure></div>
 <p>En el ejemplo anterior creamos un objeto <code>Curl</code> y añadimos una propiedad (en este caso, la <span class="caps">URL</span> que queremos consultar). Al ejecutar la operación <code>perform</code> obtendrá a través de <span class="caps">HTTP</span> el contenido <span class="caps">HTML</span> de dicha <span class="caps">URL</span> y lo mostrará por pantalla.</p>
 <p>La salida se puede redirigir a una cadena o a fichero a través de la librería, pero eso lo veremos en otra receta más vanzada (perdóname, pero yo también acabo de empezar con cURL :P).</p>
 <h2>Autenticarse en una web</h2>
@@ -5612,37 +5611,32 @@ c.close()<br />
 <p>Para poder realizar la autenticación necesitamos saber los campos del formulario. Para no complicarte la vida más de la cuenta, los campos son &#8220;name&#8221;, &#8220;pass&#8221; y &#8220;form_id&#8221;, cuyos respectivos valores serían tu nombre de usuario en CRySoL, tu contraseña y la cadena &#8220;user_login&#8221;. El formulario tiene más campos, pero para realizar una autenticación tan solo deberemos especificar estos.</p>
 <p>Para realizar la especificación de dichos campos utilizaremos un diccionario Python estándar, el cual pasaremos a la función <code>urllib.urlencode</code> para que lo serialice de forma que se pueda enviar como datos <span class="caps">HTTP</span>.</p>
 <div>
-<p>{% highlight python %}</p>
-<p>import pycurl<br />
-import urllib</p>
-<p>url = &#8216;http://crysol.org/user&#8217;</p>
-<p>post_vars = { &#8216;name&#8217;: &#8216;Lk2&#8217;,<br />
-              &#8216;pass&#8217;: &#8216;la_password&#8217;,<br />
-              &#8216;form_id&#8217;: &#8217;user_login&#8217;}</p>
-<p>c = pycurl.Curl()<br />
-c.setopt(pycurl.<span class="caps">URL</span>, url)<br />
-c.setopt(pycurl.<span class="caps">POSTFIELDS</span>, urllib.urlencode(post_vars))</p>
-<p>c.perform()<br />
-c.close()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pycurl</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">'http://crysol.org/user'</span>
+
+<span class="n">post_vars</span> <span class="o">=</span> <span class="p">{</span> <span class="s">'name'</span><span class="p">:</span> <span class="s">'Lk2'</span><span class="p">,</span>
+              <span class="s">'pass'</span><span class="p">:</span> <span class="s">'la_password'</span><span class="p">,</span>
+              <span class="s">'form_id'</span><span class="p">:</span> <span class="s">'user_login'</span><span class="p">}</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">pycurl</span><span class="p">.</span><span class="n">Curl</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">setopt</span><span class="p">(</span><span class="n">pycurl</span><span class="p">.</span><span class="n">URL</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+<span class="n">c</span><span class="p">.</span><span class="n">setopt</span><span class="p">(</span><span class="n">pycurl</span><span class="p">.</span><span class="n">POSTFIELDS</span><span class="p">,</span> <span class="n">urllib</span><span class="p">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">post_vars</span><span class="p">))</span>
+
+<span class="n">c</span><span class="p">.</span><span class="n">perform</span><span class="p">()</span>
+<span class="n">c</span><span class="p">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure></div>
 <h2>Añadiendo cookies al invento</h2>
 <p>Autenticarse en una web está bien, pero no nos servirá de nada si no utilizamos <a href="http://en.wikipedia.org/wiki/HTTP_cookie"><em>cookies</em></a>. Utilizándolas, podremos realizar sucesivas peticiones a una página y mantenernos autenticado entre ellas (lo que se dice mantener abierta una sesión, vaya).</p>
 <p>Para ello tan solo añade al código anterior la siguiente línea (<strong>antes de hacer el <code>perform</code></strong>):</p>
 <div>
-<p>{% highlight python <span>}<br />
-c.setopt(pycurl.<span class="caps">COOKIEJAR</span>, &#8216;/tmp/cookie.txt&#8217;)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">c</span><span class="p">.</span><span class="n">setopt</span><span class="p">(</span><span class="n">pycurl</span><span class="p">.</span><span class="n">COOKIEJAR</span><span class="p">,</span> <span class="s">'/tmp/cookie.txt'</span><span class="p">)</span></code></pre></figure></div>
 <p>Claro está, la ubicación de la <em>cookie</em> la puedes poner al gusto.</p>
 <h2>Utilizando una <em>cookie</em></h2>
 <p>Tras obtener una <em>cookie</em> seguro que quieres poder utilizarla. Para ello, antes de realizar el <code>perform</code> de cualquier <span class="caps">URL</span> del dominio de CRySoL tendrías que decirle a cURL que utilice la <em>cookie</em> que con tanto cariño guardamos antes.</p>
 <p>Tan fácil como lo siguiente: añade esta línea <strong>antes</strong> de hacer el <code>perform</code>:</p>
 <div>
-<p>{% highlight python <span>}<br />
-c.setopt(pycurl.<span class="caps">COOKIEFILE</span>, &#8216;/tmp/cookie.txt&#8217;)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">c</span><span class="p">.</span><span class="n">setopt</span><span class="p">(</span><span class="n">pycurl</span><span class="p">.</span><span class="n">COOKIEFILE</span><span class="p">,</span> <span class="s">'/tmp/cookie.txt'</span><span class="p">)</span></code></pre></figure></div>
 <h2>Código de los ejemplos (un poco mejorado)</h2>
 <p>Aquí dejo unos cuantos ejemplos de lo visto hasta aquí. Sentiros libres de añadir/sugerir mejoras u otros usos que se le pudiera dar a esta bonita librería.</p>
 <ul>
@@ -5712,7 +5706,7 @@ c.setopt(pycurl.<span class="caps">COOKIEFILE</span>, &#8216;/tmp/cookie.txt&#82
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

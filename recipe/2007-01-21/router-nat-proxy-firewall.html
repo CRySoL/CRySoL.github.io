@@ -5184,14 +5184,14 @@ Activando el rutado
 En primer lugar tenemos que decirle a nuestra máquina que debe enrutar los paquetes que le lleguen por los interfaces, para eso debemos poner a 1 el contenido del fichero /proc/sys/net/ipv4/ip_forward. Para que este cambio sea permanente debemos editar el fichero /etc/sysctl.conf y añadir la siguiente línea.
 
       net.ipv4.ip_forward=1
-    
+
 
 
 Activando el NAT
 
 Es lo que se conoce como Traducción de direcciones. Para que podamos pasar tráfico de distintas máquinas, a través de nuestro gateway, necesitamos enmascarar el tráfico y hacerles creer el gateway quien realiza las peticiones y no el host cliente. Para ello utilizaremos el fantástico iptables con la siguiente orden:
       # iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-    
+
 
 Es decir, le decimos que todo el tráfico, una vez que sabemos por donde tiene que ir (POSTROUTING), si tiene que salir por el interfaz eth0, debe ser enmascarado. Esto funciona para todo el tráfico saliente. Existen un par de casos excepcionales. Con los protocolos FTP e IRC(DCC) el ordenador cliente tiene que hacer a su vez de servidor para realizar la conexión. Debemos habilitar a iptables a que haga NAT de este tipo de conexiones mediante la carga de los módulos ip_nat_ftp e ip_nat_irc. Para que se carguen siempre al inicio añadiremos en el fichero /etc/modules los dos módulos.
 
@@ -5201,23 +5201,23 @@ Resulta muy cómodo no tener que andar configurando cada cliente que se enchufe 
 
       option domain-name-servers 10.12.0.1;
       option subnet-mask 255.255.255.0;
-      
+
       default-lease-time 600;
       max-lease-time 7200;
-		
+
       subnet 10.12.0.0 netmask 255.255.255.0 {
       range 10.12.0.2 10.12.0.254;
         option broadcast-address 10.12.0.255;
         option routers 10.12.0.1;
       }
-    
+
 
 En nuestro ejemplo, la red local que estamos configurando es la 10.12.0.0/24 por este motivo el rango de direcciones asignables va de 10.12.0.2 a 10.12.0.254. El router de esa red es nuestra máquina por eso especificamos el router 10.12.0.1 que es la dirección que le hemos asignado al interfaz eth1. El servidor de nombres también está configurado como 10.12.0.1 pues a continuación vamos a instalar un proxy DNS que hará que nuestra máquina también atienda las peticiones DNS de los clientes.
 
 Nos queda una última cosa por hacer. Tenemos que indicar a nuestra máquina que sólo sirva peticiones DHCP por el interfaz eth1, para esto tenemos que editar el archivo /etc/default/dhcp y modificar la variable INTERFACES para que contenga el valor eth1.
 
       INTERFACES="eth1"
-    
+
 
 
 Servidor proxy web
@@ -5228,17 +5228,17 @@ Para ahorrar ancho de banda resulta muy útil disponer de un proxy-cache para we
       httpd_accel_port 80
       httpd_accel_with_proxy on
       httpd_accel_uses_host_header on
-		
+
       acl localnet src 10.12.0.0/24
       http_access allow localnet
-    
+
 
 Las dos últimas líneas deben estar antes de la directiva http_access deny all.
 
 Sólo nos queda indicar a la máquina que redirija todas las peticiones web a nuestro proxy. Para ello utilizaremos de nuevo iptables, que tanto sirve para un roto como para un descosido.
       # iptables -t nat -A PREROUTING -i eth1 -p tcp \
           --dport 80 -j  REDIRECT --to-port 3128
-    
+
 
 Esta orden indica que los paquetes que vengan por el interfaz eth1 con dirección a un puerto 80, antes de saber por donde tienen que ser enrutados, deben ser redirigidos al puerto 3128 que es donde está escuchando nuestro proxy.
 
@@ -5250,7 +5250,7 @@ Como instalar y configurar un servidor DNS es realmente complicado para lo que q
 
       interface=eth1
       cache-size=600
-    
+
 
 
 Configuración del Firewall
@@ -5274,13 +5274,13 @@ Estas reglas se aplican con los siguientes comandos:
       # iptables -A INPUT -i eth0 -p udp --dport 137 -j DROP
       # iptables -A INPUT -i eth0 -p udp --dport 138 -j DROP
       # iptables -A INPUT -i eth0 -p udp --dport 139 -j DROP
-    
+
 
 Configuración final
 
 Una vez que está todo bien configurado nos queda salvar las reglas de iptables para que se establezcan al inicio. Para ello necesitamos crear el directorio /var/lib/iptables donde se almacenará el conjunto de reglas. Después ejecutamos:
       # /etc/init.d/iptables save active
-    
+
 
 Con todo esto tendremos nuestra máquina haciendo de router, NAT, proxy web, proxy DNS y firewall a nuestra red.
 
@@ -5352,7 +5352,7 @@ Enlaces
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5243,27 +5243,16 @@
 <h2> Configuración de la tarjeta de sonido</h2>
 <p>La salida del lspci te dice con qué tipo de tarjeta estás trabajando, en este caso:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ lspci<br />
-00:1b.0 Audio device: Intel Corporation 82801H (ICH8 Family) HD Audio Controller (rev 03)</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>lspci
+<span class="go">00:1b.0 Audio device: Intel Corporation 82801H (ICH8 Family) HD Audio Controller (rev 03)</span></code></pre></figure></div>
 <p>Para poder configurar la tarjeta correctamente basta con seguir los siguientes pasos:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ wget ftp://202.65.194.212/pc/audio/realtek-linux-audiopack-4.07a.tar.bz2<br />
-tar -xf realtek-linux-audiopack-4.07a.tar.bz2</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>wget ftp://202.65.194.212/pc/audio/realtek-linux-audiopack-4.07a.tar.bz2
+<span class="go">tar -xf realtek-linux-audiopack-4.07a.tar.bz2</span></code></pre></figure></div>
 <p>Después entras en el directorio y como super usuario instalas:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ cd realtek-linux-audiopack-4.07a</p>
-<ol>
-	<li>./install</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>realtek-linux-audiopack-4.07a
+<span class="gp">#</span><span class="w"> </span>./install</code></pre></figure></div>
 <p>Una vez completada la instalación hay que añadir al archivo <code>/etc/modprobe.d/sound</code> lo siguiente:</p>
 <pre>
 options snd-hda-intel enable=1 index=0
@@ -5272,12 +5261,7 @@ options snd-hda-intel model=acer
 </pre>
 <p>Reinicia <span class="caps">ALSA</span> y todo listo</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/alsasound restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/alsasound restart</code></pre></figure></div>
       </div>
 
       
@@ -5342,7 +5326,7 @@ options snd-hda-intel model=acer
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -5496,6 +5496,8 @@
 
   
 
+  
+    
   
     
   
@@ -8218,7 +8220,7 @@
 
 <a href="http://arco.esi.uclm.es/~cleto.martin/fotos_jornadas/">http://arco.esi.uclm.es/~cleto.martin/fotos_jornadas/</a>
 
-Aún me quedan por conseguir algunas, por lo que lo actualizaré en breve. 
+Aún me quedan por conseguir algunas, por lo que lo actualizaré en breve.
 
 Gracias a Sergio Pérez, Francisco Sánchez y Cayetano J. Solana por las fotos.
 
@@ -8658,7 +8660,7 @@ Así de buenas a primeras el esqueleto de aplicación <em>FUSE</em> podría ser 
 Userspace filesystem example
 
 """</span> <span class="o">+</span> <span class="n">Fuse</span><span class="p">.</span><span class="n">fusage</span>
-    
+
     <span class="n">fs</span> <span class="o">=</span> <span class="n">DictFS</span><span class="p">(</span><span class="n">version</span> <span class="o">=</span> <span class="s">'%prog'</span> <span class="o">+</span> <span class="n">fuse</span><span class="p">.</span><span class="n">__version__</span><span class="p">,</span>
                 <span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span><span class="p">,</span>
                 <span class="n">dash_s_do</span><span class="o">=</span><span class="s">'setsingle'</span><span class="p">)</span>
@@ -8912,7 +8914,7 @@ El método es bastante simple, pero hay que tener cuidado con los rangos y demá
             <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]))</span>
         <span class="c1"># This operation could be truncate the file!!
 </span>        <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">][:</span><span class="n">offset</span><span class="p">]</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
-        
+
         <span class="c1"># Return written bytes
 </span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span></code></pre></figure>
 </div>
@@ -9094,7 +9096,7 @@ Bueno, tengo el ejemplo en <a href="https://github.com/int-0/sillygames">mi gith
         <span class="k">return</span> <span class="o">-</span><span class="n">errno</span><span class="p">.</span><span class="n">ENOENT</span>
 
     <span class="k">def</span> <span class="nf">readdir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
-        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** readdir(%s, %d)'</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>       
+        <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** readdir(%s, %d)'</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
 
         <span class="n">file_entries</span> <span class="o">=</span> <span class="p">[</span><span class="s">'.'</span><span class="p">,</span><span class="s">'..'</span><span class="p">]</span>
 
@@ -9200,7 +9202,7 @@ Bueno, tengo el ejemplo en <a href="https://github.com/int-0/sillygames">mi gith
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Add more bytes
 </span>            <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">+=</span> <span class="s">' '</span> <span class="o">*</span> <span class="p">(</span><span class="n">size</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]))</span>
-    
+
     <span class="k">def</span> <span class="nf">unlink</span> <span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">path</span> <span class="p">):</span>
         <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">'*** unlink(%s)'</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 
@@ -9222,7 +9224,7 @@ Bueno, tengo el ejemplo en <a href="https://github.com/int-0/sillygames">mi gith
 </span>        <span class="k">if</span> <span class="n">offset</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]):</span>
             <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]))</span>
         <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">filename</span><span class="p">][:</span><span class="n">offset</span><span class="p">]</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
-        
+
         <span class="c1"># Return written bytes
 </span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
 
@@ -9246,7 +9248,7 @@ Bueno, tengo el ejemplo en <a href="https://github.com/int-0/sillygames">mi gith
 Userspace filesystem example
 
 """</span> <span class="o">+</span> <span class="n">Fuse</span><span class="p">.</span><span class="n">fusage</span>
-    
+
     <span class="n">fs</span> <span class="o">=</span> <span class="n">DictFS</span><span class="p">(</span><span class="n">version</span> <span class="o">=</span> <span class="s">'%prog'</span> <span class="o">+</span> <span class="n">fuse</span><span class="p">.</span><span class="n">__version__</span><span class="p">,</span>
                 <span class="n">usage</span> <span class="o">=</span> <span class="n">usage</span><span class="p">,</span>
                 <span class="n">dash_s_do</span><span class="o">=</span><span class="s">'setsingle'</span><span class="p">)</span>
@@ -9502,7 +9504,7 @@ Va con comentarios del director y <em>logging</em>, muy útil... ;)
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5209,24 +5209,15 @@
 <h2>Copiar el fichero .ifo</h2>
 <p>El fichero .ifo correspondiente al título elegido contiene información sobre dimensiones del fotograma, paleta de color de los subtítulos, código de idioma, identificador del subtítulo, etc. Por eso debes copiarlo desde el <span class="caps">DVD</span> al mismo directorio en el que hayas extraído el fichero .ps1. Así que:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ cp /media/dvd/video_ts/vts_01_0.ifo lovestory.ifo<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cp</span> /media/dvd/video_ts/vts_01_0.ifo lovestory.ifo</code></pre></figure></div>
 <h2>Conversión de formato</h2>
 <p>Tan fácil como:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ subtitle2vobsub -i lovestory.ifo -p lovestory-en.ps1 -o lovestory<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>subtitle2vobsub <span class="nt">-i</span> lovestory.ifo <span class="nt">-p</span> lovestory-en.ps1 <span class="nt">-o</span> lovestory</code></pre></figure></div>
 <h3>Alternativa</h3>
 <p>En lugar de usar <code>transcode</code> y <code>subtitle2vobsub</code> se puede utilizar <code>mencoder</code> para hacer lo mismo en un sólo paso. No es mejor ni peor porque de hecho subtitleripper utiliza código del proyecto mplayer.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mencoder dvd://1 -ovc copy -o /dev/null -nosound -vobsubout lovestory-en -vobsuboutindex 0 -vobsuboutid en -sid 3<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mencoder dvd://1 <span class="nt">-ovc</span> copy <span class="nt">-o</span> /dev/null <span class="nt">-nosound</span> <span class="nt">-vobsubout</span> lovestory-en <span class="nt">-vobsuboutindex</span> 0 <span class="nt">-vobsuboutid</span> en <span class="nt">-sid</span> 3</code></pre></figure></div>
 <p>dónde:</p>
 <ul>
 	<li><strong>-sid 3</strong>: Es el flujo de subtítulos a extraer.</li>
@@ -5241,33 +5232,27 @@ lovestory.sub
 </pre>
 <p>Si este es el caso, mplayer cargará automáticamente los subtitulos. Si la película tiene un nombre distinto a los demás ficheros tendrás que indicarle algo como:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mplayer fichero.avi -vobsub lovestory<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mplayer fichero.avi <span class="nt">-vobsub</span> lovestory</code></pre></figure></div>
 <h2>Empaquetado de ficheros</h2>
 <p>Una forma cómoda de manejar estos ficheros y ahorrar una buena cantidad de espacio es comprimirlos. Desgraciadamente el único formato que parece soportar MPlayer es .rar, que tiene una asquerosa licencia privativa. MPlayer no incumple la licencia porque él sólo descomprime, y sí que hay librerías unrar libres (aunque sólo para versiones de rar &lt; 3.0). Si te sigue interesando:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ rar-2.80 a lovestory.rar lovestory.idx lovestory.ifo lovestory.sub<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>rar-2.80 a lovestory.rar lovestory.idx lovestory.ifo lovestory.sub</code></pre></figure></div>
 <h2>Todo en un <code>Makefile</code></h2>
 <div>
-<p>{% highlight text %}<br />
-<span class="caps">TITLE</span>=lovestory<br />
-<span class="caps">TRACK</span>=1<br />
-<span class="caps">LANG</span>=es<br />
-LANGid=0&#215;21<br />
-<span class="caps">FILE</span>=$(<span class="caps">TITLE</span>)-$(<span class="caps">LANG</span>)</p>
-<p>$(<span class="caps">TITLE</span>).rar: $(<span class="caps">TITLE</span>).sub<br />
-        rar-2.80 a $(<span class="caps">TITLE</span>).rar $(<span class="caps">TITLE</span>).ifo $(<span class="caps">TITLE</span>).idx $(<span class="caps">TITLE</span>).sub</p>
-<p>$(<span class="caps">TITLE</span>).sub: $(<span class="caps">FILE</span>).ps1 $(<span class="caps">TITLE</span>).ifo<br />
-        subtitle2vobsub -i $(<span class="caps">TITLE</span>).ifo -p $(<span class="caps">FILE</span>).ps1 -o $(<span class="caps">TITLE</span>)</p>
-<p>$(<span class="caps">FILE</span>).ps1:<br />
-	tccat -i /dev/dvd -T $(<span class="caps">TRACK</span>),-1 | tcextract -x ps1 -t vob -a $(LANGid) &gt; $@<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">TITLE=lovestory
+TRACK=1
+LANG=es
+LANGid=0x21
+FILE=$(TITLE)-$(LANG)
+
+$(TITLE).rar: $(TITLE).sub
+        rar-2.80 a $(TITLE).rar $(TITLE).ifo $(TITLE).idx $(TITLE).sub
+
+$(TITLE).sub: $(FILE).ps1 $(TITLE).ifo
+        subtitle2vobsub -i $(TITLE).ifo -p $(FILE).ps1 -o $(TITLE)
+
+$(FILE).ps1:
+	tccat -i /dev/dvd -T $(TRACK),-1 | tcextract -x ps1 -t vob -a $(LANGid) &gt; $@</code></pre></figure></div>
 <h2>Extraer varios idiomas en un mismo .sub</h2>
 <p>Por hacer</p>
 <h2>¿Qué pasa si no tengo .ifo?</h2>
@@ -5344,7 +5329,7 @@ LANGid=0&#215;21<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

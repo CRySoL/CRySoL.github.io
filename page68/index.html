@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,6 +7885,8 @@
   
     
   
+    
+  
 
   
     
@@ -7990,9 +7992,9 @@ Antes de seguir, nos sería útil saber cómo funciona una comunicación serie, 
 
 Así pues, tenemos diferentes velocidades 'estándar': 600, 1200, 2400... En nuestro ejemplo usaremos 9600 bps, pero si es necesario podríamos llegar a velocidades de casi 1 Mbps. Luego veremos cuanto ha de durar cada bit para enviar a esa velocidad.
 
-Vemos que si cada bit tiene una duración fija, constante, no es necesario un reloj que marque los cambios de bit. Cierto, no es necesario, es implícito. Pero esto implica que si se comete un error en la transmisión de un bit, el resto de la comunicación sería basura. Existen por tanto ciertos métodos y bits bandera para que esto no ocurra. 
+Vemos que si cada bit tiene una duración fija, constante, no es necesario un reloj que marque los cambios de bit. Cierto, no es necesario, es implícito. Pero esto implica que si se comete un error en la transmisión de un bit, el resto de la comunicación sería basura. Existen por tanto ciertos métodos y bits bandera para que esto no ocurra.
 
-En primer lugar, el estado del pin de envio mientras no se está enviando es fijo (deber ser '1'). Así, cuando se empieza la transmisión, enviamos un bit de inicio (que es un '0'). Después, se acuerda entre emisor y receptor cuantos bits van a conformar los datos: 5, 6, 7 u 8. Lo normal es 8 (un byte). Se envían respetando los tiempos de cada bit. Una vez enviados los datos, el siguiente bit es opcional y se usa como mecanismo para evitar errores: la paridad. Consiste en un bit que indicar si el número de unos o ceros en los datos es par o impar. Aquí no lo usaremos. 
+En primer lugar, el estado del pin de envio mientras no se está enviando es fijo (deber ser '1'). Así, cuando se empieza la transmisión, enviamos un bit de inicio (que es un '0'). Después, se acuerda entre emisor y receptor cuantos bits van a conformar los datos: 5, 6, 7 u 8. Lo normal es 8 (un byte). Se envían respetando los tiempos de cada bit. Una vez enviados los datos, el siguiente bit es opcional y se usa como mecanismo para evitar errores: la paridad. Consiste en un bit que indicar si el número de unos o ceros en los datos es par o impar. Aquí no lo usaremos.
 
 Para terminar, enviamos uno o dos bits de parada, de forma que el pin de transmisión se quede en el nivel lógico '1'. Así, se termina la transmisión de nuestro dato. Nos quedamos con la velocidad (9600 bps), los bits de datos (8bits), la paridad (N) y el bit de stop (1): 9600 8N1
 
@@ -8052,27 +8054,27 @@ Y como vemos, se ejecuta una media de 3 veces más 5 ciclos de inicialización y
 Ahora, cada vez que enviamos un bit, hemos de esperar el tiempo marcado por rs232_d. Veamos la rutina de envio:
 
 <pre>
-send_b:	               
+send_b:
         movwf   data_tx        	; Guargamos el dato a enviar
-        movlw   d'8'          	; Enviaremos 8 bits 
+        movlw   d'8'          	; Enviaremos 8 bits
         movwf   count_p
-	
+
         bcf     tx_port,tx_pin	; enviamos el bit de inicio
-        call    rs232_d         
-	
+        call    rs232_d
+
 s_loop:
 	btfss	data_tx,0	; comprobamos el primer bit
-        bcf     tx_port,tx_pin  ; si es un 0 enviamos un 0	
-        btfsc   data_tx,0       
+        bcf     tx_port,tx_pin  ; si es un 0 enviamos un 0
+        btfsc   data_tx,0
         bsf     tx_port,tx_pin  ; si es un 1 enviamos un 1
 
         call    rs232_d         ; mantenemos el bit el tiempo necesario
-	
-        rrf     data_tx,F	; movemos los bits a la derecha	
+
+        rrf     data_tx,F	; movemos los bits a la derecha
 
         decfsz  count_p,F       ; si no se han enviado 8 bits...
         goto    s_loop       	; seguimos
-	
+
         bsf     tx_port,tx_pin 	; si se han enviado, enviamos el bit de stop
         call    rs232_d
 	return
@@ -8090,19 +8092,19 @@ recv_b:
 	movwf	count_p
 	clrf	data_rx		; daremos por hecho que son todo 0's
 	btfsc	rx_port, rx_pin ; comprobamos bit de inicio
-	return			; datos erróneos	
+	return			; datos erróneos
 
 r_loop:
 	rrf	data_rx,F	; rotamos a la derecha (primero LSB)
 	call	rs232_d		; esperamos el tiempo adecuado
-	
+
 	btfsc	rx_port, rx_pin	; solo cambiamos si es un 1
-	bsf	data_rx,7	
+	bsf	data_rx,7
 	decfsz	count_p, F
 	goto	r_loop
-	
+
 	movf	data_rx, W	; retornamos el dato leido, en W
-	return	
+	return
 </pre>
 
 Antes de llamar a esta rutina, es necesario que compruebes el pin RxD en espera del bit de inicio. Inmediatamente después de cambiar de estado el pin RxD, se ha de llamar a esta rutina. Es posible retardarse un lapso de tiempo máximo de rs232_d/2, pero no mucho mayor, si se quiere leer algo. Lo más aconsejable es usar como pin RxD uno que sea sensible a cambios de estado mediante interrupciones, y llamar a la rutina de lectura desde el vector de interrupción. Así se evita el hacer un polling al pin RxD.
@@ -8138,7 +8140,7 @@ rx_pin	equ	0x1		; Pin de recepción
 
 data_tx	equ	0xd		; Datos a enviar
 data_rx	equ	0xf		; Datos recibidos
-	
+
 count_d equ	0xc		; Contador para el retardo
 count_p	equ	0x10		; Contador para el numero de bits
 
@@ -8153,7 +8155,7 @@ count_p	equ	0x10		; Contador para el numero de bits
 ;;;  cada 1/9600 s -> 104 us. Con un reloj de 4MHz, tenemos
 ;;;  un ciclo de 1us. El siguiente codigo es un bucle que usa una
 ;;;  media de 3 ciclos, por lo que si lo ejecutamos unas 33 veces,
-;;;  tendremos el ratio deseado: (2+1)*33 + 1+1+1+2 = 104 us 		 
+;;;  tendremos el ratio deseado: (2+1)*33 + 1+1+1+2 = 104 us
 rs232_d:
 	movlw	D'32'		; 1 us (algo menos de 33)
 	movwf	count_d		; 1 us
@@ -8170,44 +8172,44 @@ recv_b:
 	movwf	count_p
 	clrf	data_rx		; daremos por hecho que son todo 0's
 	btfsc	rx_port, rx_pin ; comprobamos bit de inicio
-	return			; datos erróneos	
+	return			; datos erróneos
 
 r_loop:
 	rrf	data_rx,F	; rotamos a la derecha (primero LSB)
 	call	rs232_d		; esperamos el tiempo adecuado
-	
+
 	btfsc	rx_port, rx_pin	; solo cambiamos si es un 1
-	bsf	data_rx,7	
+	bsf	data_rx,7
 	decfsz	count_p, F
 	goto	r_loop
-	
+
 	movf	data_rx, W	; retornamos el dato leido, en W
 	return
-	
+
 ;;; -------------------------------------------------------------
 ;;; Enviamos un byte, que debe estar en W antes de llamar a esta rutina
 ;;; con la cofiguración 8N1, a la velocidad estipulada por rs232_d.
-send_b:	               
+send_b:
         movwf   data_tx        	; Guargamos el dato a enviar
-        movlw   d'8'          	; Enviaremos 8 bits 
+        movlw   d'8'          	; Enviaremos 8 bits
         movwf   count_p
-	
+
         bcf     tx_port,tx_pin	; enviamos el bit de inicio
-        call    rs232_d         
-	
+        call    rs232_d
+
 s_loop:
 	btfss	data_tx,0	; comprobamos el primer bit
-        bcf     tx_port,tx_pin  ; si es un 0 enviamos un 0	
-        btfsc   data_tx,0       
+        bcf     tx_port,tx_pin  ; si es un 0 enviamos un 0
+        btfsc   data_tx,0
         bsf     tx_port,tx_pin  ; si es un 1 enviamos un 1
 
         call    rs232_d         ; mantenemos el bit el tiempo necesario
-	
-        rrf     data_tx,F	; movemos los bits a la derecha	
+
+        rrf     data_tx,F	; movemos los bits a la derecha
 
         decfsz  count_p,F       ; si no se han enviado 8 bits...
         goto    s_loop       	; seguimos
-	
+
         bsf     tx_port,tx_pin 	; si se han enviado, enviamos el bit de stop
         call    rs232_d
 	return
@@ -8215,20 +8217,20 @@ s_loop:
 
 ;;; Rutina principal. Configura el pic.
 main:
-	bsf	STATUS, RP0	
+	bsf	STATUS, RP0
 	bcf	tx_port, tx_pin ; Pin TxD como salida
 	bcf	TRISB, 0x3      ; y pin PORTB,3 como salida también
 	bcf	STATUS, RP0
 
-loop:	
+loop:
  	btfsc	rx_port, rx_pin ; Esperamos al bit de inicio
  	goto	$-1
-	
+
 	bsf	PORTB, 0x3
-	call	recv_b		; recibimos 
+	call	recv_b		; recibimos
 	call	send_b		; enviamos
 	bcf	PORTB, 0x3
-	
+
 	goto	loop
 	end
 </pre>
@@ -8339,14 +8341,14 @@ La fonera trae un GNU/Linux de fábrica. Es una versión modificada de <a href="
 
 El <a href="http://es.wikipedia.org/wiki/Secure_Shell">SSH (Secure SHell)</a> es un protocolo de comunicaciones que permite el control remoto de forma segura (entre otras muchas cosas). Lo que usamos nosotros es simplemente una consola del sistema (como cuando accedemos en un terminal real). El kernel de la fonera está configurado de forma que los mensajes se envíen al puerto serie. Además, se arranca una shell para ese mismo puerto que permite la interacción con el sistema. Es una consola como las de toda la vida.
 
-Nosotros, simplemente tenemos que conectar un puerto serie de nuestro PC con el de la fonera. Bueno, realmente es un poco menos sencillo, por el hecho de que nuestro puerto serie sigue la norma <a href="http://es.wikipedia.org/wiki/RS232">RS232</a> con respecto a los niveles de tensión, mientras que el de la fonera no (usa niveles convencionales TTL). Luego, necesitamos <i>algo</i> que "adapte" entre los niveles RS232 y TTL. Este <i>algo</i> es un circuto, más o menos complejo. 
+Nosotros, simplemente tenemos que conectar un puerto serie de nuestro PC con el de la fonera. Bueno, realmente es un poco menos sencillo, por el hecho de que nuestro puerto serie sigue la norma <a href="http://es.wikipedia.org/wiki/RS232">RS232</a> con respecto a los niveles de tensión, mientras que el de la fonera no (usa niveles convencionales TTL). Luego, necesitamos <i>algo</i> que "adapte" entre los niveles RS232 y TTL. Este <i>algo</i> es un circuto, más o menos complejo.
 
 Existen múltiples versiones. Una de ellas es la conexión directa. Actualmente, las <a href="http://es.wikipedia.org/wiki/UART">UART</a> de los PC's soportan los niveles TTL sin mucho problema. Otra opción es diseñar un circuito basado en transistores y diodos que haga el trabajo. Sin duda, puede ser una buena opción... a menos que quieras/puedas usar los integrados que existen a tal fin.
 
 La "mejor" (depende de las circunstancias) versión de este adaptador es usar un conversor de niveles integrado. El más conocido es el <a href="http://www.google.es/search?q=max232">MAX232</a>. Es un integrado de 16 pines que necesita varios condensadores para trabajar. Otro modelo menos conocido pero quizá más sencillo de usar es el <a href="http://www.google.es/search?q=ds275">DS275</a>. Es un integrado más pequeño, solo tiene 8 pines, que se conecta directamente, por lo que usarlo es sencillisimo. Es el que vamos a emplear aquí.
 
 <h2>El adaptador</h2>
-Como siempre, antes de usar ningún integrado, recomiendo leerse el <i>datasheet</i> correspondiente. Si ya lo has hecho, podemos continuar... :-) 
+Como siempre, antes de usar ningún integrado, recomiendo leerse el <i>datasheet</i> correspondiente. Si ya lo has hecho, podemos continuar... :-)
 
 El puerto serie del PC tiene un montón de señales que no nos interesan ahora. Son 9 pines (en un DB9 claro) de los cuales solo vamos a emplear 3, a saber:
 
@@ -8358,7 +8360,7 @@ PIN: 2 -&gt; RxD
 
 El RxD es el encargado de la recepción de los datos, el TxD de la transmisión  y el GND sólo es la referencia de las señales (GrouND). Sucede lo mismo con el serie de la fonera, solo que en este caso, vamos a usar un pin más: el de 3.5 V de referencia para el integrado. No te preocupes si parece mucho lio, al final lo verás muy claro.
 
-Resumiendo: tenemos en el puerto serie del PC 3 pines a usar y en el de la fonera 4 pines. Los de la fonera son como sigue: 
+Resumiendo: tenemos en el puerto serie del PC 3 pines a usar y en el de la fonera 4 pines. Los de la fonera son como sigue:
 
 <pre>
 | GND  #  RxD  TxD  #
@@ -8383,13 +8385,13 @@ Y por último todo el invento montado:
 
 <h2>Probando</h2>
 
-Y ya está. Podemos conectar el puerto serie a la fonera y arrancar un programa de emulación de terminal en ese mismo puerto. Existe uno muy interesante llamado minicom ($ man minicom) que funciona muy bien. Configúralo para que escuche en el puerto serie de tu PC, y como parámetros: 9600 8N1 (es decir 9600 Bps, 8 bits de datos, sin paridad y 1 bit de stop). 
+Y ya está. Podemos conectar el puerto serie a la fonera y arrancar un programa de emulación de terminal en ese mismo puerto. Existe uno muy interesante llamado minicom ($ man minicom) que funciona muy bien. Configúralo para que escuche en el puerto serie de tu PC, y como parámetros: 9600 8N1 (es decir 9600 Bps, 8 bits de datos, sin paridad y 1 bit de stop).
 
 <b>NOTA</b>: No te fíes del estado del minicom, que muestra siempre desconectado. Esto te sería util si usaras un dispositivo de red orientado a conexión, pero usas un puerto serie, de tipo caracter que se comporta como un flujo de datos.
 
 Bien, ahora que lo tienes todo listo, arranca la fonera. Espera unos segundos y empezarás a ver el arranque del kernel. ¡Enhorabuena! Ya tienes acceso a la consola de tu fonera.
 
-Si no ves nada en un rato, es probable que hayas metido la pata. Lo siento. Repasa las conexiones con cuidado. Si sigues teniendo problemas, busca ayuda. En internet hay mucha información al respecto. 
+Si no ves nada en un rato, es probable que hayas metido la pata. Lo siento. Repasa las conexiones con cuidado. Si sigues teniendo problemas, busca ayuda. En internet hay mucha información al respecto.
 
 <h2>Referencias</h2>
 <ol>
@@ -8676,14 +8678,14 @@ Los dispositivos que utilizan el chip de radio <a href="http://www.chipcon.com/i
 <pre>
 #ifndef CC1K_DEF_PRESET
 #define CC1K_DEF_PRESET	(CC1K_915_998_MHZ)
-#endif 
+#endif
 </pre>
 
 De éste modo, en los futuros programas, la radio se configurará para funcionar a la frecuencia correcta.
 
 <h2>Longitud del campo de datos en la estructura <tt>message_t</tt></h2>
 
-La estructura <a href="http://www.tinyos.net/tinyos-2.x/doc/html/tep111.html"><em>message_t</em></a> proporciona una abstracción para enviar y recibir mensajes a través de la radio o del puerto serie. El campo de datos de ésta estructura, tiene una longitud máxima prefijada de 28 Bytes, que en muchos casos puede ser mas que suficiente, pero en otras ocasiones podemos quedarnos cortos. 
+La estructura <a href="http://www.tinyos.net/tinyos-2.x/doc/html/tep111.html"><em>message_t</em></a> proporciona una abstracción para enviar y recibir mensajes a través de la radio o del puerto serie. El campo de datos de ésta estructura, tiene una longitud máxima prefijada de 28 Bytes, que en muchos casos puede ser mas que suficiente, pero en otras ocasiones podemos quedarnos cortos.
 
 Para solucionar ésto, debemos pasar a <em>nesC</em> el flag <em>DTOSH_DATA_LENGTH</em> para indicar la longitud máxima que queremos que tenga dicho campo de datos.
 
@@ -9039,9 +9041,9 @@ Con esta base y un poco de imaginación, se pueden hacer muchas cosas muy apaña
 
 <h2>Próxima semana:</h2>
 
-Bueno... Podéis observar que he roto lo habitual de escribir cada semana. A parte de que estoy muy liado, ¡se me están acabando las ideas!. 
+Bueno... Podéis observar que he roto lo habitual de escribir cada semana. A parte de que estoy muy liado, ¡se me están acabando las ideas!.
 
-David ha proporcionado unos cuantos TES y Brue también ha puesto su granito de arena. Si alguien más participa, ¡estupendo! pero, por mi parte, se acaban los TES. 
+David ha proporcionado unos cuantos TES y Brue también ha puesto su granito de arena. Si alguien más participa, ¡estupendo! pero, por mi parte, se acaban los TES.
 
 De todas maneras, podéis poner vuestros trucos y marcarlos como "emacs" en la pestaña "Tema". Siempre son bienvenidos ;)
 
@@ -9282,7 +9284,7 @@ De todas maneras, podéis poner vuestros trucos y marcarlos como "emacs" en la p
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

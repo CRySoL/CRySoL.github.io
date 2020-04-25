@@ -5340,36 +5340,24 @@
 <h2>Método 1: Exportar display</h2>
 <p>El método &#8216;clásico&#8217; cuando queremos ejecutar un programa en una máquina remota y ver su interfaz en nuestro cliente X local es:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-user@local:~$ xhost remoto<br />
-remoto being added to access control list<br />
-user@local:~$<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@local:~$</span><span class="w"> </span>xhost remoto
+<span class="go">remoto being added to access control list
+</span><span class="gp">user@local:~$</span></code></pre></figure></div>
 <p>Con eso se consigue que el servidor X, que corre en nuestra máquina, acepte conexiones externas de la máquina &#8220;remoto&#8221;. Pero si queremos que admita conexiones de cualquier máquina hay que poner:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-user@local:~$ xhost +<br />
-access control disabled, clients can connect from any host<br />
-user@local:~$<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@local:~$</span><span class="w"> </span>xhost +
+<span class="go">access control disabled, clients can connect from any host
+</span><span class="gp">user@local:~$</span></code></pre></figure></div>
 <p>Aunque esto puede suponer un problema de seguridad grave.</p>
 <p>Ahora accede a la máquina remota con <tt>telnet</tt> o algo similar y exporta el &#8216;display&#8217; para aplicaciones X.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-user@remoto:~$ export <span class="caps">DISPLAY</span>=local:0<br />
-user@remoto:~$<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@remoto:~$</span><span class="w"> </span><span class="nb">export </span><span class="nv">DISPLAY</span><span class="o">=</span><span class="nb">local</span>:0
+<span class="gp">user@remoto:~$</span></code></pre></figure></div>
 <p>La instrucción <tt>export</tt> declara una variable de entorno de la <em>shell</em> (no tiene nada que ver con la expresión exportar display).</p>
 <p>Con esto, la aplicación X sabrá que debe utilizar el servidor X de la máquina llamada &#8216;local&#8217; en lugar de usar el de la máquina en la que se ejecuta. Puedes comprobar que funciona con algo como:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-user@remoto:~$ xeyes<br />
-user@remoto:~$<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@remoto:~$</span><span class="w"> </span>xeyes
+<span class="gp">user@remoto:~$</span></code></pre></figure></div>
 <p>Con lo que deberías ver el clásico programilla de los ojos en la máquina local.</p>
 <h2>Método 2: ssh</h2>
 <p>El servidor <tt>ssh</tt> es capaz de gestionar automáticamente la conexión X siempre que servidor y cliente estén configurados adecuadamente.</p>
@@ -5383,17 +5371,11 @@ user@remoto:~$<br />
 </pre>
 <p>Como alternativa a esto, el usuario puede solicitarlo por línea de comando al hacer la conexión:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-ssh -X <em>remoto</em><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">ssh -X &lt;em&gt;</span>remoto&lt;/em&gt;</code></pre></figure></div>
 <p>Si lo haces en las dos máquinas, podrás utilizar este mecanismo en ambos sentidos. Sólo queda reiniciar el servidor con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-root@remoto:~# /etc/init.d/ssh restart<br />
-root@remoto:~#<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@remoto:~#</span><span class="w"> </span>/etc/init.d/ssh restart
+<span class="gp">root@remoto:~#</span></code></pre></figure></div>
 <p>Y ya tienes el efecto deseado, compruébalo con <tt>xeyes</tt>&#8230; (por ejemplo)</p>
 <h2>Enlaces</h2>
 <ul>
@@ -5463,7 +5445,7 @@ root@remoto:~#<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

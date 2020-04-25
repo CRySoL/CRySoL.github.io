@@ -5291,35 +5291,23 @@ Así pues, sin mas preámbulos ¡¡¡¡Al turrónnnnn!!!! :-P</p>
 <p>En lo referente al software, utilizaremos <a href="http://avarice.sourceforge.net/">avarice</a> que no es ni mas ni menos que nuestro interface con el <span class="caps">JTAG</span>. También haremos uso del ya conocido <tt>avr-gdb</tt> y de <a href="http://www.gnu.org/software/ddd/">ddd</a> como front-end de <tt>avr-gdb</tt>.</p>
 <p>Bueno, pues suponiendo que seguisteis con atención la receta anterior en la que hablé de cómo simular los <em><span class="caps">AVR</span></em>, tan solo tendremos que instalar <tt>ddd</tt> y <tt>avarice</tt> en nuestra máquina para empezar&#8230;</p>
 <div class="console">
-<p>{% highlight console %}<br />
-javieralso@avalon:~$ sudo apt-get install avarice ddd</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>avarice ddd</code></pre></figure></div>
 <h2>Compilación del código a simular</h2>
 <p>Bueno, para la compilación del código necesitamos exactamente las mismas opciones que para la simulación. De hecho, el proceso es el mismo, ya que en ambos casos usamos <em>avr-gdb</em>. La única diferencia es que avarice no necesita para nada el archivo <em>.bin</em> que creamos. En su lugar utilizaremos el <em>.hex</em>, que será el que carguemos en el microcontrolador para tracear. Por lo tanto podemos seguir utilizando el <em>Makefile</em> de la receta anterior y supondré que, de hecho, estamos trabajando con el mismo proyecto.</p>
 <h2>Simulando con <em>ddd</em></h2>
 <p>Bueno, antes de empezar a tracear, voy a contar como utilizar <em>ddd</em> para simular. En realidad es muy sencillo. De hecho, hay que seguir exactamente todos los pasos de la receta anterior, salvo que en lugar de llamar a <em>avr-gdbtui</em>, se llama a <em>ddd</em> diciéndole que use por debajo a <em>avr-gdb</em>. Resumiendo, tenemos que hacer algo como esto:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-javieralso@avalon:~$ ddd &#8212;debugger avr-gdb -x comandos.gdb</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span>ddd <span class="nt">--debugger</span> avr-gdb <span class="nt">-x</span> comandos.gdb</code></pre></figure></div>
 <p>¡¡Y ya ta!! Ale, a simular cosas chulas :-P</p>
 <h2>Un poco de <em>avarice</em></h2>
 <p>Antes de ponernos manos a la obra, explicaré un poco el uso de <em>avarice</em>. Bueno, <em>avarice</em> permite borrar, programar, cambiar los valores de los fusibles, leer el contenido de la memoria del chip, verificar el código del chip y, por supuesto, tracear. Para todo ello necesitaremos, como es de suponer, el <span class="caps">JTAG</span> antes mencionado.</p>
 <p>Si queremos hacer cosas como por ejemplo borrar un chip, haríamos lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-javieralso@avalon:~$ avarice -2 &#8212;erase  &#8212;jtag usb</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span>avarice <span class="nt">-2</span> <span class="nt">--erase</span>  <span class="nt">--jtag</span> usb</code></pre></figure></div>
 <p>la opción <em>-2</em> se utiliza para decirle a <em>avarice</em> que estamos trabajando con el <span class="caps">JTAG</span> mkII, que es algo así como la segunda versión. <em>&#8212;jtag usb</em> indica que estamos utilizando la conexión <span class="caps">USB</span> del dispositivo. Si quisiéramos utilizar un puerto seríe, habría que sustituir <em>usb</em> por la ruta del archivo de dispositivo del puerto a utilizar.</p>
 <p>Para programar un micro:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-javieralso@avalon:~$ avarice -2 &#8212;erase &#8212;program &#8212;file archivo.hex &#8212;jtag usb</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span>avarice <span class="nt">-2</span> <span class="nt">--erase</span> <span class="nt">--program</span> <span class="nt">--file</span> archivo.hex <span class="nt">--jtag</span> usb</code></pre></figure></div>
 <p>Después de pasar la opción <em>&#8212;program</em>, tenemos que decir qué archivo queremos utilizar. Para se utiliza la opción <em>&#8212;file</em> seguida del archivo que queremos transferir.</p>
 <p>Si se utiliza la opción <em>&#8212;P</em> seguido de un modelo de micro podemos decirle a <em>avarice</em> que estaremos utilizando ése micro. Lo normal es que <em>avarice</em> sea capaz de leer la información de identificación del micro sin problemas.</p>
 <p>Siempre que queramos programar un micro, deberemos borrarlo antes de manera explícita, ya que el borrado no se hace de forma automática al iniciar la programación, como si pasa con otros entornos.</p>
@@ -5327,10 +5315,7 @@ javieralso@avalon:~$ avarice -2 &#8212;erase &#8212;program &#8212;file archivo.
 <p>Ahora ha llegado la hora de la verdad. Con todo listo, nuestro <span class="caps">JTAG</span> conectado al usb del ordenador y a la tarjeta a tracear nos disponemos a empezar. La forma en que se ejecutan las aplicaciones es la misma que en la receta anterior. De hecho, para <em>avr-gdb</em>, <em>avarice</em> cumple exactamente el mismo papel que <em>simulavr</em> y lo ve de la misma manera.</p>
 <p>Lanzamos primero <em>avarice</em>, diciéndole que programe el micro si esque no lo habíamos hecho nosotros antes:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-javieralso@avalon:~$ avarice -2 &#8212;erase &#8212;program &#8212;file rs232toRS485.hex &#8212;jtag usb:1212</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span>avarice <span class="nt">-2</span> <span class="nt">--erase</span> <span class="nt">--program</span> <span class="nt">--file</span> rs232toRS485.hex <span class="nt">--jtag</span> usb:1212</code></pre></figure></div>
 <p>Ésto es exactamenet lo que hicimos antes, pero con el añadido de que además, le hemos dicho que se quede escuchando conexiones entrantes por el puerto 1212</p>
 <p>Ahora tenemos que lanzar <em>ddd</em>, pero antes necesitamos un archivo de comandos para que los ejecute al comienzo. Éste archivo es casi igual que el de la receta anterior, solo que cambian un par de cosillas, así que lo pongo tal y como lo tengo yo:</p>
 <pre>
@@ -5343,10 +5328,7 @@ continue
 <p>Bueno, podemos ver que el archivo es casi igual. Solo se ha eliminado el <em>load</em>, que aquí lo que hacía era cargar el código del micro en el simulador, cosa que no nos interesaba. También activamos la simulación remota (<em>set debug remote 1</em>).</p>
 <p>Una vez hecho ésto, solo nos queda llamar al simulador:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-javieralso@avalon:~$ ddd &#8212;debugger avr-gdb -x comandos.gdb</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span>ddd <span class="nt">--debugger</span> avr-gdb <span class="nt">-x</span> comandos.gdb</code></pre></figure></div>
 <p>y ¡¡YA ESTÁ!! a partir de ahora, lo que hagamos en <em>ddd</em> se verá reflejado en nuestra placa de desarrollo. Podremos leer variables, asignarles otros valores, etc etc etc. Eso si, existen algunas limitaciones, como por ejemplo que solo podemos tener 3 breakpoints como mucho, pero vamos, menudencias ;-)</p>
 <p>Pues nada més. Espero que lo disfrutéis como lo estoy disfrutando yo y que os sea tan útil para vuestros proyectos como lo está siendo para mi ;-)</p>
 <h2>Referencias</h2>
@@ -5415,7 +5397,7 @@ javieralso@avalon:~$ ddd &#8212;debugger avr-gdb -x comandos.gdb</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

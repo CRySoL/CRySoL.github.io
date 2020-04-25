@@ -5245,50 +5245,25 @@ mtx-changer "changer-device" "command" "slot" "archive-device" "drive-index"
 </pre>
 <p>¿Cuántas cintas tiene el carrusel?</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mtx-changer /dev/sg2 slots 2 /dev/nst0 0<br />
-6<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mtx-changer /dev/sg2 slots 2 /dev/nst0 0
+<span class="go">6</span></code></pre></figure></div>
 <p>¿Qué cinta está cargada en el lector?</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mtx-changer /dev/sg2 loaded 2 /dev/nst0 0<br />
-1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mtx-changer /dev/sg2 loaded 2 /dev/nst0 0
+<span class="go">1</span></code></pre></figure></div>
 <p>Descargar cinta actual:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mtx-changer /dev/sg2 unload 1 /dev/nst0 0<br />
-Unloading drive 0 into Storage Element 3&#8230;<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mtx-changer /dev/sg2 unload 1 /dev/nst0 0
+<span class="go">Unloading drive 0 into Storage Element 3...</span></code></pre></figure></div>
 <p>Cargar una cinta (estando el lector vacío):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mtx-changer /dev/sg2 load 3 /dev/nst0 0<br />
-Loading media from Storage Element 3 into drive 0&#8230;<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mtx-changer /dev/sg2 load 3 /dev/nst0 0
+<span class="go">Loading media from Storage Element 3 into drive 0...</span></code></pre></figure></div>
 <h2>Pruebas del lector</h2>
 <p>Ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>btape -c /etc/bacula/bacula-sd.conf /dev/nst0<br />
-*help<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>btape <span class="nt">-c</span> /etc/bacula/bacula-sd.conf /dev/nst0
+<span class="go">*help</span></code></pre></figure></div>
 <p><strong>[en construcción]</strong></p>
       </div>
 
@@ -5354,7 +5329,7 @@ Loading media from Storage Element 3 into drive 0&#8230;<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

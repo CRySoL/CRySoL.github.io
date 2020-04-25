@@ -5326,10 +5326,7 @@
       <div class="content">
 	<p>Desde que los indices de paquetes en los repositorios incluyen traducciones, las actualizaciones son aún más lentas. Esos ficheros pueden tener tamaños de varios megabytes. Pero como estas traducciones no son muy necesarias que digamos podemos configurar <code>apt</code> para indicarle qué traducciones queremos. Para eso, escribe un fichero <code>/etc/apt/apt.conf.d/99Translations</code> con el siguiente contenido:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Acquire::Languages &#8220;none&#8221;;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Acquire::Languages "none";</code></pre></figure></div>
 <p>Como podrás imaginar, esta configuración hace que <code>apt</code> no descargue <em>ninguna</em> traducción. Verás que un <code>apt-get update</code>, y sobre todo un <code>aptitude update</code>, es bastante más rápido.</p>
       </div>
 
@@ -5395,7 +5392,7 @@ Acquire::Languages &#8220;none&#8221;;<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

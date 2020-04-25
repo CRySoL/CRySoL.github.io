@@ -5289,41 +5289,26 @@
 <h2>Ponle un nombre</h2>
 <p>Esto asigna un nombre a la macro, que tendrá validez durante la sesión de emacs en curso, después se perderá. Crea la macro como se ha explicado en la sección anterior y después ejecuta:</p>
 <div>
-<p>{% highlight text <span>}<br />
-C-x C-k n<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">C-x C-k n</code></pre></figure></div>
 <p>o esto:</p>
 <div>
-<p>{% highlight text <span>}<br />
-M-x kmacro-name-last-macro<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">M-x kmacro-name-last-macro</code></pre></figure></div>
 <p>Te pedirá el nombre de la macro, que debería ser una cadena de texto (recomendable sin espacios). Para ejecutar una macro, pulsa M-x y escribe su nombre &#8212; funciona como un comando convencional.  Aquí tienes un ejemplo completo y bastante absurdo: insertar el número PI al comienzo de la línea actual:</p>
 <div>
-<p>{% highlight text <span>}<br />
-F3 C-a 3.1415927 F4<br />
-C-X C-k n PI<br />
-M-x PI<br />
-M-x PI<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">F3 C-a 3.1415927 F4
+C-X C-k n PI
+M-x PI
+M-x PI</code></pre></figure></div>
 <h2>Asígnale  una combinación de teclas</h2>
 <p>De nuevo volvemos al punto en el que acabos de definir una macro con F3/F4, no importa si tiene nombre o no. Pues ahora ejecuta:</p>
 <div>
-<p>{% highlight text <span>}<br />
-C-x C-k b<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">C-x C-k b</code></pre></figure></div>
 <p>Y te pedirá que teclees la combinación de teclas que quieres asociar a la última macro definida. Si pulsas una combinación de teclas que ya está asociada (algo extraordinariamente probable en emacs) te preguntará si la quieres usar a pesar de eso. Yo no te lo recomiendo. Busca una combinación de teclas libre, que haberlas, haylas. En último caso te queda el recurso de usar combinaciones que empiecen por C-x C-k seguidas de un número o una letra.</p>
 <h2>Guarda la macro para usarla mañana</h2>
 <p>Y si le has cogido cariño a la macro probablemente te gustará poder ponerla a buen recaudo. Para guardar una macro necesitas que tenga nombre (ya sabes cómo se hace eso). La combinación de teclas no es necesaria para poder guardar la macro aunque yo creo que es muy útil.</p>
 <p>Pues una vez tengas tu macro con su nombre y (opcionalmente) su combinación, ejecuta:</p>
 <div>
-<p>{% highlight text <span>}<br />
-M-x insert-kbd-macro <RET> nombre-de-la-macro <RET><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">M-x insert-kbd-macro &lt;RET&gt; nombre-de-la-macro &lt;RET&gt;</code></pre></figure></div>
 <p>Pero esto no la guarda en ninguna parte. Lo que hace es imprimir en el buffer actual el código Lisp necesario para definir la macro. Como habrás imaginado, debes meter ese código en tu fichero <code>.emacs</code>.</p>
 <h2>Referencia</h2>
 <ul>
@@ -5393,7 +5378,7 @@ M-x insert-kbd-macro <RET> nombre-de-la-macro <RET><br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

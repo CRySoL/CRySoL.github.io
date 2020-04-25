@@ -5219,83 +5219,47 @@ Input #0, avi, from 'video.avi':
 <h2>Trocear un fichero <span class="caps">AVI</span></h2>
 <p>Con <code>avisplit</code> del paquete <code>transcode</code>. Se pueden definir los trozos por su duración  (1:30 en el ejemplo):</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ avisplit -i original.avi -t 1:30:00<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>avisplit <span class="nt">-i</span> original.avi <span class="nt">-t</span> 1:30:00</code></pre></figure></div>
 <p>O por su tamaño:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ avisplit -i original.avi -s 700MB<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>avisplit <span class="nt">-i</span> original.avi <span class="nt">-s</span> 700MB</code></pre></figure></div>
 <h2>Concatenar ficheros <span class="caps">AVI</span></h2>
 <p>Utilizando <code>avimerge</code> del paquete <code>transcode</code>.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~$ avimerge -i parte1.avi parte2.avi -o completo.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~$</span><span class="w"> </span>avimerge <span class="nt">-i</span> parte1.avi parte2.avi <span class="nt">-o</span> completo.avi</code></pre></figure></div>
 <h2>Extraer el audio</h2>
 <p>Es decir, demultiplexar la pista de audio de un fichero <span class="caps">AVI</span>.</p>
 <p>Lo haremos con <code>mencoder</code> (del paquete del mismo nombre).</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mencoder -oac copy fichero.avi -o resultado.mp3<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mencoder <span class="nt">-oac</span> copy fichero.avi <span class="nt">-o</span> resultado.mp3</code></pre></figure></div>
 <p>Eso lo extrae en el formato original. Se puede recodificar cambiando <code>copy</code> por alguno de los codecs soportados. La lista de codecs se obtiene con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mencoder -aoc help<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mencoder <span class="nt">-aoc</span> <span class="nb">help</span></code></pre></figure></div>
 <p>Si el avi original tiene varias pistas de audio puedes elegir una con la opción <code>-aid n</code>.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mencoder -aid 2 -oac copy fichero.avi -o resultado.mp3<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mencoder <span class="nt">-aid</span> 2 <span class="nt">-oac</span> copy fichero.avi <span class="nt">-o</span> resultado.mp3</code></pre></figure></div>
 <h3>Con <code>ffmpeg</code></h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ ffmpeg -i original.avi -vn -acodec copy soloaudio.mp3<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ffmpeg <span class="nt">-i</span> original.avi <span class="nt">-vn</span> <span class="nt">-acodec</span> copy soloaudio.mp3</code></pre></figure></div>
 <h3>Con <code>mencoder</code></h3>
 <p>Se supone que se hace así, pero no funciona. Si sabes porqué, deja un comentario.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mencoder -oac copy -novideo original.avi -o soloaudio.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mencoder <span class="nt">-oac</span> copy <span class="nt">-novideo</span> original.avi <span class="nt">-o</span> soloaudio.avi</code></pre></figure></div>
 <h2>Extraer el video</h2>
 <h3>Con <code>ffmpeg</code></h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ ffmpeg -i original.avi -an -vcodec copy solovideo.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ffmpeg <span class="nt">-i</span> original.avi <span class="nt">-an</span> <span class="nt">-vcodec</span> copy solovideo.avi</code></pre></figure></div>
 <h3>Con <code>mencoder</code></h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mencoder -ovc copy -nosound original.avi -o solovideo.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mencoder <span class="nt">-ovc</span> copy <span class="nt">-nosound</span> original.avi <span class="nt">-o</span> solovideo.avi</code></pre></figure></div>
 <h2>Extraer video y audio a la vez</h2>
 <p>Esto es útil si el fichero de partida tiene varias pistas de audio y en el resultado sólo quieres una:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mencoder -aid 2 -oac copy -ovc copy original.avi -o resultado.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mencoder <span class="nt">-aid</span> 2 <span class="nt">-oac</span> copy <span class="nt">-ovc</span> copy original.avi <span class="nt">-o</span> resultado.avi</code></pre></figure></div>
 <h2>Recodificar un video</h2>
 <p>La razón más habitual para recodificar un fichero es disminuir el <em>bitrate</em>, es decir, conseguir que ocupe menos espacio, en detrimento de la calidad, claro.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ ffmpeg -i original.avi -b 700 -ab 96 -ar 32000 -acodec mp3 resultado.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ffmpeg <span class="nt">-i</span> original.avi <span class="nt">-b</span> 700 <span class="nt">-ab</span> 96 <span class="nt">-ar</span> 32000 <span class="nt">-acodec</span> mp3 resultado.avi</code></pre></figure></div>
 <ul>
 	<li><strong>-b</strong>: bitrate para el video (kb/s)</li>
 	<li><strong>-ab</strong>: bitrate para el audio (kb/s)</li>
@@ -5304,10 +5268,7 @@ $ ffmpeg -i original.avi -b 700 -ab 96 -ar 32000 -acodec mp3 resultado.avi<br />
 </ul>
 <h2>Arreglar un índice roto</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ mencoder -idx original.avi -ovc copy -oac copy -o resultado.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>mencoder <span class="nt">-idx</span> original.avi <span class="nt">-ovc</span> copy <span class="nt">-oac</span> copy <span class="nt">-o</span> resultado.avi</code></pre></figure></div>
 <h2>Multiplexar varias pistas de audio en un mismo fichero <span class="caps">AVI</span></h2>
 <p>Vamos a suponer que tenemos tres ficheros: un .avi que sólo tiene la imagen y dos .mp3 con el audio en español y en inglés.</p>
 <pre>
@@ -5323,16 +5284,10 @@ $ avimerge -i lovestory-es.avi -p lovestory-en.mp3 -o lovestory.avi
 <p>Esto se puede repetir para cualquier número de pista de auido. Los ficheros de audio que se indican con <code>-p</code> pueden ser tanto .mp3 como .avi. En caso de ser .avi obviamente el flujo de imagen se ignora.</p>
 <p>La mayoría de los reproductores libres soportan esto, incluidos mplayer, totem, xine, etc. En el caso de <code>mplayer</code> puedes elegir el canal de audio con <code>-aid</code> y el número de pista empezando en 1. Por ejemplo, el siguiente comando elige la pista de audio en inglés para el caso anterior.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mplayer -aid 2 lovestory.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mplayer <span class="nt">-aid</span> 2 lovestory.avi</code></pre></figure></div>
 <h2>Convertir a <span class="caps">AVI</span></h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mencoder -oac mp3lame -ovc lavc -lavcopts vcodec=mpeg4 -o lovestory.avi lovestory.flv<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mencoder <span class="nt">-oac</span> mp3lame <span class="nt">-ovc</span> lavc <span class="nt">-lavcopts</span> <span class="nv">vcodec</span><span class="o">=</span>mpeg4 <span class="nt">-o</span> lovestory.avi lovestory.flv</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.transcoding.org/cgi-bin/transcode?Command_Examples">transcode command examples</a></li>
@@ -5408,7 +5363,7 @@ $ mencoder -oac mp3lame -ovc lavc -lavcopts vcodec=mpeg4 -o lovestory.avi lovest
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

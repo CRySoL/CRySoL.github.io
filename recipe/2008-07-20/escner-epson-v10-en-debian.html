@@ -5338,44 +5338,26 @@
 <h2>Comprobaciones</h2>
 <p>Antes de nada debes comprobar que tu sistema es capaz de detectar el escáner. Los siguientes comandos deberían ofrecer resultados similares:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ lsusb<br />
-[&#8230;]<br />
-Bus 007 Device 007: ID 04b8:012d Seiko Epson Corp. Perfection V10/V100 (GT-S600/F650)<br />
-[&#8230;]<br />
-$ sane-find-scanner<br />
-[&#8230;]<br />
-found <span class="caps">USB</span> scanner (vendor=0&#215;04b8 [<span class="caps">EPSON</span>], product=0&#215;012d [<span class="caps">EPSON</span> Scanner]) at libusb:007:007<br />
-[&#8230;]</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>lsusb
+<span class="go">[...]
+Bus 007 Device 007: ID 04b8:012d Seiko Epson Corp. Perfection V10/V100 (GT-S600/F650)
+[...]
+</span><span class="gp">$</span><span class="w"> </span>sane-find-scanner
+<span class="go">[...]
+found USB scanner (vendor=0x04b8 [EPSON], product=0x012d [EPSON Scanner]) at libusb:007:007
+[...]</span></code></pre></figure></div>
 <h2>Drivers</h2>
 <p><strong>Después</strong> de instalar los paquetes que aparecen en el apartado &#8220;ingredientes&#8221; descarga los paquetes <tt>iscan</tt> y <tt>iscan-plugin-gt-s600</tt> de la <a href="http://www.avasys.jp/lx-bin2/linux_e/scan/DL1.do">web del fabricante</a>. Están en formato <span class="caps">RPM</span>, debes convertirlos a <span class="caps">DEB</span> con </tt>alien</tt>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>alien &#8212;scripts iscan-2.3.0-1.c2.i386.rpm</li>
-	<li>alien iscan-plugin-gt-s600-2.0.0-1.c2.i386.rpm<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>alien <span class="nt">--scripts</span> iscan-2.3.0-1.c2.i386.rpm
+<span class="gp">#</span><span class="w"> </span>alien iscan-plugin-gt-s600-2.0.0-1.c2.i386.rpm</code></pre></figure></div>
 <p>Estos paquetes incluyen ficheros que también están en la distribución de <span class="caps">SANE</span>, por lo que debes instalarlos tal como sigue:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>dpkg -i &#8212;force-overwrite iscan_2.3.0-2_i386.deb</li>
-	<li>dpkg -i &#8212;force-overwrite iscan-plugin-gt-s600_2.0.0-2_i386.deb<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-i</span> <span class="nt">--force-overwrite</span> iscan_2.3.0-2_i386.deb
+<span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-i</span> <span class="nt">--force-overwrite</span> iscan-plugin-gt-s600_2.0.0-2_i386.deb</code></pre></figure></div>
 <p>Y por último, no olvides añadir tu usuario al grupo <tt>scanner</tt>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>addgroup pepe scanner<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>addgroup pepe scanner</code></pre></figure></div>
 <p>Y con eso debería estar disponible para usar con <tt>xsane</tt>, <tt>iscan</tt>, el gimp o cualquier otro programa similar.</p>
 <h2>Referencias</h2>
 <ul>
@@ -5445,7 +5427,7 @@ found <span class="caps">USB</span> scanner (vendor=0&#215;04b8 [<span class="ca
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

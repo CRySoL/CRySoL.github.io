@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,100 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/cooking/2005-10-26/crema-de-calabacn.html">Crema de calabacín</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-26
+    
+      
+  <a href="/users.html#gloria">
+   gloria
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-26-crema-de-calabacn.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-26-crema-de-calabacn.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#cooking-ref">
+    		cooking
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/73">node/73</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <h1>Ficha</h1>
+<p>
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/cooking/2005-10-26/crema-de-calabacn.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -7964,7 +8057,7 @@
 Si tienes un programador serie de la familia <em>T20</em> o derivados estás de suerte. Ahora, con una mínima modificación en tu programador, puedes programar microcontroladores <strong>PIC</strong> utilizando la herramienta <em>PICPROG</em> que actualmente se encuentra en su versión 1.7 (y tu programador seguirá siendo compatible con <em>icprog</em>
 
 <h1>Qué necesitamos</h1>
-  
+
 Hablaremos del software. Lo único que nos hace falta es tener instalado <a href="http://www.janw.easynet.be/picprog/i386/index.html">picprog</a>. Bajamos el paquetito debian que vemos (a la hora de escribir éste documento es picprog-1.7-2_i386.deb
 Cuando tengamos el archivo, lo instalamos. Como root tecleamos
 
@@ -8279,7 +8372,7 @@ Hay que tener instalados los paquetes:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>ps aux | <span class="nb">grep </span>portmap </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>ps aux | <span class="nb">grep </span>portmap</code></pre></figure>
 </div>
 
 Deberías obtener algo así:
@@ -8359,14 +8452,14 @@ Si has cambiado el fichero <tt>/etc/exports</tt> después de iniciar el servicio
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>/etc/init.d/nfs-kernel-server restart </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>/etc/init.d/nfs-kernel-server restart</code></pre></figure>
 </div>
 
 O bien:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>exportfs <span class="nt">-ra</span> </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>exportfs <span class="nt">-ra</span></code></pre></figure>
 </div>
 
 
@@ -8376,7 +8469,7 @@ Ahora que ya tienes el servidor funcionando, prueba el acceso al directorio comp
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>mount 192.168.0.1:/home/arturo /mnt/nfs </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>mount 192.168.0.1:/home/arturo /mnt/nfs</code></pre></figure>
 </div>
 
 Esto montaría el directorio <tt>/home/arturo</tt> del servidor en <tt>/mnt/nfs</tt> del cliente. Hay que tener en cuenta que el directorio <tt>/mnt/nfs</tt> debe tener los permisos pertinentes.
@@ -8649,90 +8742,42 @@ Me refiero a algo en plan gráfico, para aprovechar la velocidad de la conexión
 </blockquote>
 <h2> Listar todos los ficheros de un paquete</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ dpkg -L nombre_paquete<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dpkg <span class="nt">-L</span> nombre_paquete</code></pre></figure></div>
 <h2> Instalar un paquete de una <em>release</em> concreta</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install -t unstable nombre_paquete<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install</span> <span class="nt">-t</span> unstable nombre_paquete</code></pre></figure></div>
 <h2> Bloquear (<em>hold</em>) un paquete para que no se actualice en los <em>upgrades</em></h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>echo nombre_paquete hold | dpkg &#8212;set-selections<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">echo </span>nombre_paquete hold | dpkg <span class="nt">--set-selections</span></code></pre></figure></div>
 <h2> Quitar el bloqueo a un paquete</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>echo nombre_paquete install | dpkg &#8212;set-selections<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">echo </span>nombre_paquete <span class="nb">install</span> | dpkg <span class="nt">--set-selections</span></code></pre></figure></div>
 <h2> Ver la versión de un paquete instalado</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ apt-cache policy nombre_paquete | grep Installed<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-cache policy nombre_paquete | <span class="nb">grep </span>Installed</code></pre></figure></div>
 <h2> Listar los paquetes que contienen cierta cadena en su nombre</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ <span class="caps">COLUMNS</span>=120 dpkg -l | grep string<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nv">COLUMNS</span><span class="o">=</span>120 dpkg <span class="nt">-l</span> | <span class="nb">grep </span>string</code></pre></figure></div>
 <h2> Obtener el estado(<em>hold</em>, <em>purge</em>) de un paquete</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ dpkg &#8212;get-selections nombre_paquete<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dpkg <span class="nt">--get-selections</span> nombre_paquete</code></pre></figure></div>
 <h2> Eliminar un paquete y sus ficheros de configuración</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>dpkg &#8212;purge nombre_paquete<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">--purge</span> nombre_paquete</code></pre></figure></div>
 <h2> Ver las dependencias de un paquete y su descripción</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ apt-cache showpkg nombre_paquete<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-cache showpkg nombre_paquete</code></pre></figure></div>
 <h2> Buscar paquetes relacionados con un término</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ apt-cache search string<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-cache search string</code></pre></figure></div>
 <h2> Posibles problemas</h2>
 <p>Al instalar un paquete, puede ocurrir que su script de post-instalación falle por alguna razón, lo cual impide que el paquete se instale correctamente.  Si eso ocurre puedes editar su script correspondiente en <tt>/var/lib/dpkg/info/<em>nombre_paquete</em>.postinst</tt> e intentar arreglarlo. Después simplemente ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>dpkg &#8212;configure -a<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>dpkg <span class="nt">--configure</span> <span class="nt">-a</span></code></pre></figure></div>
 <h2>Reinstalar todos los paquetes instalados</h2>
 <p>Útil para limpiar los binarios si el sistema ha sido infectado con un virus o un rootkit. <span class="caps">USAR</span> <span class="caps">CON</span> PRECAUCIÓN.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>for i in $(dpkg &#8212;get-selections | grep -v deinstall | awk &#8216;{print $1}&#8217;); do apt-get install -y &#8212;reinstall $i; done<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span>dpkg <span class="nt">--get-selections</span> | <span class="nb">grep</span> <span class="nt">-v</span> deinstall | <span class="nb">awk</span> <span class="s1">'{print $1}'</span><span class="si">)</span><span class="p">;</span> <span class="k">do </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> <span class="nt">--reinstall</span> <span class="nv">$i</span><span class="p">;</span> <span class="k">done</span></code></pre></figure></div>
 <h2> Enlaces</h2>
 <ul>
 <li>
@@ -8929,12 +8974,7 @@ Cómo recuperar las fotos y videos borrados por accidente de una tarjeta de memo
 <h1>Instalación</h1>
 <p>Si utilizas Debian, Ubuntu o similar es tan fácil como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install testdisk<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>testdisk</code></pre></figure></div>
 <h1>Uso</h1>
 <p>Enchufa tu cámara o disco extraible y ejecuta <tt>photorec</tt>. Para que funcione correctamente, debes tener la ventana de la consola lo suficientemente grande como para que Photorec se ejecute con normalidad. De todos modos, el programita advierte de esta cuestión.</p>
 <p>Aparecerá una lista con los dispositivos que tengas enchufados y, si pulsas <span class="caps">INTRO</span> sobre el correspondiente, comenzará el escaneo. Conforme va avanzando, Photorec informa de los archivos encontrados y tardará más o menos en función del tamaño del disco (evidentemente).</p>
@@ -9048,94 +9088,6 @@ Cómo recuperar las fotos y videos borrados por accidente de una tarjeta de memo
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2005-10-19/ati-y-libgl-so-1.html">ATI y libGL.so.1</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-10-19
-    
-      
-  <a href="/users.html#jota">
-   jota
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-19-ati-y-libgl-so-1.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-19-ati-y-libgl-so-1.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/53">node/53</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Puesto que me encuentro como tantos otros dandole vueltas a la dichosa aceleracion 3d con ATI en Ubuntu, segui un tutorial que recomendaba la eliminacion de todo lo referente al modulo fglrx que viene en los repostiorios, segui dicho tutorial y parece ser que la cosa funciona mas o menos, dmesg no me lanza ningun error relacionando con el driver ni nada por el estilo, pero cuanod ejecuto glxgears:
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/2005-10-19/ati-y-libgl-so-1.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9176,7 +9128,7 @@ Cómo recuperar las fotos y videos borrados por accidente de una tarjeta de memo
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

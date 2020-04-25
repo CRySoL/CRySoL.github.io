@@ -5339,38 +5339,26 @@
 <h2> Crear las claves </h2>
 <p>Desde del directorio <tt>$<span class="caps">HOME</span></tt> del usuario:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-pepe@cliente:~$ ssh-keygen -b 4096 -t rsa</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@cliente:~$</span><span class="w"> </span>ssh-keygen <span class="nt">-b</span> 4096 <span class="nt">-t</span> rsa</code></pre></figure></div>
 <p>Eso genera <tt>$<span class="caps">HOME</span>/.ssh/id_rsa</tt> y <tt>$<span class="caps">HOME</span>/.ssh/id_rsa.pub</tt> que son las claves privada y publica para el sistema <span class="caps">RSA</span>.</p>
 <h2> Copiar la clave pública a otros hosts </h2>
 <p>Con el programa específico que viene con <span class="caps">SSH</span> (la forma correcta):</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-pepe@cliente$ ssh-copy-id pepe@servidor<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@cliente$</span><span class="w"> </span>ssh-copy-id pepe@servidor</code></pre></figure></div>
 <p>La primera vez que se accede a una máquina se almacena su <em>host_key</em> en el fichero <tt>$<span class="caps">HOME</span>/.ssh/know_hosts</tt>. A partir se ese momento puedes utilizar <code>ssh</code> y <code>scp</code> con esa máquina sin necesidad de escribir la clave.</p>
 <p>Evidentemente, esto se puede repetir para cualquier pareja de máquinas y en ambos sentidos si se desea.</p>
 <h3>Formas alternativas</h3>
 <p>En la gran mayoría de las máquinas en las que tengas un <span class="caps">SSH</span> mínimamente moderno podrás utilizar el método explicado en la sección anterior. Si por cualquier razón resulta que no dispones del programa <code>ssh-copy-id</code> hay formas alternativas de lograr lo mismo.</p>
 <p>Copiando a mano  la clave pública de tu usuario@host en el fichero <code>authorized_keys</code> de la máquina que quieres que te deje entrar sin clave.</p>
 <div class="console">
-<p>{% highlight console %}<br />
-pepe@cliente:~$ scp .ssh/id_rsa.pub pepe@servidor:.ssh/nueva_clave<br />
-pepe@cliente:~$ ssh pepe@servidor<br />
-pepe@servidor:~$ cd .ssh/<br />
-pepe@servidor:~$ cat nueva_clave &gt;&gt; authorized_keys<br />
-pepe@servidor:~$ rm nueva_clave</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@cliente:~$</span><span class="w"> </span>scp .ssh/id_rsa.pub pepe@servidor:.ssh/nueva_clave
+<span class="gp">pepe@cliente:~$</span><span class="w"> </span>ssh pepe@servidor
+<span class="gp">pepe@servidor:~$</span><span class="w"> </span><span class="nb">cd</span> .ssh/
+<span class="gp">pepe@servidor:~$</span><span class="w"> </span><span class="nb">cat </span>nueva_clave <span class="o">&gt;&gt;</span> authorized_keys
+<span class="gp">pepe@servidor:~$</span><span class="w"> </span><span class="nb">rm </span>nueva_clave</code></pre></figure></div>
 <p>Y lo mismo pero en un sólo comando:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-pepe@cliente$ cat ~/.ssh/id_rsa.pub | ssh pepe@servidor &#8216;cat &#8211; &gt;&gt; ~/.ssh/authorized_keys&#8217;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@cliente$</span><span class="w"> </span><span class="nb">cat</span> ~/.ssh/id_rsa.pub | ssh pepe@servidor <span class="s1">'cat - &gt;&gt; ~/.ssh/authorized_keys'</span></code></pre></figure></div>
 <p>En todos los casos, el directorio <code>.ssh</code> en el servidor debe existir y el fichero <code>authorized_keys</code> debe tener los permisos correctos (0600).</p>
 <h2> Permisos </h2>
 <p>El servidor de <span class="caps">SSH</span> suele asegurarse de que las claves públicas no están comprometidas, para ello hay que activar la opción <tt>StrictModes</tt> en el fichero /etc/ssh/sshd_config.  Para ello comprueba los permisos de la ruta <tt>$<span class="caps">HOME</span>/.ssh/authorized_keys</tt>.  Este fichero debe tener permisos 600 y el directorio  <tt>.ssh</tt> debe tener permisos 700. De no haber activado esta opción no es necesario establecer permisos especiales para esos ficheros.</p>
@@ -5394,16 +5382,10 @@ Host key verification failed.
 <p>Esto se debe a que la clave pública del host al que intentas conectar es diferente que la tú tienes registrada. Éste puede ser un signo de que algo va mal, alguien está suplantado esa maquina. Pero la mayoría de las veces se debe a que se ha regenerado la clave pública del host o se ha instalado otra versión, etc, etc.</p>
 <p>En ese caso, lo que debes hacer el borrar la clave pública que tienes almacenada para esa máquina. El mensaje de advertencia indica que debes borrar una línea concreta de tu fichero <tt>~/.ssh/known_hosts</tt>, que es la que contiene la famosa clave. Eso puedes hacerlo con cualquier editor de texto o puedes ejecutar simplemente esto:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ ex -c &#8220;<b>8</b>d|x&#8221; ~/.ssh/known_hosts<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ex <span class="nt">-c</span> <span class="s2">"&lt;b&gt;8&lt;/b&gt;d|x"</span> ~/.ssh/known_hosts</code></pre></figure></div>
 <p>o también:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ sed -i <b>8</b>d ~/.ssh/known_hosts<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sed</span> <span class="nt">-i</span> &lt;b&gt;8&lt;/b&gt;d ~/.ssh/known_hosts</code></pre></figure></div>
 <p>en el caso de que sea la línea 8, que es el que aparece en el ejemplo anterior.</p>
 <h2> Enlaces </h2>
 <ul>
@@ -5483,7 +5465,7 @@ $ sed -i <b>8</b>d ~/.ssh/known_hosts<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

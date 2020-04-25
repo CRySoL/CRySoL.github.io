@@ -5608,73 +5608,43 @@
 <h2>La herramienta tc: comándos básicos</h2>
 <p>Vamos con algunos comandos, de aqui en adelante si queremos ver como van nuestras colas:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ tc -s qdisc ls dev eth0<br />
-qdisc pfifo_fast 0: root bands 3 priomap  1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1<br />
- Sent 287345331 bytes 846853 pkt (dropped 0, overlimits 0 requeues 0)<br />
- rate 0bit 0pps backlog 0b 0p requeues 0</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>tc <span class="nt">-s</span> qdisc <span class="nb">ls </span>dev eth0
+<span class="go">qdisc pfifo_fast 0: root bands 3 priomap  1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1
+ Sent 287345331 bytes 846853 pkt (dropped 0, overlimits 0 requeues 0)
+ rate 0bit 0pps backlog 0b 0p requeues 0</span></code></pre></figure></div>
 <p>Un comandito muy útil para eliminar todo y dejarlo con la configuración por defecto:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ tc qdisc del dev eth0 root<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>tc qdisc del dev eth0 root</code></pre></figure></div>
 <p>Vamos con un ejemplo, si queremos limitar el tráfico ip de salida a 5 kbps debemos realizar los siguientes pasos:</p>
 <p>Primero añadimos la gestión de colas htb a la raíz de nuestro dispositivo (en este caso eth0):</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ tc qdisc add dev eth0 root handle 1: htb default 1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>tc qdisc add dev eth0 root handle 1: htb default 1</code></pre></figure></div>
 <p>Este primer comando define una cola que se añade a la raiz (root) con un manejador handle 1: y que<br />
 por defecto manda el tráfico a la clase de tráfico 1.</p>
 <p>Ahora creamos la clase de tráfico:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps ceil 5kbps<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps ceil 5kbps</code></pre></figure></div>
 <p>Para esta clase de tráfico, el  padre es la qdisc que acabamos de crear (parent 1:) y cuyo identificador es 1 (classid 1:1). Por último, la parte de comando que delimita el ancho de banda que pueden consumir viene determinado por la parte del comando &#8220;rate 1kbps ceil 5 kbps&#8221; que le dice al kernel, que, asegure una tasa de 1kbps en caso de congestión y que como mucho esa clase puede llegar a 5 kbps. Si no ponemos la parte ceil, la clase consumirá todo el ancho de banda sobrante que quede (esto es así por que estamos usando <span class="caps">HTB</span>).</p>
 <p>En teoría ya esta todo, al indicarle al crear la cola que la clase por defecto es la 1, todo el tráfico es dirigido a esa clase que ya esta limitada. Ahora bien, si queremos indicarle explícitamente que mande todo el tráfico ip a esa clase debemos crear un filtro:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ tc filter add dev eth0 protocol ip parent 1: handle 1 fw classid 1:1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>tc filter add dev eth0 protocol ip parent 1: handle 1 fw classid 1:1</code></pre></figure></div>
 <p>De nuevo le indicamos que el parent es la qdisc htb root (parent 1:), el manejador de este filtro es el 1 y la acción es forwardear todo el protocolo ip (protocol ip) a la clase 1:1 (fw classid 1:1).</p>
 <p>Varios temas, primero sólo podemos controlar el tráfico que sale por eth0, para controlar el tráfico de entrada hay que trabajar con la cola de entrada (ingress). A menos que estes probando cosas, es recomendable meter tu configuración (lista de comandos) en un script ya que es frecuente cometer errores, y aunque se pueden cambiar las especificaciones, muchas veces puede ser lioso.</p>
 <h3> Viendo como va nuestra configuración</h3>
 <p>Si queremos ver como va nuestra configuración de filtros:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>tc filter show dev eth0<br />
-filter parent 1: protocol ip pref 49152 fw<br />
-filter parent 1: protocol ip pref 49152 fw handle 0&#215;1 classid 1:1</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>tc filter show dev eth0
+<span class="go">filter parent 1: protocol ip pref 49152 fw
+filter parent 1: protocol ip pref 49152 fw handle 0x1 classid 1:1</span></code></pre></figure></div>
 <p>Nuestras clases:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>tc class show dev eth0<br />
-class htb 1:1 root prio 0 rate 8000bit ceil 40000bit burst 1603b cburst 1619b</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>tc class show dev eth0
+<span class="go">class htb 1:1 root prio 0 rate 8000bit ceil 40000bit burst 1603b cburst 1619b</span></code></pre></figure></div>
 <p>El rate es en bit, le pusimos 1kb es decir 1000*8 bits (lo coge en bytes).</p>
 <p>Y las colas:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>tc qdisc show dev eth0<br />
-qdisc htb 1: r2q 10 default 1 direct_packets_stat 294</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>tc qdisc show dev eth0
+<span class="go">qdisc htb 1: r2q 10 default 1 direct_packets_stat 294</span></code></pre></figure></div>
 <p>Cada sistema de colas diferentes tiene comandos y parámetros específicos , en algunos casos puedes añadirle a las clases de tráfico qdisc propias que tienen nuevas clases (en forma de árbol) por lo que las combinaciones son múltiples.</p>
 <h2>Algunas referencias:</h2>
 <ul>
@@ -5746,7 +5716,7 @@ qdisc htb 1: r2q 10 default 1 direct_packets_stat 294</li>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5159,33 +5159,21 @@
 <p>Para pasar los .rpm a .deb hay que usar alien. El modo de actuar es el siguiente:</p>
 <p>Con esto lo convierte e instala a la vez:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ alien -i archivo.rpm</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>alien <span class="nt">-i</span> archivo.rpm</code></pre></figure></div>
 <p>Así solamente lo pasas a .deb:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ alien -d archivo.rpm</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>alien <span class="nt">-d</span> archivo.rpm</code></pre></figure></div>
 <p>Y así lo instalas (una vez pasado a .deb):</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ dpkg -i paquete.deb</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dpkg <span class="nt">-i</span> paquete.deb</code></pre></figure></div>
 <h1><span class="caps">TAR</span>.GZ</h1>
 <p>Es muy fácil:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ tar xfz nombre-del-paquete.tar.gz<br />
-$ cd nombre-del-paquete<br />
-$ ./configure<br />
-$ make<br />
-$ sudo checkinstall</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">tar </span>xfz nombre-del-paquete.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>nombre-del-paquete
+<span class="gp">$</span><span class="w"> </span>./configure
+<span class="gp">$</span><span class="w"> </span>make
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>checkinstall</code></pre></figure></div>
 <p>Con esto tendremos hecho nuestro paquetito.deb para hacer con él lo que queramos. Instalarlo, por ejemplo.</p>
 <h1>Referencias</h1>
 <ul>
@@ -5255,7 +5243,7 @@ $ sudo checkinstall</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

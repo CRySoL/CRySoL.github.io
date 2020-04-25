@@ -5469,78 +5469,84 @@
 <p><!--break--></p>
 <p>Crear un servidor Ice es muy fácil con ayuda de la clase <em>Ice.Application</em>. El <em>communicator()</em> corre en un hilo distinto dejando libre el flujo actual para realizar otras tareas. Lo habitual después de configurar el adaptador y arrancar el comunicador, es invocar el método <em>waitForShutdown()</em> en espera de que el servidor acabe. Este es un servidor mínimo en Python aplicando esa idea:</p>
 <div>
-<p>{% highlight python %}<br />
-import sys, Ice</p>
-<p>class Hello(Ice.Object):<br />
-    def ice_ping(self, current=None):<br />
-        print &#8220;ping()&#8221;</p>
-<p>class Server(Ice.Application):<br />
-    def run(self, argv):<br />
-        adapter = self.communicator().\<br />
-                  createObjectAdapterWithEndpoints(&#8220;Server&#8221;, &#8220;default -p 9999&#8221;)</p>
-adapter.add(Hello(), Ice.stringToIdentity(&#8220;Hello&#8221;))
-adapter.activate()
-self.shutdownOnInterrupt()
-self.communicator().waitForShutdown()
-return 0
-<p>sys.exit(Server().main(sys.argv))<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">Ice</span>
+
+<span class="k">class</span> <span class="nc">Hello</span><span class="p">(</span><span class="n">Ice</span><span class="p">.</span><span class="n">Object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ice_ping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"ping()"</span>
+
+<span class="k">class</span> <span class="nc">Server</span><span class="p">(</span><span class="n">Ice</span><span class="p">.</span><span class="n">Application</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+        <span class="n">adapter</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">communicator</span><span class="p">().</span>\
+                  <span class="n">createObjectAdapterWithEndpoints</span><span class="p">(</span><span class="s">"Server"</span><span class="p">,</span> <span class="s">"default -p 9999"</span><span class="p">)</span>
+
+        <span class="n">adapter</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Hello</span><span class="p">(),</span> <span class="n">Ice</span><span class="p">.</span><span class="n">stringToIdentity</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">))</span>
+        <span class="n">adapter</span><span class="p">.</span><span class="n">activate</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">shutdownOnInterrupt</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">communicator</span><span class="p">().</span><span class="n">waitForShutdown</span><span class="p">()</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+<span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="n">Server</span><span class="p">().</span><span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">))</span></code></pre></figure></div>
 <p>A efectos de pruebas, el cliente sería:</p>
 <div>
-<p>{% highlight python %}<br />
-import sys, Ice</p>
-<p>class Client (Ice.Application):<br />
-    def run(self, argv):<br />
-        base = self.communicator().stringToProxy(&#8220;Hello:default -p 9999&#8221;)<br />
-        base.ice_ping()<br />
-        return 0</p>
-<p>sys.exit(Client().main(sys.argv))<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">Ice</span>
+
+<span class="k">class</span> <span class="nc">Client</span> <span class="p">(</span><span class="n">Ice</span><span class="p">.</span><span class="n">Application</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">communicator</span><span class="p">().</span><span class="n">stringToProxy</span><span class="p">(</span><span class="s">"Hello:default -p 9999"</span><span class="p">)</span>
+        <span class="n">base</span><span class="p">.</span><span class="n">ice_ping</span><span class="p">()</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+<span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="n">Client</span><span class="p">().</span><span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">))</span></code></pre></figure></div>
 <p>Ahora imagina que, en el servidor, necesitas ejecutar un método cada 2 segundos. Una forma sencilla es utilizar el bucle de eventos de <em>gobject</em>, es decir, algo como lo siguiente (sólo pongo la clase <em>Server</em>):</p>
 <div>
-<p>{% highlight python %}<br />
-class Server(Ice.Application):<br />
-    def run(self, argv):<br />
-        adapter = self.communicator().\<br />
-                  createObjectAdapterWithEndpoints(&#8220;Server&#8221;, &#8220;default -p 9999&#8221;)</p>
-adapter.add(HelloI(), Ice.stringToIdentity(&#8220;Hello&#8221;))
-adapter.activate()
-self.shutdownOnInterrupt()
-gobject.threads_init()
-gobject.timeout_add(2000, self.event)
-self.loop = gobject.MainLoop()
-self.loop.run()
-return 0
-def event(self):
-print &#8216;Event!&#8217;
-return True
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Server</span><span class="p">(</span><span class="n">Ice</span><span class="p">.</span><span class="n">Application</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+        <span class="n">adapter</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">communicator</span><span class="p">().</span>\
+                  <span class="n">createObjectAdapterWithEndpoints</span><span class="p">(</span><span class="s">"Server"</span><span class="p">,</span> <span class="s">"default -p 9999"</span><span class="p">)</span>
+
+        <span class="n">adapter</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">HelloI</span><span class="p">(),</span> <span class="n">Ice</span><span class="p">.</span><span class="n">stringToIdentity</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">))</span>
+        <span class="n">adapter</span><span class="p">.</span><span class="n">activate</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">shutdownOnInterrupt</span><span class="p">()</span>
+
+        <span class="n">gobject</span><span class="p">.</span><span class="n">threads_init</span><span class="p">()</span>
+        <span class="n">gobject</span><span class="p">.</span><span class="n">timeout_add</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">loop</span> <span class="o">=</span> <span class="n">gobject</span><span class="p">.</span><span class="n">MainLoop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">loop</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">'Event!'</span>
+        <span class="k">return</span> <span class="bp">True</span></code></pre></figure></div>
 <p>Y esto funciona bien salvo por una pequeña pero desesperante cuestión: el programa no se cierra al pulsar Ctrl-C. Para arreglarlo, parece que lo más sencillo es usar otro método de <em>Ice.Applicacion</em> llamado <tt>callbackOnInterrupt()</tt> que provoca la ejecución del método especial <tt>interruptCallback()</tt> cuando se produce alguna de las <a href="http://www.zeroc.com/doc/Ice-3.2.0/manual/Cpps.9.3.html#64174">señales prefijadas</a>. Se puede aprovechar la ejecución de ese método para terminar el bucle de eventos de gobject. De tal modo que el servidor quedaría algo como:</p>
 <div>
-<p>{% highlight python %}<br />
-class Server(Ice.Application):<br />
-    def run(self, argv):<br />
-        adapter = self.communicator().\<br />
-                  createObjectAdapterWithEndpoints(&#8220;Server&#8221;, &#8220;default -p 9999&#8221;)</p>
-adapter.add(HelloI(), Ice.stringToIdentity(&#8220;Hello&#8221;))
-adapter.activate()
-self.callbackOnInterrupt()
-gobject.threads_init()
-gobject.timeout_add(2000, self.event)
-self.loop = gobject.MainLoop()
-self.loop.run()
-self.communicator().shutdown()
-return 0
-def interruptCallback(self, args):
-gobject.idle_add(self.loop.quit)
-def event(self):
-print &#8216;Event!&#8217;
-return True
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Server</span><span class="p">(</span><span class="n">Ice</span><span class="p">.</span><span class="n">Application</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
+        <span class="n">adapter</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">communicator</span><span class="p">().</span>\
+                  <span class="n">createObjectAdapterWithEndpoints</span><span class="p">(</span><span class="s">"Server"</span><span class="p">,</span> <span class="s">"default -p 9999"</span><span class="p">)</span>
+
+        <span class="n">adapter</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">HelloI</span><span class="p">(),</span> <span class="n">Ice</span><span class="p">.</span><span class="n">stringToIdentity</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">))</span>
+        <span class="n">adapter</span><span class="p">.</span><span class="n">activate</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">callbackOnInterrupt</span><span class="p">()</span>
+
+        <span class="n">gobject</span><span class="p">.</span><span class="n">threads_init</span><span class="p">()</span>
+        <span class="n">gobject</span><span class="p">.</span><span class="n">timeout_add</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">loop</span> <span class="o">=</span> <span class="n">gobject</span><span class="p">.</span><span class="n">MainLoop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">loop</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">communicator</span><span class="p">().</span><span class="n">shutdown</span><span class="p">()</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">interruptCallback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="n">gobject</span><span class="p">.</span><span class="n">idle_add</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">loop</span><span class="p">.</span><span class="n">quit</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">'Event!'</span>
+        <span class="k">return</span> <span class="bp">True</span></code></pre></figure></div>
 <p>En la próxima entrega, lo mismo, pero en C++&#8230;</p>
       </div>
 
@@ -5606,7 +5612,7 @@ return True
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

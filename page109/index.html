@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,116 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-01-06/duke-nukem-3d-en-gnu-linux-come-get-some.html">Duke Nukem 3D en GNU/Linux, Come get some!!</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-01-06
+    
+      
+  <a href="/users.html#fsancho">
+   fsancho
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-06-duke-nukem-3d-en-gnu-linux-come-get-some.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-06-duke-nukem-3d-en-gnu-linux-come-get-some.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/171">node/171</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <table>
+<tr>
+<td>
+<p>
+Hace tiempo, concretamente el pasado 12 de Enero de 2004, 3DRealms liberó el <a href="ftp://ftp.3drealms.com/source/duke3dsource.zip">código fuente</a> de uno de sus mejores juegos de todos los tiempos, Duke Nukem 3D. Desde aquel momento muchos programadores comenzaron a intentar adaptar el juego a los nuevos sistemas operativos.
+
+No tardaron en llegar las primeras versiones para GNU/Linux, que con mas o menos dificultades consiguieron que se pudiese jugar.
+</p>
+</td>
+<td width="20%" align="center">
+<img src="/files/171-dukenukem3d.jpg"/>
+</td>
+</tr>
+</table>
+
+
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2006-01-06/duke-nukem-3d-en-gnu-linux-come-get-some.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8334,43 +8443,31 @@ Esta receta explica formas de conocer la IP pública con la que te estás concec
 <p><a href='http://www.nowredirect.com/ipchecker' target='_blank'><img src='http://www.nowredirect.com/ipchecker/ipimage.php' border='0' width='140' height='22' title='Powered by IPChecker'></a></p>
 <h2> Shell </h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>lynx -dump http://checkip.dyndns.org/ | grep IP | awk {&#8217;print $4&#8217;}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">lynx -dump http://checkip.dyndns.org/ | grep IP | awk {'print $</span>4<span class="s1">'}</span></code></pre></figure></div>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ curl -s checkip.dyndns.org | grep -Eo &#8216;[0-9\.]+&#8217;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>curl <span class="nt">-s</span> checkip.dyndns.org | <span class="nb">grep</span> <span class="nt">-Eo</span> <span class="s1">'[0-9\.]+'</span></code></pre></figure></div>
 <h2> Shell (avisa por mail)</h2>
 <div>
-<p>{% highlight text %}<br />
-#!/bin/bash</p>
-<ol>
-	<li>Requiere los paquetes &#8220;mailx&#8221; y &#8220;lynx&#8221;</li>
-	<li>Te envía un email cada vez que te cambia la IP pública. Ejecutar en background</li>
-</ol>
-<p>while true<br />
-do<br />
-    old_ip=&#8220;`cat ~/public.ip 2&gt; /dev/null`&#8221;<br />
-    new_ip=&#8220;`lynx -source http://www.whatismyip.com/ | grep &#8216;&lt;TITLE&gt;&#8217; | awk &#8216;{print $4}&#8217;`&#8221;</p>
-if [ &#8220;$old_ip&#8221; != &#8220;$new_ip&#8221; ]; then
-echo $new_ip | mail tu@email.com -s &#8220;Tu IP ha cambiado&#8221;
-echo $new_ip &gt; ~/public.ip
-fi
-sleep 60
-<p>done<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/bash
+# Requiere los paquetes "mailx" y "lynx"
+# Te envía un email cada vez que te cambia la IP pública. Ejecutar en background
+
+while true
+do
+    old_ip="`cat ~/public.ip 2&gt; /dev/null`"
+    new_ip="`lynx -source http://www.whatismyip.com/ | grep '&amp;lt;TITLE&gt;' | awk '{print $4}'`"
+
+    if [ "$old_ip" != "$new_ip" ]; then
+        echo $new_ip | mail tu@email.com -s "Tu IP ha cambiado"
+        echo $new_ip &gt; ~/public.ip
+    fi
+    sleep 60
+done</code></pre></figure></div>
 <h2> <span class="caps">PHP</span> </h2>
 <div>
-<p>{% highlight php <span>}<br />
-&lt;?php<br />
-echo &quot;Tu dirección IP externa es: &quot;, $<em><span class="caps">SERVER</span>[&#8217;REMOTE</em>ADDR&#8217;];<br />
-?&gt;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="s2">"Tu dirección IP externa es: "</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'REMOTE_ADDR'</span><span class="p">];</span>
+<span class="cp">?&gt;</span></code></pre></figure></div>
     
   </div>
 
@@ -8751,105 +8848,6 @@ echo &quot;Tu dirección IP externa es: &quot;, $<em><span class="caps">SERVER</
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/tale/2005-12-17/escuchar-los-40-principales-por-internet-con-mplayer.html">Escuchar los 40 principales por internet con mplayer</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-12-17
-    
-      
-  <a href="/users.html#aledelgal">
-   aledelgal
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-12-17-escuchar-los-40-principales-por-internet-con-mplayer.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-12-17-escuchar-los-40-principales-por-internet-con-mplayer.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#tale-ref">
-    		tale
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/158">node/158</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Pues eso, para estar escuchando algo mientras estás...estudiando/trabajando.
-Si lo quieres sin entorno gráfico (el de mplayer) escribe esto en la consola:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mplayer <span class="nt">-playlist</span> http://www.los40.com/nuevo_player/40Principales.asx</code></pre></figure>
-</div>
-
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/tale/2005-12-17/escuchar-los-40-principales-por-internet-con-mplayer.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8890,7 +8888,7 @@ Si lo quieres sin entorno gráfico (el de mplayer) escribe esto en la consola:
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

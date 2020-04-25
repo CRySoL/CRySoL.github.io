@@ -5239,7 +5239,7 @@
 	<!--break-->
 
 
-Desde que cambié de kernel me quedé sin conexión a Internet. Compilaba y recompilaba los drivers de mi módem, pero no había manera, así que me puse a buscar información, hasta que por fin vi la luz: al parecer, desde el kernel 2.6.10 los drivers para modems adsl usb (eagle-usb) están siendo reemplazados por ueagle-atm, en especial y sobre todo a partir del kernel 2.6.15. 
+Desde que cambié de kernel me quedé sin conexión a Internet. Compilaba y recompilaba los drivers de mi módem, pero no había manera, así que me puse a buscar información, hasta que por fin vi la luz: al parecer, desde el kernel 2.6.10 los drivers para modems adsl usb (eagle-usb) están siendo reemplazados por ueagle-atm, en especial y sobre todo a partir del kernel 2.6.15.
 
 <h2>Ingredientes</h2>
 Esta es la configuración que yo tengo y con la que he conseguido ponerlo en marcha:
@@ -5271,12 +5271,12 @@ En el directorio de los drivers, edita el fichero Makefile y déjalo así:
 <span class="nv">obj-m</span> <span class="o">+=</span> usbatm.o
 
 <span class="nl">all</span><span class="o">:</span>
-	<span class="nv">$(MAKE)</span> <span class="nt">-C</span> <span class="nv">$(KERNELDIR)</span> <span class="nv">M</span><span class="o">=</span><span class="nv">$(PWD)</span> 
+	<span class="nv">$(MAKE)</span> <span class="nt">-C</span> <span class="nv">$(KERNELDIR)</span> <span class="nv">M</span><span class="o">=</span><span class="nv">$(PWD)</span>
 <span class="c">#EXTRA_CFLAGS="-DDEBUG"
 </span>
 <span class="nl">nodebug</span><span class="o">:</span>
 	<span class="nv">$(MAKE)</span> <span class="nt">-C</span> <span class="nv">$(KERNELDIR)</span> <span class="nv">M</span><span class="o">=</span><span class="nv">$(PWD)</span>
-	
+
 <span class="nl">clean</span><span class="o">:</span>
 	<span class="nv">$(MAKE)</span> <span class="nt">-C</span> <span class="nv">$(KERNELDIR)</span> <span class="nv">M</span><span class="o">=</span><span class="nv">$(PWD)</span> clean
 
@@ -5454,7 +5454,7 @@ Special thanks to int-0, alias Tobías.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

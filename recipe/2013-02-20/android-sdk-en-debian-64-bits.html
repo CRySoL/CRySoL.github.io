@@ -5351,12 +5351,9 @@
       <div class="content">
 	<p>El <span class="caps">SDK</span> de android (en concreto <code>adb</code>) requiere algunas librerías para i386. Si tienes una distribución de 64 bits necesitas instalar algunos paquetes adicionales que permiten usar dichas librerías. Simplemente ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo dpkg &#8212;add-architecture i386<br />
-$ sudo apt-get update<br />
-$ sudo apt-get install libc6:i386 libstdc++6:i386<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>dpkg <span class="nt">--add-architecture</span> i386
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get update
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>libc6:i386 libstdc++6:i386</code></pre></figure></div>
       </div>
 
       
@@ -5421,7 +5418,7 @@ $ sudo apt-get install libc6:i386 libstdc++6:i386<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

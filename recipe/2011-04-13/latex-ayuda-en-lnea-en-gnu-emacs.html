@@ -5216,10 +5216,7 @@
 </ul>
 <p>Emacs pregunta:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Package, command, or document:<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Package, command, or document:</code></pre></figure></div>
 <p>Escribe el nombre del paquete, por ejemplo «titlesec» y pulsa Intro. Automáticamente Emacs descargará y abrirá el <span class="caps">PDF</span> correspondiente. Si el cursor estaba encima del nombre del paquete, tomará esa palabra como paquete a buscar.</p>
 <h2>Documentación sobre comandos</h2>
 <p>Supuestamente lo anterior debería debería servir también para buscar documentación sobre los comando LaTeX, (como por ejemplo <code>\pagestyle</code>) pero lo cierto es que a día de hoy no funciona. Por suerte hay solución.</p>
@@ -5228,24 +5225,18 @@ Package, command, or document:<br />
 	<li>También necesitas el paquete <code>ltx-help.el</code> para Emacs. Lamentablemente la versión oficial tiene un bug en el comando clave, pero tienes una versión parcheada en <a href="https://arco.esi.uclm.es/svn/public/prj/ltx-help/ltx-help.el">https://arco.esi.uclm.es/svn/public/prj/ltx-help/ltx-help.el</a>. Pon ese fichero en tu directorio <code>~/.emacs.d</code> y añade lo siguiente a tu <code>.emacs</code>:</li>
 </ul>
 <div>
-<p>{% highlight text <span>}<br />
-(add-to-list &#8217;load-path (expand-file-name &#8220;~/.emacs.d&#8221;))<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(add-to-list 'load-path (expand-file-name "~/.emacs.d"))</code></pre></figure></div>
 <p>Como alternativa a la «instalación manual» tienes la opción de hacerlo con <a href="el-get">el-get</a> con la siguiente configuración en tu <code>.emacs</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-(require &#8217;el-get)<br />
-(setq el-get-sources<br />
-  &#8217;(<br />
-	(:name ltx-help<br />
-		   :type svn<br />
-		   :url &#8220;https://arco.esi.uclm.es/svn/public/prj/ltx-help&#8221;)<br />
-	)<br />
-   )<br />
-(el-get)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(require 'el-get)
+(setq el-get-sources
+  '(
+	(:name ltx-help
+		   :type svn
+		   :url "https://arco.esi.uclm.es/svn/public/prj/ltx-help")
+	)
+   )
+(el-get)</code></pre></figure></div>
 <p>Ahora puedes abrir tu fichero LaTeX y ejecutar <code>M-x latex-help</code>. Escribe el comando del que deseas ayuda (p.ej. \pagestyle@) y pulsa Intro. Igual que antes, si tienes el cursor sobre un comando lo utilizará como búsqueda por defecto.</p>
 <h2>Comentario</h2>
 <p>Todo esto lo he vi en Emacs Wiki (ahí abajo está la referencia) y funciona razonablemente. Se supone que el modo InfoLook debería poder buscar en cualquier fichero info sin más que decirle el nombre e indice dónde buscar, pero yo al menos no he conseguido que funcione. Si alguien conoce una forma más limpia y sencilla de configurar esto que deje un comentario, por favor.</p>
@@ -5318,7 +5309,7 @@ Package, command, or document:<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

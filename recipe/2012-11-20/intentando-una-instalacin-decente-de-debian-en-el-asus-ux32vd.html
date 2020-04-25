@@ -5323,11 +5323,8 @@
 <h2>Instalación</h2>
 <p>Descarga y «tuesta» esta <span class="caps">ISO</span> en un pendrive:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ wget http://cdimage.debian.org/cdimage/unofficial/efi-development/upload4/debian-wheezy-amd64-i386-MA-efi-test4.iso<br />
-$ dd if=debian-wheezy-amd64-i386-MA-efi-test4.iso of=/dev/sd<tu pendrive><br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>wget http://cdimage.debian.org/cdimage/unofficial/efi-development/upload4/debian-wheezy-amd64-i386-MA-efi-test4.iso
+<span class="gp">$</span><span class="w"> </span><span class="nb">dd </span><span class="k">if</span><span class="o">=</span>debian-wheezy-amd64-i386-MA-efi-test4.iso <span class="nv">of</span><span class="o">=</span>/dev/sd&lt;tu pendrive&gt;</code></pre></figure></div>
 <p>Arranca con el pendrive y haz una instalación normal para amd-64. Este instalador ya respeta la partición <span class="caps">EFI</span>. Si quieres eliminar todo lo que hay en el disco tendrás que crear una partición <span class="caps">EFI</span> nueva. Yo he instalado la debian en el disco <span class="caps">SSD</span>. El maravilloso Windows 8 que viene preinstalado ha volado, pero no he tocado sus particiones por el momento. Si estás interesado en respetar el Windows, busca otra receta :-P</p>
 <h2>¿Qué funciona tal cual?</h2>
 <p>Recién instalado y sin configurar nada, la cosa está así:</p>
@@ -5432,7 +5429,7 @@ $ dd if=debian-wheezy-amd64-i386-MA-efi-test4.iso of=/dev/sd<tu pendrive><br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

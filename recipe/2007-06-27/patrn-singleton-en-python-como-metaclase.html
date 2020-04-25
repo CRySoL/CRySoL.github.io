@@ -5332,66 +5332,64 @@
 <h2>Patrón <em>singleton</em> como metaclase</h2>
 <p>El <a href="http://es.wikipedia.org/wiki/Singleton_(patr%C3%B3n_de_dise%C3%B1o)"><em>singletón</em></a> es un patrón de diseño muy popular. Se trata de un artificio que impide que pueda existir más una instancia de cierta clase. Si se intenta crear dos o más objetos de esa clase, se obtiene siempre la misma instancia (la única que puede haber). Sería algo como:</p>
 <div>
-<p>{% highlight python <span>}<br />
-&gt;&gt;&gt; a = ClaseSingleton()<br />
-&gt;&gt;&gt; b = ClaseSingleton()<br />
-&gt;&gt;&gt; a == b<br />
-&#8230; True<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">ClaseSingleton</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ClaseSingleton</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+<span class="p">...</span> <span class="bp">True</span></code></pre></figure></div>
 <p>Esa es la teoría, en la práctica las limitaciones de los lenguajes de programación no siempre permiten que el patrón se pueda implementar de una forma tan transparente. En esos casos (Java, C++, etc) el constructor de la clase se hace privado y se implementa un método <code>get_instance()</code> o algo parecido.</p>
 <p>Pero Python siempre da la nota, y esta vez no podía ser menos. Por medio de una metaclase se puede implementar el <em>singleton</em> de una forma elegante y completamente transparente para el usuario de la clase.</p>
 <p>Una primera aproximación sencilla sería algo como:</p>
 <div>
-<p>{% highlight python %}<br />
-class Singleton(type):<br />
-    def <i>init</i>(cls, name, bases, dct):<br />
-        cls.<i>instance = None<br />
-        type.</i>init__(cls, name, bases, dct)</p>
-def <i>new</i>(cls, name, bases, dct):
-if cls.__instance is None:
-cls.<i>instance = type.</i>new__(cls, name, bases, dct)
-return cls.__instance
-<p>class A(object):<br />
-    <i>metaclass</i> = Singleton</p>
-<p>a = A()<br />
-b = A()<br />
-assert a == b  # False, no funciona  :-(<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Singleton</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+        <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="nb">type</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span> <span class="o">=</span> <span class="nb">type</span><span class="p">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span>
+
+<span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">Singleton</span>
+
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>  <span class="c1"># False, no funciona  :-(</span></code></pre></figure></div>
 <p>Pero esto <strong>no funciona</strong>. Esto se debe a que tanto <code>__new__</code> como <code>__init__</code> sólo se ejecutan una vez: <strong>cuando se crea la clase</strong>.</p>
 <p>Sin embargo, para el <em>singleton</em> hace falta poder controlar la instancia de la clase (el objeto creado). Y para eso se puede utilizar otro interesante método de la metaclase. Se trata de <code>__call__</code>, el operador de invocación, que también se puede sobrecargar como ocurre con la mayoría de los operadores de Python. Siempre que tengas &#8220;algo llamable&#8221; (invocable) entra en juego el operador de llamada, incluso en las funciones convencionales. Cuando creas un objeto escribiendo el nombre de una clase y unos paréntesis, realmente estás utilizando el operador de invocación de su metaclase, así que aprovechemos eso!</p>
 <p>De modo que la siguiente aproximación es algo como:</p>
 <div>
-<p>{% highlight python %}<br />
-class Singleton(type):<br />
-    def <i>init</i>(cls, name, bases, dct):<br />
-        cls.<i>instance = None<br />
-        type.</i>init__(cls, name, bases, dct)</p>
-def <i>call</i>(cls):
-if cls.__instance is None:
-cls.<i>instance = type.</i>call__(cls)
-return cls.__instance
-<p>class A:<br />
-    <i>metaclass</i> = Singleton</p>
-<p>a = A()<br />
-b = A()<br />
-assert a == b  # True, funciona!  :-)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Singleton</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+        <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="nb">type</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span> <span class="o">=</span> <span class="nb">type</span><span class="p">.</span><span class="n">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span>
+
+<span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">Singleton</span>
+
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>  <span class="c1"># True, funciona!  :-)</span></code></pre></figure></div>
 <p>Esto sí que funciona, pero ¿qué pasa con los argumentos del constructor? Esto lo arregla:</p>
 <div>
-<p>{% highlight python %}<br />
-class Singleton(type):</p>
-def <i>init</i>(cls, name, bases, dct):
-cls.__instance = None
-type.<i>init</i>(cls, name, bases, dct)
-def <i>call</i>(cls, <strong>args, *</strong>kw):
-if cls.__instance is None:
-cls.<i>instance = type.</i>call__(cls, <strong>args,</strong>*kw)
-return cls.__instance
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Singleton</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+        <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="nb">type</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span> <span class="o">=</span> <span class="nb">type</span><span class="p">.</span><span class="n">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">.</span><span class="n">__instance</span></code></pre></figure></div>
       </div>
 
       
@@ -5456,7 +5454,7 @@ return cls.__instance
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

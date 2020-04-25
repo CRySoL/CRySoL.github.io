@@ -5580,59 +5580,50 @@
 <p>No se debe confundir <em>flyweight</em> con el patrón Singleton. En el <em>singleton</em> solo existe una estancia para la clase que implementa dicho patrón, mientras que con <em>flyweight</em> habrá tantas instancias como «objetos diferentes» haya.</p>
 <p>Es posible aplicar <em>flyweight</em> aunque los objetos solo compartan una parte de su estado (el estado intrínseco) y tengan almacenamiento adicional para sus valores distintivos (estado extrínseco). Por ejemplo, un colección de pelotas del mismo color y tamaño (estado intrínseco) pueden tener posiciones diferentes (estado extrínseco). En esta receta vamos a tratar únicamente el caso en el que los objetos son idénticos y dependientes de una clave: a igual clave, igual estado. Veamos un ejemplo de cómo debería funcionar esto:</p>
 <div>
-<p>{% highlight python <span>}<br />
-&gt;&gt;&gt; luna = Astro(&#8220;luna&#8221;)<br />
-&gt;&gt;&gt; moon = Astro(&#8220;luna&#8221;)<br />
-&gt;&gt;&gt; sol = Astro(&#8220;sol&#8221;)<br />
-&gt;&gt;&gt; luna is moon<br />
-&#8230; True<br />
-&gt;&gt;&gt; luna is sol<br />
-&#8230; False<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">luna</span> <span class="o">=</span> <span class="n">Astro</span><span class="p">(</span><span class="s">"luna"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">moon</span> <span class="o">=</span> <span class="n">Astro</span><span class="p">(</span><span class="s">"luna"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sol</span> <span class="o">=</span> <span class="n">Astro</span><span class="p">(</span><span class="s">"sol"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">luna</span> <span class="ow">is</span> <span class="n">moon</span>
+<span class="p">...</span> <span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">luna</span> <span class="ow">is</span> <span class="n">sol</span>
+<span class="p">...</span> <span class="bp">False</span></code></pre></figure></div>
 <p>Esa es la teoría, en la práctica las limitaciones de los lenguajes de programación no siempre permiten que el patrón se pueda implementar de una forma tan transparente. En esos casos (Java, C++, etc.) la implementación del patrón incluye una «factoría», es decir, una función u objeto que crea, almacena y devuelve las instancias a los objetos conforme se le piden.</p>
 <h2><em>flyweight</em> como metaclase</h2>
 <p>Pero Python siempre da la nota, y esta vez no podía ser menos. Por medio de una metaclase se puede implementar <em>flyweight</em> de una forma elegante y completamente transparente para el usuario de la clase. El constructor va a hacer el papel de factoría de forma transparente.</p>
 <p>Ésta es la metaclase:</p>
 <div>
-<p>{% highlight python %}<br />
-class Flyeight(type):<br />
-    def <i>init</i>(cls, name, bases, dct):<br />
-        cls.<i>instances = {}<br />
-        type.</i>init__(cls, name, bases, dct)</p>
-def <i>call</i>(cls, key, <strong>args, *</strong>kw):
-instance = cls.__instances.get(key)
-if instance is None:
-instance = type.<i>call</i>(cls, key, <strong>args, *</strong>kw)
-cls.__instances[key] = instance
-return instance
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Flyeight</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+        <span class="n">cls</span><span class="p">.</span><span class="n">__instances</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="nb">type</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="n">cls</span><span class="p">.</span><span class="n">__instances</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">instance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="nb">type</span><span class="p">.</span><span class="n">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+            <span class="n">cls</span><span class="p">.</span><span class="n">__instances</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span>
+        <span class="k">return</span> <span class="n">instance</span></code></pre></figure></div>
 <p>Para usarlo basta añadir el típico &#8220;<i>metaclass</i>&#8221; a tu clase y ya será un <em>peso mosca</em> en toda regla.</p>
 <div>
-<p>{% highlight python %}<br />
-class Astro:<br />
-    <i>metaclass</i> = Flyweight</p>
-def <i>init</i>(self, key):
-print &#8220;Creando la instancia &#8216;%s&#8217;&#8230;&#8221; % key
-time.sleep(2)
-print &#8220;&#8216;%s&#8217; creado&#8221; % key
-<p>a = Astro(&#8220;luna&#8221;)<br />
-b = Astro(&#8220;luna&#8221;)<br />
-assert a is b<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Astro</span><span class="p">:</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">Flyweight</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"Creando la instancia '%s'..."</span> <span class="o">%</span> <span class="n">key</span>
+        <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">"'%s' creado"</span> <span class="o">%</span> <span class="n">key</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">Astro</span><span class="p">(</span><span class="s">"luna"</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Astro</span><span class="p">(</span><span class="s">"luna"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">a</span> <span class="ow">is</span> <span class="n">b</span></code></pre></figure></div>
 <p>El método <code>__init__</code> de la clase Astro no hace nada útil, solo sirve para ilustrar que únicamente se crean dos instancias y que <code>a</code> y <code>b</code> son realmente el mismo objeto. El <code>sleep</code> enfatiza el ahorro de recursos (tiempo, en este caso). Aunque normalmente este patrón se utiliza para evitar pedir memoria para almacenar los atributos de objetos idénticos, también es muy útil para ahorrar el tiempo que lleva construirlos, un efecto nada despreciable si la construcción de la instancia implica acceder a ficheros en disco.</p>
 <p>Puedes descargar el código de nuestro <a href="http://arco.esi.uclm.es/svn/public/samples/python-metaclass/flyweight.py">repo público</a>. Al ejecutar este fichero debería obtener esta salida:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ python flyweight.py<br />
-Creando la instancia &#8216;luna&#8217;&#8230;<br />
-&#8216;luna&#8217; creado<br />
-Creando la instancia &#8216;sol&#8217;&#8230;<br />
-&#8216;sol&#8217; creado<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>python flyweight.py
+<span class="go">Creando la instancia 'luna'...
+'luna' creado
+Creando la instancia 'sol'...
+'sol' creado</span></code></pre></figure></div>
 <h2>Relacionado</h2>
 <ul>
 	<li><a href="http://www.djangosnippets.org/snippets/1130/">Algo parecido para métodos</a></li>
@@ -5701,7 +5692,7 @@ Creando la instancia &#8216;sol&#8217;&#8230;<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

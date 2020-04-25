@@ -5195,10 +5195,7 @@
 <h2>Ajuste de offset</h2>
 <p>Si el texto de los subtítulos llega demasiado pronto o demasiado tarde puedes arreglarlo con mplayer. Reproduce la película con su fichero srt tal que:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mplayer -sub spanish.srt lovestory.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mplayer <span class="nt">-sub</span> spanish.srt lovestory.avi</code></pre></figure></div>
 <ul>
 	<li>Activa el <span class="caps">OSD</span> con la tecla &#8216;o&#8217;</li>
 	<li>Busca un sitio en el que puedas reconocer una frase y su subtítulo correspondiente.</li>
@@ -5206,23 +5203,14 @@ $ mplayer -sub spanish.srt lovestory.avi<br />
 </ul>
 <p>Cuando tengas la cifra del offset (supongamos -2.3s) puedes probarlo con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mplayer -sub spanish.srt -subdelay -2.3 lovestory.avi<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mplayer <span class="nt">-sub</span> spanish.srt <span class="nt">-subdelay</span> <span class="nt">-2</span>.3 lovestory.avi</code></pre></figure></div>
 <h2>Modificar el .srt</h2>
 <p>Lo interesante es poder fijar ese &#8220;offset&#8221; en el propio fichero .srt. Para eso tienes que utilizar <code>srttool</code> de esta forma:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ srttool -d -2.3 &lt; spanish.srt &gt; arreglado.srt<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>srttool <span class="nt">-d</span> <span class="nt">-2</span>.3 &lt; spanish.srt <span class="o">&gt;</span> arreglado.srt</code></pre></figure></div>
 <p>Otra forma es apuntar el momento exacto en el que debe aparecer el primer subtítulo y modificar el .srt de esta forma:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ srttool -a 00:13:24,5 &lt; spanish.srt &gt; arreglado.srt<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>srttool <span class="nt">-a</span> 00:13:24,5 &lt; spanish.srt <span class="o">&gt;</span> arreglado.srt</code></pre></figure></div>
 <h2>Acelerar y decelerar los subtítulos</h2>
 <p><strong>Por hacer</strong></p>
 <h2>Referencias</h2>
@@ -5293,7 +5281,7 @@ $ mplayer -sub spanish.srt -subdelay -2.3 lovestory.avi<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

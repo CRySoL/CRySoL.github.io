@@ -5611,20 +5611,20 @@
 <p>Con un pequeño programilla, problema resuelto:</p>
 <p>[<a href="https://bitbucket.org/davidvilla/scapy-utils/raw/1595d61acc43/arping.py">arping.py</a>]</p>
 <div>
-<p>{% highlight python %}<br />
-#!/usr/bin/python<br />
-import sys, scapy</p>
-<p>if len(sys.argv) != 3:<br />
-    print &#8220;Uso: arping <net> <MAC>&#8221;<br />
-    print &#8220;ej: arping 192.168.1.0/24 00:11:22:33:44:55&#8221;<br />
-    sys.exit(1)</p>
-<p>scapy.conf.verb=0<br />
-ans,unans = scapy.srp(scapy.Ether(dst=&#8220;ff:ff:ff:ff:ff:ff&#8221;)/scapy.<acronym title="pdst=sys.argv[1]"><span class="caps">ARP</span></acronym>, timeout=2)</p>
-<p>for request,reply in ans:<br />
-    if reply.hwsrc.lower().startswith(sys.argv<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>.lower()):<br />
-        print &#8220;%15s &#8211; %s&#8221; % (reply.psrc, reply.hwsrc)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+</span><span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">scapy</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">"Uso: arping &lt;net&gt; &lt;MAC&gt;"</span>
+    <span class="k">print</span> <span class="s">"ej: arping 192.168.1.0/24 00:11:22:33:44:55"</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">scapy</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">verb</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">ans</span><span class="p">,</span><span class="n">unans</span> <span class="o">=</span> <span class="n">scapy</span><span class="p">.</span><span class="n">srp</span><span class="p">(</span><span class="n">scapy</span><span class="p">.</span><span class="n">Ether</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="s">"ff:ff:ff:ff:ff:ff"</span><span class="p">)</span><span class="o">/</span><span class="n">scapy</span><span class="p">.</span><span class="n">ARP</span><span class="p">(</span><span class="n">pdst</span><span class="o">=</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">request</span><span class="p">,</span><span class="n">reply</span> <span class="ow">in</span> <span class="n">ans</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">reply</span><span class="p">.</span><span class="n">hwsrc</span><span class="p">.</span><span class="n">lower</span><span class="p">().</span><span class="n">startswith</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">lower</span><span class="p">()):</span>
+        <span class="k">print</span> <span class="s">"%15s - %s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">reply</span><span class="p">.</span><span class="n">psrc</span><span class="p">,</span> <span class="n">reply</span><span class="p">.</span><span class="n">hwsrc</span><span class="p">)</span></code></pre></figure></div>
 <h2>Comentarios</h2>
 <p><code>scapy</code> fue concebido con la idea de dar a los programadores la posibilidad de crear herramientas de red específicas con muy poco esfuerzo, y al menos para mi, ese objetivo está sobradamente cumplido.</p>
       </div>
@@ -5691,7 +5691,7 @@ ans,unans = scapy.srp(scapy.Ether(dst=&#8220;ff:ff:ff:ff:ff:ff&#8221;)/scapy.<ac
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

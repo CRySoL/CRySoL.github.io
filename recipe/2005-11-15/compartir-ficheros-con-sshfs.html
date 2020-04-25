@@ -5347,55 +5347,25 @@
 <h2>Ingredientes para el cliente</h2>
 <p>En el cliente (el que monta el directorio remoto) debes instalar el paquete <code>sshfs</code>, que depende de <code>fuse</code>, pero que usando apt-get no es ningún problema.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install sshfs<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>sshfs</code></pre></figure></div>
 <h2>Instalar fuse (si no lo tienes)</h2>
 <p>Después hay que instalar el driver de <code>fuse</code>, que permite tener sistemas de ficheros en espacio de usuario. Para ello se instala los fuentes de fuse y se compilan con el maravilloso module-assistant.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install linux-headers-$(uname -r)</li>
-	<li>m-a a-i fuse<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>linux-headers-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span>
+<span class="gp">#</span><span class="w"> </span>m-a a-i fuse</code></pre></figure></div>
 <p>Tienes que cargar el módulo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>modprobe fuse<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>modprobe fuse</code></pre></figure></div>
 <p>Y asegurarte que se carga cuando reinicies:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>echo fuse &gt;&gt; /etc/modules<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">echo </span>fuse <span class="o">&gt;&gt;</span> /etc/modules</code></pre></figure></div>
 <h2>A montar&#8230;</h2>
 <p>Ya puedes montar cualquier directorio del servidor al que tengas acceso:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>sshfs usuario@servidor.net:/ruta/en/servidor /ruta/en/cliente<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>sshfs usuario@servidor.net:/ruta/en/servidor /ruta/en/cliente</code></pre></figure></div>
 <p>también puedes hacer lo mismo con <code>mount</code>, así:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mount -t fuse sshfs#usuario@servidor.net:/ruta/en/servidor /ruta/en/cliente<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-t</span> fuse sshfs#usuario@servidor.net:/ruta/en/servidor /ruta/en/cliente</code></pre></figure></div>
 <p>Y lo puedes añadir a <code>/etc/fstab</code>:</p>
 <pre>
 sshfs#servidor.net:/ruta/en/servidor    /ruta/en/cliente    fuse    defaults    0  0
@@ -5407,29 +5377,14 @@ sshfs#servidor.net:/ruta/en/servidor    /ruta/en/cliente    fuse    defaults    
 	<li>Añadir el usuario al grupo <tt>fuse</tt> y usar el comando <code>sshfs</code>. Eso lo puedes hacer con:</li>
 </ul>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>addgroup pepe fuse<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>addgroup pepe fuse</code></pre></figure></div>
 <h2>Desmontar</h2>
 <p>Si eres root:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>umount /ruta/en/cliente<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>umount /ruta/en/cliente</code></pre></figure></div>
 <p>Como usuario normal:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>fusermount -u /ruta/en/cliente<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>fusermount <span class="nt">-u</span> /ruta/en/cliente</code></pre></figure></div>
 <h2>Qué rollo de claves!</h2>
 <p>Si no quieres tener que poner la clave de tu cuenta en la máquina remota cada vez que montas, puedes utilizar el esquema de  <a href="node/6">autenticación por clave privada que tiene <span class="caps">SSH</span></a>.</p>
 <h2>Referencias</h2>
@@ -5501,7 +5456,7 @@ sshfs#servidor.net:/ruta/en/servidor    /ruta/en/cliente    fuse    defaults    
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

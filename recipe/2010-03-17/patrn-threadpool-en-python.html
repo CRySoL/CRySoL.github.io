@@ -5586,116 +5586,131 @@
 </ul>
 <p>El cliente simplemente tiene que añadir trabajos (funciones con argumentos) usando el método add(). Para terminar utiliza el méodo join() que obligará al pool a acabar impidiendo al mismo tiempo que se puedan añadir nuevos trabajos.</p>
 <div>
-<p>{% highlight python %}<br />
-pool = ThreadPool(5)</p>
-<p>pool.add(f1, [arg1, arg2])<br />
-[. . .]</p>
-<p>pool.join()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pool</span> <span class="o">=</span> <span class="n">ThreadPool</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">pool</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="p">[</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">])</span>
+<span class="p">[.</span> <span class="p">.</span> <span class="p">.]</span>
+
+<span class="n">pool</span><span class="p">.</span><span class="n">join</span><span class="p">()</span></code></pre></figure></div>
 <p>A continuación aparece la implementación de la clase</p>
 <div>
-<p>{% highlight python %}<br />
-class ThreadPool:<br />
-    class JoiningEx: pass<br />
-    &quot;&quot;&quot; Flexible thread pool class.  Creates a pool of threads, then<br />
-    accepts tasks that will be dispatched to the next available<br />
-    thread &quot;&quot;&quot;</p>
-def <i>init</i>(self, numThreads):
-&quot;&quot;&quot;Initialize the thread pool with numThreads workers &quot;&quot;&quot;
-self.__threads = []
-self.__resizeLock = threading.Lock()
-self.__taskLock = threading.Condition(threading.Lock())
-self.__tasks = []
-self.__isJoining = False
-self.resize(numThreads)
-def resize(self, newsize):
-&quot;&quot;&quot; public method to set the current pool size &quot;&quot;&quot;
-if self.__isJoining:
-raise ThreadPool.JoiningEx()
-with self.__resizeLock:
-self.__resize(newsize)
-return True
-def __resize(self, newsize):
-&quot;&quot;&quot;Set the current pool size, spawning or terminating threads
-if necessary.  Internal use only; assumes the resizing lock is
-held.&quot;&quot;&quot;
-diff = newsize &#8211; len(self.__threads)
-<ol>
-	<li>If we need to grow the pool, do so<br />
-        for i in range(diff):<br />
-            self.__threads.append(ThreadPool.Worker(self))</li>
-</ol>
-<ol>
-	<li>If we need to shrink the pool, do so<br />
-        for i in range(-diff):<br />
-            thread = self.__threads.pop()<br />
-            thread.stop = True</li>
-</ol>
-def <i>len</i>(self):
-&quot;&quot;&quot;Return the number of threads in the pool.&quot;&quot;&quot;
-with self.__resizeLock:
-return len(self.__threads)
-def add(self, task, args=None, taskCallback=None):
-&quot;&quot;&quot;Insert a task into the queue.  task must be callable;
-args and taskCallback can be None.&quot;&quot;&quot;
-assert callable(task)
-if self.__isJoining:
-raise ThreadPool.JoiningEx()
-with self.__taskLock:
-self.__tasks.append((task, args, taskCallback))
-self.__taskLock.notify()
-return True
-def nextTask(self):
-&quot;&quot;&quot; Retrieve the next task from the task queue.  For use
-only by ThreadPoolWorker objects contained in the pool &quot;&quot;&quot;
-with self.__taskLock:
-while not self.__tasks:
-if self.__isJoining:
-raise ThreadPool.JoiningEx()
-self.__taskLock.wait()
-assert self.__tasks
-return self.__tasks.pop(0)
-def join(self, waitForTasks=True, waitForThreads=True):
-&quot;&quot;&quot; Clear the task queue and terminate all pooled threads,
-optionally allowing the tasks and threads to finish &quot;&quot;&quot;
-self.__isJoining = True  # prevent more task queueing
-if waitForTasks:
-while self.__tasks:
-time.sleep(0.1)
-with self.__resizeLock:
-if waitForThreads:
-with self.__taskLock:
-self.__taskLock.notifyAll()
-for t in self.__threads:
-t.join()
-<ol>
-	<li>ready to reuse<br />
-            del self.<i>threads[:]<br />
-            self.</i>isJoining = False</li>
-</ol>
-class Worker(threading.Thread):
-&quot;&quot;&quot; Pooled thread class &quot;&quot;&quot;
-def <i>init</i>(self, pool):
-&quot;&quot;&quot; Initialize the thread and remember the pool. &quot;&quot;&quot;
-threading.Thread.<i>init</i>(self)
-self.__pool = pool
-self.stop = False
-self.start()
-def run(self):
-&quot;&quot;&quot; Until told to quit, retrieve the next task and execute
-it, calling the callback if any.  &quot;&quot;&quot;
-while not self.stop:
-try:
-cmd, args, callback = self.__pool.nextTask()
-except ThreadPool.JoiningEx:
-break
-logging.debug(&#8220;thread %s taken %s&#8221; % (self, cmd))
-result = cmd(*args)
-if callback:
-callback(result)
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">ThreadPool</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">JoiningEx</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="s">""" Flexible thread pool class.  Creates a pool of threads, then
+    accepts tasks that will be dispatched to the next available
+    thread """</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numThreads</span><span class="p">):</span>
+        <span class="s">"""Initialize the thread pool with numThreads workers """</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__threads</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__resizeLock</span> <span class="o">=</span> <span class="n">threading</span><span class="p">.</span><span class="n">Lock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__taskLock</span> <span class="o">=</span> <span class="n">threading</span><span class="p">.</span><span class="n">Condition</span><span class="p">(</span><span class="n">threading</span><span class="p">.</span><span class="n">Lock</span><span class="p">())</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__tasks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__isJoining</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">numThreads</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newsize</span><span class="p">):</span>
+        <span class="s">""" public method to set the current pool size """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">__isJoining</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ThreadPool</span><span class="p">.</span><span class="n">JoiningEx</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="p">.</span><span class="n">__resizeLock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__resize</span><span class="p">(</span><span class="n">newsize</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">__resize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newsize</span><span class="p">):</span>
+        <span class="s">"""Set the current pool size, spawning or terminating threads
+        if necessary.  Internal use only; assumes the resizing lock is
+        held."""</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">newsize</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__threads</span><span class="p">)</span>
+
+        <span class="c1"># If we need to grow the pool, do so
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">diff</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__threads</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">ThreadPool</span><span class="p">.</span><span class="n">Worker</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+        <span class="c1"># If we need to shrink the pool, do so
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">diff</span><span class="p">):</span>
+            <span class="n">thread</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__threads</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">thread</span><span class="p">.</span><span class="n">stop</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""Return the number of threads in the pool."""</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="p">.</span><span class="n">__resizeLock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__threads</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">taskCallback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="s">"""Insert a task into the queue.  task must be callable;
+        args and taskCallback can be None."""</span>
+
+        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">__isJoining</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ThreadPool</span><span class="p">.</span><span class="n">JoiningEx</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="p">.</span><span class="n">__taskLock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__tasks</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">task</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">taskCallback</span><span class="p">))</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__taskLock</span><span class="p">.</span><span class="n">notify</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">nextTask</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">""" Retrieve the next task from the task queue.  For use
+        only by ThreadPoolWorker objects contained in the pool """</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="p">.</span><span class="n">__taskLock</span><span class="p">:</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">__tasks</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">__isJoining</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ThreadPool</span><span class="p">.</span><span class="n">JoiningEx</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="p">.</span><span class="n">__taskLock</span><span class="p">.</span><span class="n">wait</span><span class="p">()</span>
+
+            <span class="k">assert</span> <span class="bp">self</span><span class="p">.</span><span class="n">__tasks</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">__tasks</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">waitForTasks</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">waitForThreads</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="s">""" Clear the task queue and terminate all pooled threads,
+        optionally allowing the tasks and threads to finish """</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">__isJoining</span> <span class="o">=</span> <span class="bp">True</span>  <span class="c1"># prevent more task queueing
+</span>
+        <span class="k">if</span> <span class="n">waitForTasks</span><span class="p">:</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="p">.</span><span class="n">__tasks</span><span class="p">:</span>
+                <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="p">.</span><span class="n">__resizeLock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">waitForThreads</span><span class="p">:</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="p">.</span><span class="n">__taskLock</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="p">.</span><span class="n">__taskLock</span><span class="p">.</span><span class="n">notifyAll</span><span class="p">()</span>
+
+                <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">__threads</span><span class="p">:</span>
+                    <span class="n">t</span><span class="p">.</span><span class="n">join</span><span class="p">()</span>
+
+            <span class="c1"># ready to reuse
+</span>            <span class="k">del</span> <span class="bp">self</span><span class="p">.</span><span class="n">__threads</span><span class="p">[:]</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__isJoining</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">class</span> <span class="nc">Worker</span><span class="p">(</span><span class="n">threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">):</span>
+        <span class="s">""" Pooled thread class """</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pool</span><span class="p">):</span>
+            <span class="s">""" Initialize the thread and remember the pool. """</span>
+
+            <span class="n">threading</span><span class="p">.</span><span class="n">Thread</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">__pool</span> <span class="o">=</span> <span class="n">pool</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">stop</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="s">""" Until told to quit, retrieve the next task and execute
+            it, calling the callback if any.  """</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">stop</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cmd</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">callback</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">__pool</span><span class="p">.</span><span class="n">nextTask</span><span class="p">()</span>
+                <span class="k">except</span> <span class="n">ThreadPool</span><span class="p">.</span><span class="n">JoiningEx</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+                <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">"thread %s taken %s"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">))</span>
+
+                <span class="n">result</span> <span class="o">=</span> <span class="n">cmd</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">callback</span><span class="p">:</span>
+                    <span class="n">callback</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></code></pre></figure></div>
 <p>Próximamente la versión C++ del mismo invento.</p>
       </div>
 
@@ -5761,7 +5776,7 @@ callback(result)
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5156,27 +5156,14 @@
 <p><!--break--></p>
 <h1>Activar el módulo UserDir</h1>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>a2enmod userdir<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>a2enmod userdir</code></pre></figure></div>
 <p>Por defecto la configuración del módulo requiere que cada usuario cree un subdirectorio llamada exactamente <code>public_html</code>. Ese directorio debería tener al menos permisos de lectura y ejecución para el servidor web. O sea:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- ~$ mkdir public_html<br />
-~$ chmod 0755 public_html</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> ~$</span><span class="w"> </span><span class="nb">mkdir </span>public_html
+<span class="gp">~$</span><span class="w"> </span><span class="nb">chmod </span>0755 public_html</code></pre></figure></div>
 <h1>Recargar el servidor</h1>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/apache2 restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/apache2 restart</code></pre></figure></div>
 <h1>Probar</h1>
 <p>Ahora con un navegador web deberías ver lo que cuelga del directorio <code>public_html</code> (siempre que apache tenga permiso, claro) en una <span class="caps">URL</span> del tipo <a href="http://example.com/~user">http://example.com/~user</a>. Ese simbolillo raro se llama <a href="http://es.wikipedia.org/wiki/Virgulilla">virgulilla</a> y sale pulsando AltGr-4 (más un espacio en windows)</p>
       </div>
@@ -5243,7 +5230,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

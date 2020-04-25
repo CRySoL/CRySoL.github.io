@@ -5243,40 +5243,20 @@
 <h2>Consultar el <em>slot</em> de contraseñas ocupado</h2>
 <p>Desde una terminal como <em>superusuario</em> o con privilegios <em>sudo</em>, haz lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cryptsetup luksDump /dev/sdXY<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>cryptsetup luksDump /dev/sdXY</code></pre></figure></div>
 <p>Dónde X e Y serán la letra y número de la partición cifrada. Este comando tan solo muestra información sobre los <em>slots</em>. Si nunca antes habías cambiado la contraseña, verás que aparecerá una lista de las &#8220;key slot&#8221; dónde en la posición 0 tendrás varios datos y en el resto la palabra <strong><span class="caps">DISABLED</span></strong>. Lo importante de este paso es apuntarnos mentalmente (o en papel si tienes mala memoria) en que <em>slot</em> tenemos almacenada la contraseña.</p>
 <h2>Cambiar la contraseña</h2>
 <p>Para este paso previamente deberás desmontar tu unidad cifrada (en algunos tutoriales por ahí dicen que no hace falta, pero nunca se sabe&#8230;). Tras hacer los <strong>umount</strong> correspondientes:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cryptsetup luksClose /dev/mapper/udisk-luks-&#8230;&#8230;&#8230;<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>cryptsetup luksClose /dev/mapper/udisk-luks-.........</code></pre></figure></div>
 <p>Si tienes varias particiones cifradas en el sistema, usas <span class="caps">LVM</span> o cualquier vicisitud que ahora no se me pase por la cabeza, puede que en <code>/dev/mapper</code> tengas más de un enlace simbólico. Necesitas echarlo ingenio al tema y, si no sabes seguro cual de los enlaces es el tuyo, vuelve a montarlo de tu forma habitual y compruébalo mirando con <strong>mount</strong></p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cryptsetup luksAddKey /dev/sdXY<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>cryptsetup luksAddKey /dev/sdXY</code></pre></figure></div>
 <p>Al ejecutar el comando anterior os pedirá, literalmente, que introduzcáis &#8220;cualquier&#8221; contraseña. Aunque a mi no me pareció muy lógico al principio, tenéis que introducir la contraseña que usáis <strong>actualmente</strong> para montar la partición. Tras eso, ya os pedirá la nueva contraseña.</p>
 <p>Si en este momento repetimos el primer paso de la receta (el de <em>luksDump</em>), verás que tienes varios <em>slots</em> de contraseñas ocupados. En principio puedes tener varias contraseñas activas a la vez y cualquiera de ellas te valdría para montar la partición&#8230; pero entonces esto no sería una receta etiquetada como &#8220;seguridad&#8221;.</p>
 <p>Para eliminar la vieja contraseña tendrás que tirar de memoria (o de lo que apuntaste al principio en un papel) y recordar en qué <em>slot</em> estaba nuestra contraseña antigua. Para la receta supondré que es el <strong>0</strong>, ya que será lo habitual.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cryptsetup luksKillSlot /dev/sdXY 0<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>cryptsetup luksKillSlot /dev/sdXY 0</code></pre></figure></div>
 <p>Si vuelves a ejecutar <code>cryptsetup luksDump /dev/sdXY</code> verás que, ahora si, solo tienes una contraseña activa.</p>
       </div>
 
@@ -5342,7 +5322,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

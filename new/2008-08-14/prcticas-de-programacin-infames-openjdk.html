@@ -5163,71 +5163,53 @@
 <p>Por curiosidad le he estado echando un vistazo a <a href="https://openjdk.dev.java.net/">OpenJDK</a>, que es la implementación de Java que liberó Sun no hace tanto (y de la que sigue siendo propietario). El código es en su mayoría Java, C y C++. He sacado unos números (no me atrevo a decir métricas) sobre el directorio <tt>source/openjdk/jdk/src</tt>. Conste que esto es muy burdo y que no he hecho ningún tipo de filtrado, así que los números reales pueden variar bastante, aunque creo que sirven para hacerse una idea aproximada.</p>
 <p>Primero un cálculo de <span class="caps">LOC</span>, para saber de qué cantidad de código estamos hablando.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sloccount *<br />
-<span class="caps">SLOC</span>	Directory	<span class="caps">SLOC</span>-by-Language (Sorted)<br />
-1521726 share           java=1269400,ansic=226529,cpp=25724,cs=72,sh=1<br />
-230177  solaris         ansic=158218,java=71765,asm=157,sh=21,awk=16<br />
-100139  windows         cpp=53140,ansic=24593,java=22406<br />
-0       linux           (none)</p>
-<p>Totals grouped by language (dominant language first):<br />
-java:       1363571 (73.63%)<br />
-ansic:       409340 (22.10%)<br />
-cpp:          78864 (4.26%)<br />
-asm:            157 (0.01%)<br />
-cs:              72 (0.00%)<br />
-sh:              22 (0.00%)<br />
-awk:             16 (0.00%)</p>
-<p>Total Physical Source Lines of Code (<span class="caps">SLOC</span>) = 1,852,042<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>sloccount <span class="k">*</span>
+<span class="go">SLOC	Directory	SLOC-by-Language (Sorted)
+1521726 share           java=1269400,ansic=226529,cpp=25724,cs=72,sh=1
+230177  solaris         ansic=158218,java=71765,asm=157,sh=21,awk=16
+100139  windows         cpp=53140,ansic=24593,java=22406
+0       linux           (none)
+
+Totals grouped by language (dominant language first):
+java:       1363571 (73.63%)
+ansic:       409340 (22.10%)
+cpp:          78864 (4.26%)
+asm:            157 (0.01%)
+cs:              72 (0.00%)
+sh:              22 (0.00%)
+awk:             16 (0.00%)
+
+Total Physical Source Lines of Code (SLOC) = 1,852,042</span></code></pre></figure></div>
 <p>Y unos &#8220;grep&#8217;s&#8221; con resultados curiosos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ grep -R &#8220;switch (&#8221; *  | wc -l<br />
-2251<br />
-$ grep -R &quot;case &quot; *  | wc -l<br />
-18609<br />
-$ grep -R &#8220;break;&#8221; *  | wc -l<br />
-11232<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">grep</span> <span class="nt">-R</span> <span class="s2">"switch ("</span> <span class="k">*</span>  | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="go">2251
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">grep</span> <span class="nt">-R</span> <span class="s2">"case "</span> <span class="k">*</span>  | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="go">18609
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">grep</span> <span class="nt">-R</span> <span class="s2">"break;"</span> <span class="k">*</span>  | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="go">11232</span></code></pre></figure></div>
 <p>No es fácil saber si esos <tt>break</tt>&#8217;s corresponden todos a esos <tt>case</tt>. El siguiente dato demuestra que al menos hay algunos que no se usan únicamente para terminar un <tt>case</tt>. Esto solo cuenta aquellas sentencias en el que el <tt>if</tt> y el <code>break</code> están en la misma línea. Echando un vistazo al código es fácil encontrar <code>break</code> dentro del bloque de un <code>if</code> o <code>else</code> pero eso no es tan fácil de contabilizar con <code>grep</code>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ grep -R &#8220;if&#8221; * | grep &#8220;break;&#8221; | wc -l<br />
-201<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">grep</span> <span class="nt">-R</span> <span class="s2">"if"</span> <span class="k">*</span> | <span class="nb">grep</span> <span class="s2">"break;"</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="go">201</span></code></pre></figure></div>
 <p>Y por último:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ grep -R &#8220;continue;&#8221; *  | wc -l<br />
-1600<br />
-$ grep -R &quot;goto &quot; * | wc -l<br />
-447<br />
-$ grep -R &#8220;return&#8221; * | wc -l<br />
-133092<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">grep</span> <span class="nt">-R</span> <span class="s2">"continue;"</span> <span class="k">*</span>  | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="go">1600
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">grep</span> <span class="nt">-R</span> <span class="s2">"goto "</span> <span class="k">*</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="go">447
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">grep</span> <span class="nt">-R</span> <span class="s2">"return"</span> <span class="k">*</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="go">133092</span></code></pre></figure></div>
 <p>Contabilizar el número de funciones y métodos no es nada fácil, por lo que no es fácil saber si hay más de un <tt>return</tt> por función. Sin embargo, el siguiente dato deja claro que <strong>al menos</strong> utilizan bastante <tt>return</tt> para terminar &#8220;contranatura&#8221; funciones y métodos <tt>void</tt>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ grep -R &#8220;return;&#8221; * | wc -l<br />
-6800<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">grep</span> <span class="nt">-R</span> <span class="s2">"return;"</span> <span class="k">*</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="go">6800</span></code></pre></figure></div>
 <p>Y lo mismo que dije del <code>break</code> es aplicable para detectar el uso de <code>continue</code> y <code>return</code> en una sentencia condicional:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ grep -R &#8220;if&#8221; * | grep &#8220;return&#8221; | wc -l<br />
-11913</p>
-<ol>
-	<li>grep -R &#8220;if&#8221; * | grep &#8220;continue;&#8221; | wc -l<br />
-239<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">grep</span> <span class="nt">-R</span> <span class="s2">"if"</span> <span class="k">*</span> | <span class="nb">grep</span> <span class="s2">"return"</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="go">11913
+</span><span class="gp">#</span><span class="w">  </span><span class="nb">grep</span> <span class="nt">-R</span> <span class="s2">"if"</span> <span class="k">*</span> | <span class="nb">grep</span> <span class="s2">"continue;"</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="go">239</span></code></pre></figure></div>
 <p>Prometo refinar estos números cuando tenga tiempo.</p>
 <p><strong>Conclusión:</strong> La gente de Sun no tiene ni idea de programar&#8230;</p>
       </div>
@@ -5294,7 +5276,7 @@ $ grep -R &#8220;return&#8221; * | wc -l<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

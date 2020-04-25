@@ -5299,7 +5299,7 @@ Evidentemente no me voy a poner a explicar cómo hacer dicha partición, ya somo
 Una vez que  tienes la partición hecha, copias la imagen <em>uImage</em> que compilaste en su día a dicha partición e insertas la tarjeta en el lector de tu mini2440. Conectas el puerto serie, abres minicom con la configuración que usaste para instalar uBoot y arrancas. Cuando salga el mensaje de que pulses una tecla para cancelar el arranque procedes:
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">U-Boot 1.3.2-mini2440 (Oct 15 2009 - 19:42:55)                                                      
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">U-Boot 1.3.2-mini2440 (Oct 15 2009 - 19:42:55)
 I2C:   ready
 DRAM:  64 MB
 Flash:  2 MB
@@ -5310,8 +5310,8 @@ In:    serial
 Out:   serial
 Err:   serial
 MAC: 08:08:11:18:12:27
-Hit any key to stop autoboot:  0 
-</span><span class="gp">MINI2440 #</span><span class="w"> </span></code></pre></figure>
+Hit any key to stop autoboot:  0
+</span><span class="gp">MINI2440 #</span></code></pre></figure>
 </div>
 Lo primero que vamos a hacer, para asegurarnos de que todo va sobre ruedas, es hacer el arranque "a mano", de modo que sepamos exactamente qué parámetros tenemos que dar a uBoot para que cargue correctamente nuestro núcleo. Una vez que ya sepamos estos parámetros, configuraremos uBoot correctamente para que se haga todo de forma automática cada vez que encendamos nuestra tarjeta. Algunos de los comandos que se mostrarán ahora ya nos sonarán de la receta en la que instalamos uBoot, aún así los volveré a explicar ahora.
 Lo primero es inicializar la tarjeta SD:
@@ -5326,14 +5326,14 @@ Manufacturing date: 12/2006
 CRC:                0x78, b0 = 1
 READ_BL_LEN=15, C_SIZE_MULT=7, C_SIZE=3453
 size = 2329935872
-</span><span class="gp">MINI2440 #</span><span class="w"> </span></code></pre></figure>
+</span><span class="gp">MINI2440 #</span></code></pre></figure>
 </div>
 Una vez que la tarjeta ha sido detectada e inicializada correctamente, se carga la imagen:
 
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">MINI2440 #</span><span class="w"> </span>ext2load mmc 0:1 0x32000000 uImage
 <span class="go">2148500 bytes read
-</span><span class="gp">MINI2440 #</span><span class="w"> </span></code></pre></figure>
+</span><span class="gp">MINI2440 #</span></code></pre></figure>
 </div>
 Lo que hemos hecho ha sido decirle a uBoot que cargue el archivo <em>uImage</em> que se encuentra en la partición 1 de la tarjeta 0 (<em>0:1</em>) cuyo tipo es extX (<em>ext2load</em>) a partir de la dirección de memoria 0x32000000. Recordemos que en ésta imagen ya definimos el entrypoint, entre otras cosas, por lo que no necesitaremos definirlo mas.
 Ahora ya solo queda arrancar:
@@ -5365,7 +5365,7 @@ Puesto que ya hemos visto que nuestra configuración funciona, la guardamos:
 
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">MINI2440 #</span><span class="w"> </span>setenv bootcmd <span class="s1">'mmcinit; fat2load mmc 0:1 0x32000000 uImage; bootm'</span>
-<span class="gp">MINI2440 #</span><span class="w"> </span>saveenv 
+<span class="gp">MINI2440 #</span><span class="w"> </span>saveenv
 <span class="go">Saving Environment to NAND...
 Erasing Nand...Writing to Nand... done</span></code></pre></figure>
 </div>
@@ -5416,7 +5416,7 @@ mtddevnum=0
 mtddevname=u-boot
 </span><span class="gp">bootcmd=mmcinit;</span><span class="w"> </span>fat2load mmc 0:1 0x32000000 uImage<span class="p">;</span> bootm
 <span class="go">Environment size: 1209/131068 bytes
-</span><span class="gp">MINI2440 #</span><span class="w"> </span></code></pre></figure>
+</span><span class="gp">MINI2440 #</span></code></pre></figure>
 </div>
 Ahí podremos ver el contenido de todas las variables de entorno de uBoot. Aparte de las explicadas hay algunas interesantes como por ejemplo <em>ifconfig</em> que sirve para configurar si queremos que ejecute un cliente dhcp al arranque o si queremos darle una ip estática, <em>bootdelay</em> , que sirve para configurar el retardo en el arranque o baudrate, que como podemos imaginar, sirve para configurar la velocidad del puerto serie.
 Si reiniciamos ahora nuestra mini2440, podremos ver que arranca el núcleo perfectamente, aunque sin sistema poco podemos hacer... Paciencia.... :-D
@@ -5491,7 +5491,7 @@ Si reiniciamos ahora nuestra mini2440, podremos ver que arranca el núcleo perfe
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

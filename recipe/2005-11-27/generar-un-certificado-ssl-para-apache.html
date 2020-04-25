@@ -5157,22 +5157,12 @@
 </blockquote>
 <p>Ejecuta lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apache2-ssl-certificate &#8212;force -days 365 -set_serial 2<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apache2-ssl-certificate <span class="nt">--force</span> <span class="nt">-days</span> 365 <span class="nt">-set_serial</span> 2</code></pre></figure></div>
 <p>Esto crea el <tt>/etc/apache2/ssl/apache.pem</tt> que contiene el certificado y la clave del servidor. El número de serie debería	ser uno más de lo que haya en el certificado anterior.</p>
 <p>En <tt>/etc/apache2/ssl.crt/</tt> hay sendos enlaces simbólicos	(<tt>server.key</tt> y <tt>server.crt</tt>) que apuntan al fichero generado.</p>
 <p>Sólo queda reiniciar <tt>apache</tt>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/apache2 restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/apache2 restart</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="https://help.ubuntu.com/ubuntu/serverguide/es/httpd.html"><span class="caps">HTTPD</span> &#8211; Servidor Web Apache2</a></li>
@@ -5242,7 +5232,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

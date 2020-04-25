@@ -5823,47 +5823,51 @@
 <p><!--break--></p>
 <p>Suppose the following class hierarchy and the &#8217;&#8217;Trainer&#8217;&#8217; class:</p>
 <div>
-<p>{% highlight cpp %}<br />
-class Animal {<br />
-public:<br />
-  virtual int walk(int steps) = 0;<br />
-};</p>
-<p>class Kangaroo: public Animal {<br />
-public:<br />
-  int walk(int steps) { return 2*steps; }<br />
-};</p>
-<p>class Trainer {<br />
-public:<br />
-  int orderWalk(Animal* animal) { cout &lt;&lt; animal&#8594;walk(4) &lt;&lt; endl; }<br />
-};</p>
-<p>int main() {<br />
-  Trainer trainer;<br />
-  trainer.orderWalk(new Kangaroo());<br />
-  return 0;<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Animal</span> <span class="p">{</span>
+<span class="nl">public:</span>
+  <span class="k">virtual</span> <span class="kt">int</span> <span class="n">walk</span><span class="p">(</span><span class="kt">int</span> <span class="n">steps</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Kangaroo</span><span class="o">:</span> <span class="k">public</span> <span class="n">Animal</span> <span class="p">{</span>
+<span class="nl">public:</span>
+  <span class="kt">int</span> <span class="n">walk</span><span class="p">(</span><span class="kt">int</span> <span class="n">steps</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">steps</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Trainer</span> <span class="p">{</span>
+<span class="nl">public:</span>
+  <span class="kt">int</span> <span class="n">orderWalk</span><span class="p">(</span><span class="n">Animal</span><span class="o">*</span> <span class="n">animal</span><span class="p">)</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">animal</span><span class="o">-&gt;</span><span class="n">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">Trainer</span> <span class="n">trainer</span><span class="p">;</span>
+  <span class="n">trainer</span><span class="p">.</span><span class="n">orderWalk</span><span class="p">(</span><span class="k">new</span> <span class="n">Kangaroo</span><span class="p">());</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>A <code>Trainer</code> needs an <code>Animal</code> at the <code>orderWalk()</code> member. In the sample code, a <code>Kangaroo</code> is passed to such method, but we can modify this issue. Suppose we want to ensure that the <code>orderWalk()</code> method calls to <code>walk()</code>. Let&#8217;s do it with mocks:</p>
 <div>
-<p>{% highlight cpp %}<br />
-#include &lt;gmock/gmock.h&gt;</p>
-<p>using namespace ::testing::Return;</p>
-<p>[&#8230; rest of the code &#8230;]</p>
-<p>class AnimalMock: public Animal {<br />
-  MOCK_METHOD1(walk, int(int steps))<br />
-      .Times(1)<br />
-      .WillOnce(Return(5*steps));<br />
-};</p>
-<p>int main() {<br />
-  Trainer trainer;<br />
-  AnimalMock mock;</p>
-EXPECT_CALL(mock, walk(4))
-.Times(1);
-trainer.orderWalk(&amp;mock);
-return 0;
-<p>}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;gmock/gmock.h&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="o">::</span><span class="n">testing</span><span class="o">::</span><span class="n">Return</span><span class="p">;</span>
+
+<span class="p">[...</span> <span class="n">rest</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span> <span class="p">...]</span>
+
+<span class="k">class</span> <span class="nc">AnimalMock</span><span class="o">:</span> <span class="k">public</span> <span class="n">Animal</span> <span class="p">{</span>
+  <span class="n">MOCK_METHOD1</span><span class="p">(</span><span class="n">walk</span><span class="p">,</span> <span class="kt">int</span><span class="p">(</span><span class="kt">int</span> <span class="n">steps</span><span class="p">))</span>
+      <span class="p">.</span><span class="n">Times</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="p">.</span><span class="n">WillOnce</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">steps</span><span class="p">));</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">Trainer</span> <span class="n">trainer</span><span class="p">;</span>
+  <span class="n">AnimalMock</span> <span class="n">mock</span><span class="p">;</span>
+
+  <span class="n">EXPECT_CALL</span><span class="p">(</span><span class="n">mock</span><span class="p">,</span> <span class="n">walk</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+      <span class="p">.</span><span class="n">Times</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+  <span class="n">trainer</span><span class="p">.</span><span class="n">orderWalk</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mock</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>First, <code>AnimalMock</code> is implemented by the google-mock library using the <code>MOCK_METHOD1</code> directive. This implementation lets you set expectations about the mock. This is done in the <code>main()</code> function. An expectation is configured before calling to <code>orderWalk</code>, and it is as follows: <i>we expect the <code>walk()</code> method to be executed with <code>4</code> as parameter just 1 time over <code>mock</code> object</i>.</p>
 <p>And that&#8217;s is. You can get more information about mocks at <a href="http://code.google.com/p/googlemock/wiki/ForDummies">google-mock documentation</a>.</p>
       </div>
@@ -5930,7 +5934,7 @@ return 0;
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

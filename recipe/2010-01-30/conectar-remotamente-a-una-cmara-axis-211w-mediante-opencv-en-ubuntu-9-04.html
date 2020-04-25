@@ -5245,7 +5245,7 @@
   <div class="row-fluid post-full">
     <div class="span12">
       <div class="content">
-	<blockquote class="head"> 
+	<blockquote class="head">
 Esta receta pretende mostrar al usuario cómo conectar con una cámara Axis 211W de manera remota mediante OpenCV en Ubuntu 9.04.
 </blockquote>
 
@@ -5275,7 +5275,7 @@ Esta receta pretende mostrar al usuario cómo conectar con una cámara Axis 211W
    5.1) Accede al directorio OpenCV 2.0.
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~/OpenCV-2.0.0 </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> ~/OpenCV-2.0.0</code></pre></figure>
 </div>
 
    5.2) Crea un directorio que se llame release.
@@ -5312,7 +5312,7 @@ Esta receta pretende mostrar al usuario cómo conectar con una cámara Axis 211W
 Hay que utilizar la siguiente:
 
 <pre>
-cvCreateFileCapture 
+cvCreateFileCapture
 </pre>
 
 Puedes ver lo que hace la instrucción en el <a href="http://www.cognotics.com/opencv/docs/1.0/ref/opencvref_highgui.htm">manual</a>.
@@ -5333,7 +5333,7 @@ El siguiente ejemplo muestra imágenes hasta que se pulse la tecla de escape.
    <span class="kt">int</span> <span class="n">key</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
    <span class="n">CvCapture</span><span class="o">*</span> <span class="n">capture</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
    <span class="n">IplImage</span><span class="o">*</span> <span class="n">frame</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-   <span class="n">CvSize</span> <span class="n">imageSize</span><span class="p">;</span> 
+   <span class="n">CvSize</span> <span class="n">imageSize</span><span class="p">;</span>
 
    <span class="n">imageSize</span><span class="p">.</span><span class="n">width</span><span class="o">=</span><span class="n">WIDTH</span><span class="p">;</span>
    <span class="n">imageSize</span><span class="p">.</span><span class="n">height</span><span class="o">=</span><span class="n">HEIGHT</span><span class="p">;</span>
@@ -5341,11 +5341,11 @@ El siguiente ejemplo muestra imágenes hasta que se pulse la tecla de escape.
    <span class="n">frame</span> <span class="o">=</span> <span class="n">cvCreateImage</span><span class="p">(</span><span class="n">imageSize</span><span class="p">,</span><span class="n">IPL_DEPTH_8U</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
 
    <span class="n">cvNamedWindow</span><span class="p">(</span><span class="s">"camera"</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-   <span class="n">cvMoveWindow</span><span class="p">(</span><span class="s">"camera"</span><span class="p">,</span><span class="n">POSITION_X</span><span class="p">,</span><span class="n">POSITION_Y</span><span class="p">);</span> 
-  
+   <span class="n">cvMoveWindow</span><span class="p">(</span><span class="s">"camera"</span><span class="p">,</span><span class="n">POSITION_X</span><span class="p">,</span><span class="n">POSITION_Y</span><span class="p">);</span>
+
    <span class="n">capture</span> <span class="o">=</span> <span class="n">cvCreateFileCapture</span><span class="p">(</span><span class="s">"escribe_la_URL_de_la_cámara/mjpg/video.mjpg"</span><span class="p">);</span>
 
-   <span class="k">if</span> <span class="p">(</span><span class="n">capture</span><span class="p">)</span> <span class="p">{</span>   
+   <span class="k">if</span> <span class="p">(</span><span class="n">capture</span><span class="p">)</span> <span class="p">{</span>
       <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
          <span class="n">frame</span> <span class="o">=</span> <span class="n">cvQueryFrame</span><span class="p">(</span><span class="n">capture</span><span class="p">);</span>
          <span class="n">cvShowImage</span><span class="p">(</span><span class="s">"camera"</span><span class="p">,</span> <span class="n">frame</span> <span class="p">);</span>
@@ -5353,11 +5353,11 @@ El siguiente ejemplo muestra imágenes hasta que se pulse la tecla de escape.
          <span class="n">key</span> <span class="o">=</span> <span class="n">cvWaitKey</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
          <span class="k">if</span><span class="p">((</span><span class="kt">char</span><span class="p">)</span> <span class="n">key</span> <span class="o">==</span> <span class="mi">27</span><span class="p">)</span>
             <span class="k">break</span><span class="p">;</span>
-      <span class="p">}</span>	
+      <span class="p">}</span>
    <span class="p">}</span>
 
    <span class="n">cvReleaseCapture</span><span class="p">(</span><span class="o">&amp;</span><span class="n">capture</span><span class="p">);</span>
-   <span class="n">cvDestroyWindow</span><span class="p">(</span><span class="s">"camera"</span><span class="p">);</span> 
+   <span class="n">cvDestroyWindow</span><span class="p">(</span><span class="s">"camera"</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
 </div>
 
@@ -5433,7 +5433,7 @@ El siguiente ejemplo muestra imágenes hasta que se pulse la tecla de escape.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

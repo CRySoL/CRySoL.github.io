@@ -5214,22 +5214,27 @@
 <p><!--break--></p>
 <p>Sirva este código para ilustrar la cuestión:</p>
 <div>
-<p>{% highlight cpp %}<br />
-#include <vector><br />
-#include <string></p>
-<p>using namespace std;</p>
-<p>int main() {</p>
-vector<string> v1;
-v1.push_back(&#8220;hello&#8221;);
-v1.push_back(&#8220;world&#8221;);
-vector<string>* v2 = new vector<string>(v1.begin(), v1.end());
-// many function calls&#8230;
-delete v2;
-// many function calls&#8230;
-return 0;
-<p>}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;vector&gt;
+#include &lt;string&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">v1</span><span class="p">;</span>
+  <span class="n">v1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">"hello"</span><span class="p">);</span>
+  <span class="n">v1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">"world"</span><span class="p">);</span>
+
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;*</span> <span class="n">v2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v1</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+  <span class="c1">// many function calls...</span>
+
+  <span class="k">delete</span> <span class="n">v2</span><span class="p">;</span>
+
+  <span class="c1">// many function calls...</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>Al ejecutarse el <code>delete v2</code>, ¿se destruyen las cadenas que contiene? ¿Y las de v1? ¿cómo funciona esto? ¿pasa con todos los containers? ¿se puede cambiar ese comportamiento (sea el que sea)?</p>
 <p>El reto consiste en:</p>
 <p>Escribir un programa lo más sencillo posible (pero sin ofuscación) que demuestre inequívocamente qué le ocurre al contenido del container, y responda (en lo posible) esas preguntas.</p>
@@ -5298,7 +5303,7 @@ return 0;
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5354,81 +5354,63 @@
 <h2>The &#8220;poorbox&#8221; script</h2>
 <p>Put that in your <code>~/bin/poorbox.sh</code>:</p>
 <div>
-<p>{% highlight bash %}<br />
-#!/bin/bash &#8212;</p>
-<ol>
-	<li>poorbox.sh {to-host|to-server} [file <span class="caps">EVENT</span>]</li>
-</ol>
-<p>set -e</p>
-<p><span class="caps">SERVER</span>=server<br />
-<span class="caps">USER</span>=john<br />
-<span class="caps">FOLDER</span>=PoorBox/</p>
-<p><span class="caps">LOCAL</span>=/home/$<span class="caps">USER</span>/$<span class="caps">FOLDER</span><br />
-<span class="caps">REMOTE</span>=$<span class="caps">SERVER</span>:$<span class="caps">FOLDER</span></p>
-<p>case $1 in<br />
- &#8220;to-host&#8221;)<br />
-	<span class="caps">SOURCE</span>=$<span class="caps">REMOTE</span><br />
-	<span class="caps">TARGET</span>=$<span class="caps">LOCAL</span><br />
-	;;<br />
- &#8220;to-server&#8221;)<br />
-	<span class="caps">SOURCE</span>=$<span class="caps">LOCAL</span><br />
-	<span class="caps">TARGET</span>=$<span class="caps">REMOTE</span><br />
-	;;</p>
-<ul>
-	<li>)<br />
-    echo &#8220;usage: $0 [to-host|to-server]&#8221;<br />
-	exit 1<br />
-esac</li>
-</ul>
-<p><span class="caps">LOCK</span>=/tmp/$<span class="caps">USER</span>.poorbox</p>
-<ol>
-	<li>avoid reentrant execution<br />
-flock <del>n $<span class="caps">LOCK</span></del>$1 true</li>
-</ol>
-<p>if [ &#8220;$3&#8221; == &#8220;IN_DELETE&#8221; ]; then<br />
-	<span class="caps">CMD</span>=&#8220;ssh $<span class="caps">SERVER</span> rm $<span class="caps">FOLDER</span>$2&#8221;<br />
-else<br />
-	<span class="caps">CMD</span>=&#8220;rsync -avz &#8212;delete $<span class="caps">SOURCE</span>$2 $<span class="caps">TARGET</span>&#8221;<br />
-fi</p>
-<ol>
-	<li>wait for the inverse transfer<br />
-flock $<span class="caps">LOCK</span> $<span class="caps">CMD</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash --</span>
+<span class="c"># poorbox.sh {to-host|to-server} [file EVENT]</span>
+
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="nv">SERVER</span><span class="o">=</span>server
+<span class="nv">USER</span><span class="o">=</span>john
+<span class="nv">FOLDER</span><span class="o">=</span>PoorBox/
+
+<span class="nv">LOCAL</span><span class="o">=</span>/home/<span class="nv">$USER</span>/<span class="nv">$FOLDER</span>
+<span class="nv">REMOTE</span><span class="o">=</span><span class="nv">$SERVER</span>:<span class="nv">$FOLDER</span>
+
+<span class="k">case</span> <span class="nv">$1</span> <span class="k">in</span>
+ <span class="s2">"to-host"</span><span class="p">)</span>
+	<span class="nv">SOURCE</span><span class="o">=</span><span class="nv">$REMOTE</span>
+	<span class="nv">TARGET</span><span class="o">=</span><span class="nv">$LOCAL</span>
+	<span class="p">;;</span>
+ <span class="s2">"to-server"</span><span class="p">)</span>
+	<span class="nv">SOURCE</span><span class="o">=</span><span class="nv">$LOCAL</span>
+	<span class="nv">TARGET</span><span class="o">=</span><span class="nv">$REMOTE</span>
+	<span class="p">;;</span>
+ <span class="k">*</span> <span class="p">)</span>
+    <span class="nb">echo</span> <span class="s2">"usage: </span><span class="nv">$0</span><span class="s2"> [to-host|to-server]"</span>
+	<span class="nb">exit </span>1
+<span class="k">esac
+
+</span><span class="nv">LOCK</span><span class="o">=</span>/tmp/<span class="nv">$USER</span>.poorbox
+
+<span class="c"># avoid reentrant execution</span>
+flock <span class="nt">-n</span> <span class="nv">$LOCK</span>-<span class="nv">$1</span> <span class="nb">true
+
+</span><span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$3</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"IN_DELETE"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+	</span><span class="nv">CMD</span><span class="o">=</span><span class="s2">"ssh </span><span class="nv">$SERVER</span><span class="s2"> rm </span><span class="nv">$FOLDER$2</span><span class="s2">"</span>
+<span class="k">else
+	</span><span class="nv">CMD</span><span class="o">=</span><span class="s2">"rsync -avz --delete </span><span class="nv">$SOURCE$2</span><span class="s2"> </span><span class="nv">$TARGET</span><span class="s2">"</span>
+<span class="k">fi</span>
+
+<span class="c"># wait for the inverse transfer</span>
+flock <span class="nv">$LOCK</span> <span class="nv">$CMD</span></code></pre></figure></div>
 <h2>Synchronizing host to server</h2>
 <p>The next configuration will copy or delete any modified file from your laptop/PC to your server account. First, you need to put your username in the <code>/etc/incron.allow</code> file.</p>
 <p>Run that in a terminal:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ incrontab -e<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>incrontab <span class="nt">-e</span></code></pre></figure></div>
 <p>Your default editor will start. Write down next line, save and close.</p>
 <div>
-<p>{% highlight text <span>}<br />
-/home/john/PoorBox IN_MODIFY,IN_DELETE,IN_CLOSE_WRITE,IN_MOVE /home/john/bin/poorbox.sh to-server $# $</span><br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/home/john/PoorBox IN_MODIFY,IN_DELETE,IN_CLOSE_WRITE,IN_MOVE /home/john/bin/poorbox.sh to-server $# $%</code></pre></figure></div>
 <p>and then:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ incrontab -d<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>incrontab <span class="nt">-d</span></code></pre></figure></div>
 <h2>Synchronizing host from server</h2>
 <p>We will not detect changes in server files (although may be possible using the same way). We will poll changes using <code>cron</code>. Run next in a console:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ crontab -e<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>crontab <span class="nt">-e</span></code></pre></figure></div>
 <p>write and save next line:</p>
 <div>
-<p>{% highlight text <span>}<br />
-*/1 *  *   *   *     /home/john/bin/poorbox.sh to-host<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">*/1 *  *   *   *     /home/john/bin/poorbox.sh to-host</code></pre></figure></div>
 <p>This poll each minute. Of course, you may increase or decrease the polling frequency as you prefer.</p>
 <h2>Improving performance</h2>
 <p>Continuous ssh connections does not seems a good idea, but it is possible tweak your config by means of <code>ControlMaster</code> and <code>KeepAlive</code> ssh options.</p>
@@ -5502,7 +5484,7 @@ flock $<span class="caps">LOCK</span> $<span class="caps">CMD</span><br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

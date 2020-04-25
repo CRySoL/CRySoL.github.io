@@ -5428,25 +5428,26 @@
 </ul>
 <p>Para ver el funcionamiento de ioctl, lo mejor es un ejemplo:</p>
 <div>
-<p>{% highlight c %}<br />
-/<strong>* Abrimos el fichero de dispositivo para lectura y escritura. *</strong>/<br />
-fd = open(&#8220;/dev/parport0&#8221;, O_RDWR);</p>
-<p>/<strong>* Lo primero es pedir el acceso al puerto. *</strong>/<br />
-if( ioctl(fd, <span class="caps">PPCLAIM</span>)){<br />
-    perror(&#8220;<span class="caps">PPCLAIM</span>&#8221;);<br />
-    close(fd);<br />
-    return 1;<br />
-}</p>
-<p>for (;;) {<br />
-   /<strong>* Consultamos el registro de estado y el resultado se<br />
-       guarda en la variable status. *</strong>/</p>
-ioctl(fd, <span class="caps">PPRSTATUS</span>, &amp;status);
-/<strong>* Si se recibe un acknowledge salimos del bucle. *</strong>/
-if((status &amp; 0&#215;40) == 0&#215;00)
-break;
-<p>}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cm">/** Abrimos el fichero de dispositivo para lectura y escritura. **/</span>
+<span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">"/dev/parport0"</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">);</span>
+
+<span class="cm">/** Lo primero es pedir el acceso al puerto. **/</span>
+<span class="k">if</span><span class="p">(</span> <span class="n">ioctl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">PPCLAIM</span><span class="p">)){</span>
+    <span class="n">perror</span><span class="p">(</span><span class="s">"PPCLAIM"</span><span class="p">);</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+   <span class="cm">/** Consultamos el registro de estado y el resultado se
+       guarda en la variable status. **/</span>
+
+  <span class="n">ioctl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">PPRSTATUS</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">);</span>
+
+  <span class="cm">/** Si se recibe un acknowledge salimos del bucle. **/</span>
+  <span class="k">if</span><span class="p">((</span><span class="n">status</span> <span class="o">&amp;</span> <span class="mh">0x40</span><span class="p">)</span> <span class="o">==</span> <span class="mh">0x00</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <h2>Comandos de Control</h2>
 <ul>
 	<li><span class="caps">PPCLAIM</span>: Pedir acceso al puerto.</li>
@@ -5524,7 +5525,7 @@ break;
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

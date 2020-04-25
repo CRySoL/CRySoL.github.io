@@ -5454,93 +5454,73 @@
 <h2>Asunciones</h2>
 <p>En este ejemplo voy a suponer que partes de una estructura de directorios como la siguiente:</p>
 <div>
-<p>{% highlight text <span>}<br />
-/home/pepito/proyecto<br />
-- Makefile<br />
-- ejemplo.c<br />
-- debian/<br />
-   &#8211; control<br />
-   &#8211; [&#8230;]<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/home/pepito/proyecto
+- Makefile
+- ejemplo.c
+- debian/
+   - control
+   - [...]</code></pre></figure></div>
 <p>El objetivo es empaquetar el binario &#8220;ejemplo&#8221; generado por el Makefile. El Makefile debe tener un objetivo &#8220;install&#8221; para que debhelper construya el paquete correctamente. Dicha regla debería tener una acción como esta (consulta cómo <a href="/node/1234">hacer un Makefile para un paquete Debian</a> para más información):</p>
 <div>
-<p>{% highlight text <span>}<br />
-[&#8230;]<br />
-install:<br />
-     mkdir -p $(<span class="caps">DESTDIR</span>)/usr/bin/<br />
-     -cp ejemplo $(<span class="caps">DESTDIR</span>)/usr/bin/<br />
-     [&#8230;]<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[...]
+install:
+     mkdir -p $(DESTDIR)/usr/bin/
+     -cp ejemplo $(DESTDIR)/usr/bin/
+     [...]</code></pre></figure></div>
 <p>Si no tienes el directorio &#8220;debian&#8221; <a href="/node/1231">es necesario que lo crees</a>. Además, también voy a suponer que el paquete fuente se llama &#8220;ejemplo&#8221; y el paquete binario &#8220;ejemplo-package&#8221;; y que para construir &#8220;ejemplo.c&#8221; es necesaria la librería &#8220;libslab-dev&#8221;. Además, el paquete binario dependerá del programa &#8220;sl&#8221;.</p>
 <h2>Archivo debian/control</h2>
 <p>Para empaquetar este programa, el archivo &#8220;debian/control&#8221; debería quedar más o menos así:</p>
 <div>
-<p>{% highlight text %}<br />
-Source: ejemplo<br />
-Section: misc<br />
-Priority: extra<br />
-Maintainer: Pepito de Mengano &lt;pep@mengano.com&gt;<br />
-Build-Depends: debhelper (&gt;= 7), libslab-dev<br />
-Standards-Version: 3.8.3<br />
-Homepage: http://ejemplos.org</p>
-<p>Package: ejemplo-package<br />
-Architecture: any<br />
-Depends: ${shlibs:Depends}, ${misc:Depends}, sl<br />
-Description: Un paquete de ejemplo<br />
- Esto es un ejemplo de paquete Debian. Puede ayudar a otros a entender<br />
- el proceso de empaquetación y, así, que cada uno cree sus paquetes<br />
- cuando quiera.<br />
- .<br />
- Ya no hay nada más que decir, pero este párrafo es una excusa para<br />
- mostrar cómo poner distintos párrafos en la descripción larga del<br />
- paquete.<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Source: ejemplo
+Section: misc
+Priority: extra
+Maintainer: Pepito de Mengano &lt;pep@mengano.com&gt;
+Build-Depends: debhelper (&gt;= 7), libslab-dev
+Standards-Version: 3.8.3
+Homepage: http://ejemplos.org
+
+Package: ejemplo-package
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, sl
+Description: Un paquete de ejemplo
+ Esto es un ejemplo de paquete Debian. Puede ayudar a otros a entender
+ el proceso de empaquetación y, así, que cada uno cree sus paquetes
+ cuando quiera.
+ .
+ Ya no hay nada más que decir, pero este párrafo es una excusa para
+ mostrar cómo poner distintos párrafos en la descripción larga del
+ paquete.</code></pre></figure></div>
 <p>En el campo Maintainer deben ir los datos del mantenedor del paquete y deben coincidir con los datos del cierre de una entrada en el fichero &#8220;debian/changelog&#8221;.</p>
 <p>El campo Architecture del paquete binario indica en para qué plataforma el paquete es compatible. Con el valor &#8220;any&#8221; se asegura que, al menos, funciona para la plataforma de construcción y que para el resto debe compilarse.</p>
 <p>Si te fijas en las dependencias del paquete binario verás que hay dependencias especiales encerradas con llaves. Estas dependencias serán resueltas por debhelper al finalizar el proceso de creación del paquete y, en función de lo que él decida, incluirá las referencias a los paquetes o no. Por ejemplo, &#8220;shlibs:Depends&#8221; son las librerías compartidas que necesita &#8220;ejemplo-package&#8221; tener instaladas. La fase &#8220;dh_shlibdeps&#8221; se encarga de detectarlas y de añadirlas, automáticamente, al control.</p>
 <h2>Archivo debian/changelog</h2>
 <p>En este archivo se registran los cambios que se hacen sobre el paquete Debian fuente. En otras palabras, es un changelog para los archivos del directorio debian.</p>
 <div>
-<p>{% highlight text %}<br />
-ejemplo (1.0-1) unstable; urgency=low</p>
-<ul>
-	<li>Initial version.</li>
-</ul>
-&#8212; Cleto Martin Angelina &lt;cleto.martin@example.com&gt;  Thu, 05 Aug 3010 25:50:25 +1200
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">ejemplo (1.0-1) unstable; urgency=low
+
+  * Initial version.
+
+ -- Cleto Martin Angelina &lt;cleto.martin@example.com&gt;  Thu, 05 Aug 3010 25:50:25 +1200</code></pre></figure></div>
 <p>La versión del programa es 1.0 y la del paquete Debian la 1, de ahí 1.0-1. Si se cambian sólo cosas del paquete Debian, se incrementa la versión del paquete (ej. 1.0-2, 1.0-34). Si cambia la versión del programa, pues se cambia convenientemente y se reinicia la del paquete (ej. 2.1-1).</p>
 <h2>Archivo debian/rules</h2>
 <p>Con debhelper 7 y dado que lo que se pretende empaquetar es símplemente un binario, este archivo archivo queda de la siguiente forma:</p>
 <div>
-<p>{% highlight text <span>}<br />
-%:<br />
-	dh  $@<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">%:
+	dh  $@</code></pre></figure></div>
 <h2>Archivo debian/copyright</h2>
 <p>Asegúrate de que existe y que contiene los datos requeridos.</p>
 <h2>Construcción</h2>
 <p>Una vez tengamos todo en orden basta con realizar lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>~/proyecto $ dpkg-buildpackage -us -uc -rfakeroot<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/proyecto $</span><span class="w"> </span>dpkg-buildpackage <span class="nt">-us</span> <span class="nt">-uc</span> <span class="nt">-rfakeroot</span></code></pre></figure></div>
 <p>La orden anterior construye el paquete binario y nos deja el resultado en &#8220;..&#8221;, o sea, en /home/pepito. También puedes construirlo con <a href="/node/1227">pbuilder</a>.</p>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.debian.org/doc/debian-policy/ch-controlfields.html">Control files and their fields</a>: donde se explican cada uno de los campos del archivo control y cuales son obligatorios.</li>
 </ul>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ man dh<br />
-$ man dpkg-buildpackage<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>man dh
+<span class="gp">$</span><span class="w"> </span>man dpkg-buildpackage</code></pre></figure></div>
       </div>
 
       
@@ -5605,7 +5585,7 @@ $ man dpkg-buildpackage<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

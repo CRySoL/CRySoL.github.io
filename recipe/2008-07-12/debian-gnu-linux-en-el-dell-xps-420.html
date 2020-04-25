@@ -5333,10 +5333,7 @@
 <h2>Arranque del instalador</h2>
 <p>Yo he utilizado el CD &#8220;net-install&#8221; de Lenny del 01/07/2008. He hecho la instalación en modo texto dado que la instalación gráfica da problemas con el framebuffer, para lo cual, en el login de instalación hay que poner:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-boot: install fb=false<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">boot: install fb=false</span></code></pre></figure></div>
 <p>Y desde ahí todo normal hasta que llega el momento de particionar el disco.</p>
 <h2>Particionado del disco</h2>
 <p>Este modelo viene con dos discos <span class="caps">SATA</span> de 320GB que se pueden configurar como <span class="caps">RAID</span> en <span class="caps">BIOS</span> gracias a la controladora Intel 82801. Yo no la he utilizado porque he visto que varias personas <a href="http://www.nevillehobson.com/next/2008/03/18/no-confidence-in-raid-on-xps-420/">han reportado problemas</a> y además parece que es un «faked RAID» de modo que la diferencia de rendimiento con un software <span class="caps">RAID</span> no es significativa, de hecho es lo que <a href="http://wiki.debian.org/DebianInstaller/SataRaid">recomienda Debian</a>.</p>
@@ -5379,22 +5376,14 @@ boot: install fb=false<br />
 <h2>Bigmem</h2>
 <p>Si has montado 4 GiB de <span class="caps">RAM</span> en tu <span class="caps">XPS</span>, debes usar un Linux con soporte para <a href="http://en.wikipedia.org/wiki/Physical_Address_Extension"><span class="caps">PAE</span></a> (Physical Address Extension), porque de otro modo sólo verás en torno a 3.2 GiB de <span class="caps">RAM</span>. En Debian hay paquetes precompilados de Linux con el soporte <span class="caps">PAE</span>; esos paquetes se llaman igual que los habituales pero su nombre acaba en <tt>-bigmem</tt>. Puedes comprobar que todo funciona correctamente ejecutando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ cat /proc/meminfo<br />
-MemTotal:      4084320 KiB<br />
-&#8230;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> /proc/meminfo
+<span class="go">MemTotal:      4084320 KiB
+</span><span class="c">...</span></code></pre></figure></div>
 <p>Si te interesa saber a qué se debe la limitación de 3 GiB en los sistemas de 32 bits te recomiendo esta interesante receta: <a href="http://www.vicente-navarro.com/blog/2008/07/14/la-odisea-de-ampliar-la-memoria-a-4-gib/">La odisea de ampliar la memoria a 4 GiB</a></p>
 <h2>Suspender / Hibernar</h2>
 <p>Para poder utilizar el gnome-power-manager debes pertenecer al grupo <tt>powerdev</tt>. Algo tan simple como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>addgroup pepito powerdev<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>addgroup pepito powerdev</code></pre></figure></div>
 <p>La suspensión funciona sin necesidad de ningún tipo de configuración pero la hibernación no funciona (estoy en ello).</p>
 <h2>Y lo demás</h2>
 <p>Utilizando la instalación estándar (entorno de escritorio) lo siguiente funciona &#8220;de serie&#8221;:</p>
@@ -5487,7 +5476,7 @@ MemTotal:      4084320 KiB<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

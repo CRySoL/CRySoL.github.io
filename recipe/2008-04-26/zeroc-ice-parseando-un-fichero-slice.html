@@ -5220,174 +5220,158 @@ La gente de ZeroC proporciona el código fuente de su middleware, pero éste no 
 <p>Antes de empezar, no estaría de mas conocer un poco el patrón de programación <a href="http://es.wikipedia.org/wiki/Visitor_(patr%C3%B3n_de_dise%C3%B1o)">visitor</a>, ya que se utilizará para acceder a la información proporcionada por el parser. También se supone que se tienen nociones básicas de <a href="http://www.cppreference.com/">C++</a>.<br />
 Yo he utilizado <em>ice-3.3-beta</em> así que tampoco estará de mas que además de tener ice instalado, se instalen los fuentes:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-javieralso@avalon:~$ apt-get source zeroc-ice33</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span>apt-get <span class="nb">source </span>zeroc-ice33</code></pre></figure></div>
 <h2>Parseando que es gerundio&#8230;</h2>
 <p>Para parsear un archivo <em>slice</em>, necesitaremos utilizar la librería <em>Slice/Parser</em> proporcionada por ZeroC. Un ejemplo de función que llama al parser sería la siguiente:</p>
 <div>
-<p>{% highlight cpp %}<br />
-#include &lt;IceUtil/OutputUtil.h&gt;<br />
-#include &lt;IceUtil/Options.h&gt;<br />
-#include &lt;Slice/Parser.h&gt;<br />
-#include <vector></p>
-<p>#include &#8220;OurParser.h&#8221;<br />
-#include &#8220;OurVisitor.h&#8221;</p>
-<p>OurParser::OurParser(const string&amp; path, const string&amp; filename)<br />
-{<br />
-  vector<string> dummyArgs;<br />
-  _pp = new Preprocessor(path,filename,dummyArgs);<br />
-  FILE* cppHandle = _pp&#8594;preprocess(false);</p>
-UnitPtr u = Unit::createUnit(false, true, true, true);
-int parseStatus = u&#8594;parse(&quot;&quot;, cppHandle, false);
-OurVisitor visitor;
-u&#8594;visit(&amp;visitor, cppHandle);
-<p>}</p>
-<p>OurParser::~OurParser()<br />
-{}</p>
-<p>int<br />
-main(int argc, char* argv[])<br />
-{<br />
-  OurParser* sp = new OurParser(&quot;&quot;, argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>);<br />
-  return 0;<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;IceUtil/OutputUtil.h&gt;
+#include &lt;IceUtil/Options.h&gt;
+#include &lt;Slice/Parser.h&gt;
+#include &lt;vector&gt;
+</span>
+<span class="cp">#include "OurParser.h"
+#include "OurVisitor.h"
+</span>
+<span class="n">OurParser</span><span class="o">::</span><span class="n">OurParser</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">path</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">filename</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">dummyArgs</span><span class="p">;</span>
+  <span class="n">_pp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Preprocessor</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span><span class="n">dummyArgs</span><span class="p">);</span>
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">cppHandle</span> <span class="o">=</span> <span class="n">_pp</span><span class="o">-&gt;</span><span class="n">preprocess</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+
+  <span class="n">UnitPtr</span> <span class="n">u</span> <span class="o">=</span> <span class="n">Unit</span><span class="o">::</span><span class="n">createUnit</span><span class="p">(</span><span class="nb">false</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">parseStatus</span> <span class="o">=</span> <span class="n">u</span><span class="o">-&gt;</span><span class="n">parse</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="n">cppHandle</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+
+  <span class="n">OurVisitor</span> <span class="n">visitor</span><span class="p">;</span>
+  <span class="n">u</span><span class="o">-&gt;</span><span class="n">visit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">visitor</span><span class="p">,</span> <span class="n">cppHandle</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">OurParser</span><span class="o">::~</span><span class="n">OurParser</span><span class="p">()</span>
+<span class="p">{}</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="n">OurParser</span><span class="o">*</span> <span class="n">sp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OurParser</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>¿y como funciona esto? Bueno, la clase <em>OurParser</em> será quien realice todo el trabajo. Básicamente, su cometido consiste en crear una instancia del preprocesador pasándole el archivo a parsear y un conjunto de opciones (en nuestro caso, como no queremos pasarle nada, se le pasa un vector de cadenas vacío, <em>dummyArgs</em>). Después de instanciar el preprocesador, se preprocesa el archivo:</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-  vector<string> dummyArgs;<br />
-  _pp = new Preprocessor(path,filename,dummyArgs);<br />
-  FILE* cppHandle = _pp&#8594;preprocess(false);<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">  <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">dummyArgs</span><span class="p">;</span>
+  <span class="n">_pp</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Preprocessor</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span><span class="n">dummyArgs</span><span class="p">);</span>
+  <span class="kt">FILE</span><span class="o">*</span> <span class="n">cppHandle</span> <span class="o">=</span> <span class="n">_pp</span><span class="o">-&gt;</span><span class="n">preprocess</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span></code></pre></figure></div>
 <p>Después se instancia el parser propiamente dicho, y se parsea el Slice</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-  UnitPtr u = Unit::createUnit(false, true, true, true);<br />
-  int parseStatus = u&#8594;parse(&quot;&quot;, cppHandle, false);<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">  <span class="n">UnitPtr</span> <span class="n">u</span> <span class="o">=</span> <span class="n">Unit</span><span class="o">::</span><span class="n">createUnit</span><span class="p">(</span><span class="nb">false</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">parseStatus</span> <span class="o">=</span> <span class="n">u</span><span class="o">-&gt;</span><span class="n">parse</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="n">cppHandle</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span></code></pre></figure></div>
 <p><em>u</em> es quien realiza todo el trabajo de parseado. Las opciones que se pasan cuando se crea se utilizan entre otras cosas para propósitos de depuración y las que se dan en el ejemplo son válidas en general. Si se quiere, se puede jugar con los valores a ver qué pasa o directamente echar un ojo al código de <em>slice2cpp</em> donde están un poco mas comentadas.<br />
 la variable <em>parseStatus</em> almacena el resultado del parseo.</p>
 <p>Una vez que se ha terminado de parsear el archivo, ya se cuenta con toda la información semántica, así que solo nos resta obtener dicha información y procesarla a nuestro antojo. Como se ha intentando que el parser sea lo mas general posible, de modo que pueda ser reutilizado para lo que sea necesario (vamos, que haya buena separación entre <em>frontend</em> y <em>backend</em>), se ha hecho uso del patron de diseño <em>visitor</em> que se comentó anteriormente. En nuestro caso creamos una clase que contendrá una serie de métodos que serán llamados en determinados momentos, como por ejemplo cuando se inicie la declaración de un módulo, su finalización, cuando se declare una función, sus parámetros, metadatos, se defina una estructura de datos o una clase, etc&#8230;.<br />
 En nuestro caso, después del parseo, &#8220;visitamos&#8221; al parser para pedirle toda la información:</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-  OurVisitor visitor;<br />
-  u&#8594;visit(&amp;visitor, cppHandle);<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">  <span class="n">OurVisitor</span> <span class="n">visitor</span><span class="p">;</span>
+  <span class="n">u</span><span class="o">-&gt;</span><span class="n">visit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">visitor</span><span class="p">,</span> <span class="n">cppHandle</span><span class="p">);</span></code></pre></figure></div>
 <p><em>visitor</em> es una instancia de nuestra clase visitante, que implementará los métodos necesarios para procesar la información.<br />
 Ésta clase viene a ser algo como ésto:</p>
 <div>
-<p>{% highlight cpp %}<br />
-#include &lt;Slice/Parser.h&gt;</p>
-<p>using namespace Slice;</p>
-<p>class OurVisitor: public ParserVisitor<br />
-{<br />
-public:<br />
-  OurVisitor(SymbolTable&amp;);<br />
-  ~OurVisitor();</p>
-virtual bool visitModuleStart(const ModulePtr&amp;);
-virtual void visitModuleEnd(const ModulePtr&amp;);
-virtual void visitClassDecl(const ClassDeclPtr&amp;);
-virtual bool visitClassDefStart(const ClassDefPtr&amp;);
-virtual void visitClassDefEnd(const ClassDefPtr&amp;);
-virtual bool visitExceptionStart(const ExceptionPtr&amp;);
-virtual void visitExceptionEnd(const ExceptionPtr&amp;);
-virtual bool visitStructStart(const StructPtr&amp;);
-virtual void visitStructEnd(const StructPtr&amp;);
-virtual void visitOperation(const OperationPtr&amp;);
-virtual void visitParamDecl(const ParamDeclPtr&amp;);
-virtual void visitDataMember(const DataMemberPtr&amp;);
-virtual void visitSequence(const SequencePtr&amp;);
-virtual void visitDictionary(const DictionaryPtr&amp;);
-virtual void visitEnum(const EnumPtr&amp;);
-virtual void visitConst(const ConstPtr&amp;);
-<p>}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;Slice/Parser.h&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">Slice</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">OurVisitor</span><span class="o">:</span> <span class="k">public</span> <span class="n">ParserVisitor</span>
+<span class="p">{</span>
+<span class="nl">public:</span>
+  <span class="n">OurVisitor</span><span class="p">(</span><span class="n">SymbolTable</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="o">~</span><span class="n">OurVisitor</span><span class="p">();</span>
+
+  <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">visitModuleStart</span><span class="p">(</span><span class="k">const</span> <span class="n">ModulePtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitModuleEnd</span><span class="p">(</span><span class="k">const</span> <span class="n">ModulePtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitClassDecl</span><span class="p">(</span><span class="k">const</span> <span class="n">ClassDeclPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">visitClassDefStart</span><span class="p">(</span><span class="k">const</span> <span class="n">ClassDefPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitClassDefEnd</span><span class="p">(</span><span class="k">const</span> <span class="n">ClassDefPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">visitExceptionStart</span><span class="p">(</span><span class="k">const</span> <span class="n">ExceptionPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitExceptionEnd</span><span class="p">(</span><span class="k">const</span> <span class="n">ExceptionPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">bool</span> <span class="n">visitStructStart</span><span class="p">(</span><span class="k">const</span> <span class="n">StructPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitStructEnd</span><span class="p">(</span><span class="k">const</span> <span class="n">StructPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitOperation</span><span class="p">(</span><span class="k">const</span> <span class="n">OperationPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitParamDecl</span><span class="p">(</span><span class="k">const</span> <span class="n">ParamDeclPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitDataMember</span><span class="p">(</span><span class="k">const</span> <span class="n">DataMemberPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitSequence</span><span class="p">(</span><span class="k">const</span> <span class="n">SequencePtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitDictionary</span><span class="p">(</span><span class="k">const</span> <span class="n">DictionaryPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitEnum</span><span class="p">(</span><span class="k">const</span> <span class="n">EnumPtr</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visitConst</span><span class="p">(</span><span class="k">const</span> <span class="n">ConstPtr</span><span class="o">&amp;</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>Bueno, como se puede ver, nuestro &#8220;visitante&#8221; tiene que heredar de la clase <em>ParserVisitor</em>, además, debe implementar todos los métodos que se ven. Éstos métodos serán llamados por el parser y será en ellos en los que nosotros definamos el procesado que queremos hacer de la información.</p>
 <h2>&#8220;Extrayendo&#8221; información</h2>
 <p>Bueno, aquí voy a comentar qué he hecho yo para obtener cierta información que necesitaba del Slice. Si se necesitase otra información, pues nada, a mirar el código de los conversores de código que da ZeroC, que es muy entrentenido :-P &#8230;</p>
 <h3>Modulos</h3>
 <p>Cada vez que se inicia el parseado de un módulo, se invoca la función <em>visitModuleStart</em> de nuestro <em>visitor</em>. Entre otras cosas, la información que puede ser necesaria en este punto es el nombre del módulo y su ámbito de declaración. Para acceder a esa información, algo como esto:</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-bool<br />
-OurVisitor::visitModuleStart(const ModulePtr&amp; p)<br />
-{<br />
-   cout &quot;Nombre del modulo: &quot; &lt;&lt; p&#8594;name() &lt;&lt; endl;<br />
-   cout &quot;Ambito de declaracion: &quot; &lt;&lt; p&#8594;scope() &lt;&lt;endl;<br />
-   return true;<br />
-}<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span>
+<span class="n">OurVisitor</span><span class="o">::</span><span class="n">visitModuleStart</span><span class="p">(</span><span class="k">const</span> <span class="n">ModulePtr</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="n">cout</span> <span class="s">"Nombre del modulo: "</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+   <span class="n">cout</span> <span class="s">"Ambito de declaracion: "</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">scope</span><span class="p">()</span> <span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+   <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>Cuando se abandona la declaración de un módulo, se invoca a <em>visitModuleEnd</em>, pasandole exactamente la misma información que a su homólogo de inicio de módulo.</p>
 <h3>Clases e Interfaces</h3>
 <p>Cuando se declara una clase o una interfaz en el Slice, el parser visita la misma función: <em>visitClassDefStart</em> para el inicio de la declaración y <em>visitClassDefEnd</em> para finalizar la declaración. Si la declaración se encuentra dentro de un módulo, estaremos en la declaración de una interfaz. En caso contrario, se tratará de una clase.<br />
 Aquí la información que leí fue la misma que en el módulo, así que el código es casi idéntico:</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-bool<br />
-OurVisitor::visitClassDefStart(const ClassDefPtr&amp; p)<br />
-{<br />
-   cout &quot;Nombre del interfaz: &quot; &lt;&lt; p&#8594;name() &lt;&lt; endl;<br />
-   cout &quot;Ambito de declaracion: &quot; &lt;&lt; p&#8594;scope() &lt;&lt;endl;<br />
-   return true;<br />
-}<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span>
+<span class="n">OurVisitor</span><span class="o">::</span><span class="n">visitClassDefStart</span><span class="p">(</span><span class="k">const</span> <span class="n">ClassDefPtr</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="n">cout</span> <span class="s">"Nombre del interfaz: "</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+   <span class="n">cout</span> <span class="s">"Ambito de declaracion: "</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">scope</span><span class="p">()</span> <span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+   <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <h3>Operaciones</h3>
 <p>Para el caso de las operaciones necesitaremos leer mas información aparte del nombre y el ámbito. Ésta información se refiere al tipo de retorno, tipo de la función (por ejemplo puede ser <em>idempotent</em>), y los argumentos (nombre, tipo y dirección).</p>
 <p>El procedimiento encargado de obtener la información de las operaciones es <em>VisitOperation</em> y un ejemplo de implementación que simplemente imprime información sería el siguiente:</p>
 <div>
-<p>{% highlight cpp %}<br />
-void<br />
-OurVisitor::visitOperation(const OperationPtr&amp; p)<br />
-{</p>
-size_t strIndex;
-string metadataName, metadataValue;
-StringList operationMetaData;
-cout &quot;Nombre: &quot; &lt;&lt; p&#8594;name() &lt;&lt; endl;
-cout &quot;Ambito de declaracion: &quot; &lt;&lt; p&#8594;scope() &lt;&lt; endl;
-TypePtr ret = p&#8594;returnType();
-string retS = returnTypeToString(ret, &quot;&quot;, p&#8594;getMetaData());
-cout &lt;&lt; &quot;Tipo de retorno: &quot; &lt;&lt; retS &lt;&lt; endl;
-if(p&#8594;mode() == Operation::Idempotent || p&#8594;mode() == Operation::Nonmutating){
-// Idempotent operation
-cout &lt;&lt; &#8220;Funcion idempotente&#8221; &lt;&lt; endl;
-}
-// Looking for metadata.
-operationMetaData = p&#8594;getMetaData();
-cout &lt;&lt; &#8220;Metadatos:&#8221; &lt;&lt; endl;
-for(StringList::iterator it = operationMetaData.begin(); it != operationMetaData.end(); it++) {
-cout &lt;&lt; *it &lt;&lt; endl;
-}
-}
-// Looking for parameters.
-ParamDeclList paramList = p&#8594;parameters();
-cout &lt;&lt; &#8220;Parametros:&#8221; &lt;&lt; endl;
-for(ParamDeclList::const_iterator q = paramList.begin();\
-q != paramList.end(); ++q){
-cout &lt;&lt; &quot;Nombre: &quot; &lt;&lt; (*q)&#8594;name();
-StringList metaData = (*q)&#8594;getMetaData();
-if (!(*q)&#8594;isOutParam()){
-cout &lt;&lt; &#8220;Parametro de salida&#8221; &lt;&lt; endl;
-typeString = inputTypeToString((*q)&#8594;type(), false, metaData);
-cout &lt;&lt; &quot;Tipo del  parametro: &quot; &lt;&lt; typeString &lt;&lt; endl;
-}
-<p>}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
+<span class="n">OurVisitor</span><span class="o">::</span><span class="n">visitOperation</span><span class="p">(</span><span class="k">const</span> <span class="n">OperationPtr</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+
+  <span class="kt">size_t</span> <span class="n">strIndex</span><span class="p">;</span>
+  <span class="n">string</span> <span class="n">metadataName</span><span class="p">,</span> <span class="n">metadataValue</span><span class="p">;</span>
+  <span class="n">StringList</span> <span class="n">operationMetaData</span><span class="p">;</span>
+
+  <span class="n">cout</span> <span class="s">"Nombre: "</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="n">cout</span> <span class="s">"Ambito de declaracion: "</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">scope</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="n">TypePtr</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">returnType</span><span class="p">();</span>
+  <span class="n">string</span> <span class="n">retS</span> <span class="o">=</span> <span class="n">returnTypeToString</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="s">""</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">getMetaData</span><span class="p">());</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Tipo de retorno: "</span> <span class="o">&lt;&lt;</span> <span class="n">retS</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">mode</span><span class="p">()</span> <span class="o">==</span> <span class="n">Operation</span><span class="o">::</span><span class="n">Idempotent</span> <span class="o">||</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">mode</span><span class="p">()</span> <span class="o">==</span> <span class="n">Operation</span><span class="o">::</span><span class="n">Nonmutating</span><span class="p">){</span>
+    <span class="c1">// Idempotent operation</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Funcion idempotente"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Looking for metadata.</span>
+  <span class="n">operationMetaData</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">getMetaData</span><span class="p">();</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Metadatos:"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">StringList</span><span class="o">::</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">operationMetaData</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">operationMetaData</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Looking for parameters.</span>
+  <span class="n">ParamDeclList</span> <span class="n">paramList</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">parameters</span><span class="p">();</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Parametros:"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">ParamDeclList</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">q</span> <span class="o">=</span> <span class="n">paramList</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>\
+       <span class="n">q</span> <span class="o">!=</span> <span class="n">paramList</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">q</span><span class="p">){</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Nombre: "</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">q</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">();</span>
+    <span class="n">StringList</span> <span class="n">metaData</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">q</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">getMetaData</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">q</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">isOutParam</span><span class="p">()){</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Parametro de salida"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+      <span class="n">typeString</span> <span class="o">=</span> <span class="n">inputTypeToString</span><span class="p">((</span><span class="o">*</span><span class="n">q</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">(),</span> <span class="nb">false</span><span class="p">,</span> <span class="n">metaData</span><span class="p">);</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Tipo del  parametro: "</span> <span class="o">&lt;&lt;</span> <span class="n">typeString</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>Vayamos por partes: Lo primero que hemos obtenido, ha sido el nombre y el ámbito de declaración de la operación. Después de ésto, se obtiene el tipo de retorno. Éste tipo es un enumerado, por lo que deberemos transformarlo a una cadena con el nombre adecuado para poderlo imprimir (o hacer cualquier otro tipo de proceso que nos interese)</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-    string retS = returnTypeToString(ret, &quot;&quot;, p&#8594;getMetaData());<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp">    <span class="n">string</span> <span class="n">retS</span> <span class="o">=</span> <span class="n">returnTypeToString</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="s">""</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">getMetaData</span><span class="p">());</span></code></pre></figure></div>
 <p>Después se consulta el modo de la operación, que nos dirá si es o no idempotente.<br />
 A continuación yo necesitaba los metadatos de las operaciones. <em>getMetaData()</em> devuelve una lista de cadenas, cada una de las cuales es un metadato, así que con un iterador recorremos dicha lista y vamos imprimiendo todos los metadados de cada operación. Ésto también se puede hacer con módulos, clases, interfaces, etc&#8230;.<br />
 Finalmente, se consultan los parámetros: <em>parameters()</em> devuelve una lista de parámetros. Una vez que se tiene esa lista, hay que iterar sobre ella e ir obteniendo toda la información sobre cada uno de los parámetros:<br />
@@ -5399,85 +5383,88 @@ Finalmente, se consultan los parámetros: <em>parameters()</em> devuelve una lis
 <h3>Sobre los tipos de retorno y de los parámetros</h3>
 <p><em>returnTypeToString</em>, <em>inputTypeToString</em> y <em>outputTypeToString</em> son funciones que son llamadas para convertir los enumerados que determinan el tipo de una función o parámetro en la cadena que los representa textualmente. En la implementación que tenemos, éstas funciones se encuentran dentro de un módulo llamado <em>Slice/CPlusPlusUtil</em> que hay que incluir. Cuando se detecte un <em>string</em>, <em>int</em> o <em>bool</em> por ejemplo, nuestro programita responderá con algo como <em>::<span class="caps">ICE</span>::string</em> o <em>::<span class="caps">ICE</span>::int</em> pero ¿y si queremos que, por ejemplo, cuando detecte un entero nos diga &#8220;<em>cacho entero</em>&#8221; (por ejemplo ;-))? Bueno, pues tendremos que sobreescribir las funciones de las que hablé antes para que nos devuelva lo que nosotros queramos. Yo en mi caso, modifiqué las tres. Aquí muestro mi <em>outputTypeToString</em>:</p>
 <div>
-<p>{% highlight cpp %}<br />
-string<br />
-Slice::outputTypeToString(const TypePtr&amp; type, bool useWstring, const StringList&amp; metaData)<br />
-{<br />
-    static const char* outputBuiltinTable[] =<br />
-    {<br />
-        &#8220;Byte&#8221;,<br />
-        &#8220;bool&#8221;,<br />
-        &#8220;Short&#8221;,<br />
-        &#8220;Int&#8221;,<br />
-        &#8220;Long&#8221;,<br />
-        &#8220;Float&#8221;,<br />
-        &#8220;Double&#8221;,<br />
-        &#8220;string&#8221;,<br />
-        &#8220;ObjectPtr&#8221;,<br />
-        &#8220;ObjectPrx&#8221;,<br />
-        &#8220;LocalObjectPtr&#8221;<br />
-    };</p>
-BuiltinPtr builtin = BuiltinPtr::dynamicCast(type);
-if(builtin)
-{
-if(builtin&#8594;kind() == Builtin::KindString)
-{
-string strType = findMetaData(metaData, true);
-if(strType != &#8220;string&#8221; &amp;&amp; (useWstring || strType == &#8220;wstring&#8221;))
-{
-if(featureProfile == IceE)
-{
-return &#8220;Wstring&amp;&#8221;;
-}
-else
-{
-return &#8220;wstring&amp;&#8221;;
-}
-}
-}
-return outputBuiltinTable[builtin&#8594;kind()];
-}
-ClassDeclPtr cl = ClassDeclPtr::dynamicCast(type);
-if(cl)
-{
-return fixKwd(cl&#8594;scoped() + &#8220;Ptr&#8221;);
-}
-StructPtr st = StructPtr::dynamicCast(type);
-if(st)
-{
-if(findMetaData(st&#8594;getMetaData(), false) == &#8220;class&#8221;)
-{
-return fixKwd(st&#8594;scoped() + &#8220;Ptr&#8221;);
-}
-return fixKwd(st&#8594;scoped());
-}
-ProxyPtr proxy = ProxyPtr::dynamicCast(type);
-if(proxy)
-{
-return fixKwd(proxy&#8594;_class()&#8594;scoped() + &#8220;Prx&#8221;);
-}
-SequencePtr seq = SequencePtr::dynamicCast(type);
-if(seq)
-{
-string seqType = findMetaData(metaData, false);
-if(!seqType.empty())
-{
-<p>return seqType;<br />
-        }<br />
-        else<br />
-        {<br />
-	  return fixKwd(seq&#8594;scoped());<br />
-        }<br />
-    }<br />
-    ContainedPtr contained = ContainedPtr::dynamicCast(type);<br />
-    if(contained)<br />
-    {<br />
-      return fixKwd(contained&#8594;scoped());<br />
-    }</p>
-return &#8220;???&#8221;;
-<p>}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">string</span>
+<span class="n">Slice</span><span class="o">::</span><span class="n">outputTypeToString</span><span class="p">(</span><span class="k">const</span> <span class="n">TypePtr</span><span class="o">&amp;</span> <span class="n">type</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">useWstring</span><span class="p">,</span> <span class="k">const</span> <span class="n">StringList</span><span class="o">&amp;</span> <span class="n">metaData</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">outputBuiltinTable</span><span class="p">[]</span> <span class="o">=</span>
+    <span class="p">{</span>
+        <span class="s">"Byte"</span><span class="p">,</span>
+        <span class="s">"bool"</span><span class="p">,</span>
+        <span class="s">"Short"</span><span class="p">,</span>
+        <span class="s">"Int"</span><span class="p">,</span>
+        <span class="s">"Long"</span><span class="p">,</span>
+        <span class="s">"Float"</span><span class="p">,</span>
+        <span class="s">"Double"</span><span class="p">,</span>
+        <span class="s">"string"</span><span class="p">,</span>
+        <span class="s">"ObjectPtr"</span><span class="p">,</span>
+        <span class="s">"ObjectPrx"</span><span class="p">,</span>
+        <span class="s">"LocalObjectPtr"</span>
+    <span class="p">};</span>
+
+    <span class="n">BuiltinPtr</span> <span class="n">builtin</span> <span class="o">=</span> <span class="n">BuiltinPtr</span><span class="o">::</span><span class="n">dynamicCast</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">builtin</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">builtin</span><span class="o">-&gt;</span><span class="n">kind</span><span class="p">()</span> <span class="o">==</span> <span class="n">Builtin</span><span class="o">::</span><span class="n">KindString</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">string</span> <span class="n">strType</span> <span class="o">=</span> <span class="n">findMetaData</span><span class="p">(</span><span class="n">metaData</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">strType</span> <span class="o">!=</span> <span class="s">"string"</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">useWstring</span> <span class="o">||</span> <span class="n">strType</span> <span class="o">==</span> <span class="s">"wstring"</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">featureProfile</span> <span class="o">==</span> <span class="n">IceE</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">return</span> <span class="s">"Wstring&amp;"</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="k">return</span> <span class="s">"wstring&amp;"</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">outputBuiltinTable</span><span class="p">[</span><span class="n">builtin</span><span class="o">-&gt;</span><span class="n">kind</span><span class="p">()];</span>
+    <span class="p">}</span>
+
+    <span class="n">ClassDeclPtr</span> <span class="n">cl</span> <span class="o">=</span> <span class="n">ClassDeclPtr</span><span class="o">::</span><span class="n">dynamicCast</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">cl</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">fixKwd</span><span class="p">(</span><span class="n">cl</span><span class="o">-&gt;</span><span class="n">scoped</span><span class="p">()</span> <span class="o">+</span> <span class="s">"Ptr"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">StructPtr</span> <span class="n">st</span> <span class="o">=</span> <span class="n">StructPtr</span><span class="o">::</span><span class="n">dynamicCast</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">findMetaData</span><span class="p">(</span><span class="n">st</span><span class="o">-&gt;</span><span class="n">getMetaData</span><span class="p">(),</span> <span class="nb">false</span><span class="p">)</span> <span class="o">==</span> <span class="s">"class"</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">fixKwd</span><span class="p">(</span><span class="n">st</span><span class="o">-&gt;</span><span class="n">scoped</span><span class="p">()</span> <span class="o">+</span> <span class="s">"Ptr"</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">fixKwd</span><span class="p">(</span><span class="n">st</span><span class="o">-&gt;</span><span class="n">scoped</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="n">ProxyPtr</span> <span class="n">proxy</span> <span class="o">=</span> <span class="n">ProxyPtr</span><span class="o">::</span><span class="n">dynamicCast</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">fixKwd</span><span class="p">(</span><span class="n">proxy</span><span class="o">-&gt;</span><span class="n">_class</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">scoped</span><span class="p">()</span> <span class="o">+</span> <span class="s">"Prx"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">SequencePtr</span> <span class="n">seq</span> <span class="o">=</span> <span class="n">SequencePtr</span><span class="o">::</span><span class="n">dynamicCast</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">string</span> <span class="n">seqType</span> <span class="o">=</span> <span class="n">findMetaData</span><span class="p">(</span><span class="n">metaData</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">seqType</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+        <span class="p">{</span>
+	  <span class="k">return</span> <span class="n">seqType</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+	  <span class="k">return</span> <span class="n">fixKwd</span><span class="p">(</span><span class="n">seq</span><span class="o">-&gt;</span><span class="n">scoped</span><span class="p">());</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">ContainedPtr</span> <span class="n">contained</span> <span class="o">=</span> <span class="n">ContainedPtr</span><span class="o">::</span><span class="n">dynamicCast</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">contained</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="n">fixKwd</span><span class="p">(</span><span class="n">contained</span><span class="o">-&gt;</span><span class="n">scoped</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="s">"???"</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>Lo único que modifiqué fue la tabla de nombres del principio, dándole los que yo quise. Si los nombres que vamos a dar a los parámetros de entrada, de salida y al tipo de retorno van a ser los mismos (es decir, no vamos a distinguir por ejemplo un entero de salida, un entero de entrada y un tipo de retorno entero, llamandolos por el mismo nombre de forma interna en los tres casos) podemos utilizar solo una de éstas tres funciones y llamarla en todos los casos. En caso contrario, habrá que utilizar una función distinta para cada caso y llamarla cuando sea necesaria.</p>
       </div>
 
@@ -5543,7 +5530,7 @@ return &#8220;???&#8221;;
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

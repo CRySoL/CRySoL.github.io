@@ -5727,23 +5727,18 @@
 <h2>Interfaces promiscuas (con perdón)</h2>
 <p>Antes de seguir, es importante señalar que para que funcionen algunos de estos ejemplos es necesario ejecutar el programa con privilegios de superusuario y además se debe configurar la interfaz de red en <em>modo promiscuo</em>. Para ello, simplemente ejecuta algo como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ifconfig eth0  promisc<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ifconfig eth0  promisc</code></pre></figure></div>
 <h2>AF_PACKET</h2>
 <p>Con este tipo de sockets se puede acceder a toda la pila de protocolos. Es posible leer y escribir cabeceras de cualquier capa incluido el nivel de enlace (típicamente Ethernet). El siguiente ejemplo es un <em>sniffer</em> básico que imprime todas las tramas Ethernet completas recibidas por cualquier interfaz:</p>
 <div>
-<p>{% highlight python %}<br />
-import socket</p>
-<p>ETH_P_ALL = 3</p>
-<p>s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(ETH_P_ALL))</p>
-<p>while 1:<br />
-    print &#8216;&#8212;\n&#8217;, repr(s.recv(1600))<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">ETH_P_ALL</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_PACKET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">htons</span><span class="p">(</span><span class="n">ETH_P_ALL</span><span class="p">))</span>
+
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">'--</span><span class="si">\</span><span class="se">n</span><span class="s">'</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1600</span><span class="p">))</span></code></pre></figure></div>
 <p>Es posible filtrar:</p>
 <ul>
 	<li>El <strong>tipo de trama</strong>: usando el último parámetro del constructor de <code>socket</code></li>
@@ -5751,49 +5746,46 @@ import socket</p>
 </ul>
 <p>El siguiente programa imprime únicamente mensajes <span class="caps">ARP</span> recibidos o enviados por la interfaz &#8220;eth0&#8221;:</p>
 <div>
-<p>{% highlight python %}<br />
-import socket</p>
-<p>ETH_P_ARP = 0&#215;0806</p>
-<p>s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(ETH_P_ARP))<br />
-s.bind((&#8216;eth0&#8217;, ETH_P_ARP))</p>
-<p>while 1:<br />
-    print &#8216;&#8212;\n&#8217;, repr(s.recv(1600))<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">ETH_P_ARP</span> <span class="o">=</span> <span class="mh">0x0806</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_PACKET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">htons</span><span class="p">(</span><span class="n">ETH_P_ARP</span><span class="p">))</span>
+<span class="n">s</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">'eth0'</span><span class="p">,</span> <span class="n">ETH_P_ARP</span><span class="p">))</span>
+
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">'--</span><span class="si">\</span><span class="se">n</span><span class="s">'</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1600</span><span class="p">))</span></code></pre></figure></div>
 <h3>Enviando</h3>
 <p>El mismo socket se puede utilizar para enviar datos. Para sintetizar un paquete, es decir, construir cabeceras de acuerdo a las especificaciones se utiliza normalmente el módulo struct. El siguiente listado envía una cabecera Ethernet. Si pones wireshark y capturas la trama enviada verás que te indica que es un &#8220;malformed packet&#8221; y con razón, ya que no tiene carga útil y eso lógicamente no tiene sentido. De modo que este programa no sirve para nada, sólo para que veas que se puede construir y enviar lo que quieras (siempre que tenga sentido, claro).</p>
 <div>
-<p>{% highlight python %}<br />
-import socket, struct</p>
-<p>ETH_P_ARP = 0&#215;0806</p>
-<p>s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(ETH_P_ARP))<br />
-s.bind((&#8216;eth0&#8217;, ETH_P_ARP))<br />
-s.send(struct.pack(&#8216;!6s6sh&#8217;, &#8216;\xFF&#8217;*6, &#8216;\x00\x01\x02\x03\x04\x05&#8217;, ETH_P_ARP))<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span><span class="p">,</span> <span class="n">struct</span>
+
+<span class="n">ETH_P_ARP</span> <span class="o">=</span> <span class="mh">0x0806</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_PACKET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">htons</span><span class="p">(</span><span class="n">ETH_P_ARP</span><span class="p">))</span>
+<span class="n">s</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">'eth0'</span><span class="p">,</span> <span class="n">ETH_P_ARP</span><span class="p">))</span>
+<span class="n">s</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="s">'!6s6sh'</span><span class="p">,</span> <span class="s">'</span><span class="si">\</span><span class="se">xFF</span><span class="s">'</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="s">'</span><span class="si">\</span><span class="se">x00</span><span class="si">\</span><span class="se">x01</span><span class="si">\</span><span class="se">x02</span><span class="si">\</span><span class="se">x03</span><span class="si">\</span><span class="se">x04</span><span class="si">\</span><span class="se">x05</span><span class="s">'</span><span class="p">,</span> <span class="n">ETH_P_ARP</span><span class="p">))</span></code></pre></figure></div>
 <p>En el repo hay un <a href="https://bitbucket.org/arco_group/python-net/src/tip/raw/arping.py">ejemplo de arping en Python con sockets raw</a> que te puede servir como ejemplo completo de cómo diseccionar y sintetizar tramas Ethernet y mensajes <span class="caps">ARP</span>.</p>
 <h2>AF_INET</h2>
 <p>La principal diferencia con los sockets del apartado anterior es que estos gestionan las cabeceras de enlace y red. El siguiente programa muestra todos los paquetes IP que contienen un segmento <span class="caps">UDP</span>. El paquete capturado incluye las cabeceras IP y <span class="caps">UDP</span>:</p>
 <div>
-<p>{% highlight python %}<br />
-import socket</p>
-<p>s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.getprotobyname(&#8220;udp&#8221;))</p>
-<p>while 1:<br />
-    print &#8216;&#8212;\n&#8217;, repr(s.recv(1600))<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">getprotobyname</span><span class="p">(</span><span class="s">"udp"</span><span class="p">))</span>
+
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">'--</span><span class="si">\</span><span class="se">n</span><span class="s">'</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1600</span><span class="p">))</span></code></pre></figure></div>
 <p>Es posible filtrar por cualquier protocolo que se pueda transportar sobre IP, es decir, valores válidos del campo &#8220;protocolo&#8221; de la cabecera IP. Para más información consulta el método <code>getprotobyname()</code>.</p>
 <h3>Enviando</h3>
 <p>Para enviar datos sobre este tipo de socket  debes utilizar <code>sendto()</code> indicando la dirección IP destino. El siguiente programa envía un paquete <span class="caps">UDP</span> que contiene el texto &#8220;hola internet&#8221;. El programa se encarga de construir la cabecera <span class="caps">UDP</span>, pero las cabeceras IP y Ethernet las construye el SO.</p>
 <div>
-<p>{% highlight python %}<br />
-import socket, struct</p>
-<p>s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.getprotobyname(&#8220;udp&#8221;))</p>
-<p>payload = &#8220;hola Inet&#8221;<br />
-udp_pkt = struct.pack(&#8216;!4h&#8217;, 0, 2000, 8+len(payload), 0) + payload<br />
-s.sendto(udp_pkt, (&#8216;161.67.27.1&#8217;, 0))<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">socket</span><span class="p">,</span> <span class="n">struct</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">getprotobyname</span><span class="p">(</span><span class="s">"udp"</span><span class="p">))</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="s">"hola Inet"</span>
+<span class="n">udp_pkt</span> <span class="o">=</span> <span class="n">struct</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="s">'!4h'</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">8</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">payload</span>
+<span class="n">s</span><span class="p">.</span><span class="n">sendto</span><span class="p">(</span><span class="n">udp_pkt</span><span class="p">,</span> <span class="p">(</span><span class="s">'161.67.27.1'</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span></code></pre></figure></div>
 <h3>IP_HDRINCL</h3>
 <p>El flag <code>IP_HDRINCL</code> permite indicarle a un socket AF_INET:SOCK_RAW que el usuario también desea construir él mismo la cabecera IP. En la recepción, la cabecera IP siempre se incluye. Cuando se especifica IP_HDRINCL, el socket se encarga de rellenar ciertos campos de la cabecera IP. Estos campos son:</p>
 <ul>
@@ -5804,16 +5796,10 @@ s.sendto(udp_pkt, (&#8216;161.67.27.1&#8217;, 0))<br />
 </ul>
 <p>Esta opción, como la gran mayoría de las opciones para sockets se fija con:</p>
 <div>
-<p>{% highlight python <span>}<br />
-s.setsockopt(socket.SOL_IP, socket.IP_HDRINCL, 1)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">s</span><span class="p">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">SOL_IP</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">IP_HDRINCL</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></code></pre></figure></div>
 <p>Esta opción resulta muy útil cuando se desea enviar paquetes IP que transportan distintos protocolos. En ese caso se debe crear un socket de tipo <code>IPPROTO_RAW</code>. Es decir:</p>
 <div>
-<p>{% highlight python <span>}<br />
-s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">IPPROTO_RAW</span><span class="p">)</span></code></pre></figure></div>
 <p>Pero debes tener presente que no se puede leer de este tipo de socket. Sólo se puede utilizar para enviar.</p>
 <h2>Identificación del origen</h2>
 <p>Puedes obtener información sobre el origen de una trama o paquete utilizando el método <code>recvfrom()</code> en lugar de <code>recv()</code> tanto para AF_PACKET como para AF_INET. Obviamente, el valor devuelto por este método para cada tipo de socket es diferente y tiene significados diferentes.</p>
@@ -5887,7 +5873,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_RAW)<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

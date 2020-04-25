@@ -5381,82 +5381,87 @@
 <h2>¿Cómo se usa?</h2>
 <p>Pues muy sencillito, por ejemplo, para instalar el paquete <code>go2</code> en las máquinas <code>server1</code> y <code>server2</code> simplemente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ./r-apt.py -H server1,server2 install:go2<br />
-canonical name: pepe@server1.example.org<br />
-canonical name: pepe.sanchez@server2.pentagon.edu:3040<br />
-remote sudo password (if needed):<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./r-apt.py <span class="nt">-H</span> server1,server2 <span class="nb">install</span>:go2
+<span class="go">canonical name: pepe@server1.example.org
+canonical name: pepe.sanchez@server2.pentagon.edu:3040
+remote sudo password (if needed):</span></code></pre></figure></div>
 <p>Se puede ejecutar como un comando gracias al peculiar shebang &#8220;#!/usr/bin/fab -f&#8221;.</p>
 <p>Pide la clave (una única vez) para hacer <code>sudo</code> en las máquinas remotas. Se asume que el usuario <code>pepe</code> tiene autenticación por clave pública, es <em>sudoers</em> en ambas máquinas y tiene la misma clave, que no es demasiado descabellado.</p>
 <p>Fíjate que el script ha averiguado los nombres canónicos de las máquinas incluyendo nombre de usuario remoto y puerto. Esta información está por supuesto en el <code>~/.ssh/config</code> del usuario, pero <code>fabric</code> no lo soporta. El script <code>r-apt.py</code> incluye <a href="http://markpasc.typepad.com/blog/2010/04/loading-ssh-config-settings-for-fabric.html">una función</a> que he encontrado (con mínimas modificaciones) y que ofrece esta útil característica.</p>
 <p>Lo bueno es que fabric permite ejecutar más de un comando en más de una máquina, de modo que se puede hacer algo tan interesante como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ./r-apt.py -H server1,server2 <strong>update install:go2 install:atheist</strong><br />
-canonical name: pepe@server1.example.org<br />
-canonical name: pepe.sanchez@server2.pentagon.edu:3040<br />
-remote sudo password (if needed):<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./r-apt.py <span class="nt">-H</span> server1,server2 <span class="k">*</span>update <span class="nb">install</span>:go2 <span class="nb">install</span>:atheist<span class="k">*</span>
+<span class="go">canonical name: pepe@server1.example.org
+canonical name: pepe.sanchez@server2.pentagon.edu:3040
+remote sudo password (if needed):</span></code></pre></figure></div>
 <p>update e install de &#8220;n&#8221; paquetes en &#8220;n&#8221; máquinas poniendo la clave una única vez&#8230; no está mal.</p>
 <h2>El script</h2>
 <p>Lo pongo aquí para que puedas ver lo sencillito que es, pero lo tienes también en mi <a href="https://bitbucket.org/davidvilla/fabric-tools/src/dd2ca2f1dbd2/r-apt.py">repo bitbucket</a></p>
 <div>
-<p>{% highlight python %}<br />
-#!/usr/bin/fab -f</p>
-<ol>
-	<li><del>*</del> coding:utf-8; tab-width:4; mode:python <del>*</del><br />
-&quot;&quot;&quot;<br />
-usage: ./r-apt.py cmd:args<br />
-sample: ./r-apt.py install:cherokee<br />
-&quot;&quot;&quot;</li>
-</ol>
-<p>import os<br />
-import getpass</p>
-<p>from fabric.api import run, env, sudo</p>
-<ol>
-	<li>http://markpasc.typepad.com/blog/2010/04/loading-ssh-config-settings-for-fabric.html<br />
-def annotate_hosts_with_ssh_config_info(hosts):<br />
-    from os.path import expanduser<br />
-    from paramiko.config import SSHConfig</li>
-</ol>
-def hostinfo(host, config):
-hive = config.lookup(host)
-if &#8216;hostname&#8217; in hive:
-host = hive[&#8216;hostname&#8217;]
-if &#8216;user&#8217; in hive:
-host = &#8216;%s@%s&#8217; % (hive[&#8216;user&#8217;], host)
-if &#8216;port&#8217; in hive:
-host = &#8216;%s:%s&#8217; % (host, hive[&#8216;port&#8217;])
-return host
-try:
-config_file = file(expanduser(&#8216;~/.ssh/config&#8217;))
-except IOError:
-pass
-else:
-config = SSHConfig()
-config.parse(config_file)
-keys = [config.lookup(host).get(&#8216;identityfile&#8217;, None) for host in hosts]
-keys = [x for x in keys if os.path.exists(x)]
-env.key_filename = [expanduser(key) for key in keys if key is not None]
-retval = [hostinfo(host, config) for host in hosts]
-for h in retval:
-print(&#8216;canonical name: {0}&#8217;.format(h))
-return retval
-<p>env.hosts = annotate_hosts_with_ssh_config_info(env.hosts)<br />
-env.password = getpass.getpass(&#8217;remote sudo password (if needed): &#8217;)</p>
-<p>def update():<br />
-    sudo(&#8216;aptitude update&#8217;)</p>
-<p>def install(pkg):<br />
-    sudo(&#8216;aptitude -y install {0}&#8217;.format(pkg))</p>
-<p>def remove(pkg):<br />
-    sudo(&#8216;aptitude -y remove {0}&#8217;.format(pkg))</p>
-<p>def hostname():<br />
-    run(&#8216;hostname&#8217;)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/fab -f
+# -*- coding:utf-8; tab-width:4; mode:python -*-
+</span><span class="s">"""
+usage: ./r-apt.py cmd:args
+sample: ./r-apt.py install:cherokee
+"""</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">getpass</span>
+
+<span class="kn">from</span> <span class="nn">fabric.api</span> <span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">sudo</span>
+
+
+<span class="c1"># http://markpasc.typepad.com/blog/2010/04/loading-ssh-config-settings-for-fabric.html
+</span><span class="k">def</span> <span class="nf">annotate_hosts_with_ssh_config_info</span><span class="p">(</span><span class="n">hosts</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">expanduser</span>
+    <span class="kn">from</span> <span class="nn">paramiko.config</span> <span class="kn">import</span> <span class="n">SSHConfig</span>
+
+    <span class="k">def</span> <span class="nf">hostinfo</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="n">hive</span> <span class="o">=</span> <span class="n">config</span><span class="p">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s">'hostname'</span> <span class="ow">in</span> <span class="n">hive</span><span class="p">:</span>
+            <span class="n">host</span> <span class="o">=</span> <span class="n">hive</span><span class="p">[</span><span class="s">'hostname'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s">'user'</span> <span class="ow">in</span> <span class="n">hive</span><span class="p">:</span>
+            <span class="n">host</span> <span class="o">=</span> <span class="s">'%s@%s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">hive</span><span class="p">[</span><span class="s">'user'</span><span class="p">],</span> <span class="n">host</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s">'port'</span> <span class="ow">in</span> <span class="n">hive</span><span class="p">:</span>
+            <span class="n">host</span> <span class="o">=</span> <span class="s">'%s:%s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">hive</span><span class="p">[</span><span class="s">'port'</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">host</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">config_file</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">expanduser</span><span class="p">(</span><span class="s">'~/.ssh/config'</span><span class="p">))</span>
+    <span class="k">except</span> <span class="nb">IOError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">SSHConfig</span><span class="p">()</span>
+        <span class="n">config</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">config</span><span class="p">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">host</span><span class="p">).</span><span class="n">get</span><span class="p">(</span><span class="s">'identityfile'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts</span><span class="p">]</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keys</span> <span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+        <span class="n">env</span><span class="p">.</span><span class="n">key_filename</span> <span class="o">=</span> <span class="p">[</span><span class="n">expanduser</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">]</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="p">[</span><span class="n">hostinfo</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">retval</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'canonical name: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">retval</span>
+
+
+<span class="n">env</span><span class="p">.</span><span class="n">hosts</span> <span class="o">=</span> <span class="n">annotate_hosts_with_ssh_config_info</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">hosts</span><span class="p">)</span>
+<span class="n">env</span><span class="p">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">.</span><span class="n">getpass</span><span class="p">(</span><span class="s">'remote sudo password (if needed): '</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="n">sudo</span><span class="p">(</span><span class="s">'aptitude update'</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="n">pkg</span><span class="p">):</span>
+    <span class="n">sudo</span><span class="p">(</span><span class="s">'aptitude -y install {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">pkg</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">pkg</span><span class="p">):</span>
+    <span class="n">sudo</span><span class="p">(</span><span class="s">'aptitude -y remove {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">pkg</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">hostname</span><span class="p">():</span>
+    <span class="n">run</span><span class="p">(</span><span class="s">'hostname'</span><span class="p">)</span></code></pre></figure></div>
       </div>
 
       
@@ -5521,7 +5526,7 @@ env.password = getpass.getpass(&#8217;remote sudo password (if needed): &#8217;)
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

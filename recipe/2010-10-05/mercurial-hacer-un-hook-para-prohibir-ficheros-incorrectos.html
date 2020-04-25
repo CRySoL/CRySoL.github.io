@@ -5200,120 +5200,94 @@
 <h2>Creando el repo</h2>
 <p>Para probar esta receta, puedes crear un repositorio local, clonarlo y ver que funciona correctamente. Para ello, primero creamos el repo &#8220;raiz&#8221;:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>box$ hg init base<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">box$</span><span class="w"> </span>hg init base</code></pre></figure></div>
 <p>Ahora, es necesario editar el fichero <code>.hg/hgrc</code> del repositorio base. Se añade el hook <a href="http://hgbook.red-bean.com/read/handling-repository-events-with-hooks.html#sec:hook:pretxnchangegroup">pretxnchangegroup</a>, que se ejecuta al hacer push (o bundle). Si estamos haciendo un &#8216;push&#8217; con varios &#8216;commit&#8217;, se ha de tener en cuenta que sólo se ejecutará una vez para todos los &#8216;commit&#8217;. Por eso, es necesario iterar de alguna forma sobre cada &#8216;changeset&#8217;, y comprobar que la política se cumple. El script que se ejecuta en este hook (<code>./check.sh</code>) hace eso precisamente:</p>
 <div>
-<p>{% highlight bash %}<br />
-#!/bin/bash</p>
-<ol>
-	<li><del>*</del> mode: shell; coding: utf-8 <del>*</del></li>
-</ol>
-<p><span class="caps">TMP</span>=`mktemp -u`<br />
-<span class="caps">FAIL</span>=0</p>
-<ol>
-	<li>Hacemos una copia primero, para actualizar los changesets. De esta forma,</li>
-	<li>no tendremos conflictos con los nombres. HG usa hardlinks para esto, así</li>
-	<li>que no es muy grave.<br />
-hg clone file://. $<span class="caps">TMP</span> &gt; /dev/null 2&gt;&amp;1</li>
-</ol>
-<ol>
-	<li>Iteramos sobre todos los &#8216;changesets&#8217;.<br />
-for node in `hg log &#8212;template &#8216;{node}\n&#8217; -r $HG_NODE:`; do</li>
-	<li>Limpiamos ficheros anteriores, para que no nos haga preguntas.<br />
-    rm $<span class="caps">TMP</span>/* -fr</li>
-</ol>
-<ol>
-	<li>Actualizamos (update) al &#8216;changeset&#8217; a analizar.<br />
-    hg -R $<span class="caps">TMP</span> revert &#8212;all -r $node &gt; /dev/null 2&gt;&amp;1</li>
-</ol>
-<ol>
-	<li>Aquí se llama al script que hace la verificación correspondiente.<br />
-    ./assertText.sh $<span class="caps">TMP</span></li>
-</ol>
-<ol>
-	<li>Si el script falló, salimos con un estado de error (1)<br />
-    if [ &#8220;$?&#8221; -ne 0 ]; then<br />
-	echo &#8220;Assertion failed!&#8221;<br />
-	<span class="caps">FAIL</span>=1<br />
-	break<br />
-    fi<br />
-done</li>
-</ol>
-<ol>
-	<li>No olvidar la limpieza<br />
-rm $<span class="caps">TMP</span>/ -fr<br />
-exit $<span class="caps">FAIL</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="c"># -*- mode: shell; coding: utf-8 -*-</span>
+
+<span class="nv">TMP</span><span class="o">=</span><span class="sb">`</span><span class="nb">mktemp</span> <span class="nt">-u</span><span class="sb">`</span>
+<span class="nv">FAIL</span><span class="o">=</span>0
+
+<span class="c"># Hacemos una copia primero, para actualizar los changesets. De esta forma,</span>
+<span class="c"># no tendremos conflictos con los nombres. HG usa hardlinks para esto, así</span>
+<span class="c"># que no es muy grave.</span>
+hg clone file://. <span class="nv">$TMP</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1
+
+<span class="c"># Iteramos sobre todos los 'changesets'.</span>
+<span class="k">for </span>node <span class="k">in</span> <span class="sb">`</span>hg log <span class="nt">--template</span> <span class="s1">'{node}\n'</span> <span class="nt">-r</span> <span class="nv">$HG_NODE</span>:<span class="sb">`</span><span class="p">;</span> <span class="k">do</span>
+    <span class="c"># Limpiamos ficheros anteriores, para que no nos haga preguntas.</span>
+    <span class="nb">rm</span> <span class="nv">$TMP</span>/<span class="k">*</span> <span class="nt">-fr</span>
+
+    <span class="c"># Actualizamos (update) al 'changeset' a analizar.</span>
+    hg <span class="nt">-R</span> <span class="nv">$TMP</span> revert <span class="nt">--all</span> <span class="nt">-r</span> <span class="nv">$node</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1
+
+    <span class="c"># Aquí se llama al script que hace la verificación correspondiente.</span>
+    ./assertText.sh <span class="nv">$TMP</span>
+
+    <span class="c"># Si el script falló, salimos con un estado de error (1)</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$?</span><span class="s2">"</span> <span class="nt">-ne</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+	</span><span class="nb">echo</span> <span class="s2">"Assertion failed!"</span>
+	<span class="nv">FAIL</span><span class="o">=</span>1
+	<span class="nb">break
+    </span><span class="k">fi
+done</span>
+
+<span class="c"># No olvidar la limpieza</span>
+<span class="nb">rm</span> <span class="nv">$TMP</span>/ <span class="nt">-fr</span>
+<span class="nb">exit</span> <span class="nv">$FAIL</span></code></pre></figure></div>
 <p>Guarda ese script en el directorio <code>base</code> (fuera del <code>.hg</code>), y dale permisos de ejecución.</p>
 <p>Como vemos en el script, se hace una copia del repositorio en un directorio temporal, y se actualiza esa copia con cada &#8216;changeset&#8217; concreto. Ahora, se pasa el script que hace la verificación. En este caso, el script es muy sencillo. Únicamente se listan todos los ficheros que no estén ocultos, y se comprueba (con la herramienta file) que todos son ficheros de texto:</p>
 <div>
-<p>{% highlight bash %}<br />
-#!/bin/bash</p>
-<ol>
-	<li><del>*</del> mode: shell; coding: utf-8 <del>*</del></li>
-</ol>
-<p>for i in `find $1 -type f \! -path &#8220;<strong>/.</strong>&#8221;`; do<br />
-    file $i | grep &#8216;text&#8217; &gt; /dev/null 2&gt;&amp;1<br />
-    if [ &#8220;$?&#8221; -ne 0 ]; then<br />
-	echo &#8220;$i is not a text file!&#8221;<br />
-	exit 1<br />
-    fi<br />
-done<br />
-exit 0<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="c"># -*- mode: shell; coding: utf-8 -*-</span>
+
+<span class="k">for </span>i <span class="k">in</span> <span class="sb">`</span>find <span class="nv">$1</span> <span class="nt">-type</span> f <span class="se">\!</span> <span class="nt">-path</span> <span class="s2">"*/.*"</span><span class="sb">`</span><span class="p">;</span> <span class="k">do
+    </span>file <span class="nv">$i</span> | <span class="nb">grep</span> <span class="s1">'text'</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$?</span><span class="s2">"</span> <span class="nt">-ne</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+	</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2"> is not a text file!"</span>
+	<span class="nb">exit </span>1
+    <span class="k">fi
+done
+</span><span class="nb">exit </span>0</code></pre></figure></div>
 <p>Este script (<code>assertText.sh</code>) es bastante simple, y no cubre todas las posibilidades deseadas. Por ejemplo, un fichero <span class="caps">SVG</span> es un fichero de texto (<span class="caps">XML</span>), pero file no dirá en su mensaje la palabra &#8216;text&#8217;. Se deja a la imaginación del lector mejorar el proceso de verificación de cada fichero ;)</p>
 <p>De nuevo, guarda el fichero en el directorio <code>base</code> y dale permisos de ejecución. Es hora de comprobar que funciona.</p>
 <h2>Verificando la política</h2>
 <p>Ahora clonaremos localmente el repositorio base, y probaremos que el hook funciona correctamente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>box$ hg clone file://$(pwd)/base copia<br />
-updating to branch default<br />
-0 files updated, 0 files merged, 0 files removed, 0 files unresolved<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">box$</span><span class="w"> </span>hg clone file://<span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span>/base copia
+<span class="go">updating to branch default
+0 files updated, 0 files merged, 0 files removed, 0 files unresolved</span></code></pre></figure></div>
 <p>Primero, añade un fichero de texto normal y corriente, y verifica que no hay problema.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>box$ cd copia<br />
-box$ echo &#8220;esto es algo de texto&#8221; &gt; file.txt<br />
-box$ hg add file.txt<br />
-box$ hg ci -m &#8220;commit correcto&#8221;<br />
-box$ hg push<br />
-pushing to /tmp/tests/base<br />
-searching for changes<br />
-adding changesets<br />
-adding manifests<br />
-adding file changes<br />
-added 1 changesets with 1 changes to 1 files<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">box$</span><span class="w"> </span><span class="nb">cd </span>copia
+<span class="gp">box$</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"esto es algo de texto"</span> <span class="o">&gt;</span> file.txt
+<span class="gp">box$</span><span class="w"> </span>hg add file.txt
+<span class="gp">box$</span><span class="w"> </span>hg ci <span class="nt">-m</span> <span class="s2">"commit correcto"</span>
+<span class="gp">box$</span><span class="w"> </span>hg push
+<span class="go">pushing to /tmp/tests/base
+searching for changes
+adding changesets
+adding manifests
+adding file changes
+added 1 changesets with 1 changes to 1 files</span></code></pre></figure></div>
 <p>Ok, en eso no hay problema. Veamos ahora que pasa si se añade un fichero binario, por ejemplo, una imagen.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>box$ cp /usr/share/pixmaps/nobody.png data.png<br />
-box$ hg add data.png<br />
-box$ hg ci -m &#8220;commit incorrecto&#8221;<br />
-box$ hg push<br />
-pushing to /tmp/tests/base<br />
-searching for changes<br />
-adding changesets<br />
-adding manifests<br />
-adding file changes<br />
-added 1 changesets with 1 changes to 1 files<br />
-/tmp/tmp.Wb35uj91pi/data.png is not a text file!<br />
-Assertion failed!<br />
-transaction abort!<br />
-rollback completed<br />
-abort: pretxnchangegroup hook exited with status 1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">box$</span><span class="w"> </span><span class="nb">cp</span> /usr/share/pixmaps/nobody.png data.png
+<span class="gp">box$</span><span class="w"> </span>hg add data.png
+<span class="gp">box$</span><span class="w"> </span>hg ci <span class="nt">-m</span> <span class="s2">"commit incorrecto"</span>
+<span class="gp">box$</span><span class="w"> </span>hg push
+<span class="go">pushing to /tmp/tests/base
+searching for changes
+adding changesets
+adding manifests
+adding file changes
+added 1 changesets with 1 changes to 1 files
+/tmp/tmp.Wb35uj91pi/data.png is not a text file!
+Assertion failed!
+transaction abort!
+rollback completed
+abort: pretxnchangegroup hook exited with status 1</span></code></pre></figure></div>
 <p>Como vemos, el fichero <code>data.png</code> no ha satisfecho la política, y por tanto, no podrá ser subido al repositorio.</p>
 <h2>Posibles problemas</h2>
 <p>Cuando lanzamos un push, y se ejecuta el script <code>check.sh</code>, los cambios ya han sido actualizados en el repositorio base. Mercurial está a la espera de que el script acabe correctamente para hacerlos definitivos o descartarlos. Esto implica que todos los &#8216;commit&#8217; que se han hecho estarán accesibles para otros <strong>mientras</strong> se esté ejecutando el script. Si el proceso de verificación es muy largo, puede que alguien haga un &#8216;pull&#8217; de un changeset que no es válido, lo que causará problemas.</p>
@@ -5388,7 +5362,7 @@ abort: pretxnchangegroup hook exited with status 1<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5455,155 +5455,113 @@
 <p>El ingrediente principal de esta receta es <strong>reprepro</strong> (aka mirrorer). Esta herramienta permite crear y gestionar un repositorio official (no trivial) de una forma trivial :-). Hay <a href="http://wiki.debian.org/HowToSetupADebianRepository">más herramientas para la gestión de repositorios</a>.</p>
 <p>Instala reprepro en la máquina que servirá el repositorio:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>aptitude install reprepro<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>aptitude <span class="nb">install </span>reprepro</code></pre></figure></div>
 <h2>Configuración</h2>
 <p>Creamos los siguientes directorios:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ mkdir -p /var/repo/conf<br />
-$ mkdir -p /var/repo/incoming<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> <span class="nt">-p</span> /var/repo/conf
+<span class="gp">$</span><span class="w"> </span><span class="nb">mkdir</span> <span class="nt">-p</span> /var/repo/incoming</code></pre></figure></div>
 <p>En el directorio <code>conf</code> estarán todos los archivos de configuración para reprepro. El directorio <code>incoming</code> será la cola de entrada de paquetes subidos por los developers. A éste último volveré más adelante.</p>
 <h3><code>conf/distributions</code></h3>
 <p>En primer lugar, crea el archivo <code>conf/distributions</code> con el siguiente contenido:</p>
 <div>
-<p>{% highlight text %}<br />
-Origin: Ciudad Real y Software Libre<br />
-Label: CRySoL<br />
-Suite: stable<br />
-Codename: stable<br />
-Architectures: i386 amd64 powerpc source<br />
-Components: main<br />
-Description: CRySoL repository<br />
-Pull: stable-pull</p>
-<p>Origin: Ciudad Real y Software Libre<br />
-Label: CRySoL<br />
-Suite: unstable<br />
-Codename: sid<br />
-Architectures: i386 amd64 powerpc source<br />
-Components: main<br />
-Description: CRySoL repository<br />
-SignWith: <span class="caps">PGP</span>-ID-123<br />
-Uploaders: ./uploaders<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Origin: Ciudad Real y Software Libre
+Label: CRySoL
+Suite: stable
+Codename: stable
+Architectures: i386 amd64 powerpc source
+Components: main
+Description: CRySoL repository
+Pull: stable-pull
+
+Origin: Ciudad Real y Software Libre
+Label: CRySoL
+Suite: unstable
+Codename: sid
+Architectures: i386 amd64 powerpc source
+Components: main
+Description: CRySoL repository
+SignWith: PGP-ID-123
+Uploaders: ./uploaders</code></pre></figure></div>
 <p>Según lo especificado, el repositorio tendrá 2 ramas: <em>stable</em> y <em>sid</em>. Además de los campos evidentes, en la stable se ha especificado la propiedad <em>Pull_. Esta propiedad nos servirá para definir una regla (_stable-pull</em>) por la que se actualizará la rama <em>stable</em> a partir de <em>sid</em>. Las reglas de <em>Pull</em> se especifican en el fichero <code>conf/pulls</code>.</p>
 <p>La distribución <em>sid</em> será donde, por defecto, subirán los paquetes los developers. El campo <em>SignWith</em> especifica el identificador de la firma <span class="caps">PGP</span> con la que se generarán los archivos <em>Release.gpg</em> (lo que se conoce comúnmente como «firmar el repo»). El usuario/os que tengan privilegios para reconstruir y modificar el repositorio <strong>deben</strong> tener dicha clave en su anillo.</p>
 <p>Finalmente, la propiedad <em>Uploaders</em> especifica un archivo con el siguiente contenido:</p>
 <div>
-<p>{% highlight text <span>}<br />
-allow * by key <span class="caps">PGPID</span>-DEVELOPER1<br />
-allow * by key <span class="caps">PGPID</span>-DEVELOPER2<br />
-allow * by key <span class="caps">PGPID</span>-DEVELOPER3<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">allow * by key PGPID-DEVELOPER1
+allow * by key PGPID-DEVELOPER2
+allow * by key PGPID-DEVELOPER3</code></pre></figure></div>
 <p>Es decir, los identificadores de las claves de los developers autorizados. Hay más atributos para las distribuiciones. Consulta el man de reprepro.</p>
 <h3>conf/pulls</h3>
 <p>Como ya se ha señalado, la rama <em>stable</em> del repositorio se actualizará automáticamente utilizando la regla <em>pull-table</em>. Un ejemplo puede ser el siguiente:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Name: stable-pull<br />
-From: sid<br />
-Components: main<br />
-Architectures: amd64 powerpc i386 source<br />
-FilterList: purge packages.old<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Name: stable-pull
+From: sid
+Components: main
+Architectures: amd64 powerpc i386 source
+FilterList: purge packages.old</code></pre></figure></div>
 <p>Los campos más importantes son las reglas de filtrado como <em>FilterList</em>. En este caso, se utiliza el comando <em>purge</em> que indica que, en tiempo de actualización, se borren los archivos que <strong>no aparecen</strong> listados dentro de packages.old_. Éste es un nombre de archivo cualquiera. En mi caso, es generado por un programa que selecciona los paquetes que llevan más de 1 semana sin actualizarse. Como no se han actualizado en ese tiempo, pasan a <em>stable</em>.</p>
 <h3>conf/incoming</h3>
 <p>Finalmente, sólo queda configurar cómo se debe realizar la gestión de la cola de subida de paquetes. Un ejemplo de regla de gestión (<em>sid-process</em>):</p>
 <div>
-<p>{% highlight text <span>}<br />
-Name: sid-process<br />
-IncomingDir: incoming<br />
-TempDir: /tmp<br />
-Default: sid<br />
-Allow: unstable&gt;sid UNRELEASED&gt;sid<br />
-Cleanup: on_deny on_error<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Name: sid-process
+IncomingDir: incoming
+TempDir: /tmp
+Default: sid
+Allow: unstable&gt;sid UNRELEASED&gt;sid
+Cleanup: on_deny on_error</code></pre></figure></div>
 <p>Por defecto, los paquetes se subirán a <em>sid</em> tal y como se indica. Además, si los paquetes han sido firmados por alguien no autorizado o se produce un error durante su comprobación, se borrarán de la lista (propiedad <em>Cleanup</em>). La propiedad <em>Allow</em> permite que los paquetes en cuyos ChangeLog se hayan utilizado los términos<br />
 <em>unstable</em> o <em><span class="caps">UNRELEASED</span></em> (muy común si estás probando el paquete) vayan a parar a <em>sid</em>.</p>
 <h2>Gestión del repo</h2>
 <p>Los siguientes ejemplos se suponen ejecutados desde el raíz del repositorio (en nuestro ejemplo:<code>/var/repo</code>). La opción @-V @ puede ser omitida en todos los casos.</p>
 <h3>Importar paquetes .deb</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ reprepro -V includedeb sid path/to/*.deb<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>reprepro <span class="nt">-V</span> includedeb sid path/to/<span class="k">*</span>.deb</code></pre></figure></div>
 <h3>Eliminar un paquete</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ reprepro -V remove sid package_name<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>reprepro <span class="nt">-V</span> remove sid package_name</code></pre></figure></div>
 <h3>Procesar la cola de envíos</h3>
 <p>Nótese que se utiliza el nombre de la regla de procesamiento<br />
 <em>sid-process</em></p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ reprepro -V processincoming sid-process<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>reprepro <span class="nt">-V</span> processincoming sid-process</code></pre></figure></div>
 <h3>Haz tu repo accesible</h3>
 <p>Si no lo has hecho aún, es necesario que permitas que los usuarios puedan acceder a tu repositorio utilizando <span class="caps">HTTP</span> u otro protocolo. Si tienes Apache, o algún otro servidor web, permite que tu repositorio sea accedido para leer (y listar) desde su raíz.</p>
 <h3>Exporta la clave</h3>
 <p>Si los usuarios empiezan a utilizar tu repositorio seguramente te den la brasa con: &#8220;¿no puedes exportar la clave? Es que me da error el apt&#8230;&#8221;. Exporta tu clave <span class="caps">PGP</span> y hazla accesible:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ gpg &#8212;export &#8212;armor ID-<span class="caps">KEY</span>-123 &gt; key.asc<br />
-$ mv key.asc /var/repo<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gpg <span class="nt">--export</span> <span class="nt">--armor</span> ID-KEY-123 <span class="o">&gt;</span> key.asc
+<span class="gp">$</span><span class="w"> </span><span class="nb">mv </span>key.asc /var/repo</code></pre></figure></div>
 <h2>Utilizando el repositorio</h2>
 <p>Veamos ahora lo que necesita el usuario para poder utilizar el repo y subir paquetes.</p>
 <h3>Importar clave y actualizar</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ wget <del>O</del> http://example.com/repo/key.asc | sudo apt-key add -<br />
-&#8230;<br />
-OK<br />
-$ sudo apt-get update<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>wget <span class="nt">-O-</span> http://example.com/repo/key.asc | <span class="nb">sudo </span>apt-key add -
+<span class="c">...
+</span><span class="go">OK
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get update</code></pre></figure></div>
 <h3>debsign</h3>
 <p>Una vez que hayas generado tu paquete Debian y te dispongas a subirlo, antes de nada debes firmarlo con tu clave <span class="caps">GPG</span> con <code>debsign</code> (te pedirá la clave un par de veces):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ debsign -kID-<span class="caps">KEY</span> paquete_1.0-1_i386.changes<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>debsign <span class="nt">-kID-KEY</span> paquete_1.0-1_i386.changes</code></pre></figure></div>
 <h3>dupload</h3>
 <p><code>dupload</code> es una herramienta para subir paquetes fuentes y binarios (ya firmados). Para que no sea un engorro utilizarlo con el repositorio, recomiendo que edites tu .dupload.conf:</p>
 <div>
-<p>{% highlight text %}<br />
-package config;</p>
-<p>$default_host = &#8220;host_del_repo&#8221;;</p>
-<p>$cfg{&#8217;host_del_repo&#8217;} = {<br />
- fqdn =&gt; &#8220;example.com&#8221;,<br />
- login =&gt; &#8220;repo_user&#8221;,<br />
- method =&gt; &#8220;scpb&#8221;,<br />
- incoming =&gt; &#8220;/var/repo/incoming/&#8221;,</p>
-<ol>
-	<li>The dinstall on ftp-master sends emails itself<br />
- dinstall_runs =&gt; 1,<br />
-};<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">package config;
+
+$default_host = "host_del_repo";
+
+$cfg{'host_del_repo'} = {
+ fqdn =&gt; "example.com",
+ login =&gt; "repo_user",
+ method =&gt; "scpb",
+ incoming =&gt; "/var/repo/incoming/",
+
+# The dinstall on ftp-master sends emails itself
+ dinstall_runs =&gt; 1,
+};</code></pre></figure></div>
 <p>Con todo ello, accederás por <code>scp</code> (batched) a <code>example.com</code> como el usuario <code>repo_user</code>. Ya sólo queda ejecutar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ dupload &#8212;to host_del_repo paquete_1.0-1_i386.changes<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dupload <span class="nt">--to</span> host_del_repo paquete_1.0-1_i386.changes</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://mirrorer.alioth.debian.org/reprepro.1.html" title="o mirrorer">Man de reprepro</a></li>
@@ -5674,7 +5632,7 @@ package config;</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

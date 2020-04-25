@@ -5253,57 +5253,44 @@
 <h2>Instalación</h2>
 <p>Forest no viene de serie con mercurial así que lo tienes que descargar. Lo más fácil es descargar el repo de forest y así lo tienes fácil para actualizar.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>pepe@box:~/repos$ hg clone http://hg.akoha.org/hgforest/<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@box:~/repos$</span><span class="w"> </span>hg clone http://hg.akoha.org/hgforest/</code></pre></figure></div>
 <h2>Uso básico</h2>
 <p>Forest aporta una serie de nuevos comandos a mercurial para trabajar con conjuntos de repositorios. Puedes clonar un repositorio forest y eso clonará todos los repositorios asociados. Aquí vamos a hacer el uso más simple posible de forest, tanto que ni siquiera hay un repositorio forest remoto, solo existirá en local.</p>
 <h2>Clonar los repositorios</h2>
 <p>Lo primero es crear un directorio y descargar los repos &#8220;asociados&#8221;</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>pepe@box:~/repos$ mkdir WorldDomination<br />
-pepe@box:~/repos$ cd WorldDomination<br />
-pepe@box:~/repos/WorldDomination$ hg clone ssh://&#8230;/darkforces<br />
-pepe@box:~/repos/WorldDomination$ hg clone ssh://&#8230;/terminator<br />
-pepe@box:~/repos/WorldDomination$ hg clone ssh://&#8230;/popusday<br />
-[&#8230;]<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@box:~/repos$</span><span class="w"> </span><span class="nb">mkdir </span>WorldDomination
+<span class="gp">pepe@box:~/repos$</span><span class="w"> </span><span class="nb">cd </span>WorldDomination
+<span class="gp">pepe@box:~/repos/WorldDomination$</span><span class="w"> </span>hg clone ssh://.../darkforces
+<span class="gp">pepe@box:~/repos/WorldDomination$</span><span class="w"> </span>hg clone ssh://.../terminator
+<span class="gp">pepe@box:~/repos/WorldDomination$</span><span class="w"> </span>hg clone ssh://.../popusday
+<span class="go">[...]</span></code></pre></figure></div>
 <h2>Crear un repo &#8220;dummy&#8221;</h2>
 <p>Es decir:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>pepe@box:~/repos/WorldDomination$ hg init<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@box:~/repos/WorldDomination$</span><span class="w"> </span>hg init</code></pre></figure></div>
 <p>Edita <code>.hg/hgrc</code> y añade esto:</p>
 <div>
-<p>{% highlight text <span>}<br />
-[extensions]<br />
-hgext.forest=/home/pepe/repos/hgforest/forest.py<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[extensions]
+hgext.forest=/home/pepe/repos/hgforest/forest.py</code></pre></figure></div>
 <p>y ya puedes usar &#8220;forest&#8221;.</p>
 <h2>Comando básicos</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>pepe@box:~/repos/WorldDomination$ hg fpull<br />
-[darkforces]<br />
-pulling from ssh://&#8230;/darkforces<br />
-searching for changes<br />
-no changes found</p>
-<p>[terminator]<br />
-pulling from ssh://&#8230;/terminator<br />
-searching for changes<br />
-no changes found</p>
-<p>[popusday]<br />
-pulling from ssh://&#8230;/popusday<br />
-searching for changes<br />
-no changes found<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@box:~/repos/WorldDomination$</span><span class="w"> </span>hg fpull
+<span class="go">[darkforces]
+pulling from ssh://.../darkforces
+searching for changes
+no changes found
+
+[terminator]
+pulling from ssh://.../terminator
+searching for changes
+no changes found
+
+[popusday]
+pulling from ssh://.../popusday
+searching for changes
+no changes found</span></code></pre></figure></div>
 <p>Y del mismo estilo tienes:</p>
 <ul>
 	<li>fupdate</li>
@@ -5381,7 +5368,7 @@ no changes found<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

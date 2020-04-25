@@ -5156,16 +5156,10 @@
 <p><!--break--></p>
 <p>roperly configure your add_virtualhost directives in mm_cfg.py. E.g.</p>
 <div>
-<p>{% highlight text <span>}<br />
-add_virtual_host(mailman.yyy.com, xxx.com)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">add_virtual_host(mailman.yyy.com, xxx.com)</code></pre></figure></div>
 <p>Then when you run</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>bin/withlist -l -r fix_url <listname> -u mailman.yyy.com<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">bin/withlist -l -r fix_url &lt;listname&gt;</span><span class="w"> </span><span class="nt">-u</span> mailman.yyy.com</code></pre></figure></div>
 <p>it will set the host in web_page_url to mailman.yyy.com and host_name<br />
 to xxx.com.</p>
 <ul>
@@ -5236,7 +5230,7 @@ to xxx.com.</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

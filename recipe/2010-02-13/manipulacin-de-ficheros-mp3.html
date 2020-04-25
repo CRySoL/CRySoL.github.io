@@ -5302,10 +5302,7 @@
 </ul>
 <h2>Codificación</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ lame -q2 -V2 original.wav resultado.mp3<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>lame <span class="nt">-q2</span> <span class="nt">-V2</span> original.wav resultado.mp3</code></pre></figure></div>
 <p><strong>-q</strong>: nivel de calidad, <code>2</code> es el recomendado para buena calidad conservando velocidad aceptable.<br />
 <strong>-V</strong>: usar variable bitrate. <code>0</code> es la máxima calidad, <code>4</code> por defecto, <code>9</code> la peor.</p>
 <h2>Manipulación de metadatos (ID3)</h2>
@@ -5313,19 +5310,13 @@
 <h3><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">exiftool</a></h3>
 <p><code>exiftool</code> es una herramienta muy potente para obtener metadatos de un montón de formatos de ficheros, entre ellos, los mp3.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ exiftool &#8220;09 &#8211; Rey.mp3&#8221; -p &#8216;$Album &#8211; $Track &#8211; $Title&#8217;<br />
-Gran Ilusión &#8211; 09 &#8211; Rey<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>exiftool <span class="s2">"09 - Rey.mp3"</span> <span class="nt">-p</span> <span class="s1">'$Album - $Track - $Title'</span>
+<span class="go">Gran Ilusión - 09 - Rey</span></code></pre></figure></div>
 <p>Soporta todas las <a href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ID3.html">tags de ID3</a> de todas las versiones del formato.</p>
 <h3><a href="http://eyed3.nicfit.net/">eyeD3</a></h3>
 <p>Con <code>eye3D</code> puedes modificar los metadatos ID3:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ eyeD3 -a &#8220;Enendro&#8221; -A &#8220;Gran Ilusión&#8221; -t &#8220;Rey&#8221; -n &#8220;09&#8221; &#8220;09 &#8211; Rey.mp3&#8221;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>eyeD3 <span class="nt">-a</span> <span class="s2">"Enendro"</span> <span class="nt">-A</span> <span class="s2">"Gran Ilusión"</span> <span class="nt">-t</span> <span class="s2">"Rey"</span> <span class="nt">-n</span> <span class="s2">"09"</span> <span class="s2">"09 - Rey.mp3"</span></code></pre></figure></div>
 <h3>id3ren</h3>
 <p>Programa para copiar etiquetas ID3, renombrar el fichero a partir de la etiqueta, etiquetar el fichero a partir de su nombre, etc.</p>
 <h3>Comentarios</h3>
@@ -5394,7 +5385,7 @@ Gran Ilusión &#8211; 09 &#8211; Rey<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5345,46 +5345,21 @@
 <h2>Crear un bridge con dos tarjetas de red Ethernet</h2>
 <p>Crea el <em>bridge</em> indicando un nombre:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>brctl addbr br0<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>brctl addbr br0</code></pre></figure></div>
 <p>Añades las interfaces físicas</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>brctl addif br0 eth0</li>
-	<li>brctl addif br0 eth1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>brctl addif br0 eth0
+<span class="gp">#</span><span class="w"> </span>brctl addif br0 eth1</code></pre></figure></div>
 <p>Quita las direcciones IP de las interfaces físicas:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ifconfig eth0 0.0.0.0</li>
-	<li>ifconfig eth1 0.0.0.0<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ifconfig eth0 0.0.0.0
+<span class="gp">#</span><span class="w"> </span>ifconfig eth1 0.0.0.0</code></pre></figure></div>
 <p>Asigna una dirección IP al <em>bridge</em></p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ifconfig br0 192.168.0.1 up<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ifconfig br0 192.168.0.1 up</code></pre></figure></div>
 <p>Si en alguna de las redes a las que están conectadas las interfaces físicas hay un servidor <span class="caps">DHCP</span>, lo puedes usar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>dhclient br0<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dhclient br0</code></pre></figure></div>
       </div>
 
       
@@ -5449,7 +5424,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

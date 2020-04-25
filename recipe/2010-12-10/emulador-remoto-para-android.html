@@ -5246,24 +5246,18 @@
 <h2>En materia</h2>
 <p>Cuando arrancas el emulador (QEmu), tienes disponibles un par de puertos (5554 y 5555) con los que el plugin de Eclipse se conectará al dispositivo emulado. Dado que se usa <span class="caps">TCP</span>/IP para esta comunicación, no importa donde estén Eclipse o el emulador. Sin embargo, (y por lo menos en el <span class="caps">SDK</span> para Android 2.3), se escucha en la interfaz local (127.0.0.1). Así que lo único que tienes que hacer es instalarte <code>redir</code> en A y realizar las redirecciones oportunas.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>A$ sudo apt-get install redir<br />
-[&#8230;]<br />
-A$ redir &#8212;laddr 192.168.0.10 &#8212;lport 5554 &#8212;caddr 127.0.0.1 &#8212;cport 5554 &amp;<br />
-A$ redir &#8212;laddr 192.168.0.10 &#8212;lport 5555 &#8212;caddr 127.0.0.1 &#8212;cport 5555 &amp;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">A$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>redir
+<span class="go">[...]
+</span><span class="gp">A$</span><span class="w"> </span>redir <span class="nt">--laddr</span> 192.168.0.10 <span class="nt">--lport</span> 5554 <span class="nt">--caddr</span> 127.0.0.1 <span class="nt">--cport</span> 5554 &amp;
+<span class="gp">A$</span><span class="w"> </span>redir <span class="nt">--laddr</span> 192.168.0.10 <span class="nt">--lport</span> 5555 <span class="nt">--caddr</span> 127.0.0.1 <span class="nt">--cport</span> 5555 &amp;</code></pre></figure></div>
 <p>Obviamente, en donde pone 192.168.0.10 debes poner la IP que corresponda con tu configuración.</p>
 <p>En la máquina de desarrollo, lo único necesario es conectar con este emulador, usando la herramienta <span class="caps">ADB</span>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>B$ adb connect 192.168.0.10<br />
-connected to 192.168.0.10:5555<br />
-B$ adb devices<br />
-List of devices attached<br />
-192.168.0.10:5555	device<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">B$</span><span class="w"> </span>adb connect 192.168.0.10
+<span class="go">connected to 192.168.0.10:5555
+</span><span class="gp">B$</span><span class="w"> </span>adb devices
+<span class="go">List of devices attached
+192.168.0.10:5555	device</span></code></pre></figure></div>
 <p>Por ultimo, en el proyecto de Eclipse, es necesario que configures el &#8220;Deployment Target Selection Mode&#8221; a manual. De esta forma, saldrá un diálogo con los dispositivos disponibles cuando intentes ejecutar tu aplicación. Para ello, dirígete a &#8220;Run &#8594; Run Configurations&#8230;&#8221;, y en la pestaña &#8220;Target&#8221; selecciona Manual.</p>
 <p>Y esto es todo. Ahora podrás abrir eclipse y el emulador sin morir en el intento ;)</p>
       </div>
@@ -5330,7 +5324,7 @@ List of devices attached<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

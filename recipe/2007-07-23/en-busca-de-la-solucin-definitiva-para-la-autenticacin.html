@@ -5179,12 +5179,7 @@
 <p>Los datos de los usuarios se obtienen mediante una función de la libc (getent) que se puede ejercitar directamente con el comando del mismo nombre.  Esta rutina se puede configurar de forma modular, para que busque los datos en nuestros célebres /etc/passwd, /etc/group, /etc/shadow, etc. o para que lo busque en otros lugares (bases de datos locales, servidores <span class="caps">LDAP</span>, servidores <span class="caps">NIS</span>, etc.).</p>
 <p>Primero instalamos los paquetes necesarios:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>aptitude install libnss-ldap libnss-db nss-updatedb</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>aptitude <span class="nb">install </span>libnss-ldap libnss-db nss-updatedb</code></pre></figure></div>
 <p>Al instalarse libnss-ldap se pueden configurar los parámetros básicos, pero no todas las pijaditas.  Por eso es mejor editar la configuración a mano después.  Empezaremos por el archivo de configuración de <span class="caps">NSS</span> (/etc/nsswitch.conf).  En él habrá que cambiar la forma en la que se obtienen las tablas de passwd, group y shadow:</p>
 <pre>
 passwd:  files db [NOTFOUND=continue] ldap
@@ -5217,43 +5212,25 @@ nss_base_group ou=Group,dc=mi,dc=organizacion?one
 <p>Asegúrate de que el archivo /etc/ldap/cacert.pem contiene el certificado de la entidad certificadora que usaste para generar el certificado de tu servidor <span class="caps">LDAP</span>.  La mayoría de las recetas proponen usar una entidad certificadora ficticia, así que este certificado lo habrás creado en el proceso de configuración del servidor <span class="caps">LDAP</span>.</p>
 <p>Ahora falta rellenar el caché local con los datos del servidor <span class="caps">LDAP</span>.  Para eso usaremos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>nss_updatedb ldap passwd</li>
-	<li>nss_updatedb ldap group<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>nss_updatedb ldap passwd
+<span class="gp">#</span><span class="w"> </span>nss_updatedb ldap group</code></pre></figure></div>
 <p>Esto lo podemos poner en un script dentro de /etc/cron.daily/ para que se actualice automáticamente cada día con cualquier posible nuevo usuario.</p>
 <p>De momento no hemos hecho nada de autenticación, solo de información de usuarios.  Y lo podemos probar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>getent passwd</li>
-	<li>getent group</li>
-	<li>getent shadow<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>getent passwd
+<span class="gp">#</span><span class="w"> </span>getent group
+<span class="gp">#</span><span class="w"> </span>getent shadow</code></pre></figure></div>
 <p>Nota que obtienes una salida muy parecida a lo que hay en /etc/passwd, /etc/group y /etc/shadow salvo que no hay ninguna información de passwords.</p>
 <h2>Configurando <span class="caps">PAM</span> (Puggable Authentication Modules)</h2>
 <p>Una vez que <span class="caps">NSS</span> funciona correctamente (¡compruébalo con getent!) podemos pasar a configurar la autenticación con <span class="caps">PAM</span>.</p>
 <p>Primero instalamos los paquetitos relacionados:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>aptitude install libpam-modules libpam-krb5 libpam-ldap libpam-ccreds</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>aptitude <span class="nb">install </span>libpam-modules libpam-krb5 libpam-ldap libpam-ccreds</code></pre></figure></div>
 <p>Al instalar libpam-krb5 se configurará el servidor Kerberos5, que por si no lo habías adivinado, es el servidor Active Directory.  El default realm es el dominio de la empresa (por ejemplo, en la <span class="caps">UCLM</span> es <span class="caps">UCLM</span>.ES), el <span class="caps">KDC</span> (Kerberos Domain Controller) es el propio servidor Active Directory y el admin server es también el mismo.</p>
 <p>Si quieres comprobar que funciona correctamente instala también el paquete krb5-user y prueba a autenticarte:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ kinit -A usuario<br />
-$ kdestroy<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>kinit <span class="nt">-A</span> usuario
+<span class="gp">$</span><span class="w"> </span>kdestroy</code></pre></figure></div>
 <p>Al instalar libpam-ldap volverá a preguntar las mismas cosas que con libnss-ldap.  Nuevamente es mejor configurarlo a mano despues.  Se configura en el archivo /etc/pam_ldap.conf.  Por ejemplo:</p>
 <pre>
 uri ldaps://mi.servidor.ldap
@@ -5391,7 +5368,7 @@ auth required pam_ldap.so use_first_pass
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5397,47 +5397,36 @@
 <p><!--break--></p>
 <p>Lets see the device identification:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>lsusb<br />
-[&#8230;]<br />
-Bus 004 Device 003: ID 0bda:2831 Realtek Semiconductor Corp. 2831U Device<br />
-[&#8230;]<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>lsusb
+<span class="go">[...]
+Bus 004 Device 003: ID 0bda:2831 Realtek Semiconductor Corp. 2831U Device
+[...]</span></code></pre></figure></div>
 <p>Enter the next commands in a console:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo apt-get install linux-headers-$(uname -r) mercurial<br />
-$ hg clone http://linuxtv.org/hg/~jhoogenraad/rtl2831-r2<br />
-$  cd rtl2831-r2/<br />
-$ make<br />
-[&#8230;incomprehensible long long compilation output&#8230;]<br />
-$ sudo make install<br />
-[&#8230;linux things&#8230;]<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>linux-headers-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span> mercurial
+<span class="gp">$</span><span class="w"> </span>hg clone http://linuxtv.org/hg/~jhoogenraad/rtl2831-r2
+<span class="gp">$</span><span class="w">  </span><span class="nb">cd </span>rtl2831-r2/
+<span class="gp">$</span><span class="w"> </span>make
+<span class="go">[...incomprehensible long long compilation output...]
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>make <span class="nb">install</span>
+<span class="go">[...linux things...]</span></code></pre></figure></div>
 <p>Ready! When you plug the receiver you should see something like that in the <code>/var/log/sys.log</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-kernel: [  952.777025] usb 5-1: new high speed <span class="caps">USB</span> device using ehci_hcd and address 7<br />
-kernel: [  952.910355] usb 5-1: configuration #1 chosen from 1 choice<br />
-kernel: [  952.910716] usb 5-1: New <span class="caps">USB</span> device found, idVendor=0bda, idProduct=2831<br />
-kernel: [  952.910716] usb 5-1: New <span class="caps">USB</span> device strings: Mfr=1, Product=2, SerialNumber=3<br />
-kernel: [  952.910716] usb 5-1: Product: RTL2831U<br />
-kernel: [  952.910716] usb 5-1: Manufacturer: Generic<br />
-kernel: [  952.910716] usb 5-1: SerialNumber: 77771111153705700<br />
-kernel: [  953.032908] dvb-usb: found a &#8216;RTL2831U <span class="caps">DVB</span>-T USB2.0 <span class="caps">DEVICE</span>&#8217; in warm state.<br />
-kernel: [  953.032908] dvb-usb: will pass the complete MPEG2 transport stream to the software demuxer.<br />
-kernel: [  953.032908] <span class="caps">DVB</span>: registering new adapter (RTL2831U <span class="caps">DVB</span>-T USB2.0 <span class="caps">DEVICE</span>)<br />
-kernel: [  953.032908] <span class="caps">DVB</span>: registering adapter 0 frontend 0 (Realtek RTL2831 <span class="caps">DVB</span>-T)…<br />
-kernel: [  953.032908] input: IR-receiver inside an <span class="caps">USB</span> <span class="caps">DVB</span> receiver as /class/input/input10<br />
-kernel: [  953.040575] dvb-usb: schedule remote query interval to 300 msecs.<br />
-kernel: [  953.040585] dvb-usb: RTL2831U <span class="caps">DVB</span>-T USB2.0 <span class="caps">DEVICE</span> successfully initialized and connected.<br />
-kernel: [  953.040615] usbcore: registered new interface driver dvb_usb_rtd2831u<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">kernel: [  952.777025] usb 5-1: new high speed USB device using ehci_hcd and address 7
+kernel: [  952.910355] usb 5-1: configuration #1 chosen from 1 choice
+kernel: [  952.910716] usb 5-1: New USB device found, idVendor=0bda, idProduct=2831
+kernel: [  952.910716] usb 5-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+kernel: [  952.910716] usb 5-1: Product: RTL2831U
+kernel: [  952.910716] usb 5-1: Manufacturer: Generic
+kernel: [  952.910716] usb 5-1: SerialNumber: 77771111153705700
+kernel: [  953.032908] dvb-usb: found a 'RTL2831U DVB-T USB2.0 DEVICE' in warm state.
+kernel: [  953.032908] dvb-usb: will pass the complete MPEG2 transport stream to the software demuxer.
+kernel: [  953.032908] DVB: registering new adapter (RTL2831U DVB-T USB2.0 DEVICE)
+kernel: [  953.032908] DVB: registering adapter 0 frontend 0 (Realtek RTL2831 DVB-T)…
+kernel: [  953.032908] input: IR-receiver inside an USB DVB receiver as /class/input/input10
+kernel: [  953.040575] dvb-usb: schedule remote query interval to 300 msecs.
+kernel: [  953.040585] dvb-usb: RTL2831U DVB-T USB2.0 DEVICE successfully initialized and connected.
+kernel: [  953.040615] usbcore: registered new interface driver dvb_usb_rtd2831u</code></pre></figure></div>
 <p>Read the recipe <a href="node/289">Televisión digital terrestre (<span class="caps">TDT</span>) en <span class="caps">GNU</span>/Linux</a> to see how to use the receiver with <span class="caps">KDE</span> and Gnome.</p>
 <h2>Comments</h2>
 <p>Thanks to oscarah.</p>
@@ -5506,7 +5495,7 @@ kernel: [  953.040615] usbcore: registered new interface driver dvb_usb_rtd2831u
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

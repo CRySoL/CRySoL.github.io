@@ -5168,24 +5168,15 @@
 <p>Como es un lío tener que mirar qué sistema de ficheros tiene cada disco para saber qué programa utilizar, he escrito un scriptillo Python que lo averigua automáticamente y utiliza el programa que corresponda. Tiene el original nombre de <code>label</code> y su uso en trivial:</p>
 <p>Para ver la sintaxis:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ label.py<br />
-<span class="caps">USAGE</span>: label.py device [newlabel]</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>label.py
+<span class="go">USAGE: label.py device [newlabel]</span></code></pre></figure></div>
 <p>Para ver la etiqueta de un disco:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ label.py /dev/sda1<br />
-iPod_nano</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>label.py /dev/sda1
+<span class="go">iPod_nano</span></code></pre></figure></div>
 <p>Y para cambiarla:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ label.py /dev/sda1 &#8220;my_iPod&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>label.py /dev/sda1 <span class="s2">"my_iPod"</span></code></pre></figure></div>
 <h2>Limitaciones</h2>
 <ul>
 	<li>Tienes que ser <code>root</code> (por razones obvias). Puedes usarlo con <code>sudo</code>.</li>
@@ -5263,7 +5254,7 @@ $ label.py /dev/sda1 &#8220;my_iPod&#8221;<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

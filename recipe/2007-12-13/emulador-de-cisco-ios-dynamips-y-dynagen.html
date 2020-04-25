@@ -5588,40 +5588,36 @@
 <h2>Emulando redes virtuales</h2>
 <p>Una vez instalados, empezar a trabajar con ellos es sumamente sencillo, arrancas dynamips con las opciones que necesites, por ejemplo, en nuestro caso le indicamos que el puerto va a ser el 7200 :</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>dynamips -H 7200<br />
-Cisco Router Simulation Platform (version 0.2.8-RC2-x86)<br />
-Copyright &#169; 2005-2007 Christophe Fillot.<br />
-Build date: Oct 17 2007 06:50:15<br />
-<span class="caps">ILT</span>: loaded table &#8220;mips64j&#8221; from cache.<br />
-<span class="caps">ILT</span>: loaded table &#8220;mips64e&#8221; from cache.<br />
-<span class="caps">ILT</span>: loaded table &#8220;ppc32j&#8221; from cache.<br />
-<span class="caps">ILT</span>: loaded table &#8220;ppc32e&#8221; from cache.<br />
-Hypervisor <span class="caps">TCP</span> control server started (port 7200).</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dynamips <span class="nt">-H</span> 7200
+<span class="go">Cisco Router Simulation Platform (version 0.2.8-RC2-x86)
+Copyright (c) 2005-2007 Christophe Fillot.
+Build date: Oct 17 2007 06:50:15
+ILT: loaded table "mips64j" from cache.
+ILT: loaded table "mips64e" from cache.
+ILT: loaded table "ppc32j" from cache.
+ILT: loaded table "ppc32e" from cache.
+Hypervisor TCP control server started (port 7200).</span></code></pre></figure></div>
 <p>A ese puerto se conectará dynagen para pasarle los parámetros de configuración de la simulación.</p>
 <p>A continuación arrancamos dynagen indicandole el escenario que queremos crear. El paquete debian tiene unos cuantos ejemplos, veamos uno sencillito creado por nosotros:</p>
 <div>
-<p>{% highlight text %}</p>
-<ol>
-	<li>Ejemplo</li>
-</ol>
-<p>autostart = False</p>
-<p>[localhost]</p>
-[<sup class="footnote" id="fnr7200"><a href="#fn7200">7200</a></sup>]
-image = /home/pepe/ciscoios/c7200-advsecurityk9-mz.124-15.T1.bin
-npe = npe-400
-ram = 160
-[[<span class="caps">ROUTER</span> R1]]
-s1/0 = R2 S1/0
-model = 7200
-[[<span class="caps">ROUTER</span> R2]]
-model = 7200
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># Ejemplo
+
+autostart = False
+
+[localhost]
+
+    [[7200]]
+        image = /home/pepe/ciscoios/c7200-advsecurityk9-mz.124-15.T1.bin
+        npe = npe-400
+        ram = 160
+
+    [[ROUTER R1]]
+        s1/0 = R2 S1/0
+        model = 7200
+
+
+    [[ROUTER R2]]
+        model = 7200</code></pre></figure></div>
 <p>La primera sección [ [ 7200 ] ] nos indica la configuración general de los routers, hay muchos parámetros pero el mas importante y que no puede faltar es la imagen, este parámetro determina la imagen del sistema operativo <span class="caps">IOS</span> que debe cargar. Aqui hay un problema, el sistema operativo Cisco <span class="caps">IOS</span> es privativo por lo que debemos obtener una imagen de algún sitio autorizado. Y aviso a navegantes YO NO <span class="caps">PUEDO</span> <span class="caps">DISTRIBUIR</span> <span class="caps">CISCO</span> <span class="caps">IOS</span> por lo que tendrás que conseguirla por tus propios medios. (ACTUALIZACIÓN: Parece que hay gente que puede distribuirlas, mira al final de esta receta).</p>
 <p>A continuación se definen dos routers [[<span class="caps">ROUTER</span> R1]] y [[<span class="caps">ROUTER</span> R2]] ambos con<br />
 el modelo 7200 (que debe coincidir con la imagen de sistema operativo que cargamos), el atributo model proporciona el modelo de router (7200 en nuestro caso) mientras que tambien debemos especificar las conexiones:</p>
@@ -5631,42 +5627,30 @@ el modelo 7200 (que debe coincidir con la imagen de sistema operativo que cargam
 <p>Esta sentencia nos indica que la linea serial del router R1 la conectamos a la linea serial S1/0 del router R2.</p>
 <p>Si arrancamos el dynagen pasándole como argumento este archivo, que llamaremos simple.net, obtenemos una consola de texto:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ dynagen simple.net<br />
-Reading configuration file&#8230;<br />
-Network successfully loaded<br />
-Dynagen management console for Dynamips<br />
-Copyright &#169; 2005-2007 Greg Anuzelli<br />
-=&gt;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dynagen simple.net
+<span class="go">Reading configuration file...
+Network successfully loaded
+Dynagen management console for Dynamips
+Copyright (c) 2005-2007 Greg Anuzelli
+</span><span class="gp">=&gt;</span></code></pre></figure></div>
 <p>La cantidad de opciones y configuraciones posibles son infinitas, lo mas básico para empezar a trabajar es observar los dispositivos que existen en la red con el comando list:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>=&gt; list<br />
-Name       Type       State      Server          Console<br />
-R1         7200       stopped    localhost:7200  2000<br />
-R2         7200       stopped    localhost:7200  2001<br />
-=&gt;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">=&gt;</span><span class="w"> </span>list
+<span class="go">Name       Type       State      Server          Console
+R1         7200       stopped    localhost:7200  2000
+R2         7200       stopped    localhost:7200  2001
+</span><span class="gp">=&gt;</span></code></pre></figure></div>
 <p>Arrancar los routers:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-=&gt; start /all<br />
-Warining: Starting R1 with no idle-pc value<br />
-100-VM &#8216;R1&#8217; started<br />
-Warining: Starting R2 with no idle-pc value<br />
-100-VM &#8216;R2&#8217; started</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">=&gt;</span><span class="w"> </span>start /all
+<span class="go">Warining: Starting R1 with no idle-pc value
+100-VM 'R1' started
+Warining: Starting R2 with no idle-pc value
+100-VM 'R2' started</span></code></pre></figure></div>
 <p>y obtener una consola para trabajar con los distintos routers:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-=&gt; console /all<br />
-=&gt;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">=&gt;</span><span class="w"> </span>console /all
+<span class="gp">=&gt;</span></code></pre></figure></div>
 <p>Al ejecutar este comando deben aparecer dos consolas, cada una de ellas representa un router y puedes ver como carga la imagen del sistema operativo y podremos empezar a trabajar con comandos reales.</p>
 <p>Para terminar varios consejos, dynamips y dynagen consumen muchos recursos, si quieres optimizar y que no consuma tanto mira la opción idle-pc.</p>
 <p>Entre las características de dynagen te permite capturar paquetes en distintas interfaces de tu red virtual en el formato .cap que con posterioridad puedes visualizar con programas como wireshark.</p>
@@ -5737,7 +5721,7 @@ Warining: Starting R2 with no idle-pc value<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

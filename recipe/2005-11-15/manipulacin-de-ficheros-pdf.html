@@ -5159,44 +5159,26 @@
 <h2>Unir varios documentos</h2>
 <p>Con <tt>pdfjoin</tt> del paquete <tt>pdfjam</tt> (visto en <a href="http://linuca.org/body.phtml?nIdNoticia=343">Linuca</a>).</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ pdfjoin &#8212;fitpaper true fichero1.pdf fichero2.pdf fichero3.pdf &#8212;outfile final.pdf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdfjoin <span class="nt">--fitpaper</span> <span class="nb">true </span>fichero1.pdf fichero2.pdf fichero3.pdf <span class="nt">--outfile</span> final.pdf</code></pre></figure></div>
 <p>Con <a href="http://es.wikipedia.org/wiki/Ghostscript"><span class="caps">GNU</span>/GhostScript</a> (por  <a href="http://barrapunto.com/~Gufete">Gufete</a>):</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ gs -dColorImageFilter=/LZWEncode -dAutoFilterColorImages=false -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=pre_final.pdf fichero1.pdf fichero2.pdf fichero3.pdf<br />
-$ pdfopt pre_final.pdf final.pdf</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>gs <span class="nt">-dColorImageFilter</span><span class="o">=</span>/LZWEncode <span class="nt">-dAutoFilterColorImages</span><span class="o">=</span><span class="nb">false</span> <span class="nt">-dBATCH</span> <span class="nt">-dNOPAUSE</span> <span class="nt">-q</span> <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="nt">-sOutputFile</span><span class="o">=</span>pre_final.pdf fichero1.pdf fichero2.pdf fichero3.pdf
+<span class="gp">$</span><span class="w"> </span>pdfopt pre_final.pdf final.pdf</code></pre></figure></div>
 <h2>Seleccionar algunas páginas</h2>
 <p>Con <tt>pdfjam</tt></p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ pdfjam &#8212;no-landscape original.pdf  3,7,12-23,34 &#8212;outfile resultado.pdf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pdfjam <span class="nt">--no-landscape</span> original.pdf  3,7,12-23,34 <span class="nt">--outfile</span> resultado.pdf</code></pre></figure></div>
 <p>Con <tt>pdftk</tt></p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ pdftk original.pdf cat 1-8 output resultado.pdf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pdftk original.pdf <span class="nb">cat </span>1-8 output resultado.pdf</code></pre></figure></div>
 <h2> Rotar páginas </h2>
 <p>Con <tt>pdfjam</tt></p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ pdf90 original.pdf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pdf90 original.pdf</code></pre></figure></div>
 <p>También hay comandos <code>pdf180</code> y <code>pdf270</code>.</p>
 <p>Con <tt>pdftk</tt>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ pdftk original.pdf cat 1-end<b>X</b> output resultado.pdf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pdftk original.pdf <span class="nb">cat </span>1-end&lt;b&gt;X&lt;/b&gt; output resultado.pdf</code></pre></figure></div>
 <p>Donde &#8216;X&#8217; puede ser:</p>
 <ul>
 <li>N:  0</li>
@@ -5210,103 +5192,67 @@ $ pdfopt pre_final.pdf final.pdf</p>
 <h2>Convertir un documento a formato de varias páginas por hoja</h2>
 <p>Utilizando el programa <tt>pdfnup</tt> del paquete <tt>pdfjam</tt>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ pdfnup &#8212;nup 2&#215;1 &#8212;outfile salida.pdf original.pdf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdfnup <span class="nt">--nup</span> 2x1 <span class="nt">--outfile</span> salida.pdf original.pdf</code></pre></figure></div>
 <p>Por ejemplo, para pasar transparencias apaisadas a página completa a formato de 3 páginas por hoja alineadas a la izquierda y con márgenes usa:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ pdfnup &#8212;nup 1&#215;3 &#8212;offset &#8220;-3cm 0&#8221; &#8212;trim &#8220;-2cm -2cm -2cm -2cm&#8221; original.pdf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdfnup <span class="nt">--nup</span> 1x3 <span class="nt">--offset</span> <span class="s2">"-3cm 0"</span> <span class="nt">--trim</span> <span class="s2">"-2cm -2cm -2cm -2cm"</span> original.pdf</code></pre></figure></div>
 <h2> «Escalar» el tamaño de la página </h2>
 <p>En realidad se trata de aumentar los márgenes reduciendo el tamaño del área impresa. También con <tt>pdfnup</tt>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ pdfnup &#8212;nup 1&#215;1 &#8212;scale 0.9 original.pdf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pdfnup <span class="nt">--nup</span> 1x1 <span class="nt">--scale</span> 0.9 original.pdf</code></pre></figure></div>
 <h2> Cambiar el formato de página </h2>
 <p>Si tienes que imprimir un .pdf cuyo formato de página no es A4 probablemente acabarás desperdiciando gran parte de la hoja porque por aquí todas las impresoras domesticas son A4. Con los siguientes comandos puedes convertir el formato de página:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$  pdftk original.pdf cat output sin_xrefs.pdf<br />
-$ gs -r600 -dDITHERPPI=120 -dNOCIE -dFIXEDMEDIA -sPAPERSIZE=a4 -sDEVICE=pdfwrite -q -dNOPAUSE -dSAFER -dBATCH -dPDFFitPage -sOutputFile=resultado.pdf pdfopt.ps sin_xrefs.pdf</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>pdftk original.pdf <span class="nb">cat </span>output sin_xrefs.pdf
+<span class="gp">$</span><span class="w"> </span>gs <span class="nt">-r600</span> <span class="nt">-dDITHERPPI</span><span class="o">=</span>120 <span class="nt">-dNOCIE</span> <span class="nt">-dFIXEDMEDIA</span> <span class="nt">-sPAPERSIZE</span><span class="o">=</span>a4 <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="nt">-q</span> <span class="nt">-dNOPAUSE</span> <span class="nt">-dSAFER</span> <span class="nt">-dBATCH</span> <span class="nt">-dPDFFitPage</span> <span class="nt">-sOutputFile</span><span class="o">=</span>resultado.pdf pdfopt.ps sin_xrefs.pdf</code></pre></figure></div>
 <h2> Manipulación de metadatos </h2>
 <p>
 <h3>Con <code>pdftk</code></h3>
 <p>Para leer los metadatos de un <span class="caps">PDF</span>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ pdftk original.pdf dump_data output data.txt<br />
-$ cat data.txt<br />
-InfoKey: Creator<br />
-InfoValue: Writer&#0;<br />
-InfoKey: Producer<br />
-InfoValue: OpenOffice.org 3.1&#0;<br />
-InfoKey: CreationDate<br />
-InfoValue: D:20090923135542+02&#8217;00&#8217;<br />
-PdfID0: e5d831c33f77ac694b32456732f2c86<br />
-PdfID1: e5d831c33f77ac694b32456732f2c86<br />
-NumberOfPages: 1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdftk original.pdf dump_data output data.txt
+<span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>data.txt
+<span class="go">InfoKey: Creator
+</span><span class="gp">InfoValue: Writer&amp;#</span>0<span class="p">;</span>
+<span class="go">InfoKey: Producer
+</span><span class="gp">InfoValue: OpenOffice.org 3.1&amp;#</span>0<span class="p">;</span>
+<span class="go">InfoKey: CreationDate
+InfoValue: D:20090923135542+02'00'
+PdfID0: e5d831c33f77ac694b32456732f2c86
+PdfID1: e5d831c33f77ac694b32456732f2c86
+NumberOfPages: 1</span></code></pre></figure></div>
 <p>Si se omite el <code>output data.txt</code>, imprime los datos a la salida estándar (la consola) en lugar de en el fichero.</p>
 <p>Para modificar los metadatos se debe escribir un fichero con el mismo formato que el <code>data.txt</code> anterior (o modificar uno generado así) y ejecutar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ pdftk original.pdf update_info data.txt output resultado.pdf<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdftk original.pdf update_info data.txt output resultado.pdf</code></pre></figure></div>
 <h3>Con <code>exiftool</code></h3>
 <p>Para mostrar los metadatos escribe una cadena con variables tipo-shell (atento a las comillas simples):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$  exiftool fichero.pdf -p &#8216;$Title $Author&#8217;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>exiftool fichero.pdf <span class="nt">-p</span> <span class="s1">'$Title $Author'</span></code></pre></figure></div>
 <p>Para modificarlos utiliza esos mismas claves como opciones:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ exiftool fichero.pdf -Title=&#8220;Algún cuento chino&#8221;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>exiftool fichero.pdf <span class="nt">-Title</span><span class="o">=</span><span class="s2">"Algún cuento chino"</span></code></pre></figure></div>
 <h2> Convertir a escala de grises </h2>
 <p>[visto en <a href="http://handyfloss.net/2008.09/making-a-pdf-grayscale-with-ghostscript/">http://handyfloss.net/2008.09/making-a-pdf-grayscale-with-ghostscript/</a>]</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ gs -sOutputFile=grayscale.pdf -sDEVICE=pdfwrite \<br />
--sColorConversionStrategy=Gray -dProcessColorModel=/DeviceGray \<br />
--dCompatibilityLevel=1.4 -dNOPAUSE -dBATCH color.pdf &lt; /dev/null<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gs <span class="nt">-sOutputFile</span><span class="o">=</span>grayscale.pdf <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="se">\</span>
+<span class="nt">-sColorConversionStrategy</span><span class="o">=</span>Gray <span class="nt">-dProcessColorModel</span><span class="o">=</span>/DeviceGray <span class="se">\</span>
+<span class="nt">-dCompatibilityLevel</span><span class="o">=</span>1.4 <span class="nt">-dNOPAUSE</span> <span class="nt">-dBATCH</span> color.pdf &lt; /dev/null</code></pre></figure></div>
 <h2> Convertir a «raster»</h2>
 <p/>
 <h3>Con Ghostscript</h3>
 <p>[visto en <a href="http://www.commandlinefu.com/commands/view/4466/convert-pdf-to-jpeg-using-ghostscript">commandlinefu.com</a>]</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ gs -dNOPAUSE -sDEVICE=jpeg -r144 -sOutputFile=p%03d.jpg file.pdf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gs <span class="nt">-dNOPAUSE</span> <span class="nt">-sDEVICE</span><span class="o">=</span>jpeg <span class="nt">-r144</span> <span class="nt">-sOutputFile</span><span class="o">=</span>p%03d.jpg file.pdf</code></pre></figure></div>
 <h3>Con convert</h3>
 <p>[visto en <a href="http://www.linuxquestions.org/questions/linux-software-2/pdf-to-png-converter-57142/">linuxquestions</a>]</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ convert -density 300&#215;300 file.pdf salida.png<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>convert <span class="nt">-density</span> 300x300 file.pdf salida.png</code></pre></figure></div>
 <h2> Crear un <span class="caps">PDF</span> con fuentes empotradas</h2>
 <p>Si has hecho un .pdf con <code>pdflatex</code> lo más probable es que no incluya las fuentes, de modo que el programa pueda renderizar el documento con las fuentes del sistema. Sin embargo, a veces se requiere disponer de un .pdf auto-contenido para garantizar que se verá del mismo modo en cualquier parte. Para lograrlo ejecuta lo sisguiente:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ pdf2ps original.pdf<br />
-$ ps2pdf14 -dPDFSETTINGS=/prepress -dEmbedAllFonts=true original.ps resultado.pdf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdf2ps original.pdf
+<span class="gp">$</span><span class="w"> </span>ps2pdf14 <span class="nt">-dPDFSETTINGS</span><span class="o">=</span>/prepress <span class="nt">-dEmbedAllFonts</span><span class="o">=</span><span class="nb">true </span>original.ps resultado.pdf</code></pre></figure></div>
 <p>Como es lógico, el fichero resultante ocupará mucho más que el original (de 5 a 10 veces).</p>
       </div>
 
@@ -5372,7 +5318,7 @@ $ ps2pdf14 -dPDFSETTINGS=/prepress -dEmbedAllFonts=true original.ps resultado.pd
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

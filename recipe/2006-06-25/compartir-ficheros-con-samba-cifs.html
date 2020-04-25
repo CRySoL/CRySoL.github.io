@@ -5352,12 +5352,7 @@
 <h2>Instalando</h2>
 <p>Lo habitual:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install samba<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>samba</code></pre></figure></div>
 <p>La instalación te hará varias preguntas:</p>
 <ul>
 	<li><strong>Workgroup/Domain Name</strong>: al estilo de Window$. Puedes poner lo que quieras pero recuerda que debería ser conocido por los clientes del mismo grupo.</li>
@@ -5369,12 +5364,7 @@
 <h2>Usuarios</h2>
 <p>Para habilitar un usuario para usar un directorio compartido con Samba dicho usuario ya debe existir y tener una cuenta shell. Lo puedes activar con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>smbpasswd -a <i>usuario</i><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>smbpasswd <span class="nt">-a</span> &lt;i&gt;usuario&lt;/i&gt;</code></pre></figure></div>
 <h2>Compartir recursos</h2>
 <p>La manera más fácil es editar el fichero <code>/etc/samba/smb.conf</code> y añadir (al final) un bloque con esta pinta:</p>
 <pre>
@@ -5389,26 +5379,26 @@
 <p>La utilidad <code>testparm</code> compueba posibles fallos en el fichero <code>smb.conf</code>.</p>
 <div class="console">
 <div>
-<p>{% highlight text %}<br />
-$ testparm<br />
-Load smb config files from /etc/samba/smb.conf<br />
-Processing section &#8220;[homes]&#8221;<br />
-Processing section &#8220;[downloads]&#8221;<br />
-Loaded services file OK.<br />
-Press enter to see a dump of your service definitions</p>
-<p>[global]<br />
-        workgroup = <span class="caps">GROUP</span><br />
-&#8230;</p>
-<p>[homes]<br />
-        comment = Home Directories<br />
-        create mask = 0700<br />
-        directory mask = 0700<br />
-        browseable = No</p>
-<p>[downloads]<br />
-        path = /opt/files<br />
-&#8230;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ testparm
+Load smb config files from /etc/samba/smb.conf
+Processing section "[homes]"
+Processing section "[downloads]"
+Loaded services file OK.
+Press enter to see a dump of your service definitions
+
+[global]
+        workgroup = GROUP
+...
+
+[homes]
+        comment = Home Directories
+        create mask = 0700
+        directory mask = 0700
+        browseable = No
+
+[downloads]
+        path = /opt/files
+...</code></pre></figure></div>
 </div>
 <h2>Cliente</h2>
 <p>Hay varias formas de acceder a los recursos Samba de otro equipo. Si utilizas Nautilus puedes navegar pon la &#8220;Red Windows&#8221; o escribir una dirección en la barra de direcciones. Por ejemplo, para acceder al recurso &#8220;downloads&#8221; de la máquina &#8220;medusa&#8221; escribe:</p>
@@ -5417,18 +5407,10 @@ Press enter to see a dump of your service definitions</p>
 <h3><code>smbfs</code></h3>
 <p>Smbfs permite montar un recurso remoto en un directorio, incluso sin ser superusuario. Por ejemplo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ smbmount //medusa/downloads directorio_local<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>smbmount //medusa/downloads directorio_local</code></pre></figure></div>
 <p>también puedes usar <code>mount</code>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mount -t smbfs //medusa/downloads directorio_local -o username=richard<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>mount <span class="nt">-t</span> smbfs //medusa/downloads directorio_local <span class="nt">-o</span> <span class="nv">username</span><span class="o">=</span>richard</code></pre></figure></div>
 <p>o meterlo en <code>/etc/fstab</code>:</p>
 <pre>
 //medusa/downloads    /mnt/files    smbfs    defaults    0 0
@@ -5439,26 +5421,26 @@ Press enter to see a dump of your service definitions</p>
 <h5>Ver los recursos compartidos por otra máquina:</h5>
 <div class="console">
 <div>
-<p>{% highlight text %}<br />
-$ smbclient -L medusa<br />
-Password:<br />
-Anonymous login successful<br />
-Domain=[<span class="caps">GROUP</span>] OS=[Unix] Server=[Samba 3.0.22]</p>
-Sharename       Type      Comment
-<del>-</del>&#8212;&#8212;&#8212;       <del>-</del>-      <del>-</del>&#8212;&#8212;
-downloads       Disk
-<span class="caps">IPC</span>$            <span class="caps">IPC</span>       <span class="caps">IPC</span> Service (medusa server (Samba 3.0.22))
-<span class="caps">ADMIN</span>$          <span class="caps">IPC</span>       <span class="caps">IPC</span> Service (medusa server (Samba 3.0.22))
-<p>Anonymous login successful<br />
-Domain=[<span class="caps">GROUP</span>] OS=[Unix] Server=[Samba 3.0.22]</p>
-Server               Comment
-<del>-</del>&#8212;&#8212;&#8212;            <del>-</del>&#8212;&#8212;
-<span class="caps">MEDUSA</span>               medusa server (Samba 3.0.22)
-Workgroup            Master
-<del>-</del>&#8212;&#8212;&#8212;            <del>-</del>&#8212;&#8212;
-<span class="caps">GROUP</span>                <span class="caps">MEDUSA</span>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ smbclient -L medusa
+Password:
+Anonymous login successful
+Domain=[GROUP] OS=[Unix] Server=[Samba 3.0.22]
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        downloads       Disk
+        IPC$            IPC       IPC Service (medusa server (Samba 3.0.22))
+        ADMIN$          IPC       IPC Service (medusa server (Samba 3.0.22))
+Anonymous login successful
+Domain=[GROUP] OS=[Unix] Server=[Samba 3.0.22]
+
+        Server               Comment
+        ---------            -------
+        MEDUSA               medusa server (Samba 3.0.22)
+
+        Workgroup            Master
+        ---------            -------
+        GROUP                MEDUSA</code></pre></figure></div>
 </div>
 <h2>Seguridad</h2>
 <p>Si tienes un ordenador que usas como <a href="/node/96">router</a> y quieres utilizarlo como servidor de ficheros con Samba, es buena idea que sólo sea accesible desde la red interna. Para ello edita <code>/etc/samba/smb.conf</code> y en la sección <code>[global]</code> añade (o descomenta) algo como:</p>
@@ -5537,7 +5519,7 @@ bind interfaces only = true
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

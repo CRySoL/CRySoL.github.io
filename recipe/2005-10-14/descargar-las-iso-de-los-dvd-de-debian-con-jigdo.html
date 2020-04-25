@@ -5162,25 +5162,16 @@
 <p>Por ejemplo, puedes bajar unos actualizados de <a href="http://cdimage.debian.org/debian-cd/current/i386/jigdo-dvd/">http://cdimage.debian.org/debian-cd/current/i386/jigdo-dvd/</a></p>
 <p>Con <tt>wget</tt> sería:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ wget http://cdimage.debian.org/&#8230;/debian-40r3-i386-<span class="caps">DVD</span>-*.jigdo<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>wget http://cdimage.debian.org/.../debian-40r3-i386-DVD-<span class="k">*</span>.jigdo</code></pre></figure></div>
 <h1>Utilizar <code>jigdo-lite</code></h1>
 <p>Ahora hay que bajar las plantillas de las <span class="caps">ISO</span> y componerlas. Eso se hace ejecutando <code>jigdo-lite</code> con cada fichero <code>.jigdo</code></p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ jigdo-lite debian-40r3-i386-<span class="caps">DVD</span>-1.jigdo<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>jigdo-lite debian-40r3-i386-DVD-1.jigdo</code></pre></figure></div>
 <p>El programa pide que indiques el <em>mirror</em> que quieres utilizar para obtener los paquetes. Por defecto utiliza el primer mirror que tengas en <code>/etc/apt/sources.list</code>.</p>
 <h2>Todo a la vez</h2>
 <p><code>jigdo-lite</code> puede utilizar ficheros <code>.jigdo</code> directamente del servidor y además tiene modo bacth (como todo programa decente). Así que puedes hacerlo todo escribiendo &#8220;simplemente&#8221;:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ echo | jigdo-lite http://cdimage.debian.org/&#8230;/debian-40r3-i386-<span class="caps">DVD</span>-{1,2,3}.jigdo<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> | jigdo-lite http://cdimage.debian.org/.../debian-40r3-i386-DVD-<span class="o">{</span>1,2,3<span class="o">}</span>.jigdo</code></pre></figure></div>
 <p>Este comando se baja los tres ficheros <code>.jigdo</code>, sus plantillas correspondientes y después todos los paquetes. Por último, genera las imágenes <span class="caps">ISO</span> de los DVDs que puedes tostar por ejemplo con <a href="/node/26"><code>cdrecord</code></a>.</p>
 <p>No olvides reclamar el canon que pagas a la <span class="caps">SGAE</span> cada vez que copias cualquier cosa que no sea una obra registrada por uno de sus socios.</p>
 <h2>Enlaces</h2>
@@ -5253,7 +5244,7 @@ $ echo | jigdo-lite http://cdimage.debian.org/&#8230;/debian-40r3-i386-<span cla
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

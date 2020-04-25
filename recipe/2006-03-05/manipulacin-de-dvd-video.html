@@ -5253,50 +5253,29 @@ $ mplayer -frames 0  dvd://1 2&gt; /dev/null
 <h3>Otros</h3>
 <p>También puedes usar <code>vobcopy</code> y <code>dvdbackup</code> para obtener información del <span class="caps">DVD</span>.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ <strong>vobcopy</strong> -i /dev/dvd -I<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="k">*</span>vobcopy<span class="k">*</span> <span class="nt">-i</span> /dev/dvd <span class="nt">-I</span></code></pre></figure></div>
 <p>ó</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ <strong>dvdbackup</strong> -i /dev/dvd -I<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="k">*</span>dvdbackup<span class="k">*</span> <span class="nt">-i</span> /dev/dvd <span class="nt">-I</span></code></pre></figure></div>
 <h2>Extraer el contenido del <span class="caps">DVD</span> a un directorio</h2>
 <h3>Con <code>vobcopy</code>.</h3>
 <p>Para extraer todo el <span class="caps">DVD</span> al directorio actual basta con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ vobcopy -m<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>vobcopy <span class="nt">-m</span></code></pre></figure></div>
 <p>Para extraer únicamente el primer título del dispositivo <code>/mnt/dvd</code> al directorio <code>destino</code>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ vobcopy -i /mnt/dvd/ -n 1 -o /directorio/destino/<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>vobcopy <span class="nt">-i</span> /mnt/dvd/ <span class="nt">-n</span> 1 <span class="nt">-o</span> /directorio/destino/</code></pre></figure></div>
 <h3>Con <code>dvdbackup</code>.</h3>
 <p>Para extraer todo el <span class="caps">DVD</span>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ dvdbackup -M -i/dev/dvd -o /directorio/destino/<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dvdbackup <span class="nt">-M</span> <span class="nt">-i</span>/dev/dvd <span class="nt">-o</span> /directorio/destino/</code></pre></figure></div>
 <h2>Reproducir un <span class="caps">DVD</span> a partir de la <span class="caps">ISO</span></h2>
 <p>Monta la <span class="caps">ISO</span>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$  mount -o loop peli.iso /punto/de/montaje<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>mount <span class="nt">-o</span> loop peli.iso /punto/de/montaje</code></pre></figure></div>
 <p>Y con mplayer&#8230;</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mplayer  -dvd-device /punto/de/montaje dvd://1 -slang es<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mplayer  <span class="nt">-dvd-device</span> /punto/de/montaje dvd://1 <span class="nt">-slang</span> es</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li>man vobcopy</li>
@@ -5367,7 +5346,7 @@ $ mplayer  -dvd-device /punto/de/montaje dvd://1 -slang es<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

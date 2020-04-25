@@ -5163,27 +5163,19 @@
 </ul>
 <h2>Instalación</h2>
 <div class="console">
-<p>{% highlight console %}<br />
-$ wget http://foo2zjs.rkkda.com/foo2zjs.tar.gz<br />
-$ unp foo2zjs.tar.gz<br />
-$ cd foo2zjs<br />
-$ make<br />
-$ ./getweb new1000</p>
-<ol>
-	<li>ln -s /usr/share/doc/hotplug/examples/usb.usermap /etc/hotplug/usb.usermap</li>
-	<li>make install</li>
-	<li>make install-hoplug</li>
-	<li>/etc/init.d/hotplug restart</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>wget http://foo2zjs.rkkda.com/foo2zjs.tar.gz
+<span class="gp">$</span><span class="w"> </span>unp foo2zjs.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>foo2zjs
+<span class="gp">$</span><span class="w"> </span>make
+<span class="gp">$</span><span class="w"> </span>./getweb new1000
+<span class="gp">#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /usr/share/doc/hotplug/examples/usb.usermap /etc/hotplug/usb.usermap
+<span class="gp">#</span><span class="w"> </span>make <span class="nb">install</span>
+<span class="gp">#</span><span class="w"> </span>make install-hoplug
+<span class="gp">#</span><span class="w"> </span>/etc/init.d/hotplug restart</code></pre></figure></div>
 <p>Debe aparecer algo como:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-/etc/hotplug/usb/hplj1000: HP LaserJet 1000 firmware loaded into /dev/usb/lp0<br />
-hplj1000: loaded successfully</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">/etc/hotplug/usb/hplj1000: HP LaserJet 1000 firmware loaded into /dev/usb/lp0
+hplj1000: loaded successfully</span></code></pre></figure></div>
 <h2>Configuración</h2>
 <ul>
 	<li>Abre un navegador en la dirección http://localhost:631/admin.</li>
@@ -5216,12 +5208,7 @@ hplj1000: loaded successfully</p>
 </pre>
 <p>Reinicia cups:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/cups restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/cups restart</code></pre></figure></div>
 <h3>Configuración del cliente</h3>
 <p>Con la interfaz web de <span class="caps">CUPS</span> añade una impresora con la siguiente configuración.</p>
 <ul>
@@ -5299,7 +5286,7 @@ hplj1000: loaded successfully</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

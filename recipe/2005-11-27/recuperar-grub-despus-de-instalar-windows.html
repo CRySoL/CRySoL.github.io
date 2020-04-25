@@ -5159,35 +5159,35 @@ Así que primero la desmontamos:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>umount /mnt/hda3 </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>umount /mnt/hda3</code></pre></figure>
 </div>
 
-Y ahora la volvemos a montar partición con permisos de lectura-escritura. Suponemos que el disco es <tt>/dev/hda3</tt>, y se monta en el directorio <tt>/mnt/hda3</tt>. 
+Y ahora la volvemos a montar partición con permisos de lectura-escritura. Suponemos que el disco es <tt>/dev/hda3</tt>, y se monta en el directorio <tt>/mnt/hda3</tt>.
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-t</span> ext3 <span class="nt">-o</span> rw /dev/hda3 /mnt/hda3 </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-t</span> ext3 <span class="nt">-o</span> rw /dev/hda3 /mnt/hda3</code></pre></figure>
 </div>
 
 Ahora montamos /proc:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-t</span> proc /mnt/hda3/proc </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-t</span> proc /mnt/hda3/proc</code></pre></figure>
 </div>
 
 Ahora hacemos un poco de "magia":
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">chroot</span> /mnt/hda3/ </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">chroot</span> /mnt/hda3/</code></pre></figure>
 </div>
 
 Y ahora mismo estarás dentro del GNU/Linux que tienes en el disco duro. Has cambiado y ahora lo que verás como directorio "/" será el antiguo <tt>/mnt/hda3</tt>. Ahora falta volver a instalar nuestro gestor de arranque, en nuestro caso grub:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>grub-install /dev/hda </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>grub-install /dev/hda</code></pre></figure>
 </div>
 
 Y ahora reinicia el PC y saca el live-cd. Podrás comprobar como vuelves a ver tu querido grub.
@@ -5256,7 +5256,7 @@ Y ahora reinicia el PC y saca el live-cd. Podrás comprobar como vuelves a ver t
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

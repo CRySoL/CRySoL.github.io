@@ -5159,84 +5159,55 @@
 <p>
 <h3>Con svn:</h3>
 <div class="console">
-<p>{% highlight console %}<br />
-$ svn ci<br />
-svn: Desactualizado: &#8216;nombre_de_fichero&#8217; en transacción &#8216;2255-1&#8217;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn ci
+<span class="go">svn: Desactualizado: 'nombre_de_fichero' en transacción '2255-1'</span></code></pre></figure></div>
 <h3>Con git:</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ git push<br />
-! [rejected]        master &#8594; master (non-fast forward)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git push
+<span class="gp">! [rejected]        master -&gt;</span><span class="w"> </span>master <span class="o">(</span>non-fast forward<span class="o">)</span></code></pre></figure></div>
 <h2>Información de estado</h2>
 <p>
 <h3>Con svn:</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ svn st<br />
-?        nuevo.txt<br />
-M        modificado.c<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn st
+<span class="go">?        nuevo.txt
+M        modificado.c</span></code></pre></figure></div>
 <p>Si no hay ficheros nuevos, no lista nada, admite -q (quiet) y -v (verbose)</p>
 <h3>Con mercurial:</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ hg st<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>hg st</code></pre></figure></div>
 <p>Si no hay ficheros nuevos, no lista nada, admite -q (quiet), -v (verbose) y también filtrando por tipo: añadido, modificado, borrado, etc entre otras. El formato de la salida es muy similar al de svn, pero además se pueden usar plantillas para su generación.</p>
 <h3>Con git:</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ git status</p>
-<ol>
-	<li>On branch master</li>
-	<li>Untracked files:</li>
-	<li>(use &#8220;git add <file>&#8230;&#8221; to include in what will be committed)<br />
-#</li>
-	<li>file1.h</li>
-	<li>file2.h<br />
-[&#8230;  <span class="caps">TODOS</span> los que haya sin posibilidad de resumir &#8230;]<br />
-nothing added to commit but untracked files present (use &#8220;git add&#8221; to track)<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git status
+<span class="gp">#</span><span class="w"> </span>On branch master
+<span class="gp">#</span><span class="w"> </span>Untracked files:
+<span class="gp">#</span><span class="w">   </span><span class="o">(</span>use <span class="s2">"git add &lt;file&gt;..."</span> to include <span class="k">in </span>what will be committed<span class="o">)</span>
+<span class="gp">#</span><span class="w">
+</span><span class="gp">#</span><span class="w">       </span>file1.h
+<span class="gp">#</span><span class="w">       </span>file2.h
+<span class="go">[...  TODOS los que haya sin posibilidad de resumir ...]
+nothing added to commit but untracked files present (use "git add" to track)</span></code></pre></figure></div>
 <p>No admite ningún parámetro para controlar o modificar el resultado del comando.</p>
 <h2>Averiguar el repo original del que se clonó éste</h2>
 <p>
 <h3>Con mercurial</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ hg path<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>hg path</code></pre></figure></div>
 <h3>Con git:</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ git remote show origin<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git remote show origin</code></pre></figure></div>
 <h2>Cambiar la <span class="caps">URL</span> del repo original</h2>
 <p>
 <h3>Con mercurial</h3>
 <p>Edita el fichero <code>.hg/hgrc</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-[paths]<br />
-default = http://www.selenic.com/repo/hg<br />
-default-push = http://hg.example.com/hg<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[paths]
+default = http://www.selenic.com/repo/hg
+default-push = http://hg.example.com/hg</code></pre></figure></div>
 <h3>Con git:</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ git remote set-url origin <span class="caps">URL</span><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git remote set-url origin URL</code></pre></figure></div>
       </div>
 
       
@@ -5301,7 +5272,7 @@ $ git remote set-url origin <span class="caps">URL</span><br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

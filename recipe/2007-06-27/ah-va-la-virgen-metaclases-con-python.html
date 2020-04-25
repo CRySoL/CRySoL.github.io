@@ -5331,43 +5331,34 @@
 <h2>Un problema</h2>
 <p>Imagina que tienes un conjunto de clases:</p>
 <div>
-<p>{% highlight python %}<br />
-class A(object):<br />
-   def a(self): print &#8216;a&#8217;</p>
-<p>class B(object):<br />
-   def b(self): print &#8216;b&#8217;</p>
-<p>&#8230;</p>
-<p>class Z(object):<br />
-   def z(self): print &#8216;z&#8217;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">a</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">print</span> <span class="s">'a'</span>
+
+<span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">b</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">print</span> <span class="s">'b'</span>
+
+<span class="p">...</span>
+
+<span class="k">class</span> <span class="nc">Z</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">print</span> <span class="s">'z'</span></code></pre></figure></div>
 <p>Y tu programa debe crear un objeto de una de esas clases, pero lo que determina qué clase instanciar es un dato introducido por el usuario. En principio, las dos alternativas para implementar eso que se le pueden ocurrir a uno a bote pronto no pintan demasiado bien:</p>
 <ul>
 	<li>Una estructura de selección múltiple &#8220;if elif&#8221; monstruosa.</li>
 	<li>Un diccionario en el que las claves son nombres de clase y los valores son las propias clases. Es decir, algo como:</li>
 </ul>
 <div>
-<p>{% highlight python <span>}<br />
-clases = {&#8217;A&#8217;:A, &#8217;B&#8217;B, &#8230; &#8216;Z&#8217;:Z}<br />
-instancia = clases[tipo]()<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">clases</span> <span class="o">=</span> <span class="p">{</span><span class="s">'A'</span><span class="p">:</span><span class="n">A</span><span class="p">,</span> <span class="s">'B'</span><span class="n">B</span><span class="p">,</span> <span class="p">...</span> <span class="s">'Z'</span><span class="p">:</span><span class="n">Z</span><span class="p">}</span>
+<span class="n">instancia</span> <span class="o">=</span> <span class="n">clases</span><span class="p">[</span><span class="n">tipo</span><span class="p">]()</span></code></pre></figure></div>
 <p>Esto funciona bien cuando no necesitas manejar herencia, simplemente quieres elegir qué clase instanciar. Sin embargo, Python dispone de una forma de construir y ejecutar código dinámicamente dentro de un programa, usando la función <code>exec()</code>. Así que podrías hacer:</p>
 <div>
-<p>{% highlight python <span>}<br />
-exec &#8216;clase = %s&#8217; % tipo   # siendo &#8216;tipo&#8217; el nombre de una clase<br />
-instancia = clase()<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">exec</span> <span class="s">'clase = %s'</span> <span class="o">%</span> <span class="n">tipo</span>   <span class="c1"># siendo 'tipo' el nombre de una clase
+</span><span class="n">instancia</span> <span class="o">=</span> <span class="n">clase</span><span class="p">()</span></code></pre></figure></div>
 <p>Y esto realmente ya es metaprogramación, pero sigue sin ser suficiente si lo que quieres es crear realmente una clase nueva y no sólo elegir entre ciertas clases ya existentes. Usar <code>exec()</code> para cosas más sofisticadas que ese ejemplo resulta confuso y potencialmente problemático, aunque también es uno de los mecanismos de metaprogramación más potentes en Python, por razones obvias.</p>
 <h2>type, la madre de todas las metaclases</h2>
 <p>A partir de Python 2.2 <code>type()</code> tiene un significado nuevo muy especial: permite crear nuevos tipos, es decir, es una metaclase, de hecho es la metaclase con la que están creados todos los tipos &#8220;built-in&#8221; de Python y todas las clases de &#8220;nuevo-estilo&#8221; (las que heredan de <code>object</code>); como ya he dicho, obviaré las &#8220;clases clásicas&#8221;.</p>
 <p>Para crear una clase con <code>type()</code> se usa la siguiente sintaxis:</p>
 <div>
-<p>{% highlight python <span>}<br />
-type(name, bases, dct)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="nb">type</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li><strong>name</strong>: es el nombre de la nueva clase</li>
 	<li><strong>bases</strong>: son las clases de las que hereda</li>
@@ -5375,26 +5366,22 @@ type(name, bases, dct)<br />
 </ul>
 <p>Por ejemplo, puedes crear una nueva clase llamada <code>Saludo</code> que implementa un método <code>hola()</code> simplemente con:</p>
 <div>
-<p>{% highlight python <span>}<br />
-Saludo = type(&#8216;Saludo&#8217;, (), {&#8217;hola&#8217;: lambda self: &#8216;hola metamundo!&#8217;})<br />
-s = Saludo()<br />
-print s.hola()<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">Saludo</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">'Saludo'</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{</span><span class="s">'hola'</span><span class="p">:</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">:</span> <span class="s">'hola metamundo!'</span><span class="p">})</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Saludo</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">s</span><span class="p">.</span><span class="n">hola</span><span class="p">()</span></code></pre></figure></div>
 <p>Y de hecho, cualquier sentencia <code>class</code> de las que has usado hasta ahora implica realmente una invocación similar, puesto que <code>type</code> es la metaclase implícita cuando defines clases &#8220;normales&#8221;. Sin embargo, en el ejemplo anterior, <code>type</code> no se usa como metaclase; se emplea simplemente como &#8220;factoría de clases&#8221; puesto que se invoca como una función (o al menos, es lo que parece). Es decir, salvando las distancias, es algo equivalente a:</p>
 <div>
-<p>{% highlight python %}<br />
-def class_factory(f):<br />
-   class retval: pass<br />
-   setattr(retval, f.<i>name</i>, f)<br />
-   return retval</p>
-<p>def hola(self):<br />
-   return &#8216;hola a todos!&#8217;</p>
-<p>SaludoClass = class_factory(hola)<br />
-s = SaludoClass()<br />
-print s.hola()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">class_factory</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+   <span class="k">class</span> <span class="nc">retval</span><span class="p">:</span> <span class="k">pass</span>
+   <span class="nb">setattr</span><span class="p">(</span><span class="n">retval</span><span class="p">,</span> <span class="n">f</span><span class="p">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">retval</span>
+
+<span class="k">def</span> <span class="nf">hola</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+   <span class="k">return</span> <span class="s">'hola a todos!'</span>
+
+<span class="n">SaludoClass</span> <span class="o">=</span> <span class="n">class_factory</span><span class="p">(</span><span class="n">hola</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">SaludoClass</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">s</span><span class="p">.</span><span class="n">hola</span><span class="p">()</span></code></pre></figure></div>
 <p>Pero <code>type</code> no es una función, es una <strong>metaclase</strong> (una clase) y por tanto se puede heredar de ella. Y como <code>type</code> es una metaclase: <strong>cualquier subclase de <code>type</code> ES una metaclase</strong>;  y aquí es dónde la cosa se pone interesante :-)</p>
 <h2>Antes de seguir: __new__ e __init__</h2>
 <p><code>__new__</code> e <code>__init__</code> son dos de los métodos especiales que tienen todas las clases. Es muy habitual que el programador escriba un método <code>__init__</code> para sus clases (tanto que ni siquiera voy a poner un ejemplo). Este método se ejecuta después de construirse la instancia y se utiliza para inicializar los atributos que lo requieran y, en general, hacer trabajo de &#8220;setup&#8221; de la instancia.</p>
@@ -5411,49 +5398,38 @@ print s.hola()<br />
 <h2>Escribiendo un método __new__</h2>
 <p>Como ejemplo, esta es una clase que formatea una cadena como título (pone en mayúscula la primera letra de cada palabra). Lo interesante es que esta clase ES <span class="caps">UNA</span> cadena, es decir, hereda del tipo predefinido <code>str</code>:</p>
 <div>
-<p>{% highlight python %}<br />
-&gt;&gt;&gt; class Title(str):<br />
-&#8230;    def <i>new</i>(cls, val):<br />
-&#8230;       print &#8216;construyendo un nuevo objeto&#8217;<br />
-&#8230;       return str.<i>new</i>(cls, val.title())</p>
-<p>&gt;&gt;&gt; Title(&#8216;transparencias adiós&#8217;)<br />
-construyendo un nuevo objeto<br />
-&#8216;Transparencias Adiós&#8217;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Title</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+<span class="p">...</span>    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+<span class="p">...</span>       <span class="k">print</span> <span class="s">'construyendo un nuevo objeto'</span>
+<span class="p">...</span>       <span class="k">return</span> <span class="nb">str</span><span class="p">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">val</span><span class="p">.</span><span class="n">title</span><span class="p">())</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Title</span><span class="p">(</span><span class="s">'transparencias adiós'</span><span class="p">)</span>
+<span class="n">construyendo</span> <span class="n">un</span> <span class="n">nuevo</span> <span class="n">objeto</span>
+<span class="s">'Transparencias Adiós'</span></code></pre></figure></div>
 <p>Aunque sea un ejemplo muy simple y no tenga mucha utilidad, demuestra la forma en que se construye el objeto y permite algo que no puede hacerse de otro modo; puede decidir el valor de un objeto de tipo inmutable (como es <code>str</code>) en el único momento en que es posible: su creación. Si quieres, puedes comprobar que esto no se puede hacer utilizando <code>__init__</code>.</p>
 <p>La sentencia <code>return</code> invoca directamente el método <code>__new__</code> de la superclase porque ése es el único modo de conseguir una creación limpia, es decir, evitando que se ejecute el método <code>__init__</code> de la superclase. Para este ejemplo, lo podrías cambiar por:</p>
 <div>
-<p>{% highlight python <span>}<br />
-return val.title()<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">return</span> <span class="n">val</span><span class="p">.</span><span class="n">title</span><span class="p">()</span></code></pre></figure></div>
 <p>y funcionará igual, porque el método <code>__init__</code> de <code>str</code> no hace ni puede hacer nada relevante sobre la instancia. Pero para clases más complejas, construir la instancia de ese modo en lugar de usar <code>__new__</code> puede tener efectos no deseables.</p>
 <h2>Tu primera metaclase</h2>
 <p>La metaclase más simple (y más inútil) que se puede escribir es algo como:</p>
 <div>
-<p>{% highlight python <span>}<br />
-class MyMetaclase(type):<br />
-   pass<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MyMetaclase</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+   <span class="k">pass</span></code></pre></figure></div>
 <p>Es decir, no es más que un &#8220;alias&#8221; de <code>type</code> y por tanto hereda todos sus métodos. Ahora añade un método a la metaclase, llamado por algunos &#8216;metamétodo&#8217;. Yo no estoy de acuerdo con esa denominación, porque siendo puristas un metamétodo sería <em>un método de un método</em> (que los hay: <code>str.lower.__call__</code>) pero esto es solo un método de una metaclase, que poco tiene que ver.</p>
 <div>
-<p>{% highlight python <span>}<br />
-&gt;&gt;&gt; class MyMetaclase2(type):<br />
-&#8230;    def habla(cls):<br />
-&#8230;       print &#8216;método de la clase&#8217;, cls<br />
-&#8230;<br />
-&gt;&gt;&gt; MyMetaclase2.habla()<br />
-TypeError: unbound method habla() must be called with MyMetaclase2 instance as first argument (got nothing instead)<br />
-&gt;&gt;&gt; A = MyMetaclase2(&#8216;A&#8217;, (), {})<br />
-&gt;&gt;&gt; A.habla()<br />
-método de la clase &lt;class &#8216;<i>main</i>.A&#8217;&gt;<br />
-&gt;&gt;&gt; a1 = A() # una instancia de la clase A<br />
-&gt;&gt;&gt; a1.habla()<br />
-&#8216;A&#8217; object has no attribute &#8216;habla&#8217;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyMetaclase2</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<span class="p">...</span>    <span class="k">def</span> <span class="nf">habla</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<span class="p">...</span>       <span class="k">print</span> <span class="s">'método de la clase'</span><span class="p">,</span> <span class="n">cls</span>
+<span class="p">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">MyMetaclase2</span><span class="p">.</span><span class="n">habla</span><span class="p">()</span>
+<span class="nb">TypeError</span><span class="p">:</span> <span class="n">unbound</span> <span class="n">method</span> <span class="n">habla</span><span class="p">()</span> <span class="n">must</span> <span class="n">be</span> <span class="n">called</span> <span class="k">with</span> <span class="n">MyMetaclase2</span> <span class="n">instance</span> <span class="k">as</span> <span class="n">first</span> <span class="n">argument</span> <span class="p">(</span><span class="n">got</span> <span class="n">nothing</span> <span class="n">instead</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">MyMetaclase2</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="p">.</span><span class="n">habla</span><span class="p">()</span>
+<span class="n">m</span><span class="err">é</span><span class="n">todo</span> <span class="n">de</span> <span class="n">la</span> <span class="n">clase</span> <span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">__main__</span><span class="p">.</span><span class="n">A</span><span class="s">'&gt;
+&gt;&gt;&gt; a1 = A() # una instancia de la clase A
+&gt;&gt;&gt; a1.habla()
+'</span><span class="n">A</span><span class="s">' object has no attribute '</span><span class="n">habla</span><span class="s">'</span></code></pre></figure></div>
 <p>De los dos primeros intentos de ejecutar el método <code>habla()</code> se puede concluir que para que un método definido en la metaclase pueda ser invocado se requiere de una instancia (una clase); eso no resulta sorprendente, es lo mismo que ocurre con los métodos normales en las clases normales.</p>
 <p>Y del tercer intento se deduce que las instancias de las clases creadas con la metaclase no tienen acceso a los métodos definidos en la metaclase. O sea, los métodos definidos en la metaclase son <strong>para las clases</strong> creadas con la metaclase. Es algo parecido a definir ese método en la clase A usando el decorador <code>@classmethod</code>; la diferencia más importante es que con el método de clase (<code>@classmethod</code>), las subclases de A heredan el método, sin embargo, con el código del ejemplo no ocurre.</p>
 <h2>La vuelta de tuerca</h2>
@@ -5466,57 +5442,56 @@ método de la clase &lt;class &#8216;<i>main</i>.A&#8217;&gt;<br />
 <p>Lo interesante aquí es que, &#8220;modificar una clase&#8221; incluye cosas como añadir o modificar métodos, sus implementaciones, sus nombres, argumentos y número, atributos, etc, etc, las posibilidades son infinitas.</p>
 <p>Empieza por redefinir <code>__init__</code> y <code>__new__</code> invocando a los métodos de la superclase. Esto tampoco es que sea una maravilla, pero sirve para que veas cuando se ejecuta cada cosa y puedas comprobar que lo que dije antes sobre <code>__new__</code> e <code>__init__</code> para clases también funciona con metaclases (será porque las metaclases son clases ;-))</p>
 <div>
-<p>{% highlight python <span>}<br />
-&gt;&gt;&gt; class MyMetaclase3(type):<br />
-&#8230;     def <i>new</i>(meta, name, bases, dct):<br />
-&#8230;         print &#8216;Creando la clase&#8217;, name<br />
-&#8230;         return type.<i>new</i>(meta, name, bases, dct)<br />
-&#8230;     def <i>init</i>(cls, name, bases, dct):<br />
-&#8230;         print &#8216;Inicializando la clase&#8217;, name<br />
-&#8230;         type.<i>init</i>(cls, name, bases, dct)<br />
-&#8230;<br />
-&gt;&gt;&gt; X = MyMetaclase3(&#8216;X&#8217;, (), {})<br />
-Creando la clase X<br />
-Inicializando la clase X<br />
-&gt;&gt;&gt; x1 = X() # y por supuesto, puedes crear instancias de la clase X<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyMetaclase3</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<span class="p">...</span>     <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+<span class="p">...</span>         <span class="k">print</span> <span class="s">'Creando la clase'</span><span class="p">,</span> <span class="n">name</span>
+<span class="p">...</span>         <span class="k">return</span> <span class="nb">type</span><span class="p">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+<span class="p">...</span>     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+<span class="p">...</span>         <span class="k">print</span> <span class="s">'Inicializando la clase'</span><span class="p">,</span> <span class="n">name</span>
+<span class="p">...</span>         <span class="nb">type</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">X</span> <span class="o">=</span> <span class="n">MyMetaclase3</span><span class="p">(</span><span class="s">'X'</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{})</span>
+<span class="n">Creando</span> <span class="n">la</span> <span class="n">clase</span> <span class="n">X</span>
+<span class="n">Inicializando</span> <span class="n">la</span> <span class="n">clase</span> <span class="n">X</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">X</span><span class="p">()</span> <span class="c1"># y por supuesto, puedes crear instancias de la clase X</span></code></pre></figure></div>
 <p>Ya toca escribir una metaclase que haga algo útil por poco que sea. Esta metaclase crea automáticamente métodos que se llaman &quot;not_[método]&#8217; para cada método de la clase. Estos métodos devuelven el valor lógico negado de la función original.</p>
 <div>
-<p>{% highlight python %}<br />
-import types</p>
-<p>class AutoNot(type):<br />
-    def <i>init</i>(cls, name, bases, dct):<br />
-       type.<i>init</i>(cls, name, bases, dct)<br />
-       methods = [x for x in dct if isinstance(dct[x], types.FunctionType)]<br />
-       for m in methods:<br />
-           setattr(cls, &#8216;not_%s&#8217; % m, lambda self: not dct[m](self))</p>
-<p>A = AutoNot(&#8216;A&#8217;, (), {&#8217;yes&#8217;: lambda self:True})<br />
-a = A()</p>
-<p>print a.yes()<br />
-print a.not_yes()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">types</span>
+
+<span class="k">class</span> <span class="nc">AutoNot</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+       <span class="nb">type</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+       <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dct</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">types</span><span class="p">.</span><span class="n">FunctionType</span><span class="p">)]</span>
+       <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">:</span>
+           <span class="nb">setattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">'not_%s'</span> <span class="o">%</span> <span class="n">m</span><span class="p">,</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">:</span> <span class="ow">not</span> <span class="n">dct</span><span class="p">[</span><span class="n">m</span><span class="p">](</span><span class="bp">self</span><span class="p">))</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">AutoNot</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{</span><span class="s">'yes'</span><span class="p">:</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">:</span><span class="bp">True</span><span class="p">})</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="n">a</span><span class="p">.</span><span class="n">yes</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">a</span><span class="p">.</span><span class="n">not_yes</span><span class="p">()</span></code></pre></figure></div>
 <h2>Un poco de azúcar sintáctico</h2>
 <p>Supongo que eso de crear clases pasando el nombre, la lista de clases base y el diccionario de métodos te parecerá tan ortopédico como a mí. No hay problema, afortunadamente hay una forma mucho más estilosa de usar una metaclase. Consiste en usar un atributo de clase especial llamado <code>__metaclass__</code> y asignarle la metaclase que quieras usar para crear esa clase. Lo siguiente es equivalente al ejemplo anterior pero modificado para usar <code>__metaclass__</code>:</p>
 <div>
-<p>{% highlight python %}<br />
-import types</p>
-<p>class AutoNot(type):<br />
-    def <i>init</i>(cls, name, bases, dct):<br />
-       type.<i>init</i>(cls, name, bases, dct)<br />
-       methods = [x for x in dct if isinstance(dct[x], types.FunctionType)]<br />
-       for m in methods:<br />
-           setattr(cls, &#8216;not_%s&#8217; % m, lambda self: not dct[m](self))</p>
-<p>class A:<br />
-    <i>metaclass</i> = AutoNot</p>
-def yes(self):
-return True
-<p>a = A()</p>
-<p>print a.yes()<br />
-print a.not_yes()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">types</span>
+
+<span class="k">class</span> <span class="nc">AutoNot</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+       <span class="nb">type</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+       <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dct</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">types</span><span class="p">.</span><span class="n">FunctionType</span><span class="p">)]</span>
+       <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">:</span>
+           <span class="nb">setattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">'not_%s'</span> <span class="o">%</span> <span class="n">m</span><span class="p">,</span> <span class="k">lambda</span> <span class="bp">self</span><span class="p">:</span> <span class="ow">not</span> <span class="n">dct</span><span class="p">[</span><span class="n">m</span><span class="p">](</span><span class="bp">self</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">AutoNot</span>
+
+    <span class="k">def</span> <span class="nf">yes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="n">a</span><span class="p">.</span><span class="n">yes</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">a</span><span class="p">.</span><span class="n">not_yes</span><span class="p">()</span></code></pre></figure></div>
 <h2>Ejemplos</h2>
 <ul>
 	<li><a href="/node/1017">Patrón Singleton como metaclase</a></li>
@@ -5605,7 +5580,7 @@ print a.not_yes()<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5198,35 +5198,39 @@
 <p>Para esta labor, también tenemos un <a href="http://gnome-hacks.jodrell.net/hacks.html?id=10">script</a> procedente de la web <a href="http://gnome-hacks.jodrell.net/">Gnome Hacks</a>.</p>
 <p>Como el script es sencillo, lo pongo aquí para comentar algunas cosas que nos puede interesa tocar.</p>
 <div>
-<p>{% highlight text %}<br />
-#!/bin/bash</p>
-<p>#Cada cuanto tiempo se renovará la imagen<br />
-<span class="caps">DELAY</span>=30m</p>
-<p>#Lugar donde se alojará la imagen<br />
-<span class="caps">PREFIX</span>=/home/fsancho/.xplanet/images</p>
-<p>#Fichero de salida<br />
-<span class="caps">OUTPUT</span>=xplanetBkg.png</p>
-<p>#Tamaño de la imagen<br />
-<span class="caps">GEOMETRY</span>=1024&#215;768</p>
-<p>#Lugar desde donde se observa la imagen. Actualmente se ve europa en primer plano<br />
-<span class="caps">LONGITUDE</span>=10<br />
-<span class="caps">LATITUDE</span>=40</p>
-<p>if test -e &#8220;$<span class="caps">PREFIX</span>$<span class="caps">OUTPUT</span>&#8221;; then<br />
-   rm &#8220;$<span class="caps">PREFIX</span>$<span class="caps">OUTPUT</span>&#8221;<br />
-   <span class="caps">OUTPUT</span>=&#8220;_$<span class="caps">OUTPUT</span>&#8221;<br />
-else<br />
-   rm &#8220;$<span class="caps">PREFIX</span>&#8221;&#8220;_$<span class="caps">OUTPUT</span>&#8221;<br />
-fi</p>
-<ol>
-	<li>Comando que genera la imagen<br />
-xplanet -num_times 1 -output &#8220;$<span class="caps">PREFIX</span>$<span class="caps">OUTPUT</span>&#8221; -geometry $<span class="caps">GEOMETRY</span> -longitude $<span class="caps">LONGITUDE</span> \<br />
--latitude $<span class="caps">LATITUDE</span></li>
-</ol>
-<p>gconftool-2 -t str -s /desktop/gnome/background/picture_filename &#8220;$<span class="caps">PREFIX</span>$<span class="caps">OUTPUT</span>&#8221;</p>
-<p>sleep $<span class="caps">DELAY</span><br />
-exec $0<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/bash
+
+#Cada cuanto tiempo se renovará la imagen
+DELAY=30m
+
+#Lugar donde se alojará la imagen
+PREFIX=/home/fsancho/.xplanet/images
+
+#Fichero de salida
+OUTPUT=xplanetBkg.png
+
+#Tamaño de la imagen
+GEOMETRY=1024x768
+
+#Lugar desde donde se observa la imagen. Actualmente se ve europa en primer plano
+LONGITUDE=10
+LATITUDE=40
+
+if test -e "$PREFIX$OUTPUT"; then
+   rm "$PREFIX$OUTPUT"
+   OUTPUT="_$OUTPUT"
+else
+   rm "$PREFIX""_$OUTPUT"
+fi
+
+# Comando que genera la imagen
+xplanet -num_times 1 -output "$PREFIX$OUTPUT" -geometry $GEOMETRY -longitude $LONGITUDE \
+-latitude $LATITUDE
+
+gconftool-2 -t str -s /desktop/gnome/background/picture_filename "$PREFIX$OUTPUT"
+
+sleep $DELAY
+exec $0</code></pre></figure></div>
 <p>Este comando se debe ejecutar al arrancar la sesión de gnome. En mi caso lo he puesto en <tt>~/bin/xplanet-gnome.sh</tt> y la invocación se realiza desde las preferencias de la sesión de gnome. Para ello, ve al menú Escritorio&#8594;Preferencias&#8594;Sesiones una vez arrancado el gestor de sesiones de gnome, añade la llamada al script anterior en la pestaña &#8220;Programas al inicio&#8221; teniendo cuidado de poner la ruta completa donde se encuentra el script y añadiendo al final de la línea de comandos el caracter &#8220;&amp;&#8221; para que el comando se lance en segundo plano.</p>
 <p>Para que las nubes se superpongan al mapa del mundo, necesitas editar el fichero de configuración de  xplanet que está en <tt>~/.xplanet/config/default</tt> y en la sección dedicada al planeta Tierra añade lo siguiente:</p>
 <pre>
@@ -5306,7 +5310,7 @@ cloud_threshold=90
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

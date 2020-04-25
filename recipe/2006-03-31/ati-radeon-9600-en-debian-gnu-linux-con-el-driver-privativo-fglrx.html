@@ -5156,29 +5156,14 @@
 <p><!--break--></p>
 <h1>Instalar <code>headers</code> de tu versión de Linux</h1>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install linux-headers-$(uname -r)<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>linux-headers-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span></code></pre></figure></div>
 <h1>Instalar y compilar el driver</h1>
 <p>Con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install module-assistant fglrx-driver<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>module-assistant fglrx-driver</code></pre></figure></div>
 <p>y un poco de magia <em>module-assistant</em> está hecho.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>m-a a-i fglrx<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>m-a a-i fglrx</code></pre></figure></div>
 <h1>Configuración de Xorg</h1>
 <p>Modifica la <code>Section "Device"</code> para que quede algo como:</p>
 <pre>
@@ -5201,12 +5186,7 @@ fglrx
 <h1>Y listo</h1>
 <p>Ya sólo te queda reiniciar el gestor de inicio de sesión:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/gdm restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/gdm restart</code></pre></figure></div>
 <h1>Referencias</h1>
 <ul>
 	<li><a href="http://www.genbeta.com/archivos/2005/04/29-aceleracion-3d-para-tarjetas-.php">Aceleración 3D para tarjetas gráficas en Ubuntu Linux</a></li>
@@ -5275,7 +5255,7 @@ fglrx
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

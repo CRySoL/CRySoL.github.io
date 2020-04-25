@@ -5158,74 +5158,65 @@ mezclador por hardware pero no es muy habitual en las que vienen de serie con mu
 <h2>Manos a la obra</h2>
 <p>Pues bien, tan solo necesitas instalar el paquete <code>alsa-oss</code>, editar el fichero <code>/etc/asoundrc</code> y copiar dentro lo siguiente:</p>
 <div>
-<p>{% highlight text %}</p>
-<ol>
-	<li>.asoundrc for use with <span class="caps">ALSA</span> and the dmix plugin, for <span class="caps">ALSA</span>-level</li>
-	<li>software mixing across all apps.<br />
-#</li>
-	<li>http://alsa.opensrc.org/index.php?page=AlsaSharing</li>
-	<li>http://alsa.opensrc.org/index.php?page=DmixPlugin<br />
-pcm.card0 {<br />
-    type hw<br />
-    card 0<br />
-}</li>
-</ol>
-<p>pcm.dmix0 {<br />
-    type dmix<br />
-    ipc_key 219345           # any unique number here<br />
-    slave {<br />
-            pcm &#8220;hw:0,0&#8221;<br />
-            period_time 0<br />
-            buffer_time 0<br />
-            period_size 2048    # jm: much smoother than 1024/8192!<br />
-            buffer_size 32768<br />
-            rate 48000<br />
-    }</p>
-bindings {
-0 0   # from 0 =&gt; to 0
-1 1   # from 1 =&gt; to 1
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># .asoundrc for use with ALSA and the dmix plugin, for ALSA-level
+# software mixing across all apps.
+#
+# http://alsa.opensrc.org/index.php?page=AlsaSharing
+# http://alsa.opensrc.org/index.php?page=DmixPlugin
+pcm.card0 {
+    type hw
+    card 0
 }
-<p>}</p>
-<p>pcm.dsp0 {<br />
-  type plug<br />
-  slave.pcm &#8220;dmix0&#8221;<br />
-}</p>
-<ol>
-	<li>this makes native <span class="caps">ALSA</span> apps default to using dmix<br />
-pcm.!default {<br />
-  type plug<br />
-  slave.pcm &#8220;dmix0&#8221;<br />
-}</li>
-</ol>
-<p>ctl.dsp0 {<br />
-  type hw<br />
-  card 0<br />
-}</p>
-<p>ctl.!default {<br />
-  type hw<br />
-  card 0<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+
+pcm.dmix0 {
+    type dmix
+    ipc_key 219345           # any unique number here
+    slave {
+            pcm "hw:0,0"
+            period_time 0
+            buffer_time 0
+            period_size 2048    # jm: much smoother than 1024/8192!
+            buffer_size 32768
+            rate 48000
+    }
+
+    bindings {
+        0 0   # from 0 =&gt; to 0
+        1 1   # from 1 =&gt; to 1
+    }
+}
+
+pcm.dsp0 {
+  type plug
+  slave.pcm "dmix0"
+}
+
+# this makes native ALSA apps default to using dmix
+pcm.!default {
+  type plug
+  slave.pcm "dmix0"
+}
+
+ctl.dsp0 {
+  type hw
+  card 0
+}
+
+ctl.!default {
+  type hw
+  card 0
+}</code></pre></figure></div>
 <p>Si usas <code>esound</code> tendrás que instalar el paquete <code>libesd-alsa0</code> y editar el fichero <code>/etc/esound/esd.conf</code> para que quede así:</p>
 <div>
-<p>{% highlight text %}<br />
-[esd]<br />
-auto_spawn=1<br />
-spawn_options=-terminate -nobeeps -as 2 -d default<br />
-spawn_wait_ms=100</p>
-<ol>
-	<li>default options are used in spawned and non-spawned mode<br />
-default_options=<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[esd]
+auto_spawn=1
+spawn_options=-terminate -nobeeps -as 2 -d default
+spawn_wait_ms=100
+# default options are used in spawned and non-spawned mode
+default_options=</code></pre></figure></div>
 <p>Si tienes <code>libao</code> edita además el fichero <code>/etc/libao.conf</code> para poner lo siguiente:</p>
 <div>
-<p>{% highlight text <span>}<br />
-default_driver=esd<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">default_driver=esd</code></pre></figure></div>
 <p>Y eso es todo.</p>
       </div>
 
@@ -5291,7 +5282,7 @@ default_driver=esd<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

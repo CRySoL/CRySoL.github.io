@@ -5340,26 +5340,26 @@ Hecho ésto, solo queda encender nuestra tarjeta y comprobar que supervivi arran
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="c">#### FriendlyARM BIOS for 2440 #####</span>
 <span class="go">[x] bon part 0 320k 2368k
-[v] Download vivi 
-[k] Download linux kernel 
-[y] Download root_yaffs image 
-[c] Download root_cramfs image 
+[v] Download vivi
+[k] Download linux kernel
+[y] Download root_yaffs image
+[c] Download root_cramfs image
 [a] Absolute User Application
-[n] Download Nboot 
-[e] Download Eboot 
-[i] Download WinCE NK.nb0 
-[w] Download WinCE NK.bin 
-[d] Download &amp; Run 
-[z] Download zImage into RAM 
-[g] Boot linux from RAM 
-[f] Format the nand flash 
-[p] Partition for Linux 
-[b] Boot the system 
-[s] Set the boot parameters 
-[t] Print the TOC struct of wince 
-[u] Backup NAND Flash to HOST through USB(upload) 
-[r] Restore NAND Flash from HOST through USB 
-[q] Goto shell of vivi 
+[n] Download Nboot
+[e] Download Eboot
+[i] Download WinCE NK.nb0
+[w] Download WinCE NK.bin
+[d] Download &amp; Run
+[z] Download zImage into RAM
+[g] Boot linux from RAM
+[f] Format the nand flash
+[p] Partition for Linux
+[b] Boot the system
+[s] Set the boot parameters
+[t] Print the TOC struct of wince
+[u] Backup NAND Flash to HOST through USB(upload)
+[r] Restore NAND Flash from HOST through USB
+[q] Goto shell of vivi
 Enter your selection:</span></code></pre></figure>
 </div>
 
@@ -5404,7 +5404,7 @@ Found block size = 0x0003c000
 Erasing...    ... done
 Writing...    ... done
 Written 239016 bytes
-</span><span class="gp">Supervivi&gt;</span><span class="w"> </span></code></pre></figure>
+</span><span class="gp">Supervivi&gt;</span></code></pre></figure>
 </div>
 
 Ahora, arrancamos u-boot:
@@ -5431,7 +5431,7 @@ In:    serial
 Out:   serial
 Err:   serial
 MAC: 08:08:11:18:12:27
-Hit any key to stop autoboot:  0 </span></code></pre></figure>
+Hit any key to stop autoboot:  0</span></code></pre></figure>
 </div>
 
 Lo primero que ha hecho u-boot al arrancar, ha sido darnos un mensaje de alerta indicando que el contenido de la NAND no es el que debiera, ya que no está formateada, así que éste será el siguiente paso:
@@ -5451,7 +5451,7 @@ Erasing at 0x3ffc000 -- 100% complete.
 Bad block table not found for chip 0
 Bad block table not found for chip 0
 OK
-</span><span class="gp">MINI2440 #</span><span class="w"> </span></code></pre></figure>
+</span><span class="gp">MINI2440 #</span></code></pre></figure>
 </div>
 
 La NAND tiene almacenada (o debería tener) una lista de bloques defectuosos, pero nosotros limpiaremos completamente la NAND borrando dicha lista y reconstruyéndola después con los bloques que nosotros detectemos como defectuosos. El comando <em>nand scrub</em> se encarga precisamente de limpiar la NAND.
@@ -5461,11 +5461,11 @@ Después de haber hecho la limpieza, creamos nuestra propia <em>BBT</em>:
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">MINI2440 #</span><span class="w"> </span>nand createbbt
 <span class="gp">Create BBT and erase everything ? &lt;y/N&gt;</span><span class="w">
-</span><span class="go">Skipping bad block at  0x03410000                                            
-Skipping bad block at  0x03ff0000                                            
-Skipping bad block at  0x03ff4000                                            
-Skipping bad block at  0x03ff8000                                            
-Skipping bad block at  0x03ffc000                                            
+</span><span class="go">Skipping bad block at  0x03410000
+Skipping bad block at  0x03ff0000
+Skipping bad block at  0x03ff4000
+Skipping bad block at  0x03ff8000
+Skipping bad block at  0x03ffc000
 Creating BBT. Please wait ...Bad block table not found for chip 0
 Bad block table not found for chip 0
 Bad block table written to 0x03ffc000, version 0x01
@@ -5586,7 +5586,7 @@ Muchas y muy variadas, aunque las mas importantes son éstas.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

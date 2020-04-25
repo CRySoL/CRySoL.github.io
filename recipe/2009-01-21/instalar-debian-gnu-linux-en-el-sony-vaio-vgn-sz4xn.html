@@ -5345,62 +5345,56 @@
 <p>Esta máquina tiene dos modos: stamina y speed. El modo &#8220;stamina&#8221; es para ahorrar batería y el modo speed es para sacar toda la potencia posible. Para cambiar de modo se utiliza un pequeño conmutador que hay al lado del botón de encendido y se reinicia el equipo. En cada modo se utiliza una tarjeta de vídeo distinta: una nVidia cuando quieres potencia y una Intel cuando quieres autonomía.</p>
 <h3>Modo &#8220;stamina&#8221;</h3>
 <div class="console">
-<p>{% highlight console %}<br />
-:~$ lspci<br />
-00:00.0 Host bridge: Intel Corporation Mobile 945GM/PM/<span class="caps">GMS</span>/940GML and 945GT Express Memory Controller Hub (rev 03)<br />
-<b>00:02.0 <span class="caps">VGA</span> compatible controller: Intel Corporation Mobile 945GM/<span class="caps">GMS</span>/940GML Express Integrated Graphics Controller (rev 03)<br />
-00:02.1 Display controller: Intel Corporation Mobile 945GM/<span class="caps">GMS</span>/940GML Express Integrated Graphics Controller (rev 03)</b><br />
-00:1b.0 Audio device: Intel Corporation 82801G (ICH7 Family) High Definition Audio Controller (rev 02)<br />
-00:1c.0 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 1 (rev 02)<br />
-00:1c.1 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 2 (rev 02)<br />
-00:1c.2 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 3 (rev 02)<br />
-00:1c.3 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 4 (rev 02)<br />
-00:1d.0 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> #1 (rev 02)<br />
-00:1d.1 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> #2 (rev 02)<br />
-00:1d.2 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> #3 (rev 02)<br />
-00:1d.3 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> #4 (rev 02)<br />
-00:1d.7 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) USB2 <span class="caps">EHCI</span> Controller (rev 02)<br />
-00:1e.0 <span class="caps">PCI</span> bridge: Intel Corporation 82801 Mobile <span class="caps">PCI</span> Bridge (rev e2)<br />
-00:1f.0 <span class="caps">ISA</span> bridge: Intel Corporation 82801GBM (ICH7-M) <span class="caps">LPC</span> Interface Bridge (rev 02)<br />
-00:1f.1 <span class="caps">IDE</span> interface: Intel Corporation 82801G (ICH7 Family) <span class="caps">IDE</span> Controller (rev 02)<br />
-00:1f.2 <span class="caps">IDE</span> interface: Intel Corporation 82801GBM/<span class="caps">GHM</span> (ICH7 Family) Serial <span class="caps">ATA</span> Storage Controller <span class="caps">IDE</span> (rev 02)<br />
-00:1f.3 SMBus: Intel Corporation 82801G (ICH7 Family) SMBus Controller (rev 02)<br />
-06:00.0 Network controller: Intel Corporation <span class="caps">PRO</span>/Wireless 3945ABG Network Connection (rev 02)<br />
-07:00.0 Ethernet controller: Marvell Technology Group Ltd. 88E8036 <span class="caps">PCI</span>-E Fast Ethernet Controller (rev 16)<br />
-09:04.0 CardBus bridge: Texas Instruments PCIxx12 Cardbus Controller<br />
-09:04.1 FireWire (<span class="caps">IEEE</span> 1394): Texas Instruments PCIxx12 <span class="caps">OHCI</span> Compliant <span class="caps">IEEE</span> 1394 Host Controller<br />
-09:04.2 Mass storage controller: Texas Instruments 5-in-1 Multimedia Card Reader (SD/<span class="caps">MMC</span>/MS/MS <span class="caps">PRO</span>/xD)</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">:~$</span><span class="w"> </span>lspci
+<span class="go">00:00.0 Host bridge: Intel Corporation Mobile 945GM/PM/GMS/940GML and 945GT Express Memory Controller Hub (rev 03)
+</span><span class="gp">&lt;b&gt;</span>00:02.0 VGA compatible controller: Intel Corporation Mobile 945GM/GMS/940GML Express Integrated Graphics Controller <span class="o">(</span>rev 03<span class="o">)</span>
+<span class="gp">00:02.1 Display controller: Intel Corporation Mobile 945GM/GMS/940GML Express Integrated Graphics Controller (rev 03)&lt;/b&gt;</span><span class="w">
+</span><span class="go">00:1b.0 Audio device: Intel Corporation 82801G (ICH7 Family) High Definition Audio Controller (rev 02)
+00:1c.0 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 1 (rev 02)
+00:1c.1 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 2 (rev 02)
+00:1c.2 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 3 (rev 02)
+00:1c.3 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 4 (rev 02)
+</span><span class="gp">00:1d.0 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI #</span>1 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="gp">00:1d.1 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI #</span>2 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="gp">00:1d.2 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI #</span>3 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="gp">00:1d.3 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI #</span>4 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="go">00:1d.7 USB Controller: Intel Corporation 82801G (ICH7 Family) USB2 EHCI Controller (rev 02)
+00:1e.0 PCI bridge: Intel Corporation 82801 Mobile PCI Bridge (rev e2)
+00:1f.0 ISA bridge: Intel Corporation 82801GBM (ICH7-M) LPC Interface Bridge (rev 02)
+00:1f.1 IDE interface: Intel Corporation 82801G (ICH7 Family) IDE Controller (rev 02)
+00:1f.2 IDE interface: Intel Corporation 82801GBM/GHM (ICH7 Family) Serial ATA Storage Controller IDE (rev 02)
+00:1f.3 SMBus: Intel Corporation 82801G (ICH7 Family) SMBus Controller (rev 02)
+06:00.0 Network controller: Intel Corporation PRO/Wireless 3945ABG Network Connection (rev 02)
+07:00.0 Ethernet controller: Marvell Technology Group Ltd. 88E8036 PCI-E Fast Ethernet Controller (rev 16)
+09:04.0 CardBus bridge: Texas Instruments PCIxx12 Cardbus Controller
+09:04.1 FireWire (IEEE 1394): Texas Instruments PCIxx12 OHCI Compliant IEEE 1394 Host Controller
+09:04.2 Mass storage controller: Texas Instruments 5-in-1 Multimedia Card Reader (SD/MMC/MS/MS PRO/xD)</span></code></pre></figure></div>
 <h3>Modo &#8220;speed&#8221;</h3>
 <div class="console">
-<p>{% highlight console %}<br />
-:~$ lspci<br />
-00:00.0 Host bridge: Intel Corporation Mobile 945GM/PM/<span class="caps">GMS</span>/940GML and 945GT Express Memory Controller Hub (rev 03)<br />
-<b>00:01.0 <span class="caps">PCI</span> bridge: Intel Corporation Mobile 945GM/PM/<span class="caps">GMS</span>/940GML and 945GT Express <span class="caps">PCI</span> Express Root Port (rev 03)</b><br />
-00:1b.0 Audio device: Intel Corporation 82801G (ICH7 Family) High Definition Audio Controller (rev 02)<br />
-00:1c.0 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 1 (rev 02)<br />
-00:1c.1 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 2 (rev 02)<br />
-00:1c.2 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 3 (rev 02)<br />
-00:1c.3 <span class="caps">PCI</span> bridge: Intel Corporation 82801G (ICH7 Family) <span class="caps">PCI</span> Express Port 4 (rev 02)<br />
-00:1d.0 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> #1 (rev 02)<br />
-00:1d.1 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> #2 (rev 02)<br />
-00:1d.2 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> #3 (rev 02)<br />
-00:1d.3 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) <span class="caps">USB</span> <span class="caps">UHCI</span> #4 (rev 02)<br />
-00:1d.7 <span class="caps">USB</span> Controller: Intel Corporation 82801G (ICH7 Family) USB2 <span class="caps">EHCI</span> Controller (rev 02)<br />
-00:1e.0 <span class="caps">PCI</span> bridge: Intel Corporation 82801 Mobile <span class="caps">PCI</span> Bridge (rev e2)<br />
-00:1f.0 <span class="caps">ISA</span> bridge: Intel Corporation 82801GBM (ICH7-M) <span class="caps">LPC</span> Interface Bridge (rev 02)<br />
-00:1f.1 <span class="caps">IDE</span> interface: Intel Corporation 82801G (ICH7 Family) <span class="caps">IDE</span> Controller (rev 02)<br />
-00:1f.2 <span class="caps">IDE</span> interface: Intel Corporation 82801GBM/<span class="caps">GHM</span> (ICH7 Family) Serial <span class="caps">ATA</span> Storage Controller <span class="caps">IDE</span> (rev 02)<br />
-00:1f.3 SMBus: Intel Corporation 82801G (ICH7 Family) SMBus Controller (rev 02)<br />
-<b>01:00.0 <span class="caps">VGA</span> compatible controller: nVidia Corporation GeForce Go 7400 (rev a1)</b><br />
-06:00.0 Network controller: Intel Corporation <span class="caps">PRO</span>/Wireless 3945ABG Network Connection (rev 02)<br />
-07:00.0 Ethernet controller: Marvell Technology Group Ltd. 88E8036 <span class="caps">PCI</span>-E Fast Ethernet Controller (rev 16)<br />
-09:04.0 CardBus bridge: Texas Instruments PCIxx12 Cardbus Controller<br />
-09:04.1 FireWire (<span class="caps">IEEE</span> 1394): Texas Instruments PCIxx12 <span class="caps">OHCI</span> Compliant <span class="caps">IEEE</span> 1394 Host Controller<br />
-09:04.2 Mass storage controller: Texas Instruments 5-in-1 Multimedia Card Reader (SD/<span class="caps">MMC</span>/MS/MS <span class="caps">PRO</span>/xD)</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">:~$</span><span class="w"> </span>lspci
+<span class="go">00:00.0 Host bridge: Intel Corporation Mobile 945GM/PM/GMS/940GML and 945GT Express Memory Controller Hub (rev 03)
+</span><span class="gp">&lt;b&gt;</span>00:01.0 PCI bridge: Intel Corporation Mobile 945GM/PM/GMS/940GML and 945GT Express PCI Express Root Port <span class="o">(</span>rev 03<span class="o">)</span>&lt;/b&gt;
+<span class="go">00:1b.0 Audio device: Intel Corporation 82801G (ICH7 Family) High Definition Audio Controller (rev 02)
+00:1c.0 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 1 (rev 02)
+00:1c.1 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 2 (rev 02)
+00:1c.2 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 3 (rev 02)
+00:1c.3 PCI bridge: Intel Corporation 82801G (ICH7 Family) PCI Express Port 4 (rev 02)
+</span><span class="gp">00:1d.0 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI #</span>1 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="gp">00:1d.1 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI #</span>2 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="gp">00:1d.2 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI #</span>3 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="gp">00:1d.3 USB Controller: Intel Corporation 82801G (ICH7 Family) USB UHCI #</span>4 <span class="o">(</span>rev 02<span class="o">)</span>
+<span class="go">00:1d.7 USB Controller: Intel Corporation 82801G (ICH7 Family) USB2 EHCI Controller (rev 02)
+00:1e.0 PCI bridge: Intel Corporation 82801 Mobile PCI Bridge (rev e2)
+00:1f.0 ISA bridge: Intel Corporation 82801GBM (ICH7-M) LPC Interface Bridge (rev 02)
+00:1f.1 IDE interface: Intel Corporation 82801G (ICH7 Family) IDE Controller (rev 02)
+00:1f.2 IDE interface: Intel Corporation 82801GBM/GHM (ICH7 Family) Serial ATA Storage Controller IDE (rev 02)
+00:1f.3 SMBus: Intel Corporation 82801G (ICH7 Family) SMBus Controller (rev 02)
+</span><span class="gp">&lt;b&gt;</span>01:00.0 VGA compatible controller: nVidia Corporation GeForce Go 7400 <span class="o">(</span>rev a1<span class="o">)</span>&lt;/b&gt;
+<span class="go">06:00.0 Network controller: Intel Corporation PRO/Wireless 3945ABG Network Connection (rev 02)
+07:00.0 Ethernet controller: Marvell Technology Group Ltd. 88E8036 PCI-E Fast Ethernet Controller (rev 16)
+09:04.0 CardBus bridge: Texas Instruments PCIxx12 Cardbus Controller
+09:04.1 FireWire (IEEE 1394): Texas Instruments PCIxx12 OHCI Compliant IEEE 1394 Host Controller
+09:04.2 Mass storage controller: Texas Instruments 5-in-1 Multimedia Card Reader (SD/MMC/MS/MS PRO/xD)</span></code></pre></figure></div>
 <h2>Ahorro de batería</h2>
 <p>Para el escalado automático de frecuencia instala:</p>
 <ul>
@@ -5409,14 +5403,9 @@
 </ul>
 <p>Tienes que cargar el módulo <tt>speedstep-centrino</tt></p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>modprobe speedstep-centrino</li>
-	<li>echo &#8220;speedstep-centrino&#8221; &gt;&gt; /etc/modules</li>
-	<li>/etc/init.d/cpudyn restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>modprobe speedstep-centrino
+<span class="gp">#</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"speedstep-centrino"</span> <span class="o">&gt;&gt;</span> /etc/modules
+<span class="gp">#</span><span class="w"> </span>/etc/init.d/cpudyn restart</code></pre></figure></div>
 <h3>laptop-mode</h3>
 <p>Instala:</p>
 <ul>
@@ -5436,98 +5425,89 @@ ENABLE_LAPTOP_MODE=true
 </ul>
 <p>En una línea para cortar y pegar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install ipw3945d firmware-ipw3945 ipw3945-modules-$(uname -r)<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>ipw3945d firmware-ipw3945 ipw3945-modules-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span></code></pre></figure></div>
 <h2>WiFi (Con Linux &gt;= 2.6.24)</h2>
 <p>Instala el paquete <code>firmware-iwlwifi</code>. Más info en <a href="http://wiki.debian.org/iwlwifi">Debian wiki:iwlwifi</a></p>
 <h2>Aceleración 3D</h2>
 <p>Para el caso de la <em>nvidia</em> ya sabes como tener aceleración con los drivers propietarios. Yo sólo utilizo el modo <em>stamina</em> porque consume menos batería y la aceleración 3D que permite el driver libre no es desdeñable: 1250 fps con <code>glxgears</code>. Más que suficiente para lo que yo necesito, que incluye cosas como blender, beryl o nexuiz.</p>
 <p>Los parámetros de configuración de <code>xorg.conf</code> relacionados son:</p>
 <div>
-<p>{% highlight text %}<br />
-Section &#8220;Module&#8221;<br />
-        Load    &#8220;i2c&#8221;<br />
-        Load    &#8220;bitmap&#8221;<br />
-        Load    &#8220;ddc&#8221;<br />
-        Load    &#8220;dri&#8221;<br />
-        Load    &#8220;extmod&#8221;<br />
-        Load    &#8220;freetype&#8221;<br />
-        Load    &#8220;glx&#8221;<br />
-        Load    &#8220;int10&#8221;<br />
-        Load    &#8220;vbe&#8221;<br />
-EndSection</p>
-<p>Section &#8220;Device&#8221;<br />
-        Identifier      &#8220;Intel&#8221;<br />
-        Driver          &#8220;i810&#8221;<br />
-        Option          &#8220;VBERestore&#8221;  &#8220;True&#8221;<br />
-        Screen          0<br />
-        BusID           &#8220;<span class="caps">PCI</span>:0:2:0&#8221;<br />
-        Option          &#8220;<span class="caps">DRI</span>&#8221;         &#8220;True&#8221;<br />
-EndSection</p>
-<p>Section &#8220;<span class="caps">DRI</span>&#8221;<br />
-        Mode    0666<br />
-EndSection<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Section "Module"
+        Load    "i2c"
+        Load    "bitmap"
+        Load    "ddc"
+        Load    "dri"
+        Load    "extmod"
+        Load    "freetype"
+        Load    "glx"
+        Load    "int10"
+        Load    "vbe"
+EndSection
+
+Section "Device"
+        Identifier      "Intel"
+        Driver          "i810"
+        Option          "VBERestore"  "True"
+        Screen          0
+        BusID           "PCI:0:2:0"
+        Option          "DRI"         "True"
+EndSection
+
+Section "DRI"
+        Mode    0666
+EndSection</code></pre></figure></div>
 <h2>Touchpad</h2>
 <p>Funciona bien con el driver &#8220;synaptic&#8221; pero requiere afinar los parámetros. Pon esto en el <code>/etc/X11/xorg.conf</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Section &#8220;InputDevice&#8221;<br />
-	Identifier	&#8220;Synaptics Touchpad&#8221;<br />
-        Driver          &#8220;synaptics&#8221;<br />
-        Option          &#8220;SendCoreEvents&#8221;<br />
-        Option          &#8220;Device&#8221;                &#8220;/dev/input/mouse0&#8221;<br />
-        Option          &#8220;Protocol&#8221;              &#8220;auto-dev&#8221;<br />
-        Option          &#8220;SHMConfig&#8221;             &#8220;true&#8221;<br />
-        Option          &#8220;LeftEdge&#8221;              &#8220;120&#8221;<br />
-        Option          &#8220;RightEdge&#8221;             &#8220;830&#8221;<br />
-        Option          &#8220;TopEdge&#8221;               &#8220;140&#8221;<br />
-        Option          &#8220;BottomEdge&#8221;            &#8220;680&#8221;<br />
-        Option          &#8220;FingerLow&#8221;             &#8220;8&#8221;<br />
-        Option          &#8220;FingerHigh&#8221;            &#8220;9&#8221;<br />
-        Option          &#8220;MaxTapTime&#8221;            &#8220;200&#8221;<br />
-        Option          &#8220;MaxTapMove&#8221;            &#8220;150&#8221;<br />
-        Option          &#8220;MaxDoubleTapTime&#8221;      &#8220;200&#8221;<br />
-        Option          &#8220;ClickTime&#8221;             &#8220;100&#8221;<br />
-        Option          &#8220;FastTaps&#8221;              &#8220;false&#8221;<br />
-        Option          &#8220;EmulateMidButtonTime&#8221;  &#8220;75&#8221;<br />
-        Option          &#8220;VertScrollDelta&#8221;       &#8220;25&#8221;<br />
-        Option          &#8220;HorizScrollDelta&#8221;      &#8220;100&#8221;<br />
-        Option          &#8220;MinSpeed&#8221;              &#8220;0.1&#8221;<br />
-        Option          &#8220;MaxSpeed&#8221;              &#8220;0.7&#8221;<br />
-        Option          &#8220;AccelFactor&#8221;           &#8220;0.05&#8221;<br />
-        Option          &#8220;EdgeMotionMinZ&#8221;        &#8220;30&#8221;<br />
-        Option          &#8220;EdgeMotionMaxZ&#8221;        &#8220;160&#8221;<br />
-        Option          &#8220;EdgeMotionMinSpeed&#8221;    &#8220;200&#8221;<br />
-        Option          &#8220;EdgeMotionMaxSpeed&#8221;    &#8220;200&#8221;<br />
-        Option          &#8220;EdgeMotionUseAlways&#8221;   &#8220;1&#8221;<br />
-        Option          &#8220;UpDownScrolling&#8221;       &#8220;1&#8221;<br />
-        Option          &#8220;TouchpadOff&#8221;           &#8220;false&#8221;<br />
-        Option          &#8220;GuestMouseOff&#8221;         &#8220;false&#8221;<br />
-        Option          &#8220;LockedDrags&#8221;           &#8220;false&#8221;<br />
-        Option          &#8220;RTCornerButton&#8221;        &#8220;0&#8221;<br />
-        Option          &#8220;RBCornerButton&#8221;        &#8220;0&#8221;<br />
-        Option          &#8220;LTCornerButton&#8221;        &#8220;0&#8221;<br />
-        Option          &#8220;LBCornerButton&#8221;        &#8220;0&#8221;<br />
-        Option          &#8220;TapButton1&#8221;            &#8220;1&#8221;<br />
-        Option          &#8220;TapButton2&#8221;            &#8220;2&#8221;<br />
-        Option          &#8220;TapButton3&#8221;            &#8220;3&#8221;<br />
-        Option          &#8220;CircularScrolling&#8221;     &#8220;1&#8221;<br />
-        Option          &#8220;CircScrollDelta&#8221;       &#8220;0.1&#8221;<br />
-        Option          &#8220;CircScrollTrigger&#8221;     &#8220;2&#8221;<br />
-        Option          &#8220;CircularPad&#8221;           &#8220;0&#8221;<br />
-        Option          &#8220;PalmDetect&#8221;            &#8220;0&#8221;<br />
-        Option          &#8220;PalmMinWidth&#8221;          &#8220;10&#8221;<br />
-        Option          &#8220;PalmMinZ&#8221;              &#8220;200&#8221;<br />
-        Option          &#8220;CoastingSpeed&#8221;         &#8220;0&#8221;<br />
-EndSection<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Section "InputDevice"
+	Identifier	"Synaptics Touchpad"
+        Driver          "synaptics"
+        Option          "SendCoreEvents"
+        Option          "Device"                "/dev/input/mouse0"
+        Option          "Protocol"              "auto-dev"
+        Option          "SHMConfig"             "true"
+        Option          "LeftEdge"              "120"
+        Option          "RightEdge"             "830"
+        Option          "TopEdge"               "140"
+        Option          "BottomEdge"            "680"
+        Option          "FingerLow"             "8"
+        Option          "FingerHigh"            "9"
+        Option          "MaxTapTime"            "200"
+        Option          "MaxTapMove"            "150"
+        Option          "MaxDoubleTapTime"      "200"
+        Option          "ClickTime"             "100"
+        Option          "FastTaps"              "false"
+        Option          "EmulateMidButtonTime"  "75"
+        Option          "VertScrollDelta"       "25"
+        Option          "HorizScrollDelta"      "100"
+        Option          "MinSpeed"              "0.1"
+        Option          "MaxSpeed"              "0.7"
+        Option          "AccelFactor"           "0.05"
+        Option          "EdgeMotionMinZ"        "30"
+        Option          "EdgeMotionMaxZ"        "160"
+        Option          "EdgeMotionMinSpeed"    "200"
+        Option          "EdgeMotionMaxSpeed"    "200"
+        Option          "EdgeMotionUseAlways"   "1"
+        Option          "UpDownScrolling"       "1"
+        Option          "TouchpadOff"           "false"
+        Option          "GuestMouseOff"         "false"
+        Option          "LockedDrags"           "false"
+        Option          "RTCornerButton"        "0"
+        Option          "RBCornerButton"        "0"
+        Option          "LTCornerButton"        "0"
+        Option          "LBCornerButton"        "0"
+        Option          "TapButton1"            "1"
+        Option          "TapButton2"            "2"
+        Option          "TapButton3"            "3"
+        Option          "CircularScrolling"     "1"
+        Option          "CircScrollDelta"       "0.1"
+        Option          "CircScrollTrigger"     "2"
+        Option          "CircularPad"           "0"
+        Option          "PalmDetect"            "0"
+        Option          "PalmMinWidth"          "10"
+        Option          "PalmMinZ"              "200"
+        Option          "CoastingSpeed"         "0"
+EndSection</code></pre></figure></div>
 <h2>Soporte <span class="caps">ACPI</span></h2>
 <p>Instala lo siguiente:</p>
 <ul>
@@ -5537,40 +5517,20 @@ EndSection<br />
 <h3><span class="caps">GNOME</span></h3>
 <p>Para utilizar las catacterísticas de gnome-power-manager tienes que ser del grupo <code>powerdev</code>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>addgroup usuario powerdev<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>addgroup usuario powerdev</code></pre></figure></div>
 <h3>Consola</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>echo disk &gt; /sys/power/state<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span><span class="nb">echo </span>disk <span class="o">&gt;</span> /sys/power/state</code></pre></figure></div>
 <h2><span class="caps">ACPI</span>: Control del brillo de la pantalla con Intel</h2>
 <p>Con <strong>sony-laptop</strong> puedes manipular el brillo del <span class="caps">LCD</span> usando las teclas Fn-F5 y Fn-F6 (al menos en <span class="caps">GNOME</span>). Estas teclas modifican un valor entero (entre 0 y 7 ) almacenado en el fichero <code>/sys/class/backlight/sony/brightness</code>. Ese valor también lo puedes modificar &#8220;a mano&#8221; con algo como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>echo &#8220;5&#8221; &gt; /sys/class/backlight/sony/brightness<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"5"</span> <span class="o">&gt;</span> /sys/class/backlight/sony/brightness</code></pre></figure></div>
 <p>En ese mismo directorio hay otro fichero llamado  <code>brightness_default</code> que indica el nivel de brillo por defecto y que puedes modificar del mismo modo.</p>
 <p>También funciona perfectamente el <code>Brightness Applet</code> de <span class="caps">GNOME</span>.</p>
 <h2><span class="caps">ACPI</span>: Control del brillo de la pantalla con Nvidia</h2>
 <p>Instala el paquete <em>nvclock</em>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>nvclock -S -10<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>nvclock <span class="nt">-S</span> <span class="nt">-10</span></code></pre></figure></div>
 <p>Crea el fichero <code>/etc/acpi/events/sony-brightness-down</code> y escribe dentro:</p>
 <pre>
 event=sony/hotkey SPIC 00000001 00000010
@@ -5583,12 +5543,7 @@ action=/usr/bin/nvclock -S +10
 </pre>
 <p>Reincia <code>acpid</code>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/acpid restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>/etc/init.d/acpid restart</code></pre></figure></div>
 <p>Si no es el mismo modelo de portátil, el código de la tecla puede cambiar. Utiliza <code>acpi_listen</code> para averiguar los que correspondan a tu teclado.</p>
 <h2>Webcam</h2>
 <p>Este modelo lleva integrada una webcam <span class="caps">USB</span> Ricoh que se identifica como:</p>
@@ -5596,42 +5551,29 @@ action=/usr/bin/nvclock -S +10
 <h3>Webcam con Linux &lt;= 2.6.24</h3>
 <p>Para hacerla funcionar necesitas el driver <a href="http://lsb.blogdns.net/ry5u870/">R5U870</a>. Sigue estos pasos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ wget <a href="http://lsb.blogdns.net/files/r5u870-0.10.0.tgz">http://lsb.blogdns.net/files/r5u870-0.10.0.tgz</a><br />
-$ unp r5u870-0.10.0.tgz<br />
-$ cd r5u870-0.10.0/<br />
-$ make</p>
-<ol>
-	<li>mkdir /lib/modules/$(uname -r)/extra/</li>
-	<li>cp r5u870.ko /lib/modules/$(uname -r)/extra/</li>
-	<li>depmod -a</li>
-	<li>cp r5u870_1835.fw /lib/firmware/<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>wget &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"http://lsb.blogdns.net/files/r5u870-0.10.0.tgz"</span><span class="o">&gt;</span>http://lsb.blogdns.net/files/r5u870-0.10.0.tgz&lt;/a&gt;
+<span class="gp">$</span><span class="w"> </span>unp r5u870-0.10.0.tgz
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>r5u870-0.10.0/
+<span class="gp">$</span><span class="w"> </span>make
+<span class="gp">#</span><span class="w"> </span><span class="nb">mkdir</span> /lib/modules/<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span>/extra/
+<span class="gp">#</span><span class="w"> </span><span class="nb">cp </span>r5u870.ko /lib/modules/<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span>/extra/
+<span class="gp">#</span><span class="w"> </span>depmod <span class="nt">-a</span>
+<span class="gp">#</span><span class="w"> </span><span class="nb">cp </span>r5u870_1835.fw /lib/firmware/</code></pre></figure></div>
 <p>Esto último es una guarrada, cuando tenga tiempo veré si puedo empaquetar esto para Debian. En <a href="http://www.arakhne.org/spip.php?article50">arakhne.org</a> hay un intento de empaquetado pero sólo funciona con el Linux 2.6.17-11-generic. Habría que hacer que compile con module-assistant.</p>
 <p>Una vez instalado carga los siguientes módulos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>modprobe videodev video-buf</li>
-	<li>modprobe v4l1-compat v4l2-common</li>
-	<li>modprobe compat_ioctl32</li>
-	<li>modprobe r5u870<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>modprobe videodev video-buf
+<span class="gp">#</span><span class="w"> </span>modprobe v4l1-compat v4l2-common
+<span class="gp">#</span><span class="w"> </span>modprobe compat_ioctl32
+<span class="gp">#</span><span class="w"> </span>modprobe r5u870</code></pre></figure></div>
 <p>La puedes probar con <code>xawtc</code>, <code>cheese</code> o <code>ekiga</code>.</p>
 <h3>Webcam con Linux &gt;= 2.6.26</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ hg clone http://bitbucket.org/ahixon/r5u87x/<br />
-$ cd r5u87x<br />
-$ make<br />
-$ sudo ./loader<br />
-$ sudo modprobe -r uvcvideo<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>hg clone http://bitbucket.org/ahixon/r5u87x/
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>r5u87x
+<span class="gp">$</span><span class="w"> </span>make
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo</span> ./loader
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>modprobe <span class="nt">-r</span> uvcvideo</code></pre></figure></div>
 <h2>Salida <span class="caps">VGA</span> externa</h2>
 <p>Con el driver <code>intel</code> y gracias al nuevo <code>xrandr</code> se pueden hacer todo tipo de cosas: clone, escritorio extendido, etc y sin reiniciar el servidor X. Mira <a href="node/726" title="con el driver intel">xrandr y dual-head</a></p>
 <h2>Por probar</h2>
@@ -5724,7 +5666,7 @@ $ sudo modprobe -r uvcvideo<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

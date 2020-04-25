@@ -5594,170 +5594,126 @@
 <h2>Parchear el kernel</h2>
 <p>Accede a la fonera por ssh y ejecuta lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>root@OpenWrt:~# <strong>wget http://fonera.info/camicia/openwrt-ar531x-2.4-vmlinux-<span class="caps">CAMICIA</span>.lzma</strong><br />
-Connecting to fonera.info[87.106.220.204]:80<br />
-openwrt-ar531x-2.4-v 100% |*****************************|   512 KB    00:00 <span class="caps">ETA</span><br />
-root@OpenWrt:~# <strong>mtd -e vmlinux.bin.l7 write openwrt-ar531x-2.4-vmlinux-<span class="caps">CAMICIA</span>.lzma vmlinux.bin.l7</strong><br />
-Unlocking vmlinux.bin.l7 &#8230;<br />
-Erasing vmlinux.bin.l7 &#8230;<br />
-Writing from openwrt-ar531x-2.4-vmlinux-<span class="caps">CAMICIA</span>.lzma to vmlinux.bin.l7 &#8230;  [w]<br />
-root@OpenWrt:~# <strong>sync; reboot</strong><br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@OpenWrt:~#</span><span class="w"> </span><span class="k">*</span>wget http://fonera.info/camicia/openwrt-ar531x-2.4-vmlinux-CAMICIA.lzma<span class="k">*</span>
+<span class="go">Connecting to fonera.info[87.106.220.204]:80
+openwrt-ar531x-2.4-v 100% |*****************************|   512 KB    00:00 ETA
+</span><span class="gp">root@OpenWrt:~#</span><span class="w"> </span><span class="k">*</span>mtd <span class="nt">-e</span> vmlinux.bin.l7 write openwrt-ar531x-2.4-vmlinux-CAMICIA.lzma vmlinux.bin.l7<span class="k">*</span>
+<span class="go">Unlocking vmlinux.bin.l7 ...
+Erasing vmlinux.bin.l7 ...
+Writing from openwrt-ar531x-2.4-vmlinux-CAMICIA.lzma to vmlinux.bin.l7 ...  [w]
+</span><span class="gp">root@OpenWrt:~#</span><span class="w"> </span><span class="k">*</span><span class="nb">sync</span><span class="p">;</span> reboot<span class="k">*</span></code></pre></figure></div>
 <h2>Actualizando las particiones</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>root@OpenWrt:~# <strong>cd /tmp</strong><br />
-root@OpenWrt:/tmp# <strong>cp /dev/mtd/5 /tmp/mtd5</strong><br />
-root@OpenWrt:/tmp# <strong>cp /dev/mtd/6 /tmp/mtd6</strong><br />
-root@OpenWrt:/tmp# <strong>wget http://fonera.info/camicia/out.hex</strong><br />
-Connecting to fonera.info[62.81.199.144]:80<br />
-out.hex              100% |*************************************|  4096       00:00 <span class="caps">ETA</span>:&#8212; <span class="caps">ETA</span><br />
-root@OpenWet:/tmp# <strong>md5sum out.hex</strong><br />
-d5a5ee5817da231684c6198801b5cb1f  out.hex<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@OpenWrt:~#</span><span class="w"> </span><span class="k">*</span><span class="nb">cd</span> /tmp<span class="k">*</span>
+<span class="gp">root@OpenWrt:/tmp#</span><span class="w"> </span><span class="k">*</span><span class="nb">cp</span> /dev/mtd/5 /tmp/mtd5<span class="k">*</span>
+<span class="gp">root@OpenWrt:/tmp#</span><span class="w"> </span><span class="k">*</span><span class="nb">cp</span> /dev/mtd/6 /tmp/mtd6<span class="k">*</span>
+<span class="gp">root@OpenWrt:/tmp#</span><span class="w"> </span><span class="k">*</span>wget http://fonera.info/camicia/out.hex<span class="k">*</span>
+<span class="go">Connecting to fonera.info[62.81.199.144]:80
+out.hex              100% |*************************************|  4096       00:00 ETA:-- ETA
+</span><span class="gp">root@OpenWet:/tmp#</span><span class="w"> </span><span class="k">*</span><span class="nb">md5sum </span>out.hex<span class="k">*</span>
+<span class="go">d5a5ee5817da231684c6198801b5cb1f  out.hex</span></code></pre></figure></div>
 <p>Comprueba que el MD5 corresponde para asegurarte de que el fichero ha bajado correctamente.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>root@OpenWrt:~# <strong>mtd erase &#8220;<span class="caps">FIS</span> directory&#8221;</strong><br />
-Unlocking <span class="caps">FIS</span> directory &#8230;<br />
-Erasing <span class="caps">FIS</span> directory &#8230;<br />
-root@OpenWrt:~# <strong>cat mtd5 &gt;/dev/mtd/5</strong><br />
-root@OpenWrt:~# <strong>cat out.hex &gt;/dev/mtd/6</strong><br />
-root@OpenWrt:~# <strong>sync</strong><br />
-root@OpenWrt:~# <strong>md5sum out.hex /dev/mtd/6 mtd5 /dev/mtd/5</strong><br />
-d5a5ee5817da231684c6198801b5cb1f  out.hex<br />
-d5a5ee5817da231684c6198801b5cb1f  /dev/mtd/6<br />
-2d5c82c2a7785e65640199987000cee5  mtd5<br />
-2d5c82c2a7785e65640199987000cee5  /dev/mtd/5<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@OpenWrt:~#</span><span class="w"> </span><span class="k">*</span>mtd erase <span class="s2">"FIS directory"</span><span class="k">*</span>
+<span class="go">Unlocking FIS directory ...
+Erasing FIS directory ...
+</span><span class="gp">root@OpenWrt:~#</span><span class="w"> </span><span class="k">*</span><span class="nb">cat </span>mtd5 <span class="o">&gt;</span>/dev/mtd/5<span class="k">*</span>
+<span class="gp">root@OpenWrt:~#</span><span class="w"> </span><span class="k">*</span><span class="nb">cat </span>out.hex <span class="o">&gt;</span>/dev/mtd/6<span class="k">*</span>
+<span class="gp">root@OpenWrt:~#</span><span class="w"> </span><span class="k">*</span><span class="nb">sync</span><span class="k">*</span>
+<span class="gp">root@OpenWrt:~#</span><span class="w"> </span><span class="k">*</span><span class="nb">md5sum </span>out.hex /dev/mtd/6 mtd5 /dev/mtd/5<span class="k">*</span>
+<span class="go">d5a5ee5817da231684c6198801b5cb1f  out.hex
+d5a5ee5817da231684c6198801b5cb1f  /dev/mtd/6
+2d5c82c2a7785e65640199987000cee5  mtd5
+2d5c82c2a7785e65640199987000cee5  /dev/mtd/5</span></code></pre></figure></div>
 <h2>Entrar en el RedBoot</h2>
 <p>Todo lo que has hecho antes sirve ni más ni menos que para habilitar el acceso telnet al RedBoot. Lo siguiente es para comprobar que realmente lo has conseguido.</p>
 <p>Si todo ha ido bien, cuando reinicies la fonera, el RedBoot abrirá un servidor telnet durante unos segundos en la dirección 192.168.1.254:9000. Si la interfaz de red de tu PC no tiene una IP en el rango 192.168.1.0/24, tienes que añadirle una para poder conectar con el RedBoot. Lo habitual es que tu PC y la fonera estén conectados al mismo switch. Para que no te quedes sin conexión a internet y puedas seguir leyendo esta receta, en lugar de cambiarle la IP, es mejor que le añadas otra, para lo cual ejecuta esto <strong>en el PC</strong>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ip addr add 192.168.1.100/24 dev eth0<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ip addr add 192.168.1.100/24 dev eth0</code></pre></figure></div>
 <p>Obviamente no debe haber ningún otro equipo que tenga esa IP ni tampoco la de la fonera.</p>
 <p>Lo siguiente es un scriptillo que debes ejecutar <strong>en el PC</strong>. Este script se encarga de hacer telnet a la fonera en el momento justo.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>root@OpenWrt:~# <b>while true; do fping -t 200 192.168.1.254 &amp;&amp; break; done; sleep 5; echo -e &#8220;\x3&#8221; | nc -w 1 -vvv 192.168.1.254 9000; telnet 192.168.1.254 9000</b><br />
-192.168.1.254 is unreachable<br />
-192.168.1.254 is unreachable<br />
-<span class="caps">ICMP</span> Host Unreachable from 192.168.1.100 for <span class="caps">ICMP</span> Echo sent to 192.168.1.254<br />
-192.168.1.254 is unreachable<br />
-192.168.1.254 is alive<br />
-192.168.1.254: inverse host lookup failed: Unknown host<br />
-(<span class="caps">UNKNOWN</span>) [192.168.1.254] 9000 (?) open<br />
-== Executing boot script in 4.130 seconds &#8211; enter <sup>C to abort<br />
-^C<br />
-RedBoot&gt; net timeout<br />
- sent 2, rcvd 76<br />
-Trying 192.168.1.254&#8230;<br />
-Connected to 192.168.1.254.<br />
-Escape character is &#8217;</sup>]&#8217;.<br />
-RedBoot&gt;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@OpenWrt:~#</span><span class="w"> </span>&lt;b&gt;while <span class="nb">true</span><span class="p">;</span> <span class="k">do </span>fping <span class="nt">-t</span> 200 192.168.1.254 <span class="o">&amp;&amp;</span> <span class="nb">break</span><span class="p">;</span> <span class="k">done</span><span class="p">;</span> <span class="nb">sleep </span>5<span class="p">;</span> <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\x</span><span class="s2">3"</span> | nc <span class="nt">-w</span> 1 <span class="nt">-vvv</span> 192.168.1.254 9000<span class="p">;</span> telnet 192.168.1.254 9000&lt;/b&gt;
+<span class="go">192.168.1.254 is unreachable
+192.168.1.254 is unreachable
+ICMP Host Unreachable from 192.168.1.100 for ICMP Echo sent to 192.168.1.254
+192.168.1.254 is unreachable
+192.168.1.254 is alive
+192.168.1.254: inverse host lookup failed: Unknown host
+(UNKNOWN) [192.168.1.254] 9000 (?) open
+== Executing boot script in 4.130 seconds - enter ^C to abort
+^C
+</span><span class="gp">RedBoot&gt;</span><span class="w"> </span>net <span class="nb">timeout</span>
+<span class="go"> sent 2, rcvd 76
+Trying 192.168.1.254...
+Connected to 192.168.1.254.
+Escape character is '^]'.
+</span><span class="gp">RedBoot&gt;</span></code></pre></figure></div>
 <h2>Servidor <span class="caps">TFTP</span></h2>
 <p>La única forma que tiene el RedBoot de descargar ficheros de la red es con un cliente <span class="caps">TFTP</span>. Por eso lo más fácil es que pongas <a href="/node/492">un servidor <span class="caps">TFTP</span> en tu PC</a> (receta). Ejecuta lo siguiente <strong>en el PC</strong> para descargar los ficheros necesarios en <code>/srv/tftp</code>, que es el directorio que indica dicha receta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>wget http://downloads.openwrt.org/kamikaze/7.09/atheros-2.6/openwrt-atheros-2.6-vmlinux.lzma -O /srv/tftp/vmlinux</li>
-	<li>wget http://downloads.openwrt.org/kamikaze/7.09/atheros-2.6/openwrt-atheros-2.6-root.squashfs -O /srv/tftp/squashfs<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>wget http://downloads.openwrt.org/kamikaze/7.09/atheros-2.6/openwrt-atheros-2.6-vmlinux.lzma <span class="nt">-O</span> /srv/tftp/vmlinux
+<span class="gp">#</span><span class="w"> </span>wget http://downloads.openwrt.org/kamikaze/7.09/atheros-2.6/openwrt-atheros-2.6-root.squashfs <span class="nt">-O</span> /srv/tftp/squashfs</code></pre></figure></div>
 <h2>Instalación</h2>
 <p>Cuando tengas listo el servidor <span class="caps">TFTP</span> y los ficheros en su sitio puedes volver con la fonera. Ejecuta lo siguiente desde el RedBoot. Algunos de estos comandos pueden tardar varios minutos, paciencia y no los cortes que la lías.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>RedBoot&gt; <strong>ip_address -l 192.168.1.254 -h 192.168.1.100</strong><br />
-IP: 192.168.1.254/255.255.255.0, Gateway: 0.0.0.0<br />
-Default server: 192.168.1.100<br />
-RedBoot&gt; <strong>load -r -b %{FREEMEMLO} vmlinux</strong><br />
-Using default protocol (<span class="caps">TFTP</span>)<br />
-Raw file loaded 0&#215;80040c00-0&#215;80100bff, assumed entry at 0&#215;80040c00<br />
-RedBoot&gt; <strong>fis init</strong><br />
-About to initialize [format] <span class="caps">FLASH</span> image system &#8211; continue (y/n)? <strong>y</strong></p>
-
-		<ul>
-			<li>Initialize <span class="caps">FLASH</span> Image System<br />
-&#8230; Erase from 0xa87e0000-0xa87f0000: .<br />
-&#8230; Program from 0&#215;80ff0000-0&#215;81000000 at 0xa87e0000: .<br />
-RedBoot&gt; <strong>fis create -e 0&#215;80041000 -r 0&#215;80041000 vmlinux.bin.l7</strong><br />
-&#8230; Erase from 0xa8030000-0xa80f0000: &#8230;&#8230;&#8230;&#8230;<br />
-&#8230; Program from 0&#215;80040c00-0&#215;80100c00 at 0xa8030000: &#8230;&#8230;&#8230;&#8230;<br />
-&#8230; Erase from 0xa87e0000-0xa87f0000: .<br />
-&#8230; Program from 0&#215;80ff0000-0&#215;81000000 at 0xa87e0000: .<br />
-RedBoot&gt; <strong>fis free</strong><br />
-  0xA80F0000 .. 0xA87E0000<br />
-{% endhighlight %}<br />
-</div></li>
-		</ul><p>Estos datos son importantes (sobre todo si a ti te salen diferentes que lo que ves aquí). Resta estas dos números en hexadecimal porque lo necesitas para un comando posterior. Lo puedes hacer con bc:</p>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">RedBoot&gt;</span><span class="w"> </span><span class="k">*</span>ip_address <span class="nt">-l</span> 192.168.1.254 <span class="nt">-h</span> 192.168.1.100<span class="k">*</span>
+<span class="go">IP: 192.168.1.254/255.255.255.0, Gateway: 0.0.0.0
+Default server: 192.168.1.100
+</span><span class="gp">RedBoot&gt;</span><span class="w"> </span><span class="k">*</span>load <span class="nt">-r</span> <span class="nt">-b</span> %<span class="o">{</span>FREEMEMLO<span class="o">}</span> vmlinux<span class="k">*</span>
+<span class="go">Using default protocol (TFTP)
+Raw file loaded 0x80040c00-0x80100bff, assumed entry at 0x80040c00
+</span><span class="gp">RedBoot&gt;</span><span class="w"> </span><span class="k">*</span>fis init<span class="k">*</span>
+<span class="go">About to initialize [format] FLASH image system - continue (y/n)? *y*
+*** Initialize FLASH Image System
+... Erase from 0xa87e0000-0xa87f0000: .
+... Program from 0x80ff0000-0x81000000 at 0xa87e0000: .
+</span><span class="gp">RedBoot&gt;</span><span class="w"> </span><span class="k">*</span>fis create <span class="nt">-e</span> 0x80041000 <span class="nt">-r</span> 0x80041000 vmlinux.bin.l7<span class="k">*</span>
+<span class="go">... Erase from 0xa8030000-0xa80f0000: ............
+... Program from 0x80040c00-0x80100c00 at 0xa8030000: ............
+... Erase from 0xa87e0000-0xa87f0000: .
+... Program from 0x80ff0000-0x81000000 at 0xa87e0000: .
+</span><span class="gp">RedBoot&gt;</span><span class="w"> </span><span class="k">*</span>fis free<span class="k">*</span>
+<span class="go">  0xA80F0000 .. 0xA87E0000</span></code></pre></figure></div>
+<p>Estos datos son importantes (sobre todo si a ti te salen diferentes que lo que ves aquí). Resta estas dos números en hexadecimal porque lo necesitas para un comando posterior. Lo puedes hacer con bc:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ bc<br />
-obase=16<br />
-ibase=16<br />
-A87E0000 &#8211; A80F0000<br />
-<strong>6F0000</strong><br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>bc
+<span class="go">obase=16
+ibase=16
+A87E0000 - A80F0000
+*6F0000*</span></code></pre></figure></div>
 <p>La imagen del sistema de ficheros&#8230;</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>RedBoot&gt; <strong>load -r -b %{FREEMEMLO} squashfs</strong><br />
-Using default protocol (<span class="caps">TFTP</span>)<br />
-Raw file loaded 0&#215;80040c00-0&#215;80160bff, assumed entry at 0&#215;80040c00<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">RedBoot&gt;</span><span class="w"> </span><span class="k">*</span>load <span class="nt">-r</span> <span class="nt">-b</span> %<span class="o">{</span>FREEMEMLO<span class="o">}</span> squashfs<span class="k">*</span>
+<span class="go">Using default protocol (TFTP)
+Raw file loaded 0x80040c00-0x80160bff, assumed entry at 0x80040c00</span></code></pre></figure></div>
 <p>Pasarlo a flash. Aquí es dónde tienes que utilizar la dirección que calculaste antes:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>RedBoot&gt; <strong>fis create -l 0&#215;6f0000 rootfs</strong><br />
-&#8230; Erase from 0xa80f0000-0xa87e0000: &#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;&#8230;<br />
-&#8230; Program from 0&#215;80040c00-0&#215;80160c00 at 0xa80f0000: &#8230;&#8230;&#8230;&#8230;&#8230;&#8230;<br />
-&#8230; Erase from 0xa87e0000-0xa87f0000: .<br />
-&#8230; Program from 0&#215;80ff0000-0&#215;81000000 at 0xa87e0000: .<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">RedBoot&gt;</span><span class="w"> </span><span class="k">*</span>fis create <span class="nt">-l</span> 0x6f0000 rootfs<span class="k">*</span>
+<span class="go">... Erase from 0xa80f0000-0xa87e0000: ...............................................................................................................
+... Program from 0x80040c00-0x80160c00 at 0xa80f0000: ..................
+... Erase from 0xa87e0000-0xa87f0000: .
+... Program from 0x80ff0000-0x81000000 at 0xa87e0000: .</span></code></pre></figure></div>
 <h2>Afinando</h2>
 <p>Al reiniciar La Fonera, tiene un servidor telnet en la IP 192.168.1.1, puedes acceder como <code>root</code>, no tiene clave. Lo más recomendable es que quites el servidor telnet y arranques <code>dropbear</code> (servidor <span class="caps">SSH</span>).</p>
 <p>Para permitir <span class="caps">SSH</span> en la interfaz Ethernet escribe (o des-comenta) esto al final de <code>/etc/config/firewall</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-accept:proto=tcp dport=22<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">accept:proto=tcp dport=22</code></pre></figure></div>
 <p>Para que la interfaz Ethernet (eth0) pida una IP por <span class="caps">DHCP</span> cambia el fichero <code>/etc/config/network</code> para que quede así:</p>
 <div>
-<p>{% highlight text %}<br />
-config interface loopback<br />
-	option ifname	lo<br />
-	option proto	static<br />
-	option ipaddr	127.0.0.1<br />
-	option netmask	255.0.0.0</p>
-<p>config interface lan<br />
-	option ifname	eth0<br />
-	option type 	bridge<br />
-	option proto    dhcp<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">config interface loopback
+	option ifname	lo
+	option proto	static
+	option ipaddr	127.0.0.1
+	option netmask	255.0.0.0
+
+config interface lan
+	option ifname	eth0
+	option type 	bridge
+	option proto    dhcp</code></pre></figure></div>
 <p>Y para activar la interfaz WiFI, elimina la siguiente línea del fichero <code>/etc/config/wireless</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-	option disabled 1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">	option disabled 1</code></pre></figure></div>
 <p>En ese mismo fichero puedes configurar el <span class="caps">SSID</span> y el tipo de encriptación, por defecto no tiene (&#8220;red insegura&#8221; que dice Windows Vista).</p>
 <h2>Comentarios</h2>
 <p>Gracias a Paco y a oscarah por sus inestimables aportaciones</p>
@@ -5833,7 +5789,7 @@ http://www.miltonpividori.com.ar/2007/10/16/openwrt-en-mi-router-linksys/
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

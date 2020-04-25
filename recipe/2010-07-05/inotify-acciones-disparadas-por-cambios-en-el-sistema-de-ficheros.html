@@ -5320,32 +5320,31 @@
 <p><a href="http://trac.dbzteam.org/pyinotify">pyinotify</a> es un <em>binding</em> de python para inotify, aunque como es lógico los hay para muchos otros lenguajes. El siguiente ejemplo simplemente imprime el evento ocurrido y la ruta del fichero que lo ha sufrido:</p>
 <p>[ <a href="https://arco.esi.uclm.es/svn/public/samples/python-pyinotify/notify.py">notify.py</a> ]</p>
 <div>
-<p>{% highlight python %}<br />
-import sys<br />
-import pyinotify as inotify</p>
-<p>class EventHandler(inotify.ProcessEvent):<br />
-    def process_IN_CREATE(self, event):<br />
-        print &#8220;Create:&#8221;, event.pathname</p>
-def process_IN_DELETE(self, event):
-print &#8220;Delete:&#8221;, event.pathname
-def process_IN_MODIFY(self, event):
-print &#8220;Modify:&#8221;, event.pathname
-<p>wm = inotify.WatchManager()<br />
-wm.add_watch(sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>,<br />
-             inotify.IN_MODIFY | inotify.IN_CREATE | inotify.IN_DELETE, rec=True)</p>
-<p>notifier = inotify.Notifier(wm, EventHandler())<br />
-notifier.loop()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pyinotify</span> <span class="k">as</span> <span class="n">inotify</span>
+
+<span class="k">class</span> <span class="nc">EventHandler</span><span class="p">(</span><span class="n">inotify</span><span class="p">.</span><span class="n">ProcessEvent</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">process_IN_CREATE</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"Create:"</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">pathname</span>
+
+    <span class="k">def</span> <span class="nf">process_IN_DELETE</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"Delete:"</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">pathname</span>
+
+    <span class="k">def</span> <span class="nf">process_IN_MODIFY</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"Modify:"</span><span class="p">,</span> <span class="n">event</span><span class="p">.</span><span class="n">pathname</span>
+
+<span class="n">wm</span> <span class="o">=</span> <span class="n">inotify</span><span class="p">.</span><span class="n">WatchManager</span><span class="p">()</span>
+<span class="n">wm</span><span class="p">.</span><span class="n">add_watch</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+             <span class="n">inotify</span><span class="p">.</span><span class="n">IN_MODIFY</span> <span class="o">|</span> <span class="n">inotify</span><span class="p">.</span><span class="n">IN_CREATE</span> <span class="o">|</span> <span class="n">inotify</span><span class="p">.</span><span class="n">IN_DELETE</span><span class="p">,</span> <span class="n">rec</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">notifier</span> <span class="o">=</span> <span class="n">inotify</span><span class="p">.</span><span class="n">Notifier</span><span class="p">(</span><span class="n">wm</span><span class="p">,</span> <span class="n">EventHandler</span><span class="p">())</span>
+<span class="n">notifier</span><span class="p">.</span><span class="n">loop</span><span class="p">()</span></code></pre></figure></div>
 <p>Debes pasarle el nombre de un fichero o directorio como primer argumento. Y eso es todo, así de sencillo.</p>
 <p>En la página web de pyinotify puedes encontrar un <a href="http://trac.dbzteam.org/pyinotify/wiki/Tutorial">tutorial</a> bastante sencillo y <a href="http://trac.dbzteam.org/pyinotify/wiki/PyinotifyExamples#Pyinotifyshortexamples">algunos ejemplos</a> más sofisticados</p>
 <h2>inotify desde consola</h2>
 <p>El comando <code>inotifywait</code> del paquete <code>inotify-tools</code> permite disparar comandos de un modo muy sencillo. El siguiente comando (candidato a alias) ejecuta <code>make</code> cada vez que cambia alguno de los ficheros del directorio.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ make; while inotifywait -r -e <span class="caps">MODIFY</span> .; do make; done;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>make<span class="p">;</span> <span class="k">while </span>inotifywait <span class="nt">-r</span> <span class="nt">-e</span> MODIFY .<span class="p">;</span> <span class="k">do </span>make<span class="p">;</span> <span class="k">done</span><span class="p">;</span></code></pre></figure></div>
 <p>Puede ser muy útil para tener una consola en la que puedes ver errores sintácticos del programa que estás editando, o mantener compilado un documento LaTeX que tienes abierto con evince (u okular), aprovechando que estos programas también actualizan el documento .pdf cuando cambia.</p>
 <h2>incron</h2>
 <p><a href="http://inotify.aiken.cz/?section=incron&amp;page=about&amp;lang=en">incron</a> es un servicio (<code>incrond</code>) similar al clásico «cron» pero en el que se definen las acciones en base a eventos del sistema de ficheros en lugar de eventos temporales. También dispone de un comando <code>incrontab</code> similar a <code>crontab</code> para que los usuarios puedan añadir sus propios eventos.</p>
@@ -5418,7 +5417,7 @@ notifier.loop()<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

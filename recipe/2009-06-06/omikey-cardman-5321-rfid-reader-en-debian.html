@@ -5407,157 +5407,149 @@
 <h2>Instalación de paquetes</h2>
 <p>Instala los paquetes Debian y la versión modificada de pcscd. Extrae el driver del fabricante en un directorio cualquiera y sitúate en él con una consola de root.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>./install -d /usr/lib/pcsc/drivers<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>./install <span class="nt">-d</span> /usr/lib/pcsc/drivers</code></pre></figure></div>
 <p>Finalmente reinicia pcscd:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/pcscd restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/pcscd restart</code></pre></figure></div>
 <h2>Script de auto-login</h2>
 <p>En tu directorio de binarios personales (por ejemplo, <tt>~/bin</tt>) guarda el siguiente script con el nombre <tt>printId</tt>:</p>
 <div>
-<p>{% highlight python %}<br />
-#! /usr/bin/env python</p>
-<p>from sys import stdin, exc_info<br />
-from time import sleep</p>
-<p>from smartcard.CardConnectionObserver import CardConnectionObserver<br />
-from smartcard.CardMonitoring import CardMonitor, CardObserver<br />
-from smartcard.util import *<br />
-from smartcard import CardConnection<br />
-from smartcard.scard import SCARD_PROTOCOL_T1</p>
-<ol>
-	<li>define the apdus used in this script<br />
-<span class="caps">GUID</span> = [0xff, 0xca, 0, 0, 0]</li>
-</ol>
-<p>class MyCardObserver( CardObserver ):<br />
-    def <i>init</i>( self ):<br />
-        self.observer = CardConnectionObserver()</p>
-def update( self, observable, (addedcards, removedcards) ):
-for card in addedcards:
-proto = SCARD_PROTOCOL_T1
-card.connection = card.createConnection()
-card.connection.connect(proto)
-card.connection.addObserver(self.observer)
-apdu = <span class="caps">GUID</span>
-response, sw1, sw2 = card.connection.transmit(apdu, proto)
-card.uid = response
-print &quot;+Inserted: &quot;, response
-for card in removedcards:
-print &quot;-Removed: &quot;, card.uid
-<p>try:<br />
-    cardmonitor = CardMonitor()<br />
-    selectobserver = MyCardObserver()<br />
-    cardmonitor.addObserver(selectobserver)<br />
-    while True:<br />
-        sleep(60)<br />
-    cardmonitor.deleteObserver(selectobserver)</p>
-<p>except:<br />
-    print exc_info()<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>, &#8216;:&#8217;, exc_info()<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup><br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#! /usr/bin/env python
+</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">stdin</span><span class="p">,</span> <span class="n">exc_info</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="kn">from</span> <span class="nn">smartcard.CardConnectionObserver</span> <span class="kn">import</span> <span class="n">CardConnectionObserver</span>
+<span class="kn">from</span> <span class="nn">smartcard.CardMonitoring</span> <span class="kn">import</span> <span class="n">CardMonitor</span><span class="p">,</span> <span class="n">CardObserver</span>
+<span class="kn">from</span> <span class="nn">smartcard.util</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">smartcard</span> <span class="kn">import</span> <span class="n">CardConnection</span>
+<span class="kn">from</span> <span class="nn">smartcard.scard</span> <span class="kn">import</span> <span class="n">SCARD_PROTOCOL_T1</span>
+
+<span class="c1"># define the apdus used in this script
+</span><span class="n">GUID</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xca</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">MyCardObserver</span><span class="p">(</span> <span class="n">CardObserver</span> <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">observer</span> <span class="o">=</span> <span class="n">CardConnectionObserver</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">observable</span><span class="p">,</span> <span class="p">(</span><span class="n">addedcards</span><span class="p">,</span> <span class="n">removedcards</span><span class="p">)</span> <span class="p">):</span>
+        <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">addedcards</span><span class="p">:</span>
+            <span class="n">proto</span> <span class="o">=</span> <span class="n">SCARD_PROTOCOL_T1</span>
+            <span class="n">card</span><span class="p">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">card</span><span class="p">.</span><span class="n">createConnection</span><span class="p">()</span>
+            <span class="n">card</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">proto</span><span class="p">)</span>
+            <span class="n">card</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">addObserver</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">observer</span><span class="p">)</span>
+            <span class="n">apdu</span> <span class="o">=</span> <span class="n">GUID</span>
+            <span class="n">response</span><span class="p">,</span> <span class="n">sw1</span><span class="p">,</span> <span class="n">sw2</span> <span class="o">=</span> <span class="n">card</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">transmit</span><span class="p">(</span><span class="n">apdu</span><span class="p">,</span> <span class="n">proto</span><span class="p">)</span>
+            <span class="n">card</span><span class="p">.</span><span class="n">uid</span> <span class="o">=</span> <span class="n">response</span>
+            <span class="k">print</span> <span class="s">"+Inserted: "</span><span class="p">,</span> <span class="n">response</span>
+
+        <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">removedcards</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">"-Removed: "</span><span class="p">,</span> <span class="n">card</span><span class="p">.</span><span class="n">uid</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">cardmonitor</span> <span class="o">=</span> <span class="n">CardMonitor</span><span class="p">()</span>
+    <span class="n">selectobserver</span> <span class="o">=</span> <span class="n">MyCardObserver</span><span class="p">()</span>
+    <span class="n">cardmonitor</span><span class="p">.</span><span class="n">addObserver</span><span class="p">(</span><span class="n">selectobserver</span><span class="p">)</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+    <span class="n">cardmonitor</span><span class="p">.</span><span class="n">deleteObserver</span><span class="p">(</span><span class="n">selectobserver</span><span class="p">)</span>
+
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">exc_info</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="s">':'</span><span class="p">,</span> <span class="n">exc_info</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span></code></pre></figure></div>
 <p>Ejecutando este script podrás leer el identificador de las tarjetas <span class="caps">RFID</span>.  En principio lo he configurado para que funcione con mis tarjetas Mifare 1k.  Por ejemplo, al acercar mi tarjeta sale algo parecido a esto:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ~/bin/printId<br />
-+Inserted:  [204, 101, 19, 48]<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>~/bin/printId
+<span class="go">+Inserted:  [204, 101, 19, 48]</span></code></pre></figure></div>
 <p>Guarda esos números y añade un nuevo script en tu directorio de binarios con el nombre autoLock:</p>
 <div>
-<p>{% highlight python %}<br />
-#! /usr/bin/env python</p>
-<p>from sys import stdin, exc_info<br />
-from time import sleep</p>
-<p>from smartcard.CardConnectionObserver import CardConnectionObserver<br />
-from smartcard.CardMonitoring import CardMonitor, CardObserver<br />
-from smartcard.util import *<br />
-from smartcard import CardConnection<br />
-from smartcard.scard import SCARD_PROTOCOL_T1<br />
-import subprocess</p>
-<ol>
-	<li><span class="caps">APDU</span> to get ID<br />
-<span class="caps">GUID</span> = [0xff, 0xca, 0, 0, 0]</li>
-</ol>
-<p>AuthorizedCards = (<br />
-    [204, 101, 19, 48], # Pon aquí tus tarjetas<br />
-    )</p>
-<p>class MyCardObserver( CardObserver ):<br />
-    def <i>init</i>( self ):<br />
-        self.observer = CardConnectionObserver()</p>
-def update( self, observable, (addedcards, removedcards) ):
-for card in addedcards:
-proto = SCARD_PROTOCOL_T1
-card.connection = card.createConnection()
-card.connection.connect(proto)
-card.connection.addObserver(self.observer)
-apdu = <span class="caps">GUID</span>
-response, sw1, sw2 = card.connection.transmit(apdu, proto)
-card.uid = response
-if card.uid in AuthorizedCards:
-subprocess.call([&#8216;gnome-screensaver-command&#8217;, &#8216;-d&#8217;])
-for card in removedcards:
-if card.uid in AuthorizedCards:
-subprocess.call([&#8216;gnome-screensaver-command&#8217;, &#8216;&#8212;lock&#8217;, &#8216;-a&#8217;])
-<p>cardmonitor = CardMonitor()<br />
-selectobserver = MyCardObserver()<br />
-cardmonitor.addObserver(selectobserver)<br />
-while True:<br />
-    sleep(60)<br />
-cardmonitor.deleteObserver(selectobserver)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#! /usr/bin/env python
+</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">stdin</span><span class="p">,</span> <span class="n">exc_info</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="kn">from</span> <span class="nn">smartcard.CardConnectionObserver</span> <span class="kn">import</span> <span class="n">CardConnectionObserver</span>
+<span class="kn">from</span> <span class="nn">smartcard.CardMonitoring</span> <span class="kn">import</span> <span class="n">CardMonitor</span><span class="p">,</span> <span class="n">CardObserver</span>
+<span class="kn">from</span> <span class="nn">smartcard.util</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">smartcard</span> <span class="kn">import</span> <span class="n">CardConnection</span>
+<span class="kn">from</span> <span class="nn">smartcard.scard</span> <span class="kn">import</span> <span class="n">SCARD_PROTOCOL_T1</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="c1"># APDU to get ID
+</span><span class="n">GUID</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xca</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">AuthorizedCards</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">[</span><span class="mi">204</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">48</span><span class="p">],</span> <span class="c1"># Pon aquí tus tarjetas
+</span>    <span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MyCardObserver</span><span class="p">(</span> <span class="n">CardObserver</span> <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">observer</span> <span class="o">=</span> <span class="n">CardConnectionObserver</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">observable</span><span class="p">,</span> <span class="p">(</span><span class="n">addedcards</span><span class="p">,</span> <span class="n">removedcards</span><span class="p">)</span> <span class="p">):</span>
+        <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">addedcards</span><span class="p">:</span>
+            <span class="n">proto</span> <span class="o">=</span> <span class="n">SCARD_PROTOCOL_T1</span>
+            <span class="n">card</span><span class="p">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">card</span><span class="p">.</span><span class="n">createConnection</span><span class="p">()</span>
+            <span class="n">card</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">proto</span><span class="p">)</span>
+            <span class="n">card</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">addObserver</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">observer</span><span class="p">)</span>
+            <span class="n">apdu</span> <span class="o">=</span> <span class="n">GUID</span>
+            <span class="n">response</span><span class="p">,</span> <span class="n">sw1</span><span class="p">,</span> <span class="n">sw2</span> <span class="o">=</span> <span class="n">card</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">transmit</span><span class="p">(</span><span class="n">apdu</span><span class="p">,</span> <span class="n">proto</span><span class="p">)</span>
+            <span class="n">card</span><span class="p">.</span><span class="n">uid</span> <span class="o">=</span> <span class="n">response</span>
+            <span class="k">if</span> <span class="n">card</span><span class="p">.</span><span class="n">uid</span> <span class="ow">in</span> <span class="n">AuthorizedCards</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="p">.</span><span class="n">call</span><span class="p">([</span><span class="s">'gnome-screensaver-command'</span><span class="p">,</span> <span class="s">'-d'</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">removedcards</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">card</span><span class="p">.</span><span class="n">uid</span> <span class="ow">in</span> <span class="n">AuthorizedCards</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="p">.</span><span class="n">call</span><span class="p">([</span><span class="s">'gnome-screensaver-command'</span><span class="p">,</span> <span class="s">'--lock'</span><span class="p">,</span> <span class="s">'-a'</span><span class="p">])</span>
+
+
+<span class="n">cardmonitor</span> <span class="o">=</span> <span class="n">CardMonitor</span><span class="p">()</span>
+<span class="n">selectobserver</span> <span class="o">=</span> <span class="n">MyCardObserver</span><span class="p">()</span>
+<span class="n">cardmonitor</span><span class="p">.</span><span class="n">addObserver</span><span class="p">(</span><span class="n">selectobserver</span><span class="p">)</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">cardmonitor</span><span class="p">.</span><span class="n">deleteObserver</span><span class="p">(</span><span class="n">selectobserver</span><span class="p">)</span></code></pre></figure></div>
 <p>El array AuthorizedCards debe inicializarse con las tarjetas que tú autorizas a que desbloqueen tu escritorio.</p>
 <h2>¿Seguridad?</h2>
 <p>Nada, seguridad ninguna.  ¿No ves que ni siquiera leo los certificados de tu tarjeta?  Vamos, que si trabajas en la <span class="caps">CIA</span>, el <span class="caps">CNI</span>, la <span class="caps">NASA</span> o una central nuclear procura refinar un poco el procedimiento.  Yo me he parado aquí porque con este lector <span class="caps">RFID</span> no parece que pueda escribir nada, solo leer.  Si consigues escribir algo avisa.</p>
 <h2>Cambios a pcscd</h2>
 <p>Lo único que he hecho es deshabilitar libhal y habilitar libusb para que funcione tal y como lo configura el fabricante.  Solo he tocado el debian/rules, el debian/control y el debian/changelog:</p>
 <div>
-<p>{% highlight text %}<br />
-<del>-</del> orig/pcsc-lite-1.5.3/debian/rules	2009-06-06 19:54:49.000000000 <ins>0200<br />
-+</ins>+ new/pcsc-lite-1.5.3/debian/rules	2009-05-18 21:35:38.000000000 +0200<br />
-<code>@ -48,6 +48,9 @</code></p>
-# we add <span class="caps">LDFLAGS</span>=&#8220;-lpthread&#8221; for bug #253629
-./configure $(confflags) \
-<p>+		&#8212;enable-libusb \<br />
-+		&#8212;disable-libhal \<br />
-+		&#8212;enable-extendedapdu  \<br />
- 		&#8212;sysconfdir=/etc \<br />
- 		&#8212;prefix=/usr \<br />
- 		&#8212;enable-usbdropdir=/usr/lib/pcsc/drivers \<br />
-<del>-</del> orig/pcsc-lite-1.5.3/debian/control	2009-06-06 19:54:49.000000000 <ins>0200<br />
-+</ins>+ new/pcsc-lite-1.5.3/debian/control	2009-05-18 21:35:01.000000000 <ins>0200<br />
-<code>@ -2,7 +2,7 @</code><br />
- Section: misc<br />
- Priority: extra<br />
- Maintainer: Ludovic Rousseau &lt;rousseau@debian.org&gt;<br />
-<del>Build-Depends: debhelper (&gt;= 6.0.7~), flex, autotools-dev, libhal-dev<br />
-+Build-Depends: debhelper (&gt;= 6.0.7~), flex, autotools-dev, libusb-dev<br />
- Standards-Version: 3.8.1<br />
- Vcs-Svn: svn://svn.debian.org/svn/collab-maint/deb-maint/pcsc-lite/trunk<br />
- Vcs-Browser: http://svn.debian.org/viewsvn/collab-maint/deb-maint/pcsc-lite/trunk/<br />
--</del>- orig/pcsc-lite-1.5.3/debian/changelog	2009-06-06 19:54:49.000000000 +0200<br />
-+</ins>+ new/pcsc-lite-1.5.3/debian/changelog	2009-05-18 21:33:03.000000000 +0200<br />
-<code>@ -1,3 +1,9 @</code><br />
-+pcsc-lite (1.5.3-1.1) unstable; urgency=low<br />
-+<br />
-+  * Re-enabled libusb to make OmniKey cardreaders work.<br />
-+<br />
-+ &#8212; Francisco Moya &lt;paco@debian.org&gt;  Mon, 18 May 2009 21:32:55 +0200<br />
-+<br />
- pcsc-lite (1.5.3-1) unstable; urgency=low</p>
-<ul>
-	<li>New upstream release<br />
-{% endhighlight %}<br />
-</div></li>
-</ul>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">--- orig/pcsc-lite-1.5.3/debian/rules	2009-06-06 19:54:49.000000000 +0200
++++ new/pcsc-lite-1.5.3/debian/rules	2009-05-18 21:35:38.000000000 +0200
+@@ -48,6 +48,9 @@
+
+ 	# we add LDFLAGS="-lpthread" for bug #253629
+ 	./configure $(confflags) \
++		--enable-libusb \
++		--disable-libhal \
++		--enable-extendedapdu  \
+ 		--sysconfdir=/etc \
+ 		--prefix=/usr \
+ 		--enable-usbdropdir=/usr/lib/pcsc/drivers \
+--- orig/pcsc-lite-1.5.3/debian/control	2009-06-06 19:54:49.000000000 +0200
++++ new/pcsc-lite-1.5.3/debian/control	2009-05-18 21:35:01.000000000 +0200
+@@ -2,7 +2,7 @@
+ Section: misc
+ Priority: extra
+ Maintainer: Ludovic Rousseau &lt;rousseau@debian.org&gt;
+-Build-Depends: debhelper (&gt;= 6.0.7~), flex, autotools-dev, libhal-dev
++Build-Depends: debhelper (&gt;= 6.0.7~), flex, autotools-dev, libusb-dev
+ Standards-Version: 3.8.1
+ Vcs-Svn: svn://svn.debian.org/svn/collab-maint/deb-maint/pcsc-lite/trunk
+ Vcs-Browser: http://svn.debian.org/viewsvn/collab-maint/deb-maint/pcsc-lite/trunk/
+--- orig/pcsc-lite-1.5.3/debian/changelog	2009-06-06 19:54:49.000000000 +0200
++++ new/pcsc-lite-1.5.3/debian/changelog	2009-05-18 21:33:03.000000000 +0200
+@@ -1,3 +1,9 @@
++pcsc-lite (1.5.3-1.1) unstable; urgency=low
++
++  * Re-enabled libusb to make OmniKey cardreaders work.
++
++ -- Francisco Moya &lt;paco@debian.org&gt;  Mon, 18 May 2009 21:32:55 +0200
++
+ pcsc-lite (1.5.3-1) unstable; urgency=low
+
+   * New upstream release</code></pre></figure></div>
       </div>
 
       
@@ -5622,7 +5614,7 @@ cardmonitor.deleteObserver(selectobserver)<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

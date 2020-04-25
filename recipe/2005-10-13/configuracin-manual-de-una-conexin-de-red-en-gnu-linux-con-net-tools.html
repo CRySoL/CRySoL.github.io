@@ -5345,52 +5345,36 @@ Hay otras posibilidades (como <tt>etherconf</tt>) pero la finalidad de esta rece
 <h2>Configuración</h2>
 <p>Veamos la configuración de la tarjeta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>~# ifconfig<br />
-eth0      Link encap:Ethernet  HWaddr 00:E0:4C:00:4C:79<br />
-          inet addr:161.67.28.216  Bcast:161.67.28.255  Mask:255.255.255.0<br />
-          UP <span class="caps">BROADCAST</span> <span class="caps">RUNNING</span> <span class="caps">MULTICAST</span>  <span class="caps">MTU</span>:1500  Metric:1<br />
-          RX packets:30360 errors:0 dropped:0 overruns:0 frame:0<br />
-          TX packets:9987 errors:0 dropped:0 overruns:0 carrier:0<br />
-          collisions:1590 txqueuelen:100<br />
-          RX bytes:7352067 (7.0 MiB)  TX bytes:1209496 (1.1 MiB)<br />
-          Interrupt:11 Base address:0xd000</p>
-<p>lo        Link encap:Local Loopback<br />
-          inet addr:127.0.0.1  Mask:255.0.0.0<br />
-          UP <span class="caps">LOOPBACK</span> <span class="caps">RUNNING</span>  <span class="caps">MTU</span>:16436  Metric:1<br />
-          RX packets:722 errors:0 dropped:0 overruns:0 frame:0<br />
-          TX packets:722 errors:0 dropped:0 overruns:0 carrier:0<br />
-          collisions:0 txqueuelen:0<br />
-          RX bytes:98985 (96.6 KiB)  TX bytes:98985 (96.6 KiB)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>ifconfig
+<span class="go">eth0      Link encap:Ethernet  HWaddr 00:E0:4C:00:4C:79
+          inet addr:161.67.28.216  Bcast:161.67.28.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:30360 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:9987 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:1590 txqueuelen:100
+          RX bytes:7352067 (7.0 MiB)  TX bytes:1209496 (1.1 MiB)
+          Interrupt:11 Base address:0xd000
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:722 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:722 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:98985 (96.6 KiB)  TX bytes:98985 (96.6 KiB)</span></code></pre></figure></div>
 <p>Si la configuración que nos muestra para el dispositivo en cuestión es correcta, pasamos al enrutado. En caso contrario, lo primero que debes hacer el desactivar la interfaz:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ifconfig eth0 down<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ifconfig eth0 down</code></pre></figure></div>
 <p>Para levantar el interfaz de red con los nuevos parámetros se utilizará la instrucción <tt>ifconfig</tt>. Quedaría algo así:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# ifconfig eth0 up netmask 255.255.255.0 broadcast 161.67.27.0 161.67.28.216<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>ifconfig eth0 up netmask 255.255.255.0 broadcast 161.67.27.0 161.67.28.216</code></pre></figure></div>
 <p>Para comprobar que se ha añadido bien, utilizaremos de nuevo <tt>ifconfig</tt></p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# ifconfig<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>ifconfig</code></pre></figure></div>
 <h2>Enrutado</h2>
 <p>Para ver la tabla de enrutamiento actual, escribe</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# route<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>route</code></pre></figure></div>
 <p>Por defecto, el sistema añade la entrada de enrutamiento correspondiente a la red local. Debería ser algo así:</p>
 <pre class="console">  ~# route
 Kernel IP routing table
@@ -5400,23 +5384,18 @@ localnet    *       255.255.255.0   U     0      0      0 eth0
 <p>Quizá, en lugar de <em>localnet</em> aparezca una dirección IP del tipo: 161.67.28.0</p>
 <p>En este momento, debes poder hacer <tt>ping</tt> a cualquier máquina de la red local.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>~$ ping 161.67.28.150<br />
-<span class="caps">PING</span> 161.67.28.150 (161.67.28.150): 56 data bytes<br />
-64 bytes from 161.67.28.150: icmp_seq=0 ttl=255 time=2.0 ms<br />
-64 bytes from 161.67.28.150: icmp_seq=1 ttl=255 time=0.3 ms<br />
-64 bytes from 161.67.28.150: icmp_seq=2 ttl=255 time=0.3 ms</p>
-<del>-</del> 161.67.28.150 ping statistics <del>-</del>
-<p>5 packets transmitted, 5 packets received, 0% packet loss<br />
-round-trip min/avg/max = 0.3/0.6/2.0 ms<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~$</span><span class="w"> </span>ping 161.67.28.150
+<span class="go">PING 161.67.28.150 (161.67.28.150): 56 data bytes
+64 bytes from 161.67.28.150: icmp_seq=0 ttl=255 time=2.0 ms
+64 bytes from 161.67.28.150: icmp_seq=1 ttl=255 time=0.3 ms
+64 bytes from 161.67.28.150: icmp_seq=2 ttl=255 time=0.3 ms
+
+  --- 161.67.28.150 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max = 0.3/0.6/2.0 ms</span></code></pre></figure></div>
 <p>Por tanto, queda indicar quién es el router que te permita comunicarte con la red exterior, es lo que se llama el enrutador &#8220;por defecto&#8221; o &#8220;pasarela de enlace&#8221;:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# route add default gw 161.67.28.1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>route add default gw 161.67.28.1</code></pre></figure></div>
 <p>Siendo la dirección IP indicada la del router para nuestra red local. Si miramos ahora la tabla de enrutamiento, aparecerá una nueva entrada:</p>
 <pre class="console">  ~# route
 Kernel IP routing table
@@ -5428,40 +5407,27 @@ default       161.67.28.1   0.0.0.0         UG     0       0   0   eth0
 <h2>El fichero <tt>/etc/network/interfaces</tt></h2>
 <p>Todo lo anterior se puede dejar escrito en el fichero de configuración <tt>/etc/network/interfaces</tt>, para que al reiniciar se mantengan esos valores. El contenido de dicho fichero para la configuración equivalente a la anterior sería:</p>
 <div>
-<p>{% highlight text %}<br />
-auto lo<br />
-iface lo inet loopback</p>
-<p>auto eth0<br />
-iface eth0 inet static<br />
-             address 161.67.28.216<br />
-             netmask 255.255.255.0<br />
-             gateway 161.67.28.1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+             address 161.67.28.216
+             netmask 255.255.255.0
+             gateway 161.67.28.1</code></pre></figure></div>
 <h2>Configuración del <span class="caps">DNS</span></h2>
 <p>Modifica el archivo <tt>/etc/resolv.conf</tt> o lo crearemos, si no existe, con la siguiente información:</p>
 <div>
-<p>{% highlight text %}</p>
-
-		<ol>
-			<li>Comentarios varios<br />
-domain inf-cr.uclm.es<br />
-nameserver 161.67.26.34<br />
-nameserver 161.67.27.4<br />
-{% endhighlight %}<br />
-</div></li>
-		</ol><p>Si queremos acceder a una máquina por medio de un nombre que no está en el <span class="caps">DNS</span>, podemos editar el archivo <tt>/etc/hosts</tt> e incluir en él una línea del tipo:</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">### Comentarios varios
+domain inf-cr.uclm.es
+nameserver 161.67.26.34
+nameserver 161.67.27.4</code></pre></figure></div>
+<p>Si queremos acceder a una máquina por medio de un nombre que no está en el <span class="caps">DNS</span>, podemos editar el archivo <tt>/etc/hosts</tt> e incluir en él una línea del tipo:</p>
 <div>
-<p>{% highlight text <span>}<br />
-161.67.27.132 arco.inf-cr.uclm.es arco<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">161.67.27.132 arco.inf-cr.uclm.es arco</code></pre></figure></div>
 <p>Ya se puede hacer acceder a cualquier máquina indicando su nombre, por ejemplo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# ping www.thelordoftherings.com<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>ping www.thelordoftherings.com</code></pre></figure></div>
 <h2>Enlaces</h2>
 <ul>
   <li><a href="http://www.tldp.org/HOWTO/mini/Home-Network-mini-HOWTO.html">Home Network Mini-<span class="caps">HOWTO</span></a></li>
@@ -5532,7 +5498,7 @@ nameserver 161.67.27.4<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

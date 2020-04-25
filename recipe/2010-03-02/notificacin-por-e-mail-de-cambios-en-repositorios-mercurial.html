@@ -5489,21 +5489,22 @@
 <p>Puede que en algún proyecto necesites tener un control exhaustivo sobre quien y cuando hace <em>pushes</em> en el repositorio. Para ello, Mercurial proporciona unos <a href="/node/1329"><em><strong>hooks</strong></em></a> predefinidos para configurarlo de forma rápida y sencilla.</p>
 <p>Toda la configuración que hace falta estará en el fichero habitual: <strong>.hg/hgrc</strong>. El soporte para notificaciones se añade de la siguiente forma:</p>
 <div>
-<p>{% highlight text %}<br />
-[extensions]<br />
-hgext.notify =</p>
-<p>[hooks]<br />
-changegroup.notify = python:hgext.notify.hook</p>
-<p>[email]<br />
-from = direccion@email.com</p>
-<p>[smtp]<br />
-host = localhost</p>
-<p>[notify]<br />
-test = False<br />
-config = /ruta/absoluta/a/notify.conf<br />
-template = \ndetails:\nchangeset: {rev}:{node|short}\nuser: {author}\ndate: {date|date}\ndescription:\n{desc}\n<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[extensions]
+hgext.notify =
+
+[hooks]
+changegroup.notify = python:hgext.notify.hook
+
+[email]
+from = direccion@email.com
+
+[smtp]
+host = localhost
+
+[notify]
+test = False
+config = /ruta/absoluta/a/notify.conf
+template = \ndetails:\nchangeset: {rev}:{node|short}\nuser: {author}\ndate: {date|date}\ndescription:\n{desc}\n</code></pre></figure></div>
 <p>Obviamente, si en alguna de las secciones ya tienes alguna configuración adicional, solo añade lo necesario en cada sección.</p>
 <p>De lo anterior solamente necesitarás modificar 4 cosillas:</p>
 <ul>
@@ -5515,28 +5516,17 @@ template = \ndetails:\nchangeset: {rev}:{node|short}\nuser: {author}\ndate: {dat
 <h2>Fichero de configuración de notify</h2>
 <p>El fichero de configuración que comentaba antes tiene esta estructura:</p>
 <div>
-<p>{% highlight text %}<br />
-[usersubs]</p>
-<ol>
-	<li>key is subscriber email, value is comma-separated list of glob patterns<br />
-user@host = pattern</li>
-</ol>
-<p>[reposubs]</p>
-<ol>
-	<li>key is glob pattern, value is comma-separated list of subscriber emails<br />
-pattern = user@host<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[usersubs]
+# key is subscriber email, value is comma-separated list of glob patterns
+user@host = pattern
+
+[reposubs]
+# key is glob pattern, value is comma-separated list of subscriber emails
+pattern = user@host</code></pre></figure></div>
 <p>Pero si simplemente quieres que te notifique de los cambios solo necesitarás la segunda sección, algo como lo que sigue:</p>
 <div>
-<p>{% highlight text %}<br />
-[reposubs]</p>
-<ul>
-	<li>= tudireccion@deemail.com<br />
-{% endhighlight %}<br />
-</div></li>
-</ul>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[reposubs]
+* = tudireccion@deemail.com</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://mercurial.selenic.com/wiki/NotifyExtension">NotifyExtension en el Wiki de Mercurial</a></li>
@@ -5607,7 +5597,7 @@ pattern = user@host<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

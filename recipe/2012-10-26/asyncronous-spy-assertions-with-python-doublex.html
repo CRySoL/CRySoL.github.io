@@ -5361,80 +5361,59 @@
 <p><!--break--></p>
 <p>Something like that:</p>
 <div>
-<p>{% highlight python %}<br />
-class Collaborator:<br />
-    def write(self, data):<br />
-        print &#8220;your code here&#8221;</p>
-<p>class <span class="caps">SUT</span>:<br />
-    def <i>init</i>(self, collaborator):<br />
-        self.collaborator = collaborator</p>
-def some_method(self):
-thread.start_new_thread(self.collaborator.write, (&#8220;something&#8221;,))
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Collaborator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"your code here"</span>
+
+<span class="k">class</span> <span class="nc">SUT</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collaborator</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">collaborator</span> <span class="o">=</span> <span class="n">collaborator</span>
+
+    <span class="k">def</span> <span class="nf">some_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">thread</span><span class="p">.</span><span class="n">start_new_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">collaborator</span><span class="p">.</span><span class="n">write</span><span class="p">,</span> <span class="p">(</span><span class="s">"something"</span><span class="p">,))</span></code></pre></figure></div>
 <p>If you try to test your collaborator is called using a Spy, you will get a <code>wrong</code> behavior:</p>
 <div>
-<p>{% highlight python %}<br />
-    def test_wrong_try_to_test_an_async_invocation(self):</p>
-<ol>
-	<li>given<br />
-        spy = Spy(Collaborator)<br />
-        sut = <acronym title="spy"><span class="caps">SUT</span></acronym></li>
-</ol>
-<ol>
-	<li>when<br />
-        sut.some_method()</li>
-</ol>
-<ol>
-	<li>then<br />
-        assert_that(spy.write, called())<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">test_wrong_try_to_test_an_async_invocation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># given
+</span>        <span class="n">spy</span> <span class="o">=</span> <span class="n">Spy</span><span class="p">(</span><span class="n">Collaborator</span><span class="p">)</span>
+        <span class="n">sut</span> <span class="o">=</span> <span class="n">SUT</span><span class="p">(</span><span class="n">spy</span><span class="p">)</span>
+
+        <span class="c1"># when
+</span>        <span class="n">sut</span><span class="p">.</span><span class="n">some_method</span><span class="p">()</span>
+
+        <span class="c1"># then
+</span>        <span class="n">assert_that</span><span class="p">(</span><span class="n">spy</span><span class="p">.</span><span class="n">write</span><span class="p">,</span> <span class="n">called</span><span class="p">())</span></code></pre></figure></div>
 <p>due to the <code>called()</code> assertion <strong>may</strong> happen <strong>before</strong> the <code>write()</code> invocation, but not always.</p>
 <p>You may be tempted to put a <code>sleep</code> before the assertion, but this is a bad solution. A right way to solve that issue is to use something like a <a href="http://en.wikipedia.org/wiki/Barrier_(computer_science)">barrier</a>. The <code>threading.Event</code> class may be used as a barrier. See this new test version:</p>
 <div>
-<p>{% highlight python %}<br />
-    def test_an_async_invocation_with_barrier(self):</p>
-<ol>
-	<li>given<br />
-        barrier = threading.Event()<br />
-        with Spy(Collaborator) as spy:<br />
-            spy.write.attach(lambda *args: barrier.set)</li>
-</ol>
-sut = <acronym title="spy"><span class="caps">SUT</span></acronym>
-<ol>
-	<li>when<br />
-        sut.some_method()<br />
-        barrier.wait(1)</li>
-</ol>
-<ol>
-	<li>then<br />
-        assert_that(spy.write, called())<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">test_an_async_invocation_with_barrier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># given
+</span>        <span class="n">barrier</span> <span class="o">=</span> <span class="n">threading</span><span class="p">.</span><span class="n">Event</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">Spy</span><span class="p">(</span><span class="n">Collaborator</span><span class="p">)</span> <span class="k">as</span> <span class="n">spy</span><span class="p">:</span>
+            <span class="n">spy</span><span class="p">.</span><span class="n">write</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">barrier</span><span class="p">.</span><span class="nb">set</span><span class="p">)</span>
+
+        <span class="n">sut</span> <span class="o">=</span> <span class="n">SUT</span><span class="p">(</span><span class="n">spy</span><span class="p">)</span>
+
+        <span class="c1"># when
+</span>        <span class="n">sut</span><span class="p">.</span><span class="n">some_method</span><span class="p">()</span>
+        <span class="n">barrier</span><span class="p">.</span><span class="n">wait</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># then
+</span>        <span class="n">assert_that</span><span class="p">(</span><span class="n">spy</span><span class="p">.</span><span class="n">write</span><span class="p">,</span> <span class="n">called</span><span class="p">())</span></code></pre></figure></div>
 <p>The <code>spy.write.attach()</code> is part of the <a href="https://bitbucket.org/DavidVilla/python-doublex">doublex testing framework</a> and provides stub-observers. That is, a way to run arbitrary code when stubbed methods are called.</p>
 <p>That works because the <code>called()</code> assertion is performed only when the spy release the barrier. It the <code>write()</code> invocation never happen, the <code>barrier.wait()</code> continues after 1 second and the test fail, as must do. When all is right, the barrier waits just the required time.</p>
 <p>Well, this mechanism is a doublex builtin in the last release (1.5.1) and provide the same behavior in a clearer way. The next is functionally equivalent to the second test version above:</p>
 <div>
-<p>{% highlight python %}<br />
-    def test_test_an_async_invocation_with_doublex_async(self):</p>
-<ol>
-	<li>given<br />
-        spy = Spy(Collaborator)<br />
-        sut = <acronym title="spy"><span class="caps">SUT</span></acronym></li>
-</ol>
-<ol>
-	<li>when<br />
-        sut.some_method()</li>
-</ol>
-<ol>
-	<li>then<br />
-        assert_that(spy.write, called().async(timeout=1))<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">test_test_an_async_invocation_with_doublex_async</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># given
+</span>        <span class="n">spy</span> <span class="o">=</span> <span class="n">Spy</span><span class="p">(</span><span class="n">Collaborator</span><span class="p">)</span>
+        <span class="n">sut</span> <span class="o">=</span> <span class="n">SUT</span><span class="p">(</span><span class="n">spy</span><span class="p">)</span>
+
+        <span class="c1"># when
+</span>        <span class="n">sut</span><span class="p">.</span><span class="n">some_method</span><span class="p">()</span>
+
+        <span class="c1"># then
+</span>        <span class="n">assert_that</span><span class="p">(</span><span class="n">spy</span><span class="p">.</span><span class="n">write</span><span class="p">,</span> <span class="n">called</span><span class="p">().</span><span class="k">async</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span></code></pre></figure></div>
 <p>More documentation and examples at <a href="https://bitbucket.org/DavidVilla/python-doublex">https://bitbucket.org/DavidVilla/python-doublex</a></p>
 <p>cheers</p>
       </div>
@@ -5501,7 +5480,7 @@ sut = <acronym title="spy"><span class="caps">SUT</span></acronym>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

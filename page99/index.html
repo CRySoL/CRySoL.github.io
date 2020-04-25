@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,101 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/new/2006-04-15/cmo-hacer-una-metadistro-usb.html">Cómo hacer una metadistro USB</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-04-15
+    
+      
+  <a href="/users.html#aledelgal">
+   aledelgal
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-04-15-cmo-hacer-una-metadistro-usb.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-04-15-cmo-hacer-una-metadistro-usb.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#new-ref">
+    		new
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/284">node/284</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      Bueno, esto no sabía si ponerlo como receta, ya que no lo voy a explicar, sólo es un enlace a un artículo que he leído en <a href="http://www.esdebian.org/article.php/20060220122742735">aquí</a>
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/new/2006-04-15/cmo-hacer-una-metadistro-usb.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8230,41 +8324,24 @@ Esta pequeña pequeñísima receta trata sobre cómo hacer un script para escuch
 <h2>Instalación de imageMagick</h2>
 <p>Yo cuando lo descubrí ya lo tenía instalado, pero de todas formas está en los repositorios, es tan fácil como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install imagemagick<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>imagemagick</code></pre></figure></div>
 <h2>Redimensionar una imagen.</h2>
 <p>Existen varias opciones:</p>
 <p>Redimensionarla porcentualmente:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ convert -sample 50%x50</span> imgagen.jpg nuevaimagen.jpg<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>convert <span class="nt">-sample</span> 50%x50% imgagen.jpg nuevaimagen.jpg</code></pre></figure></div>
 <p>Cambiarle la resolución (a 800&#215;600):</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ convert -resize 800&#215;600 imagen.jpg nuevaimagen.jpg<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>convert <span class="nt">-resize</span> 800x600 imagen.jpg nuevaimagen.jpg</code></pre></figure></div>
 <h2>Cambiar la calidad</h2>
 <p>En este caso, al 85%:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $  convert -quality 85 imagen.jpg nuevaimagen.jpg<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w">  </span>convert <span class="nt">-quality</span> 85 imagen.jpg nuevaimagen.jpg</code></pre></figure></div>
 <h2>Rotar una imagen</h2>
 <p>Para rotar hacia la derecha indica el número de grados como un número positivo. Si quieres rotar hacia la izquierda indica el número de grados como un número negativo.</p>
 <p>Así rotaríamos 90 grados a la derecha:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ convert -rotate 90 input.jpg output.jpg<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>convert <span class="nt">-rotate</span> 90 input.jpg output.jpg</code></pre></figure></div>
 <h2>Añadir texto a una imagen</h2>
 <p>Opciones:</p>
 <ul>
@@ -8273,10 +8350,7 @@ Esta pequeña pequeñísima receta trata sobre cómo hacer un script para escuch
 	<li>draw &#8216;text 10,50 &quot; &#8230; &quot;&#8217; Dibuja el texto entre las comillas dobles en la posición 10,50</li>
 </ul>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ convert -font helvetica -fill white -pointsize 36 -draw &#8217;text 10,50 &#8220;Dia de campo&#8230;&#8221; imagen.jpg imagencomentada.jpg<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>convert <span class="nt">-font</span> helvetica <span class="nt">-fill</span> white <span class="nt">-pointsize</span> 36 <span class="nt">-draw</span> <span class="s1">'text 10,50 "Dia de campo..." imagen.jpg imagencomentada.jpg</span></code></pre></figure></div>
 <h2>Y mucho más</h2>
 <p>Hay muchos más comandos para hacer efectos artísticos, como por ejemplo &#8220;spread&#8221; para indicar en qué medida se va a esparcir una imagen; &#8220;solarize&#8221; para indicar un grado de solarizado; etc, etc, etc, &#8230;</p>
 <p>Luego seguiré con esta receta, añadiendo bien añadido cómo se hacen los efectos artísticos, cómo se hace un script para hacer lo que quieras con todas las imágenes de un directorio, etc&#8230;Pero ahora mismo no puedo ;)  Si alguien se anima&#8230;</p>
@@ -8754,152 +8828,6 @@ La iniciativa parte de la <a href="http://linux.es/">asociación Linux Español<
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-04-02/ejecutar-un-comando-como-si-fueras-otro-usuario-sudo.html">Ejecutar un comando como si fueras otro usuario: sudo</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-04-02
-    
-      
-  <a href="/users.html#arturo">
-   arturo
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-04-02-ejecutar-un-comando-como-si-fueras-otro-usuario-sudo.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-04-02-ejecutar-un-comando-como-si-fueras-otro-usuario-sudo.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/273">node/273</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-<p>Esta receta explica cómo ejecutar comandos del sistema con los permisos de otro usuario.</p>
-</blockquote>
-<h2> Introducción </h2>
-<p>El principal objetivo de <tt>sudo</tt> es reemplazar al comando <tt>su</tt>. En algunas situaciones puede reemplazar al <span class="caps">SUID</span>. La principal ventaja de utilizar sudo es que no es necesario conocer la password de otro usuario para ejecutar comandos con permisos &#8220;especiales&#8221;.</p>
-<h2> Configuración </h2>
-<p>Lo primero será editar el fichero <tt>/etc/sudoers</tt>. Existe un comando llamado <tt>visudo</tt> que directamente edita el fichero con vi. Pero si alguno no sabe utilizar vi, puede utilizar cualquier otro editor. El fichero tiene el formato siguiente:</p>
-<div>
-<p>{% highlight text %}</p>
-<ol>
-	<li>Host alias specification</li>
-</ol>
-<ol>
-	<li>User alias specification</li>
-</ol>
-<ol>
-	<li>Cmnd alias specification</li>
-</ol>
-<ol>
-	<li>User privilege specification<br />
-root    <span class="caps">ALL</span>=(<span class="caps">ALL</span>) <span class="caps">ALL</span><br />
-fulanito  <span class="caps">ALL</span>=(<span class="caps">ALL</span>) <span class="caps">ALL</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
-<p>En el podemos ver como el usuario root tiene permiso de todo al igual que el usuario fulanito. Muchos administradores opinan que hacer esto es &#8220;peligroso&#8221; si los usuarios son noveles, pero ese no es mi caso :-P.</p>
-<p>El fichero se divide en tres secciones:</p>
-<ul>
-<li> Definiciones de alias </li>
-<li> Ajuste de opciones por defecto</li>
-<li> Reglas de acceso</li>
-</ul>
-<p>La sección más importante son las reglas de acceso, que tienen esta forma:</p>
-<div>
-<p>{% highlight text <span>}<br />
-usuario host = (usuario_privilegiado) comando<br />
-{</span> endhighlight %}</p>
-</div>
-<p>En el ejemplo de antes se ha utilizado un alias especial <tt><span class="caps">ALL</span></tt> que engloba a todos los comandos, usuarios y demás historias. Para hacer una configuración más afinada lo mejor es que cada uno se cree sus propios alias y configuraciones. El nombre de <em>usuario privilegiado</em> que se pone entre paréntesis es opcional, si no se pone es <code>root</code> por defecto.</p>
-<p>Otro punto a comentar es que cuando se ejecuta cualquier comando con sudo, al usuario se le pide su propia password. Esto impide que si un usuario deja una consola abierta otra persona puede realizar operaciones privilegiadas utilizando su sesión. Puedes evitar la comprobación de clave si escribes la palabra <code>NOPASSWD</code> antes del comando.</p>
-<p>Por ejemplo, la siguiente línea permite al usuario <tt>webmaster</tt> parar y reiniciar el servidor web sin tener que poner su clave:</p>
-<div>
-<p>{% highlight text <span>}<br />
-webmaster <span class="caps">ALL</span>= (root) <span class="caps">NOPASSWD</span>: /etc/init.d/apache2<br />
-{</span> endhighlight %}</p>
-</div>
-<p>Para evitar esto lo mejor es añadir al usuario en cuestión al grupo sudo. Eso se puede conseguir editando el fichero <tt>/etc/group</tt></p>
-<div>
-<p>{% highlight text <span>}<br />
-sudo:x:27:fulanito<br />
-{</span> endhighlight %}</p>
-</div>
-<p>O ejecutando:</p>
-<div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>addgroup fulanito sudo<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
-<h2>Referencias</h2>
-<ul>
-<li><a href="http://www.wikilearning.com/introduccion-wkccp-455-1.htm">Iniciación de sudo para bisoños</a></li>
-<li>man sudo</li>
-</ul>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8940,7 +8868,7 @@ sudo:x:27:fulanito<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

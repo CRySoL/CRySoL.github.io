@@ -5161,19 +5161,13 @@
 </ul>
 <p>Para instalarlos, desde Debian:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-javieralso@richie:~$ sudo apt-get install unison2.9.1 unison2.9.1-gtk<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@richie:~$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>unison2.9.1 unison2.9.1-gtk</code></pre></figure></div>
 <p>Tienes que instalar los dos paquetes, ya que aunque <em>unison-gtk</em> necesita de <em>unison</em>, no lo instalará como dependencia. También necesitas <em>ssh</em>.</p>
 <p>Una nota importante es que <b>debes instalar la misma versión de unison en todas las máquinas que vayas a sincronizar</b>. Si intentas sincronizar dos máquinas con distintas versiones de <em>unison</em>, se producirá un error y se abortará la sincronización.</p>
 <h2>Configurando <em>unison</em></h2>
 <p>Este paso sólo hay que realizarlo en una de las máquinas. Suponiendo que has instalado <em>unison2.9.1-gtk</em> lo invocas:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-javieralso@richie:~$ unison-2.9.1-gtk<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@richie:~$</span><span class="w"> </span>unison-2.9.1-gtk</code></pre></figure></div>
 <p>Esto abrirá la ventana principal de <em>unison-gtk</em>. Ahora debes crear un perfil. Para ello pulsa el botón <em>Create new profile</em> y escribe un nombre para dicho perfil, por ejemplo &#8220;Documentos casa&#8221;.<br />
 Verás que se ha añadido dicho perfil a la lista de perfiles existentes. Si haces doble click te aparecerá una ventana en la que te pedirá que introduzcas el nombre del directorio que deseas sincronizar dentro de tu máquina local. Pon por ejemplo el directorio <em>~/Documentos</em>. Pulsa en &#8220;aceptar&#8221; y pasarás a la ventana de selección del directorio con el que deseas sincronizar el directorio anterior.</p>
 <p>Utiliza <em><span class="caps">SSH</span></em> para conectar, selecciona esa opción y elige el directorio en la máquina remota con el que deseas sincronizar tus archivos, por ejemplo <em>~/Documentos</em>.<br />
@@ -5251,7 +5245,7 @@ En el campo <em>Host</em> escribe IP del host con el que deseas sincronizar o el
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5400,42 +5400,34 @@
 <h2>Detección</h2>
 <p>Tanto por el log de arranque de Linux como utilizando <code>dmesg</code> deberías ver un buen trozo de información sobre la detección de la tarjeta capturadora:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-bttv: driver version 0.9.16 loaded<br />
-bttv: using 8 buffers with 2080k (520 pages) each for capture<br />
-intel8x0_measure_ac97_clock: measured 54583 usecs<br />
-intel8x0: clocking to 47492<br />
-bttv: Bt8xx card found (0).<br />
-<span class="caps">ACPI</span>: <span class="caps">PCI</span> Interrupt Link [APC2] enabled at <span class="caps">IRQ</span> 17<br />
-<span class="caps">ACPI</span>: <span class="caps">PCI</span> Interrupt 0000:01:09.0[A] &#8594; Link [APC2] &#8594; <span class="caps">GSI</span> 17 (level, high) &#8594; <span class="caps">IRQ</span> 201<br />
-bttv0: Bt878 (rev 2) at 0000:01:09.0, irq: 201, latency: 32, mmio: 0xd6000000<br />
-bttv0: detected: Leadtek WinFast TV 2000 [card=34], <span class="caps">PCI</span> subsystem ID is 6606:217d<br />
-bttv0: using: Leadtek WinFast 2000/ WinFast 2000 XP [card=34,autodetected]<br />
-bttv0: gpio: en=00000000, out=00000000 in=00ffff07 [init]<br />
-bttv0: using tuner=5<br />
-tuner 2-0061: chip found @ 0xc2 (bt878 #0 [sw])<br />
-tuner 2-0061: type set to 5 (Philips PAL_BG (FI1216 and compatibles))<br />
-bttv0: registered device video0<br />
-bttv0: registered device vbi0<br />
-bttv0: registered device radio0<br />
-bttv0: <span class="caps">PLL</span>: 28636363 =&gt; 35468950 .. ok<br />
-<strong>input: bttv IR (card=34) as /class/input/input4</strong><br />
-<strong>bttv-input: bttv IR (card=34) detected at pci-0000:01:09.0/ir0</strong><br />
-bt878: <span class="caps">AUDIO</span> driver version 0.0.0 loaded<br />
-bt878: Bt878 <span class="caps">AUDIO</span> function found (0).</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">bttv: driver version 0.9.16 loaded
+bttv: using 8 buffers with 2080k (520 pages) each for capture
+intel8x0_measure_ac97_clock: measured 54583 usecs
+intel8x0: clocking to 47492
+bttv: Bt8xx card found (0).
+ACPI: PCI Interrupt Link [APC2] enabled at IRQ 17
+</span><span class="gp">ACPI: PCI Interrupt 0000:01:09.0[A] -&gt;</span><span class="w"> </span>Link <span class="o">[</span>APC2] -&gt; GSI 17 <span class="o">(</span>level, high<span class="o">)</span> -&gt; IRQ 201
+<span class="go">bttv0: Bt878 (rev 2) at 0000:01:09.0, irq: 201, latency: 32, mmio: 0xd6000000
+bttv0: detected: Leadtek WinFast TV 2000 [card=34], PCI subsystem ID is 6606:217d
+bttv0: using: Leadtek WinFast 2000/ WinFast 2000 XP [card=34,autodetected]
+bttv0: gpio: en=00000000, out=00000000 in=00ffff07 [init]
+bttv0: using tuner=5
+</span><span class="gp">tuner 2-0061: chip found @ 0xc2 (bt878 #</span>0 <span class="o">[</span>sw]<span class="o">)</span>
+<span class="go">tuner 2-0061: type set to 5 (Philips PAL_BG (FI1216 and compatibles))
+bttv0: registered device video0
+bttv0: registered device vbi0
+bttv0: registered device radio0
+</span><span class="gp">bttv0: PLL: 28636363 =&gt;</span><span class="w"> </span>35468950 .. ok
+<span class="go">*input: bttv IR (card=34) as /class/input/input4*
+*bttv-input: bttv IR (card=34) detected at pci-0000:01:09.0/ir0*
+bt878: AUDIO driver version 0.0.0 loaded
+bt878: Bt878 AUDIO function found (0).</span></code></pre></figure></div>
 <p>Lo interesante (para esta receta al menos) son las líneas en negrita, que indica que el control remoto ha sido detectado correctamente y el dispositivo en el que está disponible.</p>
 <h2>Instalación</h2>
 <p>El driver para este mando requiere módulos de Linux que deben compilarse para la versión específica que uses, pero gracias a <code>module-assistant</code> eso no es un problema:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install module-assistant lirc</li>
-	<li>m-a ai lirc</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>module-assistant lirc
+<span class="gp">#</span><span class="w"> </span>m-a ai lirc</code></pre></figure></div>
 <h2>Configuración</h2>
 <p>Edita el fichero <code>/etc/lirc/hardware.conf</code> y modifica estas variables:</p>
 <pre>
@@ -5447,36 +5439,23 @@ MODULES="lirc_dev lirc_gpio"
 </pre>
 <p>Ahora copia los ficheros de configuración de las teclas del mando (en mi caso el RM-0010) al directorio <code>/etc/lirc</code>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cp /usr/share/doc/lirc/remotes/leadtek/lircd.conf.RM-0010 /etc/lirc/lircd.conf</li>
-	<li>cp /usr/share/doc/lirc/remotes/leadtek/lircmd.conf.RM-0010 /etc/lirc/lircmd.conf</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cp</span> /usr/share/doc/lirc/remotes/leadtek/lircd.conf.RM-0010 /etc/lirc/lircd.conf
+<span class="gp">#</span><span class="w"> </span><span class="nb">cp</span> /usr/share/doc/lirc/remotes/leadtek/lircmd.conf.RM-0010 /etc/lirc/lircmd.conf</code></pre></figure></div>
 <p>Y reinicia el servicio:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/lirc restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/lirc restart</code></pre></figure></div>
 <h2>Probando</h2>
 <p>Puedes probar que el mando funciona correctamente con el comando <code>irw</code>. Simplemente ejecútalo y pulsa las teclas del mando a distancia:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ irw<br />
-00000000c03fc03f 00 <span class="caps">FULLSCREEN</span> RM-0010<br />
-00000000c03fc03f 01 <span class="caps">FULLSCREEN</span> RM-0010<br />
-00000000c03fc03f 02 <span class="caps">FULLSCREEN</span> RM-0010<br />
-00000000c03fc03f 03 <span class="caps">FULLSCREEN</span> RM-0010<br />
-00000000c03f20df 00 VOL_UP RM-0010<br />
-00000000c03f20df 01 VOL_UP RM-0010<br />
-00000000c03f20df 02 VOL_UP RM-0010<br />
-00000000c03f20df 03 VOL_UP RM-0010</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>irw
+<span class="go">00000000c03fc03f 00 FULLSCREEN RM-0010
+00000000c03fc03f 01 FULLSCREEN RM-0010
+00000000c03fc03f 02 FULLSCREEN RM-0010
+00000000c03fc03f 03 FULLSCREEN RM-0010
+00000000c03f20df 00 VOL_UP RM-0010
+00000000c03f20df 01 VOL_UP RM-0010
+00000000c03f20df 02 VOL_UP RM-0010
+00000000c03f20df 03 VOL_UP RM-0010</span></code></pre></figure></div>
 <h2>Usos de <span class="caps">LIRC</span></h2>
 <p>Hay muchos programas con soporte para <span class="caps">LIRC</span>, como por ejemplo:</p>
 <ul>
@@ -5561,7 +5540,7 @@ $ irw<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

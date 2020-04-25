@@ -5514,122 +5514,125 @@ module Ice {
 <p>Sencilla, ¿verdad? Bien, pues lo primero que podemos hacer es implementar esos dos métodos. Como no es una interfaz <span class="caps">RMI</span>, no es necesario usar los <em>translators</em>, así que la implementación es directa. Veamos el código:</p>
 <p><strong>PluginI.h</strong></p>
 <div>
-<p>{% highlight cpp %}<br />
-// <del>*</del> mode: c++; coding: utf-8 <del>*</del></p>
-<p>#ifndef PLUGIN_H<br />
-#define PLUGIN_H</p>
-<p>#include &lt;Ice/Ice.h&gt;</p>
-<p>class PluginI : public Ice::Plugin {<br />
-public:</p>
-void initialize();
-void destroy();
-<p>};</p>
-<p>#endif // PLUGIN_H<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// -*- mode: c++; coding: utf-8 -*-</span>
+
+<span class="cp">#ifndef PLUGIN_H
+#define PLUGIN_H
+</span>
+<span class="cp">#include &lt;Ice/Ice.h&gt;
+</span>
+<span class="k">class</span> <span class="nc">PluginI</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Ice</span><span class="o">::</span><span class="n">Plugin</span> <span class="p">{</span>
+<span class="nl">public:</span>
+
+  <span class="kt">void</span> <span class="n">initialize</span><span class="p">();</span>
+  <span class="kt">void</span> <span class="n">destroy</span><span class="p">();</span>
+
+<span class="p">};</span>
+
+<span class="cp">#endif // PLUGIN_H</span></code></pre></figure></div>
 <p><strong>PluginI.cpp</strong></p>
 <div>
-<p>{% highlight cpp %}<br />
-// <del>*</del> mode: c++; coding: utf-8 <del>*</del></p>
-<p>#include <iostream><br />
-#include &#8220;PluginI.h&#8221;</p>
-<p>using namespace std;</p>
-<p>void<br />
-PluginI::initialize() {<br />
-  cout &lt;&lt; &#8220;Ha sido cargado el plugin más tonto del mundo.&#8221; &lt;&lt; endl;<br />
-}</p>
-<p>void<br />
-PluginI::destroy() {<br />
-  cout &lt;&lt; &#8220;Ha sido descargado el plugin más tonto del mundo.&#8221; &lt;&lt; endl;<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// -*- mode: c++; coding: utf-8 -*-</span>
+
+<span class="cp">#include &lt;iostream&gt;
+#include "PluginI.h"
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">void</span>
+<span class="n">PluginI</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Ha sido cargado el plugin más tonto del mundo."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span>
+<span class="n">PluginI</span><span class="o">::</span><span class="n">destroy</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Ha sido descargado el plugin más tonto del mundo."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>Por supuesto, puedes cambiar el nombre de la clase y el contenido&#8230; ;-) Como ves, tenemos dos métodos, <em>initialize</em> y <em>destroy</em>. Quizá te preguntes porqué no usar el constructor y el destructor. Sencillo: para resolver problemas de dependencias entre los plugins, Ice los carga todos en primero lugar y luego los inicializa. Así, si necesitas usar otro plugin, en el <em>initialize</em> sabes que ya estará cargado (pero puede no estar inicializado. Si necesitas un orden de carga determinado, puedes especificarlo en la configuración. Para más detalles, véase el manual).</p>
 <p>Bien, ya tenemos el plugin propiamente dicho. El objeto puede implementar más métodos, y usando el PluginManager, puedes obtener una instancia para usarlo cuando lo necesites. Pero ¿cómo lo crea el PluginManager? Pues esa es nuestra siguiente tarea. Tenemos que definir una función que se encargue de instanciarlo, y que pueda ser llamada desde la factoría. He aquí una muestra:</p>
 <p><strong>Loader.cpp</strong></p>
 <div>
-<p>{% highlight cpp %}<br />
-// <del>*</del> mode: c++; coding: utf-8 <del>*</del></p>
-<p>#include &lt;Ice/Ice.h&gt;<br />
-#include &#8220;PluginI.h&#8221;</p>
-<p>using namespace std;</p>
-<p>extern &#8220;C&#8221;<br />
-{</p>
-<p>ICE_DECLSPEC_EXPORT Ice::Plugin*<br />
-createPluginSample(const Ice::CommunicatorPtr&amp; communicator,<br />
-                   const string&amp; name,<br />
-                   const Ice::StringSeq&amp; args) {</p>
-cout &lt;&lt; &#8220;Se va a cargar un plugin llamado: &#8217;&#8221; &lt;&lt; name &lt;&lt; &#8220;&#8217;&#8221; &lt;&lt; endl;
-return new PluginI();
-<p>}</p>
-<p>}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// -*- mode: c++; coding: utf-8 -*-</span>
+
+<span class="cp">#include &lt;Ice/Ice.h&gt;
+#include "PluginI.h"
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">extern</span> <span class="s">"C"</span>
+<span class="p">{</span>
+
+<span class="n">ICE_DECLSPEC_EXPORT</span> <span class="n">Ice</span><span class="o">::</span><span class="n">Plugin</span><span class="o">*</span>
+<span class="n">createPluginSample</span><span class="p">(</span><span class="k">const</span> <span class="n">Ice</span><span class="o">::</span><span class="n">CommunicatorPtr</span><span class="o">&amp;</span> <span class="n">communicator</span><span class="p">,</span>
+                   <span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span>
+                   <span class="k">const</span> <span class="n">Ice</span><span class="o">::</span><span class="n">StringSeq</span><span class="o">&amp;</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Se va a cargar un plugin llamado: '"</span> <span class="o">&lt;&lt;</span> <span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">"'"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">PluginI</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure></div>
 <p>Como ves, la definición debe ser en C, no en C++. Se recomienda en el manual usar la macro ICE_DECLSPEC_EXPORT para dotarlo de compatibilidad entre plataformas. Como es C, no tenemos <em>smart pointer</em>, por lo que retornamos un puntero. El nombre de la función puede ser cualquiera, pues luego debemos especificarlo en el fichero de configuración.</p>
 <p>¡Y ya lo tenemos! Esta es la estructura mínima de un plugin (a mi entender). Vamos a probarlo con un ejemplo muy sencillo:</p>
 <p><strong>test.cpp</strong></p>
 <div>
-<p>{% highlight cpp %}<br />
-// <del>*</del> mode: c++; coding: utf-8 <del>*</del></p>
-<p>#include &lt;Ice/Ice.h&gt;</p>
-<p>using namespace std;</p>
-<p>class Test : public Ice::Application {<br />
-public:<br />
-    int run(int argc, char** argv) {<br />
-        cout &lt;&lt; &#8220;Aplicación de ejemplo que usa el plugin&#8230;&#8221; &lt;&lt; endl;<br />
-    }<br />
-};</p>
-<p>int<br />
-main(int argc, char** argv) {<br />
-    Test().main(argc, argv, &#8220;config&#8221;);<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// -*- mode: c++; coding: utf-8 -*-</span>
+
+<span class="cp">#include &lt;Ice/Ice.h&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Test</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Ice</span><span class="o">::</span><span class="n">Application</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">int</span> <span class="n">run</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Aplicación de ejemplo que usa el plugin..."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Test</span><span class="p">().</span><span class="n">main</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="s">"config"</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>¡Andando! Pero&#8230; ¿donde se usa el plugin? Pues bien, en este ejemplo, que sólo pretende demostrar la carga y descarga del mismo, no se usa :-p Pero nos sirve igualmente. Si añadimos una línea en el fichero de configuración tal que así:</p>
 <p><strong>config</strong></p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li><del>*</del> mode: conf; coding: utf-8 <del>*</del><br />
-Ice.Plugin.Sample=IcePluginSample:createPluginSample<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>-<span class="k">*</span>- mode: conf<span class="p">;</span> coding: utf-8 -<span class="k">*</span>-
+<span class="go">Ice.Plugin.Sample=IcePluginSample:createPluginSample</span></code></pre></figure></div>
 <p>cargará nuestro plugin, y lo registrará en el PluginManager, disponible para que lo usemos cuando queramos (tip: el <em>communicator</em> tiene un método llamado getPluginManager&#8230;). El nombre del plugin, en este caso <em>Sample</em>, puedes elegirlo tu&#8230; :-d.</p>
 <h3>Compilando</h3>
 <p>Para que todo esto funcione, tienes que compilarlo :-p. El plugin debe ser una librería, para no tener que recompilar Ice cada vez que añadas uno. Los flags de compilación son los de siempre:  <em>-fPIC -shared</em>. Un detalle a tener en cuenta es el nombre: debe terminar en .33, que es la versión de Ice para la que enlazas, así que tienes que crearte un enlace simbólico para enlazar correctamente&#8230; Para ayudarte a compilar el ejemplo, he te aquí un Makefile:</p>
 <p><strong>Makefile</strong></p>
 <div>
-<p>{% highlight text %}</p>
-<ol>
-	<li><del>*</del> mode: makefile-gmake; coding: utf-8 <del>*</del></li>
-</ol>
-<p><span class="caps">CXX</span>     = g++<br />
-<span class="caps">LDFLAGS</span> = -L.</p>
-<p><span class="caps">OBJ</span>     = test<br />
-<span class="caps">LIB</span>     = libIcePluginSample.so.33</p>
-<p>all: $(<span class="caps">LIB</span>) $(<span class="caps">OBJ</span>)<br />
-        @echo -e &#8220;\nProbando&#8230;\n&#8221;<br />
-        @LD_LIBRARY_PATH=. ./test</p>
-<p>$(<span class="caps">OBJ</span>): <span class="caps">LDLIBS</span> = -lIce -lIcePluginSample<br />
-$(<span class="caps">OBJ</span>): $(<span class="caps">OBJ</span>:=.cpp)</p>
-<p>$(<span class="caps">LIB</span>): Loader.cpp PluginI.cpp<br />
-        $(<span class="caps">CXX</span>) -o $@ -fPIC -shared $^<br />
-        ln -s $@ $(<span class="caps">LIB</span>:%.33=%)</p>
-<p>.<span class="caps">PHONY</span>: clean<br />
-clean:<br />
-        $(RM) -vrf <strong>~ *.o *.so *.so.</strong> $(<span class="caps">OBJ</span>)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># -*- mode: makefile-gmake; coding: utf-8 -*-
+
+CXX     = g++
+LDFLAGS = -L.
+
+OBJ     = test
+LIB     = libIcePluginSample.so.33
+
+
+all: $(LIB) $(OBJ)
+        @echo -e "\nProbando...\n"
+        @LD_LIBRARY_PATH=. ./test
+
+$(OBJ): LDLIBS = -lIce -lIcePluginSample
+$(OBJ): $(OBJ:=.cpp)
+
+$(LIB): Loader.cpp PluginI.cpp
+        $(CXX) -o $@ -fPIC -shared $^
+        ln -s $@ $(LIB:%.33=%)
+
+
+.PHONY: clean
+clean:
+        $(RM) -vrf *~ *.o *.so *.so.* $(OBJ)</code></pre></figure></div>
 <p>En la sección de descargas tienes todo el código, listo para funcionar. Si lo compilas y lo lanzas, podrás ver algo como esto:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>Se va a cargar un plugin llamado: &#8216;Sample&#8217;<br />
-Ha sido cargado el plugin más tonto del mundo.<br />
-Aplicación de ejemplo que usa el plugin&#8230;<br />
-Ha sido descargado el plugin más tonto del mundo.<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">Se va a cargar un plugin llamado: 'Sample'
+Ha sido cargado el plugin más tonto del mundo.
+Aplicación de ejemplo que usa el plugin...
+Ha sido descargado el plugin más tonto del mundo.</span></code></pre></figure></div>
 <p>Y listo, ya tienes tu plugin funcionando. ¡Que te aproveche! Próxima parada, un endpoint&#8230; :-p</p>
 <h3>Referencias</h3>
 <ul>
@@ -5703,7 +5706,7 @@ Ha sido descargado el plugin más tonto del mundo.<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

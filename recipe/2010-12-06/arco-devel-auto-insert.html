@@ -5527,49 +5527,38 @@
 <p>Al crear un fichero nuevo con la extensión correspondiente se copia el contenido de la plantilla. Las 3 que hay ahora mismo son:</p>
 <h3>Cabecera «estándar» para scripts Python, es decir:</h3>
 <div>
-<p>{% highlight text %}<br />
-#!/usr/bin/python</p>
-<ol>
-	<li><del>*</del> coding:utf-8; tab-width:4; mode:python <del>*</del><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">#!/usr/bin/python
+# -*- coding:utf-8; tab-width:4; mode:python -*-</code></pre></figure></div>
 <h3>Cabecera «estándar» para scripts shell, es decir:</h3>
 <div>
-<p>{% highlight text %}<br />
-#!/bin/bash &#8212;</p>
-<ol>
-	<li><del>*</del> coding:utf-8; tab-width:4; mode:shell-script <del>*</del><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/bash --
+# -*- coding:utf-8; tab-width:4; mode:shell-script -*-</code></pre></figure></div>
 <h3>Plantilla para crear un documento LaTeX desde cero. Algo como:</h3>
 <div>
-<p>{% highlight latex %}<br />
-\documentclass[a4paper, 11pt]{article}</p>
-<p>\usepackage[T1]{fontenc}<br />
-\usepackage[utf8]{inputenc}<br />
-\usepackage[spanish]{babel}<br />
-\usepackage{times}</p>
-<p>\title{}</p>
-<p>\begin{document}<br />
-\maketitle</p>
-<p>\end{document}</p>
-<p>% Local Variables:<br />
-%  coding: utf-8<br />
-%  mode: flyspell<br />
-%  ispell-local-dictionary: &#8220;castellano8&#8221;<br />
-% End:<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-latex" data-lang="latex"><span class="k">\documentclass</span><span class="na">[a4paper, 11pt]</span><span class="p">{</span>article<span class="p">}</span>
+
+<span class="k">\usepackage</span><span class="na">[T1]</span><span class="p">{</span>fontenc<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[utf8]</span><span class="p">{</span>inputenc<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[spanish]</span><span class="p">{</span>babel<span class="p">}</span>
+<span class="k">\usepackage</span><span class="p">{</span>times<span class="p">}</span>
+
+<span class="k">\title</span><span class="p">{}</span>
+
+<span class="nt">\begin{document}</span>
+<span class="k">\maketitle</span>
+
+<span class="nt">\end{document}</span>
+
+<span class="c">% Local Variables:</span>
+<span class="c">%  coding: utf-8</span>
+<span class="c">%  mode: flyspell</span>
+<span class="c">%  ispell-local-dictionary: "castellano8"</span>
+<span class="c">% End:</span></code></pre></figure></div>
 <h2>Configuración</h2>
 <p>Para disfrutar de esta nueva «feature» simplemente incluye (como es habitual) lo siguiente en tu <code>.emacs</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-(add-to-list &#8217;load-path &#8220;/usr/share/arco-tools/emacs&#8221;)<br />
-(load &#8220;auto-insert.cfg&#8221;)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(add-to-list 'load-path "/usr/share/arco-tools/emacs")
+(load "auto-insert.cfg")</code></pre></figure></div>
       </div>
 
       
@@ -5634,7 +5623,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

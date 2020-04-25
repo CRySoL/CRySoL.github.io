@@ -5208,7 +5208,7 @@ Como crear un 'sink' y un 'source' de Gstreamer a partir de las clases gst.BaseS
 <h1>Introducción</h1>
 
   Cuando trabajas con Gstreamer, lo que utilizas son básicamente "elementos" (de hecho, gst.Element es una clase abstracta muy alta en la jerarquía). Existen elementos para casi cualquier cosa: sink de audio pasa alsa, esd, oss; sinks de vídeo para xv, ASCII-text, Coloured-ASCII-text... para muchas cosas, pero no para todas. Puede surgir la necesidad de utilizar como fuente un dispositivo muy especial, o quizá sea necesario enviar el audio a un hardware "poco común" conectado al puerto serie.
-  
+
   Para solucionar esto, tenemos la posibilidad de crear nuestros propios elementos de Gstreamer. La API provee diferentes clases abstractas para que no sea necesario empezar desde cero. Estas clases se encargan de hacer cosas como la gestión de estados, el 'prerolling', etc., que de otra forma tendrías que currártelo tú mismo. Para más información, consulta el <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/pwg/html/index.html" target="_gstreamer">Plugin Writer's Guide</a> y, especialmente, la sección <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/pwg/html/chapter-other-base.html" target="_gstreamer">Pre-mase base class</a>.
 
   Claro, el usar estas clases conlleva cierto precio (que en muchos casos está de sobra amortizado). Por ejemplo, suelen disponer sólo de un pad (para la función que quieras especificar). Las clases que te interesan son:
@@ -5224,9 +5224,9 @@ Como crear un 'sink' y un 'source' de Gstreamer a partir de las clases gst.BaseS
 
 <h1>Partes comunes</h1>
 
-  Si estás leyendo esto doy por hecho que sabes cómo funciona Gstreamer, así que vamos al tema directamente. Los nuevos elementos heredarán de una de las clases base, que les provee una interfaz sencilla para manipularlos. Principalmente, lo que tendrás que hacer es sobreescribir algunos métodos. Además será necesario que especifiques los PAD's que vas a hacer disponibles. Para esto último, se utiliza un atributo de la clase, <em>__gsttemplates__</em> (que es una tupla). 
+  Si estás leyendo esto doy por hecho que sabes cómo funciona Gstreamer, así que vamos al tema directamente. Los nuevos elementos heredarán de una de las clases base, que les provee una interfaz sencilla para manipularlos. Principalmente, lo que tendrás que hacer es sobreescribir algunos métodos. Además será necesario que especifiques los PAD's que vas a hacer disponibles. Para esto último, se utiliza un atributo de la clase, <em>__gsttemplates__</em> (que es una tupla).
 
-  Si quieres un pad en el nuevo elemento, lo debes añadir en <em>__gsttemplates__</em>. Para crear un pad, existe una función que nos ayuda, <b>gst.PadTemplate()</b>. Los parámetros que esta función acepta son:  
+  Si quieres un pad en el nuevo elemento, lo debes añadir en <em>__gsttemplates__</em>. Para crear un pad, existe una función que nos ayuda, <b>gst.PadTemplate()</b>. Los parámetros que esta función acepta son:
 <ul>
 <li><em>nombre</em>, nombre del pad en concreto</li>
 <li><em>type</em>, tipo de pad (PAD_SINK, PAD_SRC)</li>
@@ -5235,7 +5235,7 @@ Como crear un 'sink' y un 'source' de Gstreamer a partir de las clases gst.BaseS
 </ul>
 
   También, ya que el elemento que estás creando hereda en última instancia de Gobject, en el constructor tienes que llamar a <b>__gobject_init__()</b>. Además, es bueno que establezcas el nombre del elemento.
-  
+
   Por último, algo imprescindible es registrar nuestra clase como un tipo de Gobject, con <b>gobject.type_register(</b><em>nombre_clase</em><b>)</b>.
 
 <h1>Escribiendo un sink</h1>
@@ -5283,7 +5283,7 @@ class HelloSink(gst.BaseSink):
             return self.get_name()
         else:
             print "no existe la propiedad %s" % key
-    
+
 gobject.type_register(HelloSink)
 </pre>
 
@@ -5352,7 +5352,7 @@ def bus_event(bus, message):
     t = message.type
     if t == gst.MESSAGE_EOS:
         loop.quit()
-        
+
     return True
 
 pipe.get_bus().add_watch(bus_event)
@@ -5447,7 +5447,7 @@ Ejemplos de Gstreamer: <a href="http://webcvs.freedesktop.org/gstreamer/gst-pyth
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

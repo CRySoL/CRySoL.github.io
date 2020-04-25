@@ -5299,11 +5299,8 @@
 <p>Otra cosa importante a tener en cuenta es que, a diferencia de Subversion, Mercurial <strong>no tiene</strong> soporte para propiedades. Esto hace que tengamos que pasarle la <span class="caps">URI</span> del proyecto de Hudson &#8220;hardcoded&#8221; en el script en lugar de buscarla en las propiedades del repositorio.</p>
 <p>Supongamos que el <em>hook</em> (que veremos más adelante) está en el directorio <code>.hg/hooks</code> de nuestro repositorio y que ya tiene permisos de ejecución. Editamos el fichero <code>.hg/hgrc</code> añadiendo lo siguiente:</p>
 <div>
-<p>{% highlight text <span>}<br />
-[hook]<br />
-changegroup.hudson = ./.hg/hooks/hook_pyhudson.py<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[hook]
+changegroup.hudson = ./.hg/hooks/hook_pyhudson.py</code></pre></figure></div>
       </div>
 
       
@@ -5368,7 +5365,7 @@ changegroup.hudson = ./.hg/hooks/hook_pyhudson.py<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

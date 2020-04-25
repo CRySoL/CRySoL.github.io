@@ -5533,42 +5533,35 @@
 	<li><strong>python-head</strong>. introduce la cabecera típica de los scripts python simplemente escribiendo &#8220;!py&lt;TAB&gt;&#8221;. Debe estar activado <code>python-mode</code>. La cabecera de la que hablo es:</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-#!/usr/bin/python</p>
-<ol>
-	<li><del>*</del> mode:python; coding:utf-8 <del>*</del><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+# -*- mode:python; coding:utf-8 -*-</span></code></pre></figure></div>
 <ul>
 	<li><strong>flyspell-vars</strong>. Pone un bloque de <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables">variables de fichero</a> para pedir que se active la ortografía al vuelo (flyspell). Solo hay que escribir &#8220;spell&lt;TAB&gt;&#8221; y te añade lo siguiente (pudiendo elegir interactivamente el tipo de comentario y el diccionario).</li>
 </ul>
 <div>
-<p>{% highlight text %}</p>
-<ol>
-	<li>Local Variables:</li>
-	<li>coding: utf-8</li>
-	<li>mode: flyspell</li>
-	<li>ispell-local-dictionary: &#8220;castellano8&#8221;</li>
-	<li>End:<br />
-{% endhighlight %}<br />
-</div></li>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># Local Variables:
+#  coding: utf-8
+#  mode: flyspell
+#  ispell-local-dictionary: "castellano8"
+# End:</code></pre></figure></div>
+<ul>
 	<li><strong>documentclass</strong>. Crea un documento LaTeX mínimo con la configuración habitual para castellano. Se activa con &#8220;documentclass&lt;TAB&gt;&#8221; y genera:</li>
-</ol>
+</ul>
 <div>
-<p>{% highlight tex %}<br />
-% <del>*</del> coding: utf-8 <del>*</del><br />
-\documentclass[a4paper, 11pt]{article}</p>
-<p>\usepackage[T1]{fontenc}<br />
-\usepackage[utf8]{inputenc}<br />
-\usepackage[spanish]{babel}<br />
-\usepackage{times}</p>
-<p>\title{}</p>
-<p>\begin{document}<br />
-\maketitle</p>
-<p>\end{document}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-tex" data-lang="tex"><span class="c">% -*- coding: utf-8 -*-</span>
+<span class="k">\documentclass</span><span class="na">[a4paper, 11pt]</span><span class="p">{</span>article<span class="p">}</span>
+
+<span class="k">\usepackage</span><span class="na">[T1]</span><span class="p">{</span>fontenc<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[utf8]</span><span class="p">{</span>inputenc<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[spanish]</span><span class="p">{</span>babel<span class="p">}</span>
+<span class="k">\usepackage</span><span class="p">{</span>times<span class="p">}</span>
+
+<span class="k">\title</span><span class="p">{}</span>
+
+<span class="nt">\begin{document}</span>
+<span class="k">\maketitle</span>
+
+<span class="nt">\end{document}</span></code></pre></figure></div>
 <ul>
 	<li><strong>shebang</strong>: Incluye el <a href="http://en.wikipedia.org/wiki/Shebang_%28Unix%29">shebang</a> elegido al introducir la cadena &#8220;!&lt;TAB&gt;&#8221;</li>
 </ul>
@@ -5593,12 +5586,9 @@
 </ul>
 <p>Para utilizar estas configuraciones escribe lo siguiente en tu <code>.emacs</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-(add-to-list &#8217;load-path &#8220;/usr/share/arco/emacs&#8221;)<br />
-(load &#8220;tabbar.cfg&#8221;)<br />
-(load &#8220;maximize.cfg&#8221;)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(add-to-list 'load-path "/usr/share/arco/emacs")
+(load "tabbar.cfg")
+(load "maximize.cfg")</code></pre></figure></div>
 <p>Y así para cada uno de los ficheros que quieras usar.</p>
 <h3>devel.sh</h3>
 <p>Se supone que es un fichero que tendrá alias y funciones bash varias. Ahora mismo solo tiene una, pero acabamos de empezar:</p>
@@ -5610,10 +5600,7 @@
 </ul>
 <p>Para usarlo incluye lo siguiente en tu <code>.bashrc</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-source /usr/share/arco/devel.sh<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">source /usr/share/arco/devel.sh</code></pre></figure></div>
 <h3>Makefiles</h3>
 <p>Son ficheros <code>.mk</code>, es decir, fragmentos de Makefile útiles para utilizar en los tuyos:</p>
 <ul>
@@ -5621,26 +5608,15 @@ source /usr/share/arco/devel.sh<br />
 </ul>
 <p>Para utilizar estos ficheros en tus Makefile escribe:</p>
 <div>
-<p>{% highlight text <span>}<br />
-include /usr/share/arco/flymake-c.mk<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">include /usr/share/arco/flymake-c.mk</code></pre></figure></div>
 <h2>Instalación de <code>arco-devel</code></h2>
 <p>Añade lo siguiente a tu <code>/etc/apt/sources.list</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-deb http://babel.esi.uclm.es/arco/ unstable main<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">deb http://babel.esi.uclm.es/arco/ unstable main</code></pre></figure></div>
 <p>Y después el habitual:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>aptitude update</li>
-	<li>aptitude install arco-devel<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>aptitude update
+<span class="gp">#</span><span class="w"> </span>aptitude <span class="nb">install </span>arco-devel</code></pre></figure></div>
       </div>
 
       
@@ -5705,7 +5681,7 @@ deb http://babel.esi.uclm.es/arco/ unstable main<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

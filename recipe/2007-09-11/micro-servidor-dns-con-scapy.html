@@ -5365,24 +5365,19 @@
 <h2>Cómo se usa</h2>
 <p>Pues es simplemente una funcioncita que se puede utilizar desde la shell de scapy:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo scapy<br />
-&gt;&gt;&gt; dns_spoof(joker=&#8216;10.0.0.1&#8217;, match={&#8217;mybox.&#8216;:&#8217;1.2.3.4&#8217;})<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>scapy
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> dns_spoof<span class="o">(</span><span class="nv">joker</span><span class="o">=</span><span class="s1">'10.0.0.1'</span>, <span class="nv">match</span><span class="o">={</span><span class="s1">'mybox.'</span>:<span class="s1">'1.2.3.4'</span><span class="o">})</span></code></pre></figure></div>
 <p>El parámetro &#8220;match&#8221; es un diccionario con las correspondencias IP &#8594; nombre, y el parámetro &#8220;joker&#8221; es la IP que quieres que devuelva si el nombre pedido no está en el diccionario.</p>
 <p>Suponiendo que lo anterior está corriendo en la máquina &#8220;example.org&#8221;, puedes probarlo ejecutando lo siguiente <strong>en otra máquina</strong>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ nslookup &#8211; example.org<br />
-&gt; mybox.<br />
-Server:        example.org<br />
-Address:       192.168.100.20#53</p>
-<p>Non-authoritative answer:<br />
-Name:   mybox.<br />
-Address: 1.2.3.4<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nslookup - example.org
+<span class="gp">&gt;</span><span class="w"> </span>mybox.
+<span class="go">Server:        example.org
+</span><span class="gp">Address:       192.168.100.20#</span>53
+<span class="go">
+Non-authoritative answer:
+Name:   mybox.
+Address: 1.2.3.4</span></code></pre></figure></div>
 <p>Puedes encontrar más información sobre <span class="caps">DNS</span> spoofing con scapy en la receta <a href="node/540">Magia negra con scapy</a></p>
       </div>
 
@@ -5448,7 +5443,7 @@ Address: 1.2.3.4<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

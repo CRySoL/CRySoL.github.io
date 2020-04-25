@@ -5197,21 +5197,11 @@
 <pre>mysqldump -u [user] -p [dbname] &gt; [backup.sql]</pre>
 <p>A sample:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mysqldump &#8212;single-transaction -u admin -p drupal &gt; drupal_backup.sql<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mysqldump <span class="nt">--single-transaction</span> <span class="nt">-u</span> admin <span class="nt">-p</span> drupal <span class="o">&gt;</span> drupal_backup.sql</code></pre></figure></div>
 <h2>Restore de database from a file</h2>
 <p>This is the same method to load a .sql file:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mysql -u admin -p drupal &lt; drupal_backup.sql<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mysql <span class="nt">-u</span> admin <span class="nt">-p</span> drupal &lt; drupal_backup.sql</code></pre></figure></div>
 <h2>References</h2>
 <ul>
 	<li><a href="http://www.rlrouse.com/backup-restore-mysql.html">Backing Up And Restoring A MySQL Database</a></li>
@@ -5282,7 +5272,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5213,19 +5213,18 @@
 <p>Este es un ejemplo mínimo de uso del paquete:</p>
 <p><a href="https://bitbucket.org/davidvilla/latex.listings.ex/raw/3968260079af/hello.tex">hello.tex</a></p>
 <div>
-<p>{% highlight latex %}<br />
-\documentclass{article}<br />
-\usepackage{listings}<br />
-\begin{document}</p>
-<p>\begin{lstlisting}[language=C]<br />
-#include <stdio.h><br />
-int main(int argc, char* argv[]) {<br />
-  puts(&#8220;Hola mundo!&#8221;);<br />
-}<br />
-\end{lstlisting}</p>
-<p>\end{document}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-latex" data-lang="latex"><span class="k">\documentclass</span><span class="p">{</span>article<span class="p">}</span>
+<span class="k">\usepackage</span><span class="p">{</span>listings<span class="p">}</span>
+<span class="nt">\begin{document}</span>
+
+<span class="nt">\begin{lstlisting}</span>[language=C]
+#include &lt;stdio.h&gt;
+int main(int argc, char* argv[]) <span class="p">{</span>
+  puts("Hola mundo!");
+<span class="p">}</span>
+<span class="nt">\end{lstlisting}</span>
+
+<span class="nt">\end{document}</span></code></pre></figure></div>
 <p>Y lo que consigues es algo así:</p>
 <center>
 <p><img style="border:thin solid black" src="/files/909_hello.png"/></p>
@@ -5235,67 +5234,76 @@ int main(int argc, char* argv[]) {<br />
 <p>Un ejemplo más sofisticado retocando la configuración del entorno:</p>
 <p><a href="https://bitbucket.org/davidvilla/latex.listings.ex/raw/3968260079af/listings1.tex">listings1.tex</a></p>
 <div>
-<p>{% highlight latex %}<br />
-\documentclass{article}</p>
-<p>\usepackage[utf8]{inputenc}<br />
-\usepackage[T1]{fontenc}<br />
-\usepackage[spanish]{babel}<br />
-\usepackage{times}</p>
-<p>\usepackage{color}<br />
-\definecolor{gray97}{gray}{.97}<br />
-\definecolor{gray75}{gray}{.75}<br />
-\definecolor{gray45}{gray}{.45}</p>
-<p>\usepackage{listings}<br />
-\lstset{ frame=Ltb,<br />
-     framerule=0pt,<br />
-     aboveskip=0.5cm,<br />
-     framextopmargin=3pt,<br />
-     framexbottommargin=3pt,<br />
-     framexleftmargin=0.4cm,<br />
-     framesep=0pt,<br />
-     rulesep=.4pt,<br />
-     backgroundcolor=\color{gray97},<br />
-     rulesepcolor=\color{black},<br />
-     %<br />
-     stringstyle=\ttfamily,<br />
-     showstringspaces = false,<br />
-     basicstyle=\small\ttfamily,<br />
-     commentstyle=\color{gray45},<br />
-     keywordstyle=\bfseries,<br />
-     %<br />
-     numbers=left,<br />
-     numbersep=15pt,<br />
-     numberstyle=\tiny,<br />
-     numberfirstline = false,<br />
-     breaklines=true,<br />
-   }</p>
-<p>% minimizar fragmentado de listados<br />
-\lstnewenvironment{listing}<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>[]<br />
-   {\lstset{#1}\pagebreak<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>}{\pagebreak<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>}</p>
-<p>\lstdefinestyle{consola}<br />
-   {basicstyle=\scriptsize\bf\ttfamily,<br />
-    backgroundcolor=\color{gray75},<br />
-   }</p>
-<p>\lstdefinestyle{C}<br />
-   {language=C,<br />
-   }</p>
-<p>\begin{document}</p>
-<p>\noindent<br />
-Escribe el siguiente código en un fichero llamado \texttt{hello.c}:</p>
-<p>\begin{lstlisting}[style=C]<br />
-#include <stdio.h><br />
-int main(int argc, char* argv[]) {<br />
-  puts(&#8220;Hola mundo!&#8221;);<br />
-}<br />
-\end{lstlisting}</p>
-<p>\noindent<br />
-Ahora compila usando \texttt{gcc}:</p>
-<p>\begin{listing}[style=consola, numbers=none]<br />
-$ gcc  -o hello hello.c<br />
-\end{listing}</p>
-<p>\end{document}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-latex" data-lang="latex"><span class="k">\documentclass</span><span class="p">{</span>article<span class="p">}</span>
+
+<span class="k">\usepackage</span><span class="na">[utf8]</span><span class="p">{</span>inputenc<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[T1]</span><span class="p">{</span>fontenc<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[spanish]</span><span class="p">{</span>babel<span class="p">}</span>
+<span class="k">\usepackage</span><span class="p">{</span>times<span class="p">}</span>
+
+<span class="k">\usepackage</span><span class="p">{</span>color<span class="p">}</span>
+<span class="k">\definecolor</span><span class="p">{</span>gray97<span class="p">}{</span>gray<span class="p">}{</span>.97<span class="p">}</span>
+<span class="k">\definecolor</span><span class="p">{</span>gray75<span class="p">}{</span>gray<span class="p">}{</span>.75<span class="p">}</span>
+<span class="k">\definecolor</span><span class="p">{</span>gray45<span class="p">}{</span>gray<span class="p">}{</span>.45<span class="p">}</span>
+
+<span class="k">\usepackage</span><span class="p">{</span>listings<span class="p">}</span>
+<span class="k">\lstset</span><span class="p">{</span> frame=Ltb,
+     framerule=0pt,
+     aboveskip=0.5cm,
+     framextopmargin=3pt,
+     framexbottommargin=3pt,
+     framexleftmargin=0.4cm,
+     framesep=0pt,
+     rulesep=.4pt,
+     backgroundcolor=<span class="k">\color</span><span class="p">{</span>gray97<span class="p">}</span>,
+     rulesepcolor=<span class="k">\color</span><span class="p">{</span>black<span class="p">}</span>,
+     <span class="c">%</span>
+     stringstyle=<span class="k">\ttfamily</span>,
+     showstringspaces = false,
+     basicstyle=<span class="k">\small\ttfamily</span>,
+     commentstyle=<span class="k">\color</span><span class="p">{</span>gray45<span class="p">}</span>,
+     keywordstyle=<span class="k">\bfseries</span>,
+     <span class="c">%</span>
+     numbers=left,
+     numbersep=15pt,
+     numberstyle=<span class="k">\tiny</span>,
+     numberfirstline = false,
+     breaklines=true,
+   <span class="p">}</span>
+
+<span class="c">% minimizar fragmentado de listados</span>
+<span class="k">\lstnewenvironment</span><span class="p">{</span>listing<span class="p">}</span>[1][]
+   <span class="p">{</span><span class="k">\lstset</span><span class="p">{</span>#1<span class="p">}</span><span class="k">\pagebreak</span><span class="na">[0]</span><span class="p">}{</span><span class="k">\pagebreak</span><span class="na">[0]</span><span class="p">}</span>
+
+<span class="k">\lstdefinestyle</span><span class="p">{</span>consola<span class="p">}</span>
+   <span class="p">{</span>basicstyle=<span class="k">\scriptsize\bf\ttfamily</span>,
+    backgroundcolor=<span class="k">\color</span><span class="p">{</span>gray75<span class="p">}</span>,
+   <span class="p">}</span>
+
+<span class="k">\lstdefinestyle</span><span class="p">{</span>C<span class="p">}</span>
+   <span class="p">{</span>language=C,
+   <span class="p">}</span>
+
+<span class="nt">\begin{document}</span>
+
+<span class="k">\noindent</span>
+Escribe el siguiente código en un fichero llamado <span class="k">\texttt</span><span class="p">{</span>hello.c<span class="p">}</span>:
+
+<span class="nt">\begin{lstlisting}</span>[style=C]
+#include &lt;stdio.h&gt;
+int main(int argc, char* argv[]) <span class="p">{</span>
+  puts("Hola mundo!");
+<span class="p">}</span>
+<span class="nt">\end{lstlisting}</span>
+
+<span class="k">\noindent</span>
+Ahora compila usando <span class="k">\texttt</span><span class="p">{</span>gcc<span class="p">}</span>:
+
+<span class="nt">\begin{listing}</span>[style=consola, numbers=none]
+<span class="p">$</span><span class="nb"> gcc  </span><span class="o">-</span><span class="nb">o hello hello.c
+</span><span class="nv">\end</span><span class="p">{</span><span class="nb">listing</span><span class="p">}</span><span class="nb">
+
+</span><span class="nv">\end</span><span class="p">{</span><span class="nb">document</span><span class="p">}</span></code></pre></figure></div>
 <p>Y te queda algo así de apañao:</p>
 <center>
 <p><img style="border:thin solid black"  src="/files/909_listing1.png"/></p>
@@ -5368,7 +5376,7 @@ $ gcc  -o hello hello.c<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

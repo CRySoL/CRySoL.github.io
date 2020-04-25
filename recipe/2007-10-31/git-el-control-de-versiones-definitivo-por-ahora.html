@@ -5229,89 +5229,53 @@
 <h2>Identidad del usuario</h2>
 <p>Para las operaciones de log, <code>git</code> necesita una identificación del usuario, para ello usa estos dos comandos:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ git config [&#8212;global] user.email &#8220;juan.nadie@babia.es&#8221;<br />
-$ git config [&#8212;global] user.name &#8220;Juan Nadie&#8221;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>git config <span class="o">[</span><span class="nt">--global</span><span class="o">]</span> user.email <span class="s2">"juan.nadie@babia.es"</span>
+<span class="gp">$</span><span class="w"> </span>git config <span class="o">[</span><span class="nt">--global</span><span class="o">]</span> user.name <span class="s2">"Juan Nadie"</span></code></pre></figure></div>
 <h2>Creando un repositorio</h2>
 <p>Partiendo de un directorio (sea nuevo o no):</p>
 <div class="console">
-<p>{% highlight console %}<br />
-juan@example:~/iexplorer9$ git init<br />
-Initialized empty Git repository in .git/</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">juan@example:~/iexplorer9$</span><span class="w"> </span>git init
+<span class="go">Initialized empty Git repository in .git/</span></code></pre></figure></div>
 <h2>Añadir contenido</h2>
 <p>Lo primero es añadir el propio directorio donde has inicializado el repositorio:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-juan@example:~/iexplorer9$ git add .<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">juan@example:~/iexplorer9$</span><span class="w"> </span>git add .</code></pre></figure></div>
 <p>Y después, del mismo modo puedes añadir cualquier fichero que crees en ese directorio o en los que contiene.</p>
 <h2>Commit</h2>
 <p>Como en la mayoría de los <span class="caps">VCS</span> (Version Control System) para hacer que los cambios sean permanentes y se cree una nueva versión es necesario ejecutar un &#8220;commit&#8221;. La sintaxis en <strong>git</strong> es obvia:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-juan@example:~/iexplorer9$ git commit<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">juan@example:~/iexplorer9$</span><span class="w"> </span>git commit</code></pre></figure></div>
 <p>Y como también es habitual, pide un mensajito para informar al prójimo del propósito de los cambios realizados. Y aquí viene &#8220;la pregunta&#8221;: ¿dónde han ido esos cambios si no has indicado en ningún momento el servidor? Pues esa es una diferencia fundamental con <span class="caps">CVS</span> o Subversion, no tiene porqué haber un servidor que mantenga el repositorio, <span class="caps">CVS</span> y Subversion eran centralizados, <strong>git</strong> es distribuido.</p>
 <p>En resumen, todo lo anterior es para crear y mantener un repositorio personal individual.</p>
 <h2>Descargar una copia del repo</h2>
 <p>Evidentemente <code>git</code> tendría poco interés si no diera la posibilidad de que varias personas trabajaran sobre el mismo repositorio. Otro usuario &#8220;pepe&#8221; que tenga cuenta en la misma máquina puede obtener una copia del repo de juan con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-pepe@example:~$ git clone /home/juan/iexplorer9 micopia<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@example:~$</span><span class="w"> </span>git clone /home/juan/iexplorer9 micopia</code></pre></figure></div>
 <h2>Trabajo en equipo</h2>
 <p>Pepe puede ahora hacer cambios sobre <strong>su</strong> copia del repo. El usuario Juan puede integrar esos cambios en su repo con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-juan@example:~/iexplorer9$ git pull /home/pepe/micopia<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">juan@example:~/iexplorer9$</span><span class="w"> </span>git pull /home/pepe/micopia</code></pre></figure></div>
 <p>Si Juan va a realizar esta operación frecuentemente y además quiere tener un control más fino de los cambios puede utilizar un mecanismo alternativo:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-juan@example:~/iexplorer9$ git remote add pepe /home/pepe/micopia<br />
-juan@example:~/iexplorer9$ git fetch pepe</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">juan@example:~/iexplorer9$</span><span class="w"> </span>git remote add pepe /home/pepe/micopia
+<span class="gp">juan@example:~/iexplorer9$</span><span class="w"> </span>git fetch pepe</code></pre></figure></div>
 <p>A diferencia de <code>pull</code>, el comando <code>fetch</code> crea una rama, que se puede mezclar con la rama principal:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-juan@example:~/iexplorer9$ git merge pepe/master<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">juan@example:~/iexplorer9$</span><span class="w"> </span>git merge pepe/master</code></pre></figure></div>
 <p>o lo que es lo mismo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-juan@example:~/iexplorer9$ git pull . remotes/pepe/master<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">juan@example:~/iexplorer9$</span><span class="w"> </span>git pull <span class="nb">.</span> remotes/pepe/master</code></pre></figure></div>
 <h3>Modo &#8220;centralizado&#8221;</h3>
 <p>En el apartado anterior, los cambios se piden siempre explícitamente. Hay otra alternativa: el comando <code>push</code> que permite trabajar de una forma similar a la que se utiliza <span class="caps">CVS</span> o Subversion. En ese caso, Pepe puede enviar sus cambios a la copia de Juan con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-pepe@example:~/micopia$ git push<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@example:~/micopia$</span><span class="w"> </span>git push</code></pre></figure></div>
 <p>Y puede actualizar su copia con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-pepe@example:~/micopia$ git pull<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@example:~/micopia$</span><span class="w"> </span>git pull</code></pre></figure></div>
 <h2>Acceso remoto</h2>
 <p>Es posible obtener una copia desde otra máquina mediante <span class="caps">SSH</span>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-manolo@box:~$ git clone ssh://example.org/~juan/iexplorer9<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">manolo@box:~$</span><span class="w"> </span>git clone ssh://example.org/~juan/iexplorer9</code></pre></figure></div>
 <p>También es posible acceder remotamente con WebDAV y rsync</p>
 <h2>Referencias</h2>
 <ul>
@@ -5384,7 +5348,7 @@ manolo@box:~$ git clone ssh://example.org/~juan/iexplorer9<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5320,28 +5320,19 @@
 <h2>La clase</h2>
 <p>La elemento básico de todo programa orientado a objeto es la <strong>clase</strong>, que no deja de ser más que un tipo de datos definido por el usuario. con la particularidad de que a parte de establecer el formato de un conjunto de datos relacionado, define qué acciones se le pueden aplicar. La clase más sencilla que se puede escribir en Python es algo como:</p>
 <div>
-<p>{% highlight python <span>}<br />
-class A: pass<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">A</span><span class="p">:</span> <span class="k">pass</span></code></pre></figure></div>
 <p>que es una clase vacía, pero que puede ser útil en algunas ocasiones.</p>
 <h2>Métodos</h2>
 <p>Un método es un conjunto de sentencias con un nombre asociado que se aplican sobre una instancia de la clase, es decir, es una función ligada a la clase que determina algo que los objetos de esa clase son capaces de hacer o de recibir. El programador puede definir un buen número de <a href="http://www.python.org/doc/2.5.2/ref/customization.html">métodos especiales</a> en una clase Python y el más común de todos ellos es el constructor. El nombre de todos los métodos especiales empieza y acaba con un doble guión bajo &#8220;__&#8221; . He aquí una clase muy simple con un constructor:</p>
 <div>
-<p>{% highlight python <span>}<br />
-class A:<br />
-    def <i>init</i>(self):<br />
-        print &#8220;hello OO world&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">"hello OO world"</span></code></pre></figure></div>
 <p>En realidad el método <code>__init__()</code> no construye la instancia, lo que hace (como su nombre indica) es <em>inicializar</em> la instancia. Lo habitual es usar este método para dar valores iniciales correctos a los atributos de la instancia, quizá a partir de los parámetros. También se debe preocupar de que el objeto resultante es correcto, elevando alguna excepción de no ser posible.</p>
 <p>Para definir un objeto de clase A, simplemente escribe:</p>
 <div>
-<p>{% highlight python <span>}<br />
-&gt;&gt;&gt; a = A()<br />
-hello OO world<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="n">hello</span> <span class="n">OO</span> <span class="n">world</span></code></pre></figure></div>
 <h2>self</h2>
 <p>Quizá te habrás percatado de que el constructor tiene un argumento llamado <code>self</code> pero en el código anterior, en el que se crea el objeto, no se pasa nada como parámetro. Bueno, pues ese <code>self</code> es un parámetro un tanto especial; representa a la instancia sobre la que opera el método. En realidad los métodos son funciones normales que reciben como primer parámetro la dirección del objeto sobre el que deben trabajar. Esto es así en la mayoría de los lenguajes orientados a objetos, sólo que normalmente ese hecho se oculta al programador. Por ejemplo, basta con usar un depurador en un programa C++ para ver un curioso puntero llamado <code>this</code> como primer parámetro de cada método.</p>
 <p>De modo que Python no es tan distinto, la diferencia es que Python no lo oculta, lo muestra, es explícito. Todo es explícito, es parte de la <a href="http://www.python.org/dev/peps/pep-0020/">filosofía de diseño de Python</a>.</p>
@@ -5431,7 +5422,7 @@ hello OO world<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

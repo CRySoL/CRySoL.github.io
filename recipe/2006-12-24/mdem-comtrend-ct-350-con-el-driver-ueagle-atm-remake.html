@@ -5169,35 +5169,24 @@
 <h2>Módulos</h2>
 <p>Descarga los fuentes con subversion:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ svn co svn://svn.gna.org/svn/ueagleatm/trunk/ueagle-atm<br />
-A    ueagle-atm/usbatm.h<br />
-A    ueagle-atm/ueagle-atm.c<br />
-A    ueagle-atm/<span class="caps">COPYING</span><br />
-A    ueagle-atm/usbatm.c<br />
-A    ueagle-atm/Makefile<br />
-Revisión obtenida: 323</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>svn co svn://svn.gna.org/svn/ueagleatm/trunk/ueagle-atm
+<span class="go">A    ueagle-atm/usbatm.h
+A    ueagle-atm/ueagle-atm.c
+A    ueagle-atm/COPYING
+A    ueagle-atm/usbatm.c
+A    ueagle-atm/Makefile
+Revisión obtenida: 323</span></code></pre></figure></div>
 <p>Compila los drivers:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-~# cd ueagle-atm<br />
-~/ueagle-atm# make install</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span><span class="nb">cd </span>ueagle-atm
+<span class="gp">~/ueagle-atm#</span><span class="w"> </span>make <span class="nb">install</span></code></pre></figure></div>
 <h2>Firmware</h2>
 <p>Descárgalo y colócalo en su sitio con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cd /lib/firmware<br />
-/lib/firmware# wget http://eagle-usb.org/ueagle-atm/non-free/ueagle-data-1.1.tar.gz<br />
-/lib/firmware# unp ueagle-data-1.1.tar.gz<br />
-/lib/firmware# mv ueagle-data-1.1 ueagle-atm</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /lib/firmware
+<span class="gp">/lib/firmware#</span><span class="w"> </span>wget http://eagle-usb.org/ueagle-atm/non-free/ueagle-data-1.1.tar.gz
+<span class="gp">/lib/firmware#</span><span class="w"> </span>unp ueagle-data-1.1.tar.gz
+<span class="gp">/lib/firmware#</span><span class="w"> </span><span class="nb">mv </span>ueagle-data-1.1 ueagle-atm</code></pre></figure></div>
 <p>Esta es la última versión estable en el momento de la receta. Echa un vistazo en <a href="http://eagle-usb.org/ueagle-atm/non-free/">http://eagle-usb.org/ueagle-atm/non-free/</a> por si hay alguna versión posterior.</p>
 <h2>Cargando los módulos/firmware</h2>
 <p>Ahora, si enchufas el módem, deberían cargarse los módulos usbatm y ueagle-atm automáticamente. Puedes comprobarlo con:</p>
@@ -5335,7 +5324,7 @@ iface ppp0 inet ppp
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

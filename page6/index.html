@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -5496,6 +5496,8 @@
 
   
 
+  
+    
   
     
   
@@ -8326,14 +8328,11 @@
     
       <p>Generando el .tgz de distribución de un paquete &#8220;sample&#8221; e instalándolo con <code>pip</code>. Esto puede servir para comprobar que un paquete Python se puede instalar y desinstalar correctamente.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>~/sample$ python setup.py sdist<br />
-$ virtualenv &#8212;clear myenv<br />
-$ . myenv/bin/activate<br />
-$ pip install sample/dist/sample*<br />
-$ echo y | pip uninstall sample<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/sample$</span><span class="w"> </span>python setup.py sdist
+<span class="gp">$</span><span class="w"> </span>virtualenv <span class="nt">--clear</span> myenv
+<span class="gp">$</span><span class="w"> </span><span class="nb">.</span> myenv/bin/activate
+<span class="gp">$</span><span class="w"> </span>pip <span class="nb">install </span>sample/dist/sample<span class="k">*</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">echo </span>y | pip uninstall sample</code></pre></figure></div>
     
   </div>
 
@@ -8421,12 +8420,9 @@ $ echo y | pip uninstall sample<br />
     
       <p>El <span class="caps">SDK</span> de android (en concreto <code>adb</code>) requiere algunas librerías para i386. Si tienes una distribución de 64 bits necesitas instalar algunos paquetes adicionales que permiten usar dichas librerías. Simplemente ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo dpkg &#8212;add-architecture i386<br />
-$ sudo apt-get update<br />
-$ sudo apt-get install libc6:i386 libstdc++6:i386<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>dpkg <span class="nt">--add-architecture</span> i386
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get update
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>libc6:i386 libstdc++6:i386</code></pre></figure></div>
     
   </div>
 
@@ -8517,7 +8513,7 @@ La party está abierta a todo el mundo y puede venir quien quiera. El horario se
 Si deseas asistir, envía un e-mail a la siguiente dirección: <b>josel.sanroma(arroba)alu.uclm.es</b> para pre-inscribirte, indicando el hardware que tiene el ordenador que vas a llevar. Si tienes una LiveCD, puedes enviar también la salida del comando "lspci". Además si traes un ordenador sin CD, indica si dispones de arranque por red o por USB (puedes encontrar esta información en el manual de instrucciones de tu motherboard o en la BIOS). Necesitamos todo esto para estar preparados ante posibles imprevistos.
 
 La pre-inscripción no obliga a nada, simplemente es para tener un número aproximado de participantes.
- 
+
 
 Algunas cosas a tener en cuenta:
 
@@ -8617,12 +8613,7 @@ Algunas cosas a tener en cuenta:
     
       <p>Algunos altavoces, auriculares u otras cosas, como el Belkin Music Receiver (belkin U15) no funcionan directamente con <span class="caps">GNOME</span> (al menos en Debian). La solución es simple, aunque no es fácil de encontrar. Basta con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>aptitude install pulseaudio-module-bluetooth pulseaudio-module-gconf<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>aptitude <span class="nb">install </span>pulseaudio-module-bluetooth pulseaudio-module-gconf</code></pre></figure></div>
     
   </div>
 
@@ -8708,10 +8699,7 @@ Algunas cosas a tener en cuenta:
     
       <p>Desde que los indices de paquetes en los repositorios incluyen traducciones, las actualizaciones son aún más lentas. Esos ficheros pueden tener tamaños de varios megabytes. Pero como estas traducciones no son muy necesarias que digamos podemos configurar <code>apt</code> para indicarle qué traducciones queremos. Para eso, escribe un fichero <code>/etc/apt/apt.conf.d/99Translations</code> con el siguiente contenido:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Acquire::Languages &#8220;none&#8221;;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Acquire::Languages "none";</code></pre></figure></div>
 <p>Como podrás imaginar, esta configuración hace que <code>apt</code> no descargue <em>ninguna</em> traducción. Verás que un <code>apt-get update</code>, y sobre todo un <code>aptitude update</code>, es bastante más rápido.</p>
     
   </div>
@@ -8859,7 +8847,7 @@ Acquire::Languages &#8220;none&#8221;;<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

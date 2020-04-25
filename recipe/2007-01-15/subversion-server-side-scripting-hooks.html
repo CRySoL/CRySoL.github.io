@@ -5470,11 +5470,8 @@
 <h2>Preliminares</h2>
 <p>Vamos a suponer que en la máquina <code>servidor</code> tienes una cuenta <code>pepe</code> y en tu home tienes un directorio <code>public_html</code> con tu web. También supondremos que ese directorio está gestionado con subversion en un repositorio de esa misma máquina (algo como <code>file://var/svn/pepeweb</code>). De modo que se supone que puedes hacer cosas como:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-pepe@servidor:~/public_html$ svn add nuevo.html<br />
-pepe@servidor:~/public_html$ svn ci</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@servidor:~/public_html$</span><span class="w"> </span>svn add nuevo.html
+<span class="gp">pepe@servidor:~/public_html$</span><span class="w"> </span>svn ci</code></pre></figure></div>
 <p>Pero lo que queremos es que puedas descargar ese mismo repo en cualquier otra máquina y que al hacer <em>commit_, automáticamente se actualice el @public</em>html@ del servidor. De ese modo ni siquiera es preciso que tengas cuenta en la máquina <code>servidor</code>.</p>
 <h2><em>hooks</em></h2>
 <p>Los eventos a los que se puede asociar un script son:</p>
@@ -5500,10 +5497,7 @@ svn up /home/pepe/public_html
 </pre>
 <p>Dale permiso de ejecución:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ chmod +x post-commit<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">chmod</span> +x post-commit</code></pre></figure></div>
 <h3>El repositorio está servido con Apache/<span class="caps">DAV</span></h3>
 <p>En este caso el script lo ejecuta Apache y, por defecto, él no tiene permiso para escribir en tu <code>public_html</code>.</p>
 <p><strong>[Por hacer]</strong></p>
@@ -5525,28 +5519,17 @@ $ chmod +x post-commit<br />
 	<li>Conviértete en el usuario que va a acceder al repo. Si tienes configurado subversion con dav_svn el usuario será www-data. Si usas svn+ssh el usuario será el mismo con el que se hace la operación. Para la receta hemos supuesto este segundo caso.</li>
 </ul>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>su pepe<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>su pepe</code></pre></figure></div>
 <ul>
 	<li>Ve al directorio de hooks del repositorio correspondiente:</li>
 </ul>
 <div class="console">
-<p>{% highlight console <span>}<br />
-pepe@servidor:~$ cd /var/svn/pepeweb/hooks<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@servidor:~$</span><span class="w"> </span><span class="nb">cd</span> /var/svn/pepeweb/hooks</code></pre></figure></div>
 <ul>
 	<li>Y ejecuta el script (<code>post-commit</code> en el ejemplo) con el siguiente comando:</li>
 </ul>
 <div class="console">
-<p>{% highlight console <span>}<br />
-pepe@server:/var/svn/pepeweb/hooks$ env &#8211; ./post-commit /var/svn/pepeweb<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">pepe@server:/var/svn/pepeweb/hooks$</span><span class="w"> </span><span class="nb">env</span> - ./post-commit /var/svn/pepeweb</code></pre></figure></div>
 <p>Lo que ocurra en ese momento es lo mismo que pasará cuando el script se ejecuta de forma automática.</p>
 <h2>Referencias</h2>
 <ul>
@@ -5617,7 +5600,7 @@ pepe@server:/var/svn/pepeweb/hooks$ env &#8211; ./post-commit /var/svn/pepeweb<b
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

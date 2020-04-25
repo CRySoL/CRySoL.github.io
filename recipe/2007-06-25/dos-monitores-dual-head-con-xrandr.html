@@ -5172,104 +5172,77 @@ La web unidadlocal.com ha plagiado intencionadamente este artículo (entre otros
 <h2>Información</h2>
 <p>Lo primero es ver qué tienes:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ xrandr<br />
-Screen 0: minimum 320 &#215; 200, current 1280 &#215; 800, maximum 2560 &#215; 1024<br />
-<span class="caps">VGA</span> disconnected (normal left inverted right)<br />
-<span class="caps">LVDS</span> connected 1280&#215;800+0+0 (normal left inverted right) 0mm x 0mm<br />
-   1280&#215;800       59.9*+   60.0<br />
-   1280&#215;768       60.0<br />
-   1152&#215;768       54.8<br />
-   1024&#215;768       85.0     75.0     70.1     60.0<br />
-   832&#215;624        74.6<br />
-   800&#215;600        85.1     72.2     75.0     60.3     56.2<br />
-   640&#215;480        85.0     72.8     75.0     59.9<br />
-   720&#215;400        85.0<br />
-   640&#215;400        85.1<br />
-   640&#215;350        85.1<br />
-TV disconnected (normal left inverted right)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr
+<span class="go">Screen 0: minimum 320 x 200, current 1280 x 800, maximum 2560 x 1024
+VGA disconnected (normal left inverted right)
+LVDS connected 1280x800+0+0 (normal left inverted right) 0mm x 0mm
+   1280x800       59.9*+   60.0
+   1280x768       60.0
+   1152x768       54.8
+   1024x768       85.0     75.0     70.1     60.0
+   832x624        74.6
+   800x600        85.1     72.2     75.0     60.3     56.2
+   640x480        85.0     72.8     75.0     59.9
+   720x400        85.0
+   640x400        85.1
+   640x350        85.1
+TV disconnected (normal left inverted right)</span></code></pre></figure></div>
 <p>Y si enchufas un monitor a la salida <span class="caps">VGA</span> (sin reiniciar las X ni nada):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ xrandr<br />
-Screen 0: minimum 320 &#215; 200, current 1280 &#215; 800, maximum 2560 &#215; 1024<br />
-<span class="caps">VGA</span> connected (normal left inverted right)<br />
-   1280&#215;960       60.0<br />
-   1280&#215;800       60.0<br />
-   1152&#215;768       54.8<br />
-   800&#215;600        56.2<br />
-   640&#215;480        59.9<br />
-<span class="caps">LVDS</span> connected 1280&#215;800+0+0 (normal left inverted right) 0mm x 0mm<br />
-   1280&#215;800       59.9*+   60.0<br />
-   1280&#215;768       60.0<br />
-   1152&#215;768       54.8<br />
-   1024&#215;768       85.0     75.0     70.1     60.0<br />
-   832&#215;624        74.6<br />
-   800&#215;600        85.1     72.2     75.0     60.3     56.2<br />
-   640&#215;480        85.0     72.8     75.0     59.9<br />
-   720&#215;400        85.0<br />
-   640&#215;400        85.1<br />
-   640&#215;350        85.1<br />
-TV disconnected (normal left inverted right)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr
+<span class="go">Screen 0: minimum 320 x 200, current 1280 x 800, maximum 2560 x 1024
+VGA connected (normal left inverted right)
+   1280x960       60.0
+   1280x800       60.0
+   1152x768       54.8
+   800x600        56.2
+   640x480        59.9
+LVDS connected 1280x800+0+0 (normal left inverted right) 0mm x 0mm
+   1280x800       59.9*+   60.0
+   1280x768       60.0
+   1152x768       54.8
+   1024x768       85.0     75.0     70.1     60.0
+   832x624        74.6
+   800x600        85.1     72.2     75.0     60.3     56.2
+   640x480        85.0     72.8     75.0     59.9
+   720x400        85.0
+   640x400        85.1
+   640x350        85.1
+TV disconnected (normal left inverted right)</span></code></pre></figure></div>
 <p>Pues éstas son las resoluciones y frecuencias permitidas por el monitor del portátil (<span class="caps">LVDS</span>) y por el monitor externo que tengo conectado durante esta prueba (<span class="caps">VGA</span>).</p>
 <h2>Activando/desactivando la salida <span class="caps">VGA</span></h2>
 <p>Lo siguiente hace que el monitor <span class="caps">VGA</span> muestre lo mismo que el <span class="caps">LVDS</span>, es decir, modo &#8220;clone&#8221;. Tan fácil como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ xrandr &#8212;output <span class="caps">VGA</span> &#8212;mode 1280&#215;800<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr <span class="nt">--output</span> VGA <span class="nt">--mode</span> 1280x800</code></pre></figure></div>
 <p>Y para desactivarla:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ xrandr &#8212;output <span class="caps">VGA</span> &#8212;off<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr <span class="nt">--output</span> VGA <span class="nt">--off</span></code></pre></figure></div>
 <p>No es necesario que los dos monitores tengan la misma resolución, puedes poner la que quieras. El tamaño del escritorio se ajusta automáticamente de modo que el monitor con mayor resolución muestra un área adicional no visible en el monitor con menos resolución. Por ejemplo puedes hacer:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ xrandr &#8212;output <span class="caps">LVDS</span> &#8212;mode 1280&#215;800 &#8212;output <span class="caps">VGA</span> &#8212;mode 800&#215;600<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr <span class="nt">--output</span> LVDS <span class="nt">--mode</span> 1280x800 <span class="nt">--output</span> VGA <span class="nt">--mode</span> 800x600</code></pre></figure></div>
 <h2>Escritorio extendido</h2>
 <p>También es posible definir un escritorio conjunto para los dos monitores (en lugar de usar &#8220;clone&#8221;). Para eso tienes que definir una posición, bien con <code>pos</code> o bien con uno de <code>--left-of</code>, <code>right-of</code>, <code>above</code> o <code>below</code>. Por ejemplo, suponiendo que ya tienes activada la <span class="caps">VGA</span> y fijada la resolución:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ xrandr &#8212;output <span class="caps">VGA</span> &#8212;left-of <span class="caps">LVDS</span><br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr <span class="nt">--output</span> VGA <span class="nt">--left-of</span> LVDS</code></pre></figure></div>
 <p>Aunque también lo puedes hacer todo en el mismo comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ xrandr &#8212;output <span class="caps">LVDS</span> &#8212;mode 1280&#215;800 &#8212;output <span class="caps">VGA</span> &#8212;mode 1024&#215;768 &#8212;left-of <span class="caps">LVDS</span><br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr <span class="nt">--output</span> LVDS <span class="nt">--mode</span> 1280x800 <span class="nt">--output</span> VGA <span class="nt">--mode</span> 1024x768 <span class="nt">--left-of</span> LVDS</code></pre></figure></div>
 <p>Puede que al intentar crear un escritorio grande te devuelva este error:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>xrandr: screen cannot be larger than 2560&#215;1024 (desired size 1280&#215;1600)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">xrandr: screen cannot be larger than 2560x1024 (desired size 1280x1600)</span></code></pre></figure></div>
 <p>Esto lo puedes arreglar definiendo un área suficientemente grande para el &#8220;Screen&#8221; (la primera línea que aparece al ejecutar <code>xrandr</code>). Para eso, modifica tu fichero <code>/etc/X11/xorg.conf</code> y añade una línea <code>Virtual</code> en <em>Screen/Display</em>, por ejemplo:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Section &#8220;Screen&#8221;<br />
-        Identifier      &#8220;Default Screen&#8221;<br />
-        Device          &#8220;Intel&#8221;<br />
-        Monitor         &#8220;Monitor&#8221;<br />
-        DefaultDepth    24<br />
-        SubSection &#8220;Display&#8221;<br />
-                Depth           24<br />
-                Modes           &#8220;1280&#215;800&#8221; &#8220;1024&#215;768&#8221; &#8220;800&#215;600&#8221; &#8220;640&#215;480&#8221;<br />
-                Virtual         2560 1600<br />
-        EndSubSection<br />
-EndSection<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Section "Screen"
+        Identifier      "Default Screen"
+        Device          "Intel"
+        Monitor         "Monitor"
+        DefaultDepth    24
+        SubSection "Display"
+                Depth           24
+                Modes           "1280x800" "1024x768" "800x600" "640x480"
+                Virtual         2560 1600
+        EndSubSection
+EndSection</code></pre></figure></div>
 <h2>«La zona muerta»</h2>
 <p>En el modo de «escritorio extendido» también puedes usar resoluciones diferentes para cada monitor, pero aquí me he encontrado con un problema. En el monitor de menor resolución hay una «zona muerta» no visible, pero que puede contener ventanas. Corresponde a la diferencia entre ambas resoluciones. Algo como:</p>
 <pre>
@@ -5285,57 +5258,37 @@ EndSection<br />
 <h2>Activando resoluciones</h2>
 <p>A veces te encuentras con monitores o proyectores que disponen de resoluciones que por varias razones no aparecen cuando se consultan sus datos <span class="caps">EDID</span>. xrand no permite cambiar a resoluciones no reconocidas, pero afortunadamente se pueden añadir. Por ejemplo, el proyector Sony <span class="caps">VPL</span>-CS5 devuelve esto:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ xrandr<br />
-[&#8230;]<br />
-<span class="caps">VGA</span> connected (normal left inverted right x axis y axis)<br />
-   800&#215;600        56.2<br />
-   640&#215;480        60.0<br />
-[&#8230;]<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr
+<span class="go">[...]
+VGA connected (normal left inverted right x axis y axis)
+   800x600        56.2
+   640x480        60.0
+[...]</span></code></pre></figure></div>
 <p>Pero puedes añadir el maravilloso modo 1024&#215;768 con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ xrandr &#8212;addmode <span class="caps">VGA</span> 1024&#215;768<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr <span class="nt">--addmode</span> VGA 1024x768</code></pre></figure></div>
 <p>y verás que:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>[&#8230;]<br />
-<span class="caps">VGA</span> connected (normal left inverted right x axis y axis)<br />
-   800&#215;600        56.2<br />
-   640&#215;480        60.0<br />
-   1024&#215;768       85.0<br />
-[&#8230;]<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">[...]
+VGA connected (normal left inverted right x axis y axis)
+   800x600        56.2
+   640x480        60.0
+   1024x768       85.0
+[...]</span></code></pre></figure></div>
 <p>Ahora puedes cambiar a ese nuevo modo sin ningún problema.</p>
 <h2>Y añadiendo</h2>
 <p>Si al tratar de hacer lo que explica la sección anterior obtienes un error:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>xrandr: cannot find mode &#8220;1024&#215;768&#8221;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">xrandr: cannot find mode "1024x768"</span></code></pre></figure></div>
 <p>tendrás que añadir dicho modo antes de activarlo. Y para eso necesitas la resolución y la descripción del &#8220;ModeLine&#8221;, que puedes obtener con aplicaciones como gft y cvt (que pertenecen al paquete xserver-xorg-core).</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ gtf 1024 768 85</p>
-<ol>
-	<li>1024&#215;768 @ 85.00 Hz (<span class="caps">GTF</span>) hsync: 68.60 kHz; pclk: 94.39 MHz<br />
-  Modeline &#8220;1024&#215;768_85.00&#8221;  94.39  1024 1088 1200 1376  768 769 772 807  -HSync +Vsync<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gtf 1024 768 85
+<span class="gp">  #</span><span class="w"> </span>1024x768 @ 85.00 Hz <span class="o">(</span>GTF<span class="o">)</span> hsync: 68.60 kHz<span class="p">;</span> pclk: 94.39 MHz
+<span class="go">  Modeline "1024x768_85.00"  94.39  1024 1088 1200 1376  768 769 772 807  -HSync +Vsync</span></code></pre></figure></div>
 <p>Ahora puedes añadir y activar el modo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ xrandr &#8212;newmode 1024&#215;768  94.39  1024 1088 1200 1376  768 769 772 807  -HSync +Vsync<br />
-$ xrandr &#8212;addmode <span class="caps">VGA</span> 1024&#215;768<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xrandr <span class="nt">--newmode</span> 1024x768  94.39  1024 1088 1200 1376  768 769 772 807  <span class="nt">-HSync</span> +Vsync
+<span class="gp">$</span><span class="w"> </span>xrandr <span class="nt">--addmode</span> VGA 1024x768</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><code>man xrandr</code></li>
@@ -5410,7 +5363,7 @@ $ xrandr &#8212;addmode <span class="caps">VGA</span> 1024&#215;768<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

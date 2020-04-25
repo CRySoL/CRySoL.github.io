@@ -5315,54 +5315,39 @@
 <p><!--break--></p>
 <p>En /etc/krb5.conf modificar el realm por defecto y añadir los datos de nuestro realm.  En el caso de la <span class="caps">UCLM</span> basta declarar el controlador del dominio y el servidor de administración.  Ambos coinciden, deben ser alarcos.uclm.es.</p>
 <div>
-<p>{% highlight text %}<br />
-[libdefaults]<br />
-    default_realm = <span class="caps">UCLM</span>.ES</p>
-<p>[realms]<br />
-    <span class="caps">UCLM</span>.ES = {<br />
-        kdc = alarcos.uclm.es<br />
-        admin_server = alarcos.uclm.es<br />
-    }<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[libdefaults]
+    default_realm = UCLM.ES
+
+[realms]
+    UCLM.ES = {
+        kdc = alarcos.uclm.es
+        admin_server = alarcos.uclm.es
+    }</code></pre></figure></div>
 <h2>Probando Kerberos</h2>
 <p>Para saber si funciona empezaremos por crear un ticket con</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~$ kinit -A francisco.moya<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~$</span><span class="w"> </span>kinit <span class="nt">-A</span> francisco.moya</code></pre></figure></div>
 <p>Pedirá la clave del dominio.  Si no da error ya tienes un ticket Kerberos sin dirección asociada.  Puedes comprobarlo con</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~$ klist<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~$</span><span class="w"> </span>klist</code></pre></figure></div>
 <div>
-<p>{% highlight text %}<br />
-Ticket cache: <span class="caps">FILE</span>:/tmp/krb5cc_0<br />
-Default principal: francisco.moya@UCLM.ES</p>
-<p>Valid starting     Expires            Service principal<br />
-05/25/07 18:30:55  05/26/07 04:30:59  krbtgt/<span class="caps">UCLM</span>.ES@UCLM.ES<br />
-        renew until 05/26/07 18:30:55</p>
-<p>Kerberos 4 ticket cache: /tmp/tkt0<br />
-klist: You have no tickets cached<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Ticket cache: FILE:/tmp/krb5cc_0
+Default principal: francisco.moya@UCLM.ES
+
+Valid starting     Expires            Service principal
+05/25/07 18:30:55  05/26/07 04:30:59  krbtgt/UCLM.ES@UCLM.ES
+        renew until 05/26/07 18:30:55
+
+Kerberos 4 ticket cache: /tmp/tkt0
+klist: You have no tickets cached</code></pre></figure></div>
 <p>Ahora sabemos que al menos Kerberos funciona.  Ya podemos destruir el ticket:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~$ kdestroy<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~$</span><span class="w"> </span>kdestroy</code></pre></figure></div>
 <h2>Configuración de libpam-krb5</h2>
 <p>Para configurar libpam-krb5 basta editar los archivos /etc/pam.d/common-{auth,account,session,password} como se indica en /usr/share/doc/libpam-krb5/<span class="caps">README</span>.Debian.</p>
 <p>Además vamos a crear una cuenta de usuario para cada uno de los usuarios que queramos dejar pasar via Kerberos. Si, si, ya se que eso es un rollo, pero ya lo arreglaremos más adelante.  De momento crea una cuenta y no discutas, porque al menos esa cuenta nos servirá para pruebas.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ adduser francisco.moya<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>adduser francisco.moya</code></pre></figure></div>
 <p>Esta cuenta no tiene por qué tener password.  De hecho para evitar problemas lo mejor es deshabilitarla poniendo un * o un ! en el campo de password correspondiente del /etc/shadow (vipw -s).</p>
 <p>Ahora ya puedes comprobar si el nuevo usuario es capaz de entrar en el sistema con la password del dominio.</p>
 <h2>Posibles problemas</h2>
@@ -5372,19 +5357,13 @@ $ adduser francisco.moya<br />
 	<li>El usuario (e.g. francisco.moya) está en /etc/passwd con</li>
 </ul>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ getent passwd francisco.moya<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>getent passwd francisco.moya</code></pre></figure></div>
 <ul>
 	<li>Existe una línea en el /etc/shadow para el mismo usuario</li>
 </ul>
 <div class="console">
-<p>{% highlight console %}<br />
-~# grep ^francisco.moya /etc/shadow<br />
-francisco.moya:*:13475:0:99999:7:::</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span><span class="nb">grep</span> ^francisco.moya /etc/shadow
+<span class="go">francisco.moya:*:13475:0:99999:7:::</span></code></pre></figure></div>
 <h2>Datos de usuario compartidos con <span class="caps">LDAP</span></h2>
       </div>
 
@@ -5450,7 +5429,7 @@ francisco.moya:*:13475:0:99999:7:::</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

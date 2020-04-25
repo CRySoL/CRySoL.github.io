@@ -5337,37 +5337,21 @@
 <h2>Utilizando network-manager</h2>
 <p>Lo primero que necesitas para usar este método es, como no, instalar network-manager. Para ello, como root:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install network-manager-gnome (si usas Gnome)</li>
-	<li>apt-get install network-manager-kde (si usas kde)</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>network-manager-gnome <span class="o">(</span>si usas Gnome<span class="o">)</span>
+<span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>network-manager-kde <span class="o">(</span>si usas kde<span class="o">)</span></code></pre></figure></div>
 <p>Para otros entornos de escritorio no se si estará disponible, pero con</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install network-manager<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>network-manager</code></pre></figure></div>
 <p>debería bastar.</p>
 <p>Una vez instalado debes <del>borrar</del> re-escribir tu <ode>/etc/network/interfaces</code>. Más bien se trata de dejar lo mínimo imprescindible, ya que si no network-manager no funcionará. El contenido del archivo deberá ser, más o menos, así:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ cat /etc/network/interfaces<br />
-auto lo<br />
-iface lo inet loopback</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> /etc/network/interfaces
+<span class="go">auto lo
+iface lo inet loopback</span></code></pre></figure></div>
 <p>Si te has encontrado con esto ya estás listo para usar network-manager. Ahora, entra en la red utilizándolo.</p>
 <p>Para arrancar network-manager ejecuta:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-nm-applet &#8212;sm-bus<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">nm-applet --sm-bus</span></code></pre></figure></div>
 <p>Esto solo será necesario la primera vez que arranques, ya que se suele colocar como  programa de inicio de sesión.</p>
 <p>Una vez esté funcionando network-manager en la barra de notificación, pincha sobre él y deben aparecer las redes inalámbricas disponibles. Selecciona &#8220;eduroam&#8221; y debe abrirse una ventana de introducción de contraseña. En ella, selecciona como tipo de contraseña <strong><span class="caps">WPA</span>-Empresarial</strong>, como identificador <strong>tu_DNI@uclm.es</strong>, y como password la misma que para RedC@ampus y demás servicios de la <span class="caps">UCLM</span>.</p>
 <p>Puede que tras ello te pida introducir la contraseña del depósito de claves &#8230; la introduces y esperas a que termine de conectarse.</p>
@@ -5437,7 +5421,7 @@ nm-applet &#8212;sm-bus<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

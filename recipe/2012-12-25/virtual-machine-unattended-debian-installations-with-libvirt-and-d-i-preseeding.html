@@ -5337,147 +5337,112 @@
 <h2>Virtual machine networking</h2>
 <p>You will need a virtual network to connect virtual machines to the host computer, <code>libvirt</code> comes with a <strong>default</strong> nat-based virtual network. You may see details of that network using next command:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>export LIBVIRT_DEFAULT_URI=qemu:///system</li>
-	<li>virsh net-dumpxml default<br />
-<network><br />
-  <name>default</name><br />
-  <uuid>0ced79b9-2b84-e3cd-eb1e-3f1521231c89</uuid><br />
-  <forward mode='nat'/><br />
-  <bridge name='virbr0' stp='on' delay='0' />
-  <ip address='192.168.122.1' netmask='255.255.255.0'><br />
-    <dhcp><br />
-      <range start='192.168.122.2' end='192.168.122.254' /><br />
-    </dhcp><br />
-  </ip><br />
-</network><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">export </span><span class="nv">LIBVIRT_DEFAULT_URI</span><span class="o">=</span>qemu:///system
+<span class="gp">#</span><span class="w"> </span>virsh net-dumpxml default
+<span class="gp">&lt;network&gt;</span><span class="w">
+</span><span class="gp">  &lt;name&gt;</span>default&lt;/name&gt;
+<span class="gp">  &lt;uuid&gt;</span>0ced79b9-2b84-e3cd-eb1e-3f1521231c89&lt;/uuid&gt;
+<span class="gp">  &lt;forward mode='nat'/&gt;</span><span class="w">
+</span><span class="gp">  &lt;bridge name='virbr0' stp='on' delay='0' /&gt;</span><span class="w">
+</span><span class="gp">  &lt;ip address='192.168.122.1' netmask='255.255.255.0'&gt;</span><span class="w">
+</span><span class="gp">    &lt;dhcp&gt;</span><span class="w">
+</span><span class="gp">      &lt;range start='192.168.122.2' end='192.168.122.254' /&gt;</span><span class="w">
+</span><span class="gp">    &lt;/dhcp&gt;</span><span class="w">
+</span><span class="gp">  &lt;/ip&gt;</span><span class="w">
+</span><span class="gp">&lt;/network&gt;</span></code></pre></figure></div>
 <p>It is required to start default network before run installer:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>export LIBVIRT_DEFAULT_URI=qemu:///system</li>
-	<li>virsh net-start default<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">export </span><span class="nv">LIBVIRT_DEFAULT_URI</span><span class="o">=</span>qemu:///system
+<span class="gp">#</span><span class="w"> </span>virsh net-start default</code></pre></figure></div>
 <h2><code>virt-install</code></h2>
 <p>Next command installs a debian net-install in a virtual machine with name <strong>node1</strong>,  <span class="caps">RAM</span> 512MB, virtual hard disk with name <code>node1.img</code> with a maximum of 8GB. If you do not specify other network, default is used.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>export LIBVIRT_DEFAULT_URI=qemu:///system</li>
-	<li>virt-install \<br />
-  &#8212;debug \<br />
-  &#8212;name=node1 \<br />
-  &#8212;ram=512 \<br />
-  &#8212;disk ./node1.img,size=8 \<br />
-  &#8212;location=http://ftp.us.debian.org/debian/dists/testing/main/installer-i386<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">export </span><span class="nv">LIBVIRT_DEFAULT_URI</span><span class="o">=</span>qemu:///system
+<span class="gp">#</span><span class="w"> </span>virt-install <span class="se">\</span>
+  <span class="nt">--debug</span> <span class="se">\</span>
+  <span class="nt">--name</span><span class="o">=</span>node1 <span class="se">\</span>
+  <span class="nt">--ram</span><span class="o">=</span>512 <span class="se">\</span>
+  <span class="nt">--disk</span> ./node1.img,size<span class="o">=</span>8 <span class="se">\</span>
+  <span class="nt">--location</span><span class="o">=</span>http://ftp.us.debian.org/debian/dists/testing/main/installer-i386</code></pre></figure></div>
 <p>The <code>virt-install</code> script has many options with a lot of detail. The command above is the minimal functional option set that I found, but you probably may improve or customize it.</p>
 <p>Now you must connect to the virtual machine console:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>virt-viewer node1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>virt-viewer node1</code></pre></figure></div>
 <p>&#8230;and continue with the typical Debian installation wizard</p>
 <p>Using <code>virsh</code> you are able to do a lot of operation over your virtual machine from command line:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>virsh start node1</li>
-	<li>virsh shutdown node1</li>
-	<li>virsh reboot node1</li>
-	<li>virsh destroy node1</li>
-	<li>virsh resume node1</li>
-	<li>virsh screenshot node1</li>
-	<li>virsh snapshot-create node1</li>
-	<li>virsh snapshot-revert node1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>virsh start node1
+<span class="gp">#</span><span class="w"> </span>virsh shutdown node1
+<span class="gp">#</span><span class="w"> </span>virsh reboot node1
+<span class="gp">#</span><span class="w"> </span>virsh destroy node1
+<span class="gp">#</span><span class="w"> </span>virsh resume node1
+<span class="gp">#</span><span class="w"> </span>virsh screenshot node1
+<span class="gp">#</span><span class="w"> </span>virsh snapshot-create node1
+<span class="gp">#</span><span class="w"> </span>virsh snapshot-revert node1</code></pre></figure></div>
 <p>And many many others. Also it is possible to manage virtual machines in remote actual computers (even migrate among them!).</p>
 <h2>Debian installer preseeding</h2>
 <p>But we want to improve this procedure. We want to get a basic but fully functional Debian installation with absolutely <strong>no manual</strong> operation. To make that possible we can use the Debian Install Preseeding system. You need to write a configuration file with the answers to all the wizard questions. For this recipe I am using next preseed file:</p>
 <p>[ <a href="https://bitbucket.org/DavidVilla/libvirt-toys/raw/tip/debian-pressed/preseed.cfg">preseed.cfg</a> ]</p>
 <div>
-<p>{% highlight text %}<br />
-d-i debian-installer/locale string es_ES<br />
-d-i console-keymaps-at/keymap select es<br />
-d-i keyboard-configuration/xkb-keymap select es</p>
-<p>d-i netcfg/choose_interface select auto<br />
-d-i netcfg/get_domain string unassigned-domain</p>
-<p>d-i mirror/protocol string http<br />
-d-i mirror/country string manual<br />
-d-i mirror/http/hostname string http.us.debian.org<br />
-d-i mirror/http/directory string /debian<br />
-d-i mirror/http/proxy string<br />
-d-i mirror/suite select testing</p>
-<p>d-i clock-setup/utc boolean true<br />
-d-i time/zone string Europe/Eastern<br />
-d-i clock-setup/ntp boolean true</p>
-<p>d-i partman-auto/method string regular<br />
-d-i partman-lvm/device_remove_lvm boolean true<br />
-d-i partman-md/device_remove_md boolean true<br />
-d-i partman-lvm/confirm boolean true<br />
-d-i partman-auto/choose_recipe select atomic<br />
-d-i partman/confirm_write_new_label boolean true<br />
-d-i partman/choose_partition select finish<br />
-d-i partman/confirm boolean true<br />
-d-i partman/confirm_nooverwrite boolean true</p>
-<p>d-i passwd/make-user boolean false<br />
-d-i passwd/root-password-crypted password $1$6vSrqLkZ$qUkEBeV.ptGOMZoyeYZ.b/<br />
-tasksel tasksel/first multiselect standard<br />
-d-i pkgsel/include string openssh-server puppet<br />
-popularity-contest popularity-contest/participate boolean true<br />
-d-i grub-installer/only_debian boolean true<br />
-d-i grub-installer/with_other_os boolean false<br />
-d-i finish-install/reboot_in_progress note<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">d-i debian-installer/locale string es_ES
+d-i console-keymaps-at/keymap select es
+d-i keyboard-configuration/xkb-keymap select es
+
+d-i netcfg/choose_interface select auto
+d-i netcfg/get_domain string unassigned-domain
+
+d-i mirror/protocol string http
+d-i mirror/country string manual
+d-i mirror/http/hostname string http.us.debian.org
+d-i mirror/http/directory string /debian
+d-i mirror/http/proxy string
+d-i mirror/suite select testing
+
+d-i clock-setup/utc boolean true
+d-i time/zone string Europe/Eastern
+d-i clock-setup/ntp boolean true
+
+d-i partman-auto/method string regular
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-md/device_remove_md boolean true
+d-i partman-lvm/confirm boolean true
+d-i partman-auto/choose_recipe select atomic
+d-i partman/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+
+d-i passwd/make-user boolean false
+d-i passwd/root-password-crypted password $1$6vSrqLkZ$qUkEBeV.ptGOMZoyeYZ.b/
+tasksel tasksel/first multiselect standard
+d-i pkgsel/include string openssh-server puppet
+popularity-contest popularity-contest/participate boolean true
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean false
+d-i finish-install/reboot_in_progress note</code></pre></figure></div>
 <p>You can get detailed information of all these sentences in the <a href="http://d-i.alioth.debian.org/tmp/en.amd64/apb.html">Automating the installation using preseeding</a> document.</p>
 <p>Note the <code>root-password-crypted</code> line. This contains the MD5 sum for the root account password. This has been created executing the command:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ printf &#8220;r00tme&#8221; | mkpasswd -s -m md5<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">printf</span> <span class="s2">"r00tme"</span> | mkpasswd <span class="nt">-s</span> <span class="nt">-m</span> md5</code></pre></figure></div>
 <h2>Serving the <code>preseed.cfg</code> file</h2>
 <p>You must make this file accesible for the installer. A simple way is to install <code>lighttpd</code> and copy it in <code>/var/www/preseed.cfg</code>.</p>
 <p>Other alternative is to run next commad in the directory containing the file.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>python -m SimpleHTTPServer 80<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>python <span class="nt">-m</span> SimpleHTTPServer 80</code></pre></figure></div>
 <h2>Ask <code>virt-install</code> load preseeds</h2>
 <p>We are going to repeat the installation using the preseed configuration. The new version of the <code>virt-install</code> command include an <code>extra-args</code> argument that will be passed as kernel options to the virtual machine:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>export LIBVIRT_DEFAULT_URI=qemu:///system</li>
-	<li>virt-install \<br />
-  &#8212;debug \<br />
-  &#8212;name=node1 \<br />
-  &#8212;ram=512 \<br />
-  &#8212;disk ./node1.img,size=8 \<br />
-  &#8212;location=http://ftp.us.debian.org/debian/dists/testing/main/installer-i386 \<br />
-  &#8212;extra-args=&#8220;\<br />
-    auto=true priority=critical vga=normal hostname=node1 \<br />
-    url=http://192.168.122.1/preseed.cfg&#8221;<br />
- {% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">export </span><span class="nv">LIBVIRT_DEFAULT_URI</span><span class="o">=</span>qemu:///system
+<span class="gp">#</span><span class="w"> </span>virt-install <span class="se">\</span>
+  <span class="nt">--debug</span> <span class="se">\</span>
+  <span class="nt">--name</span><span class="o">=</span>node1 <span class="se">\</span>
+  <span class="nt">--ram</span><span class="o">=</span>512 <span class="se">\</span>
+  <span class="nt">--disk</span> ./node1.img,size<span class="o">=</span>8 <span class="se">\</span>
+  <span class="nt">--location</span><span class="o">=</span>http://ftp.us.debian.org/debian/dists/testing/main/installer-i386 <span class="se">\</span>
+  <span class="nt">--extra-args</span><span class="o">=</span><span class="s2">"</span><span class="se">\</span><span class="s2">
+    auto=true priority=critical vga=normal hostname=node1 </span><span class="se">\</span><span class="s2">
+    url=http://192.168.122.1/preseed.cfg"</span>
+<span class="go"> </span></code></pre></figure></div>
 <p><code>extra-args</code> means:</p>
 <ul>
 	<li>ask only critical installation details.</li>
@@ -5557,7 +5522,7 @@ d-i finish-install/reboot_in_progress note<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

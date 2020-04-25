@@ -5277,64 +5277,35 @@
 <h3>Repositorio</h3>
 <p>Tienes que descargar los fuentes de los paquetes. svn-buildpackage no requiere que los fuentes del programa (upstream) estén en el mismo sitio que los ficheros de gestión del paquete Debian. En el caso de gnome-bluetooth si que está todo. Voy a suponer que lo vas a hacer todo desde un directorio <code>devel</code> por tener una referencia de donde está cada cosa.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- devel$ svn co svn://svn.debian.org/pkg-bluetooth/gnome-bluetooth<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> devel$</span><span class="w"> </span>svn co svn://svn.debian.org/pkg-bluetooth/gnome-bluetooth</code></pre></figure></div>
 <p>Y también habrá que empaquetar una librería que viene con gnome-bluetooth llamada libbbtctl.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- devel$ svn co svn://svn.debian.org/pkg-bluetooth/libbtctl<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> devel$</span><span class="w"> </span>svn co svn://svn.debian.org/pkg-bluetooth/libbtctl</code></pre></figure></div>
 <h3>libbtctl</h3>
 <p>Empezamos por la librería, porque es una dependencia del paquete principal. Lo primero es instalar las <em>build-depends</em>, que las puedes ver en el fichero <code>debian/control</code></p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install python-support  intltool  libopenobex-1.0-0-dev libbluetooth2-dev python-gtk2-dev gtk-doc-tools<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>python-support  intltool  libopenobex-1.0-0-dev libbluetooth2-dev python-gtk2-dev gtk-doc-tools</code></pre></figure></div>
 <p>Y para construir los paquetes simplemente:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- devel$ cd libbtctl/trunk<br />
-$ svn-buildpackage -us -uc -rfakeroot</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> devel$</span><span class="w"> </span><span class="nb">cd </span>libbtctl/trunk
+<span class="gp">$</span><span class="w"> </span>svn-buildpackage <span class="nt">-us</span> <span class="nt">-uc</span> <span class="nt">-rfakeroot</span></code></pre></figure></div>
 <p>E instalarla, claro:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>devel# cd /libbtctl/buil-area</p>
-<ol>
-	<li>dpkg -i libbtctl2_0.6.0-2_i386.deb</li>
-	<li>dpkg -i libbtctl2-dev_0.6.0-2_i386.deb<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">devel#</span><span class="w"> </span><span class="nb">cd</span> /libbtctl/buil-area
+<span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-i</span> libbtctl2_0.6.0-2_i386.deb
+<span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-i</span> libbtctl2-dev_0.6.0-2_i386.deb</code></pre></figure></div>
 <h3>gnome-bluetooth</h3>
 <p>Las <em>build-depends</em> son:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install gob2 libgnomeui-dev libgconf2-dev libbtctl2-dev libgnomevfs2-dev librsvg2-dev libgnome2-dev<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>gob2 libgnomeui-dev libgconf2-dev libbtctl2-dev libgnomevfs2-dev librsvg2-dev libgnome2-dev</code></pre></figure></div>
 <p>Como ves hacen falta muchos paquetes para compilar paquetes ;-)</p>
 <p>Y por fin, generar los paquetes e instalarlos.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>devel$ cd gnome-bluetooth/trunk<br />
-$ svn-buildpackage -us -uc -rfakeroot<br />
-devel# cd gnome-bluetooth/build-area</p>
-<ol>
-	<li>dpkg -i libgnomebt0_0.7.0-2_i386.deb</li>
-	<li>dpkg -i gnome-bluetooth_0.7.0-2_i386.deb<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">devel$</span><span class="w"> </span><span class="nb">cd </span>gnome-bluetooth/trunk
+<span class="gp">$</span><span class="w"> </span>svn-buildpackage <span class="nt">-us</span> <span class="nt">-uc</span> <span class="nt">-rfakeroot</span>
+<span class="gp">devel#</span><span class="w"> </span><span class="nb">cd </span>gnome-bluetooth/build-area
+<span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-i</span> libgnomebt0_0.7.0-2_i386.deb
+<span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-i</span> gnome-bluetooth_0.7.0-2_i386.deb</code></pre></figure></div>
 <p>Y ya está. Fácil, fácil y para toda la familia.</p>
 <h2>Referencias</h2>
 <ul>
@@ -5405,7 +5376,7 @@ devel# cd gnome-bluetooth/build-area</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5207,30 +5207,19 @@
 <h2>Conectar al Chumby por <span class="caps">SSH</span></h2>
 <p>Pues tan fácil como habitual:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ ssh root@192.168.1.5<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ssh root@192.168.1.5</code></pre></figure></div>
 <p>Por los despistes recordad cambiar la IP por la de vuestro Chumby.</p>
 <p>Si solo quieres activar el servidor de <span class="caps">SSH</span> para hacer algún acceso o prueba esporádica puedes ignorar el resto de la receta. Si quieres dejarlo habilitado de forma permanente, y quieres que esté protegido por contraseña, sigue leyendo el siguiente paso.</p>
 <h2>Proteger con contraseña</h2>
 <p>Primero de todo debes generar la clave que quieras que tenga el acceso como root a tu Chumby. Para ello puedes utilizar tu comando favorito. Yo utilizo <strong>htpasswd</strong>, que es parte del paquete Debian <strong>apache2-utils</strong>. No es necesario guardar la salida, solo con verla nos vale:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~$ htpasswd -n root<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~$</span><span class="w"> </span>htpasswd <span class="nt">-n</span> root</code></pre></figure></div>
 <p>Te pedirá que introduzcas la contraseña y ya está.</p>
 <p>Ahora tienes que conectarte al Chumby para preparar el directorio donde va a ir el fichero de claves:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mkdir /psp/etc</li>
-	<li>cp -rd /etc/* /psp/etc</li>
-	<li>mount -t loop -o bind /psp/etc /etc<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">mkdir</span> /psp/etc
+<span class="gp">#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-rd</span> /etc/<span class="k">*</span> /psp/etc
+<span class="gp">#</span><span class="w"> </span>mount <span class="nt">-t</span> loop <span class="nt">-o</span> <span class="nb">bind</span> /psp/etc /etc</code></pre></figure></div>
 <p>Tras realizar esto, el contenido de /psp (la memoria interna del Chumby) contendrá los ficheros de /etc de modo que podamos modificarlos. A su vez, al montarlo se le dice al Chumby que lea /etc como almacenamiento de lectura y escritura.</p>
 <p>Ahora tienes que (con <strong>vi</strong>) el fichero &#8220;/psp/etc/shadow&#8221;. En la primera línea aparece lo siguiente:</p>
 <pre>root::10933:0:99999:7:::</pre>
@@ -5245,10 +5234,7 @@ $ ssh root@192.168.1.5<br />
 <h2>Activar el servidor <span class="caps">SSH</span> en el arranque</h2>
 <p>Conéctate al Chumby por <span class="caps">SSH</span>. Únicamente hay que hacer lo siguiente:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-chumby:~# touch /psp/start_sshd<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">chumby:~#</span><span class="w"> </span><span class="nb">touch</span> /psp/start_sshd</code></pre></figure></div>
 <h2>Referencias</h2>
 <p><a href="node/949">Enlaces del Chumby</a></p>
       </div>
@@ -5315,7 +5301,7 @@ chumby:~# touch /psp/start_sshd<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

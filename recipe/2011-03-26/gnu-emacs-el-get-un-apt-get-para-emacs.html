@@ -5285,22 +5285,19 @@
 </ul>
 <p>Éste es un ejemplo de configuración:</p>
 <div>
-<p>{% highlight text %}<br />
-(require &#8217;el-get)</p>
-<p>(setq el-get-sources<br />
-      &#8217;(el-get cssh switch-window vkill google-maps nxhtml xcscope yasnippet</p>
-(:name lisppaste        :type elpa)
-(:name dictionary-el    :type apt-get)
-(:name emacs-goodies-el :type apt-get)))
-<p>(el-get)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(require 'el-get)
+
+(setq el-get-sources
+      '(el-get cssh switch-window vkill google-maps nxhtml xcscope yasnippet
+
+        (:name lisppaste        :type elpa)
+        (:name dictionary-el    :type apt-get)
+        (:name emacs-goodies-el :type apt-get)))
+
+(el-get)</code></pre></figure></div>
 <p><code>el-get</code> puede descargar módulos de repos git, svn, mercurial, bazar, directamente por http, con apt-get, de <a href="http://tromey.com/elpa/"><span class="caps">ELPA</span></a> y muchas otras formas. Además, el propio programa viene con cientos de «recipes», que son los fragmentos de configuración que dicen cómo y de dónde descargar módulos, de modo que la gran mayoría de los módulos que vayas a necesitar están a tiro de:</p>
 <div>
-<p>{% highlight text <span>}<br />
-M-x el-get-install <TAB><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">M-x el-get-install &lt;TAB&gt;</code></pre></figure></div>
 <p>Con esto puedes estar seguro que, teniendo el mismo <code>.emacs</code>, tienes los mismos módulos instalados en todos tus Emacs. Impresionante!</p>
 <h2>Referencias</h2>
 <ul>
@@ -5371,7 +5368,7 @@ M-x el-get-install <TAB><br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

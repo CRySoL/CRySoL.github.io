@@ -5439,48 +5439,37 @@
 <h3>mod_proxy</h3>
 <p>Instala el módulo <code>proxy</code> con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>a2enmod proxy<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>a2enmod proxy</code></pre></figure></div>
 <h3>Configuración</h3>
 <p>Sobre el mismo fichero que has hecho para el sitio <span class="caps">SSL</span>, haz las siguientes modificaciones:</p>
 <div>
-<p>{% highlight text %}<br />
-&lt;VirtualHost *:443&gt;<br />
-  &#8230;<br />
-  ProxyRequests Off</p>
-&lt;Proxy *&gt;
-Order deny,allow
-Allow from all
-</Proxy>
-<ol>
-	<li>Zope site management<br />
-  &lt;Location /zope&gt;<br />
-    ProxyPass http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443//VirtualHostRoot/<em>vh_zope<br />
-    ProxyPassReverse http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443//VirtualHostRoot/_vh</em>zope<br />
-  </Location></li>
-</ol>
-&lt;Location /miSitio&gt;
-ProxyPass http://zope:8081/VirtualHostBase/https/IP_PUBLICA/xm/VirtualHostRoot/_vh_miSitio
-ProxyPassReverse http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443/xm/VirtualHostRoot/_vh_miSitio
-</Location>
-</VirtualHost>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;VirtualHost *:443&gt;
+  ...
+  ProxyRequests Off
+
+  &lt;Proxy *&gt;
+     Order deny,allow
+     Allow from all
+  &lt;/Proxy&gt;
+
+  # Zope site management
+  &lt;Location /zope&gt;
+    ProxyPass http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443//VirtualHostRoot/_vh_zope
+    ProxyPassReverse http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443//VirtualHostRoot/_vh_zope
+  &lt;/Location&gt;
+
+  &lt;Location /miSitio&gt;
+    ProxyPass http://zope:8081/VirtualHostBase/https/IP_PUBLICA/xm/VirtualHostRoot/_vh_miSitio
+    ProxyPassReverse http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443/xm/VirtualHostRoot/_vh_miSitio
+  &lt;/Location&gt;
+
+&lt;/VirtualHost&gt;</code></pre></figure></div>
 <p>Se trata de un <a href="http://en.wikipedia.org/wiki/Reverse_proxy">Reverse Proxy</a>, es decir, no se puede usar como un proxy web al uso, sino simplemente como un intermediario transparente hacia otro site.</p>
 <p>En este fichero, se definen dos redirecciones: la primera es para el interfaz de administración de Zope, y la segunda es un sitio Plone llamado &#8220;miSitio&#8221;.</p>
 <h3>Por último</h3>
 <p>No olvides recargar la nueva configuración de Apache.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/apache2 reload<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/apache2 reload</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://plone.org/documentation/tutorial/plone-apache">Running Plone and Zope behind an Apache 2 web server</a></li>
@@ -5551,7 +5540,7 @@ ProxyPassReverse http://zope:8081/VirtualHostBase/https/IP_PUBLICA:443/xm/Virtua
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

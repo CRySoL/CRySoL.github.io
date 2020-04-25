@@ -5277,45 +5277,34 @@
 	<h2>Configuración básica</h2>
 <p><!--break--></p>
 <div>
-<p>{% highlight text <span>}<br />
-(setq inhibit-splash-screen t)             ;; no mostrar la pantalla de bienvenida<br />
-(setq scroll-conservatively 1)             ;; scroll de una línea cuando el cursor sale del buffer<br />
-(setq show-paren-mode t)                   ;; marcar el paréntesis o llave correspondiente<br />
-(setq transient-mark-mode t)               ;; marcar la zona seleccionada<br />
-(setq truncate-partial-width-windows nil)  ;; no truncar líneas en ventanas divididas<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(setq inhibit-splash-screen t)             ;; no mostrar la pantalla de bienvenida
+(setq scroll-conservatively 1)             ;; scroll de una línea cuando el cursor sale del buffer
+(setq show-paren-mode t)                   ;; marcar el paréntesis o llave correspondiente
+(setq transient-mark-mode t)               ;; marcar la zona seleccionada
+(setq truncate-partial-width-windows nil)  ;; no truncar líneas en ventanas divididas</code></pre></figure></div>
 <h2>Ficheros</h2>
 <div>
-<p>{% highlight text <span>}<br />
-;; Dar permisos de ejecución al fichero si es un script<br />
-(setq after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">;; Dar permisos de ejecución al fichero si es un script
+(setq after-save-hook (quote (executable-make-buffer-file-executable-if-script-p)))</code></pre></figure></div>
 <h2>Auto-limpieza</h2>
 <div>
-<p>{% highlight text %}<br />
- ;; para asegurarte de que el fichero termina con línea vacía<br />
-(setq require-final-newline &#8217;ask)</p>
-<p>;; eliminar espacios en blanco a final de línea y líneas vacias al final<br />
-(add-hook &#8217;write-file-hooks &#8217;delete-trailing-whitespace)<br />
-(setq delete-trailing-whitespace-p t)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"> ;; para asegurarte de que el fichero termina con línea vacía
+(setq require-final-newline 'ask)
+
+;; eliminar espacios en blanco a final de línea y líneas vacias al final
+(add-hook 'write-file-hooks 'delete-trailing-whitespace)
+(setq delete-trailing-whitespace-p t)</code></pre></figure></div>
 <h2>Auto-formato</h2>
 <p>Configuración y macros para inserción de texto y formato automático.</p>
 <h3>Auto-añadir paréntesis o llave de cierre</h3>
 <p>Añade automáticamente el paréntesis, llave, etc de cierre al insertar la de apertura.</p>
 <div>
-<p>{% highlight text <span>}<br />
-(setq skeleton-pair t)<br />
-(global-set-key &#8220;[&#8221; &#8216;skeleton-pair-insert-maybe)<br />
-(global-set-key &#8220;(&#8221; &#8217;skeleton-pair-insert-maybe)<br />
-(global-set-key &#8220;{&#8221; &#8217;skeleton-pair-insert-maybe)<br />
-(global-set-key &quot;&#8217;&quot; &#8217;skeleton-pair-insert-maybe)<br />
-(global-set-key &#8220;\&#8221;&quot; &#8217;skeleton-pair-insert-maybe)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(setq skeleton-pair t)
+(global-set-key "[" 'skeleton-pair-insert-maybe)
+(global-set-key "(" 'skeleton-pair-insert-maybe)
+(global-set-key "{" 'skeleton-pair-insert-maybe)
+(global-set-key "'" 'skeleton-pair-insert-maybe)
+(global-set-key "\"" 'skeleton-pair-insert-maybe)</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.gnu.org/software/emacs/tour/">A Guided Tour of Emacs &#8211; The many faces of Emacs</a></li>
@@ -5385,7 +5374,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

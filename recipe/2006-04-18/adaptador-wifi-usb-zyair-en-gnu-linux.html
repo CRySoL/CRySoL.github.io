@@ -5159,42 +5159,23 @@
 <h2>Carga el módulo</h2>
 <p>Con el comando lsmod, aparece un listado. Busca si tienes cargado el modulo zd1210. Aparecerá algo como:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-Usbcore 104188  4  zd1210, ehci_hcd,  uhci_hcd<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">Usbcore 104188  4  zd1210, ehci_hcd,  uhci_hcd</span></code></pre></figure></div>
 <p>Esto indica que tienes cargado el módulo zd1210 y significa que tienes la red lista para configurar.</p>
 <p>Si no lo está, debes buscar algún paquete y en el terminal como superusuario:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>modprobe zd1210 # cargamos el modulo</li>
-	<li>lsmod | grep zd1201  # verificamos que el modulo esta cargado<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>modprobe zd1210 <span class="c"># cargamos el modulo</span>
+<span class="gp">#</span><span class="w"> </span>lsmod | <span class="nb">grep </span>zd1201  <span class="c"># verificamos que el modulo esta cargado</span></code></pre></figure></div>
 <h2>Firmware</h2>
 <p>Una vez que tenemos la red lista para configurar, necesitas descargar el firmware del sitio <a href="http://linux-lc100020.sourceforge.net/">http://linux-lc100020.sourceforge.net/</a> (descárga cualquier versión de esos drivers) y lo descomprimes con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ tar zxvf zd1210-0.14-fw.tar.gz<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">tar </span>zxvf zd1210-0.14-fw.tar.gz</code></pre></figure></div>
 <p>Por último, para instalarlo, abre el archivo en cualquier directorio <code>linux</code> y ejecutas donde lo hayas abierto el comando sudo make , es decir; como  superusuario:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cd zd1201-0.14-fw</li>
-	<li>make<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd </span>zd1201-0.14-fw
+<span class="gp">#</span><span class="w"> </span>make</code></pre></figure></div>
 <p>Aparecerá algo como:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- <span class="caps">INSTALL</span> zd1201.fw  zd1201-ap.fw =&gt; /usr/lib/hotplug/firmware/<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> INSTALL zd1201.fw  zd1201-ap.fw =&gt;</span><span class="w"> </span>/usr/lib/hotplug/firmware/</code></pre></figure></div>
 <p>(está copiando los ficheros zd1201.fw y ad1201-ap.fw en el directorio firmware)</p>
 <p>Ahora tienes que decirle al kernel que has insertado un nuevo modulo. Hacemos un depmod –a y ya tendrás el driver listo.(verás como la luz de tu dispositivo usb empieza a parpadear). Puedes hacer un lsmod|grep zd1201 y verás el módulo cargado.</p>
 <h2>Configuración</h2>
@@ -5205,13 +5186,8 @@ iface wlan0 inet dhcp   # para obtener una dirección de red
 </pre>
 <p>Finalmente, solo queda levantar la red, para ello tendrás que realizar 2 pasos:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ifdown wlan0</li>
-	<li>ifup wlan0<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ifdown wlan0
+<span class="gp">#</span><span class="w"> </span>ifup wlan0</code></pre></figure></div>
 <p>Y por fin podrás navegar por internet.</p>
 <p>Espero que con todo esto os funcione igual que a mí  y no tengáis problemas.</p>
 <p><span class="caps">SALUDOS</span></p>
@@ -5279,7 +5255,7 @@ iface wlan0 inet dhcp   # para obtener una dirección de red
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

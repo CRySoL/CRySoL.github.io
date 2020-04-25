@@ -5155,10 +5155,7 @@
 <h1>Redirigir cuando se leen</h1>
 <p>En primer lugar nos gustaría no tener que hacer nada especial, leer el correo normalmente y que automáticamente se vaya mandando a Gmail. Eso lo podeis hacer con evolution añadiendo un filtro (menú <em>Editar&#8594;Filtros de mensajes</em>). Este filtro debe situarse el primero de todos y aplicarse a todos los correos que no sean considerados spam (por aquello de no hacer backup del spam) y lo que debe hacer es redirigirlo a un programa externo:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- /usr/sbin/exim4 -bm usuario@gmail.com</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> /usr/sbin/exim4 -bm usuario@gmail.com</span></code></pre></figure></div>
 <p>Y ya está. Nota que no añadimos ninguna acción &#8220;Parar de procesar&#8221; porque queremos que, además, aplique todos nuestros filtros.</p>
 <h1>Redirigir cuando no tenemos evolution</h1>
 <p>Imaginaros que perdeis evolution (por ejemplo, si actualizais debian unstable hoy mismo, 22/3/2006).  Igual pensais que da lo mismo, que podeis usar el interfaz web (webmail.uclm.es).  Aaaaaaaayyyyy, como se nota que no lo habeis usado&#8230; eh?  Bueno, es broma, estoy seguro que todos sabeis que el webmail de la uni es una KK con mayúsculas.  Y Gmail es rápido, seguro, con mucho espacio, y con una cantidad de pijadas que alucina. Vamos, esto en inglés está claro: <em>gmail is cool</em>.</p>
@@ -5247,7 +5244,7 @@ poll correo.uclm.es via correo.uclm.es
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

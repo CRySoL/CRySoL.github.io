@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,100 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/cooking/2006-10-28/lasaa-a-la-boloesa.html">Lasaña a la boloñesa</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-10-28
+    
+      
+  <a href="/users.html#Vigilante">
+   Vigilante
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-10-28-lasaa-a-la-boloesa.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-10-28-lasaa-a-la-boloesa.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#cooking-ref">
+    		cooking
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/420">node/420</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <h2>Ficha</h2>
+<p>
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/cooking/2006-10-28/lasaa-a-la-boloesa.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8736,135 +8829,6 @@ Muchas gracias!!!!
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-10-21/xplanet-como-salvapantallas-con-gnome-screensaver.html">Xplanet como salvapantallas con gnome-screensaver</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-10-21
-    
-      
-  <a href="/users.html#fsancho">
-   fsancho
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-10-21-xplanet-como-salvapantallas-con-gnome-screensaver.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-10-21-xplanet-como-salvapantallas-con-gnome-screensaver.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#gnome-ref">gnome </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/406">node/406</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-Muchos de los que usamos Ubuntu vimos con poco agrado que se prescindiese del gestor de Salvapantallas XScreensaver. El sustituto fue gnome-screensaver, mucho mas sencillo y con muchas menos funcionalidades.
-
-Con esta mini-receta trataré de devolver la sonrisa a aquellos que dejaron de poder utilizar Xplanet como salvapantallas.
-</blockquote>
-
-Aunque gnome-screensaver es mucho mas simplón, no limita las posibilidades. Simplemente están fuera de la interfaz de usuario, pero en la práctica sigue siendo perfectamente posible toquetear en sus tripas. Por ahora solo se puede hacer desde la consola, pero el equipo de gnome-screensaver tiene en mente extender su interfaz para que sea algo mas configurable (ya que a día de hoy no lo es en absoluto).
-
-En el paquete 'xscreensaver-data' podremos encontrar un montón de ficheros con extensión <tt>.desktop</tt>, estos ficheros contienen los lanzadores de los salvapantallas. Lo único que tendremos que hacer es crearnos nuestro propio lanzador y colocarlo en el sitio adecuado. Además tendremos que crear un enlace para Xplanet en el directorio donde se encuentran los salvapantallas. 
-
-En primer lugar, creamos un fichero <tt>xplanet.desktop</tt> con este contenido.
-
-<pre>
-[Desktop Entry]
-Encoding=UTF-8
-Name=XPlanet
-Comment=This Shows random planets from random points of view using Xplanet.
-TryExec=xplanet
-Exec=xplanet -vroot -label -body random -origin random -radius 20 -range 10 -wait 30
-StartupNotify=false
-Terminal=false
-Type=Application
-Categories=Screensaver
-X-Ubuntu-Gettext-Domain=xscreensaver
-</pre>
-
-La etiqueta <tt>Exec</tt> es la que contiene el comando concreto que deberemos ejecutar para mostrar nuestro salvapantallas. En mi caso muestro un cuerpo aleatorio desde un origen aleatorio y lo cambio cada 30 segundos. 
-
-Una vez creado el fichero lo copiamos al directorio <tt>/usr/share/gnome-screensaver/themes/</tt>.
-
-<b>Actualización:</b> Los usuarios de Ubuntu Edgy deben copiar el fichero en el directorio <tt>/usr/share/applications/screensavers/</tt>.
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo cp </span>xplanet.desktop /usr/share/applications/screensavers/</code></pre></figure>
-</div>
-
-Por último creamos un enlace del binario de Xplanet en <tt>/usr/lib/xscreensaver</tt>
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo ln</span> <span class="nt">-s</span> /usr/bin/xplanet /usr/lib/xscreensaver/</code></pre></figure>
-</div>
-
-Y listo!, sólo tienes que ir al menú Sistema->Preferencias->Salvpantallas y seleccionar tu nuevo salvapantallas de Xplanet.
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8905,7 +8869,7 @@ Y listo!, sólo tienes que ir al menú Sistema->Preferencias->Salvpantallas y se
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

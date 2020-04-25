@@ -5168,10 +5168,7 @@
 <p>La forma más simple de usar el directorio es con ldapsearch, del paquete ldap-utils.  Y la forma más sencilla de autenticación es  la autenticación simple (parámetro -x).  Prueba primero con ésta para ver si te va.</p>
 <p>Por ejemplo, para hacer una búsqueda de los alumnos cuyos dni empiezan por 1234:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-ldapsearch -H ldap://alarcos.uclm.es:3268 -D &#8216;{userdn}&#8217; -w &#8216;{userpwd}&#8217; -x -b dc=uclm,dc=es &#8216;(cn=1234*)&#8217; &#8216;*&#8217;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">ldapsearch -H ldap://alarcos.uclm.es:3268 -D '{userdn}' -w '{userpwd}' -x -b dc=uclm,dc=es '(cn=1234*)' '*'</span></code></pre></figure></div>
 <p>Donde <em>{userdn}</em> es el distinguished name (DN) del usuario y <em>{userpwd}</em> es la clave del usuario.  Para un alumno el DN tiene la forma <b><span class="caps">UCLM</span>\dni</b> donde el <span class="caps">DNI</span> solo tiene números, no letras.  Para un profesor, o <span class="caps">PAS</span>, o becario tiene la forma <b><span class="caps">UCLM</span>\nombre.apellido</b> (e.g: <b><span class="caps">UCLM</span>\francisco.moya</b>.  Estas formas de poner el DN no son muy comunes para los usuarios de <span class="caps">LDAP</span>, pero el Active Directory acepta también la forma clásica.  Por ejemplo, en mi caso mi DN clásico sería <b>cn=francisco.moya, ou=Ciudad Real, ou=<span class="caps">PDI</span>, dc=uclm, dc=es</b>.</p>
 <p>En la <span class="caps">UCLM</span> el Active Directory no admite anonymous bind, siempre hay que usar un usuario válido con el parámetro -D.</p>
 <h2><a name="krb5conf"> </a>Usando kerberos 5</h2>
@@ -5183,44 +5180,30 @@ admin_server = alarcos.uclm.es
 </pre>
 <p>Para autenticarse basta usar la orden:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-kinit -A {username}<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">kinit -A {username}</span></code></pre></figure></div>
 <p>El parámetro <em>{username}</em> es el <span class="caps">DNI</span> en el caso de los alumnos y el <b>nombre.apellido</b> en caso de profesor, o <span class="caps">PAS</span> o becario.</p>
 <p>A partir de este momento ya tenemos un ticket que vale para unas cuantas horas.  Se pueden consultar los tickets que tenemos con un simple:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-klist<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">klist</span></code></pre></figure></div>
 <p>Que saca algo parecido a:</p>
 <div>
-<p>{% highlight text %}<br />
-Ticket cache: <span class="caps">FILE</span>:/tmp/krb5cc_1000<br />
-Default principal: francisco.moya@UCLM.ES</p>
-<p>Valid starting     Expires            Service principal<br />
-08/10/06 09:21:24  08/10/06 19:21:26  krbtgt/<span class="caps">UCLM</span>.ES@UCLM.ES<br />
-        renew until 08/11/06 09:21:24<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Ticket cache: FILE:/tmp/krb5cc_1000
+Default principal: francisco.moya@UCLM.ES
+
+Valid starting     Expires            Service principal
+08/10/06 09:21:24  08/10/06 19:21:26  krbtgt/UCLM.ES@UCLM.ES
+        renew until 08/11/06 09:21:24</code></pre></figure></div>
 <p>Se ve perfectamente incluso la fecha de expiración del ticket y hasta cuando podemos renovarlo sin necesidad de hacer otro kinit.</p>
 <p>La utilización del ticket es automática siempre que utilicemos programas compilados con soporte de Kerberos 5. Pero cuidado, hay dos implementaciones de kerberos 5 en Debian: <span class="caps">MIT</span> Kerberos y Heimdal Kerberos.  Los tickets no son intercambiables.  Yo utilizo <span class="caps">MIT</span> Kerberos.</p>
 <p>Una vez utilizado el/los recursos conviene destruir los tickets para que no puedan ser utilizados por otros usuarios maliciosos.  Para destruir los tickets basta hacer:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-kdestroy<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">kdestroy</span></code></pre></figure></div>
 <h2>Usando <span class="caps">LDAP</span> con <span class="caps">GSSAPI</span></h2>
 <p><span class="caps">GSSAPI</span> es un <span class="caps">API</span> estándar para la utilización de Kerberos 5 desde las aplicaciones.  En Debian hay muchos servicios que utilizan <span class="caps">GSSAPI</span> opcionalmente para añadir todas las ventajas de Kerberos 5.  OpenLDAP es la librería con la que se han construido las aplicaciones de ldap-utils (como ldapsearch) y también proporciona un mecanismo de autenticación usando <span class="caps">GSSAPI</span>.  Para que funcione es preciso instalar <em>libsasl2-gssapi-mit</em>.</p>
 <p>Una vez instalado las búsquedas se hacen considerablemente más simples:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ kinit -A francisco.moya<br />
-$ ldapsearch -H ldap://alarcos.uclm.es:3268 -b dc=uclm,dc=es &#8216;(cn=1234*)&#8217; &#8216;*&#8217;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>kinit <span class="nt">-A</span> francisco.moya
+<span class="gp">$</span><span class="w"> </span>ldapsearch <span class="nt">-H</span> ldap://alarcos.uclm.es:3268 <span class="nt">-b</span> <span class="nv">dc</span><span class="o">=</span>uclm,dc<span class="o">=</span>es <span class="s1">'(cn=1234*)'</span> <span class="s1">'*'</span></code></pre></figure></div>
 <p>El kinit solo hay que hacerlo una vez, después todas las búsquedas son autenticadas con Kerberos.  Ya no es preciso hacer un bind, puesto que Kerberos ya proporciona sufiente garantía de autenticación.</p>
 <h2>Autenticando con Kerberos5</h2>
 <p>ActiveDirectory no tiene ni quiere tener nada que tenga que ver con gestión de usuarios en Unix. Hay paquetes de otras empresas que complementan la estructura del servicio <span class="caps">LDAP</span> para que sea utilizable por un Unix.  ¿Pero cómo convencer al administrador de tu Active Directory?  Una solución de compromiso es ceder la autenticación a Kerberos5 pero usar nuestro propio servidor <span class="caps">LDAP</span>.</p>
@@ -5289,7 +5272,7 @@ $ ldapsearch -H ldap://alarcos.uclm.es:3268 -b dc=uclm,dc=es &#8216;(cn=1234*)&#
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

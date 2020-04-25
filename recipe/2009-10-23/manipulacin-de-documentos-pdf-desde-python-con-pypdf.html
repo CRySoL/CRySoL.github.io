@@ -5311,27 +5311,26 @@
 <p>Un ejemplo para poner la páginas en orden inverso:</p>
 <p><a href="http://arco.esi.uclm.es/svn/public/samples/pypdf/reverse.py">reverse.py</a></p>
 <div>
-<p>{% highlight python %}<br />
-#!/usr/bin/python</p>
-<ol>
-	<li>To reverse a <span class="caps">PDF</span> document</li>
-</ol>
-<p>import os, sys<br />
-import pyPdf</p>
-<p>output = pyPdf.PdfFileWriter()<br />
-input = pyPdf.PdfFileReader(file(sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>, &#8216;rb&#8217;))</p>
-<ol>
-	<li>print the title of document1.pdf<br />
-print &#8220;title = %s&#8221; % input.getDocumentInfo().title<br />
-print &#8220;npages = %s&#8221; % input.getNumPages()</li>
-</ol>
-<p>for page in reversed(input.pages):<br />
-    output.addPage(page)</p>
-<p>fdout = file(os.path.splitext(sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>)<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup> + &#8216;.out.pdf&#8217;, &#8216;wb&#8217;)<br />
-output.write(fdout)<br />
-fdout.close()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+</span>
+<span class="c1"># To reverse a PDF document
+</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="p">,</span> <span class="n">sys</span>
+<span class="kn">import</span> <span class="nn">pyPdf</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">pyPdf</span><span class="p">.</span><span class="n">PdfFileWriter</span><span class="p">()</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">pyPdf</span><span class="p">.</span><span class="n">PdfFileReader</span><span class="p">(</span><span class="nb">file</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">'rb'</span><span class="p">))</span>
+
+<span class="c1"># print the title of document1.pdf
+</span><span class="k">print</span> <span class="s">"title = %s"</span> <span class="o">%</span> <span class="nb">input</span><span class="p">.</span><span class="n">getDocumentInfo</span><span class="p">().</span><span class="n">title</span>
+<span class="k">print</span> <span class="s">"npages = %s"</span> <span class="o">%</span> <span class="nb">input</span><span class="p">.</span><span class="n">getNumPages</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">input</span><span class="p">.</span><span class="n">pages</span><span class="p">):</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">addPage</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+
+<span class="n">fdout</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">'.out.pdf'</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">)</span>
+<span class="n">output</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">fdout</span><span class="p">)</span>
+<span class="n">fdout</span><span class="p">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure></div>
 <h3>Referencias</h3>
 <ul>
 	<li><a href="http://code.activestate.com/recipes/511465/">http://code.activestate.com/recipes/511465/</a></li>
@@ -5401,7 +5400,7 @@ fdout.close()<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

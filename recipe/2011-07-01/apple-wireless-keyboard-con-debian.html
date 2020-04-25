@@ -5251,13 +5251,10 @@
 <p>La dificultad de configurar este teclado depende bastante del tipo de adaptador Bluetooth que tenga tu ordenador. Con los que monta Dell no he tenido ningún problema y se puede configurar directamente con el asistente de <span class="caps">GNOME</span>. Simplemente hay que pulsar «Configurar un dispositivo nuevo&#8230;» en el applet, marcarlo cuando lo encuentre y teclear a ciegas (en el teclado bluetooth) el <span class="caps">PIN</span> de 6 dígitos, no olvides pulsar <span class="caps">ENTER</span>.</p>
 <p>Con otros, el pairing no funciona (parece un problema de tiempo) aborta antes de que dé tiempo a acabar. En estos casos se puede formar el paring «a mano» sin usar el asistente. Simplemente ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ hcitool scan<br />
-Scanning &#8230;<br />
-	DE:AD:CA:FE.BA:BE	Apple Wireless Keyboard<br />
-$ sudo hidd &#8212;connect DE:AD:CA:FE.BA:BE<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>hcitool scan
+<span class="go">Scanning ...
+	DE:AD:CA:FE.BA:BE	Apple Wireless Keyboard
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>hidd <span class="nt">--connect</span> DE:AD:CA:FE.BA:BE</code></pre></figure></div>
 <p>Y listo, funciona perfectamente, incluyendo las teclas multimedia.</p>
 <h2>Layout</h2>
 <p>En general el layout de este teclado (el español en mi caso) es razonable, sobre todo si eres usuario de <span class="caps">GNU</span> Emacs ;-). Sólo hay una tecla que para mi gusto sobra (el maldito «eject») y una que se echa mucho en falta (el «del») así que recomiendo «remapearla».</p>
@@ -5330,7 +5327,7 @@ $ sudo hidd &#8212;connect DE:AD:CA:FE.BA:BE<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

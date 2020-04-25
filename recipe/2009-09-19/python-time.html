@@ -5313,57 +5313,41 @@
 <h3><code>time.time() -&gt; float</code></h3>
 <p>Devuelve la hora <span class="caps">UNIX</span> en segundos, como float, aunque es poco probable que el sistema de escritorio pueda dar precisión menor a la milésima de segundo.</p>
 <div>
-<p>{% highlight text <span>}<br />
-&gt;&gt;&gt; time.time()<br />
-253391341.7215531<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&gt;&gt;&gt; time.time()
+253391341.7215531</code></pre></figure></div>
 <h3><code>time.localtime([seconds]) -&gt; struct_time</code></h3>
 <p>Devuelve la hora como tupla <code>(tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday, tm_yday, tm_isdst)</code>. Si no se le indica nada, utiliza la hora actual.</p>
 <div>
-<p>{% highlight text <span>}<br />
-&gt;&gt;&gt; time.localtime()<br />
-(2009, 9, 19, 22, 36, 45, 5, 262, 1)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&gt;&gt;&gt; time.localtime()
+(2009, 9, 19, 22, 36, 45, 5, 262, 1)</code></pre></figure></div>
 <p><code>time.gmtime()</code> hace lo mismo pero expresada en <span class="caps">UTC</span> (<span class="caps">GMT</span>).</p>
 <h3><code>time.asctime([tuple]) -&gt; string</code></h3>
 <p>Devuelve una representación textual de la hora. Se le puede indicar una hora como tupla.</p>
 <div>
-<p>{% highlight text <span>}<br />
-&gt;&gt;&gt; time.asctime()<br />
-&#8216;Sat Sep 19 22:26:04 2009&#8217;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&gt;&gt;&gt; time.asctime()
+'Sat Sep 19 22:26:04 2009'</code></pre></figure></div>
 <h2>Formateando la hora</h2>
 <p>
 <h3><code>strftime(format[, tuple]) -&gt; string</code></h3>
 <p>Formatea una hora (indicada como tupla) usando la especificación indicada por parámetro (<code>format</code>). Si no se indica el segundo parámetro (<code>tuple</code>) toma la hora actual.</p>
 <div>
-<p>{% highlight text <span>}<br />
-&gt;&gt;&gt; time.strftime(&#8220;%a %b %d %H:%M:%S %Y&#8221;)<br />
-&#8216;Sat Sep 19 19:40:42 2009&#8217;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&gt;&gt;&gt; time.strftime("%a %b %d %H:%M:%S %Y")
+'Sat Sep 19 19:40:42 2009'</code></pre></figure></div>
 <p>El significado de cada variable (los caracteres con %) lo puedes ver en la documentación del <a href="http://docs.python.org/library/time.html#time.strftime">módulo time</a>.</p>
 <h3><code>strptime(string, format) -&gt; struct_time</code></h3>
 <p>Hace lo contrario de <code>strptime()</code>, es decir, parsea una cadena para obtener la hora como tupla.</p>
 <div>
-<p>{% highlight text <span>}<br />
-&gt;&gt;&gt; time.strptime(&#8220;Sat Sep 12 16:47:31 2009&#8221;, &#8220;%a %b %d %H:%M:%S %Y&#8221;)<br />
-(2009, 9, 12, 16, 47, 31, 5, 255, -1)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&gt;&gt;&gt; time.strptime("Sat Sep 12 16:47:31 2009", "%a %b %d %H:%M:%S %Y")
+(2009, 9, 12, 16, 47, 31, 5, 255, -1)</code></pre></figure></div>
 <h2>Conversiones</h2>
 <div>
-<p>{% highlight text %}<br />
-<span class="caps">FLOAT</span>  &#8594; <span class="caps">TUPLA</span>   localtime(), gmtime()<br />
-<span class="caps">FLOAT</span>  &#8594; <span class="caps">STRING</span>  ctime()</p>
-<p><span class="caps">TUPLA</span>  &#8594; <span class="caps">FLOAT</span>   mktime()<br />
-<span class="caps">TUPLA</span>  &#8594; <span class="caps">STRING</span>  asctime(), strftime()</p>
-<p><span class="caps">STRING</span> &#8594; <span class="caps">TUPLA</span>   strptime()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">FLOAT  -&gt; TUPLA   localtime(), gmtime()
+FLOAT  -&gt; STRING  ctime()
+
+TUPLA  -&gt; FLOAT   mktime()
+TUPLA  -&gt; STRING  asctime(), strftime()
+
+STRING -&gt; TUPLA   strptime()</code></pre></figure></div>
       </div>
 
       
@@ -5428,7 +5412,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

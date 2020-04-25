@@ -5360,12 +5360,9 @@ UseDNS no
 <h3>ControlMaster</h3>
 <p>Si sueles abrir varias sesiones (login, repos, sftp, etc) hacia el mismo servidor, <span class="caps">SSH</span> permite reutilizar una conexión establecida para sesiones adicionales. Eso supone un ahorro de tiempo considerable ya que no necesita establecer una nueva conexión. Para ello, simplemente escribe esto en un <code>~/.ssh/config</code></p>
 <div>
-<p>{% highlight text <span>}<br />
-Host *<br />
-   ControlMaster auto<br />
-   ControlPath ~/.ssh/master-%r@%h:%p<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Host *
+   ControlMaster auto
+   ControlPath ~/.ssh/master-%r@%h:%p</code></pre></figure></div>
 <h2>Acelerando la transferencia</h2>
 <p>Si utilizas <span class="caps">SCP</span> o <span class="caps">SFTP</span> para copiar ficheros también hay algunas cosas que puedes hacer para mejorar la velocidad.</p>
 <h3>Compresión</h3>
@@ -5450,7 +5447,7 @@ Compression yes
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

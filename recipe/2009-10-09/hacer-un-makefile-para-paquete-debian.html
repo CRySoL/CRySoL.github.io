@@ -5457,20 +5457,18 @@
 <p>Sin embargo, el paquete binario es lo que realmente instalas con &#8220;apt-get install loquesea&#8221;. Estos paquetes contienen programas o librerías ya compiladas y listas para usar. Los paquetes binarios son todos aquellos que van después de la descripción del fuente en el archivo control.</p>
 <p>Un paquete fuente puede generar 1 o más paquetes binarios, dependiendo de la complejidad del sistema que se pretende desarrollar. Por ejemplo, el paquete &#8220;sl&#8221; tiene como control:</p>
 <div>
-<p>{% highlight text %}<br />
-Source: sl<br />
-Section: games<br />
-Priority: optional<br />
-&#8230;</p>
-<p>Package: sl<br />
-Architecture: any<br />
-Depends: ${shlibs:Depends}, ${misc:Depends}<br />
-Description: Correct you if you type `sl&#8217; by mistake<br />
- Sl is a program that can display animations aimed to correct you<br />
- if you type &#8216;sl&#8217; by mistake.<br />
- SL stands for Steam Locomotive.<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Source: sl
+Section: games
+Priority: optional
+...
+
+Package: sl
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Correct you if you type `sl' by mistake
+ Sl is a program that can display animations aimed to correct you
+ if you type 'sl' by mistake.
+ SL stands for Steam Locomotive.</code></pre></figure></div>
 <p>Como se puede ver, el paquete fuente y el único paquete binario que genera se llaman igual. Esto se debe a que el programa &#8220;sl&#8221; es extremadamente sencillo y no es necesario dividirlo. Una librería es un caso típico donde un paquete fuente tiene asociado varios paquetes binarios (el de la propia librería y el -dev correspondiente).</p>
 <p>El término &#8220;dependencia&#8221; también es distinto si hablamos de un paquete fuente o de un binario. Las dependencias de un paquete fuente son de construcción, esto es, todo el software que se necesita para compilar y construir los paquetes. Mientras que las dependencias de un binario son los paquetes que tienen que estar instalados para su correcto funcionamiento.</p>
 <p>Con todo ello, debhelper tiene 2 modos de funcionamiento básicos:</p>
@@ -5482,30 +5480,24 @@ Description: Correct you if you type `sl&#8217; by mistake<br />
 <p>El primer caso es el más sencillo. <span class="caps">DESTDIR</span> valdrá &#8220;debian/nombre_del_binario/&#8221;, por lo que todo lo que se instale allí irá al contenido del paquete. En el segundo caso, la cosa se complica un poco. <span class="caps">DESTDIR</span> valdrá &#8220;debian/tmp&#8221; y cada binario debe especificar qué porción del proyecto necesita a través de los ficheros &#8220;debian/paquete_binario_i.install&#8221;.</p>
 <p>Por ejemplo, supongamos que uno de los paquetes binarios se llama &#8220;miservicio-package&#8221; y queremos que incluya el ejecutable &#8220;miservicio&#8221;. El archivo .install debe llamarse &#8220;miservicio-package.install&#8221; y tener el siguiente contenido:</p>
 <div>
-<p>{% highlight text <span>}<br />
-usr/bin/miservicio<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">usr/bin/miservicio</code></pre></figure></div>
 <p>De esta forma, si el Makefile lo dejó todo en su sitio, debhelper copiará el ejecutable de &#8220;debian/tmp/usr/bin/miservicio&#8221; a &#8220;debian/miservicio/usr/bin&#8221;. En definitiva, de entre todos los ejecutables que puede haber dejado el Makefile en &#8220;debian/tmp/usr/bin&#8221;, con el fichero .install puedes especificar qué archivo va en qué paquete binario.</p>
 <p>Si ayudas a que debhelper encuentre fácilmente los archivos, tendrás un archivo debian/rules sencillo. Normalmente, un mantenedor de Debian no tiene permisos para escribir en el proyecto original y no puede &#8220;acomodarse&#8221; a su gusto los elementos del proyecto para que su tarea sea sencilla. Pero tu caso no es ese: tienes permisos de escritura en el proyecto (bien porque es tuyo, bien porque perteneces al equipo de desarrollo) y el mantenedor vas a ser tú. ¿Para qué complicarse la vida?.</p>
 <h2>Recomendaciones sobre el Makefile</h2>
 <p>Habiendo entendido todo lo anterior es fácil deducir qué elementos son necesarios en un Makefile pensado para ayudar en el proceso de construcción de paquetes. A continuación, puedes ver un Makefile con los elementos que, al menos, deberías incluir:</p>
 <div>
-<p>{% highlight makefile <span>}<br />
-&#8230;<br />
-<span class="caps">DESTDIR</span>?=/usr/local    # Si no está definida, se utiliza /usr/local<br />
-&#8230;<br />
-all: objetivo    # En la etapa de construcción (dh_build), debhelper hará &#8220;make&#8221; sobre nuestro proyecto)<br />
-&#8230;<br />
-&#8230;<br />
-install:<br />
-    -mkdir -p $(<span class="caps">DESTDIR</span>)/loquesea     # Crear los directorios pertinentes<br />
-    &#8230;<br />
-    cp tal $(<span class="caps">DESTDIR</span>)/loquesea/       # Copiar los binarios donde sea pertinente<br />
-&#8230;<br />
-&#8230;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-makefile" data-lang="makefile"><span class="err">...</span>
+<span class="nv">DESTDIR</span><span class="o">?=</span>/usr/local    <span class="c"># Si no está definida, se utiliza /usr/local</span>
+<span class="err">...</span>
+<span class="nl">all</span><span class="o">:</span> <span class="nf">objetivo    </span><span class="c">#</span><span class="nf"> En la etapa de construcción (dh_build)</span><span class="p">,</span><span class="nf"> debhelper hará "make" sobre nuestro proyecto)</span>
+<span class="err">...</span>
+<span class="err">...</span>
+<span class="nl">install</span><span class="o">:</span>
+    <span class="err">-mkdir</span> <span class="err">-p</span> <span class="err">$(DESTDIR)/loquesea</span>     <span class="c"># Crear los directorios pertinentes
+</span>    <span class="err">...</span>
+    <span class="err">cp</span> <span class="err">tal</span> <span class="err">$(DESTDIR)/loquesea/</span>       <span class="c"># Copiar los binarios donde sea pertinente
+</span><span class="err">...</span>
+<span class="err">...</span></code></pre></figure></div>
       </div>
 
       
@@ -5570,7 +5562,7 @@ install:<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

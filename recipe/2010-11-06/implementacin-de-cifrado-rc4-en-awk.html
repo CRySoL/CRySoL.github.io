@@ -5236,49 +5236,43 @@
 <p><!--break--></p>
 <p>Aquí propongo una alternativa rápida.</p>
 <div>
-<p>{% highlight awk %}<br />
-#!/usr/bin/awk -f</p>
-<ol>
-	<li><del>*</del> mode: awk; coding: utf-8 <del>*</del></li>
-</ol>
-<ol>
-	<li>Oscar Aceña &#169; 2010</li>
-</ol>
-<p>func <em>ord_init</em>() { for (j=1; j&lt;256; j++) <em>ord</em>[sprintf(&#8220;%c&#8221;, j)] = j }<br />
-func ord(char) { return <em>ord</em>[char] }</p>
-<p>func rc4crypt(data, key) {<br />
-    for (j=0; j&lt;256; j++) box[j] = j<br />
-    for (i=0; i&lt;256; i++) {<br />
-	x = (x + box[i] + ord(substr(key, (i % length(key))<ins>1, 1))) % 256<br />
-	aux = box[i]<br />
-	box[i] = box[x]<br />
-	box[x] = aux<br />
-    }<br />
-    x = 0<br />
-    for (i=0; i&lt;length(data); i</ins><ins>) {<br />
-	x = (x + 1) % 256<br />
-	y = (y + box[x]) % 256<br />
-	aux = box[x]<br />
-	box[x] = box[y]<br />
-	box[y] = aux<br />
-	t = xor(box[(box[x] + box[y]) % 256], ord(substr(data, i</ins>1, 1)))<br />
-	out = out sprintf(&#8220;%02X&#8221;, t)<br />
-    }<br />
-    return out<br />
-}</p>
-<p><span class="caps">BEGIN</span> {<br />
-    <em>ord_init</em>()<br />
-    print rc4crypt(<span class="caps">ARGV</span><sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>, &#8220;Password&#8221;)<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-awk" data-lang="awk"><span class="c1">#!/usr/bin/awk -f</span>
+<span class="c1"># -*- mode: awk; coding: utf-8 -*-</span>
+
+<span class="c1"># Oscar Aceña (c) 2010</span>
+
+<span class="nx">func</span> <span class="nx">_ord_init_</span><span class="p">()</span> <span class="p">{</span> <span class="k">for</span> <span class="p">(</span><span class="nx">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="mi">256</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="nx">_ord_</span><span class="p">[</span><span class="nb">sprintf</span><span class="p">(</span><span class="s2">"%c"</span><span class="p">,</span> <span class="nx">j</span><span class="p">)]</span> <span class="o">=</span> <span class="nx">j</span> <span class="p">}</span>
+<span class="nx">func</span> <span class="nx">ord</span><span class="p">(</span><span class="nx">char</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">_ord_</span><span class="p">[</span><span class="nx">char</span><span class="p">]</span> <span class="p">}</span>
+
+<span class="nx">func</span> <span class="nx">rc4crypt</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="mi">256</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="nx">box</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="nx">j</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">256</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">box</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="nx">ord</span><span class="p">(</span><span class="nb">substr</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="p">(</span><span class="nx">i</span> <span class="o">%</span> <span class="nb">length</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span> <span class="o">%</span> <span class="mi">256</span>
+	<span class="nx">aux</span> <span class="o">=</span> <span class="nx">box</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+	<span class="nx">box</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">box</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span>
+	<span class="nx">box</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="o">=</span> <span class="nx">aux</span>
+    <span class="p">}</span>
+    <span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nb">length</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">256</span>
+	<span class="nx">y</span> <span class="o">=</span> <span class="p">(</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">box</span><span class="p">[</span><span class="nx">x</span><span class="p">])</span> <span class="o">%</span> <span class="mi">256</span>
+	<span class="nx">aux</span> <span class="o">=</span> <span class="nx">box</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span>
+	<span class="nx">box</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="o">=</span> <span class="nx">box</span><span class="p">[</span><span class="nx">y</span><span class="p">]</span>
+	<span class="nx">box</span><span class="p">[</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">aux</span>
+	<span class="nx">t</span> <span class="o">=</span> <span class="nx">xor</span><span class="p">(</span><span class="nx">box</span><span class="p">[(</span><span class="nx">box</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="o">+</span> <span class="nx">box</span><span class="p">[</span><span class="nx">y</span><span class="p">])</span> <span class="o">%</span> <span class="mi">256</span><span class="p">],</span> <span class="nx">ord</span><span class="p">(</span><span class="nb">substr</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+	<span class="nx">out</span> <span class="o">=</span> <span class="nx">out</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s2">"%02X"</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">out</span>
+<span class="p">}</span>
+
+<span class="kr">BEGIN</span> <span class="p">{</span>
+    <span class="nx">_ord_init_</span><span class="p">()</span>
+    <span class="k">print</span> <span class="nx">rc4crypt</span><span class="p">(</span><span class="kc">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"Password"</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>El script imprime, en hexadecimal, el texto que se pasa en el primer argumento, después de haberlo cifrado. El algoritmo es bidireccional, por lo que se puede usar la misma función para descifrar. Sin embargo, tendrás que convertir la cadena de hexadecimal a binario :P</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ./rc4crypt &#8220;My secret to save&#8221;<br />
-6D964F14270DD45C77A7D5CDAED2684E22<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./rc4crypt <span class="s2">"My secret to save"</span>
+<span class="go">6D964F14270DD45C77A7D5CDAED2684E22</span></code></pre></figure></div>
       </div>
 
       
@@ -5343,7 +5337,7 @@ func ord(char) { return <em>ord</em>[char] }</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

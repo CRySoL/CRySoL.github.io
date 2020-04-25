@@ -5159,35 +5159,23 @@
 <h3>Ver información de la unidad:</h3>
 <p>Con el siguiente comando puedes ver, entre otros muchos datos, el modo <span class="caps">DMA</span> más moderno y el número máximo de sectores por operación (<i>MaxMultSect</i>).</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>hdparm -i /dev/hda<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>hdparm <span class="nt">-i</span> /dev/hda</code></pre></figure></div>
 <p>Lo mismo, pero mucho más verboso:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- #hdparm -I /dev/hda<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span>hdparm <span class="nt">-I</span> /dev/hda</code></pre></figure></div>
 <h3>Ver la configuración actual:</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>hdparm /dev/hda</li>
-</ol>
-<p>/dev/hda:<br />
- multcount    =  0 (off)<br />
- IO_support   =  1 (32-bit)<br />
- unmaskirq    =  1 (on)<br />
- using_dma    =  1 (on)<br />
- keepsettings =  0 (off)<br />
- readonly     =  0 (off)<br />
- readahead    = 256 (on)<br />
- geometry     = 24321/255/63, sectors = 390721968, start = 0<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>hdparm /dev/hda
+<span class="go">
+/dev/hda:
+ multcount    =  0 (off)
+ IO_support   =  1 (32-bit)
+ unmaskirq    =  1 (on)
+ using_dma    =  1 (on)
+ keepsettings =  0 (off)
+ readonly     =  0 (off)
+ readahead    = 256 (on)
+ geometry     = 24321/255/63, sectors = 390721968, start = 0</span></code></pre></figure></div>
 <p>Significado de estas variables:</p>
 <ul>
 	<li><strong>multicount</strong>: Nº de sectores que se leen en cada acceso.</li>
@@ -5197,46 +5185,35 @@
 </ul>
 <h3>Medir el rendimiento actual:</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>hdparm -tT /dev/hda</li>
-</ol>
-<p>/dev/hda:<br />
- Timing cached reads:   1168 MB in  2.00 seconds = 583.68 MB/sec<br />
- Timing buffered disk reads:  168 MB in  3.01 seconds =  55.78 MB/sec<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>hdparm <span class="nt">-tT</span> /dev/hda
+<span class="go">
+/dev/hda:
+ Timing cached reads:   1168 MB in  2.00 seconds = 583.68 MB/sec
+ Timing buffered disk reads:  168 MB in  3.01 seconds =  55.78 MB/sec</span></code></pre></figure></div>
 <h2>Modificando la configuración</h2>
 <p>Y cruzando los dedos&#8230;</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>hdparm -c1 /dev/hda       ;Usar transferencias de 32 bits</li>
-	<li>hdparm -m16 /dev/hda      ;Fijar &#8216;multicount&#8217; a 16 sectores</li>
-	<li>hdparm -d1 /dev/hda       ;Activar <span class="caps">DMA</span></li>
-	<li>hdparm -u1 /dev/hda       ;Desemascarar la <span class="caps">IRQ</span> del disco (<span class="caps">PELIGROSO</span>: pérdida masima del sistema de ficheros)</li>
-	<li>hdparm -W1 /dev/hda       ;Activa cache de escritura, puede dejar sin efecto a &#8216;sync&#8217;<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>hdparm <span class="nt">-c1</span> /dev/hda       <span class="p">;</span>Usar transferencias de 32 bits
+<span class="gp">#</span><span class="w"> </span>hdparm <span class="nt">-m16</span> /dev/hda      <span class="p">;</span>Fijar <span class="s1">'multicount'</span> a 16 sectores
+<span class="gp">#</span><span class="w"> </span>hdparm <span class="nt">-d1</span> /dev/hda       <span class="p">;</span>Activar DMA
+<span class="gp">#</span><span class="w"> </span>hdparm <span class="nt">-u1</span> /dev/hda       <span class="p">;</span>Desemascarar la IRQ del disco <span class="o">(</span>PELIGROSO: pérdida masima del sistema de ficheros<span class="o">)</span>
+<span class="gp">#</span><span class="w"> </span>hdparm <span class="nt">-W1</span> /dev/hda       <span class="p">;</span>Activa cache de escritura, puede dejar sin efecto a <span class="s1">'sync'</span></code></pre></figure></div>
 <h2>Guardar la configuración</h2>
 <p>Una vez que hayas probado qué opciones van bien con tu disco y estés seguro de que funcionan adecuadamente, lo más cómodo es escribir escribar la configuración en <code>/etc/hdparm.conf</code>. El siguiente sirve como ejemplo:</p>
 <div>
-<p>{% highlight text %}<br />
-/dev/hda {<br />
-        mult_sect_io = 16<br />
-        write_cache = on<br />
-        dma = on<br />
-        io32_support = 1<br />
-        read_ahead_sect = 128<br />
-}</p>
-<p>/dev/cdrom {<br />
-        dma = on<br />
-        interrupt_unmask = on<br />
-        io32_support = 1<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/dev/hda {
+        mult_sect_io = 16
+        write_cache = on
+        dma = on
+        io32_support = 1
+        read_ahead_sect = 128
+}
+
+/dev/cdrom {
+        dma = on
+        interrupt_unmask = on
+        io32_support = 1
+}</code></pre></figure></div>
 <h2>Recetas relacionadas</h2>
 <ul>
 	<li><a href="/node/237">Grabar CD y <span class="caps">DVD</span> más rápido</a></li>
@@ -5311,7 +5288,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

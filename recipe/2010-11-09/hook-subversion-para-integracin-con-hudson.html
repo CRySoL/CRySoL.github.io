@@ -5321,45 +5321,45 @@
 <p>Normalmente se recomienda realizar una integración completa una vez al día, pero otros expertos dicen que, si no supone una gran carga, lo ideal es integrar cada vez que se produce algún cambio en el proyecto, y eso nos lleva a los <span class="caps">VCS</span> (Version Control Systems). Lo que pretendemos es lanzar la integración cuando cualquier programador haga un commit.</p>
 <p>Para lograr esto con subversion lo que he pensado es utilizar una característica muy interesante: las propiedades. Probablemente no soy el primero al que se le ha ocurrido esto, pero bueno, me apetecía hacerlo (procrastinación que se llama). La idea es añadir una propiedad (que voy a llamar «link») al módulo del proyecto indicando la <span class="caps">URL</span> de hudson citada anteriormente. Por ejemplo, para el proyecto <a href="https://arco.esi.uclm.es/svn/public/prj/atheist/">atheist</a> esa propiedad la he fijado con el comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ svn ps link &#8220;https://stroustrup.mine.nu/job/atheist/build?token=clave&#8221; prj/atheist<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn ps <span class="nb">link</span> <span class="s2">"https://stroustrup.mine.nu/job/atheist/build?token=clave"</span> prj/atheist</code></pre></figure></div>
 <p>Por cuestiones de seguridad esa máquina no es públicamente accesible, pero bueno, eso no importa para la receta.</p>
 <h2>El hook</h2>
 <p>El hook es un <code>post-commit</code> que va a buscar el directorio «raíz» del proyecto (<code>prj/atheist</code>) intentando localizar la propiedad «link» a través de la jerarquía de directorio. Cuando la encuentre, simplemente la cargará con <code>wget</code>. Este es el <code>post-commit</code> que está en el directorio <code>hooks</code> en el servidor subversion:</p>
 <p>[ <a href="https://arco.esi.uclm.es/svn/public/samples/svn-hook-property/post-commit">post-commit</a> ]</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>#!/bin/bash</p>
-<p>base=&#8220;$1&#8221;<br />
-rev=&#8220;$2&#8221;<br />
-wget=&#8220;/usr/bin/wget &#8212;no-check-certificate&#8221;<br />
-property=sentry</p>
-<p>function find_property() {<br />
-    module=$1<br />
-    while [ 1 ]; do<br />
-        path=file://$base/$module<br />
-        uri=$(/usr/bin/svn pg $property $path)</p>
-echo $path
-echo $uri
-if [ &#8220;$uri&#8221; ]; then
-echo &#8220;$property path: $path&#8221; 1&gt;&amp;2
-echo &#8220;$property <span class="caps">URI</span>: $uri&#8221; 1&gt;&amp;2
-$wget &#8220;$uri&amp;cause=$USER+(svn+commit+)&#8221; -o /dev/null
-break
-fi
-module=$(dirname $module)
-if [ &#8220;$module&#8221; = &#8220;.&#8221; ]; then
-echo &#8220;$property <span class="caps">URI</span>: not found&#8221; 1&gt;&amp;2
-break
-fi
-done
-<p>}</p>
-<p>/usr/bin/svnlook dirs-changed $base | \<br />
-while read module; do find_property $module; done<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="o">!</span>/bin/bash
+<span class="go">
+</span><span class="gp">base="$</span>1<span class="s2">"
+</span><span class="gp">rev="$</span><span class="s2">2"</span>
+<span class="go">wget="/usr/bin/wget --no-check-certificate"
+property=sentry
+
+function find_property() {
+</span><span class="gp">    module=$</span>1
+<span class="gp">    while [ 1 ];</span><span class="w"> </span><span class="k">do</span>
+<span class="gp">        path=file://$</span>base/<span class="nv">$module</span>
+<span class="gp">        uri=$</span><span class="o">(</span>/usr/bin/svn pg <span class="nv">$property</span> <span class="nv">$path</span><span class="o">)</span>
+<span class="go">
+</span><span class="gp">        echo $</span>path
+<span class="gp">        echo $</span>uri
+<span class="go">
+</span><span class="gp">        if [ "$</span>uri<span class="s2">" ]; then
+</span><span class="gp">            echo "$</span><span class="s2">property path: </span><span class="nv">$path</span><span class="s2">"</span> 1&gt;&amp;2
+<span class="gp">            echo "$</span>property URI: <span class="nv">$uri</span><span class="s2">" 1&gt;&amp;2
+</span><span class="gp">            $</span><span class="s2">wget "</span><span class="nv">$uri</span>&amp;cause<span class="o">=</span><span class="nv">$USER</span>+<span class="o">(</span>svn+commit+<span class="o">)</span><span class="s2">" -o /dev/null
+</span><span class="go">            break
+        fi
+
+</span><span class="gp">        module=$</span><span class="o">(</span><span class="nb">dirname</span> <span class="nv">$module</span><span class="o">)</span>
+<span class="gp">        if [ "$</span>module<span class="s2">" = "</span>.<span class="s2">" ]; then
+</span><span class="gp">            echo "$</span><span class="s2">property URI: not found"</span> 1&gt;&amp;2
+<span class="go">            break
+        fi
+    done
+}
+
+</span><span class="gp">/usr/bin/svnlook dirs-changed $</span>base | <span class="se">\</span>
+<span class="k">while </span><span class="nb">read </span>module<span class="p">;</span> <span class="k">do </span>find_property <span class="nv">$module</span><span class="p">;</span> <span class="k">done</span></code></pre></figure></div>
 <p>Obviamente esto puede tener muchas otras utilidades, cualquiera en la que el servidor tenga que averiguar un dato (como una <span class="caps">URL</span>) relacionada con el proyecto del que se acaba de hacer commit.</p>
 <h2>Referencias</h2>
 <ul>
@@ -5430,7 +5430,7 @@ while read module; do find_property $module; done<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

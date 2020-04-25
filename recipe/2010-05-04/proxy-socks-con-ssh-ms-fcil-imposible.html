@@ -5353,10 +5353,7 @@
 <h2>Abriendo el túnel (desde el PC del trabajo)</h2>
 <p>También necesitas <span class="caps">SSH</span>. Ejecuta lo siguiente en una consola:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ssh -N -D localhost:1080 micasa.example.net -p 443<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ssh <span class="nt">-N</span> <span class="nt">-D</span> localhost:1080 micasa.example.net <span class="nt">-p</span> 443</code></pre></figure></div>
 <p>Si no tienes configurada una <a href="/node/6">clave pública</a> para acceder a esa máquina (algo que te recomiendo) te pedirá la clave. Si todo va bien se quedará ahí haciendo su trabajo como buen túnel que es. No cierres esa consola. 1080 es el puerto estándar para <span class="caps">SOCKS</span> pero puedes usar otro si quieres.</p>
 <h2>Configurando las aplicaciones</h2>
 <p>Muchas aplicaciones de red (aunque no todas) tienen la posibilidad de utilizar un proxy. La ventana en cuestión tendrá una pinta similar a la siguiente. Esta concretamente es la de Firefox 3.5 y la puedes encontrar en Edit&#8594;Preferences&#8594;Advanced&#8594;Network&#8594;Settings:</p>
@@ -5369,42 +5366,27 @@
 <h2>Doctor, el túnel se me cae</h2>
 <p>Pues sí, los túneles tienen la mala costumbre de caerse y dejarte tirado si se rompe la conexión. Pero hay solución, se llama <code>autossh</code> (es paquete Debian). Y para usarlo simplemente ejecuta el comando de antes, cambiando <code>ssh</code> por <code>autossh</code>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ autossh -N -D localhost:1080 micasa.example.net -p 443<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>autossh <span class="nt">-N</span> <span class="nt">-D</span> localhost:1080 micasa.example.net <span class="nt">-p</span> 443</code></pre></figure></div>
 <p>En este casi si que es casi obligado usar la clave pública porque si no, cuando intente recuperar el túnel, va a pedir la clave y la gracia de autossh (que es automático) no servirá de mucho.</p>
 <h2>¿Y qué pasa con <span class="caps">SSH</span>?</h2>
 <p>Es decir, ¿cómo puedes conectar por <span class="caps">SSH</span> con una máquina remota? Pues hay que hacer que el tráfico de la conexión <span class="caps">SSH</span> pase también a través del túnel, esto es lo que se llama «socksificar» un cliente. Es fácil socksificar el cliente <span class="caps">SSH</span> gracias a la opción <code>ProxyCommand</code>, que como su nombre indica (más o menos) sirve para conectar a un servidor <span class="caps">SSH</span> a través de un proxy. Aquí va un ejemplo</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ssh -o &#8220;ProxyCommand /bin/nc.openbsd -x localhost %h %p&#8221; server.minimor.com<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ssh <span class="nt">-o</span> <span class="s2">"ProxyCommand /bin/nc.openbsd -x localhost %h %p"</span> server.minimor.com</code></pre></figure></div>
 <h2>«socksificando» lo que haga falta</h2>
 <p>Hay muchas aplicaciones (la mayoría) que no fueron diseñadas para utilizar proxies <span class="caps">SOCKS</span>. Sin embargo hay un medio muy sencillo para lograr que usen el proxy sin que lo sepan.</p>
 <p>Se basa en interceptar la invocación a la llamada <code>connect()</code>  de la librería de sockets, de modo que cuando la aplicación abra ingenuamente una conexión normal hacia un servidor remoto, los datos serán enviados de forma transparente hacia el proxy <span class="caps">SOCKS</span> configurado. Esta magia (que no es tal) es posible gracias a la precarga de librería de los sistemas <span class="caps">GNU</span> (<code>LD_PRELOAD</code>) y el programa <code>tsocks</code> que aprovecha este principio.</p>
 <p>Después de instalar el paquete <code>tsocks</code> tienes que configurar el proxy <span class="caps">SOCKS</span> que debe usar. Si has seguido las instrucciones anteriores, edita el fichero <code>/etc/tsocks.conf</code> y cambia el valor de la opción «server»  para que quede así (se muestran las últimas líneas del fichero):</p>
 <div>
-<p>{% highlight text <span>}<br />
-server = 127.0.0.1<br />
-server_type = 5<br />
-server_port = 1080<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">server = 127.0.0.1
+server_type = 5
+server_port = 1080</code></pre></figure></div>
 <p>Y para socksificar cualquier programa simplemente ejecuta algo como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ tsocks claws-mail<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>tsocks claws-mail</code></pre></figure></div>
 <p>o bien:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ tsocks          # &lt;&#8212; esto abre una nueva shell socksificada<br />
-$ claws-mail<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>tsocks          <span class="c"># &lt;-- esto abre una nueva shell socksificada</span>
+<span class="gp">$</span><span class="w"> </span>claws-mail</code></pre></figure></div>
 <h2>looping the loop</h2>
 <p>Y si lo que quieres es conectar tu máquina a una <span class="caps">VPN</span> cuyo servidor está al otro lado del firewall. Un tema interesante&#8230;</p>
 <p>[ToDo]</p>
@@ -5477,7 +5459,7 @@ $ claws-mail<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5386,38 +5386,44 @@
 <p>El script toma como único parámetro el nombre del fichero <span class="caps">PDF</span> resultante y se pone a escanear la primera página inmediatamente al arrancar. Después pregunta por consola si hay que escanear más páginas. Por último monta un <span class="caps">PDF</span> con todas las páginas escaneadas.</p>
 <p>[ <a href="https://arco.esi.uclm.es/svn/public/prj/pysane/pysane.py">pysane.py</a> ]</p>
 <div>
-<p>{% highlight python %}<br />
-#! /usr/bin/python</p>
-<ol>
-	<li><del>*</del> coding:utf-8 <del>*</del></li>
-</ol>
-<p>import sys, os, time<br />
-import sane</p>
-<p>output = sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup> if len(sys.argv) &gt; 1 else &#8216;output.pdf&#8217;<br />
-dirname = &#8216;/tmp/%s-%s&#8217; % (time.time(), os.getpid())<br />
-os.mkdir(dirname)</p>
-<p>sane.init()<br />
-print &#8216;Available devices:&#8217;, sane.get_devices()</p>
-<p>s = sane.open(sane.get_devices()<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup><sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup>)<br />
-s.mode = &#8216;color&#8217;<br />
-s.resolution = 150</p>
-<p>print &#8216;Device parameters:&#8217;, s.get_parameters()</p>
-<p>files = []<br />
-for i, img in enumerate(s.multi_scan()):<br />
-    fname = os.path.join(dirname, &#8216;img%s.pdf&#8217; % i)<br />
-    files.append(fname)</p>
-print &#8220;Saving on &#8216;%s&#8217;&#8221; % fname
-img.save(fname)
-if raw_input(&#8216;Another page? (Y/n): &#8217;).lower().startswith(&#8217;n&#8217;):
-break
-<p>s.close()</p>
-<p>print &#8220;scanned pages: %s&#8221; % (i+1)</p>
-<p>if len(files)  == 1:<br />
-    os.system(&#8220;mv &#8216;%s&#8217; &#8216;%s&#8217;&#8221; % (fname, output))<br />
-else:<br />
-    os.system(&#8220;pdfjoin &#8212;fitpaper true &#8212;outfile %s %s&#8221; % (output, str.join(&#8217; &#8217;, files)))<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#! /usr/bin/python
+# -*- coding:utf-8 -*-
+</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">os</span><span class="p">,</span> <span class="n">time</span>
+<span class="kn">import</span> <span class="nn">sane</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s">'output.pdf'</span>
+<span class="n">dirname</span> <span class="o">=</span> <span class="s">'/tmp/%s-%s'</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">(),</span> <span class="n">os</span><span class="p">.</span><span class="n">getpid</span><span class="p">())</span>
+<span class="n">os</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+
+<span class="n">sane</span><span class="p">.</span><span class="n">init</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">'Available devices:'</span><span class="p">,</span> <span class="n">sane</span><span class="p">.</span><span class="n">get_devices</span><span class="p">()</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">sane</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">sane</span><span class="p">.</span><span class="n">get_devices</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">s</span><span class="p">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s">'color'</span>
+<span class="n">s</span><span class="p">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">150</span>
+
+<span class="k">print</span> <span class="s">'Device parameters:'</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">get_parameters</span><span class="p">()</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">img</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">multi_scan</span><span class="p">()):</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s">'img%s.pdf'</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">files</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+    <span class="k">print</span> <span class="s">"Saving on '%s'"</span> <span class="o">%</span> <span class="n">fname</span>
+    <span class="n">img</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">'Another page? (Y/n): '</span><span class="p">).</span><span class="n">lower</span><span class="p">().</span><span class="n">startswith</span><span class="p">(</span><span class="s">'n'</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">s</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="s">"scanned pages: %s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>  <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"mv '%s' '%s'"</span> <span class="o">%</span> <span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">output</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"pdfjoin --fitpaper true --outfile %s %s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">str</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">' '</span><span class="p">,</span> <span class="n">files</span><span class="p">)))</span></code></pre></figure></div>
 <p>Si alguien le tiene alergia a la consola y quiere hacerle una interfaz gráfica debería ser ultrasencillo.</p>
 <p>Saludos.</p>
       </div>
@@ -5484,7 +5490,7 @@ else:<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

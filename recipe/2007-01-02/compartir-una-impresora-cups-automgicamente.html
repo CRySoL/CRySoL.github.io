@@ -5160,38 +5160,26 @@
 <h2>Servidor</h2>
 <p>Edita el fichero <code>/etc/cups/cups.conf</code>, para que incluya estas líneas:</p>
 <div>
-<p>{% highlight text %}<br />
-Port 631<br />
-Listen 192.168.0.1:631         # dónde escucha el servidor<br />
-Browsing On                    # activar compartición de impresoras<br />
-BrowseAddress 192.168.0.2      # interfaz de red en la que anunciar impresoras</p>
-<Location />
-<ol>
-	<li>Allow shared printing and remote administration&#8230;<br />
-  Order allow,deny<br />
-  Allow @LOCAL<br />
-  Allow 192.168.0.0/24         # permitir a todos los hosts de la red local administrar las impresoras<br />
-</Location><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Port 631
+Listen 192.168.0.1:631         # dónde escucha el servidor
+Browsing On                    # activar compartición de impresoras
+BrowseAddress 192.168.0.2      # interfaz de red en la que anunciar impresoras
+
+&lt;Location /&gt;
+  # Allow shared printing and remote administration...
+  Order allow,deny
+  Allow @LOCAL
+  Allow 192.168.0.0/24         # permitir a todos los hosts de la red local administrar las impresoras
+&lt;/Location&gt;</code></pre></figure></div>
 <h2>Cliente</h2>
 <p>Edita el fichero <code>/etc/cups/cups.conf</code> y asegúrate que incluya estas líneas:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Browsing On                  # atender anuncios de impresoras remotas<br />
-BrowseAllow 192.168.0.0/24   # atender anuncios que procedan de la red local<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Browsing On                  # atender anuncios de impresoras remotas
+BrowseAllow 192.168.0.0/24   # atender anuncios que procedan de la red local</code></pre></figure></div>
 <h2>Para terminar</h2>
 <p>Tanto en el servidor como en el cliente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/cupsys restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/cupsys restart</code></pre></figure></div>
       </div>
 
       
@@ -5256,7 +5244,7 @@ BrowseAllow 192.168.0.0/24   # atender anuncios que procedan de la red local<br 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

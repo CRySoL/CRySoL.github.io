@@ -5159,65 +5159,30 @@
 <h2>Actualiza tu Linux</h2>
 <p>Instalar el driver de nvidia es una buena oportunidad para aprovechar y actualizar el núcleo. Se supone que vas a utilizar un Linux precompilado y empaquetado por Debian. Por ejemplo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install linux-image-2.6.22-1-386<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>linux-image-2.6.22-1-386</code></pre></figure></div>
 <p>También vas a necesitar las cabeceras, que es un paquete con el mismo nombre, cambiando <b>image</b> por <b>headers</b>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install linux-headers-2.6.22-1-386<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>linux-headers-2.6.22-1-386</code></pre></figure></div>
 <p>Si usas grub, no olvides hacer el <tt>update-grub</tt> correspondiente. Y ahora reinicia para usar el núcleo recién instalado.</p>
 <h2>Ahora&#8230; lo divertido</h2>
 <p>Esto es tan fácil que casi no tiene gracia. Primero instala <tt>module-assistant</tt> y <tt>nvidia-kernel-common</tt>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install module-assistant nvidia-kernel-common<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>module-assistant nvidia-kernel-common</code></pre></figure></div>
 <p>Y a continuación ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>module-assistant auto-install nvidia<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>module-assistant auto-install nvidia</code></pre></figure></div>
 <p>O lo que es lo mismo, pero más cortito y fácil de recordar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>m-a a-i nvidia<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>m-a a-i nvidia</code></pre></figure></div>
 <p>Y ese programilla se encarga de compilar, crear el paquete Debian correspondiente y hasta de instalarlo. No viene mal un:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>depmod -a</li>
-	<li>modprobe nvidia<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>depmod <span class="nt">-a</span>
+<span class="gp">#</span><span class="w"> </span>modprobe nvidia</code></pre></figure></div>
 <p>Si todo ha ido bien deberías tener tu driver funcionando.</p>
 <h2>Y el <span class="caps">GLX</span></h2>
 <p>También tienes que instalar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install nvidia-glx<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>nvidia-glx</code></pre></figure></div>
 <h2>Cambio en la configuración del servidor X</h2>
 <p>Edita tu <tt>/etc/X11/xorg.conf</tt> y busca el apartado <tt>Section &#8220;Device&#8221;</tt>. Cambia la línea <tt>driver</tt> para que quede algo como:</p>
 <pre>
@@ -5225,12 +5190,7 @@
 </pre>
 <p>Sólo queda reiniciar tu gestor de acceso. Por ejemplo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/gdm restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/gdm restart</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 <li>
@@ -5304,7 +5264,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

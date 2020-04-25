@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,192 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-11-15/manipulacin-de-ficheros-pdf.html">Manipulación de ficheros PDF</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-11-15
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-15-manipulacin-de-ficheros-pdf.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-15-manipulacin-de-ficheros-pdf.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/98">node/98</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<p>Esta receta es un compendio de pequeños trucos y utilidades para manipular ficheros <span class="caps">PDF</span> con los programas libres habituales en un sistema <span class="caps">GNU</span></p>
+</blockquote>
+<p>En realidad pienso ir apuntando aquí las soluciones que voy encontrando a problemas que me surgen cuando tengo que hacer ciertas «operaciones imprevistas» con ficheros <span class="caps">PDF</span>. Se admiten sugerencias para ir incorporando a la receta.</p>
+<h2>Unir varios documentos</h2>
+<p>Con <tt>pdfjoin</tt> del paquete <tt>pdfjam</tt> (visto en <a href="http://linuca.org/body.phtml?nIdNoticia=343">Linuca</a>).</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdfjoin <span class="nt">--fitpaper</span> <span class="nb">true </span>fichero1.pdf fichero2.pdf fichero3.pdf <span class="nt">--outfile</span> final.pdf</code></pre></figure></div>
+<p>Con <a href="http://es.wikipedia.org/wiki/Ghostscript"><span class="caps">GNU</span>/GhostScript</a> (por  <a href="http://barrapunto.com/~Gufete">Gufete</a>):</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>gs <span class="nt">-dColorImageFilter</span><span class="o">=</span>/LZWEncode <span class="nt">-dAutoFilterColorImages</span><span class="o">=</span><span class="nb">false</span> <span class="nt">-dBATCH</span> <span class="nt">-dNOPAUSE</span> <span class="nt">-q</span> <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="nt">-sOutputFile</span><span class="o">=</span>pre_final.pdf fichero1.pdf fichero2.pdf fichero3.pdf
+<span class="gp">$</span><span class="w"> </span>pdfopt pre_final.pdf final.pdf</code></pre></figure></div>
+<h2>Seleccionar algunas páginas</h2>
+<p>Con <tt>pdfjam</tt></p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pdfjam <span class="nt">--no-landscape</span> original.pdf  3,7,12-23,34 <span class="nt">--outfile</span> resultado.pdf</code></pre></figure></div>
+<p>Con <tt>pdftk</tt></p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pdftk original.pdf <span class="nb">cat </span>1-8 output resultado.pdf</code></pre></figure></div>
+<h2> Rotar páginas </h2>
+<p>Con <tt>pdfjam</tt></p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pdf90 original.pdf</code></pre></figure></div>
+<p>También hay comandos <code>pdf180</code> y <code>pdf270</code>.</p>
+<p>Con <tt>pdftk</tt>:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pdftk original.pdf <span class="nb">cat </span>1-end&lt;b&gt;X&lt;/b&gt; output resultado.pdf</code></pre></figure></div>
+<p>Donde &#8216;X&#8217; puede ser:</p>
+<ul>
+<li>N:  0</li>
+<li>E: 90</li>
+<li> S: 180</li>
+<li>W: 270</li>
+<li>L: -90</li>
+<li>R: +90</li>
+<li>D: +180</li>
+</ul>
+<h2>Convertir un documento a formato de varias páginas por hoja</h2>
+<p>Utilizando el programa <tt>pdfnup</tt> del paquete <tt>pdfjam</tt>:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdfnup <span class="nt">--nup</span> 2x1 <span class="nt">--outfile</span> salida.pdf original.pdf</code></pre></figure></div>
+<p>Por ejemplo, para pasar transparencias apaisadas a página completa a formato de 3 páginas por hoja alineadas a la izquierda y con márgenes usa:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdfnup <span class="nt">--nup</span> 1x3 <span class="nt">--offset</span> <span class="s2">"-3cm 0"</span> <span class="nt">--trim</span> <span class="s2">"-2cm -2cm -2cm -2cm"</span> original.pdf</code></pre></figure></div>
+<h2> «Escalar» el tamaño de la página </h2>
+<p>En realidad se trata de aumentar los márgenes reduciendo el tamaño del área impresa. También con <tt>pdfnup</tt>:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>pdfnup <span class="nt">--nup</span> 1x1 <span class="nt">--scale</span> 0.9 original.pdf</code></pre></figure></div>
+<h2> Cambiar el formato de página </h2>
+<p>Si tienes que imprimir un .pdf cuyo formato de página no es A4 probablemente acabarás desperdiciando gran parte de la hoja porque por aquí todas las impresoras domesticas son A4. Con los siguientes comandos puedes convertir el formato de página:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>pdftk original.pdf <span class="nb">cat </span>output sin_xrefs.pdf
+<span class="gp">$</span><span class="w"> </span>gs <span class="nt">-r600</span> <span class="nt">-dDITHERPPI</span><span class="o">=</span>120 <span class="nt">-dNOCIE</span> <span class="nt">-dFIXEDMEDIA</span> <span class="nt">-sPAPERSIZE</span><span class="o">=</span>a4 <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="nt">-q</span> <span class="nt">-dNOPAUSE</span> <span class="nt">-dSAFER</span> <span class="nt">-dBATCH</span> <span class="nt">-dPDFFitPage</span> <span class="nt">-sOutputFile</span><span class="o">=</span>resultado.pdf pdfopt.ps sin_xrefs.pdf</code></pre></figure></div>
+<h2> Manipulación de metadatos </h2>
+<p>
+<h3>Con <code>pdftk</code></h3>
+<p>Para leer los metadatos de un <span class="caps">PDF</span>:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdftk original.pdf dump_data output data.txt
+<span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>data.txt
+<span class="go">InfoKey: Creator
+</span><span class="gp">InfoValue: Writer&amp;#</span>0<span class="p">;</span>
+<span class="go">InfoKey: Producer
+</span><span class="gp">InfoValue: OpenOffice.org 3.1&amp;#</span>0<span class="p">;</span>
+<span class="go">InfoKey: CreationDate
+InfoValue: D:20090923135542+02'00'
+PdfID0: e5d831c33f77ac694b32456732f2c86
+PdfID1: e5d831c33f77ac694b32456732f2c86
+NumberOfPages: 1</span></code></pre></figure></div>
+<p>Si se omite el <code>output data.txt</code>, imprime los datos a la salida estándar (la consola) en lugar de en el fichero.</p>
+<p>Para modificar los metadatos se debe escribir un fichero con el mismo formato que el <code>data.txt</code> anterior (o modificar uno generado así) y ejecutar:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdftk original.pdf update_info data.txt output resultado.pdf</code></pre></figure></div>
+<h3>Con <code>exiftool</code></h3>
+<p>Para mostrar los metadatos escribe una cadena con variables tipo-shell (atento a las comillas simples):</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>exiftool fichero.pdf <span class="nt">-p</span> <span class="s1">'$Title $Author'</span></code></pre></figure></div>
+<p>Para modificarlos utiliza esos mismas claves como opciones:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>exiftool fichero.pdf <span class="nt">-Title</span><span class="o">=</span><span class="s2">"Algún cuento chino"</span></code></pre></figure></div>
+<h2> Convertir a escala de grises </h2>
+<p>[visto en <a href="http://handyfloss.net/2008.09/making-a-pdf-grayscale-with-ghostscript/">http://handyfloss.net/2008.09/making-a-pdf-grayscale-with-ghostscript/</a>]</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gs <span class="nt">-sOutputFile</span><span class="o">=</span>grayscale.pdf <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="se">\</span>
+<span class="nt">-sColorConversionStrategy</span><span class="o">=</span>Gray <span class="nt">-dProcessColorModel</span><span class="o">=</span>/DeviceGray <span class="se">\</span>
+<span class="nt">-dCompatibilityLevel</span><span class="o">=</span>1.4 <span class="nt">-dNOPAUSE</span> <span class="nt">-dBATCH</span> color.pdf &lt; /dev/null</code></pre></figure></div>
+<h2> Convertir a «raster»</h2>
+<p/>
+<h3>Con Ghostscript</h3>
+<p>[visto en <a href="http://www.commandlinefu.com/commands/view/4466/convert-pdf-to-jpeg-using-ghostscript">commandlinefu.com</a>]</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gs <span class="nt">-dNOPAUSE</span> <span class="nt">-sDEVICE</span><span class="o">=</span>jpeg <span class="nt">-r144</span> <span class="nt">-sOutputFile</span><span class="o">=</span>p%03d.jpg file.pdf</code></pre></figure></div>
+<h3>Con convert</h3>
+<p>[visto en <a href="http://www.linuxquestions.org/questions/linux-software-2/pdf-to-png-converter-57142/">linuxquestions</a>]</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>convert <span class="nt">-density</span> 300x300 file.pdf salida.png</code></pre></figure></div>
+<h2> Crear un <span class="caps">PDF</span> con fuentes empotradas</h2>
+<p>Si has hecho un .pdf con <code>pdflatex</code> lo más probable es que no incluya las fuentes, de modo que el programa pueda renderizar el documento con las fuentes del sistema. Sin embargo, a veces se requiere disponer de un .pdf auto-contenido para garantizar que se verá del mismo modo en cualquier parte. Para lograrlo ejecuta lo sisguiente:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdf2ps original.pdf
+<span class="gp">$</span><span class="w"> </span>ps2pdf14 <span class="nt">-dPDFSETTINGS</span><span class="o">=</span>/prepress <span class="nt">-dEmbedAllFonts</span><span class="o">=</span><span class="nb">true </span>original.ps resultado.pdf</code></pre></figure></div>
+<p>Como es lógico, el fichero resultante ocupará mucho más que el original (de 5 a 10 veces).</p>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8155,10 +8340,10 @@ Esta receta explica cómo configurar un ordenador con Debian (también Ubuntu y 
     Este equipo hará de <a href="http://es.wikipedia.org/wiki/Router">router</a>. Sirve cualquier cosa mayor de un Pentium. Un K6 o un PII con 64 MB de RAM es más que suficiente para los servicios básicos. Es una buena oportunidad para reciclar tu viejo sobremesa, una vez instalado le sobre el monitor, teclado, ratón, CD-ROM y tarjeta de sonido; la de vídeo déjala puesta por si acaso.
   </p>
   </li>
-  <li><b>iptables</b>: 
+  <li><b>iptables</b>:
   <p>
     Herramienta de administración de filtrado de paquetes IP.</li>
-  </p>  
+  </p>
   <li><b>Un Linux "de los nuevos":</b>
   <p>
 Como vas a utilizar <b>iptables</b> necesitas un Linux-2.6 o superior (aunque también serviría un 2.4).
@@ -8175,14 +8360,14 @@ Como vas a utilizar <b>iptables</b> necesitas un Linux-2.6 o superior (aunque ta
 
 Ese ordenador "de desecho" del que hablaba antes lo llamaremos a partir de ahora con el original nombre de <em>Router</em>. Bien, <em>Router</em> debe tener, al menos, dos interfaces de red:
 <ul>
-  <li><b>Una conexión a Internet (eth0)</b>. 
+  <li><b>Una conexión a Internet (eth0)</b>.
 <p>Debe ser algún tipo de conexión a Internet, que puede ser RTC, ADSL, cable-modem, etc. Supondremos para esta receta que usas un modem ADSL con conexión Ethernet.
 </p>
 
 <p>Conste que podría ser RDSI, ppp o cualquier otro tipo de interfaz de red sin que ello afecte al resto del procecimiento. Supondremos que esta interfaz ya la tienes configurada conforme a las instrucciones de tu ISP.
 </p>
   </li>
-  <li><b>Una conexión a tu red local (eth1)</b>: 
+  <li><b>Una conexión a tu red local (eth1)</b>:
 <p>Será una tarjeta de red Ethernet 10/100. Esto permitirá que puedas enchufarle un conmutador y conectar "cienes y cienes" de ordenadores si quieres.
 </p>
 
@@ -8295,7 +8480,7 @@ Para guardar las reglas activas (las que has ido poniendo hasta ahora) ejecuta:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">Router:~#</span><span class="w"> </span>iptables-save <span class="o">&gt;</span> /etc/iptables.up.rules </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">Router:~#</span><span class="w"> </span>iptables-save <span class="o">&gt;</span> /etc/iptables.up.rules</code></pre></figure>
 </div>
 
 Y ahora hay que hacer que esa configuración se cargue automáticamente al levantar la interfaz de red principal (la externa). Para ello, edita de nuevo el fichero <tt>/etc/network/interfaces</tt> para que la entrada de eth0 quede así:
@@ -8907,97 +9092,6 @@ Suerte.
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-11-06/la-tierra-como-fondo-de-escritorio-en-gnome-con-xplanet.html">La Tierra como fondo de escritorio en gnome, con Xplanet</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-11-06
-    
-      
-  <a href="/users.html#fsancho">
-   fsancho
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-06-la-tierra-como-fondo-de-escritorio-en-gnome-con-xplanet.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-06-la-tierra-como-fondo-de-escritorio-en-gnome-con-xplanet.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/84">node/84</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Esta receta explica como poner un fondo de pantalla muy resultón que consiste en una imagen realista de la Tierra con iluminación y nubes &#8220;reales&#8221;, que además se va actualizando para representar la situación actual. Todo ello gracias a <a href="http://xplanet.sourceforge.net">xplanet</a>.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2005-11-06/la-tierra-como-fondo-de-escritorio-en-gnome-con-xplanet.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9038,7 +9132,7 @@ Suerte.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

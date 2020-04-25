@@ -5167,125 +5167,113 @@
 	<li><strong>Aplicaciones</strong>, que utilizan el <span class="caps">API</span> de OOo y que normalmente necesitan que previamente exista una instancia de OOo en ejecución. Este  <a href="http://wiki.services.openoffice.org/wiki/PyUNO_bridge#Hello_World">HelloWorld</a> funciona de ese modo:</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-import uno</p>
-<p>localContext = uno.getComponentContext()<br />
-resolver = localContext.ServiceManager.createInstanceWithContext(&#8220;com.sun.star.bridge.UnoUrlResolver&#8221;, localContext)<br />
-ctx = resolver.resolve(&#8220;uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext&#8221;)<br />
-smgr = ctx.ServiceManager<br />
-desktop = smgr.createInstanceWithContext(&#8220;com.sun.star.frame.Desktop&#8221;, ctx)<br />
-model = desktop.getCurrentComponent()<br />
-text = model.Text<br />
-cursor = text.createTextCursor()<br />
-text.insertString(cursor, &#8220;Hello World&#8221;, 0)</p>
-<p>ctx.ServiceManager<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">uno</span>
+
+<span class="n">localContext</span> <span class="o">=</span> <span class="n">uno</span><span class="p">.</span><span class="n">getComponentContext</span><span class="p">()</span>
+<span class="n">resolver</span> <span class="o">=</span> <span class="n">localContext</span><span class="p">.</span><span class="n">ServiceManager</span><span class="p">.</span><span class="n">createInstanceWithContext</span><span class="p">(</span><span class="s">"com.sun.star.bridge.UnoUrlResolver"</span><span class="p">,</span> <span class="n">localContext</span><span class="p">)</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">resolver</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="s">"uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"</span><span class="p">)</span>
+<span class="n">smgr</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">ServiceManager</span>
+<span class="n">desktop</span> <span class="o">=</span> <span class="n">smgr</span><span class="p">.</span><span class="n">createInstanceWithContext</span><span class="p">(</span><span class="s">"com.sun.star.frame.Desktop"</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">desktop</span><span class="p">.</span><span class="n">getCurrentComponent</span><span class="p">()</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">Text</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">text</span><span class="p">.</span><span class="n">createTextCursor</span><span class="p">()</span>
+<span class="n">text</span><span class="p">.</span><span class="n">insertString</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s">"Hello World"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">ctx</span><span class="p">.</span><span class="n">ServiceManager</span></code></pre></figure></div>
 <ul>
 	<li><strong>Macros</strong>, que ejecuta el propio OOo. Se puede hacer desde &#8220;Tools&#8594;Macros&#8594;Execute macro&#8221; o desde línea de comando. Este otro &#8220;HelloWorld&#8221; que viene con el paquete Debian <code>python-uno</code> funciona como macro.</li>
 </ul>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>HelloWorld python script for the scripting framework</li>
-</ol>
-<p>def HelloWorldPython( ):<br />
-    &quot;&quot;&quot;Prints the string &#8216;Hello World(in Python)&#8217; into the current document&quot;&quot;&quot;<br />
-    model = <span class="caps">XSCRIPTCONTEXT</span>.getDocument()<br />
-    text = model.Text<br />
-    tRange = text.End<br />
-    tRange.String = &#8220;Hello World (in Python)&#8221;<br />
-    return None<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>HelloWorld python script <span class="k">for </span>the scripting framework
+<span class="go">
+def HelloWorldPython( ):
+    """Prints the string 'Hello World(in Python)' into the current document"""
+    model = XSCRIPTCONTEXT.getDocument()
+    text = model.Text
+    tRange = text.End
+    tRange.String = "Hello World (in Python)"
+    return None</span></code></pre></figure></div>
 <h2>Conversor <span class="caps">PDF</span></h2>
 <p>Partiendo de <a href="http://www.oooforum.org/forum/viewtopic.phtml?t=3772">esta macro en OOBasic</a>, la gran cantidad de ejemplos que hay en <a href="http://www.oooforum.org/">http://www.oooforum.org/</a>, y sobre todo de la OOLib.py de Danny Brewer, más unas pequeñas modificaciones propias he escrito esta otra macro, que hace lo mismo, pero en Python (que mola más):</p>
 <div>
-<p>{% highlight python %}<br />
-import os</p>
-<p>def serviceManager():<br />
-    return <span class="caps">XSCRIPTCONTEXT</span>.getComponentContext().getServiceManager()</p>
-<ol>
-	<li>The CoreReflection object. It is cached in a global variable.<br />
-goCoreReflection = None<br />
-def getCoreReflection():<br />
-    global goCoreReflection<br />
-    if not goCoreReflection:<br />
-        goCoreReflection = serviceManager().createInstance(&#8220;com.sun.star.reflection.CoreReflection&#8221;)<br />
-    return goCoreReflection</li>
-</ol>
-<p>def createUnoStruct(cTypeName):<br />
-    &quot;&quot;&quot;Create a <span class="caps">UNO</span> struct and return it.<br />
-    Similar to the function of the same name in OOo Basic.&quot;&quot;&quot;</p>
-<ol>
-	<li>Get the <span class="caps">IDL</span> class for the type name<br />
-    oXIdlClass = getCoreReflection().forName(cTypeName)</li>
-	<li>Create the struct.<br />
-    oReturnValue, oStruct = oXIdlClass.createObject(None)<br />
-    return oStruct</li>
-</ol>
-<p>def pathnameToUrl(cPathname):<br />
-    &quot;&quot;&quot;Convert a Windows or <span class="caps">GNU</span>/Linux pathname into an OOo <span class="caps">URL</span>.&quot;&quot;&quot;<br />
-    if len( cPathname ) &gt; 1 and cPathname[1:2] == &#8220;:&#8221;:<br />
-        cPathname = &#8220;/&#8221; + cPathname<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup> + &#8220;|&#8221; + cPathname[2:]<br />
-    return &#8220;file://&#8221; + cPathname.replace(&#8220;\\&#8221;, &#8220;/&#8221;)</p>
-<p>def openURL(cUrl, tProperties=()):<br />
-    &quot;&quot;&quot;Open or Create a document from it&#8217;s <span class="caps">URL</span>.&quot;&quot;&quot;<br />
-    oDesktop = <span class="caps">XSCRIPTCONTEXT</span>.getDesktop()<br />
-    return oDesktop.loadComponentFromURL(cUrl, &#8220;_blank&#8221;, 0, tProperties)</p>
-<p>def MakePropertyValue( cName=None, uValue=None, nHandle=None, nState=None ):<br />
-    &quot;&quot;&quot;Create a com.sun.star.beans.PropertyValue struct and return it.&quot;&quot;&quot;<br />
-    oPropertyValue = createUnoStruct(&#8220;com.sun.star.beans.PropertyValue&#8221;)</p>
-if cName != None:
-oPropertyValue.Name = cName
-if uValue != None:
-oPropertyValue.Value = uValue
-if nHandle != None:
-oPropertyValue.Handle = nHandle
-if nState != None:
-oPropertyValue.State = nState
-return oPropertyValue
-<p>def main(dummy):<br />
-    cSourceFile = os.environ[&#8216;<span class="caps">OOARG</span>&#8217;]<br />
-    cSourceURL = pathnameToUrl( cSourceFile )</p>
-cTargetFile = os.path.splitext(cSourceFile)<sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup> + &#8216;.pdf&#8217;
-cTargetURL = pathnameToUrl( cTargetFile )
-<ol>
-	<li>Open the source document.</li>
-	<li>No filter necessary.  OOo will figure it out from the .<span class="caps">DOC</span> extension.<br />
-    oDoc = openURL(cSourceURL, (MakePropertyValue(&#8220;Hidden&#8221;, True),))</li>
-</ol>
-<ol>
-	<li>Save the newly opened document.<br />
-    oDoc.storeToURL(cTargetURL,<br />
-                    (MakePropertyValue(&#8220;FilterName&#8221;,&#8220;writer_pdf_Export&#8221;),))<br />
-    oDoc.dispose()</li>
-</ol>
-<p>g_exportedScripts = main,<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">serviceManager</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">XSCRIPTCONTEXT</span><span class="p">.</span><span class="n">getComponentContext</span><span class="p">().</span><span class="n">getServiceManager</span><span class="p">()</span>
+
+<span class="c1"># The CoreReflection object. It is cached in a global variable.
+</span><span class="n">goCoreReflection</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="k">def</span> <span class="nf">getCoreReflection</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">goCoreReflection</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">goCoreReflection</span><span class="p">:</span>
+        <span class="n">goCoreReflection</span> <span class="o">=</span> <span class="n">serviceManager</span><span class="p">().</span><span class="n">createInstance</span><span class="p">(</span><span class="s">"com.sun.star.reflection.CoreReflection"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">goCoreReflection</span>
+
+<span class="k">def</span> <span class="nf">createUnoStruct</span><span class="p">(</span><span class="n">cTypeName</span><span class="p">):</span>
+    <span class="s">"""Create a UNO struct and return it.
+    Similar to the function of the same name in OOo Basic."""</span>
+    <span class="c1"># Get the IDL class for the type name
+</span>    <span class="n">oXIdlClass</span> <span class="o">=</span> <span class="n">getCoreReflection</span><span class="p">().</span><span class="n">forName</span><span class="p">(</span><span class="n">cTypeName</span><span class="p">)</span>
+    <span class="c1"># Create the struct.
+</span>    <span class="n">oReturnValue</span><span class="p">,</span> <span class="n">oStruct</span> <span class="o">=</span> <span class="n">oXIdlClass</span><span class="p">.</span><span class="n">createObject</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">oStruct</span>
+
+<span class="k">def</span> <span class="nf">pathnameToUrl</span><span class="p">(</span><span class="n">cPathname</span><span class="p">):</span>
+    <span class="s">"""Convert a Windows or GNU/Linux pathname into an OOo URL."""</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span> <span class="n">cPathname</span> <span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">cPathname</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">":"</span><span class="p">:</span>
+        <span class="n">cPathname</span> <span class="o">=</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">cPathname</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">"|"</span> <span class="o">+</span> <span class="n">cPathname</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="s">"file://"</span> <span class="o">+</span> <span class="n">cPathname</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="si">\</span><span class="se">\</span><span class="s">"</span><span class="p">,</span> <span class="s">"/"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">openURL</span><span class="p">(</span><span class="n">cUrl</span><span class="p">,</span> <span class="n">tProperties</span><span class="o">=</span><span class="p">()):</span>
+    <span class="s">"""Open or Create a document from it's URL."""</span>
+    <span class="n">oDesktop</span> <span class="o">=</span> <span class="n">XSCRIPTCONTEXT</span><span class="p">.</span><span class="n">getDesktop</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">oDesktop</span><span class="p">.</span><span class="n">loadComponentFromURL</span><span class="p">(</span><span class="n">cUrl</span><span class="p">,</span> <span class="s">"_blank"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tProperties</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">MakePropertyValue</span><span class="p">(</span> <span class="n">cName</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">uValue</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">nHandle</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">nState</span><span class="o">=</span><span class="bp">None</span> <span class="p">):</span>
+    <span class="s">"""Create a com.sun.star.beans.PropertyValue struct and return it."""</span>
+    <span class="n">oPropertyValue</span> <span class="o">=</span> <span class="n">createUnoStruct</span><span class="p">(</span><span class="s">"com.sun.star.beans.PropertyValue"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cName</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">oPropertyValue</span><span class="p">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">cName</span>
+    <span class="k">if</span> <span class="n">uValue</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">oPropertyValue</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">uValue</span>
+    <span class="k">if</span> <span class="n">nHandle</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">oPropertyValue</span><span class="p">.</span><span class="n">Handle</span> <span class="o">=</span> <span class="n">nHandle</span>
+    <span class="k">if</span> <span class="n">nState</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">oPropertyValue</span><span class="p">.</span><span class="n">State</span> <span class="o">=</span> <span class="n">nState</span>
+
+    <span class="k">return</span> <span class="n">oPropertyValue</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">dummy</span><span class="p">):</span>
+    <span class="n">cSourceFile</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'OOARG'</span><span class="p">]</span>
+    <span class="n">cSourceURL</span> <span class="o">=</span> <span class="n">pathnameToUrl</span><span class="p">(</span> <span class="n">cSourceFile</span> <span class="p">)</span>
+
+    <span class="n">cTargetFile</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">cSourceFile</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">'.pdf'</span>
+    <span class="n">cTargetURL</span> <span class="o">=</span> <span class="n">pathnameToUrl</span><span class="p">(</span> <span class="n">cTargetFile</span> <span class="p">)</span>
+
+    <span class="c1"># Open the source document.
+</span>    <span class="c1"># No filter necessary.  OOo will figure it out from the .DOC extension.
+</span>    <span class="n">oDoc</span> <span class="o">=</span> <span class="n">openURL</span><span class="p">(</span><span class="n">cSourceURL</span><span class="p">,</span> <span class="p">(</span><span class="n">MakePropertyValue</span><span class="p">(</span><span class="s">"Hidden"</span><span class="p">,</span> <span class="bp">True</span><span class="p">),))</span>
+
+    <span class="c1"># Save the newly opened document.
+</span>    <span class="n">oDoc</span><span class="p">.</span><span class="n">storeToURL</span><span class="p">(</span><span class="n">cTargetURL</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">MakePropertyValue</span><span class="p">(</span><span class="s">"FilterName"</span><span class="p">,</span><span class="s">"writer_pdf_Export"</span><span class="p">),))</span>
+    <span class="n">oDoc</span><span class="p">.</span><span class="n">dispose</span><span class="p">()</span>
+
+<span class="n">g_exportedScripts</span> <span class="o">=</span> <span class="n">main</span><span class="p">,</span></code></pre></figure></div>
 <p>Tienes que escribir esto en un fichero que se llame <code>~/.openoffice.org2/user/Scripts/python/oo2pdf.py</code>.</p>
 <h2>¿Y cómo se usa?</h2>
 <p>Pues &#8220;simplemente&#8221; tienes que ejecutar este comando:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ <span class="caps">OOARG</span>=/home/usuario/fichero.odt soffice -invisible &#8220;vnd.sun.star.script:oo2pdf.py\$main?language=Python&amp;location=user&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nv">OOARG</span><span class="o">=</span>/home/usuario/fichero.odt soffice <span class="nt">-invisible</span> <span class="s2">"vnd.sun.star.script:oo2pdf.py</span><span class="se">\$</span><span class="s2">main?language=Python&amp;location=user"</span></code></pre></figure></div>
 <p>Obviamente lo mejor es escribir otro scriptillo para ejecutar ese engendro de comando.</p>
 <div>
-<p>{% highlight python <span>}<br />
-#!/usr/bin/python<br />
-import sys, os<br />
-os.system(&#8216;<span class="caps">OOARG</span>=%s soffice -invisible &#8220;vnd.sun.star.script:oo2pdf.py\$main?language=Python&amp;location=user&#8221;&#8217; % os.path.abspath(sys.argv<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>))<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+</span><span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">os</span>
+<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">'OOARG=%s soffice -invisible "vnd.sun.star.script:oo2pdf.py</span><span class="si">\</span><span class="err">$m</span><span class="se">a</span><span class="s">in?language=Python&amp;location=user"'</span> <span class="o">%</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></code></pre></figure></div>
 <p>Lo metes en <code>~/bin/oo2pdf</code>, le das permisos de ejecución y lo puedes ejecutar con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ oo2pdf fichero.odt<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>oo2pdf fichero.odt</code></pre></figure></div>
 <p>También lo puedes transformar en un <em>g-script</em> para nautilus, pero lo realmente interesante es utilizarlo desde un <code>Makefile</code> o similar para convertir de forma automatizada miles de <code>.odt</code> de un plumazo. También convierte cualquier otro formato de OOo, incluido el .doc de MS (pero no se lo digas a nadie).</p>
 <h3>Ficheros</h3>
 <p>Estos ficheros los tienes en nuestro <a href="https://arco.esi.uclm.es/svn/public/misc/openoffice.org/oo2pdf">repositorio subversion</a></p>
@@ -5368,7 +5356,7 @@ $ oo2pdf fichero.odt<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,102 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-01-22/gnu-emacs-elegir-el-encoding.html">GNU Emacs: Elegir el encoding</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-01-22
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-22-gnu-emacs-elegir-el-encoding.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-22-gnu-emacs-elegir-el-encoding.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#emacs-ref">emacs </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/529">node/529</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Cómo configurar el <em>encoding</em> de un fichero en emacs.</p>
+<p>
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2007-01-22/gnu-emacs-elegir-el-encoding.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8798,13 +8893,8 @@ For bug reporting instructions, please see:
 </pre>
 <p>Esta aplicación se compone de:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ls<br />
-BlinkM.nc  Blink.nc  Makefile  <span class="caps">README</span>  SingleTimer.nc</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">BlinkM.nc  Blink.nc  Makefile  README  SingleTimer.nc</span></code></pre></figure></div>
 <p>Si analizamos el proceso de compilación que ya usamos para comprobar que la toolchain estaba correctamente instalada:</p>
 <pre class="console">$make mica2
 mkdir -p build/mica2
@@ -8820,11 +8910,8 @@ avr-objcopy --output-target=ihex build/mica2/main.exe build/mica2/main.ihex
 <p>Vemos que lo primero crea un directorio para meter los binarios y que todo lo va a meter en main.exe, las opciones le indican diversos parámetros para la generación del código entre los cuales podemos ver el target, en nuestro caso la mica2, el usuario y el host, y al final nos aparece los bytes generados para la <span class="caps">RAM</span> y para la <span class="caps">ROM</span>.</p>
 <p>Si echamos un vistazo al directorio build/mica2 vemos los siguientes archivos:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-#ls<br />
-app.c  ident_flags.txt  main.exe  main.ihex  main.srec  tos_image.xml</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="nb">ls</span>
+<span class="go">app.c  ident_flags.txt  main.exe  main.ihex  main.srec  tos_image.xml</span></code></pre></figure></div>
 <p>donde aparecen diversos archivos como las imágenes generadas por avr-objcopy como són el formato de intel (.ihex) y el de motorola (.srec)</p>
 <p>Para instalarlo concectar físicamente el nodo a la interfaz de programación (la placa mib510) y esta al puerto serie mediante un cable RS232, por último  ejecutar el siguiente comando:</p>
 <pre class="console">
@@ -8878,101 +8965,6 @@ CntToRfm         HighFrequencySampling  MicaSBVerify  ReverseUART     SenseTask 
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-01-15/subversion-server-side-scripting-hooks.html">Subversion server side scripting (hooks)</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-01-15
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-15-subversion-server-side-scripting-hooks.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-15-subversion-server-side-scripting-hooks.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-    	<li><a href="/tags.html#VCS-ref">VCS </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/503">node/503</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Cómo usar el servidor subversion para ejecutar automáticamente programas personalizados. Como ejemplo, la receta explica cómo actualizar una página web mantenida en un repositorio.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2007-01-15/subversion-server-side-scripting-hooks.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9013,7 +9005,7 @@ CntToRfm         HighFrequencySampling  MicaSBVerify  ReverseUART     SenseTask 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

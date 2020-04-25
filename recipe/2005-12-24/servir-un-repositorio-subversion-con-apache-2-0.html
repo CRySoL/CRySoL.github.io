@@ -5230,12 +5230,9 @@
 <h2>Crear el repositorio</h2>
 <p>Un buen sitio es <code>/var</code></p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-root@example:/var# mkdir svn<br />
-root@example:/var# cd svn<br />
-root@example:/var/svn# svnadmin create repo<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@example:/var#</span><span class="w"> </span><span class="nb">mkdir </span>svn
+<span class="gp">root@example:/var#</span><span class="w"> </span><span class="nb">cd </span>svn
+<span class="gp">root@example:/var/svn#</span><span class="w"> </span>svnadmin create repo</code></pre></figure></div>
 <h2>Servir el repo con apache</h2>
 <p>Lo más sencillo es editar el fichero <code>/etc/apache2/mods-available/dav_svn.conf</code>. Tienes que añadir un bloque similar a éste:</p>
 <pre>
@@ -5246,33 +5243,18 @@ root@example:/var/svn# svnadmin create repo<br />
 </pre>
 <p>Ahora hay que asegurarse de que el módulo DAV_SVN está activado. Normalmente estará activado automáticamente, pero si no es tu caso, se hace con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>a2enmod dav_svn<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>a2enmod dav_svn</code></pre></figure></div>
 <h3>Permisos</h3>
 <p>Hay que permitir que Apache pueda leer y escribir en el repositorio:</p>
 <div class="console">
 <div>
-<p>{% highlight text %}</p>
-<ol>
-	<li>chown -R root.www-data /var/svn</li>
-	<li>chmod -R g+rw /var/svn<br />
-{% endhighlight %}<br />
-</div><br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># chown -R root.www-data /var/svn
+# chmod -R g+rw /var/svn</code></pre></figure></div>
+</div>
 <h3>Cargar los cambios</h3>
 <p>No se te olvide&#8230;</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/apache2 reload<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/apache2 reload</code></pre></figure></div>
 <h3>Acceso remoto</h3>
 <p>El repositorio es accesible, para clientes subversion, webdav o navegadores web convencionales, a través de:</p>
 <pre>http://example.com/svn/myrepo/</pre>
@@ -5280,42 +5262,35 @@ root@example:/var/svn# svnadmin create repo<br />
 <h2>Repositorio privado</h2>
 <p>Si lo que quieres es que solo unos usuarios concretos puedan acceder al repositorio tienes que definirlo de este modo:</p>
 <div>
-<p>{% highlight text %}<br />
-&lt;Location /svn/myrepo&gt;<br />
-  <span class="caps">DAV</span> svn<br />
-  SVNPath /var/svn/repo</p>
-AuthType Basic
-AuthName &#8220;My Repository&#8221;
-AuthUserFile /etc/apache2/dav_svn.passwd
-Require valid-user
-</Location>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;Location /svn/myrepo&gt;
+  DAV svn
+  SVNPath /var/svn/repo
+
+  AuthType Basic
+  AuthName "My Repository"
+  AuthUserFile /etc/apache2/dav_svn.passwd
+
+  Require valid-user
+&lt;/Location&gt;</code></pre></figure></div>
 <p>La sistaxis es análoga a la que se utiliza en Apache para restringir el acceso a un directorio. El fichero <code>/etc/apache2/dav_svn.passwd</code> es un fichero de claves típico de Apache. Para añadir usuarios utiliza el método habitual:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>htpasswd2 /etc/apache2/dav_svn.passw <em>usuario</em><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>htpasswd2 /etc/apache2/dav_svn.passw _usuario_</code></pre></figure></div>
 <p>En este caso es muy recomendable habilidar <span class="caps">SSL</span> en el servidor Apache, pues de otro modo la contraseña viajaría &#8216;en claro&#8217; a través de la red.</p>
 <h2>Acceso restringido</h2>
 <p>Otra posibilidad (muy común en el mundo del software libre) es tener un repositorio accesible para todo el mundo, pero sólo modificable por ciertos usuarios. En este caso la configuración sería algo como:</p>
 <div>
-<p>{% highlight text %}<br />
-&lt;Location /svn/myrepo&gt;<br />
-  <span class="caps">DAV</span> svn<br />
-  SVNPath /var/svn/repo</p>
-AuthType Basic
-AuthName &#8220;My Repository&#8221;
-AuthUserFile /etc/apache2/dav_svn.passwd
-<LimitExcept GET PROPFIND OPTIONS REPORT>
-Require valid-user
-</LimitExcept>
-</Location>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;Location /svn/myrepo&gt;
+  DAV svn
+  SVNPath /var/svn/repo
+
+  AuthType Basic
+  AuthName "My Repository"
+  AuthUserFile /etc/apache2/dav_svn.passwd
+
+  &lt;LimitExcept GET PROPFIND OPTIONS REPORT&gt;
+    Require valid-user
+  &lt;/LimitExcept&gt;
+&lt;/Location&gt;</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://svnbook.red-bean.com/">Control de versiones con Subversion</a></li>
@@ -5384,7 +5359,7 @@ Require valid-user
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

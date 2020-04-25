@@ -5426,47 +5426,37 @@
 <h2>Habilitando <span class="caps">SSL</span></h2>
 <p>Si quieres una mínima seguridad en jabber, puedes activar encriptación sobre <span class="caps">SSL</span>. Para ello necesitas, en primer lugar generar una clave publica y una privada. Este proceso se puede realizar de forma sencilla mediante este script:</p>
 <div>
-<p>{% highlight text %}<br />
-#!/bin/sh</p>
-<p><span class="caps">OPENSSL</span>=/usr/bin/openssl</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/sh
 
-	<ol>
-		<li>This generates the cert and key</li>
-		<li>The key will be valid for 3650 days.</li>
-		<li>Be sure to enter the <span class="caps">FQDN</span> of your Jabber</li>
-		<li>server as the &#8220;Common Name&#8221;.<br />
-$<span class="caps">OPENSSL</span> req -new -x509 -newkey rsa:1024 -days 3650 -keyout privkey.pem -out key.pem</li>
-		<li>This will remove the passphrase<br />
-$<span class="caps">OPENSSL</span> rsa -in privkey.pem -out privkey.pem</li>
-		<li>Put it all together<br />
-cat privkey.pem &gt;&gt; key.pem</li>
-		<li>Cleanup<br />
-rm privkey.pem<br />
-{% endhighlight %}<br />
-</div></li>
-	</ol><p>Un vez generada la clave edita el archivo de configuración de jabber <code>/etc/jabber/jabber.xml</code> y añade la siguiente configuración.</p>
+OPENSSL=/usr/bin/openssl
+## This generates the cert and key
+## The key will be valid for 3650 days.
+## Be sure to enter the FQDN of your Jabber
+## server as the "Common Name".
+$OPENSSL req -new -x509 -newkey rsa:1024 -days 3650 -keyout privkey.pem -out key.pem
+## This will remove the passphrase
+$OPENSSL rsa -in privkey.pem -out privkey.pem
+## Put it all together
+cat privkey.pem &gt;&gt; key.pem
+## Cleanup
+rm privkey.pem</code></pre></figure></div>
+<p>Un vez generada la clave edita el archivo de configuración de jabber <code>/etc/jabber/jabber.xml</code> y añade la siguiente configuración.</p>
 <div>
-<p>{% highlight text %}<br />
-<pthcsock><br />
-  &#8230;<br />
-  <ip port="5222"/><br />
-  <ssl port="5223">nuestra-ip</ssl><br />
-  &#8230;</p>
-</pthcsock>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;pthcsock&gt;
+  ...
+  &lt;ip port="5222"/&gt;
+  &lt;ssl port="5223"&gt;nuestra-ip&lt;/ssl&gt;
+  ...
+&lt;/pthcsock&gt;</code></pre></figure></div>
 <p>y:</p>
 <div>
-<p>{% highlight text %}<br />
-<io><br />
-  &#8230;<br />
-  <ssl><br />
-    <key ip="nuestra-ip">/ruta_donde_esta/key.pem</key></p>
-</ssl>
-&#8230;
-</io>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;io&gt;
+  ...
+  &lt;ssl&gt;
+    &lt;key ip="nuestra-ip"&gt;/ruta_donde_esta/key.pem&lt;/key&gt;
+  &lt;/ssl&gt;
+  ...
+&lt;/io&gt;</code></pre></figure></div>
       </div>
 
       
@@ -5531,7 +5521,7 @@ rm privkey.pem<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

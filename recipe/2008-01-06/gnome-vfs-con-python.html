@@ -5371,26 +5371,24 @@
 <h2>Un <code>copy</code> universal</h2>
 <p>El siguiente programa (llamado <code>vfs-copy.py</code>) se puede utilizar para copiar cualquier fichero de cualquier sitio a cualquier sitio (siempre que esos sitios sean manejables por <span class="caps">GNOME</span> <span class="caps">VFS</span> obviamente):</p>
 <div>
-<p>{% highlight python %}<br />
-import sys<br />
-import gnomevfs as vfs</p>
-<p>if len(sys.argv) != 3:<br />
-    sys.exit(&#8220;Usage: %s source target&#8221; % <i>file</i>)</p>
-<p>src_uri =  vfs.<acronym title="vfs.make_uri_from_shell_arg(sys.argv[1]"><span class="caps">URI</span></acronym>)<br />
-dst_uri =  vfs.<acronym title="vfs.make_uri_from_shell_arg(sys.argv[2]"><span class="caps">URI</span></acronym>)</p>
-<p>print src_uri, &#8216;&#8594;&#8217;, dst_uri</p>
-<p>vfs.xfer_uri(src_uri, dst_uri,<br />
-             vfs.XFER_DEFAULT,<br />
-             vfs.XFER_ERROR_MODE_ABORT,<br />
-             vfs.XFER_OVERWRITE_MODE_ABORT)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">gnomevfs</span> <span class="k">as</span> <span class="n">vfs</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="s">"Usage: %s source target"</span> <span class="o">%</span> <span class="n">__file__</span><span class="p">)</span>
+
+<span class="n">src_uri</span> <span class="o">=</span>  <span class="n">vfs</span><span class="p">.</span><span class="n">URI</span><span class="p">(</span><span class="n">vfs</span><span class="p">.</span><span class="n">make_uri_from_shell_arg</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">dst_uri</span> <span class="o">=</span>  <span class="n">vfs</span><span class="p">.</span><span class="n">URI</span><span class="p">(</span><span class="n">vfs</span><span class="p">.</span><span class="n">make_uri_from_shell_arg</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+
+<span class="k">print</span> <span class="n">src_uri</span><span class="p">,</span> <span class="s">'-&gt;'</span><span class="p">,</span> <span class="n">dst_uri</span>
+
+<span class="n">vfs</span><span class="p">.</span><span class="n">xfer_uri</span><span class="p">(</span><span class="n">src_uri</span><span class="p">,</span> <span class="n">dst_uri</span><span class="p">,</span>
+             <span class="n">vfs</span><span class="p">.</span><span class="n">XFER_DEFAULT</span><span class="p">,</span>
+             <span class="n">vfs</span><span class="p">.</span><span class="n">XFER_ERROR_MODE_ABORT</span><span class="p">,</span>
+             <span class="n">vfs</span><span class="p">.</span><span class="n">XFER_OVERWRITE_MODE_ABORT</span><span class="p">)</span></code></pre></figure></div>
 <p>De ese listado todo es autoexplicativo excepto la función <code>xfer_uri()</code>. El prototipo de esa función es:</p>
 <div>
-<p>{% highlight python <span>}<br />
-gnomevfs.xfer_uri(source_uri, target_uri, options, error_mode, overwrite_mode, progress_callback, data)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">gnomevfs</span><span class="p">.</span><span class="n">xfer_uri</span><span class="p">(</span><span class="n">source_uri</span><span class="p">,</span> <span class="n">target_uri</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">error_mode</span><span class="p">,</span> <span class="n">overwrite_mode</span><span class="p">,</span> <span class="n">progress_callback</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></code></pre></figure></div>
 <p>que son:</p>
 <ul>
 	<li>URIs origen y destino</li>
@@ -5402,17 +5400,17 @@ gnomevfs.xfer_uri(source_uri, target_uri, options, error_mode, overwrite_mode, p
 </ul>
 <p>Y ahora vamos a probarlo, todos los comandos siguientes funcionan tal cual con el listado del programa anterior:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ python vfs-copy.py /home/david/.bashrc mybashrc<br />
-file:///home/david/.bashrc &#8594; file:///home/david/devel/mybashrc</p>
-<p>$ python vfs-copy.py ftp://ftp.rediris.es/welcome.msg welcome<br />
-ftp://ftp.rediris.es/welcome.msg &#8594; file:///home/david/devel/welcome</p>
-<p>$ python vfs-copy.py http://ftp.gnu.org/pub/gnu/a2ps/a2ps-4.12.tar.gz#gzip:#tar:/a2ps-4.12/<span class="caps">FAQ</span> faq<br />
-http://ftp.gnu.org/pub/gnu/a2ps/a2ps-4.12.tar.gz#gzip:/#tar:/a2ps-4.12/<span class="caps">FAQ</span> &#8594; file:///home/david/devel/faq</p>
-<p>$ python vfs-copy.py ftp://ftp.rediris.es/welcome.msg sftp://david:miclave@miservidor.dyndns.org:/home/david/mensaje<br />
-ftp://ftp.rediris.es/welcome.msg &#8594; sftp://david:miclave@miservidor.dyndns.org:/home/david/mensaje<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>python vfs-copy.py /home/david/.bashrc mybashrc
+<span class="gp">file:///home/david/.bashrc -&gt;</span><span class="w"> </span>file:///home/david/devel/mybashrc
+<span class="go">
+</span><span class="gp">$</span><span class="w"> </span>python vfs-copy.py ftp://ftp.rediris.es/welcome.msg welcome
+<span class="gp">ftp://ftp.rediris.es/welcome.msg -&gt;</span><span class="w"> </span>file:///home/david/devel/welcome
+<span class="go">
+</span><span class="gp">$</span><span class="w"> </span>python vfs-copy.py http://ftp.gnu.org/pub/gnu/a2ps/a2ps-4.12.tar.gz#gzip:#tar:/a2ps-4.12/FAQ faq
+<span class="gp">http://ftp.gnu.org/pub/gnu/a2ps/a2ps-4.12.tar.gz#</span><span class="nb">gzip</span>:/#tar:/a2ps-4.12/FAQ -&gt; file:///home/david/devel/faq
+<span class="go">
+</span><span class="gp">$</span><span class="w"> </span>python vfs-copy.py ftp://ftp.rediris.es/welcome.msg sftp://david:miclave@miservidor.dyndns.org:/home/david/mensaje
+<span class="gp">ftp://ftp.rediris.es/welcome.msg -&gt;</span><span class="w"> </span>sftp://david:miclave@miservidor.dyndns.org:/home/david/mensaje</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://library.gnome.org/devel/gnome-vfs-2.0/unstable/index.html">GnomeVFS &#8211; Filesystem Abstraction Library</a></li>
@@ -5482,7 +5480,7 @@ ftp://ftp.rediris.es/welcome.msg &#8594; sftp://david:miclave@miservidor.dyndns.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

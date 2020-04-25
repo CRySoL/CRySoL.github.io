@@ -5447,38 +5447,23 @@
 <h2>Compilando <strong>Tslib</strong></h2>
 <p>Para realizar la compilación primero entra en la <em>jaula</em> chroot para no guarrear nada. Supondré que has creado tu <em>jaula</em> en un directorio llamado <strong>chumby</strong>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo chroot chumby<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo chroot </span>chumby</code></pre></figure></div>
 <p>Una vez allí ve a tu <em>home</em> (con el fin de guarrear el sistema de ficheros lo menos posible) y descarga allí el código fuente. En este punto tienes dos posibles opciones: la versión publicada actualmente (1.0) o bajar la versión del repositorio subversion.</p>
 <h3>Opción A</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>CHROOT@Chumby:~# wget http://prdownload.berlios.de/tslib/tslib-1.0.tar.bz2<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">CHROOT@Chumby:~#</span><span class="w"> </span>wget http://prdownload.berlios.de/tslib/tslib-1.0.tar.bz2</code></pre></figure></div>
 <h3>Opción B</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>CHROOT@Chumby:~# svn co svn://svn.berlios.de/tslib/trunk/tslib tslib-svn<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">CHROOT@Chumby:~#</span><span class="w"> </span>svn co svn://svn.berlios.de/tslib/trunk/tslib tslib-svn</code></pre></figure></div>
 <p>Sobra decir que si el comando anterior no te funciona tienes que instalar <strong>subversion</strong> dentro de tu chroot.</p>
 <p>Usando el método que hayas usado conseguirás tener un directorio con el código fuente de Tslib en tu <em>home</em>. Entremos y realicemos lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>CHROOT@Chumby:~# cd tslib-<span class="caps">XXXX</span><br />
-CHROOT@Chumby:tslib-<span class="caps">XXXX</span># ./autogen.sh<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">CHROOT@Chumby:~#</span><span class="w"> </span><span class="nb">cd </span>tslib-XXXX
+<span class="gp">CHROOT@Chumby:tslib-XXXX#</span><span class="w"> </span>./autogen.sh</code></pre></figure></div>
 <p>Tras ello se creará en el directorio un script <strong><em>configure</em></strong>. Este script requiere de las <strong>autotools</strong> para utilizarse, así que ya sabes lo que tienes que instalar dentro de tu chroot, si no lo hiciste ya.</p>
 <p>El script <em>configure</em> acepta multitud de argumentos. Para que funcione nuestra compilación cruzada, los parámetros que debemos decirle son:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>CHROOT@Chumby:tslib-<span class="caps">XXXX</span># ./configure &#8212;build=i686-pc-linux-gnu &#8212;host=arm-linux &#8212;prefix=/mnt/nfs<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">CHROOT@Chumby:tslib-XXXX#</span><span class="w"> </span>./configure <span class="nt">--build</span><span class="o">=</span>i686-pc-linux-gnu <span class="nt">--host</span><span class="o">=</span>arm-linux <span class="nt">--prefix</span><span class="o">=</span>/mnt/nfs</code></pre></figure></div>
 <p>Las opciones significan lo siguiente:</p>
 <ul>
 	<li>&#8212;build=i686-pc-linux-gnu: es la arquitectura y SO dónde estás compilando. Si es diferente deberías cambiarla (utiliza la salida del script <strong>config.guess</strong>).</li>
@@ -5487,32 +5472,20 @@ CHROOT@Chumby:tslib-<span class="caps">XXXX</span># ./autogen.sh<br />
 </ul>
 <p>Una vez hayas ejecutado el <em>configure</em> tan solo te quedarán los dos pasos más sencillos (pero más lentos) de todo el proceso:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>CHROOT@Chumby:tslib-<span class="caps">XXXX</span># make<br />
-CHROOT@Chumby:tslib-<span class="caps">XXXX</span># make install<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">CHROOT@Chumby:tslib-XXXX#</span><span class="w"> </span>make
+<span class="gp">CHROOT@Chumby:tslib-XXXX#</span><span class="w"> </span>make <span class="nb">install</span></code></pre></figure></div>
 <p>¡OJO! Si al hacer <em>make</em> tienes un error relacionado con la funció <strong>rpl_malloc</strong> deberás abrir el fichero <strong>config.h</strong> y comentar la línea dónde aparece lo siguiente:</p>
 <div>
-<p>{% highlight c <span>}<br />
-#define malloc rpl_malloc<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#define malloc rpl_malloc</span></code></pre></figure></div>
 <p>Una vez comentada vuelve a ejecutar <em>make</em> y todo debería ir bien. Por otra parte, <em>make install</em> copiará los ficheros generados a la ruta especificada por <em>&#8212;prefix</em> en el <em>configure</em> anterior.</p>
 <h2>Preparar el Chumby</h2>
 <p>Conéctate a tu Chumby por <span class="caps">SSH</span> y monta tu directorio por <span class="caps">NFS</span> en /mnt/nfs (o dónde más rabia te de) o pincha tu pendrive <span class="caps">USB</span>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>chumby:~# mount -t nfs -o nolock usuario@host:/home/usuario/chumby/mnt/nfs /mnt/nfs<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">chumby:~#</span><span class="w"> </span>mount <span class="nt">-t</span> nfs <span class="nt">-o</span> nolock usuario@host:/home/usuario/chumby/mnt/nfs /mnt/nfs</code></pre></figure></div>
 <p>Para calibrar la pantalla ejecutaremos un programa con interfaz gráfica, por lo que es recomendable que <em>matemos</em> el panel de control del Chumby y habilitemos el FrameBuffer 0, que es dónde se mostrará esa interfaz:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>chumby:~# stop_control_panel<br />
-chumby:~# echo 0 &gt; /proc/driver/imxfb/enable<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">chumby:~#</span><span class="w"> </span>stop_control_panel
+<span class="gp">chumby:~#</span><span class="w"> </span><span class="nb">echo </span>0 <span class="o">&gt;</span> /proc/driver/imxfb/enable</code></pre></figure></div>
 <p>Antes de intentar calibrar la pantalla debes asegurarte de lo siguiente:</p>
 <ul>
 	<li>Tienes permiso de escritura en el directorio <span class="caps">NFS</span>/pincho <span class="caps">USB</span> desde el Chumby y <span class="caps">NFS</span> te lo permite.</li>
@@ -5520,27 +5493,21 @@ chumby:~# echo 0 &gt; /proc/driver/imxfb/enable<br />
 	<li>Configura las variables de entorno para poder ejecutar el programa sin necesidad de indicarle la ruta completa ni dónde se encuentran las librerías. Para esto puedes crearte un fichero de configuración de las variables de entornos necesarias y ponerlo en tu directorio <span class="caps">NFS</span>/pincho <span class="caps">USB</span> para usarlo siempre que lo necesitemos:</li>
 </ul>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>export <span class="caps">HOME</span>=/mnt/nfs/root<br />
-export <span class="caps">PATH</span>=$<span class="caps">PATH</span>:/mnt/nfs/bin<br />
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/mnt/nfs/lib<br />
-export TSLIB_TSDEVICE=/dev/input/event0<br />
-export TSLIB_FBDEVICE=/dev/fb0<br />
-export TSLIB_PLUGINDIR=/mnt/nfs/lib/ts<br />
-export TSLIB_CONSOLEDEVICE=/dev/ttyS0<br />
-export TSLIB_CONFFILE=/mnt/nfs/etc/ts.conf<br />
-export TSLIB_CALIBFILE=/mnt/nfs/etc/pointercal<br />
-export POINTERCAL_FILE=/mnt/nfs/etc/pointercal<br />
-export QWS_MOUSE_PROTO=Tslib:/dev/input/event0<br />
-export QWS_KEYBOARD=<span class="caps">USB</span>:/dev/input/event1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">export HOME=/mnt/nfs/root
+</span><span class="gp">export PATH=$</span>PATH:/mnt/nfs/bin
+<span class="gp">export LD_LIBRARY_PATH=$</span>LD_LIBRARY_PATH:/mnt/nfs/lib
+<span class="go">export TSLIB_TSDEVICE=/dev/input/event0
+export TSLIB_FBDEVICE=/dev/fb0
+export TSLIB_PLUGINDIR=/mnt/nfs/lib/ts
+export TSLIB_CONSOLEDEVICE=/dev/ttyS0
+export TSLIB_CONFFILE=/mnt/nfs/etc/ts.conf
+export TSLIB_CALIBFILE=/mnt/nfs/etc/pointercal
+export POINTERCAL_FILE=/mnt/nfs/etc/pointercal
+export QWS_MOUSE_PROTO=Tslib:/dev/input/event0
+export QWS_KEYBOARD=USB:/dev/input/event1</span></code></pre></figure></div>
 <p>Para no tener que ejecutar esto cada vez que quieras hacer alguna prueba puedes guardar las líneas anteriores en un fichero (por ejemplo, <em>enviroment</em>) y ejecutarlo cada vez que nos haga falta con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-chumby:~# source enviroment<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">chumby:~#</span><span class="w"> </span><span class="nb">source </span>enviroment</code></pre></figure></div>
 <h2>Probando el invento</h2>
 <p>Para probar si hemos compilado/instalado todo correctamente necesitarías crear y compilar un programa usando las librerías de Tslib. Si tienes prisa y quieres probarlo ya :P estás de suerte: junto con la librería se compilan unos programas (que están en el directorio <em>bin_). Uno de ellos es el primero que tendrás que ejecutar: *ts</em>calibrate*</p>
 <p>Cuando lo ejecutes deberá aparecerte en la pantalla del Chumby algo como esto:</p>
@@ -5610,7 +5577,7 @@ chumby:~# source enviroment<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5150,47 +5150,38 @@
 <h2>Invocación automática del &#8220;constructor&#8221; de la superclase</h2>
 <p>Cuando empezaste con Python quizá te sorprendió que cuando heredas una clase y sobrecargas el método <code>__init__</code>, no se invoque al <code>__init__</code> de su superclase. Es decir:</p>
 <div>
-<p>{% highlight python <span>}<br />
-&gt;&gt;&gt; class A(object):<br />
-&#8230;    def <i>init</i>(self):<br />
-&#8230;       print &#8216;init A&#8217;<br />
-&#8230;<br />
-&gt;&gt;&gt; class B(A):<br />
-&#8230;    def <i>init</i>(self):<br />
-&#8230;       print &#8216;init B&#8217;<br />
-&#8230;<br />
-&gt;&gt;&gt; b = B()<br />
-init B<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="p">...</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="p">...</span>       <span class="k">print</span> <span class="s">'init A'</span>
+<span class="p">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="p">...</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="p">...</span>       <span class="k">print</span> <span class="s">'init B'</span>
+<span class="p">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">B</span><span class="p">()</span>
+<span class="n">init</span> <span class="n">B</span></code></pre></figure></div>
 <p>Pues bien, la siguiente metaclase permite que al crear una instancia de B, se invoque también el método <code>__init__</code> de A de forma automática:</p>
 <div>
-<p>{% highlight python <span>}<br />
-class AutoSuper(type):<br />
-   def <i>call</i>(cls, <strong>args, *</strong>kw):<br />
-      obj = type.<i>call</i>(cls, <strong>args, *</strong>kw)<br />
-      for i in cls.<i>bases</i>:<br />
-          i.<i>init</i>(obj, <strong>args, *</strong>kw)<br />
-      return obj<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">AutoSuper</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+      <span class="n">obj</span> <span class="o">=</span> <span class="nb">type</span><span class="p">.</span><span class="n">__call__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cls</span><span class="p">.</span><span class="n">__bases__</span><span class="p">:</span>
+          <span class="n">i</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">obj</span></code></pre></figure></div>
 <p>Si ahora pruebas el ejemplo anterior, haciendo que A utilice la metaclase AutoSuper:</p>
 <div>
-<p>{% highlight python <span>}<br />
-&gt;&gt;&gt; class A(object):<br />
-&#8230;    <i>metaclass</i> = AutoSuper<br />
-&#8230;    def <i>init</i>(self):<br />
-&#8230;       print &#8216;init A&#8217;<br />
-&#8230;<br />
-&gt;&gt;&gt; class B(A):<br />
-&#8230;    def <i>init</i>(self):<br />
-&#8230;       print &#8216;init B&#8217;<br />
-&#8230;<br />
-&gt;&gt;&gt; b = B()<br />
-init B<br />
-init A<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="p">...</span>    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">AutoSuper</span>
+<span class="p">...</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="p">...</span>       <span class="k">print</span> <span class="s">'init A'</span>
+<span class="p">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="p">...</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="p">...</span>       <span class="k">print</span> <span class="s">'init B'</span>
+<span class="p">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">B</span><span class="p">()</span>
+<span class="n">init</span> <span class="n">B</span>
+<span class="n">init</span> <span class="n">A</span></code></pre></figure></div>
 <p>Señalar que esta solución no es transitiva. La metaclase hace que se invoquen los <code>__init__</code> de las superclases de esa clase. Es decir, sólo las superclases inmediatas, no se invocan los <code>__init__</code> de ancestros indirectos.</p>
       </div>
 
@@ -5256,7 +5247,7 @@ init A<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

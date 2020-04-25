@@ -5164,27 +5164,20 @@
 <h2>Apéndice</h2>
 <p>Curioseando un poco, he visto que en el fichero <code>/etc/ppp/peers/dsl-provider</code> que viene con el paquete <code>pppoe</code> hay unos comentarios interesantes:</p>
 <div>
-<p>{% highlight text %}</p>
-<ol>
-	<li>Use the pppoe program to send the ppp packets over the Ethernet link</li>
-	<li>This line should work fine if this computer is the only one accessing</li>
-	<li>the Internet through this <span class="caps">DSL</span> connection. This is the right line to use</li>
-	<li>for most people.<br />
-pty &#8220;/usr/sbin/pppoe -I eth0 -T 80 -m 1452&#8221;</li>
-</ol>
-<ol>
-	<li>An even more conservative version of the previous line, if things</li>
-	<li>don&#8217;t work using -m 1452&#8230;<br />
-#pty &#8220;/usr/sbin/pppoe -I eth0 -T 80 -m 1412&#8221;</li>
-</ol>
-<ol>
-	<li>If the computer connected to the Internet using pppoe is not being used</li>
-	<li>by other computers as a gateway to the Internet, you can try the following</li>
-	<li>line instead, for a small gain in speed:<br />
-#pty &#8220;/usr/sbin/pppoe -I eth0 -T 80&#8221;<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># Use the pppoe program to send the ppp packets over the Ethernet link
+# This line should work fine if this computer is the only one accessing
+# the Internet through this DSL connection. This is the right line to use
+# for most people.
+pty "/usr/sbin/pppoe -I eth0 -T 80 -m 1452"
+
+# An even more conservative version of the previous line, if things
+# don't work using -m 1452...
+#pty "/usr/sbin/pppoe -I eth0 -T 80 -m 1412"
+
+# If the computer connected to the Internet using pppoe is not being used
+# by other computers as a gateway to the Internet, you can try the following
+# line instead, for a small gain in speed:
+#pty "/usr/sbin/pppoe -I eth0 -T 80"</code></pre></figure></div>
 <p>O sea que parece que es algo propio de PPPoE. Habrá que mirarse la <span class="caps">RFC</span> :-) Los tiros van por la <a href="http://www.ietf.org/rfc/rfc2923.txt"><span class="caps">RFC</span> 2923</a>.</p>
       </div>
 
@@ -5250,7 +5243,7 @@ pty &#8220;/usr/sbin/pppoe -I eth0 -T 80 -m 1452&#8221;</li>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

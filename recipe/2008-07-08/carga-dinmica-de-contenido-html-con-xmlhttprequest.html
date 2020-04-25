@@ -5244,20 +5244,20 @@ Función cambiaTexto():
 
 
 <div>
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">cambiaTexto</span><span class="p">(){</span>	
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">cambiaTexto</span><span class="p">(){</span>
 	<span class="kd">var</span> <span class="nx">menu</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">menu</span><span class="dl">"</span><span class="p">);</span>
-	<span class="kd">var</span> <span class="nx">capa</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">texto</span><span class="dl">"</span><span class="p">);</span>	
+	<span class="kd">var</span> <span class="nx">capa</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">texto</span><span class="dl">"</span><span class="p">);</span>
 	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span> <span class="nx">menu</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
 	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
 		<span class="k">if</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">){</span>
-			<span class="nx">capa</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>			
-		<span class="p">}</span>		
+			<span class="nx">capa</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
+		<span class="p">}</span>
 	<span class="p">}</span>
-	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>				
+	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
 </div>
 
-Para poder manipular el menú y la capa creada con código HTML, utilizamos la función getElementById. El valor actual del menú contendrá el enlace de la página que hemos elegido <i>menu.value</i>. Por tanto, podemos hacer la petición del contenido de dicha página con el objeto <i>xmlhttp</i> y la función <i>open</i>. Además, podemos apreciar que en este ejemplo hemos realizado la petición con el método GET, pero es importante saber que no es la única forma, ya que existe varios métodos: GET, POST, HEAD, DELETE, TRACE, OPTIONS y CONNECT. 
+Para poder manipular el menú y la capa creada con código HTML, utilizamos la función getElementById. El valor actual del menú contendrá el enlace de la página que hemos elegido <i>menu.value</i>. Por tanto, podemos hacer la petición del contenido de dicha página con el objeto <i>xmlhttp</i> y la función <i>open</i>. Además, podemos apreciar que en este ejemplo hemos realizado la petición con el método GET, pero es importante saber que no es la única forma, ya que existe varios métodos: GET, POST, HEAD, DELETE, TRACE, OPTIONS y CONNECT.
 
 Finalmente, cuando la petición es satisfecha podemos cargar el contenido que ha sido solicitado en la capa (<i>capa.innerHTML = xmlhttp.responseText</i>)
 
@@ -5333,7 +5333,7 @@ Como hemos podido apreciar en este breve tutorial, AJAX se basa principalmente e
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

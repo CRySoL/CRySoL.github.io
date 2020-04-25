@@ -5459,13 +5459,8 @@ Este script debemos ejecutarlo cada vez que añadamos un paquete binario o fuent
 La línea anterior utilizaría la distribución <em>unstable</em>, con las tres ramas.</p>
 <p>Si quieres tenerlo accesible de forma remota, puedes crear un enlace simbólico en <em>/var/www/</em> para redireccionar la consulta <em>http</em> a tu servidor Apache:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cd /var/www</li>
-	<li>ln -s /var/mirepo mirepo<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /var/www
+<span class="gp">#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /var/mirepo mirepo</code></pre></figure></div>
 <p>Y añadir como repositorio la línea:</p>
 <pre>
 deb http://midominio.com/mirepo testing main contrib
@@ -5539,7 +5534,7 @@ deb http://midominio.com/mirepo testing main contrib
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

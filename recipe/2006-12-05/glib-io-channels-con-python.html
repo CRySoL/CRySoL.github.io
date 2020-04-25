@@ -5329,52 +5329,44 @@
 </ul>
 <p>Los <em>handlers</em> deben devolver <code>True</code>, de otro modo son automáticamente eliminados después de su ejecución:</p>
 <div>
-<p>{% highlight python %}<br />
-import sys, os, socket<br />
-import gobject</p>
-<p>def file_handler(fd, condition):<br />
-    print os.read(fd.fileno(), 32)<br />
-    return True</p>
-<p>def timer_handler():<br />
-    print &#8216;timeout&#8217;<br />
-    return True</p>
-<p>udp_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)<br />
-udp_sock.bind((&#8217;&#8217;,9000))</p>
-<p>gobject.timeout_add(3000, timer_handler)<br />
-gobject.io_add_watch(sys.stdin, gobject.IO_IN, file_handler)<br />
-gobject.io_add_watch(udp_sock.makefile(), gobject.IO_IN, file_handler)<br />
-gobject.MainLoop().run()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">os</span><span class="p">,</span> <span class="n">socket</span>
+<span class="kn">import</span> <span class="nn">gobject</span>
+
+<span class="k">def</span> <span class="nf">file_handler</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">condition</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">os</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="mi">32</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">True</span>
+
+<span class="k">def</span> <span class="nf">timer_handler</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">'timeout'</span>
+    <span class="k">return</span> <span class="bp">True</span>
+
+<span class="n">udp_sock</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<span class="n">udp_sock</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">''</span><span class="p">,</span><span class="mi">9000</span><span class="p">))</span>
+
+<span class="n">gobject</span><span class="p">.</span><span class="n">timeout_add</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="n">timer_handler</span><span class="p">)</span>
+<span class="n">gobject</span><span class="p">.</span><span class="n">io_add_watch</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">gobject</span><span class="p">.</span><span class="n">IO_IN</span><span class="p">,</span> <span class="n">file_handler</span><span class="p">)</span>
+<span class="n">gobject</span><span class="p">.</span><span class="n">io_add_watch</span><span class="p">(</span><span class="n">udp_sock</span><span class="p">.</span><span class="n">makefile</span><span class="p">(),</span> <span class="n">gobject</span><span class="p">.</span><span class="n">IO_IN</span><span class="p">,</span> <span class="n">file_handler</span><span class="p">)</span>
+<span class="n">gobject</span><span class="p">.</span><span class="n">MainLoop</span><span class="p">().</span><span class="n">run</span><span class="p">()</span></code></pre></figure></div>
 <p>Para probar la fuente <span class="caps">UDP</span> se puede usar <code>netcat</code>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ nc -u host 9000<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-u</span> host 9000</code></pre></figure></div>
 <h3>gobject.MainContext.iteration</h3>
 <p>Si por cualquier circunstancia necesitas crear tú el bucle de eventos y no puedes usar MainLoop, todavía puedes usar la gestión de eventos de gobject por medio de <code>iteration()</code>.</p>
 <p>Ten en cuenta que, en este caso, el tratamiento no es bloqueante. El bucle consumirá toda la <span class="caps">CPU</span> disponible, pero se supone que la necesitas para hacer algún tipo de cómputo intensivo. Si no es ese tu caso, deberías volver a plantearte si lo que te conviene es usar directamente el &#8220;mainloop&#8221;, como en el ejemplo del punto anterior.</p>
 <p>Para el bucle anterior sería algo como:</p>
 <div>
-<p>{% highlight python <span>}<br />
-[&#8230;]<br />
-gobject.io_add_watch(udp_sock.makefile(), gobject.IO_IN, file_handler)<br />
-while 1:<br />
-    gobject.main_context_default().iteration(False)<br />
-    &#8230;tus tareas&#8230;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[...]</span>
+<span class="n">gobject</span><span class="p">.</span><span class="n">io_add_watch</span><span class="p">(</span><span class="n">udp_sock</span><span class="p">.</span><span class="n">makefile</span><span class="p">(),</span> <span class="n">gobject</span><span class="p">.</span><span class="n">IO_IN</span><span class="p">,</span> <span class="n">file_handler</span><span class="p">)</span>
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">gobject</span><span class="p">.</span><span class="n">main_context_default</span><span class="p">().</span><span class="n">iteration</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="p">...</span><span class="n">tus</span> <span class="n">tareas</span><span class="p">...</span></code></pre></figure></div>
 <p>Pero atención, si necesitas asegurarte de que se sirve algún evento antes de seguir cada iteración, tendrás que ejecutar el método <code>iteration()</code> hasta que devuelva <code>True</code>:</p>
 <div>
-<p>{% highlight python <span>}<br />
-[&#8230;]<br />
-gobject.io_add_watch(udp_sock.makefile(), gobject.IO_IN, file_handler)<br />
-while 1:<br />
-    while not gobject.main_context_default().iteration(): pass<br />
-    &#8230;tareas&#8230;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[...]</span>
+<span class="n">gobject</span><span class="p">.</span><span class="n">io_add_watch</span><span class="p">(</span><span class="n">udp_sock</span><span class="p">.</span><span class="n">makefile</span><span class="p">(),</span> <span class="n">gobject</span><span class="p">.</span><span class="n">IO_IN</span><span class="p">,</span> <span class="n">file_handler</span><span class="p">)</span>
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">gobject</span><span class="p">.</span><span class="n">main_context_default</span><span class="p">().</span><span class="n">iteration</span><span class="p">():</span> <span class="k">pass</span>
+    <span class="p">...</span><span class="n">tareas</span><span class="p">...</span></code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.pygtk.org/docs/pygobject/index.html">PyGObject Reference Manual</a></li>
@@ -5443,7 +5435,7 @@ while 1:<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

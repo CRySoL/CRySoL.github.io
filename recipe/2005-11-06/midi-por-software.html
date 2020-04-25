@@ -5166,20 +5166,12 @@
 <p>De esta forma desactivo el efecto <em>Reverb</em> y <em>Chorus</em> y el resampleado de los patches lo hago con un algoritmo lineal en vez del gaussiano que utiliza por defecto. Esto hace descender drámaticamente el uso de <span class="caps">CPU</span> a la vez que apenas se nota un descenso en la calidad del sonido.</p>
 <p>Una vez hecho esto, basta con arrancar el servicio timidity.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/timidity start<br />
-Starting TiMidity++ <span class="caps">ALSA</span> midi emulation: timidity.<br />
-Emulating midi on ports: 128:0 128:1 128:2 128:3</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/timidity start
+<span class="go">Starting TiMidity++ ALSA midi emulation: timidity.
+Emulating midi on ports: 128:0 128:1 128:2 128:3</span></code></pre></figure></div>
 <p>Para probar que el emulador midi está funcionando podemos utilizar el reproductor pmidi de esta forma:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-pmidi -p 128:0 fichero.mid<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">pmidi -p 128:0 fichero.mid</span></code></pre></figure></div>
 <p>Si suena es que está funcionando correctamente. :-)</p>
 <p>Así hemos logrado tener emulación midi para aquellos programas de reproducción midi que lo requieran. Yo suelo usar kmid (no confundir con<br />
 kmidi) para reproducir mid y kar (midis con letra de karaoke) y así amenizar mis fiestas :-D</p>
@@ -5249,7 +5241,7 @@ sonarán perfectamente.</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

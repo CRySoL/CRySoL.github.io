@@ -5148,7 +5148,7 @@
   <div class="row-fluid post-full">
     <div class="span12">
       <div class="content">
-	<blockquote class="head"> 
+	<blockquote class="head">
 Esta receta prentede ser una introducción a los hilos utilizando la librería glib.
 </blockquote>
 
@@ -5172,10 +5172,10 @@ La librería glib es una de las más importantes que existen en GNOME. Dentro de
 <span class="p">{</span>
   <span class="kt">char</span> <span class="o">*</span><span class="n">mensaje1</span> <span class="o">=</span> <span class="s">"mensaje_1"</span><span class="p">;</span>
   <span class="kt">char</span> <span class="o">*</span><span class="n">mensaje2</span> <span class="o">=</span> <span class="s">"mensaje_2"</span><span class="p">;</span>
-    
+
   <span class="c1">//inicializamos el soporte para hilos en glib</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">g_thread_supported</span> <span class="p">())</span> <span class="n">g_thread_init</span> <span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
-  
+
   <span class="c1">//reservamos memoria para los hilos de manera dinámica</span>
   <span class="n">GThread</span> <span class="o">*</span><span class="n">productor</span> <span class="o">=</span> <span class="p">(</span><span class="n">GThread</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">GThread</span><span class="p">));</span>
   <span class="n">GThread</span> <span class="o">*</span><span class="n">consumidor</span> <span class="o">=</span> <span class="p">(</span><span class="n">GThread</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">GThread</span><span class="p">));</span>
@@ -5183,11 +5183,11 @@ La librería glib es una de las más importantes que existen en GNOME. Dentro de
   <span class="c1">//creamos los hilos</span>
   <span class="n">productor</span> <span class="o">=</span> <span class="n">g_thread_create</span><span class="p">(</span> <span class="p">(</span><span class="n">GThreadFunc</span><span class="p">)</span><span class="n">funcion_de_prueba</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">mensaje1</span> <span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
   <span class="n">consumidor</span> <span class="o">=</span> <span class="n">g_thread_create</span><span class="p">(</span> <span class="p">(</span><span class="n">GThreadFunc</span><span class="p">)</span><span class="n">funcion_de_prueba</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">mensaje2</span> <span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
-  
+
   <span class="c1">//destruimos los hilos</span>
   <span class="n">g_thread_join</span><span class="p">(</span><span class="n">productor</span><span class="p">);</span>
   <span class="n">g_thread_join</span><span class="p">(</span><span class="n">consumidor</span><span class="p">);</span>
-  
+
   <span class="c1">//liberamos memoria</span>
   <span class="n">free</span><span class="p">(</span><span class="n">productor</span><span class="p">);</span>
   <span class="n">free</span><span class="p">(</span><span class="n">consumidor</span><span class="p">);</span>
@@ -5197,7 +5197,7 @@ La librería glib es una de las más importantes que existen en GNOME. Dentro de
 
 
 <span class="c1">//esta es la función que es llamada por los hilos</span>
-<span class="n">GThreadFunc</span> <span class="nf">funcion_de_prueba</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">cadena</span><span class="p">){</span> 
+<span class="n">GThreadFunc</span> <span class="nf">funcion_de_prueba</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">cadena</span><span class="p">){</span>
   <span class="n">printf</span><span class="p">(</span><span class="s">"esta es la funcion de prueba</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
   <span class="n">printf</span><span class="p">(</span><span class="s">"mensaje  %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">cadena</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
@@ -5290,7 +5290,7 @@ mensaje mensaje_2</span></code></pre></figure>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

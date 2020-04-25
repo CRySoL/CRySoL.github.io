@@ -5321,72 +5321,73 @@
 <p>Como verás, gracias a <code>amara</code> el programa resulta muy sencillo:</p>
 <p><a href="https://arco.inf-cr.uclm.es/svn/public/misc/gcstar/gcstar_add.py">gcstar_add.py</a></p>
 <div>
-<p>{% highlight python %}<br />
-#!/usr/bin/python<br />
-import sys, os, amara</p>
-<p>def get_collection_filename():<br />
-    for line in file(os.path.join(os.environ[&#8216;<span class="caps">HOME</span>&#8217;],<br />
-                                  &#8216;.config/gcstar/GCstar.conf&#8217;)):<br />
-        if line.startswith(&#8216;file=&#8217;):<br />
-            return line.split(&#8216;=&#8217;)<sup class="footnote" id="fnr1"><a href="#fn1">1</a></sup>.strip()</p>
-<p>EXTs = [&#8216;.avi&#8217;,&#8216;.mpg&#8217;, &#8216;.mpeg&#8217;, &#8216;.mkv&#8217;, &#8216;.ogm&#8217;]</p>
-<p>dbname = get_collection_filename()<br />
-doc = amara.parse(dbname)<br />
-count = 0</p>
-<p>for line in sys.stdin:</p>
-line = line.decode(&#8216;utf-8&#8217;).strip()
-format = &#8217;&#8217;
-name, ext = os.path.splitext(line)
-if ext in EXTs:
-line = name
-format = ext[1:]
-item = doc.xml_create_element(u&#8217;item&#8217;, content=u&#8217; &#8217;)
-item.title = unicode(line)
-if format: item.video = unicode(format)
-doc.collection.xml_append(item)
-count += 1
-<p>fd = open(dbname, &#8216;w&#8217;)<br />
-fd.write(doc.xml())<br />
-fd.close()</p>
-<p>print count, &#8216;new items&#8217;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+</span><span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">os</span><span class="p">,</span> <span class="n">amara</span>
+
+<span class="k">def</span> <span class="nf">get_collection_filename</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">file</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'HOME'</span><span class="p">],</span>
+                                  <span class="s">'.config/gcstar/GCstar.conf'</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'file='</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">line</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'='</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">EXTs</span> <span class="o">=</span> <span class="p">[</span><span class="s">'.avi'</span><span class="p">,</span><span class="s">'.mpg'</span><span class="p">,</span> <span class="s">'.mpeg'</span><span class="p">,</span> <span class="s">'.mkv'</span><span class="p">,</span> <span class="s">'.ogm'</span><span class="p">]</span>
+
+<span class="n">dbname</span> <span class="o">=</span> <span class="n">get_collection_filename</span><span class="p">()</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">amara</span><span class="p">.</span><span class="n">parse</span><span class="p">(</span><span class="n">dbname</span><span class="p">)</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">sys</span><span class="p">.</span><span class="n">stdin</span><span class="p">:</span>
+
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">).</span><span class="n">strip</span><span class="p">()</span>
+    <span class="nb">format</span> <span class="o">=</span> <span class="s">''</span>
+
+    <span class="n">name</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">EXTs</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="nb">format</span> <span class="o">=</span> <span class="n">ext</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">item</span> <span class="o">=</span> <span class="n">doc</span><span class="p">.</span><span class="n">xml_create_element</span><span class="p">(</span><span class="s">u'item'</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s">u' '</span><span class="p">)</span>
+    <span class="n">item</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">format</span><span class="p">:</span> <span class="n">item</span><span class="p">.</span><span class="n">video</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
+    <span class="n">doc</span><span class="p">.</span><span class="n">collection</span><span class="p">.</span><span class="n">xml_append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">fd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">dbname</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span>
+<span class="n">fd</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">doc</span><span class="p">.</span><span class="n">xml</span><span class="p">())</span>
+<span class="n">fd</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="n">count</span><span class="p">,</span> <span class="s">'new items'</span></code></pre></figure></div>
 <p>Puedes guardar el fichero en <code>~/bin</code> o en <code>/usr/local/bin</code> por ejemplo. Aunque la receta era sobre <code>amara</code>, la verdad es que no hay mucho que contar sobre su uso, no?</p>
 <h2>Modo de uso</h2>
 <p>El script utiliza el último fichero de colección que hayas utilizado desde GCStar, leyéndolo desde la configuración del programa, así que no tiene que indicarle ningún parámetro.</p>
 <p>Puedes ponerle un título desde la entrada estándar:</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
- echo &#8220;Love story&#8221; | gcstar_add.py<br />
-{</span> endhighlight %}</p>
-</div>
+<pre class="console">
+ echo "Love story" | gcstar_add.py
+</pre>
 <p>Y claro, también un fichero de texto (en <span class="caps">UTF</span>-8) que contenga títulos (uno por línea):</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
-gcstar_add.py ~/pelis.gcs &lt; mis_pelis.txt<br />
-{</span> endhighlight %}</p>
-</div>
+<pre class="console">
+gcstar_add.py ~/pelis.gcs &lt; mis_pelis.txt
+</pre>
 <p>O añadir todos los ficheros que un directorio:</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
-$ ls *.avi | gcstar_add.py<br />
-{</span> endhighlight %}</p>
-</div>
+<pre class="console">
+$ ls *.avi | gcstar_add.py
+</pre>
 <h2>Desde nautilus</h2>
 <p>Y para completar la jugada, el script para añadir películas directamente desde nautilus.</p>
 <p><a href="ttps://arco.inf-cr.uclm.es/svn/public/misc/gcstar/Add%20to%20my%20GCStar%20collection">Add to my GStar collection</a></p>
 <div>
-<p>{% highlight text %}<br />
-!/bin/bash</p>
-<p>fname=/tmp/gcstar-$<span class="caps">PPID</span><br />
-:&gt; $fname</p>
-<p>for name in &#8220;$@&#8221;; do<br />
-    echo $name &gt;&gt; $fname<br />
-done</p>
-<p>~/bin/gcstar_add.py &lt; $fname</p>
-<p>rm $fname<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">!/bin/bash
+
+fname=/tmp/gcstar-$PPID
+:&gt; $fname
+
+for name in "$@"; do
+    echo $name &gt;&gt; $fname
+done
+
+~/bin/gcstar_add.py &lt; $fname
+
+rm $fname</code></pre></figure></div>
 <p>Le das permisos de ejecución, lo guardas en <code>~/.gnome2/nautilus-scripts/</code> y listo.</p>
       </div>
 
@@ -5452,7 +5453,7 @@ done</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

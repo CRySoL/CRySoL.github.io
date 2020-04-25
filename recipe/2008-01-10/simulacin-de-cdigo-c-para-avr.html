@@ -5290,10 +5290,7 @@
 <h2>Praparándolo todo</h2>
 <p>Bueno, para que podamos funcionar tan solo necesitamos <em>simulavr</em> y <em>avr-gdb</em>. En nuestro querido Debian ya sabeis:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-javieralso@avalon:~$ sudo apt-get install avr-gdb simulavr</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>avr-gdb simulavr</code></pre></figure></div>
 <h2>Compilación del código a simular</h2>
 <p>Para poder simular el código, debemos pasar la opción <b>-g</b> a <em>avr-gcc</em>. Además, de eso, debemos decirle al enlazador que utilice la opción <b>-gstabs</b>. Os paso directamente el Makefile del proyecto que utilicé como prueba para que lo veais mas claro. Está un poco &#8220;guarro&#8221;, pero servirá para ilustrar el ejemplo ;-):</p>
 <pre>
@@ -5324,10 +5321,7 @@ rs232toRS485.out : main.o
 <p>Bueno, una vez que ya tenemos nuestro programita compilado toca simularlo. Supondremos que vamos a correr <em>simulavr</em> y <em>avr-gdb</em> en la misma máquina, aunque ésto no tiene por qué ser así, de hecho yo lo hago en máquinas separadas para poder ver la traza y el estado de los registros. Pero ésto ya va a gusto del consumidor :-P.</p>
 <p>Para nuestros propósitos <em>simulavr</em> funcionará como un <em>gdbserver</em>, es decir, le dirá a <em>avr-gdb</em> cómo debe comportarse. Por ello tenemos que arrancarlo primero. Para ello lo lanzamos de la siguiente manera:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-javieralso@avalon:~$ simulavr -d atmega128 -P simulavr-disp -g rs232toRS485.bin</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span>simulavr <span class="nt">-d</span> atmega128 <span class="nt">-P</span> simulavr-disp <span class="nt">-g</span> rs232toRS485.bin</code></pre></figure></div>
 <p>¿Qué hemos hecho? pues hemos llamado a <em>simulavr</em> diciéndole que vamos a simular un <em>atmega128</em>. Como queremos ver el contenido de los registros hemos llamado tambíen a <em>simulavr-disp</em> ya que <em>simulavr</em> solo dice a <em>avr-gdb</em> cómo comportarse, pero no muestra información alguna. <em>simualvr-disp</em> es el frontend que nos permite ver el contenido de los registros internos de la máquina que estamos simulando.</p>
 <p>Para lanzar <em>avr-gdb</em> crearemos antes un archivo de comandos a ejecutar para &#8220;automatizar&#8221; un poco el uso. Éste archivo tiene algo como ésto:</p>
 <pre>
@@ -5340,10 +5334,7 @@ continue
 <p>En él decimos a gdb que cargue el archivo a simular, se conecte con <simulavr> en esta mísma máquina (<b>localhost</b>) y escuchando en el puerto <em>1212</em> que es donde por defecto escucha <em>simulavr</em>.<br />
 Lanzamos <avr>avr-gdb</em> (a mi en especial me gusta mas <em>avr-gdbtui</em>) de la siguiente manera:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-javieralso@avalon:~$ avr-gdbtui -x comandos.gdb</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span>avr-gdbtui <span class="nt">-x</span> comandos.gdb</code></pre></figure></div>
 <p>siendo <em>comandos.gdb</em> el archivo en el que guardamos los comandos anteriores.<br />
 Podremos ver como inmediatamente cambian los valores de los registros mostrados en <em>simulavr</em> y <em>avr-gdb</em> queda parado en el <em>main</em> de nuestro programa. Ésto sucede porque nuestro programa empieza a simularse inmediatamente después de lanzar el depurador y para en el primer breakpoint que encuentra, que se encuentra en <em>main</em> (breakpoint por defecto). Cómo antes de eso se tiene que ejecutar código (arranque del micro, configuración de la pila, registros de configuración iniciales, inicialización de memoria, etc&#8230;.) vemos los cambios en los registros de la máquina reflejados en <em>simulavr</em>. Ahora ya podremos simular/depurar como se hace usualmente con gdb.</p>
 <p>¡¡Ale, a disfrutarlo :-D!!</p>
@@ -5418,7 +5409,7 @@ Podremos ver como inmediatamente cambian los valores de los registros mostrados 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

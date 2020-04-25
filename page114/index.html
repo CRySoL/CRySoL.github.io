@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,100 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-11-26/hacer-paquetes-deb-a-partir-de-rpm-y-tar-gz.html">Hacer paquetes.deb a partir de .rpm y .tar.gz</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-11-26
+    
+      
+  <a href="/users.html#aledelgal">
+   aledelgal
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-26-hacer-paquetes-deb-a-partir-de-rpm-y-tar-gz.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-26-hacer-paquetes-deb-a-partir-de-rpm-y-tar-gz.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/116">node/116</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>En esta pequeña receta veremos como hacer paquetes .deb a partir de .rpm y .tar.gz , ya que es mucho más fácil, cómoda y limpia su instalación (con dpkg). Para mucha gente será algo trivial, pero creo que a gente como yo le puede venir bien :)</p>
+<p>
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2005-11-26/hacer-paquetes-deb-a-partir-de-rpm-y-tar-gz.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8604,7 +8697,7 @@ Esta receta describe cómo configurar una red inalámbrica multisalto (<acronym 
 
 <h1>Introducción</h1>
 
-Las redes inalámbricas multisalto no necesitan de infraestructura fija para compartir datos entre distintos PC's, cada uno de los nodos que forman la red hacen las labores de un router de forma que se enrutan datos de unos a otros para formar una infraestructura de red dinámica. Si uno de los nodos tiene una conexión a Internet, los demas nodos pueden utilizar a éste como pasarela. 
+Las redes inalámbricas multisalto no necesitan de infraestructura fija para compartir datos entre distintos PC's, cada uno de los nodos que forman la red hacen las labores de un router de forma que se enrutan datos de unos a otros para formar una infraestructura de red dinámica. Si uno de los nodos tiene una conexión a Internet, los demas nodos pueden utilizar a éste como pasarela.
 
 <h1>Requisitos previos</h1>
 
@@ -8629,8 +8722,8 @@ El <tt>iwconfig</tt> nos dice que tenemos:
 
 <pre class="console">
 eth1      IEEE 802.11-DS  ESSID:"COMPAQ"  Nickname:"Prism  I"
-          Mode:Managed  Frequency:2.457GHz  Access Point: 00:02:A5:2D:06:35  
-          Bit Rate:11Mb/s   Tx-Power=15 dBm   Sensitivity:1/242700000  
+          Mode:Managed  Frequency:2.457GHz  Access Point: 00:02:A5:2D:06:35
+          Bit Rate:11Mb/s   Tx-Power=15 dBm   Sensitivity:1/242700000
           Retry min limit:8   RTS thr:off   Fragment thr:off
           Encryption key:off
           Power Management:off
@@ -8650,8 +8743,8 @@ homer:~# iwconfig eth1 mode ad-hoc
 homer:~# iwconfig eth1 essid ARCO
 homer:~# iwconfig
 eth1      IEEE 802.11-DS  ESSID:"ARCO"  Nickname:"Prism  I"
-          Mode:Ad-Hoc  Frequency:2.457GHz  Cell: 02:23:7A:CF:F1:E5  
-          Bit Rate:5.5Mb/s   Tx-Power=15 dBm   Sensitivity:1/242700000  
+          Mode:Ad-Hoc  Frequency:2.457GHz  Cell: 02:23:7A:CF:F1:E5
+          Bit Rate:5.5Mb/s   Tx-Power=15 dBm   Sensitivity:1/242700000
           Retry min limit:8   RTS thr:off   Fragment thr:off
           Encryption key:off
           Power Management:off
@@ -8681,14 +8774,14 @@ De forma que si ejecutamos:
 radia:~# ifdown eth1
 radia:~# ifup eth1
 radia:~# ifconfig
-eth1      Link encap:Ethernet  HWaddr 00:02:A5:6F:28:FC  
+eth1      Link encap:Ethernet  HWaddr 00:02:A5:6F:28:FC
           inet addr:10.10.0.4  Bcast:10.255.255.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:1091 errors:0 dropped:0 overruns:0 frame:0
           TX packets:89 errors:20 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:100 
+          collisions:0 txqueuelen:100
           RX bytes:81419 (79.5 KiB)  TX bytes:20266 (19.7 KiB)
-          Interrupt:11 Base address:0xd800 
+          Interrupt:11 Base address:0xd800
 </pre>
 
 Vemos la interfaz configurada con la dirección IP asociada.
@@ -8708,7 +8801,7 @@ Siguiendo los pasos del archivo README no debe haber ningún problema. Básicame
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">homer:~#</span><span class="w"> </span><span class="nb">tar </span>xvzf kernel-aodv_v2.2.2.tgz</code></pre></figure>
 </div>
 </li>
-<li> Ejecutas 
+<li> Ejecutas
 
 
 <div class="console">
@@ -8843,243 +8936,6 @@ Estas recetas pueden ser útiles:
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-11-15/manipulacin-de-ficheros-pdf.html">Manipulación de ficheros PDF</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-11-15
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-15-manipulacin-de-ficheros-pdf.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-15-manipulacin-de-ficheros-pdf.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/98">node/98</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-<p>Esta receta es un compendio de pequeños trucos y utilidades para manipular ficheros <span class="caps">PDF</span> con los programas libres habituales en un sistema <span class="caps">GNU</span></p>
-</blockquote>
-<p>En realidad pienso ir apuntando aquí las soluciones que voy encontrando a problemas que me surgen cuando tengo que hacer ciertas «operaciones imprevistas» con ficheros <span class="caps">PDF</span>. Se admiten sugerencias para ir incorporando a la receta.</p>
-<h2>Unir varios documentos</h2>
-<p>Con <tt>pdfjoin</tt> del paquete <tt>pdfjam</tt> (visto en <a href="http://linuca.org/body.phtml?nIdNoticia=343">Linuca</a>).</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
-$ pdfjoin &#8212;fitpaper true fichero1.pdf fichero2.pdf fichero3.pdf &#8212;outfile final.pdf<br />
-{</span> endhighlight %}</p>
-</div>
-<p>Con <a href="http://es.wikipedia.org/wiki/Ghostscript"><span class="caps">GNU</span>/GhostScript</a> (por  <a href="http://barrapunto.com/~Gufete">Gufete</a>):</p>
-<div class="console">
-<p>{% highlight console %}<br />
- $ gs -dColorImageFilter=/LZWEncode -dAutoFilterColorImages=false -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=pre_final.pdf fichero1.pdf fichero2.pdf fichero3.pdf<br />
-$ pdfopt pre_final.pdf final.pdf</p>
-<p>{% endhighlight %}</p>
-</div>
-<h2>Seleccionar algunas páginas</h2>
-<p>Con <tt>pdfjam</tt></p>
-<div class="console">
-<p>{% highlight console <span>}<br />
- $ pdfjam &#8212;no-landscape original.pdf  3,7,12-23,34 &#8212;outfile resultado.pdf<br />
-{</span> endhighlight %}</p>
-</div>
-<p>Con <tt>pdftk</tt></p>
-<div class="console">
-<p>{% highlight console <span>}<br />
- $ pdftk original.pdf cat 1-8 output resultado.pdf<br />
-{</span> endhighlight %}</p>
-</div>
-<h2> Rotar páginas </h2>
-<p>Con <tt>pdfjam</tt></p>
-<div class="console">
-<p>{% highlight console <span>}<br />
- $ pdf90 original.pdf<br />
-{</span> endhighlight %}</p>
-</div>
-<p>También hay comandos <code>pdf180</code> y <code>pdf270</code>.</p>
-<p>Con <tt>pdftk</tt>:</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
- $ pdftk original.pdf cat 1-end<b>X</b> output resultado.pdf<br />
-{</span> endhighlight %}</p>
-</div>
-<p>Donde &#8216;X&#8217; puede ser:</p>
-<ul>
-<li>N:  0</li>
-<li>E: 90</li>
-<li> S: 180</li>
-<li>W: 270</li>
-<li>L: -90</li>
-<li>R: +90</li>
-<li>D: +180</li>
-</ul>
-<h2>Convertir un documento a formato de varias páginas por hoja</h2>
-<p>Utilizando el programa <tt>pdfnup</tt> del paquete <tt>pdfjam</tt>:</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
-$ pdfnup &#8212;nup 2&#215;1 &#8212;outfile salida.pdf original.pdf<br />
-{</span> endhighlight %}</p>
-</div>
-<p>Por ejemplo, para pasar transparencias apaisadas a página completa a formato de 3 páginas por hoja alineadas a la izquierda y con márgenes usa:</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
-$ pdfnup &#8212;nup 1&#215;3 &#8212;offset &#8220;-3cm 0&#8221; &#8212;trim &#8220;-2cm -2cm -2cm -2cm&#8221; original.pdf<br />
-{</span> endhighlight %}</p>
-</div>
-<h2> «Escalar» el tamaño de la página </h2>
-<p>En realidad se trata de aumentar los márgenes reduciendo el tamaño del área impresa. También con <tt>pdfnup</tt>:</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
- $ pdfnup &#8212;nup 1&#215;1 &#8212;scale 0.9 original.pdf<br />
-{</span> endhighlight %}</p>
-</div>
-<h2> Cambiar el formato de página </h2>
-<p>Si tienes que imprimir un .pdf cuyo formato de página no es A4 probablemente acabarás desperdiciando gran parte de la hoja porque por aquí todas las impresoras domesticas son A4. Con los siguientes comandos puedes convertir el formato de página:</p>
-<div class="console">
-<p>{% highlight console %}<br />
-$  pdftk original.pdf cat output sin_xrefs.pdf<br />
-$ gs -r600 -dDITHERPPI=120 -dNOCIE -dFIXEDMEDIA -sPAPERSIZE=a4 -sDEVICE=pdfwrite -q -dNOPAUSE -dSAFER -dBATCH -dPDFFitPage -sOutputFile=resultado.pdf pdfopt.ps sin_xrefs.pdf</p>
-<p>{% endhighlight %}</p>
-</div>
-<h2> Manipulación de metadatos </h2>
-<p>
-<h3>Con <code>pdftk</code></h3>
-<p>Para leer los metadatos de un <span class="caps">PDF</span>:</p>
-<div class="console">
-<p>{% highlight console %}</p>
-<p>$ pdftk original.pdf dump_data output data.txt<br />
-$ cat data.txt<br />
-InfoKey: Creator<br />
-InfoValue: Writer&#0;<br />
-InfoKey: Producer<br />
-InfoValue: OpenOffice.org 3.1&#0;<br />
-InfoKey: CreationDate<br />
-InfoValue: D:20090923135542+02&#8217;00&#8217;<br />
-PdfID0: e5d831c33f77ac694b32456732f2c86<br />
-PdfID1: e5d831c33f77ac694b32456732f2c86<br />
-NumberOfPages: 1<br />
-{% endhighlight %}</p>
-</div>
-<p>Si se omite el <code>output data.txt</code>, imprime los datos a la salida estándar (la consola) en lugar de en el fichero.</p>
-<p>Para modificar los metadatos se debe escribir un fichero con el mismo formato que el <code>data.txt</code> anterior (o modificar uno generado así) y ejecutar:</p>
-<div class="console">
-<p>{% highlight console %}</p>
-<p>$ pdftk original.pdf update_info data.txt output resultado.pdf<br />
-{% endhighlight %}</p>
-</div>
-<h3>Con <code>exiftool</code></h3>
-<p>Para mostrar los metadatos escribe una cadena con variables tipo-shell (atento a las comillas simples):</p>
-<div class="console">
-<p>{% highlight console %}</p>
-<p>$  exiftool fichero.pdf -p &#8216;$Title $Author&#8217;<br />
-{% endhighlight %}</p>
-</div>
-<p>Para modificarlos utiliza esos mismas claves como opciones:</p>
-<div class="console">
-<p>{% highlight console %}</p>
-<p>$ exiftool fichero.pdf -Title=&#8220;Algún cuento chino&#8221;<br />
-{% endhighlight %}</p>
-</div>
-<h2> Convertir a escala de grises </h2>
-<p>[visto en <a href="http://handyfloss.net/2008.09/making-a-pdf-grayscale-with-ghostscript/">http://handyfloss.net/2008.09/making-a-pdf-grayscale-with-ghostscript/</a>]</p>
-<div class="console">
-<p>{% highlight console %}</p>
-<p>$ gs -sOutputFile=grayscale.pdf -sDEVICE=pdfwrite \<br />
--sColorConversionStrategy=Gray -dProcessColorModel=/DeviceGray \<br />
--dCompatibilityLevel=1.4 -dNOPAUSE -dBATCH color.pdf &lt; /dev/null<br />
-{% endhighlight %}</p>
-</div>
-<h2> Convertir a «raster»</h2>
-<p/>
-<h3>Con Ghostscript</h3>
-<p>[visto en <a href="http://www.commandlinefu.com/commands/view/4466/convert-pdf-to-jpeg-using-ghostscript">commandlinefu.com</a>]</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
-$ gs -dNOPAUSE -sDEVICE=jpeg -r144 -sOutputFile=p%03d.jpg file.pdf<br />
-{</span> endhighlight %}</p>
-</div>
-<h3>Con convert</h3>
-<p>[visto en <a href="http://www.linuxquestions.org/questions/linux-software-2/pdf-to-png-converter-57142/">linuxquestions</a>]</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
-$ convert -density 300&#215;300 file.pdf salida.png<br />
-{</span> endhighlight %}</p>
-</div>
-<h2> Crear un <span class="caps">PDF</span> con fuentes empotradas</h2>
-<p>Si has hecho un .pdf con <code>pdflatex</code> lo más probable es que no incluya las fuentes, de modo que el programa pueda renderizar el documento con las fuentes del sistema. Sin embargo, a veces se requiere disponer de un .pdf auto-contenido para garantizar que se verá del mismo modo en cualquier parte. Para lograrlo ejecuta lo sisguiente:</p>
-<div class="console">
-<p>{% highlight console <span>}<br />
-$ pdf2ps original.pdf<br />
-$ ps2pdf14 -dPDFSETTINGS=/prepress -dEmbedAllFonts=true original.ps resultado.pdf<br />
-{</span> endhighlight %}</p>
-</div>
-<p>Como es lógico, el fichero resultante ocupará mucho más que el original (de 5 a 10 veces).</p>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9120,7 +8976,7 @@ $ ps2pdf14 -dPDFSETTINGS=/prepress -dEmbedAllFonts=true original.ps resultado.pd
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

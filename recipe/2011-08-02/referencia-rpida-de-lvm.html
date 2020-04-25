@@ -5174,35 +5174,20 @@
 <h3>Crear volúmenes físicos (<b>p</b>hysical <b>v</b>olumes)</h3>
 <p>para cada partición o disco que se quiera utilizar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>pvcreate /dev/sda</li>
-	<li>pvcreate /dev/sdb1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>pvcreate /dev/sda
+<span class="gp">#</span><span class="w"> </span>pvcreate /dev/sdb1</code></pre></figure></div>
 <p>Se puede comprobar con <code>pvdisplay</code>.</p>
 <h3>Crear un grupo virtual (<b>v</b>irtual <b>g</b>roup)</h3>
 <p>a partir de los volúmenes físicos.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>vgcreate g0 /dev/sda</li>
-	<li>vgextend g0 /dev/sdb1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>vgcreate g0 /dev/sda
+<span class="gp">#</span><span class="w"> </span>vgextend g0 /dev/sdb1</code></pre></figure></div>
 <p>Lo puedes ver con <code>vgdisplay</code>.</p>
 <h3>Crear los volúmenes lógicos (<b>l</b>ogical <b>v</b>olumes)</h3>
 <p>que jugarán el papel de las particiones en un sistema convencional.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>lvcreate &#8212;size 80G &#8212;name home g0<br />
-[&#8230;]<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>lvcreate <span class="nt">--size</span> 80G <span class="nt">--name</span> home g0
+<span class="go">[...]</span></code></pre></figure></div>
 <p>Los puedes comprobar con <code>lvdisplay</code></p>
 <p>Y ya solo queda formatearlos y montarlos donde corresponda como si de particiones convencionales se tratase.</p>
 <h2>Referencias</h2>
@@ -5275,7 +5260,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

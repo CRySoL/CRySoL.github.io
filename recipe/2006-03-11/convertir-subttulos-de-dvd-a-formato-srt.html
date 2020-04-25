@@ -5201,10 +5201,7 @@
 <p><a name="extraer"> </a></p>
 <h2>Extraer un flujo</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ tccat -i /dev/dvd -T 1,-1 | tcextract -x ps1 -t vob -a 0&#215;22 &gt; lovestory-es.ps1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>tccat <span class="nt">-i</span> /dev/dvd <span class="nt">-T</span> 1,-1 | tcextract <span class="nt">-x</span> ps1 <span class="nt">-t</span> vob <span class="nt">-a</span> 0x22 <span class="o">&gt;</span> lovestory-es.ps1</code></pre></figure></div>
 <p>dónde:</p>
 <ul>
 	<li><strong>-T 1</strong>: Es el track (título) del <span class="caps">DVD</span></li>
@@ -5212,59 +5209,44 @@ $ tccat -i /dev/dvd -T 1,-1 | tcextract -x ps1 -t vob -a 0&#215;22 &gt; lovestor
 </ul>
 <h2>Convertir el flujo a imágenes</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ subtitle2pgm -o lovestory-es -c 255,255,0,255 &lt; lovestory-es.ps1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>subtitle2pgm <span class="nt">-o</span> lovestory-es <span class="nt">-c</span> 255,255,0,255 &lt; lovestory-es.ps1</code></pre></figure></div>
 <p>Eso genera un montón de imágenes pgm y un fichero de control <code>lovestory-es.srtx</code>.</p>
 <h2>Convertir las imágenes a texto</h2>
 <p>Utilizando técnicas de <a href="http://es.wikipedia.org/wiki/OCR"><span class="caps">OCR</span></a> obtendremos un fichero de texto que contiene todos los subtítulos del flujo.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ pgm2txt lovestory-es<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pgm2txt lovestory-es</code></pre></figure></div>
 <p>Es posible que si el <span class="caps">OCR</span> tiene poco entrenamiento te pregunte sobre algunas letras que no logra reconocer. Como resultado de este proceso habrás obtenido un fichero txt por cada pgm.</p>
 <h2>Poner todo junto</h2>
 <p>Hay que incluir el texto generado para cada plano en el fichero .srtx, que contiene la información de temporización. El resultado será un fichero .srt compatible con la mayoría de reproductores multimedia.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ srttool -s -w &lt; lovestory-es.srtx &gt; lovestory-es.srt<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>srttool <span class="nt">-s</span> <span class="nt">-w</span> &lt; lovestory-es.srtx <span class="o">&gt;</span> lovestory-es.srt</code></pre></figure></div>
 <h2>Y comprobar la ortografía</h2>
 <p>&#8230;que nunca está de más:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ aspell -d es -c lovestory-es.srt<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>aspell <span class="nt">-d</span> es <span class="nt">-c</span> lovestory-es.srt</code></pre></figure></div>
 <p>Los diccionarios disponibles están en <code>/usr/lib/aspell</code>.</p>
 <h2>Todo en un <code>Makefile</code></h2>
 <div>
-<p>{% highlight text %}<br />
-<span class="caps">TITLE</span>=lovestory<br />
-<span class="caps">TRACK</span>=1<br />
-<span class="caps">LANG</span>=es<br />
-LANGid=0&#215;21<br />
-<span class="caps">FILE</span>=$(<span class="caps">TITLE</span>)-$(<span class="caps">LANG</span>)</p>
-<p>$(<span class="caps">FILE</span>).srt: $(<span class="caps">FILE</span>).srtx<br />
-	srttool -s -w &lt; $&lt; &gt; $@<br />
-	aspell -d $(<span class="caps">LANG</span>) -c $@</p>
-<p>$(<span class="caps">FILE</span>).srtx: $(<span class="caps">FILE</span>).ps1<br />
-	subtitle2pgm -o $(<span class="caps">FILE</span>) -c 255,255,0,255 &lt; $&lt;<br />
-	pgm2txt $(<span class="caps">FILE</span>)</p>
-<p>$(<span class="caps">FILE</span>).ps1:<br />
-	tccat -i /dev/dvd -T $(<span class="caps">TRACK</span>),-1 | tcextract -x ps1 -t vob -a $(LANGid) &gt; $@<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">TITLE=lovestory
+TRACK=1
+LANG=es
+LANGid=0x21
+FILE=$(TITLE)-$(LANG)
+
+$(FILE).srt: $(FILE).srtx
+	srttool -s -w &lt; $&lt; &gt; $@
+	aspell -d $(LANG) -c $@
+
+$(FILE).srtx: $(FILE).ps1
+	subtitle2pgm -o $(FILE) -c 255,255,0,255 &lt; $&lt;
+	pgm2txt $(FILE)
+
+$(FILE).ps1:
+	tccat -i /dev/dvd -T $(TRACK),-1 | tcextract -x ps1 -t vob -a $(LANGid) &gt; $@</code></pre></figure></div>
 <h2>Probando</h2>
 <p>Si el fichero de subtítulos se llama igual que el video (pero con extensión .srt) y ambos ficheros están en el mismo directorio, mplayer carga automáticamente dichos subtitulos. En caso contrario, tendrás que indicar algo como:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mplayer fichero.avi -sub spanish.srt<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mplayer fichero.avi <span class="nt">-sub</span> spanish.srt</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.bunkus.org/dvdripping4linux/en/single/index.html#subtitles"><span class="caps">DVD</span> ripping and transcoding with <span class="caps">GNU</span>/Linux</a></li>
@@ -5334,7 +5316,7 @@ $ mplayer fichero.avi -sub spanish.srt<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

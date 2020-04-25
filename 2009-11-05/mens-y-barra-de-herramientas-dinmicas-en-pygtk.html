@@ -5332,25 +5332,22 @@
 <h2>Usando <strong>UIManager</strong> y <strong>Action</strong> s (<strong>ActionGroup</strong>): primeros pasos</h2>
 <p>Lo primero es ver un ejemplo de descripción de interfaz muy sencillo:</p>
 <div>
-<p>{% highlight python %}<br />
-ui = &#8216;&#8217;&#8217;<ui><br />
-  <menubar name="MenuBar"><br />
-    <menu action="Menu1"><br />
-      <menuitem action="Button1"/></p>
-</menu>
-<menu action="Menu2">
-<menuitem action="Button2"/>
-</menu>
-</menubar>
-<toolbar name="Toolbar">
-<toolitem action="Button1"/>
-<separator/>
-<toolitem action="Button3"/>
-</toolbar>
-</ui>
-<p>&#8216;&#8217;&#8217;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">ui</span> <span class="o">=</span> <span class="s">'''&lt;ui&gt;
+  &lt;menubar name="MenuBar"&gt;
+    &lt;menu action="Menu1"&gt;
+      &lt;menuitem action="Button1"/&gt;
+    &lt;/menu&gt;
+    &lt;menu action="Menu2"&gt;
+      &lt;menuitem action="Button2"/&gt;
+    &lt;/menu&gt;
+  &lt;/menubar&gt;
+  &lt;toolbar name="Toolbar"&gt;
+    &lt;toolitem action="Button1"/&gt;
+    &lt;separator/&gt;
+    &lt;toolitem action="Button3"/&gt;
+  &lt;/toolbar&gt;
+&lt;/ui&gt;
+'''</span></code></pre></figure></div>
 <p>En este ejemplo se observa lo siguiente:</p>
 <ol>
 	<li>Todo está en un entorno <ui></ui></li>
@@ -5360,49 +5357,35 @@ ui = &#8216;&#8217;&#8217;<ui><br />
 </ol>
 <p>Necesitaremos obviamente un <strong>UIManager</strong>, y asociarle a éste la descripción:</p>
 <div>
-<p>{% highlight python <span>}<br />
-uimanager = gtk.UIManager()<br />
-uimanager.add_ui_from_string(self.ui)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">uimanager</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">UIManager</span><span class="p">()</span>
+<span class="n">uimanager</span><span class="p">.</span><span class="n">add_ui_from_string</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">ui</span><span class="p">)</span></code></pre></figure></div>
 <p>La otra parte de este bonito juego es la que tiene que ver con las <strong>Action</strong> s. Para añadirlas, crearemos un <strong>ActionGroup</strong> y a éste le añadiremos <strong>Action</strong> s.</p>
 <p>Lo primero es tan sencillo como lo siguiente:</p>
 <div>
-<p>{% highlight python <span>}<br />
-actiongroup = gtk.ActionGroup(&#8216;UIManagerExample&#8217;) # create the actiongroup<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">actiongroup</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">ActionGroup</span><span class="p">(</span><span class="s">'UIManagerExample'</span><span class="p">)</span> <span class="c1"># create the actiongroup</span></code></pre></figure></div>
 <p>Para añadir a este <strong>ActionGroup</strong> las <strong>Action</strong> s tenemos multitud de métodos, que nos añadirán un <strong>Action</strong> de forma individual, varios a la vez o de alguno de los tipos predefinidos en lugar de <strong>Action</strong> s vulgares y corrientes. Se pueden añadir de cualquiera de las formas, el resultado es el mismo. Lo que debemos tener en cuenta es que, bien en el constructor, bien en el primer elemento de la tupla en la que se describen las acciones al añadir varias, debe ponerse el nombre de la acción con el que la hemos identificado en la descripción <em><span class="caps">XML</span></em> anterior. De esa forma, cuando añadas el <strong>ActionGroup</strong> al <strong>UIManager</strong>, éste será capaz de encontrar la acción asociada para una determinada entrada.</p>
 <p>Observa como se añaden las acciones de varias formas:</p>
 <div>
-<p>{% highlight python <span>}<br />
-actiongroup.add_action(gtk.Action(&#8216;Button1&#8217;, &#8216;Button one&#8217;, &#8216;First button&#8217;, gtk.STOCK_OK))<br />
-actiongroup.add_actions([<br />
-     (&#8216;Menu1&#8217;, None, &#8216;Menu one&#8217;, None, &#8216;First menu&#8217;, None),<br />
-     (&#8216;Menu2&#8217;, None, &#8216;Menu two&#8217;, None, &#8216;Second menu&#8217;, None),<br />
-     (&#8216;Button2&#8217;, gtk.STOCK_QUIT, &#8216;Button two&#8217;, None, &#8216;Second button&#8217;, self.button2_cb),<br />
-     (&#8216;Button3&#8217;, gtk.STOCK_OPEN, &#8216;Button three&#8217;, None, &#8216;Third button&#8217;, self.button3_cb),<br />
- ])<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">actiongroup</span><span class="p">.</span><span class="n">add_action</span><span class="p">(</span><span class="n">gtk</span><span class="p">.</span><span class="n">Action</span><span class="p">(</span><span class="s">'Button1'</span><span class="p">,</span> <span class="s">'Button one'</span><span class="p">,</span> <span class="s">'First button'</span><span class="p">,</span> <span class="n">gtk</span><span class="p">.</span><span class="n">STOCK_OK</span><span class="p">))</span>
+<span class="n">actiongroup</span><span class="p">.</span><span class="n">add_actions</span><span class="p">([</span>
+     <span class="p">(</span><span class="s">'Menu1'</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">'Menu one'</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">'First menu'</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
+     <span class="p">(</span><span class="s">'Menu2'</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">'Menu two'</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">'Second menu'</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span>
+     <span class="p">(</span><span class="s">'Button2'</span><span class="p">,</span> <span class="n">gtk</span><span class="p">.</span><span class="n">STOCK_QUIT</span><span class="p">,</span> <span class="s">'Button two'</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">'Second button'</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">button2_cb</span><span class="p">),</span>
+     <span class="p">(</span><span class="s">'Button3'</span><span class="p">,</span> <span class="n">gtk</span><span class="p">.</span><span class="n">STOCK_OPEN</span><span class="p">,</span> <span class="s">'Button three'</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">'Third button'</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">button3_cb</span><span class="p">),</span>
+ <span class="p">])</span></code></pre></figure></div>
 <p>En la primera instrucción añadimos una sola acción y, el argumento de la función por tanto es un <strong>gtk.Action</strong>. Los argumentos son el nombre (identificador por el que se buscará en UIManager la acción), el texto que mostrará el renderizado de la acción. El tercer argumento será el <em>tooltip</em> y, por último, el icono de stock que se usará. si queremos conectar nuestra acción con una función, deberíamos tener la <strong>Action</strong> en una variable y conectar la señal &#8220;activate&#8221; a un <em>callback</em>.</p>
 <p>En la segunda, sin embargo, se añaden varias acciones (el argumento único es una lista), y las acciones, en lugar de estar especificadas como en la llamada anterior, se especifica mediante una tupla que tiene, en este orden, el nombre, el icono de stock, la etiqueta que se mostrará, un acelerador (para otra receta), el <em>tooltip</em> y, por último, una función <em>callback</em> que se invocará cuando pulsemos en la acción.</p>
 <p>Solamente nos falta añadir el <strong>ActionGroup&quot; al *UIManager</strong>:</p>
 <div>
-<p>{% highlight python <span>}<br />
-uimanager.insert_action_group(actiongroup, 0)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">uimanager</span><span class="p">.</span><span class="n">insert_action_group</span><span class="p">(</span><span class="n">actiongroup</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></code></pre></figure></div>
 <h2>Poniendo todo junto</h2>
 <p>Para que todo este invento sirva de algo tenemos que pintar todos los widgets que el <strong>UIManager</strong> es capaz de generar en algún sitio. Lo más fácil, útil y obvio es tener una ventana de <span class="caps">GTK</span> con un <strong>VBox</strong> y añadirle tanto el <em>Menubar</em> como el <em>Toolbar</em> en la parte superior.</p>
 <div>
-<p>{% highlight python %}<br />
-menubar = uimanager.get_widget(&#8216;/MenuBar&#8217;)<br />
-vbox.pack_start(menubar, False)</p>
-<p>toolbar = uimanager.get_widget(&#8216;/Toolbar&#8217;)<br />
-vbox.pack_start(toolbar, False)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">menubar</span> <span class="o">=</span> <span class="n">uimanager</span><span class="p">.</span><span class="n">get_widget</span><span class="p">(</span><span class="s">'/MenuBar'</span><span class="p">)</span>
+<span class="n">vbox</span><span class="p">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">menubar</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+<span class="n">toolbar</span> <span class="o">=</span> <span class="n">uimanager</span><span class="p">.</span><span class="n">get_widget</span><span class="p">(</span><span class="s">'/Toolbar'</span><span class="p">)</span>
+<span class="n">vbox</span><span class="p">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">toolbar</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span></code></pre></figure></div>
 <p>Dejo un ejemplo completo y funcional del resultado como adjunto (perdonad que la extensión sea .txt, pero Drupal no deja subir, por seguridad, scripts Python)</p>
 <h2>Referencias</h2>
 <p>(La documentación de PyGTK no está on-line en estos momentos. Me comprometo a hacer una buena recopilación de referencia de las clases, del <span class="caps">FAQ</span> y el tutorial de PyGTK sobre este tema)</p>
@@ -5470,7 +5453,7 @@ vbox.pack_start(toolbar, False)<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

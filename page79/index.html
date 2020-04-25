@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,96 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2007-02-09/fallos-en-el-repositorio-de-mesa-a-da-9-de-febrero-de-2007-drm_vblank_secondary.html">Fallos en el repositorio de Mesa (a día 9 de Febrero de 2007) DRM_VBLANK_SECONDARY</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-02-09
+    
+      
+  <a href="/users.html#brue">
+   brue
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-09-fallos-en-el-repositorio-de-mesa-a-da-9-de-febrero-de-2007-drm_vblank_secondary.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-09-fallos-en-el-repositorio-de-mesa-a-da-9-de-febrero-de-2007-drm_vblank_secondary.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/550">node/550</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>En el repo de Mesa hay un bug temporal. El que quiera compilar en debian, tras enfrentarse con los apt-get&#8217;s pertinentes de desarrollo (importante x11proto*, libnurbs, libxmu, libxi, libmesa&#8230;etc -dev), tendrá que definir la contante DRM_VBLANK_SECONDARY en algún sitio visible para vblank.c.</p>
+<p>
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/2007-02-09/fallos-en-el-repositorio-de-mesa-a-da-9-de-febrero-de-2007-drm_vblank_secondary.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8303,7 +8392,7 @@ Este último te muestra los mensajes que hubiese pendientes, tales como: <em>Job
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">*status</span></code></pre></figure>
 </div>
 
-Nos preguntará de qué queremos el estado, le decimos que 4 (all) y listo. 
+Nos preguntará de qué queremos el estado, le decimos que 4 (all) y listo.
 
 Para saber qué se va a respaldar exactamente podemos <em>estimar</em> el trabajo, fácil:
 
@@ -9185,209 +9274,6 @@ Un saludo.
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-01-27/pygtk-y-glade-guis-instantneas.html">PyGTK y Glade, GUIs instantáneas</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-01-27
-    
-      
-  <a href="/users.html#oscarah">
-   oscarah
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-27-pygtk-y-glade-guis-instantneas.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-27-pygtk-y-glade-guis-instantneas.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Python-ref">Python </a></li>
-    
-    	<li><a href="/tags.html#gtk-ref">gtk </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/539">node/539</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>Breve reseña de como hacer una interfaz gráfica usando PyGTK y glade-3.</blockquote>
-
-<h2>Introducción</h2>
-Diseñar un interfaz gráfica para tu aplicación es muy sencillo. Además, con <a href="http://glade.gnome.org/">glade</a> no tendrás que pelearte mucho con la API que vas a usar, GTK+.
-
-NOTA: Aunque no necesitarás saber ampliamente como funciona GTK, sí que deberías saber <em>un poco</em> sobre GTK. Hay mucha documentación disponible (de hecho, GTK tiene una magnífica documentación).
-
-<h2>Ingredientes</h2>
-Básicamente:
-<ol>
-  <li>Glade</li>
-  <li>PyGTK</li>
-</ol>
-
-Y obviamente, <a href="http://www.python.org">Python</a> y <a href="http://www.gnu.org/software/emacs/emacs.html">Emacs</a>... bueno, realmente te serviría cualquier otro editor, pero ya que estamos, hacemos las cosas bien. :-p
-
-Para instalarlos, como de costumbre (en Debian):
-
-<pre class="console">
-# apt-get install python python-gtk2 emacs21 glade
-</pre>
-
-<h2>Diseñando la interfaz</h2>
-Para empezar, es una buena idea que crees un directorio donde guardar todos los archivos necesarios.
-
-<pre class="console">
-$ mkdir ejemplo
-$ cd ejemplo
-</pre>
-
-Lanza glade para crear la interfaz:
-
-<pre class="console">
-$ glade-3
-</pre>
-
-Se abrirá el gestor de proyectos, la paleta y la ventana de propiedades. Como ejemplo, simplemente puedes hacer una ventana con un botón para cerrarla.
-
-Para crear la ventana principal, pincha sobre el widget <em>Toplevels-&gt;Window</em>. Aparecerá una nueva ventana, que será con la que trabajarás. Puedes colocar un botón que ocupe todo el área, pero no podrías añadir más cosas. Lo que vas a hacer es insertar un widget especial, que no se muestra, que sirve para almacenar otros widgets, HBox. Está en <em>Containers-&gt;Horizontal Box</em>
-
-Cuando lo coloques en la ventana, te saldrá un mensaje preguntándote el número de elementos que quieres meter: 2.
-
-En el lado izquierdo, puedes poner una etiqueta, <em>Control and Display-&gt;Label</em>. Por lo menos, para este ejemplo es muy grande, así que en la ventana de propiedades, en la pestaña <em>Empaquetado</em> desmarca <em>Expandir</em> y <em>LLenar</em>. En <em>General</em> puedes ponerle el valor a la etiqueta: 'Acción'.
-
-En el lado derecho coloca un botón, <em>Control and Display-&gt;Button</em>. Como también es muy grande, de nuevo en <em>Empaquetado</em> desmcarca <em>Expandir</em> y <em>LLenar</em>. En <em>General</em> cambia el valor que se muestra en el botón (donde pone <em>Etiqueta</em>): 'salir'.
-
-Es un buen momento para guardar. Llámalo como quieras, "ejemplo.glade" es una buena opción. Lo que se guarda en "ejemplo.glade" es un esquema de todos los componentes que has usado en la interfaz, junto con sus atributos, señales, etc. en XML. Esto será lo que luego utilices a la hora de generar la interfaz con libglade.
-
-Por último, vas a añadir un par de manejadores de señal para capturar un evento y una señal. Uno para el evento, "delete-event", de la ventana principal. Este evento se lanzará cuando se cierre la aplicación (bien pulsando Alt+F4, bien haciendo click en el botón de cierre, etc.). El otro para la señal "clicked" del botón que has añadido.
-
-Para ello, selecciona la ventana principal (desde el 'widget tree') y en el gestor de Propiedades, en la pestaña Señales, busca la señal "delete-event" (que pertenece a GtkWidget), y añade un manipulador, "on_window1_delete_event". Repite los mismos pasos para el manipulador "on_button1_clicked" de la señal "clicked" del botón que has creado.
-
-Guarda los cambios y cierra el Glade.
-
-<h2>Escribiendo el código</h2>
-Ahora, desde el mismo terminal, edita un fichero nuevo, que puedes llamar ejemplo.py. Ábrelo con nuestro editor favorito: :-p
-
-<pre class="console">
-$ emacs ejemplo.py
-</pre>
-
-Y escribe lo siguiente:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># -*- coding: utf-8 -*-
-</span>
-<span class="kn">import</span> <span class="nn">pygtk</span>
-<span class="n">pygtk</span><span class="p">.</span><span class="n">require</span><span class="p">(</span><span class="s">"2.0"</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">gtk</span><span class="p">,</span> <span class="n">gtk</span><span class="p">.</span><span class="n">glade</span>
-
-<span class="k">class</span> <span class="nc">App</span><span class="p">:</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="p">.</span><span class="n">glade</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">glade</span><span class="p">.</span><span class="n">XML</span><span class="p">(</span><span class="s">"ejemplo.glade"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="p">.</span><span class="n">glade</span><span class="p">.</span><span class="n">signal_autoconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="p">.</span><span class="n">glade</span><span class="p">.</span><span class="n">get_widget</span><span class="p">(</span><span class="s">"window1"</span><span class="p">).</span><span class="n">show_all</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">on_window1_delete_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="n">gtk</span><span class="p">.</span><span class="n">main_quit</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">on_button1_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
-        <span class="n">gtk</span><span class="p">.</span><span class="n">main_quit</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">a</span> <span class="o">=</span> <span class="n">App</span><span class="p">()</span>
-        <span class="n">gtk</span><span class="p">.</span><span class="n">main</span><span class="p">()</span>
-    <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span>
-        <span class="k">pass</span></code></pre></figure>
-</div>
-
-En el __init__ puedes ver varias cosas. En primer lugar, cómo cargas la interfaz que has hecho antes:
-<pre>gtk.glade.XML("ejemplo.glade")</pre>
-
-Después, cómo le indicas donde debe buscar los <em>callbacks</em> (o manejadores de señal), para las señales que le has activado, en este caso, en la misma clase.
-
-Por último, el método self.glade.get_widget("window1") devuelve una referencia al widget "window1". Se llama a <em>show_all()</em> para que muestre su contenido y listo.
-
-Sobre las firmas de los callbacks, hay mucha información en la documentación de la API de GTK. Simplemente decir que en este caso, necesitas un argumento para el widget que emite la señal, y, si es un evento, otro argumento para especificar el evento. 
-
-De nuevo, guarda los cambios y cierra el emcas (o lo que quiera que estés usando de editor :-p) 
-
-Puedes comprobar que funciona de la manera usual.
-
-<pre class="console">
-$ python ejemplo.py
-</pre>
-
-<h2>Referencias</h2>
-
-La página oficial de Glade: descargas, documentación, etc.
- - <a href="http://glade.gnome.org/">http://glade.gnome.org/</a>
-La página oficial de PyGTK: descargas, documentación, tutoriales, etc.
- - <a href="http://www.pygtk.org">http://www.pygtk.org</a>
-Información sobre LibGlade: documentación sobre la API.
- - <a href="http://developer.gnome.org/doc/API/libglade/libglade.html">http://developer.gnome.org/doc/API/libglade/libglade.html</a>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9428,7 +9314,7 @@ Información sobre LibGlade: documentación sobre la API.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

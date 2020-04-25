@@ -5344,11 +5344,8 @@
 <h2>Y cómo se hace ahora?</h2>
 <p>Pues realmente no cambia demasiado (un ejemplo sacado de <a href="https://live.gnome.org/PyGObject/IntrospectionPorting">live.gnome.org::How does PyGI work?</a>)</p>
 <div>
-<p>{% highlight text <span>}<br />
-from gi.repository import Gtk;<br />
-Gtk.MessageDialog(None, 0, Gtk.MessageType.<span class="caps">INFO</span>, Gtk.ButtonsType.<span class="caps">CLOSE</span>, &#8220;Hello World&#8221;).run()<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">from gi.repository import Gtk;
+Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.CLOSE, "Hello World").run()</code></pre></figure></div>
 <h2>Y todo lo demás?</h2>
 <p>Pensaba hacer una receta con algo más de detalle pero he encontrado toda una serie de ellas que están muy bien. Las enlazo aquí, aunque puede ser buena idea copiarlas, que luego la gente cierra sus blogs y nos quedamos con el enlace apuntando al mar (habrá que mirar la licencia):</p>
 <p><strong>Aprendiendo GtkBuilder, Glade y Python:</strong></p>
@@ -5426,7 +5423,7 @@ Gtk.MessageDialog(None, 0, Gtk.MessageType.<span class="caps">INFO</span>, Gtk.B
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

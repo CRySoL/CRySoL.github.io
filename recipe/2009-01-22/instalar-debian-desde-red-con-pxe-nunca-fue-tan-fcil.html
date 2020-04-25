@@ -5503,40 +5503,27 @@
 <h2>Descargar &#8220;Debian netboot&#8221;</h2>
 <p>En <strong>fileserver</strong> ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mkdir /var/ftpd</li>
-	<li>cd /var/ftpd</li>
-	<li>wget -erobots=off -np -r -l 0 -nH &#8212;cut-dirs=8 -R &#8216;index.html*&#8217; http://http.us.debian.org/debian/dists/testing/main/installer-i386/current/images/netboot/</li>
-	<li>chmod 0777 -R /var/ftpd<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">mkdir</span> /var/ftpd
+<span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /var/ftpd
+<span class="gp">#</span><span class="w"> </span>wget <span class="nt">-erobots</span><span class="o">=</span>off <span class="nt">-np</span> <span class="nt">-r</span> <span class="nt">-l</span> 0 <span class="nt">-nH</span> <span class="nt">--cut-dirs</span><span class="o">=</span>8 <span class="nt">-R</span> <span class="s1">'index.html*'</span> http://http.us.debian.org/debian/dists/testing/main/installer-i386/current/images/netboot/
+<span class="gp">#</span><span class="w"> </span><span class="nb">chmod </span>0777 <span class="nt">-R</span> /var/ftpd</code></pre></figure></div>
 <p>Por si no se ve la dirección completa, la ruta es: /debian/dists/testing/main/installer-i386/current/images/netboot/. Es la imagen «netboot» y se puede encontrar en muchos mirrors de debian, no solo en ese.</p>
 <h2>Instalar el servidor <span class="caps">DHCP</span> + <span class="caps">TFTP</span></h2>
 <p><code>dnsmasq</code> a parte de ser caché <span class="caps">DNS</span> y servidor <span class="caps">DHCP</span> también dispone de un servidor <span class="caps">TFTP</span> incorporado de modo que se convierte por méritos propios en la solución ideal para montar un servidor de instalación por <span class="caps">PXE</span>.</p>
 <p>Instala <code>dnsmasq</code> en <b>fileserver</b> y suponiendo que la dirección IP de tu router fuese 192.168.0.1, edita el fichero <code>/etc/dnsmasq.conf</code> para que quede así (es posible que las líneas existan, pero comentadas):</p>
 <div>
-<p>{% highlight text <span>}<br />
-listen-address=192.168.0.1<br />
-bind-interfaces<br />
-dhcp-range=192.168.0.2,192.168.0.254,12h<br />
-dhcp-option=option:router,192.168.0.1<br />
-dhcp-option=option:dns-server,192.168.0.1<br />
-dhcp-boot=pxelinux.0<br />
-enable-tftp<br />
-tftp-root=/var/ftpd<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">listen-address=192.168.0.1
+bind-interfaces
+dhcp-range=192.168.0.2,192.168.0.254,12h
+dhcp-option=option:router,192.168.0.1
+dhcp-option=option:dns-server,192.168.0.1
+dhcp-boot=pxelinux.0
+enable-tftp
+tftp-root=/var/ftpd</code></pre></figure></div>
 <p>Las sentencias <code>dhcp-option</code> sólo son necesarias si la máquina que tiene el servidor <span class="caps">DHCP</span> no es el router/<span class="caps">DNS</span>, como es el caso.</p>
 <p>Y para que todo eso entre en acción:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/dnsmasq restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/dnsmasq restart</code></pre></figure></div>
 <h2>Instalando Debian</h2>
 <p>En el PC en el que quieres instalar Debian, entra en la <span class="caps">BIOS</span> y activa una opción que se llama «PXE boot», «Etherboot», «Network boot» o algo similar. También puede ocurrir que aparezca como un disposiitvo de arranque más, en cuyo caso debes ponerla como primera elección en el «boot sequence» , «boot order» o como quiera que se llame en tu <span class="caps">BIOS</span>.</p>
 <p>Salva los cambios y al reiniciar debería aparecer la instalación de Debian, que puedes seguir de la forma habitual.</p>
@@ -5610,7 +5597,7 @@ tftp-root=/var/ftpd<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

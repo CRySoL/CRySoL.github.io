@@ -5350,40 +5350,25 @@
 <p>La razón (si no lo sabías) es que esto copia ficheros en cualquier parte de tu sistema de ficheros con pocas garantías de poder desinstalar todo eso limpiamente, y te puedes imaginar que puede ocurrir después de hacer eso durante cierto tiempo&#8230; Una solución para eso es utilizar &#8220;stow&#8221;: aunque lo mejor con diferencia sería hacer un paquete debian e instalarlo con dpkg. Eso no siempre es sencillo..</p>
 <p>Con Python pasa algo parecido, si te bajas los fuentes de un programa o modulo la forma de instalarlo suele ser algo como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ python setup.py install<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>python setup.py <span class="nb">install</span></code></pre></figure></div>
 <p>que es el equivalente al <code>configure/make/make install</code> para programas C/C++/otros</p>
 <h2>stdeb al rescate</h2>
 <p>stdeb (paquete debian <code>python-stdeb</code>) se encarga de generar un paquete debian con todas las de la ley que podrás instalar tranquilamente con <code>dpkg</code>. Vamos a instalar un módulo python que no está en debian: python-gnupg:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ wget http://python-gnupg.googlecode.com/files/python-gnupg-0.2.7.tar.gz<br />
-$ unp python-gnupg-0.2.7.tar.gz<br />
-$ cd python-gnupg-0.2.7<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>wget http://python-gnupg.googlecode.com/files/python-gnupg-0.2.7.tar.gz
+<span class="gp">$</span><span class="w"> </span>unp python-gnupg-0.2.7.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>python-gnupg-0.2.7</code></pre></figure></div>
 <p>Aquí entra en juego <code>stdeb</code>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ python setup.py &#8212;command-packages=stdeb.command bdist_deb<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>python setup.py <span class="nt">--command-packages</span><span class="o">=</span>stdeb.command bdist_deb</code></pre></figure></div>
 <p>Y esto te deja el paquete debian en el directorio <code>deb_dist</code></p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo dpkg -i deb_dist/python-python-gnupg_0.2.7-1_all.deb<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>dpkg <span class="nt">-i</span> deb_dist/python-python-gnupg_0.2.7-1_all.deb</code></pre></figure></div>
 <p>Obviamente si esto fuera tan bueno, nadie haría los paquetes debian «a mano». stdeb no puede detectar conflictos entre paquetes, dependencias complejas y en general cualquier aspecto de la política de Debian que no sea automatizable (y hay bastante). Por ejemplo en este caso, ha llamado al paquete <code>python-python-gnupg_0.2.7-1_all.deb</code>, es decir, le ha puesto el prefijo «python» por ser un módulo Python a pesar de que el nombre original ya tenía ese prefijo, mmm aunque esto si que sería automatizable&#8230; :-)</p>
 <p>En cualquier caso, muy útil para probar un módulo Python sin guarrear el sistema, pero sin olvidar que es un paquete <a href="http://en.wikipedia.org/wiki/Quick-and-dirty">Q&amp;D</a>.</p>
 <p>Si el módulo está en el <a href="https://pypi.python.org/pypi">PyPI</a> puedes ejecutar lo siguiente para descargar el fuente, crear el paquete debian e instalarlo todo con un solo comando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ pypi-install gnupg<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pypi-install gnupg</code></pre></figure></div>
 <h2>Referencia</h2>
 <ul>
 	<li><a href="http://pypi.python.org/pypi/stdeb/0.5.0">stdeb</a></li>
@@ -5452,7 +5437,7 @@ $ cd python-gnupg-0.2.7<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

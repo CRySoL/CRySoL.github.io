@@ -5304,33 +5304,21 @@
 <h2>Registrar el proyecto</h2>
 <p>Es aconsejable tener una cuenta web en <a href="http://pypi.python.org/pypi">http://pypi.python.org/pypi</a> aunque el propio programa de registro te permite crear la cuenta sobre la marcha. Se reduce a ejecutar lo siguiente en el directorio de tu proyecto:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ python setup.py register<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>python setup.py register</code></pre></figure></div>
 <p>Si quieres, esto puede crear un fichero local en tu directorio de usuario (<code>~/pypirc</code>) para no tener que poner la clave en las subsiguientes operaciones.</p>
 <h2>Compilar y subir el proyecto</h2>
 <p>Esto se hace en un solo paso con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ python setup.py sdist upload<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>python setup.py sdist upload</code></pre></figure></div>
 <p>Fíjate en que se construye la versión fuente (sdist) y no la binaria (bdist) ya que la segunda suele dar bastantes problemas dependiendo de la plataforma destino.</p>
 <p>Si por ejemplo has subido el proyecto «example» versión «3.2» ahora tendrás una página <a href="http://pypi.python.org/pypi/example/3.2">http://pypi.python.org/pypi/example/3.2</a> desde la que tendrás acceso a los ficheros.</p>
 <h2>Instalando</h2>
 <p>Puedes descargar un paquete de pypi con tu navegador e instalar con:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo pip install example-3.2.tar.gz<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>pip <span class="nb">install </span>example-3.2.tar.gz</code></pre></figure></div>
 <p>O lo que resulta mucho más interesante: instalar directamente desde la web (al estilo apt-get):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo pip install example<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>pip <span class="nb">install </span>example</code></pre></figure></div>
 <p>También puedes actualizar o desinstalar igual de fácil.</p>
 <h2>Referencias</h2>
 <ul>
@@ -5400,7 +5388,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

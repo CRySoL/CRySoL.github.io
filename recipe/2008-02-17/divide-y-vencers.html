@@ -5156,61 +5156,58 @@ Esta receta pretende dar a conocer al lector en qué consiste la técnica de dis
 <h2>Estructura del algoritmo en versión recursiva</h2>
 <p>El pseudocódigo del algoritmo Divide y Vencerás en versión recursiva es el siguiente:</p>
 <div>
-<p>{% highlight text <span>}<br />
-    <acronym title="int tamaño"><span class="caps">DYV</span></acronym>{<br />
-         if(facil(tamaño))<br />
-             return (resolver(tamaño))<br />
-         else{<br />
-             dividir(tamaño)<br />
-             //Suponemos j divisiones<br />
-             return (combinar(<acronym title="n1"><span class="caps">DYV</span></acronym>, &#8230;, <acronym title="nj"><span class="caps">DYV</span></acronym>))<br />
-         }<br />
-      }<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">    DYV(int tamaño){
+         if(facil(tamaño))
+             return (resolver(tamaño))
+         else{
+             dividir(tamaño)
+             //Suponemos j divisiones
+             return (combinar(DYV(n1), ..., DYV(nj)))
+         }
+      }</code></pre></figure></div>
 <h2>Estructura del algoritmo en versión iterativa</h2>
 <p>El pseudocódigo del algoritmo Divide y Vencerás en versión iterativa es el siguiente (yo personalmente he visto muchas más veces implementada la versión recursiva que esta iterativa):</p>
 <div>
-<p>{% highlight text <span>}<br />
-    <acronym title="int tamaño"><span class="caps">DYV</span></acronym>{<br />
-         while(tamaño &gt;= 1){<br />
-              for(i=1; i&lt;=k; i++)<br />
-                   s[i] = resolver(ni);<br />
-              combinar(s);<br />
-              modificar(tamaño);<br />
-         }<br />
-    }<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">    DYV(int tamaño){
+         while(tamaño &gt;= 1){
+              for(i=1; i&lt;=k; i++)
+                   s[i] = resolver(ni);
+              combinar(s);
+              modificar(tamaño);
+         }
+    }</code></pre></figure></div>
 <h2>Ejemplo sencillo de la técnica &#8220;divide y vencerás&#8221; en C</h2>
 <p>Se trata de solucionar el siguiente problema:<br />
 Diseñe un algoritmo “Divide y Vencerás” que calcule xn (x elevado a n) con un coste O(n log n).</p>
 <div>
-<p>{% highlight c %}<br />
-   int exponencial_n(int base, int exponente){</p>
-<p>int resultado_parcial;<br />
-	int exponente_actual;</p>
-<p>switch(exponente){<br />
-		case 0:<br />
-			return 1;<br />
-		break;</p>
-<p>case 1:<br />
-			return base;<br />
-		break;</p>
-<p>case 2:<br />
-			return (base * base);<br />
-		break;</p>
-<p>default:<br />
-			exponente_actual = exponente/2; /<strong>Dividimos a la mitad</strong>/<br />
-			resultado_parcial = exponencial_n(base, exponente_actual);</p>
-<p>if(exponente % 2 == 0)<br />
-				return resultado_parcial*resultado_parcial; /<strong>si el exponente es par</strong>/<br />
-			else<br />
-				return resultado_parcial*resultado_parcial*base; /<strong>si es impar</strong>/<br />
-	}<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c">   <span class="kt">int</span> <span class="nf">exponencial_n</span><span class="p">(</span><span class="kt">int</span> <span class="n">base</span><span class="p">,</span> <span class="kt">int</span> <span class="n">exponente</span><span class="p">){</span>
+
+	<span class="kt">int</span> <span class="n">resultado_parcial</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">exponente_actual</span><span class="p">;</span>
+
+	<span class="k">switch</span><span class="p">(</span><span class="n">exponente</span><span class="p">){</span>
+		<span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="k">break</span><span class="p">;</span>
+
+		<span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+			<span class="k">return</span> <span class="n">base</span><span class="p">;</span>
+		<span class="k">break</span><span class="p">;</span>
+
+		<span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+			<span class="k">return</span> <span class="p">(</span><span class="n">base</span> <span class="o">*</span> <span class="n">base</span><span class="p">);</span>
+		<span class="k">break</span><span class="p">;</span>
+
+		<span class="nl">default:</span>
+			<span class="n">exponente_actual</span> <span class="o">=</span> <span class="n">exponente</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="cm">/*Dividimos a la mitad*/</span>
+			<span class="n">resultado_parcial</span> <span class="o">=</span> <span class="n">exponencial_n</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">exponente_actual</span><span class="p">);</span>
+
+			<span class="k">if</span><span class="p">(</span><span class="n">exponente</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+				<span class="k">return</span> <span class="n">resultado_parcial</span><span class="o">*</span><span class="n">resultado_parcial</span><span class="p">;</span> <span class="cm">/*si el exponente es par*/</span>
+			<span class="k">else</span>
+				<span class="k">return</span> <span class="n">resultado_parcial</span><span class="o">*</span><span class="n">resultado_parcial</span><span class="o">*</span><span class="n">base</span><span class="p">;</span> <span class="cm">/*si es impar*/</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure></div>
 <h2>Bibliografía</h2>
 <ul>
 	<li>&#8220;Divide y vencerás&#8221;, Ampliación de programación. <span class="caps">ESI</span>. Miguel Angel Redondo.</li>
@@ -5280,7 +5277,7 @@ Diseñe un algoritmo “Divide y Vencerás” que calcule xn (x elevado a n) con
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

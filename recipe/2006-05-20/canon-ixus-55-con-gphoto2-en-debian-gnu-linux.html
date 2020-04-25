@@ -5167,17 +5167,14 @@
 <p>Para averiguar los identificadores de los que hablaba antes puedes utilizar un programa llamado <code>usbview</code>.</p>
 <p>Otra forma es averiguar el identificador <span class="caps">USB</span> que le ha asignado Linux (usando <code>dmesg</code>), y después echar un vistazo en el <code>/sys/bus/usb</code>. Es decir, después de enchufar la cámara:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- $ dmesg<br />
-&#8230;.<br />
-usb 1-2.3: new high speed <span class="caps">USB</span> device using ehci_hcd and address 21<br />
-&#8230;.<br />
-$ cat /sys/bus/usb/devices/1-2.3/idVendor<br />
-04a9<br />
-$ cat /sys/bus/usb/devices/1-2.3/idProduct<br />
-30ff</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>dmesg
+<span class="c">....
+</span><span class="go">usb 1-2.3: new high speed USB device using ehci_hcd and address 21
+</span><span class="c">....
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> /sys/bus/usb/devices/1-2.3/idVendor
+<span class="go">04a9
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> /sys/bus/usb/devices/1-2.3/idProduct
+<span class="go">30ff</span></code></pre></figure></div>
 <h2>Nueva regla</h2>
 <p>Ahora que sabes los identificadores, tienes que crear una nueva regla en el fichero <code>/etc/udev/libgphoto2.rules</code>, que tenga esta pinta:</p>
 <pre>
@@ -5257,7 +5254,7 @@ SYSFS{idVendor}=="04a9", SYSFS{idProduct}=="30ff", MODE="0660", GROUP="camera"
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

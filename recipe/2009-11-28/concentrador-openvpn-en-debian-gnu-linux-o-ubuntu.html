@@ -5654,26 +5654,16 @@
 <h2>Generación de certificados y claves:</h2>
 <p>Ejecuta lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cp -a /usr/share/doc/openvpn/examples/easy-rsa /etc/openvpn</li>
-	<li>cd /etc/openvpn/easy-rsa/2.0</li>
-	<li>. ./vars</li>
-	<li>./clean-all</li>
-	<li>./build-ca<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-a</span> /usr/share/doc/openvpn/examples/easy-rsa /etc/openvpn
+<span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /etc/openvpn/easy-rsa/2.0
+<span class="gp">#</span><span class="w"> </span><span class="nb">.</span> ./vars
+<span class="gp">#</span><span class="w"> </span>./clean-all
+<span class="gp">#</span><span class="w"> </span>./build-ca</code></pre></figure></div>
 <h3>Clave para el servidor.</h3>
 <p>El servidor debería ser una máquina con una IP pública. Si no es posible, se puede hacer en una máquina con IP privada pero habrá que redireccionar el puerto desde el router. El servidor va a rutar tráfico entre la red remota y redes locales que son accesibles para él pero no lo son remotamente.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>./build-key-server servidor</li>
-	<li>./build-dh<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>./build-key-server servidor
+<span class="gp">#</span><span class="w"> </span>./build-dh</code></pre></figure></div>
 <p>Todo esto genera los siguientes ficheros en el directorio <code>keys</code>:</p>
 <ul>
 	<li><code>ca.crt</code></li>
@@ -5686,12 +5676,7 @@
 <h3>Clave para el cliente</h3>
 <p>Cada cliente que quieras conectar a la red remota debe tener una clave y un certificado para autenticarse contra el servidor. Necesitas repetir esto por cada cliente que quieras incorporar a la <span class="caps">VPN</span>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>./build-key marcial<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>./build-key marcial</code></pre></figure></div>
 <p>Esto genera los siguientes ficheros:</p>
 <ul>
 	<li><code>marcial.crt</code></li>
@@ -5701,112 +5686,77 @@
 <h2>Configuración</h2>
 <p>En el servidor crea el fichero <code>/etc/openvpn/mivpn.conf</code> y escribe esto:</p>
 <div>
-<p>{% highlight text <span>}<br />
-port 1194<br />
-proto udp<br />
-dev tun<br />
-persist-tun<br />
-ca ca.crt<br />
-cert servidor.crt<br />
-key servidor.key<br />
-dh dh1024.pem<br />
-server 10.1.1.0 255.255.255.0<br />
-ifconfig-pool-persist ipp.txt<br />
-client-to-client<br />
-keepalive 10 120<br />
-comp-lzo<br />
-user nobody<br />
-group nogroup<br />
-persist-key<br />
-persist-tun<br />
-status openvpn-status.log<br />
-verb 4<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">port 1194
+proto udp
+dev tun
+persist-tun
+ca ca.crt
+cert servidor.crt
+key servidor.key
+dh dh1024.pem
+server 10.1.1.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+client-to-client
+keepalive 10 120
+comp-lzo
+user nobody
+group nogroup
+persist-key
+persist-tun
+status openvpn-status.log
+verb 4</code></pre></figure></div>
 <p>Y en los clientes:</p>
 <div>
-<p>{% highlight bash <span>}<br />
-tls-client<br />
-client<br />
-dev tun<br />
-proto udp<br />
-remote server.example.org  # El nombre público del servidor<br />
-float                      # Solo si el servidor tiene IP dinámica<br />
-resolv-retry infinite<br />
-nobind<br />
-persist-key<br />
-persist-tun<br />
-ca ca.crt<br />
-cert marcial.crt           # Aquí tu certificado<br />
-key marcial.key            # y clave<br />
-comp-lzo<br />
-verb 4<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">tls-client
+client
+dev tun
+proto udp
+remote server.example.org  <span class="c"># El nombre público del servidor</span>
+float                      <span class="c"># Solo si el servidor tiene IP dinámica</span>
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+ca ca.crt
+cert marcial.crt           <span class="c"># Aquí tu certificado</span>
+key marcial.key            <span class="c"># y clave</span>
+comp-lzo
+verb 4</code></pre></figure></div>
 <p>Ejecuta lo siguiente en ambas máquinas:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/openvpn start<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/openvpn start</code></pre></figure></div>
 <h2>Probando&#8230;</h2>
 <p>Si todo ha ido bien tendrás una nueva interfaz de red llamada <code>tun0</code> con una IP en la red 10.1.1.0/24:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ip addr show tun0<br />
-10: tun0: &lt;<span class="caps">POINTOPOINT</span>,<span class="caps">MULTICAST</span>,<span class="caps">NOARP</span>,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state <span class="caps">UNKNOWN</span> qlen 100<br />
-    link/<sup class="footnote" id="fnr65534"><a href="#fn65534">65534</a></sup><br />
-    inet 10.1.1.10 peer 10.1.1.9/32 scope global tun0<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ip addr show tun0
+<span class="gp">10: tun0: &lt;POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP&gt;</span><span class="w"> </span>mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 100
+<span class="go">    link/[65534]
+    inet 10.1.1.10 peer 10.1.1.9/32 scope global tun0</span></code></pre></figure></div>
 <p>Y tendrás también rutas nuevas para usar ese enlace:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ip route show<br />
-10.1.1.0/24 via 10.1.1.9 dev tun0<br />
-10.1.1.9 dev tun0  proto kernel  scope link  src 10.1.1.10<br />
-192.168.1.0/24 dev eth0  proto kernel  scope link  src 192.168.1.4  metric 1<br />
-default via 192.168.1.1 dev eth0  proto static<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ip route show
+<span class="go">10.1.1.0/24 via 10.1.1.9 dev tun0
+10.1.1.9 dev tun0  proto kernel  scope link  src 10.1.1.10
+192.168.1.0/24 dev eth0  proto kernel  scope link  src 192.168.1.4  metric 1
+default via 192.168.1.1 dev eth0  proto static</span></code></pre></figure></div>
 <p>Y deberías poder acceder desde el cliente al servidor y viceversa usando las direcciones privadas.</p>
 <h2>Encaminando</h2>
 <p>Imagina que el servidor tiene acceso a la red 120.20.30.0/24 pero que es inaccesible desde el exterior de la empresa. Veamos cómo conseguir que los clientes de la <span class="caps">VPN</span> puedan llegar a las máquinas de esa red utilizando el servidor de la <span class="caps">VPN</span> como router. Todos los cambios que se indican a continuación se realizan sólo en el servidor.</p>
 <p>En fichero de configuración del servidor (el que escribiste antes) añade esto:</p>
 <div>
-<p>{% highlight text <span>}<br />
-push &#8220;route 120.20.30.0 255.255.255.0&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">push "route 120.20.30.0 255.255.255.0"</code></pre></figure></div>
 <p>Esa ruta se añadirá automáticamente a los clientes para que ruten el tráfico hacia esa red a través de la <span class="caps">VPN</span>.</p>
 <p>Y por último es necesario activar el reenvío (forwarding) y el <span class="caps">NAT</span>, dado que el servidor actuará como router entre la red privada y una red pública. Para ello escribe lo siguiente en <code>/etc/sysctl.conf</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-net.ipv4.ip_forward=1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">net.ipv4.ip_forward=1</code></pre></figure></div>
 <p>Y añade la siguiente regla iptables:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -t nat -A <span class="caps">POSTROUTING</span> -o eth0 -j <span class="caps">MASQUERADE</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>iptables <span class="nt">-t</span> nat <span class="nt">-A</span> POSTROUTING <span class="nt">-o</span> eth0 <span class="nt">-j</span> MASQUERADE</code></pre></figure></div>
 <p>Para que esta regla se aplique automáticamente aunque se reinicie el servidor modifica <code>/etc/network/interfaces</code> para que quede así:</p>
 <div>
-<p>{% highlight text <span>}<br />
-iface eth0 inet static<br />
-        [&#8230;]<br />
-        pre-up iptables -t nat -A <span class="caps">POSTROUTING</span> -o eth0 -j <span class="caps">MASQUERADE</span><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">iface eth0 inet static
+        [...]
+        pre-up iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</code></pre></figure></div>
 <p>Como ya he comentado esto es para un servidor con IP fija, pero si es dinámica los cambios son mínimos.</p>
 <p>Para más información sobre configuración de iptables y rutado puedes mirar estas recetas:</p>
 <ul>
@@ -5815,12 +5765,7 @@ iface eth0 inet static<br />
 </ul>
 <p>No olvides reiniciar el servicio en el servidor y en el cliente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/openvpn restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/openvpn restart</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.linux-os.com.ar/linuxos/openvpn-en-debian-y-clientes-windows-roadwarriors/" title="Roadwarriors">OpenVPN en Debian y Clientes Windows</a></li>
@@ -5890,7 +5835,7 @@ iface eth0 inet static<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

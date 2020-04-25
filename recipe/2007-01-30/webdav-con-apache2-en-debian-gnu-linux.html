@@ -5424,55 +5424,45 @@
 </ul>
 <h2>Módulos</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>a2enmod dav_fs<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>a2enmod dav_fs</code></pre></figure></div>
 <h2>Carpeta <span class="caps">DAV</span></h2>
 <p>Lo habitual es &#8216;compartir&#8217; un directorio del sistema de ficheros, y para eso se usa la directiva &#8220;Alias&#8221;:</p>
 <div>
-<p>{% highlight text %}<br />
-&lt;VirtualHost *&gt;<br />
-   &#8230;.</p>
-Alias /webdav /var/www/dav
-&lt;Location /webdav&gt;
-<span class="caps">DAV</span> On
-</Location>
-</VirtualHost>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;VirtualHost *&gt;
+   ....
+
+   Alias /webdav /var/www/dav
+   &lt;Location /webdav&gt;
+      DAV On
+   &lt;/Location&gt;
+&lt;/VirtualHost&gt;</code></pre></figure></div>
 <p>Con eso tienes un directorio cuyo contenido <strong>todo el mundo</strong> puede leer, escribir y borrar.</p>
 <h2>Escritura restringida</h2>
 <p>Con la siguiente configuración cualquiera podrá ver el contenido del directorio pero sólo los usuarios autorizados podrán modificar su contenido:</p>
 <div>
-<p>{% highlight text %}<br />
-&lt;Location /webdav&gt;<br />
-   Dav On</p>
-AuthType Basic
-AuthName <span class="caps">DAV</span>
-AuthUserFile user.passwd
-<LimitExcept GET OPTIONS>
-Require valid-user
-</LimitExcept>
-</Location>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;Location /webdav&gt;
+   Dav On
+
+   AuthType Basic
+   AuthName DAV
+   AuthUserFile user.passwd
+
+   &lt;LimitExcept GET OPTIONS&gt;
+      Require valid-user
+   &lt;/LimitExcept&gt;
+&lt;/Location&gt;</code></pre></figure></div>
 <p>El fichero <code>user.passwd</code> se crea <code>htpasswd</code> de la forma habitual. Una alternativa es usar <a href="http://httpd.apache.org/docs/2.2/mod/mod_auth_digest.html">mod_auth_digest</a>, aunque es experimental y requiere soporte del navegador.</p>
 <h2><span class="caps">DAV</span> privado</h2>
 <p>Y si lo que quieres es que sólo los usuarios autorizados pueden acceder a la carpeta (incluso para lectura) simplemente hay que eliminar la excepción:</p>
 <div>
-<p>{% highlight text %}<br />
-&lt;Location /webdav&gt;<br />
-   Dav On</p>
-AuthType Basic
-AuthName <span class="caps">DAV</span>
-AuthUserFile user.passwd
-Require valid-user
-</Location>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;Location /webdav&gt;
+   Dav On
+
+   AuthType Basic
+   AuthName DAV
+   AuthUserFile user.passwd
+   Require valid-user
+&lt;/Location&gt;</code></pre></figure></div>
 <h2>Autenticación <span class="caps">LDAP</span></h2>
 <p>En realidad <span class="caps">LDAP</span> se puede utilizar como medio de autenticación y autorización para cualquier recurso de Apache, no sólo para carpetas <span class="caps">DAV</span>.</p>
 <p>Instala los siguientes paquetes:</p>
@@ -5483,60 +5473,47 @@ Require valid-user
 </ul>
 <p>Edita el fichero <code>/etc/pam.d/apache2</code> para que queda tal que:</p>
 <div>
-<p>{% highlight text <span>}<br />
-auth required pam_ldap.so try_first_pass<br />
-auth required pam_permit.so<br />
-account required pam_ldap.so<br />
-account required pam_permit.so<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">auth required pam_ldap.so try_first_pass
+auth required pam_permit.so
+account required pam_ldap.so
+account required pam_permit.so</code></pre></figure></div>
 <p>Edita <code>/etc/pam_ldap.conf</code> y modifica las líneas que se indican:</p>
 <div>
-<p>{% highlight text <span>}<br />
-host 192.168.1.1         # servidor <span class="caps">LDAP</span><br />
-base dc=example,dc=net   # base de búsqueda<br />
-#rootbinddn cn=manager,dc=example,dc=net<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">host 192.168.1.1         # servidor LDAP
+base dc=example,dc=net   # base de búsqueda
+#rootbinddn cn=manager,dc=example,dc=net</code></pre></figure></div>
 <p>Edita <code>/libnss_ldap.conf</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-base dc=example,dc=net<br />
-uri ldap://192.168.1.1<br />
-#rootbinddn cn=manager,dc=example,dc=net<br />
-bind_policy soft<br />
-nss_connect_policy persist<br />
-idle_timelimit 3600<br />
-nss_paged_results yes<br />
-pagesize 1000<br />
-pam_min_uid 1000<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">base dc=example,dc=net
+uri ldap://192.168.1.1
+#rootbinddn cn=manager,dc=example,dc=net
+bind_policy soft
+nss_connect_policy persist
+idle_timelimit 3600
+nss_paged_results yes
+pagesize 1000
+pam_min_uid 1000</code></pre></figure></div>
 <p>Edita el fichero <code>/etc/nsswitch.conf</code></p>
 <div>
-<p>{% highlight text <span>}<br />
-passwd:         compat ldap<br />
-group:          compat ldap<br />
-hosts:          files dns<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">passwd:         compat ldap
+group:          compat ldap
+hosts:          files dns</code></pre></figure></div>
 <p>La configuración para la carpeta <span class="caps">DAV</span> pero usando <span class="caps">LDAP</span> sería algo como:</p>
 <div>
-<p>{% highlight text %}<br />
-&lt;Location /webdav&gt;<br />
-   Dav On</p>
-AuthPAM_Enabled on
-AuthGROUP_Enabled on
-AuthType Basic
-AuthName <span class="caps">DAV</span>
-AuthBasicAuthoritative off
-AuthUserFile none.passwd     # un fichero vacío
-<LimitExcept GET OPTIONS>
-Require group staff
-</LimitExcept>
-</Location>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;Location /webdav&gt;
+   Dav On
+
+   AuthPAM_Enabled on
+   AuthGROUP_Enabled on
+   AuthType Basic
+   AuthName DAV
+   AuthBasicAuthoritative off
+   AuthUserFile none.passwd     # un fichero vacío
+
+   &lt;LimitExcept GET OPTIONS&gt;
+      Require group staff
+   &lt;/LimitExcept&gt;
+&lt;/Location&gt;</code></pre></figure></div>
 <h2>Un poquillo de seguridad</h2>
 <p>Si vas a enviar claves por la red (como es el caso de lo descrito anteriormente), lo mejor es que sirvas la carpeta por <span class="caps">SSL</span>. Mira la receta de <a href="/node/198">Crear un sitio web <span class="caps">SSL</span> con Apache2</a>.</p>
 <h2>Referencias</h2>
@@ -5609,7 +5586,7 @@ Require group staff
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

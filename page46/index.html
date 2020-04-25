@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -5496,6 +5496,8 @@
 
   
 
+  
+    
   
     
   
@@ -8425,144 +8427,103 @@
 <h2>Creando la jaula</h2>
 <p>Para hacer el entorno chroot, he seguido la receta de <a href="/node/933">javieralso</a>, con algunas modificaciones (pero no muchas, porque esto es muy sencillo). Básicamente lo que hay que hacer es buscarse una carpeta donde hacer el despliegue (os aconsejo no poner espacios en el nombre, o quizá tengáis problemas):</p>
 <div class="console">
-<p>{% highlight console %}<br />
-user@box:~$ mkdir chumby</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@box:~$</span><span class="w"> </span><span class="nb">mkdir </span>chumby</code></pre></figure></div>
 <p>Y ahora, si no tienes instalado <i>cdebootstrap</i> , ¿a que esperas? ;-) Ya sabes, puedes usar <i>apt*</i> para instalarlo de la forma usual. Si tienes dudas, pregunta.</p>
 <p>Lo siguiente es el despliegue, que consiste en instalar un sistema Debian básico para ir tirando&#8230; :P</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-user@box:~$ sudo cdebootstrap unstable chumby http://ftp.es.debian.org/debian<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@box:~$</span><span class="w"> </span><span class="nb">sudo </span>cdebootstrap unstable chumby http://ftp.es.debian.org/debian</code></pre></figure></div>
 <p>Si tienes dudas sobre qué hace este último comando, mírate la receta de javieralso. Una vez que haya terminado, que tardará un ratejo (cosa normal, teniendo en cuenta que, salvo algunos detalles, es una instalación de Debian completamente funcional), lo siguiente antes de continuar es arreglar un par de cosillas pendientes. Para ello, entramos en la jaula:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-user@box:~$ sudo chroot chumby<br />
-root@box:/#</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@box:~$</span><span class="w"> </span><span class="nb">sudo chroot </span>chumby
+<span class="gp">root@box:/#</span></code></pre></figure></div>
 <p>Eres root, así que ten cuidado con lo que haces ;-) Lo primero de todo es instalar algunos paquetes que son vitales para la vida: emacs, bash-completion, locales&#8230;</p>
 <div class="console">
-<p>{% highlight console %}<br />
-root@box:/# apt-get update<br />
-&#8230;<br />
-root@box:/# apt-get install emacs bash-completion locales file</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@box:/#</span><span class="w"> </span>apt-get update
+<span class="c">...
+</span><span class="gp">root@box:/#</span><span class="w"> </span>apt-get <span class="nb">install </span>emacs bash-completion locales file</code></pre></figure></div>
 <p>Si te quieres librar del problema de las locales (en caso de que te aparezca), pues simplemente con un reconfigure (&#8216;dpkg-reconfigure locales&#8217;) y seleccionando ES_UTF-8 como el predeterminado del sistema (o el que quieras) debe bastar.</p>
 <p>Luego, ya que no hay usuarios, puedes crear en <i>/home</i> carpetas con los usuarios del sistema no-chroot que van a usar la jaula, y añadir los scripts de inicio que creas convenientes, alias, prompts, etc.:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-root@box:/# mkdir /home/user<br />
-root@box:/# cd<br />
-root@box:~#</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@box:/#</span><span class="w"> </span><span class="nb">mkdir</span> /home/user
+<span class="gp">root@box:/#</span><span class="w"> </span><span class="nb">cd</span>
+<span class="gp">root@box:~#</span></code></pre></figure></div>
 <p>Este es el <i>.bashrc</i> que he puesto para mi usuario:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>alias ls=&#8216;ls &#8212;color&#8217;<br />
-alias clean=&#8216;rm <strong>~ \#</strong>\# -rfv&#8217;<br />
-alias emacs=&#8216;emacs -nw&#8217;</p>
-<p>. /etc/bash_completion</p>
-<p>PS1=&#8217;\[\033[01;29m\]CHROOT@Chumby\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ &#8217;</p>
-<ol>
-	<li>Mount /proc filesystem<br />
-if [ ! -f /proc/cpuinfo ];<br />
-  then mount -t proc none /proc<br />
-fi;</li>
-</ol>
-<ol>
-	<li>Go to home&#8230; :-p<br />
-cd<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">alias ls='ls --color'
+</span><span class="gp">alias clean='rm *~ \#</span><span class="k">*</span><span class="se">\#</span> <span class="nt">-rfv</span><span class="s1">'
+</span><span class="go">alias emacs='emacs -nw'
+
+. /etc/bash_completion
+
+</span><span class="gp">PS1='\[\033[01;</span>29m<span class="se">\]</span>CHROOT@Chumby<span class="se">\[\0</span>33[00m<span class="se">\]</span>:<span class="se">\[\0</span>33[01<span class="p">;</span>34m<span class="se">\]\W\[\0</span>33[00m<span class="se">\]\$</span> <span class="s1">'
+</span><span class="go">
+</span><span class="gp">#</span><span class="w"> </span>Mount /proc filesystem
+<span class="gp">if [ ! -f /proc/cpuinfo ];</span><span class="w">
+</span><span class="go">  then mount -t proc none /proc
+</span><span class="gp">fi;</span><span class="w">
+</span><span class="go">
+</span><span class="gp">#</span><span class="w"> </span>Go to home... :-p
+<span class="go">cd</span></code></pre></figure></div>
 <p>Con un bonito &#8216;prompt&#8217; para distinguir cuando estas dentro del chroot y cuando no. Ten cuidado al cortar y pegar, pues puede que a <i>bash</i> no le  gusten las comillas de tu navegador&#8230; :-p Otro detalle de la jaula es que hay ciertos sistemas de ficheros que no te monta automáticamente, por ejemplo <i>/proc</i> y <i>/dev</i>. Si necesitas montarlos, sigue la receta de javieralso, aunque algunos, como <i>/proc</i> y <i>/sys</i> se pueden montar desde la jaula.</p>
 <p>El <i>proc</i> es casi imprescindible, así que puedes montarlo de la siguiente forma:</p>
 <p><b>Nota:</b> como puedes ver, he añadido una linea en el <i>.bashrc</i> para que se monte cuando inicies sesión. Así no te tienes que preocupar de estos menesteres.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-<b>CHROOT@Chumby</b>:/# mount -t proc none /proc<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:/# mount <span class="nt">-t</span> proc none /proc</code></pre></figure></div>
 <h2>La <span class="caps">GNU</span> Toolchain para <span class="caps">ARM</span></h2>
 <p>Existen mil formas de instalarla. Desde la web de Chumby te aconsejan que te bajes un paquete comprimido con todo ya compilado y lo descomprimas en <i>/</i>, lo que meterá en <i>/usr</i> todo lo necesario, pero que te dejará el sistema hecho unos zorros. Si lo haces en una jaula, no es tanto el daño. Así que, bájate el fichero (unos 120 MiB), y lo descomprimes en la carpeta raíz:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-<b>CHROOT@Chumby</b>:~# cd /<br />
-<b>CHROOT@Chumby</b>:/# wget -c http://files.chumby.com/toolchain/arm-linux-v4.1.2b.tar.gz<br />
-&#8230;<br />
-<b>CHROOT@Chumby</b>:/# tar zxvf arm-linux-v4.1.2b.tar.gz<br />
-</pre><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:~# <span class="nb">cd</span> /
+<span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:/# wget <span class="nt">-c</span> http://files.chumby.com/toolchain/arm-linux-v4.1.2b.tar.gz
+<span class="c">...
+</span><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:/# <span class="nb">tar </span>zxvf arm-linux-v4.1.2b.tar.gz
+<span class="gp">&lt;/pre&gt;</span></code></pre></figure></div>
 <p>¡Y ya está! Lo podemos probar con un ejemplo muy sencillo en C++, el típico, conocido y sufrido <i>Hello world</i>:</p>
 <div>
-<p>{% highlight cpp %}<br />
-// <del>*</del> mode: C++; coding: utf-8 <del>*</del></p>
-<p>#include <iostream></p>
-<p>int<br />
-main(int argc, char* argv[]) {<br />
-  std::cout &lt;&lt; “Hola desde el Chumby!” &lt;&lt; std::endl;<br />
-  return 0;<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// -*- mode: C++; coding: utf-8 -*-</span>
+
+<span class="cp">#include &lt;iostream&gt;
+</span>
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="err">“</span><span class="n">Hola</span> <span class="n">desde</span> <span class="n">el</span> <span class="n">Chumby</span><span class="o">!</span><span class="err">”</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>Y lo puedes compilar así:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-<b>CHROOT@Chumby</b>:samples# arm-linux-g++ test.cpp -o test<br />
-<b>CHROOT@Chumby</b>:samples# ls<br />
-test   test.cpp<br />
-<b>CHROOT@Chumby</b>:samples# file test<br />
-test: <span class="caps">ELF</span> 32-bit <span class="caps">LSB</span> executable, <span class="caps">ARM</span>, version 1, dynamically linked (uses shared libs), for <span class="caps">GNU</span>/Linux 2.6.0, not stripped<br />
-<b>CHROOT@Chumby</b>:samples#</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:samples# arm-linux-g++ test.cpp <span class="nt">-o</span> <span class="nb">test</span>
+<span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:samples# <span class="nb">ls</span>
+<span class="go">test   test.cpp
+</span><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:samples# file <span class="nb">test</span>
+<span class="go">test: ELF 32-bit LSB executable, ARM, version 1, dynamically linked (uses shared libs), for GNU/Linux 2.6.0, not stripped
+</span><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:samples#</code></pre></figure></div>
 <p>Para ejecutarlo, hay que meterlo en el Chumby. Más abajo explico cómo montar una partición <span class="caps">NFS</span> para poder mover directamente nuestros binarios allí y tenerlos disponibles en el Chumby automágicamente.</p>
 <h2>Flash con Haxe</h2>
 <p>Haxe es un &#8220;lenguaje de programación <i>open source</i> multiplataforma&#8221; (sic) un tanto especial. Permite compilar el código a otros lenguajes (javascript, php) o al bytecode de ciertas máquinas virtuales (<a href="http://nekovm.org/">NekoVM</a>) y, que es lo que nos interesa, a Flash (swf).</p>
 <p>La instalación es sencilla, puesto que es paquete Debian ;-):</p>
 <div class="console">
-<p>{% highlight console %}<br />
-<b>CHROOT@Chumby</b>:samples# apt-get install haxe</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:samples# apt-get <span class="nb">install </span>haxe</code></pre></figure></div>
 <p>El lenguaje no es muy complejo, sintácticamente parecido a C++ o Java. Tiene algunas librerias interesantes y un sistema para instalarlas basado en repositorios, <a href="http://haxe.org/com/haxelib?lang=en">HaxeLib</a>. Pero, como dice el refrán, <i>un trozo de código vale más que mil comentarios</i> :-p . Veamos un ejemplo (el que viene en la documentación, por cierto):</p>
 <p><b>Nota:</b> ¡Cuidado con los nombres! Sucede como en Java, el nombre del fichero .hx debe ser igual al nombre de la clase que contiene. El nombre del .hxml no es crítico.</p>
 <div>
-<p>{% highlight java %}<br />
-// <del>*</del> mode: haxe; coding: utf-8 <del>*</del></p>
-<p>// Test.hx<br />
-class Test {<br />
-    static function main() {<br />
-        trace(&#8220;Hello World !&#8221;);<br />
-    }<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// -*- mode: haxe; coding: utf-8 -*-</span>
+
+<span class="c1">// Test.hx</span>
+<span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="n">function</span> <span class="nf">main</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">trace</span><span class="o">(</span><span class="s">"Hello World !"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure></div>
 <div>
-<p>{% highlight text %}</p>
-<ol>
-	<li>compile.hxml<br />
--swf test.swf<br />
--main Test<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># compile.hxml
+-swf test.swf
+-main Test</code></pre></figure></div>
 <p>Y para compilarlo, basta con:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-<b>CHROOT@Chumby</b>:samples# haxe compile.hxml<br />
-<b>CHROOT@Chumby</b>:samples# ls<br />
-compile.hxml  Test.hx  test.swf<br />
-<b>CHROOT@Chumby</b>:~# file test.swf<br />
-test.swf: Macromedia Flash data (compressed), version 8</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:samples# haxe compile.hxml
+<span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:samples# <span class="nb">ls</span>
+<span class="go">compile.hxml  Test.hx  test.swf
+</span><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:~# file test.swf
+<span class="go">test.swf: Macromedia Flash data (compressed), version 8</span></code></pre></figure></div>
 <p>Si quieres probarlo, de nuevo hay que llevarlo al Chumby. Esto, al ser Flash, presenta varias alternativas. La más sencilla pasa por copiarlo a la partición <span class="caps">NFS</span> que montas en el Chumby, y ejecutarlo con el FlashPlayer que tiene dentro. También puedes crear un <i>profile</i> de los que usa el panel del aparato para que lo gestione él. Más abajo veremos la primera. La segunda opción se deja como ejercicio para el lector ;-) En <a href=" http://wiki.chumby.com/mediawiki/index.php/Chumby_tricks#Mixing_local_widgets_into_a_channel">Mixing local widgets into a chanel</a> tienes algunos detalles&#8230;</p>
 <h2>Exportando por <span class="caps">NFS</span></h2>
 <p>El objetivo es tener una carpeta donde podamos intercambiar ficheros con nuestro aparatito. Quizá lo más sencillo sea usar un PenDrive, pero montar una partición por <span class="caps">NFS</span> es sin duda mas cómodo a largo plazo. Como hay muchas recetas ya, simplemente enlazo una:<br />
@@ -8575,42 +8536,32 @@ test.swf: Macromedia Flash data (compressed), version 8</p>
 Tenemos dos formas de automatizar el montado: usando un PenDrive o modificando los scripts de inicio del <span class="caps">GNU</span>/Linux.</p>
 <p>La opción más sencilla sin duda es la del PenDrive, pero un tanto incómoda. Hacemos uso de una característica del <span class="caps">GNU</span> que lleva el cacharro: cuando arranca, comprueba si hay un fichero en el Pen, llamado <i>debugchumby</i> con permisos de ejecución. Si lo hay, lo ejecuta. Obviamente, lo que hacemos es crearlo y meter el comando pertinente:</p>
 <div>
-<p>{% highlight text %}<br />
-#!/usr/bin/env sh</p>
-<p>cd /mnt<br />
-mkdir nfs<br />
-mount -t nfs -o nolock 192.168.0.1:/home/user/chumby/mnt/nfs nfs<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">#!/usr/bin/env sh
+
+cd /mnt
+mkdir nfs
+mount -t nfs -o nolock 192.168.0.1:/home/user/chumby/mnt/nfs nfs</code></pre></figure></div>
 <p>Por supuesto, cambia el comando con las opciones que quieras y que te apliquen.</p>
 <p>Si quieres hacer esto mismo sin usar el pen, tienes que seguir estas recomendaciones: <a href="http://wiki.chumby.com/mediawiki/index.php/Chumby_tricks#Running_something_at_boot_without_debugchumby">Running something at boot without debugchumby</a>. Es un <i>hack</i> muy chapucero, y susceptible a fallos ante actualizaciones grandes del sistema. Se me ocurre otra forma de hacerlo, pero pasa por actualizar el firmware, así que será carne de otra receta ;-)</p>
 <p>Hay una tercera, que no deja de ser un hack chapucero, pero que es menos peligroso. Se trata de editar el fichero <i>/psp/.profile</i> que se ejecuta cada vez que inicias sesión en el sistema. Tiene el inconveniente de que no se montará automáticamente, a menos que entres por <span class="caps">SSH</span> al Chumby. Si te vale, edita el fichero <i>/psp/.profile</i> y añade estas lineas (o algo análogo):</p>
 <div>
-<p>{% highlight text %}</p>
-<ol>
-	<li>Mount nfs partitions (oscarah)<br />
-if [ ! -d /mnt/nfs ]; then<br />
-  mkdir /mnt/nfs<br />
-  mount -t nfs -o nolock 192.168.0.1:/home/user/chumby/mnt/nfs /mnt/nfs<br />
-fi;<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># Mount nfs partitions (oscarah)
+if [ ! -d /mnt/nfs ]; then
+  mkdir /mnt/nfs
+  mount -t nfs -o nolock 192.168.0.1:/home/user/chumby/mnt/nfs /mnt/nfs
+fi;</code></pre></figure></div>
 <p>Una vez montado en <span class="caps">NFS</span>, puedes copiar allí los ejemplos de arriba y probarlos:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-chumby:/# cd /mnt/nfs<br />
-chumby:/mnt/nfs# ls<br />
-test      test.swf<br />
-chumby:/mnt/nfs# ./test<br />
-Hola desde el Chumby!<br />
-chumby:/mnt/nfs# stop_control_panel<br />
-stopping control panel<br />
-&#8230;<br />
-chumby:/mnt/nfs# chumbyflashplayer.x -i test.swf<br />
-&#8230;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">chumby:/#</span><span class="w"> </span><span class="nb">cd</span> /mnt/nfs
+<span class="gp">chumby:/mnt/nfs#</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">test      test.swf
+</span><span class="gp">chumby:/mnt/nfs#</span><span class="w"> </span>./test
+<span class="go">Hola desde el Chumby!
+</span><span class="gp">chumby:/mnt/nfs#</span><span class="w"> </span>stop_control_panel
+<span class="go">stopping control panel
+</span><span class="c">...
+</span><span class="gp">chumby:/mnt/nfs#</span><span class="w"> </span>chumbyflashplayer.x <span class="nt">-i</span> test.swf
+<span class="c">...</span></code></pre></figure></div>
 <p>El ejemplo en Flash debe verse desde el Chumby. No cambia la iluminación del display, por lo que si estaba en modo <i>noche</i> no se verá muy bien&#8230; Para recuperar el panel de control, simplemente usa <i>start_control_panel</i>.</p>
 <h2>Garantía de calidad</h2>
 <p>Esta receta la terminé de hacer en julio de 2008. Al momento de redactarla, probé todo en una Debian/<span class="caps">SID</span> recién instalada y actualizada. Y que conste que todo funcionaba&#8230; :-p</p>
@@ -9046,7 +8997,7 @@ El 29 de Julio nos dan por Coolio.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

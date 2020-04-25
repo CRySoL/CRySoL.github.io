@@ -5192,12 +5192,7 @@ Se puede definir 3 tipos de reglas:
 </ul>
 <p>La política se determina para cada tipo de regla por separado. Por ejemplo, para establecer una política restrictiva para <span class="caps">FORWARD</span> sería:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -P <span class="caps">FORWARD</span> <span class="caps">DROP</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-P</span> FORWARD DROP</code></pre></figure></div>
 <p>Evidentemente, iptables tienes muchas opciones que dan mucho juego, mucho más de lo que cualquier mortal pueda imaginar, no es tan complejo y sofisticado como <span class="caps">CISCO</span> <span class="caps">IOS</span> pero tampoco le falta tanto. Por eso vamos a acotar un poco el asunto y vamos a hablar sólo de 3 &#8220;<strong>esquemas</strong>&#8221; que se suelen usar para configuraciones sencillas:</p>
 <ol>
 	<li>Utilizar política por defecto (permisiva) y denegar explícitamente cada servicio que NO se desea.</li>
@@ -5210,86 +5205,36 @@ Se puede definir 3 tipos de reglas:
 <p>Este es un resumen de comandos habituales simplificados.</p>
 <h3>Ver la configuración</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -L [-t tabla] [-v]<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-L</span> <span class="o">[</span><span class="nt">-t</span> tabla] <span class="o">[</span><span class="nt">-v</span><span class="o">]</span></code></pre></figure></div>
 <h3>Borrar todas las reglas de una tabla</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -F [-t tabla]<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-F</span> <span class="o">[</span><span class="nt">-t</span> tabla]</code></pre></figure></div>
 <h2>Configuración de un router (con esquema 3)</h2>
 <p>Esta es una configuración sencilla pero completa de un router, utilizando el esquema 3.</p>
 <p>Enrutar tráfico de la red local a Internet aplicando <span class="caps">NAT</span>. Recuerda activar también el <a href="/node/96#forwarding"><em>forwarding</em></a>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -t nat -A <span class="caps">POSTROUTING</span> -o eth0 -j <span class="caps">MASQUERADE</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-t</span> nat <span class="nt">-A</span> POSTROUTING <span class="nt">-o</span> eth0 <span class="nt">-j</span> MASQUERADE</code></pre></figure></div>
 <p>Aceptar todo el tráfico <span class="caps">ICMP</span>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -A <span class="caps">INPUT</span> -p <span class="caps">ICMP</span> -j <span class="caps">ACCEPT</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-A</span> INPUT <span class="nt">-p</span> ICMP <span class="nt">-j</span> ACCEPT</code></pre></figure></div>
 <p>Aceptar todo el tráfico de conexiones ya establecidas (<span class="caps">ESTABLISHED</span>) o relacionado con otras conexiones (<span class="caps">RELATED</span>).</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -A <span class="caps">INPUT</span> -m state &#8212;state <span class="caps">ESTABLISHED</span>,<span class="caps">RELATED</span> -j <span class="caps">ACCEPT</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-A</span> INPUT <span class="nt">-m</span> state <span class="nt">--state</span> ESTABLISHED,RELATED <span class="nt">-j</span> ACCEPT</code></pre></figure></div>
 <p>Aceptar cualquier conexión que proceda de la red interna:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -A <span class="caps">INPUT</span> -p tcp -i eth1 -j <span class="caps">ACCEPT</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-A</span> INPUT <span class="nt">-p</span> tcp <span class="nt">-i</span> eth1 <span class="nt">-j</span> ACCEPT</code></pre></figure></div>
 <p>Aceptar conexiones web (80) desde cualquier origen:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -A <span class="caps">INPUT</span> -p tcp &#8212;dport 80 -j <span class="caps">ACCEPT</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-A</span> INPUT <span class="nt">-p</span> tcp <span class="nt">--dport</span> 80 <span class="nt">-j</span> ACCEPT</code></pre></figure></div>
 <p>Aceptar todo el tráfico desde el <em>loopback</em>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -A <span class="caps">INPUT</span> -i lo -j <span class="caps">ACCEPT</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-A</span> INPUT <span class="nt">-i</span> lo <span class="nt">-j</span> ACCEPT</code></pre></figure></div>
 <p>Descartar el resto:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -A <span class="caps">INPUT</span> -j <span class="caps">DROP</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-A</span> INPUT <span class="nt">-j</span> DROP</code></pre></figure></div>
 <p>Si quieres permitir algo más debes <strong>insertar</strong> la nueva regla <strong>antes</strong> del <span class="caps">DROP</span>. Por ejemplo: Aceptar conexiones <acronym title="443"><span class="caps">HTTPS</span></acronym> desde cualquier sitio:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables <strong>-I <span class="caps">INPUT</span> 7</strong> -p tcp &#8212;dport https -j <span class="caps">ACCEPT</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="k">*</span><span class="nt">-I</span> INPUT 7<span class="k">*</span> <span class="nt">-p</span> tcp <span class="nt">--dport</span> https <span class="nt">-j</span> ACCEPT</code></pre></figure></div>
 <p>Por supuesto también puedes editar directamente el fichero en el que guardes la configuración de iptables (ver <a href="#guardar">guardar configuración</a>). El contenido de dicho fichero para la configuración fijada con estos comandos sería (no se muestran las tablas vacías):</p>
 <pre>
 *filter
@@ -5325,10 +5270,7 @@ COMMIT
 <h2>Guardar la configuración de <b>iptables</b></h2>
 <p>Para guardar las reglas activas (las que has ido poniendo hasta ahora) ejecuta:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-Router:~# iptables-save &gt; /etc/iptables.up.rules<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">Router:~#</span><span class="w"> </span>iptables-save <span class="o">&gt;</span> /etc/iptables.up.rules</code></pre></figure></div>
 <p>Y ahora hay que hacer que esa configuración se cargue automáticamente al levantar la interfaz de red principal (la externa). Para ello, edita de nuevo el fichero <tt>/etc/network/interfaces</tt> para que la entrada de eth0 quede así:</p>
 <pre>
 auto eth0
@@ -5411,7 +5353,7 @@ iface eth0 inet dhcp
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

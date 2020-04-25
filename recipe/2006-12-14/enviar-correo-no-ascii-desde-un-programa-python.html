@@ -5556,39 +5556,39 @@
 <h2>Lo fácil</h2>
 <p>Enviar un correo <span class="caps">ASCII</span> es algo trivial gracias al módulo <a href="http://docs.python.org/lib/module-smtplib.html">smtplib</a>:</p>
 <div>
-<p>{% highlight python %}<br />
-import smtplib</p>
-<p>sender = &#8220;SteveBallmer@microshow.com&#8221;<br />
-receiver = &#8220;usuarios@internes.org&#8221;</p>
-<p>msg =  &#8220;From: %s\n&#8221; % sender<br />
-msg += &#8220;To: %s\n&#8221; % receiver<br />
-msg += &#8220;Subject: Se alquilan sillas voladoras (patentadas)\n\n&#8221;<br />
-msg += &#8220;Sillas voladoras en versiones &#8216;home&#8217; y &#8216;professional&#8217; de alta calidad y libres de virus.&#8221;</p>
-<p>server = smtplib.<acronym title="&#39;smtp.example.org&#39;"><span class="caps">SMTP</span></acronym><br />
-server.sendmail(sender, receiver, msg)<br />
-server.quit()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">smtplib</span>
+
+<span class="n">sender</span> <span class="o">=</span> <span class="s">"SteveBallmer@microshow.com"</span>
+<span class="n">receiver</span> <span class="o">=</span> <span class="s">"usuarios@internes.org"</span>
+
+<span class="n">msg</span> <span class="o">=</span>  <span class="s">"From: %s</span><span class="si">\</span><span class="se">n</span><span class="s">"</span> <span class="o">%</span> <span class="n">sender</span>
+<span class="n">msg</span> <span class="o">+=</span> <span class="s">"To: %s</span><span class="si">\</span><span class="se">n</span><span class="s">"</span> <span class="o">%</span> <span class="n">receiver</span>
+<span class="n">msg</span> <span class="o">+=</span> <span class="s">"Subject: Se alquilan sillas voladoras (patentadas)</span><span class="si">\</span><span class="se">n</span><span class="si">\</span><span class="se">n</span><span class="s">"</span>
+<span class="n">msg</span> <span class="o">+=</span> <span class="s">"Sillas voladoras en versiones 'home' y 'professional' de alta calidad y libres de virus."</span>
+
+<span class="n">server</span> <span class="o">=</span> <span class="n">smtplib</span><span class="p">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s">'smtp.example.org'</span><span class="p">)</span>
+<span class="n">server</span><span class="p">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+<span class="n">server</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span></code></pre></figure></div>
 <h2>Caracteres extendidos</h2>
 <p>El problema viene cuando necesitas enviar caracteres no-<span class="caps">ASCII</span>, es decir, tiene que utilizar una codificación de caracteres <span class="caps">UTF</span>-8, latin-1 o similar.</p>
 <div>
-<p>{% highlight python %}<br />
-import smtplib<br />
-from email.MIMEText import MIMEText<br />
-from email.Header import Header</p>
-<p>sender = &#8220;SteveBallmer@microshow.com&#8221;<br />
-receiver = &#8220;usuarios@internes.org&#8221;<br />
-body = unicode(texto, &#8216;latin-1&#8217;)</p>
-<p>coding = &#8216;latin-1&#8217;<br />
-msg = MIMEText(body.encode(coding), &#8216;plain&#8217;, coding)<br />
-msg[&#8216;From&#8217;]    = sender<br />
-msg[&#8216;To&#8217;]      = receiver<br />
-msg[&#8216;Subject&#8217;] = Header(u&#8217;Vendo cañones lanza-sillas&#8217;, coding)  # la &#8216;ñ&#8217; no se puede codificar en <span class="caps">ASCII</span></p>
-<p>server = smtplib.<acronym title="&#39;smtp.example.org&#39;"><span class="caps">SMTP</span></acronym><br />
-server.sendmail(sender, receiver, msg.as_string())<br />
-server.quit()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">smtplib</span>
+<span class="kn">from</span> <span class="nn">email.MIMEText</span> <span class="kn">import</span> <span class="n">MIMEText</span>
+<span class="kn">from</span> <span class="nn">email.Header</span> <span class="kn">import</span> <span class="n">Header</span>
+
+<span class="n">sender</span> <span class="o">=</span> <span class="s">"SteveBallmer@microshow.com"</span>
+<span class="n">receiver</span> <span class="o">=</span> <span class="s">"usuarios@internes.org"</span>
+<span class="n">body</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">texto</span><span class="p">,</span> <span class="s">'latin-1'</span><span class="p">)</span>
+
+<span class="n">coding</span> <span class="o">=</span> <span class="s">'latin-1'</span>
+<span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">coding</span><span class="p">),</span> <span class="s">'plain'</span><span class="p">,</span> <span class="n">coding</span><span class="p">)</span>
+<span class="n">msg</span><span class="p">[</span><span class="s">'From'</span><span class="p">]</span>    <span class="o">=</span> <span class="n">sender</span>
+<span class="n">msg</span><span class="p">[</span><span class="s">'To'</span><span class="p">]</span>      <span class="o">=</span> <span class="n">receiver</span>
+<span class="n">msg</span><span class="p">[</span><span class="s">'Subject'</span><span class="p">]</span> <span class="o">=</span> <span class="n">Header</span><span class="p">(</span><span class="s">u'Vendo cañones lanza-sillas'</span><span class="p">,</span> <span class="n">coding</span><span class="p">)</span>  <span class="c1"># la 'ñ' no se puede codificar en ASCII
+</span>
+<span class="n">server</span> <span class="o">=</span> <span class="n">smtplib</span><span class="p">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s">'smtp.example.org'</span><span class="p">)</span>
+<span class="n">server</span><span class="p">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">as_string</span><span class="p">())</span>
+<span class="n">server</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span></code></pre></figure></div>
 <p>En el ejemplo, &#8216;texto&#8217; es una variable que contiene texto procedende de un fichero codificado en latin-1 o quizá de un terminal con la misma codificación. Podría ser cualquier otra codificación, pero debe ser conocida y debe indicarse al crear la variable &#8216;body&#8217; (de tipo unicode).</p>
 <p>A <a href="http://docs.python.org/lib/module-email.mime.text.html">MIMEText</a> se le debe pasar texto codificado e indicar a su vez el encoding que se ha usado. A <a href="http://docs.python.org/lib/module-email.header.html">Header</a> se le puede pasar texto unicode indicando qué encoding debe usar para codificar dicho texto.</p>
 <h2>Referencias</h2>
@@ -5660,7 +5660,7 @@ server.quit()<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5159,10 +5159,7 @@
 <h2>Síntomas</h2>
 <p>Si cuando ejecutas <code>apt-get update</code> te salen avisos similares al siguiente, te interesa esta receta:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-W: <span class="caps">GPG</span> error: ftp://ftp.nerim.net sid Release: The following signatures couldn&#8217;t be verified because the public key is not available: NO_PUBKEY 07DC563D1F41B907<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">W: GPG error: ftp://ftp.nerim.net sid Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 07DC563D1F41B907</span></code></pre></figure></div>
 <p>A pesar de estos avisos, se pueden instalar paquetes como siempre, pero no habrá ninguna garantía de su autenticidad. El programa <code>apt-get</code> suele pedir una confirmación de este tipo cuando se instalan paquetes cuya autenticidad no se puede comprobar:</p>
 <pre class="console">AVISO: ¡No se han podido autenticar los siguientes paquetes!
   zeroc-icee-translators
@@ -5175,12 +5172,7 @@ W: <span class="caps">GPG</span> error: ftp://ftp.nerim.net sid Release: The fol
 <h2>Configuración</h2>
 <p>Primero ejecuta el programa <code>pgp</code> como root. De ese modo se crean el directorio <code>.gnupg</code> y los ficheros de configuración por defecto:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>gpg<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>gpg</code></pre></figure></div>
 <p>Pulsa C-c cuando haya arrancado.</p>
 <p>Ahora edita el fichero <code>/root/.gnupg/gpg.conf</code> y añade (o descomenta) esta línea:</p>
 <pre>
@@ -5193,35 +5185,21 @@ keyserver hkp://pgp.rediris.es
 <h2>Nuevas firmas</h2>
 <p>A la vista de los avisos comentaba antes:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-W: <span class="caps">GPG</span> error: ftp://ftp.nerim.net sid Release: The following signatures couldn&#8217;t be verified because the public key is not available: NO_PUBKEY 07DC563D1F41B907<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">W: GPG error: ftp://ftp.nerim.net sid Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 07DC563D1F41B907</span></code></pre></figure></div>
 <p>Puedes descargar la clave pública que corresponde a la firma (el numerajo que aparece al final) con el siguiente comando. Parece que el servidor es un poco duro de oido y, a veces, hay que ejecutarlo varias veces (no conozco el motivo). Cuando todo funciona debería salir algo así:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ gpg &#8212;keyserver pgpkeys.mit.edu &#8212;recv-keys 07DC563D1F41B907<br />
-gpg: solicitando clave 1F41B907 de hkp servidor subkeys.pgp.net<br />
-gpg: clave 1F41B907: &#8220;Christian Marillat &lt;marillat@debian.org&gt;&#8221; sin cambios<br />
-gpg: Cantidad total procesada: 1<br />
-gpg:              sin cambios: 1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gpg <span class="nt">--keyserver</span> pgpkeys.mit.edu <span class="nt">--recv-keys</span> 07DC563D1F41B907
+<span class="go">gpg: solicitando clave 1F41B907 de hkp servidor subkeys.pgp.net
+</span><span class="gp">gpg: clave 1F41B907: "Christian Marillat &lt;marillat@debian.org&gt;</span><span class="s2">" sin cambios
+</span><span class="go">gpg: Cantidad total procesada: 1
+gpg:              sin cambios: 1</span></code></pre></figure></div>
 <p>Y la puedes incorporar al anillo de claves de <strong>apt</strong> con este otro comando. Igual que antes, puede que tengas que ejecutarlo varias veces hasta que diga algo como esto:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>gpg &#8212;export &#8212;armor 07DC563D1F41B907 | apt-key add -<br />
-OK<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>gpg <span class="nt">--export</span> <span class="nt">--armor</span> 07DC563D1F41B907 | apt-key add -
+<span class="go">OK</span></code></pre></figure></div>
 <p>Si te dice lo siguiente es que no está funcionando.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-gpg: no se encuentran claves absolutamente fiables<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">gpg: no se encuentran claves absolutamente fiables</span></code></pre></figure></div>
 <p>Y para terminar, un <code>apt-get update</code> que debería salir sin esos feos avisos, y con total garantía de autenticidad sobre lo que instalas. Evidentemente, se supone que tú, como administrador, deberías contrastar que esa firma corresponde a alguien &#8220;fiable&#8221;.</p>
 <h2>Referencias</h2>
 <ul>
@@ -5291,7 +5269,7 @@ gpg: no se encuentran claves absolutamente fiables<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

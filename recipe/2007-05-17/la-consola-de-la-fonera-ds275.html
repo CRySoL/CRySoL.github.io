@@ -5292,14 +5292,14 @@ La fonera trae un GNU/Linux de fábrica. Es una versión modificada de <a href="
 
 El <a href="http://es.wikipedia.org/wiki/Secure_Shell">SSH (Secure SHell)</a> es un protocolo de comunicaciones que permite el control remoto de forma segura (entre otras muchas cosas). Lo que usamos nosotros es simplemente una consola del sistema (como cuando accedemos en un terminal real). El kernel de la fonera está configurado de forma que los mensajes se envíen al puerto serie. Además, se arranca una shell para ese mismo puerto que permite la interacción con el sistema. Es una consola como las de toda la vida.
 
-Nosotros, simplemente tenemos que conectar un puerto serie de nuestro PC con el de la fonera. Bueno, realmente es un poco menos sencillo, por el hecho de que nuestro puerto serie sigue la norma <a href="http://es.wikipedia.org/wiki/RS232">RS232</a> con respecto a los niveles de tensión, mientras que el de la fonera no (usa niveles convencionales TTL). Luego, necesitamos <i>algo</i> que "adapte" entre los niveles RS232 y TTL. Este <i>algo</i> es un circuto, más o menos complejo. 
+Nosotros, simplemente tenemos que conectar un puerto serie de nuestro PC con el de la fonera. Bueno, realmente es un poco menos sencillo, por el hecho de que nuestro puerto serie sigue la norma <a href="http://es.wikipedia.org/wiki/RS232">RS232</a> con respecto a los niveles de tensión, mientras que el de la fonera no (usa niveles convencionales TTL). Luego, necesitamos <i>algo</i> que "adapte" entre los niveles RS232 y TTL. Este <i>algo</i> es un circuto, más o menos complejo.
 
 Existen múltiples versiones. Una de ellas es la conexión directa. Actualmente, las <a href="http://es.wikipedia.org/wiki/UART">UART</a> de los PC's soportan los niveles TTL sin mucho problema. Otra opción es diseñar un circuito basado en transistores y diodos que haga el trabajo. Sin duda, puede ser una buena opción... a menos que quieras/puedas usar los integrados que existen a tal fin.
 
 La "mejor" (depende de las circunstancias) versión de este adaptador es usar un conversor de niveles integrado. El más conocido es el <a href="http://www.google.es/search?q=max232">MAX232</a>. Es un integrado de 16 pines que necesita varios condensadores para trabajar. Otro modelo menos conocido pero quizá más sencillo de usar es el <a href="http://www.google.es/search?q=ds275">DS275</a>. Es un integrado más pequeño, solo tiene 8 pines, que se conecta directamente, por lo que usarlo es sencillisimo. Es el que vamos a emplear aquí.
 
 <h2>El adaptador</h2>
-Como siempre, antes de usar ningún integrado, recomiendo leerse el <i>datasheet</i> correspondiente. Si ya lo has hecho, podemos continuar... :-) 
+Como siempre, antes de usar ningún integrado, recomiendo leerse el <i>datasheet</i> correspondiente. Si ya lo has hecho, podemos continuar... :-)
 
 El puerto serie del PC tiene un montón de señales que no nos interesan ahora. Son 9 pines (en un DB9 claro) de los cuales solo vamos a emplear 3, a saber:
 
@@ -5311,7 +5311,7 @@ PIN: 2 -&gt; RxD
 
 El RxD es el encargado de la recepción de los datos, el TxD de la transmisión  y el GND sólo es la referencia de las señales (GrouND). Sucede lo mismo con el serie de la fonera, solo que en este caso, vamos a usar un pin más: el de 3.5 V de referencia para el integrado. No te preocupes si parece mucho lio, al final lo verás muy claro.
 
-Resumiendo: tenemos en el puerto serie del PC 3 pines a usar y en el de la fonera 4 pines. Los de la fonera son como sigue: 
+Resumiendo: tenemos en el puerto serie del PC 3 pines a usar y en el de la fonera 4 pines. Los de la fonera son como sigue:
 
 <pre>
 | GND  #  RxD  TxD  #
@@ -5336,13 +5336,13 @@ Y por último todo el invento montado:
 
 <h2>Probando</h2>
 
-Y ya está. Podemos conectar el puerto serie a la fonera y arrancar un programa de emulación de terminal en ese mismo puerto. Existe uno muy interesante llamado minicom ($ man minicom) que funciona muy bien. Configúralo para que escuche en el puerto serie de tu PC, y como parámetros: 9600 8N1 (es decir 9600 Bps, 8 bits de datos, sin paridad y 1 bit de stop). 
+Y ya está. Podemos conectar el puerto serie a la fonera y arrancar un programa de emulación de terminal en ese mismo puerto. Existe uno muy interesante llamado minicom ($ man minicom) que funciona muy bien. Configúralo para que escuche en el puerto serie de tu PC, y como parámetros: 9600 8N1 (es decir 9600 Bps, 8 bits de datos, sin paridad y 1 bit de stop).
 
 <b>NOTA</b>: No te fíes del estado del minicom, que muestra siempre desconectado. Esto te sería util si usaras un dispositivo de red orientado a conexión, pero usas un puerto serie, de tipo caracter que se comporta como un flujo de datos.
 
 Bien, ahora que lo tienes todo listo, arranca la fonera. Espera unos segundos y empezarás a ver el arranque del kernel. ¡Enhorabuena! Ya tienes acceso a la consola de tu fonera.
 
-Si no ves nada en un rato, es probable que hayas metido la pata. Lo siento. Repasa las conexiones con cuidado. Si sigues teniendo problemas, busca ayuda. En internet hay mucha información al respecto. 
+Si no ves nada en un rato, es probable que hayas metido la pata. Lo siento. Repasa las conexiones con cuidado. Si sigues teniendo problemas, busca ayuda. En internet hay mucha información al respecto.
 
 <h2>Referencias</h2>
 <ol>
@@ -5414,7 +5414,7 @@ Si no ves nada en un rato, es probable que hayas metido la pata. Lo siento. Repa
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

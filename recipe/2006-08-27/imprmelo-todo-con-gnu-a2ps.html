@@ -5160,20 +5160,14 @@
 <h1>Personalizar encabezado y pie de página</h1>
 <p>El siguiente comando especifica un encabezado y pie de página alternativo. También numera las líneas.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ a2ps -1 &#8212;header=&#8220;El Cisne&#8221; &#8212;footer=&#8220;Iniciativa Dharma&#8221; &#8212;line-numbers 1 numbers.c -o numbers.ps<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>a2ps <span class="nt">-1</span> <span class="nt">--header</span><span class="o">=</span><span class="s2">"El Cisne"</span> <span class="nt">--footer</span><span class="o">=</span><span class="s2">"Iniciativa Dharma"</span> <span class="nt">--line-numbers</span> 1 numbers.c <span class="nt">-o</span> numbers.ps</code></pre></figure></div>
 <h2>Problemas con el encoding <span class="caps">UTF</span>-8</h2>
 <p>En general no hay problema si el fichero de texto a imprimir es <span class="caps">ASCII</span> o latin-1.  Sin embargo, a2ps aún no maneja bien <span class="caps">UTF</span>-8. No imprimirá bien acentos o caracteres no-<span class="caps">ASCII</span>.</p>
 <p>Del mismo modo, el terminal con el que se ejecuta a2ps no puede usar <span class="caps">UTF</span>-8 si le vas a pasar cadenas, como en el ejemplo anterior.</p>
 <p>Y si utilizas <span class="caps">UTF</span>-8 como encoding por defecto tampoco aparecerán correctamente las cadenas &#8220;internacionalizadas&#8221;, por ejemplo la palabra &#8220;Página&#8221; en el marco por defecto. Para arreglarlo debes indicar otro encoding.</p>
 <p>Es decir, debes poner tu terminal (por ejemplo, gnome-terminal) en iso-88591 (latin-1) y ejecutar el comando anterior con una pequeña modificación:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ <span class="caps">LANG</span>=es_ES a2ps -1 &#8212;header=&#8220;El Cisne&#8221; &#8212;footer=&#8220;Iniciativa Dharma&#8221; &#8212;line-numbers 1 numbers.c -o numbers.ps<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span><span class="nv">LANG</span><span class="o">=</span>es_ES a2ps <span class="nt">-1</span> <span class="nt">--header</span><span class="o">=</span><span class="s2">"El Cisne"</span> <span class="nt">--footer</span><span class="o">=</span><span class="s2">"Iniciativa Dharma"</span> <span class="nt">--line-numbers</span> 1 numbers.c <span class="nt">-o</span> numbers.ps</code></pre></figure></div>
 <p>Y todo saldrá perfecto.</p>
 <h1>Referencias</h1>
 <ul>
@@ -5243,7 +5237,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

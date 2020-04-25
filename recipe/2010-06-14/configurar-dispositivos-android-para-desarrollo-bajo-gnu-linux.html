@@ -5651,9 +5651,7 @@
 <p>El siguiente paso en el debemos editar las reglas de <strong>udev</strong> para que, al conectar nuestro teléfono, de permiso a dicho grupo de usuarios para poder manejarlo a su antojo. Para ello, primero necesitamos saber el <em>Vendor Id</em> y el <em>Product id</em> de nuestro teléfono.</p>
 <p>Para ello, utiliza el comando <code>lsusb</code>. Cada una de las líneas que aparecen tiene la siguiente estructura:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Bus <span class="caps">XXX</span> Device <span class="caps">YYY</span>: ID aaaa:bbbb Description{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Bus XXX Device YYY: ID aaaa:bbbb Description</code></pre></figure></div>
 <p>dónde:</p>
 <ul>
 	<li><span class="caps">XXX</span> es un número identificador del bus <span class="caps">USB</span> (no nos importa)</li>
@@ -5666,38 +5664,24 @@ Bus <span class="caps">XXX</span> Device <span class="caps">YYY</span>: ID aaaa:
 <p>Si no lo sacas, una buena técnica es desenchufarlo, hacer <code>lsusb</code>, y volver a enchufarlo y entonces comparar las salidas, viendo que sale diferente entre las dos ejecuciones. Si eres un &#8220;master&#8221;, puedes ir a mirar que se cuece en <code>dmesg</code>, que también te debe decir los datos que necesitamos.</p>
 <p>Una vez tengamos ambos datos (recordemos, <em>vender id</em> y <em>product id</em>), crearemos un fichero en <code>/etc/udev/rules.d</code> con el nombre <code>50-androiddev.rules</code> que contenga, como podéis ver en la otra receta, lo siguiente:</p>
 <div>
-<p>{% highlight text <span>}<br />
-<span class="caps">SUBSYSTEMS</span>"usb", ATTRS{idVendor}&#8220;aaaa&#8221;, ATTRS{idProduct}==&#8220;bbbb&#8221;, <span class="caps">GROUP</span>=&#8220;androiddev&#8221;, SYMLINK+=&#8220;android%n&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">SUBSYSTEMS=="usb", ATTRS{idVendor}=="aaaa", ATTRS{idProduct}=="bbbb", GROUP="androiddev", SYMLINK+="android%n"</code></pre></figure></div>
 <p>dónde debes sustituir <strong>aaaa</strong> por tu <em>vender id</em> y <strong>bbbb</strong> por tu <em>product id</em>.</p>
 <p>Por cada teléfono diferente que enchufes deberá aparecer una línea, ya que los <em>vendor id</em> y <em>product id</em> cambian para cada aparato.</p>
 <p>Tras editar el fichero, guarda los cambios y recarga las reglas de Udev:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/udev reload<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/udev reload</code></pre></figure></div>
 <h2>En el móvil</h2>
 <p>Mira en la otra receta para saber que hacer en tu dispositivo Android para activar la depuración.</p>
 <h2>Probando que todo funciona</h2>
 <p>Antes de volver a conectar tu teléfono, asegúrate de pertenecer al grupo <strong>androiddev</strong> creado al principio. Si no, no podrás hacer lo que Cleto contó en su receta sobre el <span class="caps">HTC</span> Magic.</p>
 <p>También puedes probar a hacer directamente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ./adb devices<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./adb devices</code></pre></figure></div>
 <p>y comprobar si tu dispositivo es listado y reconocido (algo como lo siguiente):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ./adb devices<br />
-List of devices attached<br />
-HT043PL12817	device<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./adb devices
+<span class="go">List of devices attached
+HT043PL12817	device</span></code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="/node/1138">Configurar <span class="caps">HTC</span> Magic (G2) con Android en Debian <span class="caps">GNU</span>/Linux</a></li>
@@ -5766,7 +5750,7 @@ HT043PL12817	device<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

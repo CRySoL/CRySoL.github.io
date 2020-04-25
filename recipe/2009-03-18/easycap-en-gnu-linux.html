@@ -5451,15 +5451,12 @@ Y funcionó&#8230; bueno, más o menos. :p</p>
 <p>Cuando llegó, traía un CD con drivers para otros sistemas operativos, que fue lo primero que deseché ;-) El chisme, por cierto, es como un pincho <span class="caps">USB</span> gris, con 5 cables que terminan en sendas clavijas <span class="caps">RCA</span>-f (hembra): 4 de vídeo (amarillas) y 1 de audio (blanca).</p>
 <p>Tras desembalarlo, lo primero fue enchufarlo en mi Debian, a ver que me contaba Linux. No esperaba que funcionara directamente, ni de lejos. Me salió algo así:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>[ 2517.072014] usb 1-2: new high speed <span class="caps">USB</span> device using ehci_hcd and address 5<br />
-[ 2517.204916] usb 1-2: configuration #1 chosen from 1 choice<br />
-[ 2517.216239] usb 1-2: New <span class="caps">USB</span> device found, idVendor=05e1, idProduct=0408<br />
-[ 2517.216247] usb 1-2: New <span class="caps">USB</span> device strings: Mfr=1, Product=2, SerialNumber=0<br />
-[ 2517.216251] usb 1-2: Product: <span class="caps">USB</span> 2.0 Video Capture Controller<br />
-[ 2517.216254] usb 1-2: Manufacturer: Syntek Semiconductor<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">[ 2517.072014] usb 1-2: new high speed USB device using ehci_hcd and address 5
+</span><span class="gp">[ 2517.204916] usb 1-2: configuration #</span>1 chosen from 1 choice
+<span class="go">[ 2517.216239] usb 1-2: New USB device found, idVendor=05e1, idProduct=0408
+[ 2517.216247] usb 1-2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[ 2517.216251] usb 1-2: Product: USB 2.0 Video Capture Controller
+[ 2517.216254] usb 1-2: Manufacturer: Syntek Semiconductor</span></code></pre></figure></div>
 <p>Bueno, algo es algo. Me dice que tiene un chip Syntek, con <span class="caps">USB</span> ID 05e1:0408. Perfecto. Una búsqueda rápida (bueno, la verdad es que me tiré un buen rato :p) me lleva a descubrir que el chip que monta es un stk1160. Más google y descubro que hay un driver para unas webcam de Syntek, en concreto para las DC-1125 y las <span class="caps">STK</span>-1135. Mmm, quizá tenga soporte. Busco un poco más, y me doy de bruces con este hilo: <a href="http://sourceforge.net/projects/syntekdriver/forums/forum/616182/topic/2803299">STK1160 Support</a>, Bien, algo de esperanza. Es un parche para el driver stk11xx, escrito por Ivor Hewitt. Lo probé, y funcionó regularmente. Es muy experimental, y muy joven, pero funciona. En esta receta describo un poco cómo instalarlo. Hay dos formas: compilar el código o instalar el paquete.</p>
 <p><strong><span class="caps">ADVERTENCIA</span></strong>: El autor del driver dice:<br />
 <em>The syntek [&#8230;] driver [&#8230;] is currently being developed on Linux. This driver can do damages. Use this driver only if you know what you are doing.</em></p>
@@ -5474,77 +5471,56 @@ Y funcionó&#8230; bueno, más o menos. :p</p>
 <p>Estos están disponibles en las distribuciones Debian actuales (si tienes problemas con linux-kbuild, he compilado y empaquetado la versión 2.6.28, está disponible en el repo citado en la siguiente sección).</p>
 <p>La mejor opción es tirar del repositorio de svn para bajarse las fuentes. Algo así:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-~$ svn co https://syntekdriver.svn.sourceforge.net/svnroot/syntekdriver/trunk/driver syntekdriver
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> ~$</span><span class="w"> </span>svn co https://syntekdriver.svn.sourceforge.net/svnroot/syntekdriver/trunk/driver syntekdriver</code></pre></figure></div>
 <p>Ahora nos descargamos el parche antes mencionado, y lo aplicamos</p>
 <div class="console">
-<p>{% highlight console %}</p>
-~$ cd syntekdriver
-syntekdriver$ wget http://www.ivor.org/stk0408-1.patch
-[&#8230;]
-syntekdriver$ patch -i stk0408-1.patch
-[&#8230;]
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> ~$</span><span class="w"> </span><span class="nb">cd </span>syntekdriver
+<span class="gp"> syntekdriver$</span><span class="w"> </span>wget http://www.ivor.org/stk0408-1.patch
+<span class="go"> [...]
+</span><span class="gp"> syntekdriver$</span><span class="w"> </span>patch <span class="nt">-i</span> stk0408-1.patch
+<span class="go"> [...]</span></code></pre></figure></div>
 <p>Listo, ahora toca compilar. El fichero Makefile tiene un pequeño error, pero no afecta a la compilación del módulo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-~$ make -f Makefile.standalone
-[&#8230;]
-<p>ctags: no input files specified.<br />
-	Try `ctags &#8212;help&#8217; for a complete list of options.<br />
-make: <strong>*</strong> [driver] Error 1<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> ~$</span><span class="w"> </span>make <span class="nt">-f</span> Makefile.standalone
+<span class="go"> [...]
+ctags: no input files specified.
+	Try `ctags --help' for a complete list of options.
+make: *** [driver] Error 1</span></code></pre></figure></div>
 <p>Puedes ignorar el error, pues el módulo se ha compilado perfectamente. Ya está, solo queda probarlo. Depende de otros módulos, en concreto de usbcore y de videodev. El probable que ya los tengas cargados, pero por si acaso&#8230;</p>
 <div class="console">
-<p>{% highlight console %}</p>
-~$ sudo modprobe videodev
-~$ sudo modprobe usbcore
-~$ sudo insmod stk11xx.ko
-~$ dmesg | tail -n 15
-<p>[ 5700.101573] usb 1-2: new high speed <span class="caps">USB</span> device using ehci_hcd and address 6<br />
-[ 5700.232899] usb 1-2: configuration #1 chosen from 1 choice<br />
-[ 5700.242794] stk11xx: Probe function called with VendorID=05E1, ProductID=0408 and InterfaceNumber=0<br />
-[ 5700.242800] stk11xx: Syntek USB2.0 &#8211; <span class="caps">STK</span>-1160 based device found.<br />
-[ 5700.242804] stk11xx: Syntek AVStream USB2.0 Video Capture &#8211; Product ID 0&#215;0408.<br />
-[ 5700.242808] stk11xx: Release: 0005<br />
-[ 5700.242810] stk11xx: Number of interfaces : 3<br />
-[ 5700.243331] stk11xx: Initialize USB2.0 Syntek Capture device<br />
-[ 5700.461080] stk11xx: <span class="caps">SET</span> <span class="caps">FEATURE</span><br />
-[ 5700.461086] stk11xx: Syntek USB2.0 Capture device is ready<br />
-[ 5700.461200] stk11xx: Syntek USB2.0 Camera is now controlling video device /dev/video0<br />
-[ 5700.468901] usb 1-2: New <span class="caps">USB</span> device found, idVendor=05e1, idProduct=0408<br />
-[ 5700.468909] usb 1-2: New <span class="caps">USB</span> device strings: Mfr=1, Product=2, SerialNumber=0<br />
-[ 5700.468913] usb 1-2: Product: <span class="caps">USB</span> 2.0 Video Capture Controller<br />
-[ 5700.468916] usb 1-2: Manufacturer: Syntek Semiconductor<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> ~$</span><span class="w"> </span><span class="nb">sudo </span>modprobe videodev
+<span class="gp"> ~$</span><span class="w"> </span><span class="nb">sudo </span>modprobe usbcore
+<span class="gp"> ~$</span><span class="w"> </span><span class="nb">sudo </span>insmod stk11xx.ko
+<span class="gp"> ~$</span><span class="w"> </span>dmesg | <span class="nb">tail</span> <span class="nt">-n</span> 15
+<span class="go">[ 5700.101573] usb 1-2: new high speed USB device using ehci_hcd and address 6
+</span><span class="gp">[ 5700.232899] usb 1-2: configuration #</span>1 chosen from 1 choice
+<span class="go">[ 5700.242794] stk11xx: Probe function called with VendorID=05E1, ProductID=0408 and InterfaceNumber=0
+[ 5700.242800] stk11xx: Syntek USB2.0 - STK-1160 based device found.
+[ 5700.242804] stk11xx: Syntek AVStream USB2.0 Video Capture - Product ID 0x0408.
+[ 5700.242808] stk11xx: Release: 0005
+[ 5700.242810] stk11xx: Number of interfaces : 3
+[ 5700.243331] stk11xx: Initialize USB2.0 Syntek Capture device
+[ 5700.461080] stk11xx: SET FEATURE
+[ 5700.461086] stk11xx: Syntek USB2.0 Capture device is ready
+[ 5700.461200] stk11xx: Syntek USB2.0 Camera is now controlling video device /dev/video0
+[ 5700.468901] usb 1-2: New USB device found, idVendor=05e1, idProduct=0408
+[ 5700.468909] usb 1-2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[ 5700.468913] usb 1-2: Product: USB 2.0 Video Capture Controller
+[ 5700.468916] usb 1-2: Manufacturer: Syntek Semiconductor</span></code></pre></figure></div>
 <p>La ultima ejecución de &#8216;dmesg&#8217; retorna los mensajes producidos al conectar el dispositivo. Vemos que hay un nuevo <em>device</em> en /dev/video0 listo para ser usado. Lo podemos probar con cualquier cosa que utilice V4L2, por ejemplo con mplayer, con la línea siguiente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-~$ mplayer tv:// -tv driver=v4l2:device=/dev/video0
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> ~$</span><span class="w"> </span>mplayer tv:// <span class="nt">-tv</span> <span class="nv">driver</span><span class="o">=</span>v4l2:device<span class="o">=</span>/dev/video0</code></pre></figure></div>
 <p>Como verás, consume bastante <span class="caps">CPU</span>, y la calidad no es de lo mejor, pero funciona. Hay que tener en cuenta que el driver es muy joven (apenas cuenta con 3 meses de vida!!). Por supuesto, cualquier contribución es bienvenida: parches, pruebas, etc. ;-)</p>
 <h3>Paquete Debian</h3>
 <p><strong>Nota</strong>: este paquete ya no está disponible. Siento las molestias.</p>
 <p>Para no recompilar el driver en cada máquina que pueda usar este trasto, y para aquellos que lo deseen, lo he empaquetado para Debian. Está disponible en mi repositorio personal, que se puede utilizar añadiendo la siguiente línea en el fichero <em>/etc/apt/sources.list</em>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-deb http://lamport.mine.nu/debian binary/<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">deb http://lamport.mine.nu/debian binary/</code></pre></figure></div>
 <p>Luego, actualizas la lista de paquetes, y lo instalas como de costumbre (en el ejemplo uso apt-get). Aquí, las dependencias se suelen satisfacer solas&#8230; :p :</p>
 <div class="console">
-<p>{% highlight console %}</p>
-~$ sudo apt-get update
-~$ sudo apt-get install stk11xx-modules
-[&#8230;]
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> ~$</span><span class="w"> </span><span class="nb">sudo </span>apt-get update
+<span class="gp"> ~$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>stk11xx-modules
+<span class="go"> [...]</span></code></pre></figure></div>
 <p>Y listo. Conecta el chisme y a rular! :-o</p>
 <h3>Referencias</h3>
 <ul>
@@ -5616,7 +5592,7 @@ deb http://lamport.mine.nu/debian binary/<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

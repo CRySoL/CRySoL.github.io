@@ -5207,28 +5207,17 @@
 	<li>Desinstalamos las versiones previas que tengamos instaladas, ya sea mediante apt si usamos el <a href="/node/121">método de module-assistant</a> como si usamos el mismo instalador de la web de Nvidia. Si estamos en este último caso deberemos ejecutar como root:</li>
 </ol>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>nvidia-installer &#8212;uninstall</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>nvidia-installer <span class="nt">--uninstall</span></code></pre></figure></div>
 <ol>
 	<li>Descargamos y descomprimimos la nueva versión. Para ello:</li>
 </ol>
 <div class="console">
-<p>{% highlight console %}<br />
-~/nvidia $ sh <span class="caps">NVIDIA</span>-Linux-x86-100.14.11-pkg1.run -x</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/nvidia $</span><span class="w"> </span>sh NVIDIA-Linux-x86-100.14.11-pkg1.run <span class="nt">-x</span></code></pre></figure></div>
 <ol>
 	<li>En el paso anterior se creará un directorio. Iremos a la siguiente ruta:</li>
 </ol>
 <div class="console">
-<p>{% highlight console %}<br />
- ~/nvidia $ cd <span class="caps">NVIDIA</span>-Linux-x86-100.14.11-pkg1/usr/src/nv/</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> ~/nvidia $</span><span class="w"> </span><span class="nb">cd </span>NVIDIA-Linux-x86-100.14.11-pkg1/usr/src/nv/</code></pre></figure></div>
 <ol>
 	<li>Editamos el archivo Makefile.kbuild y añadimos en la línea 78 estás dos líneas:<br />
 <pre>PARAVIRT_OPS := $(shell grep &#8220;D paravirt_ops&#8221; /boot/System.map-$(shell uname -r) | colrm 9)<br />
@@ -5237,10 +5226,7 @@ EXTRA_LDFLAGS := &#8212;defsym paravirt_ops=0x$(PARAVIRT_OPS)<br />
 </ol>
 <p>Tras esto tan sólo deberemos cerrar el servidor de las X con &#8220;/etc/init.d/gdm stop&#8221; y, desde un terminal, ejecutar como root lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- ~/nvidia/<span class="caps">NVIDIA</span>-Linux-100.14.11-pkg1 # ./nvidia-installer</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> ~/nvidia/NVIDIA-Linux-100.14.11-pkg1 #</span><span class="w"> </span>./nvidia-installer</code></pre></figure></div>
 <p>Tras esto, y tras terminar el proceso, tendremos instalado el driver de Nvidia. Sólo hará falta configurar convenientemente Xorg para que lo use.</p>
       </div>
 
@@ -5306,7 +5292,7 @@ EXTRA_LDFLAGS := &#8212;defsym paravirt_ops=0x$(PARAVIRT_OPS)<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

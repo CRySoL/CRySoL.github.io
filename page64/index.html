@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,6 +7885,8 @@
   
     
   
+    
+  
 
   
     
@@ -8055,7 +8057,7 @@
       <blockquote>El desarrollo de Hurd continúa avanzando... lentamente... aún así ya empieza a ser usable por intrépidos usuarios como nosotros que deseamos aprender más y más. Por eso me he decidido a intentar crear una serie de recetas sobre Hurd. La primera de ellas es ésta: probar hurd en una máquina virtual.</blockquote>
 
 <h2>¿Qué es GNU/Hurd?</h2>
-Desde sus inicios, el objetivo del proyecto <a href="http://www.gnu.org/">GNU</a> ha sido crear un sistema operativo <em>completo</em> y libre. En sus inicios el proyecto contaba con diversas herramientas de desarrollo, aplicaciones de sistema, etc. Pero carecían de un elemento bastante importante: un kernel que ejecutase todo eso. Decidieron crear uno: <b>Hurd</b>, pero lamentáblemente eso es un proceso lento y costoso; por ello decidieron adoptar <em>temporalmente</em> el conocido kernel <em>linux</em>. 
+Desde sus inicios, el objetivo del proyecto <a href="http://www.gnu.org/">GNU</a> ha sido crear un sistema operativo <em>completo</em> y libre. En sus inicios el proyecto contaba con diversas herramientas de desarrollo, aplicaciones de sistema, etc. Pero carecían de un elemento bastante importante: un kernel que ejecutase todo eso. Decidieron crear uno: <b>Hurd</b>, pero lamentáblemente eso es un proceso lento y costoso; por ello decidieron adoptar <em>temporalmente</em> el conocido kernel <em>linux</em>.
 
 Actualmente <em>HURD</em> no es usable en entornos de producción pero se encuentra activamente en desarrollo.
 
@@ -8233,7 +8235,7 @@ Este paquete nos permite realizar una instalación <em>cross-system</em> de dive
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount /dev/hda2 /mnt/hurd <span class="nt">-t</span> ext2 </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount /dev/hda2 /mnt/hurd <span class="nt">-t</span> ext2</code></pre></figure>
 </div>
 
 ...y ejecutamos la instalación:
@@ -8543,23 +8545,13 @@ Cuando <em>uclmwifi</em> y <em>euroroam</em> soporten <em>pump</em> y se hiele e
 <h2>Instalación</h2>
 <p>En Debian tan sencillo como:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install tcpstat<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>tcpstat</code></pre></figure></div>
 <h2>Ejecución</h2>
 <p>Pcap accede directamente al interfaz de red para poder hacer las mediciones oportunas (capturando los paquetes que pasen por esa interfaz). Por este motivo, tiene que ejecutarse como root si vamos a capturar paquetes de la interfaz de red. No es necesario si los paquetes los lees desde un fichero pcap.</p>
 <p>Un pequeño ejemplo puedes ejecutarlo tecleando:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>tcpstat -i eth0<br />
-{% endhighlight %}<br />
-</div><br />
-Con esto obtendrás las estadísticas cada 5 segundos, incluyendo la tasa de bps, la media de bytes por paquete y la desviación típica de bytes por paquete.</li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>tcpstat <span class="nt">-i</span> eth0</code></pre></figure></div>
+<p>Con esto obtendrás las estadísticas cada 5 segundos, incluyendo la tasa de bps, la media de bytes por paquete y la desviación típica de bytes por paquete.</p>
 <h2>Opciones</h2>
 <p>A continuación explico las opciones más importantes:</p>
 <ul>
@@ -8574,9 +8566,8 @@ Con esto obtendrás las estadísticas cada 5 segundos, incluyendo la tasa de bps
 <li>También puedes especificar un intervalo de actualización, tras el cual se actualicen las estadísticas. Para especificar un intervalo de actualización de 1 segundo, ejecutarías:<br />
 <br />
 <div class="console"><br />
-{% highlight console <span>}<br />
-# tcpstat -i eth0 1<br />
-{</span> endhighlight %}</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>tcpstat <span class="nt">-i</span> eth0 1</code><figure class="highlight"><pre><code class="language-console" data-lang="console">&lt;span class="gp"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;tcpstat &lt;span class="nt"&gt;-i&lt;/span&gt; eth0 1</code></pre></figure><p></notextile></p>
+</div>
 </li>
 </ol>
 <h2>Cadena de formato</h2>
@@ -8627,42 +8618,19 @@ bps:245633.60</pre></p>
 <p>A continuación pongo algunos ejemplos sencillos que te pueden resultar útiles.</p>
 <p>Para medir estadísticas de transferencia <span class="caps">HTTP</span></p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>tcpstat -f &#8220;tcp port http&#8221; -i eth0 1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>tcpstat <span class="nt">-f</span> <span class="s2">"tcp port http"</span> <span class="nt">-i</span> eth0 1</code></pre></figure></div>
 <p>Para medir el bitrate de un stream <span class="caps">RTP</span> que nos llega al puerto 1234</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>tcpstat -f &#8220;udp port 1234&#8221; -i eth0 -o &#8220;bps=%b\n&#8221; 1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>tcpstat <span class="nt">-f</span> <span class="s2">"udp port 1234"</span> <span class="nt">-i</span> eth0 <span class="nt">-o</span> <span class="s2">"bps=%b</span><span class="se">\n</span><span class="s2">"</span> 1</code></pre></figure></div>
 <p>Para ver el uso de un servidor <span class="caps">FTP</span> en modo activo (puerto 21 control y 20 datos)</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>tcpstat -f &#8220;port 20 or port 21&#8221; -i eth0 1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>tcpstat <span class="nt">-f</span> <span class="s2">"port 20 or port 21"</span> <span class="nt">-i</span> eth0 1</code></pre></figure></div>
 <p>Para ver la tasa de transferencia y carga de la red de un servidor gnump3d</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>tcpstat -f &#8220;port 8888&#8221; -i eth0 -o &#8220;Tasa de transferencia:%b\tCarga de la red:%l\n&#8221; 1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>tcpstat <span class="nt">-f</span> <span class="s2">"port 8888"</span> <span class="nt">-i</span> eth0 <span class="nt">-o</span> <span class="s2">"Tasa de transferencia:%b</span><span class="se">\t</span><span class="s2">Carga de la red:%l</span><span class="se">\n</span><span class="s2">"</span> 1</code></pre></figure></div>
 <p>Para leer las estadísticas de un fichero capturado previamente con Wireshark</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ tcpstat -r captura.pcap 0.5<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>tcpstat <span class="nt">-r</span> captura.pcap 0.5</code></pre></figure></div>
 <p>Con imaginación puedes darle muchos más usos, según lo que necesites monitorizar. Para mayor información sobre los filtros, consulta el manual de tcpdump.</p>
 <h2>Conclusión</h2>
 <p>Tcpstat puede ser una buena herramienta para administradores de redes y de servidores para obtener diversa información sobre el uso de la red.</p>
@@ -9190,7 +9158,7 @@ $ tcpstat -r captura.pcap 0.5<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

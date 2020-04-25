@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,97 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2005-10-19/ati-y-libgl-so-1.html">ATI y libGL.so.1</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-19
+    
+      
+  <a href="/users.html#jota">
+   jota
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-19-ati-y-libgl-so-1.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-19-ati-y-libgl-so-1.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/53">node/53</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      Puesto que me encuentro como tantos otros dandole vueltas a la dichosa aceleracion 3d con ATI en Ubuntu, segui un tutorial que recomendaba la eliminacion de todo lo referente al modulo fglrx que viene en los repostiorios, segui dicho tutorial y parece ser que la cosa funciona mas o menos, dmesg no me lanza ningun error relacionando con el driver ni nada por el estilo, pero cuanod ejecuto glxgears:
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/2005-10-19/ati-y-libgl-so-1.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8492,10 +8582,10 @@ Nada mejor para explicar su sintaxis que un ejemplo:
 
 Aunque Python se puede utilizar como un lenguaje convencional (tipo Java), siempre hay una manera más «pythónica» de hacer las cosas, utilizando por ejemplo las características de programación funcional que incorpora. Como ejemplo, el factorial se puede hacer aún más corto con algo como:
 
+
 <div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="nb">reduce</span>
-<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">mul</span>
-<span class="n">factorial</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">reduce</span><span class="p">(</span><span class="n">mul</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">factorial</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">reduce</span><span class="p">(</span><span class="nb">int</span><span class="p">.</span><span class="n">__mul__</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span></code></pre></figure>
 </div>
 
@@ -8639,12 +8729,7 @@ Aviso: algunas de las siguientes referencias tratan de Python 2. Aunque las dife
 <p>En primer lugar hay que redirigir el tráfico de nuestro servidor, del puerto 443 al 22. Una opción es lanzar el demonio ssh directamente en el puerto 443, pero eso no parece una solución elegante. No obstante quien quiera hacerlo no tiene más que tocar en <tt>/etc/ssh/sshd_config</tt>.</p>
 <p>Lo mas limpio es usar <tt>iptables</tt> para redirigir el trafico. La orden es esta.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -t nat -A <span class="caps">PREROUTING</span> -i ippp0 -p tcp &#8212;dport 443 -j <span class="caps">REDIRECT</span> &#8212;to-port 22</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>iptables <span class="nt">-t</span> nat <span class="nt">-A</span> PREROUTING <span class="nt">-i</span> ippp0 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 443 <span class="nt">-j</span> REDIRECT <span class="nt">--to-port</span> 22</code></pre></figure></div>
 <p>Con <tt>corkscrew</tt> instalado vamos al directorio <tt>$<span class="caps">HOME</span>/.ssh</tt> y editamos el fichero <tt>config</tt> (si no existe, lo creamos). En su interior ponemos esto:</p>
 <pre>
 Host servidor.casa.com
@@ -8653,10 +8738,7 @@ ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p
 <p>Donde <tt>proxy.curro.es</tt> el la dirección del proxy de nuestra red y 8080 es el puerto que usa el proxy. Las variables %h y %p se refieren al host y al port que usaremos para conectar y se le pasan desde el comando ssh como veremos a continuación.</p>
 <p>Ahora para conectar a cualquier sitio tan sólo necesitamos ejecutar la orden.</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ ssh -p 443 usuario@servidor.casa.com</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ssh <span class="nt">-p</span> 443 usuario@servidor.casa.com</code></pre></figure></div>
 <h2>Más difícil todavía</h2>
 <p>Si nuestro proxy necesita autenticación tendremos que crear un segundo fichero en <tt>.ssh/autenticacion</tt> con lo siguiente</p>
 <pre>usuario:password
@@ -8672,10 +8754,7 @@ ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p
 <h2>¿Utilidad final de todo esto?</h2>
 <p>Vale, ya puedo acceder mediante <span class="caps">SSH</span> al ordenador de casa desde el trabajo, ¿y que? Pues si tenéis problemas con el proxy de vuestro trabajo porque os deniega el acceso a algunas páginas web que os son imprescindibles y el departamento de sistemas os ignora completamente, tan solo tenéis que instalar un proxy <span class="caps">HTTP</span> en vuestro ordenador, como por ejemplo <tt>squid</tt> (la configuración por defecto de squid en Debian funciona para lo que queremos hacer) y tunelizar las peticiones desde nuestro ordenador con el siguiente comando.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ssh -p 443 usuario@servidor.casa.com -L 3128:localhost:3128<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span>ssh <span class="nt">-p</span> 443 usuario@servidor.casa.com <span class="nt">-L</span> 3128:localhost:3128</code></pre></figure></div>
 <p>Estamos suponiendo que el servidor squid casero corre en el puerto por defecto, y redirigimos nuestro puerto local hacia el puerto remoto. Ahora solo tenemos que configurar el programa que queramos para que use como proxy <pre>localhost:3128</pre> y todo listo, ya estamos usando el proxy de casa sin restricciones.</p>
 <h2>Enlaces relacionados</h2>
 <ul>
@@ -8863,7 +8942,7 @@ Después de bajar el <em>core</em> desde <a href="http://forum.edonkey.com/viewt
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-i</span> el_core_que_sea.deb </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-i</span> el_core_que_sea.deb</code></pre></figure>
 </div>
 
 Y después configurarlo:
@@ -8933,7 +9012,7 @@ Y ahora lo que hacemos es volver a lanzar el mismo programa pero indicandole que
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>edonkeyclc <span class="nt">-g</span> </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>edonkeyclc <span class="nt">-g</span></code></pre></figure>
 </div>
 
 <h1> Instalar el gui </h1>
@@ -8998,14 +9077,14 @@ Este script se copia en /etc/init.d/ y ahora nos hace falta crear los enlaces in
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>update-rc.d core-ed2k start 99 2 <span class="nb">.</span> stop 99 0 2 <span class="nb">.</span> </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>update-rc.d core-ed2k start 99 2 <span class="nb">.</span> stop 99 0 2 .</code></pre></figure>
 </div>
 
 Si por alguna razón el core deja de ejecutarse o queremos pararlo hacemos:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> /etc/init.d/core-ed2k {start|stop} </span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> /etc/init.d/core-ed2k {start|stop}</span></code></pre></figure>
 </div>
 
 dependiendo de lo que queramos hacer.
@@ -9215,188 +9294,6 @@ Hay otras posibilidades (como <tt>etherconf</tt>) pero la finalidad de esta rece
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-10-13/adios-al-spam-con-spamassassin-y-sylpheed-claws.html">Adios al spam con spamassassin y sylpheed-claws</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-10-13
-    
-      
-  <a href="/users.html#javieralso">
-   javieralso
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-13-adios-al-spam-con-spamassassin-y-sylpheed-claws.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-13-adios-al-spam-con-spamassassin-y-sylpheed-claws.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/34">node/34</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>Cómo utilizar spamassassin junto con sylpheed-claws para filtrar todo el spam y correo basura que recibamos</blockquote>
-
-<h1>Introducción</h1>
-Seguro que a todos nos pasa que recibimos montones de correos basura, publicidad, spam, archivos infectados y un largo etcétera que nos roban cantidad de tiempo aunque solo sea borrándolos de nuestro gestor de correo...   En GNU/Linux existen gran cantidad de herramientas que nos permiten gestionar todo nuestro correo electrónico, como evolution, sylpheed-claws, mozilla, etc... Además de numerosos filtros antiespam tales como pueden ser bogofilter y spamassassin. En mi caso en particular, utilizo <strong>spamassassin</strong> junto con <strong>sylpheed-claws</strong> para filtrar y gestionar todo mi correo electrónico y el resultado es bastante bueno. Spamassassin no sólo permite filtrar el correo "basura" distinguiéndolo del que no lo es con gran precisión, sino que además es fácil de configurar, es capaz de aprender de sus propios errores y tiene muchas opciones configurables que le hacen un filtro bastante potente. Aquí se describe su configuración y uso con el gestor de correo Sylpheed-claws.</blockquote>
-
-<h1>Qué necesitamos</h1>
-  
-Lo primero que tendremos que hacer es instalar en nuestra máquina tanto Sylpheed-claws como Spamassassin. En Debian:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>apt-get <span class="nt">-f</span> <span class="nb">install </span>spamassassin sylpheed-claws</code></pre></figure>
-</div>
-
-Tampoco estaría de mas instalarnos los plugins y demás módulos para sylpheed-claws si tenemos pensado utilizarlo de forma regular como nuestro gestor de correo. Para buscar qué módulos y/o plugins hay disponibles:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>apt-cache search sylpheed-claws</code></pre></figure>
-</div>
-
-<h1>Configuración de SpamAssassin</h1>
-
-La configuración realizada aquí se ha hecho en sylpheed-claws. Si utilizas otro tipo de gestor como evolution o mozilla, deberás averiguar antes como crear y configurar reglas de filtrado, ya que es a través de éstas reglas como se configura spamassassin.
-
-En nuestro caso, una vez abierto sylpheed-claws nos iremos a <en>Configuración -> Filtrado...</en> Aquí se nos mostrará la ventana para edición de reglas de filtrado. Nosotros deberemos crear tres reglas de filtrado:   
-
-<ul>
-  <li>Una para analizar todo el correo.</li>
-  <li>Otra que nos permita marcar como válido un correo considerado spam por spamassassin.</li>
-  <li>Una última que nos permita marcar un correo como spam en caso de que spamassassin lo pasase por alto.</li>
-</ul>
-  
-Creamos la primera regla, que hará que spamassassin revise todo el correo y decida según su criterio cual es spam y cual no. En la línea correspondiente a la condición escribiremos algo como:
-
-  <pre>test "spamassassin &lt; %F | grep -c \"X-Spam-Flag: YES\""</pre>
-
-Spamassassin recibe como entrada nuestro correo y su salida será el mismo correo pero con algunas líneas nuevas en la cabecera. En concreto nos interesa la existencia de la línea <cite>"X-Spam-Flag: YES"</cite>. Ésta línea indicará que el correo ha sido considerado como spam y por tanto deberá ser tratado.
-
-Como la salida de spamassassin tiene formato de texto, tan solo hará falta comprobar con el comando <en>grep</en> si existe dicha línea.
-
-Para la acción:
-
-  <pre>move "#mh/Buzon/Spam"</pre>
-
-La carpeta <cite>Spam</cite> dentro de <cite>Buzon</cite> es donde yo he elegido que guarde todo el correo spam que encuentre.
-
-Para el caso de la segunda regla, en la que un correo válido ha sido marcado como spam, la condición será:
-
-  <pre>colorlabel 6</pre>
-
-Si encontramos como spam algún correo que no lo es (nadie nace enseñado, y spamassassin tampoco) deberemos indicar que ese correo es válido. Para ello lo etiquetaremos de color verde y lo filtraremos.
-
-Para la acción:
-
-  <pre>execute "spamassassin -k &lt;%F" move "mh/Buzon/inbox"</pre>
-
-Así haremos que el correo vuelva de nuevo a la carpeta de entrada y spamassassin lo marque como válido para de ése modo "aprender" de su error.
-
-Por último, la última regla de filtrado, cuya misión es contraria a la anterior. Su condición es:
-
-  <pre>colorlabel 2</pre>
-
-Los correos spam que se le hayan "colado" a spamassassin los marcaremos con color rojo y volveremos a filtrar. La acción entonces será:
-
-  <pre>execute "spamassassin -r &lt;%F" move "mh/Buzon/Spam"</pre>
-
-Con ésto, el correo se marcará como spam y será enviado a la carpeta correspondiente.
-
-<h2>Notas importantes sobre la configuración</h2>
-
-<ul>
-<li>Éstas reglas de filtrado, deberán ser colocadas al principio para que sean las primeras en ser ejecutadas, ya que de lo contrario, el correo no se filtrará de forma adecuada.</li>
-
-<li>Cuando se filtra el correo con spamassassin, el proceso puede durar bastante tiempo, especialmente cuando spamassassin lleva bastante tiempo aprendiendo, ya que tendrá que comprobar mas reglas. Por ello no hay que perder la paciencia y pensar que algo va mal si el filtrado se toma varios minutos (a veces incluso media hora) cuando se tiene que filtrar una cantidad bastante elevada de correos electrónicos.</li>
-</ul>
-
-<h1>Otras opciones</h1>
-
-Spamassassin tiene varias características configurables que lo hacen bastante potente, pero tal vez dos de las características que mas útiles pueden llegar a ser en un momento dado sean la de <strong>whitelist</strong> y <strong>blacklist</strong>. Se trata de dos listas, una con direcciones de correo que se consideran como válidas (whitelist) y otra con direcciones de correo desde las cuales todo el correo recibido se tratará como spam (blacklist).
-
-Los parámetros para poder añadir y eliminar direcciones de éstas listas son los siguientes:
-  <ul>
-  <li><cite> --add-to-whitelist</cite> Añade la dirección del remitente del correo a la lista de direcciones válidas. Ningún correo que llegue desde ésta dirección será considerado como spam.</li>
-  <li><cite> --add-to-blacklist</cite> Añade la dirección del remitente del correo a la lista de direcciones no válidas.
-  Todos los correos recibidos desde esa dirección serán tratados como spam.</li>
-  <li><cite> --remove-from-whitelist</cite> Elimina la dirección del remitente del correo de la lista de direcciones válidas.</li>
-  <li><cite> --add-addr-to-whitelist = addr</cite> Igual que la opción <cite>--add-to-whitelist</cite>, pero ahora la dirección se introduce de forma manual.</li>
-  <li><cite> --add-addr-to-blacklist = addr</cite> Igual que la opción <cite>--add-to-blacklist</cite>, pero ahora la dirección se introduce de forma manual.</li>
-  <li><cite> --remove-addr-from-whitelist = addr</cite> Igual que la opción <cite>--remove-from-whitelist</cite>, pero como antes, la dirección deberemos introducirla de forma manual.</li>
-  </ul> 
-
-<h1>Enlaces</h1>
-    <ul>
-      <li><a href="http://spamassassin.apache.org/index.html">spamassassin</a></li>
-      <li><a href="http://claws.sylpheed.org">sylpheed-claws</a></li>
-</ul>
-
-
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9437,7 +9334,7 @@ Los parámetros para poder añadir y eliminar direcciones de éstas listas son l
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

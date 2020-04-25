@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,98 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/enquiry/2007-02-21/sobre-los-gtk-radiobutton.html">Sobre los gtk.RadioButton</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-02-21
+    
+      
+  <a href="/users.html#oscarah">
+   oscarah
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-21-sobre-los-gtk-radiobutton.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-21-sobre-los-gtk-radiobutton.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#enquiry-ref">
+    		enquiry
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/575">node/575</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Recientemente tuve una conversación muy interesante sobre la idoneidad de los widgets <a href="http://www.pygtk.org/pygtk2reference/class-gtkradiobutton.html">gtk.RadioButton</a>. Vamos a ver&#8230; ¿por qué no son más intuitivos?  ¿Qué piensas sobre ellos?</p>
+<ul>
+	<li>tiene pocos métodos?</li>
+	<li>es perfecta tal como está?</li>
+	<li>es un toogle disfrazado?</li>
+	<li>mierda de grupos!?</li>
+</ul>
+<p>PD: Cleto, que tienes que decir?? :-p</p>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8716,123 +8807,6 @@ si le interesa a alguien, el svg está en ->> <a href="http://www.brue.org/files
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2007-02-18/migrar-el-directorio-home.html">Migrar el directorio home</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-02-18
-    
-      
-  <a href="/users.html#Vigilante">
-   Vigilante
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-18-migrar-el-directorio-home.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-18-migrar-el-directorio-home.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/568">node/568</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote><p>Recetilla de como migrar tu home a otra partición.
-</p></blockquote>
-
-
-<h1>Ingredientes</h1>
-<p>Espacio en disco duro.</p>
-<h1>Migración</h1>
-Primeramente, tienes que tener la partición donde quieres colocar el home con el sistema de ficheros adecuado en cada caso(ext2 o ext3). Es importante que te asegures del nombre del dispositivo. Bien, para hacer esto, teclea lo siguiente en el terminal como root:
-<pre class="console">$mkfs.ext3 /dev/X
-</pre>
-Donde en este ejemplo tu sistema de ficheros debería ser extended3 y donde X es el nombre de partición donde quieres poner tu nuevo home(válido para toda la receta).
-Si lo quieres hacer en modo gráfico, puedes instalar gparted.
-Ahora, crea un directorio en /mnt/ y monta la partición allí:
-<pre class="console">$mkdir /mnt/nuevo
-$mount /dev/X /mnt/nuevo
-</pre>
-El siguiente paso es entrar en modo mono usuario. Para realizar esto:
-<pre class="console">$init 1
-</pre>
-De este modo entras en el mantenimiento del sistema, se te pedirá la contraseña de root, tecleala y ya puedes ir a tu home y copiar a la nueva partición:
-<pre class="console">$cd /home
-$cp -ax * /mnt/nuevo
-</pre>
-En mi caso, tenía el home en una partición compartida. Si también es el tuyo para guardar el antiguo home por precaución y montar el nuevo home, tienes que hacer lo siguiente:
-<pre class="console">$cd /
-$mkdir viejohome
-$mv /home /viejohome
-$mkdir /home
-$mount /dev/X /home
-</pre>
-Ya puedes salir del modo monousuario, presionando CTRL+D
-Por último modificar el fstab para que la próxima vez que inicies el sistema el home se monte de forma correcta:
-<pre class="console">$gedit /etc/fstab</pre>
-Introduce una línea con la información del nuevo sistema de ficheros, por ejemplo:
-<pre>
-/dev/X /home ext3 defaults 1 2
-</pre>
-<h1>Referencias</h1>
-<p><a href="http://www.gentoo.org/doc/es/">Gentoo</a></p>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8873,7 +8847,7 @@ Introduce una línea con la información del nuevo sistema de ficheros, por ejem
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

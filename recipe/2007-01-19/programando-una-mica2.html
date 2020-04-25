@@ -5593,13 +5593,8 @@ For bug reporting instructions, please see:
 </pre>
 <p>Esta aplicación se compone de:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ls<br />
-BlinkM.nc  Blink.nc  Makefile  <span class="caps">README</span>  SingleTimer.nc</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">BlinkM.nc  Blink.nc  Makefile  README  SingleTimer.nc</span></code></pre></figure></div>
 <p>Si analizamos el proceso de compilación que ya usamos para comprobar que la toolchain estaba correctamente instalada:</p>
 <pre class="console">$make mica2
 mkdir -p build/mica2
@@ -5615,11 +5610,8 @@ avr-objcopy --output-target=ihex build/mica2/main.exe build/mica2/main.ihex
 <p>Vemos que lo primero crea un directorio para meter los binarios y que todo lo va a meter en main.exe, las opciones le indican diversos parámetros para la generación del código entre los cuales podemos ver el target, en nuestro caso la mica2, el usuario y el host, y al final nos aparece los bytes generados para la <span class="caps">RAM</span> y para la <span class="caps">ROM</span>.</p>
 <p>Si echamos un vistazo al directorio build/mica2 vemos los siguientes archivos:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-#ls<br />
-app.c  ident_flags.txt  main.exe  main.ihex  main.srec  tos_image.xml</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="nb">ls</span>
+<span class="go">app.c  ident_flags.txt  main.exe  main.ihex  main.srec  tos_image.xml</span></code></pre></figure></div>
 <p>donde aparecen diversos archivos como las imágenes generadas por avr-objcopy como són el formato de intel (.ihex) y el de motorola (.srec)</p>
 <p>Para instalarlo concectar físicamente el nodo a la interfaz de programación (la placa mib510) y esta al puerto serie mediante un cable RS232, por último  ejecutar el siguiente comando:</p>
 <pre class="console">
@@ -5724,7 +5716,7 @@ CntToRfm         HighFrequencySampling  MicaSBVerify  ReverseUART     SenseTask 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

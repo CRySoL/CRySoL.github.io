@@ -5224,43 +5224,28 @@
 <h2>Crear un módulo</h2>
 <p>Cuando se comieza un nuevo desarrollo es necesario crear un nuevo módulo en el repositorio (algo similar a un directorio en el sistema de ficheros local). Para ello, supondremos que ya existe un repositorio accesible en <code>&lt;a href="http://example.com/repos</code>&quot;&gt;http://example.com/repos@</a>. Tienes que ejecutar algo similar a:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ svn import /home/user/job http://example.com/repos/myjob<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn import /home/user/job http://example.com/repos/myjob</code></pre></figure></div>
 <p>Siendo <code>job</code> el directorio que contiene los ficheros del nuevo proyecto. Esto creará el módulo <code>myjob</code> en el repositorio <code>repos</code> del host <code>example.com</code> y subirá allí el contenido de <code>/home/user/job</code>, creando así la versión inicial.</p>
 <h2>Descargar un módulo</h2>
 <p>Esta es la operación más habitual y también una de las más simples:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ svn checkout http://example.com/repo/anotherjob<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn checkout http://example.com/repo/anotherjob</code></pre></figure></div>
 <p>Esto obtiene una copia de la versión <acronym title="la última"><span class="caps">HEAD</span></acronym> del módulo <code>anotherjob</code>. Crea un directorio con el mismo nombre en el directorio actual.</p>
 <h2>Actualizar una copia local</h2>
 <p>Suponiendo que haya nuevas versiones disponibles del módulo del ejemplo anterior, puedes actualizar tu copia a la última versión con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-anotherjob$ <strong>svn update</strong><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">anotherjob$</span><span class="w"> </span><span class="k">*</span>svn update<span class="k">*</span></code></pre></figure></div>
 <h2>Gestión de conflictos</h2>
 <p>ToDo</p>
 <h2>Añadir un fichero</h2>
 <p>Si has creado un fichero nuevo al módulo y quieres que esté en el repositorio tienes que añadirlo explícitamente. Recuerda que un repositorio está pensado para &#8220;fuentes&#8221; (no binarios). No subas nada que se pueda generar a partir de otros ficheros. Nada de binarios, ficheros objeto, copias de seguridad, pdf o cualquier cosa que se pueda obtener como resultado de una compilación.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-anotherjob$ <strong>svn add</strong> nuevo_fichero<br />
-anotherjob$ svn commit<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">anotherjob$</span><span class="w"> </span><span class="k">*</span>svn add<span class="k">*</span> nuevo_fichero
+<span class="gp">anotherjob$</span><span class="w"> </span>svn commit</code></pre></figure></div>
 <h2>Subir cambios locales al repositorio</h2>
 <p>Si eres tú el que desea subir al repositorio una nueva versión de los ficheros de ese módulo (que has modificado tú mismo), ejecuta esto:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-anotherjob$ <strong>svn commit</strong><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">anotherjob$</span><span class="w"> </span><span class="k">*</span>svn commit<span class="k">*</span></code></pre></figure></div>
 <p>Es este caso se abrirá el editor de texto por defecto para que añadas un comentario referente a las modificaciones que estás subiendo.</p>
 <h2>Mover un módulo</h2>
 <p>Esta es una importante mejora con respecto a <span class="caps">CVS</span>. En subversion se pueden renombrar y mover ficheros y módulos completos. La idea es poder cambiar la ubicación del módulo en el mismo repositorio.</p>
@@ -5269,44 +5254,29 @@ anotherjob$ <strong>svn commit</strong><br />
 	<li>Renombrar (mover) <code>xmi2code</code> a <code>trunk</code></li>
 </ul>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ svn move -m &#8220;xmi2code a trunk&#8221; http://example.com/repos/xmi2code http://example.com/repos/trunk<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn move <span class="nt">-m</span> <span class="s2">"xmi2code a trunk"</span> http://example.com/repos/xmi2code http://example.com/repos/trunk</code></pre></figure></div>
 <ul>
 	<li>Crear el subdirectorio <code>xmi2code</code>:</li>
 </ul>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ svn mkdir -m &#8220;crear xmi2code&#8221; http://example.com/repos/xmi2code<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn <span class="nb">mkdir</span> <span class="nt">-m</span> <span class="s2">"crear xmi2code"</span> http://example.com/repos/xmi2code</code></pre></figure></div>
 <ul>
 	<li>Mover <code>trunk</code> a <code>xmi2code</code>:</li>
 </ul>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ svn move -m &#8220;trunk a xmi2code&#8221; http://example.com/repos/trunk http://example.com/repos/xmi2code<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn move <span class="nt">-m</span> <span class="s2">"trunk a xmi2code"</span> http://example.com/repos/trunk http://example.com/repos/xmi2code</code></pre></figure></div>
 <h2>Crear una rama</h2>
 <p>Subversion permite crear flujos de desarrollo paralelos ramificando el módulo en uno o varios puntos. Para este ejemplo, supondremos que la rama principal se encuentra en el subdirectorio <code>trunk</code> del módulo <code>xmi2code</code>. La nueva rama tendrá por nombre <code>vhdl</code>. Tendrás que ejecutar las siguientes operaciones:</p>
 <ul>
 	<li>Creación del subdirectorio <code>branches</code> (en el caso de que no exista), en el que se colocará la nueva rama.</li>
 </ul>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ svn mkdir http://example.com/repos/xmi2code/xmi2code/branches<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn <span class="nb">mkdir </span>http://example.com/repos/xmi2code/xmi2code/branches</code></pre></figure></div>
 <ul>
 	<li>Creación de la rama:</li>
 </ul>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ svn copy http://example.com/repos/xmi2code/xmi2code/trunk http://example.com/repos/xmi2code/xmi2code/branches/vhdl<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>svn copy http://example.com/repos/xmi2code/xmi2code/trunk http://example.com/repos/xmi2code/xmi2code/branches/vhdl</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://subversion.tigris.org/">Subversion</a></li>
@@ -5384,7 +5354,7 @@ $ svn mkdir http://example.com/repos/xmi2code/xmi2code/branches<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

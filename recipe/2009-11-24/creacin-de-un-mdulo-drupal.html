@@ -5205,16 +5205,16 @@ Suele ser buena política comenzar los nombres de las tablas con el nombre del m
   <span class="nv">$schema</span><span class="p">[</span><span class="s1">'feedback_messages'</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span>
   <span class="p">(</span>
     <span class="s1">'description'</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">(</span><span class="s1">'Tabla para mensajes de retroalimentacion'</span><span class="p">),</span>
-    <span class="s1">'fields'</span> <span class="o">=&gt;</span> <span class="k">array</span> 
+    <span class="s1">'fields'</span> <span class="o">=&gt;</span> <span class="k">array</span>
     <span class="p">(</span>
-      <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="k">array</span> 
+      <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="k">array</span>
       <span class="p">(</span>
         <span class="s1">'description'</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">(</span><span class="s1">'Identificador de mensaje'</span><span class="p">),</span>
         <span class="s1">'type'</span> <span class="o">=&gt;</span> <span class="s1">'serial'</span><span class="p">,</span>
         <span class="s1">'unsigned'</span> <span class="o">=&gt;</span> <span class="kc">TRUE</span><span class="p">,</span>
         <span class="s1">'not null'</span> <span class="o">=&gt;</span> <span class="kc">TRUE</span><span class="p">,</span>
       <span class="p">),</span>
-      <span class="s1">'uid'</span> <span class="o">=&gt;</span> <span class="k">array</span> 
+      <span class="s1">'uid'</span> <span class="o">=&gt;</span> <span class="k">array</span>
       <span class="p">(</span>
         <span class="s1">'description'</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">(</span><span class="s1">'Identificador del usuario que realiza el feedback'</span><span class="p">),</span>
         <span class="s1">'type'</span> <span class="o">=&gt;</span> <span class="s1">'int'</span><span class="p">,</span>
@@ -5341,14 +5341,14 @@ La función hook_block (seguro que ya os lo esperábais) tiene tres parámetros:
 
 <div>
 <figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
-<span class="cd">/** 
+<span class="cd">/**
 * Implementation of hook_block().
 */</span>
 <span class="k">function</span> <span class="nf">feedback_block</span> <span class="p">(</span> <span class="nv">$op</span> <span class="o">=</span> <span class="s1">'list'</span><span class="p">,</span> <span class="nv">$delta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$edit</span> <span class="o">=</span> <span class="k">array</span><span class="p">()</span> <span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span> <span class="nv">$op</span> <span class="o">==</span> <span class="s2">"list"</span><span class="p">)</span>
   <span class="p">{</span>
-      <span class="nv">$blocks</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span> 
+      <span class="nv">$blocks</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
       <span class="nv">$blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"info"</span><span class="p">]</span> <span class="o">=</span> <span class="nx">t</span><span class="p">(</span><span class="s1">'Feedback'</span><span class="p">);</span>
       <span class="nv">$blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"info"</span><span class="p">]</span> <span class="o">=</span> <span class="nx">t</span><span class="p">(</span><span class="s1">'New Feedbacks'</span><span class="p">);</span>
       <span class="k">return</span> <span class="nv">$blocks</span><span class="p">;</span>
@@ -5442,7 +5442,7 @@ En el apartado anterior nos dejamos pendiente el manejo de direcciones. Para est
 <span class="cd">/**
 * Implementation of hook_menu().
 */</span>
-<span class="k">function</span> <span class="nf">feedback_menu</span> <span class="p">(</span> <span class="p">)</span> 
+<span class="k">function</span> <span class="nf">feedback_menu</span> <span class="p">(</span> <span class="p">)</span>
 <span class="p">{</span>
   <span class="nv">$items</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
 
@@ -5483,7 +5483,7 @@ Vamos con el formulario de inserción de un feed. Comenzamos por la función que
 <span class="k">function</span> <span class="nf">feedback_message</span> <span class="p">()</span>
 <span class="p">{</span>
   <span class="nv">$content</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
-  
+
   <span class="nv">$content</span> <span class="o">.=</span> <span class="nx">drupal_get_form</span> <span class="p">(</span> <span class="s1">'feedback_message_form'</span> <span class="p">);</span>
 
   <span class="k">return</span> <span class="nv">$content</span><span class="p">;</span>
@@ -5501,10 +5501,10 @@ Y con eso, delegamos en la función feedback_message, que es un formulario. Al s
 <span class="p">{</span>
   <span class="nv">$form</span> <span class="o">=</span> <span class="k">array</span>
   <span class="p">(</span>
-    <span class="s1">'feedback'</span> <span class="o">=&gt;</span> <span class="k">array</span> 
-    <span class="p">(</span> 
-      <span class="s1">'#type'</span> <span class="o">=&gt;</span> <span class="s1">'fieldset'</span><span class="p">,</span> 
-      <span class="s1">'#title'</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">(</span> <span class="s1">'Feedback'</span> <span class="p">),</span> 
+    <span class="s1">'feedback'</span> <span class="o">=&gt;</span> <span class="k">array</span>
+    <span class="p">(</span>
+      <span class="s1">'#type'</span> <span class="o">=&gt;</span> <span class="s1">'fieldset'</span><span class="p">,</span>
+      <span class="s1">'#title'</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">(</span> <span class="s1">'Feedback'</span> <span class="p">),</span>
       <span class="s1">'message'</span> <span class="o">=&gt;</span> <span class="k">array</span> <span class="p">(</span> <span class="s1">'#type'</span> <span class="o">=&gt;</span> <span class="s1">'textarea'</span><span class="p">,</span> <span class="s2">"#description"</span><span class="o">=&gt;</span><span class="s2">"Write here your message"</span> <span class="p">),</span>
       <span class="s1">'submit'</span> <span class="o">=&gt;</span> <span class="k">array</span> <span class="p">(</span> <span class="s1">'#type'</span> <span class="o">=&gt;</span> <span class="s1">'submit'</span><span class="p">,</span>  <span class="s1">'#value'</span> <span class="o">=&gt;</span> <span class="nx">t</span><span class="p">(</span><span class="s1">'Submit'</span><span class="p">),</span>  <span class="p">),</span>
     <span class="p">),</span>
@@ -5567,7 +5567,7 @@ Vamos a hacer algo muy cutre: una tabla enorme con todos los feeds. Por no ser t
   <span class="nv">$queryResult</span> <span class="o">=</span>  <span class="nx">db_query</span> <span class="p">(</span> <span class="nv">$query</span> <span class="p">);</span>
 
   <span class="nv">$rows</span> <span class="o">=</span> <span class="k">array</span> <span class="p">();</span>
-  <span class="k">while</span> <span class="p">(</span> <span class="nv">$message</span> <span class="o">=</span> <span class="nx">db_fetch_object</span> <span class="p">(</span> <span class="nv">$queryResult</span> <span class="p">)</span> <span class="p">)</span> 
+  <span class="k">while</span> <span class="p">(</span> <span class="nv">$message</span> <span class="o">=</span> <span class="nx">db_fetch_object</span> <span class="p">(</span> <span class="nv">$queryResult</span> <span class="p">)</span> <span class="p">)</span>
   <span class="p">{</span>
     <span class="nv">$row</span> <span class="o">=</span> <span class="k">array</span> <span class="p">();</span>
     <span class="nv">$row</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
@@ -5664,7 +5664,7 @@ Espero que lo encontréis útil. Para problemas, errores, unas pizzas: <a href="
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5593,68 +5593,62 @@
 <p>This code is very simple. If you aren&#8217;t used to working with Gtk, please, see one of the manuals on the Internet&#8230;</p>
 <p>The target is to have a Cairo Context, the main object to draw things on Cairo. This is easy, as we have an useful method on <em>gtk.gdk.window</em> that does the work for us: <em>cairo_create()</em>. The window we are going to use is inside a DrawingArea, so:</p>
 <div>
-<p>{% highlight python %}<br />
-#!/usr/bin/env python</p>
-<ol>
-	<li><del>*</del> mode: python; coding: utf-8 <del>*</del></li>
-</ol>
-<p>import gtk<br />
-import cairo</p>
-<p>class Test:<br />
-    def <i>init</i>(self):<br />
-        mw = gtk.Window(gtk.WINDOW_TOPLEVEL)<br />
-        mw.connect(&#8220;delete-event&#8221;, gtk.main_quit)<br />
-        mw.set_size_request(400, 400)</p>
-da = gtk.DrawingArea()
-da.connect(&#8220;expose_event&#8221;, self.on_expose)
-mw.add(da)
-<ol>
-	<li>Source image, loaded as a pixbuf<br />
-        self.<em>img = gtk.gdk.pixbuf_new_from</em>file(&#8220;photos.svg&#8221;)</li>
-</ol>
-mw.show_all()
-<p>if <i>name</i> == &#8220;<i>main</i>&#8221;:<br />
-    t = Test()<br />
-    try:<br />
-        gtk.main()<br />
-    except KeyboardInterrupt:<br />
-        gtk.main_quit()</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/env python
+# -*- mode: python; coding: utf-8 -*-
+</span>
+<span class="kn">import</span> <span class="nn">gtk</span>
+<span class="kn">import</span> <span class="nn">cairo</span>
+
+<span class="k">class</span> <span class="nc">Test</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">mw</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">Window</span><span class="p">(</span><span class="n">gtk</span><span class="p">.</span><span class="n">WINDOW_TOPLEVEL</span><span class="p">)</span>
+        <span class="n">mw</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s">"delete-event"</span><span class="p">,</span> <span class="n">gtk</span><span class="p">.</span><span class="n">main_quit</span><span class="p">)</span>
+        <span class="n">mw</span><span class="p">.</span><span class="n">set_size_request</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+
+        <span class="n">da</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">DrawingArea</span><span class="p">()</span>
+        <span class="n">da</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s">"expose_event"</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">on_expose</span><span class="p">)</span>
+        <span class="n">mw</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">da</span><span class="p">)</span>
+
+        <span class="c1"># Source image, loaded as a pixbuf
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">_img</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">gdk</span><span class="p">.</span><span class="n">pixbuf_new_from_file</span><span class="p">(</span><span class="s">"photos.svg"</span><span class="p">)</span>
+
+        <span class="n">mw</span><span class="p">.</span><span class="n">show_all</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">Test</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">gtk</span><span class="p">.</span><span class="n">main</span><span class="p">()</span>
+    <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="n">gtk</span><span class="p">.</span><span class="n">main_quit</span><span class="p">()</span></code></pre></figure></div>
 <p>Ok. Nothing new until here. I&#8217;ve loaded the <span class="caps">SVG</span> using a <em>gtk.gdk.pixbuf</em> because Cairo can use this as a source, so drawing it is simple. Moreover, I&#8217;ve connected the <em>expose_event</em> of the drawing area to a method of Test.</p>
 <h2>Now, drawing time</h2>
 <p>Take a look into the method <em>on_expose()</em>:</p>
 <div>
-<p>{% highlight python %}<br />
-    def on_expose(self, widget, event):<br />
-        cr = widget.window.cairo_create()</p>
-<ol>
-	<li>Normal image<br />
-        cr.set_source_pixbuf(self._img, 175, 50)<br />
-        cr.paint()</li>
-</ol>
-<ol>
-	<li>Black shape of same image<br />
-        cr.push_group()<br />
-        cr.set_source_pixbuf(self.<em>img, 175, 150)<br />
-        cr.paint()<br />
-        src = cr.pop_group()<br />
-        cr.set_source</em>rgb(0, 0, 0)<br />
-        cr.mask(src)</li>
-</ol>
-<ol>
-	<li>Blue shape of same image, with alpha<br />
-        cr.set_source_pixbuf(self._img, 175, 250)<br />
-        cr.paint()</li>
-</ol>
-cr.push_group()
-cr.set_source_pixbuf(self._img, 175, 250)
-cr.paint()
-src = cr.pop_group()
-cr.set_source_rgba(.5, .5, 1, .4)
-cr.mask(src)
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">on_expose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">cr</span> <span class="o">=</span> <span class="n">widget</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">cairo_create</span><span class="p">()</span>
+
+        <span class="c1"># Normal image
+</span>        <span class="n">cr</span><span class="p">.</span><span class="n">set_source_pixbuf</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_img</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">cr</span><span class="p">.</span><span class="n">paint</span><span class="p">()</span>
+
+        <span class="c1"># Black shape of same image
+</span>        <span class="n">cr</span><span class="p">.</span><span class="n">push_group</span><span class="p">()</span>
+        <span class="n">cr</span><span class="p">.</span><span class="n">set_source_pixbuf</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_img</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+        <span class="n">cr</span><span class="p">.</span><span class="n">paint</span><span class="p">()</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">cr</span><span class="p">.</span><span class="n">pop_group</span><span class="p">()</span>
+        <span class="n">cr</span><span class="p">.</span><span class="n">set_source_rgb</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">cr</span><span class="p">.</span><span class="n">mask</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="c1"># Blue shape of same image, with alpha
+</span>        <span class="n">cr</span><span class="p">.</span><span class="n">set_source_pixbuf</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_img</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
+        <span class="n">cr</span><span class="p">.</span><span class="n">paint</span><span class="p">()</span>
+
+        <span class="n">cr</span><span class="p">.</span><span class="n">push_group</span><span class="p">()</span>
+        <span class="n">cr</span><span class="p">.</span><span class="n">set_source_pixbuf</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_img</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
+        <span class="n">cr</span><span class="p">.</span><span class="n">paint</span><span class="p">()</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">cr</span><span class="p">.</span><span class="n">pop_group</span><span class="p">()</span>
+        <span class="n">cr</span><span class="p">.</span><span class="n">set_source_rgba</span><span class="p">(.</span><span class="mi">5</span><span class="p">,</span> <span class="p">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">.</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">cr</span><span class="p">.</span><span class="n">mask</span><span class="p">(</span><span class="n">src</span><span class="p">)</span></code></pre></figure></div>
 <p>As you can see, there are three drawn things. The first one is the <span class="caps">SVG</span> as is, using a plain <em>paint()</em> method. Easy. The result may be:</p>
 <center><img src="/assets/files/sc1.png" /></center>
 <p>Of course, without the border and the shadows&#8230; :p The second item we see is more interesting. I&#8217;m going to use the alpha channel in the original <span class="caps">SVG</span> as a mask: where the image is transparent, nothing is drawn, so only the opaque pixels are used to paint. To achieve this, I&#8217;m using a feature of Cairo called <strong>groups</strong>. A group is like a layer where you can draw things. The difference is that this &#8216;layer&#8217; can be used later as a pattern or as a surface.</p>
@@ -5740,7 +5734,7 @@ Thanks for reading.</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

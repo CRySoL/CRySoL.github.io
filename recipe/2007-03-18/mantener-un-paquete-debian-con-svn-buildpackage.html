@@ -5273,26 +5273,20 @@
 <h2>Migrando el paquete</h2>
 <p>Usa <code>svn-inject</code> para subir tu paquete al repositorio. Este programa se encarga de crear el módulo y los directorios necesarios. Así que es tan fácil como ejecutar:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~/prj$ svn-inject -o -c 2 /ruta/al/paquete/antiguo/pyhello-0.1-1.dsc file:///var/deb-repo<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/prj$</span><span class="w"> </span>svn-inject <span class="nt">-o</span> <span class="nt">-c</span> 2 /ruta/al/paquete/antiguo/pyhello-0.1-1.dsc file:///var/deb-repo</code></pre></figure></div>
 <p>A parte de crear el módulo <code>pyhello</code> en el repo (como he dicho antes), ha hecho también un <em>ckeck out</em> en el directorio actual, de modo que echa un vistazo:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-~/prj$ ls pyhello<br />
-tags<br />
-trunk<br />
-~/prj$ svn info pyhello<br />
-Ruta: pyhello<br />
-<span class="caps">URL</span>: file:///var/deb-repo/pyhello<br />
-Raíz del repositorio: file:///var/deb-repo<br />
-<span class="caps">UUID</span> del repositorio: 57189996-dc92-4614-af31-cdb96cf453dc<br />
-Revisión: 1<br />
-Tipo de nodo: directorio<br />
-&#8230;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/prj$</span><span class="w"> </span><span class="nb">ls </span>pyhello
+<span class="go">tags
+trunk
+</span><span class="gp">~/prj$</span><span class="w"> </span>svn info pyhello
+<span class="go">Ruta: pyhello
+URL: file:///var/deb-repo/pyhello
+Raíz del repositorio: file:///var/deb-repo
+UUID del repositorio: 57189996-dc92-4614-af31-cdb96cf453dc
+Revisión: 1
+Tipo de nodo: directorio
+</span><span class="c">...</span></code></pre></figure></div>
 <h2>mergeWithUpstream</h2>
 <p><code>svn-buildpackage</code> tiene dos modos de uso:</p>
 <ul>
@@ -5302,41 +5296,26 @@ Tipo de nodo: directorio<br />
 <h2>Compilando el paquete</h2>
 <p>Desde el directoio <code>trunk</code> ejecuta:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~/prj/pyhello/trunk$ svn-buildpackage -us -uc -rfakeroot<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/prj/pyhello/trunk$</span><span class="w"> </span>svn-buildpackage <span class="nt">-us</span> <span class="nt">-uc</span> <span class="nt">-rfakeroot</span></code></pre></figure></div>
 <p>Si además quieres que después de compilar se verifiquen posibles errores con <code>lintian</code> escribe:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>~/prj/pyhello/trunk$ svn-buildpackage -us -uc &#8212;svn-lintian -rfakeroot<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/prj/pyhello/trunk$</span><span class="w"> </span>svn-buildpackage <span class="nt">-us</span> <span class="nt">-uc</span> <span class="nt">--svn-lintian</span> <span class="nt">-rfakeroot</span></code></pre></figure></div>
 <p>Normalmente, <code>svn-builpackage</code> se negará a compilar el paquete a menos que todos los ficheros modificados hayan sido subidos al repo. Si quieres compilar aunque no cumplas esa condición, añade la opción <code>--svn-ignore</code></p>
 <p>El paquete generado queda en <code>~/prj/pyhello/build-area/pyhello_0.1-1_i386.deb</code></p>
 <h2>Cerrar un bug</h2>
 <p>Si arreglas algún problema en el paquete (sin que haya salido una nueva versión del uptream) tendrás que regenerar el paquete para su distribución. Este nuevo paquete debe tener un número de versión posterior, en concreto suele cambiar el número que va después del guión. Para crear una nueva minor-release después de arreglar los problemas, ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>~/prj/pyhello/trunk$ svn-buildpackage &#8212;svn-tag-only<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/prj/pyhello/trunk$</span><span class="w"> </span>svn-buildpackage <span class="nt">--svn-tag-only</span></code></pre></figure></div>
 <p>Esto ha creado una nueva entrada en el <code>debian/changelog</code>, que debes editar convenientemente. Después, puedes compilar la nueva versión del paquete del mismo modo que has hecho antes, que ahora queda en <code>~/prj/pyhello/build-area/pyhello_0.1-2_i386.deb</code></p>
 <p>Y cuando todo sea correcto, sube los cambios al repo con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~/prj/pyhello$ svn ci<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/prj/pyhello$</span><span class="w"> </span>svn ci</code></pre></figure></div>
 <p>Fíjate en que ahora tienes un nuevo directorio en <code>pyhello/tags/0.1-1</code> que representa la versión anterior del paquete.</p>
 <p>Este proceso es el equivalente al &#8220;dch -i&#8221; cuando no se usa svn-buildpackage.</p>
 <h2>Nueva versión del &#8216;upstream&#8217;</h2>
 <p>Cuando el autor produce una nueva versión de su programa, tú como mantenedor del paquete debes empaquetarla. Para ello, descarga el .tar.gz de la web o repo del autor y ejecuta el siguiente comando:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~/prj/pyhello/trunk$ svn-upgrade /tmp/pyhello-0.2.tar.gz<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/prj/pyhello/trunk$</span><span class="w"> </span>svn-upgrade /tmp/pyhello-0.2.tar.gz</code></pre></figure></div>
 <p>Después, realiza los mismos pasos que en la sección anterior para cerrar un bug.</p>
 <p>Este proceso es el equivalente al &#8220;uupdate -u&#8221; en la forma &#8216;manual&#8217;.</p>
 <h2>Referencias</h2>
@@ -5414,7 +5393,7 @@ Tipo de nodo: directorio<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

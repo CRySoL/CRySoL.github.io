@@ -5177,14 +5177,12 @@
 </ul>
 <p>Y lo mejor de todo es que hay bindings para Python que se llaman <a href="http://repose.cx/pyosd/">PyOSD</a>. El paquete Debian se llama <code>python-osd</code>. Aquí pongo un ejemplo básico de uso de <span class="caps">XOSD</span> usando estos <em>bindings</em>:</p>
 <div>
-<p>{% highlight python %}<br />
-import pyosd</p>
-<p>osd = pyosd.osd()<br />
-osd.set_colour(&#8220;red&#8221;)<br />
-osd.display(&#8220;hola&#8221;)<br />
-osd.show()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pyosd</span>
+
+<span class="n">osd</span> <span class="o">=</span> <span class="n">pyosd</span><span class="p">.</span><span class="n">osd</span><span class="p">()</span>
+<span class="n">osd</span><span class="p">.</span><span class="n">set_colour</span><span class="p">(</span><span class="s">"red"</span><span class="p">)</span>
+<span class="n">osd</span><span class="p">.</span><span class="n">display</span><span class="p">(</span><span class="s">"hola"</span><span class="p">)</span>
+<span class="n">osd</span><span class="p">.</span><span class="n">show</span><span class="p">()</span></code></pre></figure></div>
 <p>Con <code>pydoc pyosd</code> puedes ver algo de documentación sobre el módulo, escueta pero útil. De todos modos, la documentación de la librería C es perfectamente aplicable, salvando las distancias.</p>
 <h2>gnome-osd</h2>
 <p>Paquetes:</p>
@@ -5206,32 +5204,25 @@ osd.show()<br />
 <p>También tiene algunas desventajas: no tiene scroll, varias lineas ni permite &#8220;pintar&#8221; barras.</p>
 <p>El componente está escrito en Python, así que se puede utilizar como un módulo del siguiente modo:</p>
 <div>
-<p>{% highlight python %}<br />
-import gtk, pango<br />
-from gnomeosd.gosd import osd</p>
-<p>w = osd(&#8220;<b>hola</b>&#8221;, &#8220;#000000&#8221;, &#8220;#80ff80&#8221;, pango.FontDescription(&#8220;sans serif 48&#8221;),<br />
-         use_markup=True, drop_shadow=True)<br />
-w.show()<br />
-gtk.main()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">gtk</span><span class="p">,</span> <span class="n">pango</span>
+<span class="kn">from</span> <span class="nn">gnomeosd.gosd</span> <span class="kn">import</span> <span class="n">osd</span>
+
+<span class="n">w</span> <span class="o">=</span> <span class="n">osd</span><span class="p">(</span><span class="s">"&lt;b&gt;hola&lt;/b&gt;"</span><span class="p">,</span> <span class="s">"#000000"</span><span class="p">,</span> <span class="s">"#80ff80"</span><span class="p">,</span> <span class="n">pango</span><span class="p">.</span><span class="n">FontDescription</span><span class="p">(</span><span class="s">"sans serif 48"</span><span class="p">),</span>
+         <span class="n">use_markup</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">drop_shadow</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">w</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">gtk</span><span class="p">.</span><span class="n">main</span><span class="p">()</span></code></pre></figure></div>
 <p>Sin embargo, esta forma de usarlo es bastante precaria y se pierden muchas de sus posibilidades. Lo más adecuado es utilizar el componente mediante su interfaz <strong>bonobo</strong> o <strong>dbus</strong>, y eso tiene la ventaja de que el cliente puede estar escrito en varios lenguajes: C, Java, Ruby, C#, Python, etc. Este es un ejemplo para utilizarlo con Bonobo (el sistema de componentes de <span class="caps">GNOME</span>) desde un cliente Python:</p>
 <div>
-<p>{% highlight python %}<br />
-import bonobo</p>
-<p>osd = bonobo.get_object(&#8220;<span class="caps">OAFIID</span>:GNOME_OSD&#8221;, &#8220;<span class="caps">IDL</span>:Bonobo/Application:1.0&#8221;)<br />
-osd.ref()<br />
-osd = bonobo.AppClient(osd)<br />
-osd.msg_send(&#8220;show&#8221;, [&#8220;<b>hola</b>&#8221;, 1000])<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">bonobo</span>
+
+<span class="n">osd</span> <span class="o">=</span> <span class="n">bonobo</span><span class="p">.</span><span class="n">get_object</span><span class="p">(</span><span class="s">"OAFIID:GNOME_OSD"</span><span class="p">,</span> <span class="s">"IDL:Bonobo/Application:1.0"</span><span class="p">)</span>
+<span class="n">osd</span><span class="p">.</span><span class="n">ref</span><span class="p">()</span>
+<span class="n">osd</span> <span class="o">=</span> <span class="n">bonobo</span><span class="p">.</span><span class="n">AppClient</span><span class="p">(</span><span class="n">osd</span><span class="p">)</span>
+<span class="n">osd</span><span class="p">.</span><span class="n">msg_send</span><span class="p">(</span><span class="s">"show"</span><span class="p">,</span> <span class="p">[</span><span class="s">"&lt;b&gt;hola&lt;/b&gt;"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span></code></pre></figure></div>
 <p>En <code>/usr/share/python-support/gnome-osd/gnomeosd/client.py</code> puedes encontrar la forma de hacerlo con <span class="caps">DBUS</span>.</p>
 <p>El texto que se indica puede ser un <span class="caps">XML</span> que tiene algunos atributos adicionales a los de Pango. El formato del mensajes es:</p>
 <div>
-<p>{% highlight text <span>}<br />
-<message ..atributos..> &#8230;texto con marcado pango&#8230; </message><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;message ..atributos..&gt; ...texto con marcado pango... &lt;/message&gt;</code></pre></figure></div>
 <p>Los atributos posibles son:</p>
 <ul>
 	<li>id</li>
@@ -5251,20 +5242,15 @@ osd.msg_send(&#8220;show&#8221;, [&#8220;<b>hola</b>&#8221;, 1000])<br />
 </ul>
 <p>Cuando se utiliza este <span class="caps">XML</span> hay que invocar un función diferente llamada <code>show-full</code>. El equivalente al ejemplo anterior sería:</p>
 <div>
-<p>{% highlight python %}<br />
-mport bonobo</p>
-<p>osd = bonobo.get_object(&#8220;<span class="caps">OAFIID</span>:GNOME_OSD&#8221;, &#8220;<span class="caps">IDL</span>:Bonobo/Application:1.0&#8221;)<br />
-osd.ref()<br />
-osd = bonobo.AppClient(osd)<br />
-osd.msg_send(&#8220;show-full&#8221;, [&#8216;<message id="sample" hide_timeout="1000"><b>hola</b></message>&#8217;])<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mport</span> <span class="n">bonobo</span>
+
+<span class="n">osd</span> <span class="o">=</span> <span class="n">bonobo</span><span class="p">.</span><span class="n">get_object</span><span class="p">(</span><span class="s">"OAFIID:GNOME_OSD"</span><span class="p">,</span> <span class="s">"IDL:Bonobo/Application:1.0"</span><span class="p">)</span>
+<span class="n">osd</span><span class="p">.</span><span class="n">ref</span><span class="p">()</span>
+<span class="n">osd</span> <span class="o">=</span> <span class="n">bonobo</span><span class="p">.</span><span class="n">AppClient</span><span class="p">(</span><span class="n">osd</span><span class="p">)</span>
+<span class="n">osd</span><span class="p">.</span><span class="n">msg_send</span><span class="p">(</span><span class="s">"show-full"</span><span class="p">,</span> <span class="p">[</span><span class="s">'&lt;message id="sample" hide_timeout="1000"&gt;&lt;b&gt;hola&lt;/b&gt;&lt;/message&gt;'</span><span class="p">])</span></code></pre></figure></div>
 <p>Más información en &#8220;<code>man gnome-osd-client</code>&#8221; y en el árbol <code>/apps/gnome-osd</code> de gconf, accesible con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ gconf-editor /apps/gnome-osd<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gconf-editor /apps/gnome-osd</code></pre></figure></div>
 <h2>Otros</h2>
 <p>Si conoces otra alternativa que cubra la funcionalidad básica de éstas, por favor, deja un comentario, gracias.</p>
       </div>
@@ -5331,7 +5317,7 @@ $ gconf-editor /apps/gnome-osd<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

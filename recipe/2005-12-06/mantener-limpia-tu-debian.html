@@ -5159,37 +5159,25 @@
 <h2>Configura tus &#8220;locales&#8221;</h2>
 <p>Es decir, elige qué idiomas quieres que estén disponibles para que las aplicaciones puedan elegir. Las &#8220;locales&#8221; también determinan cómo se presentan fechas, monedas, decimales, cómo se ordenan cadenas de texto, etc. Instala el paquete si no lo tienes instalado. Si ya lo tienes puede reconfigurarlo con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# dpkg-reconfigure locales<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>dpkg-reconfigure locales</code></pre></figure></div>
 <p>Y marca las que quieras en la lista. Normalmente serán <code>es_ES</code> y @es_ES@euro@.</p>
 <h2>Instala el paquete &#8220;localepurge&#8221;</h2>
 <p>Lo de siempre:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# apt-get install localepurge<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>apt-get <span class="nb">install </span>localepurge</code></pre></figure></div>
 <p>Y te dice que marques que &#8220;locales&#8221; quieres conservar. Elige también <code>es_ES</code> y @es_ES@euro@. Y ya está. Desde ahora, cada vez que instales algo con <code>apt-get</code> se ejecutará el <code>localepurge</code> y eliminará todos esos idiomas tan molestos. En una instalación media, la primera vez que se ejecute verás que puede suponer más de 200 MB liberadas.</p>
 <h1>deborphan</h1>
 <p>Se trata de un programa que determina qué librerías no son usadas por ningún paquete instalado en el sistema (paquetes huérfanos). De modo que los paquetes que las contienen pueden ser eliminados para ahorrar espacio. Por ejemplo:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-~# deborphan<br />
-freetype2<br />
-libpng3<br />
-libcln3c2<br />
-libntfs7<br />
-libglade0</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>deborphan
+<span class="go">freetype2
+libpng3
+libcln3c2
+libntfs7
+libglade0</span></code></pre></figure></div>
 <p>Si quieres borrar esos paquetes huérfanos ejecuta:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# apt-get remove $(deborphan)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>apt-get remove <span class="si">$(</span>deborphan<span class="si">)</span></code></pre></figure></div>
 <h1>debfoster</h1>
 <p>Se trata de un <em>front-end</em> para <code>apt-get</code>. La idea es que el usuario le diga a debfoster qué paquetes quiere tener realmente instalados y cuales son <em>prescindibles</em>.<br />
 El programa permite dos cosas:</p>
@@ -5200,10 +5188,7 @@ El programa permite dos cosas:</p>
 <p>Después de instalar el paquete. ejecuta <code>debfoster</code>.</p>
 <p>El programa te preguntará que debe hacer con toooodos los programas instalados en ese momento. Es un poco pesado pero sólo ocurre la primera vez. Desde ahora cuando quieras instalar un paquete con la intención de que se quede utiliza <code>debfoster</code> en lugar de <code>apt-get install</code>.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-~# debfoster <em>paquete_a_instalar</em><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span>debfoster _paquete_a_instalar_</code></pre></figure></div>
 <p>Pero cuando quieras instalar un paquete, sólo &#8220;para ver qué es&#8221; utiliza <code>apt-get install</code> de la forma habitual. Cada vez que ejecutes debfoster, te preguntará que hacer con esos paquetes que no dijiste que querías conservar explicitamente.</p>
 <h1>Referencias</h1>
 <ul>
@@ -5277,7 +5262,7 @@ El programa permite dos cosas:</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

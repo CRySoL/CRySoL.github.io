@@ -5329,21 +5329,15 @@
 <h2>Overscan</h2>
 <p>La salida de vídeo <span class="caps">HDMI</span> suele provocar <em>overscan</em> en muchos televisores. Hay distintas soluciones dependiendo del ordenador y el televisor. En el caso del Revo con la tele Sony Bravia <span class="caps">KDL</span>-40S5600 la solución más sencilla es añadir lo siguiente al fichero <code>/etc/X11/xorg.conf</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-Section &#8220;Monitor&#8221;<br />
-    [&#8230;]<br />
-    Option &#8220;ExactModeTimingsDVI&#8221; &#8220;True&#8221;<br />
-EndSection<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Section "Monitor"
+    [...]
+    Option "ExactModeTimingsDVI" "True"
+EndSection</code></pre></figure></div>
 <p>Con esto se consigue una resolución de 1360&#215;768 a 60 Hz que es la configuración recomendada por Sony, y más que suficiente para vídeo Full HD. (a.k.a. «calidad absurda»).</p>
 <h2>Sonido <span class="caps">HDMI</span></h2>
 <p>Añade la siguiente línea al fichero <code>/etc/modprobe.d/alsa-base.conf</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-options snd-hda-intel model=3stack-6ch-dig<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">options snd-hda-intel model=3stack-6ch-dig</code></pre></figure></div>
 <p>Una vez en uso (quizá tengas que reiniciar) busca y activa un control en el mixer llamado <code>S/PDIF 1</code>. Si no lo ves con el mixer de <span class="caps">GNOME</span>, prueba con <code>alsamixer</code>.</p>
 <h2>Referencias</h2>
 <ul>
@@ -5414,7 +5408,7 @@ options snd-hda-intel model=3stack-6ch-dig<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

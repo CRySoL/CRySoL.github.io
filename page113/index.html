@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,102 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/tale/2005-11-27/un-10-para-la-install-party.html">Un 10 para la Install party</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-11-27
+    
+      
+  <a href="/users.html#aledelgal">
+   aledelgal
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-27-un-10-para-la-install-party.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-27-un-10-para-la-install-party.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#tale-ref">
+    		tale
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/124">node/124</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      Pues eso, que un 10 para todos los que organizaron la Install Party. Estas cosas habría que hacerlas más de vez en cuando, pero claro, se que es una movida para los que le toca organizar todo.
+
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/tale/2005-11-27/un-10-para-la-install-party.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -7966,35 +8061,35 @@ Así que primero la desmontamos:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>umount /mnt/hda3 </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>umount /mnt/hda3</code></pre></figure>
 </div>
 
-Y ahora la volvemos a montar partición con permisos de lectura-escritura. Suponemos que el disco es <tt>/dev/hda3</tt>, y se monta en el directorio <tt>/mnt/hda3</tt>. 
+Y ahora la volvemos a montar partición con permisos de lectura-escritura. Suponemos que el disco es <tt>/dev/hda3</tt>, y se monta en el directorio <tt>/mnt/hda3</tt>.
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-t</span> ext3 <span class="nt">-o</span> rw /dev/hda3 /mnt/hda3 </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-t</span> ext3 <span class="nt">-o</span> rw /dev/hda3 /mnt/hda3</code></pre></figure>
 </div>
 
 Ahora montamos /proc:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-t</span> proc /mnt/hda3/proc </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-t</span> proc /mnt/hda3/proc</code></pre></figure>
 </div>
 
 Ahora hacemos un poco de "magia":
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">chroot</span> /mnt/hda3/ </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">chroot</span> /mnt/hda3/</code></pre></figure>
 </div>
 
 Y ahora mismo estarás dentro del GNU/Linux que tienes en el disco duro. Has cambiado y ahora lo que verás como directorio "/" será el antiguo <tt>/mnt/hda3</tt>. Ahora falta volver a instalar nuestro gestor de arranque, en nuestro caso grub:
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>grub-install /dev/hda </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>grub-install /dev/hda</code></pre></figure>
 </div>
 
 Y ahora reinicia el PC y saca el live-cd. Podrás comprobar como vuelves a ver tu querido grub.
@@ -8185,65 +8280,30 @@ Esta receta pretendo explicar como instalar <strong>ndiswrapper</strong> para po
 <h2>Actualiza tu Linux</h2>
 <p>Instalar el driver de nvidia es una buena oportunidad para aprovechar y actualizar el núcleo. Se supone que vas a utilizar un Linux precompilado y empaquetado por Debian. Por ejemplo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install linux-image-2.6.22-1-386<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>linux-image-2.6.22-1-386</code></pre></figure></div>
 <p>También vas a necesitar las cabeceras, que es un paquete con el mismo nombre, cambiando <b>image</b> por <b>headers</b>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install linux-headers-2.6.22-1-386<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>linux-headers-2.6.22-1-386</code></pre></figure></div>
 <p>Si usas grub, no olvides hacer el <tt>update-grub</tt> correspondiente. Y ahora reinicia para usar el núcleo recién instalado.</p>
 <h2>Ahora&#8230; lo divertido</h2>
 <p>Esto es tan fácil que casi no tiene gracia. Primero instala <tt>module-assistant</tt> y <tt>nvidia-kernel-common</tt>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install module-assistant nvidia-kernel-common<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>module-assistant nvidia-kernel-common</code></pre></figure></div>
 <p>Y a continuación ejecuta:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>module-assistant auto-install nvidia<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>module-assistant auto-install nvidia</code></pre></figure></div>
 <p>O lo que es lo mismo, pero más cortito y fácil de recordar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>m-a a-i nvidia<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>m-a a-i nvidia</code></pre></figure></div>
 <p>Y ese programilla se encarga de compilar, crear el paquete Debian correspondiente y hasta de instalarlo. No viene mal un:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>depmod -a</li>
-	<li>modprobe nvidia<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>depmod <span class="nt">-a</span>
+<span class="gp">#</span><span class="w"> </span>modprobe nvidia</code></pre></figure></div>
 <p>Si todo ha ido bien deberías tener tu driver funcionando.</p>
 <h2>Y el <span class="caps">GLX</span></h2>
 <p>También tienes que instalar:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install nvidia-glx<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>nvidia-glx</code></pre></figure></div>
 <h2>Cambio en la configuración del servidor X</h2>
 <p>Edita tu <tt>/etc/X11/xorg.conf</tt> y busca el apartado <tt>Section &#8220;Device&#8221;</tt>. Cambia la línea <tt>driver</tt> para que quede algo como:</p>
 <pre>
@@ -8251,12 +8311,7 @@ Esta receta pretendo explicar como instalar <strong>ndiswrapper</strong> para po
 </pre>
 <p>Sólo queda reiniciar tu gestor de acceso. Por ejemplo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/gdm restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/gdm restart</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 <li>
@@ -8411,7 +8466,7 @@ Otra cosa a tener en cuenta es la de hacer "hibernar" al pc. Esto se consigue co
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">echo </span>3 <span class="o">&gt;</span> /proc/acpi/sleep </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">echo </span>3 <span class="o">&gt;</span> /proc/acpi/sleep</code></pre></figure>
 </div>
 
 Y el pc hibernará guardando el estado actual. Lo de la swap es importante.
@@ -8629,22 +8684,12 @@ He visto en el kernel 2.6.12 que ya hay soporte para tarjetas de memoria SD y MM
 </blockquote>
 <p>Ejecuta lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apache2-ssl-certificate &#8212;force -days 365 -set_serial 2<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apache2-ssl-certificate <span class="nt">--force</span> <span class="nt">-days</span> 365 <span class="nt">-set_serial</span> 2</code></pre></figure></div>
 <p>Esto crea el <tt>/etc/apache2/ssl/apache.pem</tt> que contiene el certificado y la clave del servidor. El número de serie debería	ser uno más de lo que haya en el certificado anterior.</p>
 <p>En <tt>/etc/apache2/ssl.crt/</tt> hay sendos enlaces simbólicos	(<tt>server.key</tt> y <tt>server.crt</tt>) que apuntan al fichero generado.</p>
 <p>Sólo queda reiniciar <tt>apache</tt>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/apache2 restart<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/apache2 restart</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="https://help.ubuntu.com/ubuntu/serverguide/es/httpd.html"><span class="caps">HTTPD</span> &#8211; Servidor Web Apache2</a></li>
@@ -8739,36 +8784,24 @@ He visto en el kernel 2.6.12 que ya hay soporte para tarjetas de memoria SD y MM
 <h2>Método 1: Exportar display</h2>
 <p>El método &#8216;clásico&#8217; cuando queremos ejecutar un programa en una máquina remota y ver su interfaz en nuestro cliente X local es:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-user@local:~$ xhost remoto<br />
-remoto being added to access control list<br />
-user@local:~$<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@local:~$</span><span class="w"> </span>xhost remoto
+<span class="go">remoto being added to access control list
+</span><span class="gp">user@local:~$</span></code></pre></figure></div>
 <p>Con eso se consigue que el servidor X, que corre en nuestra máquina, acepte conexiones externas de la máquina &#8220;remoto&#8221;. Pero si queremos que admita conexiones de cualquier máquina hay que poner:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-user@local:~$ xhost +<br />
-access control disabled, clients can connect from any host<br />
-user@local:~$<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@local:~$</span><span class="w"> </span>xhost +
+<span class="go">access control disabled, clients can connect from any host
+</span><span class="gp">user@local:~$</span></code></pre></figure></div>
 <p>Aunque esto puede suponer un problema de seguridad grave.</p>
 <p>Ahora accede a la máquina remota con <tt>telnet</tt> o algo similar y exporta el &#8216;display&#8217; para aplicaciones X.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-user@remoto:~$ export <span class="caps">DISPLAY</span>=local:0<br />
-user@remoto:~$<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@remoto:~$</span><span class="w"> </span><span class="nb">export </span><span class="nv">DISPLAY</span><span class="o">=</span><span class="nb">local</span>:0
+<span class="gp">user@remoto:~$</span></code></pre></figure></div>
 <p>La instrucción <tt>export</tt> declara una variable de entorno de la <em>shell</em> (no tiene nada que ver con la expresión exportar display).</p>
 <p>Con esto, la aplicación X sabrá que debe utilizar el servidor X de la máquina llamada &#8216;local&#8217; en lugar de usar el de la máquina en la que se ejecuta. Puedes comprobar que funciona con algo como:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-user@remoto:~$ xeyes<br />
-user@remoto:~$<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@remoto:~$</span><span class="w"> </span>xeyes
+<span class="gp">user@remoto:~$</span></code></pre></figure></div>
 <p>Con lo que deberías ver el clásico programilla de los ojos en la máquina local.</p>
 <h2>Método 2: ssh</h2>
 <p>El servidor <tt>ssh</tt> es capaz de gestionar automáticamente la conexión X siempre que servidor y cliente estén configurados adecuadamente.</p>
@@ -8782,17 +8815,11 @@ user@remoto:~$<br />
 </pre>
 <p>Como alternativa a esto, el usuario puede solicitarlo por línea de comando al hacer la conexión:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-ssh -X <em>remoto</em><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">ssh -X &lt;em&gt;</span>remoto&lt;/em&gt;</code></pre></figure></div>
 <p>Si lo haces en las dos máquinas, podrás utilizar este mecanismo en ambos sentidos. Sólo queda reiniciar el servidor con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-root@remoto:~# /etc/init.d/ssh restart<br />
-root@remoto:~#<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@remoto:~#</span><span class="w"> </span>/etc/init.d/ssh restart
+<span class="gp">root@remoto:~#</span></code></pre></figure></div>
 <p>Y ya tienes el efecto deseado, compruébalo con <tt>xeyes</tt>&#8230; (por ejemplo)</p>
 <h2>Enlaces</h2>
 <ul>
@@ -8900,7 +8927,7 @@ Ahora busca la sección <tt>[server-Standard]</tt> y edita la opción <tt>comman
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">command=/usr/X11R6/bin/X -deferglyphs 16 -audit 0</span></code></pre></figure>
 </div>
-		
+
 
 <h1> Conexión</h1>
 
@@ -8920,7 +8947,7 @@ Puede ser interesante tener una o varias sesiones X adicionales en la máquina l
 
 
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xinit <span class="nt">--</span> :1 </code></pre></figure>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xinit <span class="nt">--</span> :1</code></pre></figure>
 </div>
 
 se abre un segundo cliente X (en F8) que ejecuta únicamente un x-terminal, pero sin gestor de ventanas ni de escritorio.
@@ -9139,97 +9166,6 @@ Si en lugar de utilizar el comando X usa Xnest consigue el mismo efecto que en l
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-11-26/hacer-paquetes-deb-a-partir-de-rpm-y-tar-gz.html">Hacer paquetes.deb a partir de .rpm y .tar.gz</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-11-26
-    
-      
-  <a href="/users.html#aledelgal">
-   aledelgal
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-26-hacer-paquetes-deb-a-partir-de-rpm-y-tar-gz.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-26-hacer-paquetes-deb-a-partir-de-rpm-y-tar-gz.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/116">node/116</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>En esta pequeña receta veremos como hacer paquetes .deb a partir de .rpm y .tar.gz , ya que es mucho más fácil, cómoda y limpia su instalación (con dpkg). Para mucha gente será algo trivial, pero creo que a gente como yo le puede venir bien :)</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2005-11-26/hacer-paquetes-deb-a-partir-de-rpm-y-tar-gz.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9270,7 +9206,7 @@ Si en lugar de utilizar el comando X usa Xnest consigue el mismo efecto que en l
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5404,76 +5404,37 @@
 <p>Los siguientes pasos <strong>sólo son necesarios</strong> cuando se crea y formatea la partición cifrada.</p>
 <h3>Crear el contenedor</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cryptsetup luksFormat /dev/sde1<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>cryptsetup luksFormat /dev/sde1</code></pre></figure></div>
 <h3>Abrir el contenedor</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cryptsetup luksOpen /dev/sde1 pincho<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>cryptsetup luksOpen /dev/sde1 pincho</code></pre></figure></div>
 <h3>Formatear la partición</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mkfs.ext3 /dev/mapper/pincho<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mkfs.ext3 /dev/mapper/pincho</code></pre></figure></div>
 <h3>Montar la partición</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mount /dev/mapper/pincho /mnt/punto<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount /dev/mapper/pincho /mnt/punto</code></pre></figure></div>
 <h3>Desmontar la partición</h3>
 <p>De la forma habitual:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>umount  /mnt/punto<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>umount  /mnt/punto</code></pre></figure></div>
 <h3>Cerrar el contenedor</h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cryptsetup luksClose /dev/mapper/pincho<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w">  </span>cryptsetup luksClose /dev/mapper/pincho</code></pre></figure></div>
 <h2>Montaje <em>automágico</em></h2>
 <p>Una de las cosas interesantes de este sistema es que <code>pmount</code> ofrece soporte para este tipo de particiones cifradas. Así que es tan fácil montar un pendrive cifrado como uno normal. Simplemente se enchufa y <code>gnome-volume-manager</code> (el demonio de &#8220;Unidades y soportes extraibles&#8221;) se encarga de pedir la contraseña y hacer todo el proceso de montaje y desmontaje de forma transparente, y sin tener que usar la consola en ningún momento (que veo que preocupa ;-)).</p>
 <h2>Imágenes loop cifradas</h2>
 <p>
 <h3>Crear el fichero</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ dd if=/dev/urandom of=container.loop bs=1M count=10<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">dd </span><span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">of</span><span class="o">=</span>container.loop <span class="nv">bs</span><span class="o">=</span>1M <span class="nv">count</span><span class="o">=</span>10</code></pre></figure></div>
 <h3>Montar la imagen loop</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ sudo losetup /dev/loop/0 container.loop<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>losetup /dev/loop/0 container.loop</code></pre></figure></div>
 <h3>Setup</h3>
 <p>El resto del proceso es idéntico a la modalidad con partición cambiando <code>/dev/sde1</code> por <code>/dev/loop0</code> en los comandos. Al desmontar, después de los anteriores, ejecutar:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ losetup -d /dev/loop/0<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>losetup <span class="nt">-d</span> /dev/loop/0</code></pre></figure></div>
 <h2>Comentarios</h2>
 <p>Una pequeña pega de <strong>dm-crypt</strong> es que no proporciona <a href="http://en.wikipedia.org/wiki/Plausible_deniability">negación plausible</a>. En cristiano:  si el soporte llega a manos de un &#8220;agente enemigo&#8221;, sabrá que hay datos cifrados en él aunque no pueda leerlos, vamos, que sabrá que escondes algo.</p>
 <p>Un criptosistema ideal no deja huellas de su uso, es decir, no hay manera de distinguir datos aleatorios de datos cifrados. Este tipo de <em>feature</em>  la proporciona por ejemplo <a href="http://www.truecrypt.org/">TrueCrypt</a>. Realmente yo creo que, a menos que seas espía o te dediques a pasar secretos militares en tus ratos libres, este nivel de privacidad es innecesario, al menos a día de hoy.</p>
@@ -5551,7 +5512,7 @@ $ sudo losetup /dev/loop/0 container.loop<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5239,87 +5239,45 @@
 <p>Esta aplicación requiere un servidor web para alojarse, <span class="caps">PHP</span> para ejecutarse y una base de datos MySQL o Postgres para almacenar la información. Por simplicidad voy a suponer que todo esto está en la misma máquina.</p>
 <p>En una distribución Debian los requisitos se instalan de esta forma</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install mysql-server libapache2-mod-php php5-mysql php5-xmlrpc</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>mysql-server libapache2-mod-php php5-mysql php5-xmlrpc</code></pre></figure></div>
 <p>Para RedHat, CentOS y similares con yum</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>yum install mysql php-mysql php-mbstring php-xmlrpc httpd</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>yum <span class="nb">install </span>mysql php-mysql php-mbstring php-xmlrpc httpd</code></pre></figure></div>
 <p>En primer lugar descargamos la última versión disponible del programa. En el momento de escribir esta receta es la 1.7.4 (<a href="https://github.com/gothfox/Tiny-Tiny-RSS/archive/1.7.4.tar.gz">https://github.com/gothfox/Tiny-Tiny-<span class="caps">RSS</span>/archive/1.7.4.tar.gz</a>)</p>
 <p>Nos situamos en el directorio <span class="caps">WWW</span>-<span class="caps">ROOT</span> de nuestra máquina. En las Debian y derivados, <em>/var/www/</em>, en las RedHat y derivados <em>/var/www/html</em>, y descomprimimos el fichero.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>tar zxvf Tiny-Tiny-<span class="caps">RSS</span>-1.7.4.tar.gz<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">tar </span>zxvf Tiny-Tiny-RSS-1.7.4.tar.gz</code></pre></figure></div>
 <p>Se creará el directorio <em>&#8220;Tiny-Tiny-<span class="caps">RSS</span>-1.7.4&#8221;</em> que renombraremos a <em>&#8220;tt-rss&#8221;</em> por comodidad.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mv Tiny-Tiny-<span class="caps">RSS</span>-1.7.4 tt-rss<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">mv </span>Tiny-Tiny-RSS-1.7.4 tt-rss</code></pre></figure></div>
 <p>Ahora debemos asignar al usuario que ejecuta el servidor web (<br />
 <code>www-data</code>, o <code>apache</code>) la posesión de los ficheros del programa.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-chown -R www-data:www-data tt-rss<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">chown -R www-data:www-data tt-rss</span></code></pre></figure></div>
 <p>o si eres de RedHat</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-chown -R apache:apache tt-rss<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">chown -R apache:apache tt-rss</span></code></pre></figure></div>
 <p>Ahora procedemos a instalar la aplicación. Esta herramienta aun no tiene un asistente de instalación por lo que el proceso es manual. Dentro del directorio del programa <em>&#8220;tt-rss&#8221;</em> está la plantilla de configuración que debemos copiar en el fichero definitivo.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cp config.php-dist config.php<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cp </span>config.php-dist config.php</code></pre></figure></div>
 <p>Editamos el fichero con nuestro editor favorito y veremos al principio esto.</p>
 <div>
-<p>{% highlight php <span>}<br />
-        define(&#8216;DB_TYPE&#8217;, &#8220;pgsql&#8221;); // or mysql<br />
-        define(&#8216;DB_HOST&#8217;, &#8220;localhost&#8221;);<br />
-        define(&#8216;DB_USER&#8217;, &#8220;fox&#8221;);<br />
-        define(&#8216;DB_NAME&#8217;, &#8220;fox&#8221;);<br />
-        define(&#8216;DB_PASS&#8217;, &#8220;<span class="caps">XXXXXX</span>&#8221;);<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-php" data-lang="php">        <span class="nb">define</span><span class="p">(</span><span class="s1">'DB_TYPE'</span><span class="p">,</span> <span class="s2">"pgsql"</span><span class="p">);</span> <span class="c1">// or mysql</span>
+        <span class="nb">define</span><span class="p">(</span><span class="s1">'DB_HOST'</span><span class="p">,</span> <span class="s2">"localhost"</span><span class="p">);</span>
+        <span class="nb">define</span><span class="p">(</span><span class="s1">'DB_USER'</span><span class="p">,</span> <span class="s2">"fox"</span><span class="p">);</span>
+        <span class="nb">define</span><span class="p">(</span><span class="s1">'DB_NAME'</span><span class="p">,</span> <span class="s2">"fox"</span><span class="p">);</span>
+        <span class="nb">define</span><span class="p">(</span><span class="s1">'DB_PASS'</span><span class="p">,</span> <span class="s2">"XXXXXX"</span><span class="p">);</span></code></pre></figure></div>
 <p>Establecemos los valores que creamos convenientes. Por ejemplo</p>
 <div>
-<p>{% highlight php <span>}<br />
-        define(&#8216;DB_TYPE&#8217;, &#8220;mysql&#8221;);<br />
-        define(&#8216;DB_HOST&#8217;, &#8220;localhost&#8221;);<br />
-        define(&#8216;DB_USER&#8217;, &#8220;ttrss&#8221;);<br />
-        define(&#8216;DB_NAME&#8217;, &#8220;ttrss_db&#8221;);<br />
-        define(&#8216;DB_PASS&#8217;, &#8220;passwordquequieras&#8221;);<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-php" data-lang="php">        <span class="nb">define</span><span class="p">(</span><span class="s1">'DB_TYPE'</span><span class="p">,</span> <span class="s2">"mysql"</span><span class="p">);</span>
+        <span class="nb">define</span><span class="p">(</span><span class="s1">'DB_HOST'</span><span class="p">,</span> <span class="s2">"localhost"</span><span class="p">);</span>
+        <span class="nb">define</span><span class="p">(</span><span class="s1">'DB_USER'</span><span class="p">,</span> <span class="s2">"ttrss"</span><span class="p">);</span>
+        <span class="nb">define</span><span class="p">(</span><span class="s1">'DB_NAME'</span><span class="p">,</span> <span class="s2">"ttrss_db"</span><span class="p">);</span>
+        <span class="nb">define</span><span class="p">(</span><span class="s1">'DB_PASS'</span><span class="p">,</span> <span class="s2">"passwordquequieras"</span><span class="p">);</span></code></pre></figure></div>
 <p>Obviamente esta configuración hay que hacerla previamente en la base de datos antes de lanzar la aplicación.Una forma sencilla es usar <em>phpmyadmin_. Tenemos que crear un usuario y una base de datos. En este caso el usuario se llama <code>"ttrss"</code> y la base de datos @&quot;ttrss</em>db&quot;@</p>
 <p>Con estos datos ya establecidos precargamos los datos inciales que se encuentran en el directorio <em>&#8220;schema/ttrss_schema_mysql.sql&#8221;</em>. Puedes hacerlo desde la linea de comandos o desde el propio phpmyadmin.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>mysql -u ttrss -p -D ttrss_db &lt; ttrss_schema_mysql.sql<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mysql <span class="nt">-u</span> ttrss <span class="nt">-p</span> <span class="nt">-D</span> ttrss_db &lt; ttrss_schema_mysql.sql</code></pre></figure></div>
 <p>Siguiendo estos pasos ya deberíamos tener funcionando ttRSS en nuestro servidor. Para comprobarlo abrimos un navegador y nos dirigimos a la dirección <em>http://servidor/tt-rss</em> .Por defecto se accede con las credenciales <em>&#8220;admin/password&#8221;</em>. Te recomiendo que cambies la contraseña del administrador y que añadas un usuario para utilizar el programa.</p>
 <h2>Actualizar las Fuentes</h2>
 <p>Ahora tenemos que establecer el mecanismo de actualización de las fuentes <span class="caps">RSS</span>. Si no ejecutamos este paso, tendremos que tener la aplicación abierta en el navegador para que se lance la actualización periódica.</p>
@@ -5327,157 +5285,136 @@ chown -R apache:apache tt-rss<br />
 <p>Si tu distribución utiliza el sistema Upstart hay un procedimiento bastante sencillo.</p>
 <p>Crea el fichero <em>/etc/init/ttrssdaemon.conf</em> con el siguiente contenido.</p>
 <div>
-<p>{% highlight bash %}<br />
-description &#8220;TT-<span class="caps">RSS</span> Feed Daemon&#8221;</p>
-<p>author &#8220;Sean Payne &lt;@zero_divide_1 on Twitter&gt;&#8221;</p>
-<p>start on (local-filesystems and net-device-up <span class="caps">IFACE</span>!=lo)</p>
-<p>stop on runlevel [!2345]</p>
-<p>respawn</p>
-<p>script</p>
-cd /var/www/tt-rss
-exec su www-data -c &#8220;php ./update_daemon2.php&#8221;
-<p>end script<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">description <span class="s2">"TT-RSS Feed Daemon"</span>
+
+author <span class="s2">"Sean Payne &lt;@zero_divide_1 on Twitter&gt;"</span>
+
+
+
+start on <span class="o">(</span>local-filesystems and net-device-up IFACE!<span class="o">=</span>lo<span class="o">)</span>
+
+stop on runlevel <span class="o">[!</span>2345]
+
+respawn
+
+
+
+script
+
+        <span class="nb">cd</span> /var/www/tt-rss
+
+        <span class="nb">exec </span>su www-data <span class="nt">-c</span> <span class="s2">"php ./update_daemon2.php"</span>
+
+end script</code></pre></figure></div>
 <p>Después crea el enlace simbólico siguiente</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>ln -s /lib/init/upstart-job /etc/init.d/ttrssdaemon<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /lib/init/upstart-job /etc/init.d/ttrssdaemon</code></pre></figure></div>
 <p>Por último inicia el demonio con el comando</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>start ttrssdaemon<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>start ttrssdaemon</code></pre></figure></div>
 <p>Puedes ver la salida de log del demonio en <em>/var/log/upstart/ttrssdaemon.log</em></p>
 <p>Si no tienes upstart, puedes crear un servicio sysvinit en /etc/init.d/ttrssdaemon. Las utilidades start-stop-daemon son tus amigas. Pero recuerda que el usuario que ejecute el script no debe ser root, sino el mismo que ejecuta el servidor web (www-data o apache).</p>
 <p>El otro procedimiento es mediante cron. Funciona en todas las distribuciones y es muy sencillo. Nos vamos al directorio /etc/cron.d/ y creamos el fichero ttrssupdate con el siguiente contenido.</p>
 <div>
-<p>{% highlight bash <span>}<br />
-*/30 *   * * *    www-data   cd /var/www/tt-rss &amp;&amp; /usr/bin/php /var/www/tt-rss/update.php -feeds &gt;/dev/null 2&gt;&amp;1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">*</span>/30 <span class="k">*</span>   <span class="k">*</span> <span class="k">*</span> <span class="k">*</span>    www-data   <span class="nb">cd</span> /var/www/tt-rss <span class="o">&amp;&amp;</span> /usr/bin/php /var/www/tt-rss/update.php <span class="nt">-feeds</span> <span class="o">&gt;</span>/dev/null 2&gt;&amp;1</code></pre></figure></div>
 <p>En la versión 1.7.5 cambia ligeramente la sintaxis que pasa a utilizar el doble guión.</p>
 <div>
-<p>{% highlight bash <span>}<br />
-*/30 *   * * *    www-data   cd /var/www/tt-rss &amp;&amp; /usr/bin/php /var/www/tt-rss/update.php &#8212;feeds &gt;/dev/null 2&gt;&amp;1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">*</span>/30 <span class="k">*</span>   <span class="k">*</span> <span class="k">*</span> <span class="k">*</span>    www-data   <span class="nb">cd</span> /var/www/tt-rss <span class="o">&amp;&amp;</span> /usr/bin/php /var/www/tt-rss/update.php <span class="nt">--feeds</span> <span class="o">&gt;</span>/dev/null 2&gt;&amp;1</code></pre></figure></div>
 <p>Aquí le estamos diciendo a cron que cada 30 minutos el usuario <code>www-data</code> (cambialo por <code>apache</code> si estás ejecutando RedHat o CentOS) ejecute el script de actualización de fuentes.</p>
 <h2>Configurar ttRSS</h2>
 <p>La configuración por defecto de ttRSS no está mal, pero si vienes de Google Reader te parecerá un poco incómoda. Para conseguir que ttRSS tenga la apariencia de Google Reader hay que marcar las siguientes opciones.</p>
 <p>Debes ir al menú Preferences que se encuentra arriba a la derecha, dentro del menú Acciones.</p>
 <p>En ese menú hay que marcar las opciones.</p>
 <div>
-<p>{% highlight text <span>}<br />
-&#8220;Marcar como leídos los artículos automáticamente&#8221;<br />
-&#8220;Despliegue combinado de la fuente&#8221;<br />
-&#8220;Habilitar categorías de fuentes&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">"Marcar como leídos los artículos automáticamente"
+"Despliegue combinado de la fuente"
+"Habilitar categorías de fuentes"</code></pre></figure></div>
 <p>Si miras mas abajo verás la barra de <em>Plugins</em>. Desde ahí puedes activar las características sociales de ttRSS como enviar a Google+ o Twitter</p>
 <p>Si además queréis aproximaros aun mas a la estética de Google Reader, podéis copiar esta hoja de estilos en las preferencias. Debéis ir a &#8220;Personalizar hoja de estilos&#8221; y pulsar el botón &#8220;Customize&#8221;, eso os abrirá una caja de texto en la que debéis copiar este código. (<a href="http://tt-rss.org/forum/viewtopic.php?f=22&amp;t=1344#p6249">fuente</a>)</p>
 <div>
-<p>{% highlight html %}<br />
-/<strong>Arial 13px is familiar and pleasant since Google Reader days.</strong>/<br />
-body#ttrssMain, body#ttrssPrefs, body#ttrssLogin, body {<br />
-   font-family: arial, helvetica, sans-serif;<br />
-   font-size: 13px;<br />
-}</p>
-<p>/<strong>On wide screens, the content is far to wide which makes it unreadable. This gives line breaks for easier reading…</strong>/<br />
-div.cdmContentInner, div.cdmContentInner * {<br />
-   max-width: 650px;<br />
-}</p>
-<p>/<strong>…but I want images to only be restricted by the screen width so I unset the property for these.</strong>/<br />
-div.cdmContentInner img {<br />
-   max-width: none;<br />
-}</p>
-<p>/<strong>Bold text is disabled by default for some reason. This enables it.</strong>/<br />
-div.cdmContentInner b, div.cdmContentInner strong {<br />
-   font-weight: bold;<br />
-}</p>
-<p>/<strong>More visible title, Google Reader style.</strong>/<br />
-div.cdmHeader .title, div.cdmHeader span.hlFeed a {<br />
-   font-size: 18px;<br />
-   font-weight: bold;<br />
-}</p>
-<p>/<strong>Fittingly enlarged date notation.</strong>/<br />
-div.cdmHeader span.updated {<br />
-   font-size: 16px;<br />
-}</p>
-<p>/<strong>The Google Reader blue nuance — pleasant on the eyes.</strong>/<br />
-div.cdmHeader .title, div#headlines-toolbar span.r a {<br />
-   color: #15c;<br />
-}</p>
-<p>div.cdmHeader .title .titleAuthor {<br />
-   color: silver;<br />
-}</p>
-<p>/<strong>Some item spacing; makes borders look better (also similar to Google Reader).</strong>/<br />
-.even, .odd {<br />
-   margin: 5px 0;<br />
-}</p>
-<p>/<strong>Remove background color on selected items — hinders readability in my view. Also put borders on active…</strong>/<br />
-.even.Unread.Selected, .odd.Unread.Selected, .even.Selected, .odd.Selected {<br />
-   border: 2px solid #15c;<br />
-   background-color: inherit ! important;<br />
-}</p>
-<p>/<strong>…and inactive items.</strong>/<br />
-.even, .odd, .even.Unread, .odd.Unread {<br />
-   border: 2px dashed silver;<br />
-}</p>
-<p>/<strong>Reset default table styling from tt-rss changes of table elements in <span class="caps">RSS</span> feeds — vanilla looks weird, imho.</strong>/<br />
-/<strong>Fixed in upstream @ https://github.com/gothfox/Tiny-Tiny-<span class="caps">RSS</span>/commit/b7ade39dd116e1634c49eb46711a1d6828140c5e , I believe.</strong>/<br />
-.odd.Selected td, .even.Selected td, .odd td, .even td {<br />
-   border: 1px inset gray;<br />
-   background: inherit ! important;<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html">/*Arial 13px is familiar and pleasant since Google Reader days.*/
+body#ttrssMain, body#ttrssPrefs, body#ttrssLogin, body {
+   font-family: arial, helvetica, sans-serif;
+   font-size: 13px;
+}
+
+/*On wide screens, the content is far to wide which makes it unreadable. This gives line breaks for easier reading…*/
+div.cdmContentInner, div.cdmContentInner * {
+   max-width: 650px;
+}
+
+/*…but I want images to only be restricted by the screen width so I unset the property for these.*/
+div.cdmContentInner img {
+   max-width: none;
+}
+
+/*Bold text is disabled by default for some reason. This enables it.*/
+div.cdmContentInner b, div.cdmContentInner strong {
+   font-weight: bold;
+}
+
+/*More visible title, Google Reader style.*/
+div.cdmHeader .title, div.cdmHeader span.hlFeed a {
+   font-size: 18px;
+   font-weight: bold;
+}
+
+/*Fittingly enlarged date notation.*/
+div.cdmHeader span.updated {
+   font-size: 16px;
+}
+
+/*The Google Reader blue nuance — pleasant on the eyes.*/
+div.cdmHeader .title, div#headlines-toolbar span.r a {
+   color: #15c;
+}
+
+div.cdmHeader .title .titleAuthor {
+   color: silver;
+}
+
+/*Some item spacing; makes borders look better (also similar to Google Reader).*/
+.even, .odd {
+   margin: 5px 0;
+}
+
+/*Remove background color on selected items — hinders readability in my view. Also put borders on active…*/
+.even.Unread.Selected, .odd.Unread.Selected, .even.Selected, .odd.Selected {
+   border: 2px solid #15c;
+   background-color: inherit ! important;
+}
+
+/*…and inactive items.*/
+.even, .odd, .even.Unread, .odd.Unread {
+   border: 2px dashed silver;
+}
+
+/*Reset default table styling from tt-rss changes of table elements in RSS feeds — vanilla looks weird, imho.*/
+/*Fixed in upstream @ https://github.com/gothfox/Tiny-Tiny-RSS/commit/b7ade39dd116e1634c49eb46711a1d6828140c5e , I believe.*/
+.odd.Selected td, .even.Selected td, .odd td, .even td {
+   border: 1px inset gray;
+   background: inherit ! important;
+}</code></pre></figure></div>
 <p>Este es el aspecto que tendrá. Como veis bastante parecido a Google Reader.<br />
 <img src="/assets/files/Selección_001.png" width="750" /></p>
 <p>Por cierto, si queréis utilizar alguna aplicación externa para conectaros a ttRSS, como por ejemplo alguna de las que existen para <a href="https://play.google.com/store/search?q=tiny+tiny+rss">Android</a> , deberéis marcar la opción</p>
 <div>
-<p>{% highlight text <span>}<br />
-Habilitar <span class="caps">API</span> externa<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Habilitar API externa</code></pre></figure></div>
 <h2>Actualizar ttRSS</h2>
 <p>Una característica interesante de ttRSS es que se puede actualizar en línea. Para activar esta característica hay que editar el fichero config.php y en la sección <span class="caps">PLUGINS</span> añadir el plugin updater. La línea quedaría así.</p>
 <div>
-<p>{% highlight php <span>}<br />
-define(&#8216;<span class="caps">PLUGINS</span>&#8217;, &#8216;auth_remote, auth_internal, note, updater&#8217;);<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="nb">define</span><span class="p">(</span><span class="s1">'PLUGINS'</span><span class="p">,</span> <span class="s1">'auth_remote, auth_internal, note, updater'</span><span class="p">);</span></code></pre></figure></div>
 <p>Una vez hecho, en la sección preferencias, bajo la barra de Plugins debería aparecer la barra <em>&#8220;Actualizar Tiny Tiny <span class="caps">RSS</span>&#8221;</em>.</p>
 <p>Para que el procedimiento funcione correctamente, el directorio superior a tt-rss también debe pertenecer al usuario que ejecuta apache. Siguiendo el ejemplo de esta instalación&#8230;</p>
 <p>En el caso de Debian y derivados.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>chown www-data:www-data /var/www<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">chown </span>www-data:www-data /var/www</code></pre></figure></div>
 <p>En el caso de RedHat y derivados</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>chown apache:apache /var/www/html<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">chown </span>apache:apache /var/www/html</code></pre></figure></div>
 <p>En el caso de que la actualización desde el navegador no funcione, se puede lanzar el proceso desde la consola con la siguiente orden.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-su www-data -c &#8220;/usr/bin/php /var/www/tt-rss/update.php -update_self&#8221;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">su www-data -c "/usr/bin/php /var/www/tt-rss/update.php -update_self"</span></code></pre></figure></div>
 <p>Sustituye <code>www-data</code> por <code>apache</code> si estás en RedHat o derivados. Ah, y acordaos que a partir de la versión 1.7.5 los argumentos se pasan con doble guión.</p>
       </div>
 
@@ -5543,7 +5480,7 @@ su www-data -c &#8220;/usr/bin/php /var/www/tt-rss/update.php -update_self&#8221
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

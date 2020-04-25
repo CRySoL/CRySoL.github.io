@@ -5350,35 +5350,26 @@
 <p>En el caso que nos ocupa, voy a substituir <strong>eth1</strong> por un interfaz virtual de <strong>eth0</strong> de modo que la mayoría de lo que se cuenta en la citada receta es válido. Sólo voy a poner aquí las diferencias.</p>
 <p>El fichero <code>/etc/network/interfaces</code> queda tal que:</p>
 <div>
-<p>{% highlight text %}<br />
-auto lo<br />
-iface lo inet loopback</p>
-<p>auto eth0<br />
-iface eth0 inet dhcp</p>
-<p>auto eth0:0<br />
-iface eth0:0 inet static<br />
-      address 192.168.0.1<br />
-      netmask 255.255.255.0<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+
+auto eth0:0
+iface eth0:0 inet static
+      address 192.168.0.1
+      netmask 255.255.255.0</code></pre></figure></div>
 <h2><span class="caps">DNS</span> y <span class="caps">DHCP</span></h2>
 <p><strong>dnsmasq</strong> tiene ciertas limitaciones en lo referente a interfaces virtuales, así que el fichero <code>/etc/dhsmasq.conf</code> debe incluir únicamente estas modificaciones:</p>
 <div>
-<p>{% highlight text <span>}<br />
-dhcp-range=192.168.0.2,192.168.0.254,12h<br />
-dhcp-option=3,192.168.0.1<br />
-dhcp-option=6,192.168.0.1<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">dhcp-range=192.168.0.2,192.168.0.254,12h
+dhcp-option=3,192.168.0.1
+dhcp-option=6,192.168.0.1</code></pre></figure></div>
 <p>Es decir, tendrás <span class="caps">DNS</span> y <span class="caps">DHCP</span> en las dos interfaces. Como eso no es deseable ni conveniente, puedes cerrar los puertos correspondientes con las siguientes reglas &#8220;iptables&#8221;. No olvides echar un vistazo a nuestra receta <a href="/node/339">La enésima receta de iptables</a>.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -A <span class="caps">INPUT</span> -i eth0 -p tcp &#8212;dport 53 -j <span class="caps">REJECT</span></li>
-	<li>iptables -A <span class="caps">INPUT</span> -i eth0 -p udp &#8212;dport 67 -j <span class="caps">REJECT</span><br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>iptables <span class="nt">-A</span> INPUT <span class="nt">-i</span> eth0 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 53 <span class="nt">-j</span> REJECT
+<span class="gp">#</span><span class="w"> </span>iptables <span class="nt">-A</span> INPUT <span class="nt">-i</span> eth0 <span class="nt">-p</span> udp <span class="nt">--dport</span> 67 <span class="nt">-j</span> REJECT</code></pre></figure></div>
 <h2>Limitaciones</h2>
 <p>En el caso del <strong>modem de <span class="caps">ONO</span></strong>, es indispensable que el router sea el primer PC de la red en pedir IP, puesto que si algún otro se le adelanta, únicamente ése tendrá acceso a Internet a través del modem, y el router quedará sin servicio. Moraleja: Enciende el router antes que los demás PCs de tu red.</p>
       </div>
@@ -5445,7 +5436,7 @@ dhcp-option=6,192.168.0.1<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5341,59 +5341,38 @@ Ndiswrapper es un sistema que nos va a permitir usar los drivers para windows &#
 <h2>¿Cómo se instala ndiswrapper?</h2>
 teclea:
 <div class="console">
-<p>{% highlight console %}<br />
-$  sudo apt-get install ndiswrapper-common</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>ndiswrapper-common</code></pre></figure></div>
 O si lo prefieres te puedes descargar el tar.gz desde <a href="http://sourceforge.net/projects/ndiswrapper/">su página web</a>
 <p>Después decomprimes y haces un</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$  make install</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>make <span class="nb">install</span></code></pre></figure></div>
 <h2>Descargar drivers de Windows</h2>
 Deberás descargar los drivers que hay disponibles para windows. Normalmente deberán estar en la página web del fabricante.
 <h2>Instalar drivers</h2>
 Vete al directorio donde se encuentren los archivos con los drivers de windows y haz como root.
 <div class="console">
-<p>{% highlight console <span>}<br />
-$  ndiswrapper -i nombre_del_driver.inf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>ndiswrapper <span class="nt">-i</span> nombre_del_driver.inf</code></pre></figure></div>
 La -i es de install. Lo que hará ndiswrapper es copiar el archivo .sys y crear una configuración para él. Lo podemos encontrar en <code>/etc/ndiswrapper</code>.
 <h2>¿Cómo comprobar si el driver se ha instalado correctamente?</h2>
 Teclea
 <div class="console">
-<p>{% highlight console <span>}<br />
-$  ndiswrapper -l<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span>ndiswrapper <span class="nt">-l</span></code></pre></figure></div>
 <p>Esto nos lista los drivers que tenemos instalados con ndiswrapper y si su hardware está presente o no.</p>
 <h2>Cargar el módulo de ndiswrapper</h2>
 El siguiente paso es cargar el modulo de ndiswrapper de la siguiente manera:
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ modprobe ndiswrapper<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>modprobe ndiswrapper</code></pre></figure></div>
 <h2>Ultimo paso, creando el alias</h2>
 Si todo ha funcionado bien, sólo nos resta hacer un
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ ndiswrapper -m<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ndiswrapper <span class="nt">-m</span></code></pre></figure></div>
 <p>para crear el alias wlan0 ndiswrapper en <code>/etc/modprobe.d/ndiswrapper</code>. Esto hará que cada vez que usemos la interfaz wlan0, se cargue el módulo ndiswrapper. La interfaz se puede levantar normalmente con ifconfig wlan0 up.</p>
 <h2>¿Con qué programas puedo observar a qué redes me puedo conectar?</h2>
 Bien, yo al menos conozco dos:
 <p>Network-Manager. Molinux lo traía instalado por defecto.<br />
 y otro es Wifi-Radar, para instalarlo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ sudo apt-get install wifi-radar<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>wifi-radar</code></pre></figure></div>
 <p>Esto ya es a gusto de consumidores libres.</p>
 <h2>Bibliografía</h2>
 <p><a href="http://www.badopi.org/node/684">Receta principal en la que yo me base</a><br />
@@ -5467,7 +5446,7 @@ $ sudo apt-get install wifi-radar<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

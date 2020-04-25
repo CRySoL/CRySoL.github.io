@@ -5355,42 +5355,44 @@
 <p>Se trata de una clase abstracta, es decir, no está pensada para ser instanciada sino para heredar de ella. La clase en cuestión es ésta:</p>
 <p><a href="https://arco.inf-cr.uclm.es/svn/public/samples/pygtk/gladeutil/gladeutil.py">gladeutil.py</a></p>
 <div>
-<p>{% highlight python %}<br />
-class Wrapper(object):</p>
-def <i>init</i>(self, glade_file, root_widget=None):
-self.glade = gtk.glade.<acronym title="glade_file, root_widget"><span class="caps">XML</span></acronym>
-self.glade.signal_autoconnect(self)
-self.get_widget = self.glade.get_widget
-def <i>getattr</i>(self, key):
-try:
-return object.<i>getattribute</i>(self, key)
-except AttributeError, e:
-if not key.startswith(&#8220;wg_&#8221;): raise
-if not hasattr(self, &#8216;glade&#8217;):
-raise AttributeError(&#8220;You must call gladeutil.Wrapper.<i>init</i>() in your derived class&#8221;)
-ret = self.glade.get_widget(key[3:])
-if ret is None:
-raise AttributeError, &#8220;&#8216;%s&#8217; has no widget &#8216;%s&#8217;&#8221; % (self.<i>class</i>.<i>name</i>, key[3:])
-setattr(self, key, ret)
-return ret
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">glade_file</span><span class="p">,</span> <span class="n">root_widget</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">glade</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">glade</span><span class="p">.</span><span class="n">XML</span><span class="p">(</span><span class="n">glade_file</span><span class="p">,</span> <span class="n">root_widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">glade</span><span class="p">.</span><span class="n">signal_autoconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">get_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">glade</span><span class="p">.</span><span class="n">get_widget</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">object</span><span class="p">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">except</span> <span class="nb">AttributeError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">"wg_"</span><span class="p">):</span> <span class="k">raise</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">'glade'</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="nb">AttributeError</span><span class="p">(</span><span class="s">"You must call gladeutil.Wrapper.__init__() in your derived class"</span><span class="p">)</span>
+
+            <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">glade</span><span class="p">.</span><span class="n">get_widget</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span>
+            <span class="k">if</span> <span class="n">ret</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="nb">AttributeError</span><span class="p">,</span> <span class="s">"'%s' has no widget '%s'"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">__class__</span><span class="p">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">key</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span>
+
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">ret</span></code></pre></figure></div>
 <p>Al sobreescribir el método <code>__getattr__()</code> se puede referenciar un widget como si fuera un atributo del objeto que implemente esta clase. A pesar de eso, dispone de un método <code>get_widget()</code> por si fuera necesario acceder a un widget del que se tiene su nombre como cadena, aunque eso no es lo habitual.</p>
 <p>También notar que para acceder a un widget hay que poner &#8220;wg_&#8221; antes del nombre que le hayas dado en el .glade, Eso simplifica las cosas porque, de otro modo, al escribir mal el nombre de un atributo del objeto, el gladewrapper &#8220;pensaría&#8221; que te refieres a un widget; además es habitual usar atributos que se llaman igual que los widgets con los que tienen relación.</p>
 <h2>Ejemplo de uso</h2>
 <p>Para entender realmente la utilidad de esta clase lo más fácil es ver un ejemplo. El siguiente programa necesita el fichero <a href="https://arco.esi.uclm.es/svn/public/samples/pygtk/gladeutil/gui.glade">gui.glade</a> (creado con &#8220;glade&#8221;) para poder funcionar. Claramente la aplicación es totalmente trivial, es un típico &#8220;holamundo&#8221; que imprime un texto en una etiqueta al pulsar el botón.</p>
 <p><a href="https://arco.inf-cr.uclm.es/svn/public/samples/pygtk/gladeutil/wrapper_sample1.py">wrapper_sample1.py</a></p>
 <div>
-<p>{% highlight python %}<br />
-import gtk, gladeutil</p>
-<p>class Application(gladeutil.Wrapper):<br />
-    quit = gtk.main_quit</p>
-def on_button_clicked(self, button):
-self.wg_entry.set_text(&#8216;Minimal sample!&#8217;)
-<p>app = Application(&#8216;gui.glade&#8217;)<br />
-gtk.main()<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">gtk</span><span class="p">,</span> <span class="n">gladeutil</span>
+
+<span class="k">class</span> <span class="nc">Application</span><span class="p">(</span><span class="n">gladeutil</span><span class="p">.</span><span class="n">Wrapper</span><span class="p">):</span>
+    <span class="n">quit</span> <span class="o">=</span> <span class="n">gtk</span><span class="p">.</span><span class="n">main_quit</span>
+
+    <span class="k">def</span> <span class="nf">on_button_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">wg_entry</span><span class="p">.</span><span class="n">set_text</span><span class="p">(</span><span class="s">'Minimal sample!'</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">(</span><span class="s">'gui.glade'</span><span class="p">)</span>
+<span class="n">gtk</span><span class="p">.</span><span class="n">main</span><span class="p">()</span></code></pre></figure></div>
 <p>Si alguien sabe cómo hacerlo más fácil que lo diga, por favor; a mí no se me ocurre&#8230;</p>
 <h2>Referencias</h2>
 <ul>
@@ -5465,7 +5467,7 @@ gtk.main()<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

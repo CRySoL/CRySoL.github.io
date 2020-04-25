@@ -5473,81 +5473,51 @@
 <p><!--break--></p>
 <p>Entra como superusuario y ve al directorio raíz</p>
 <div class="console">
-<p>{% highlight console %}<br />
- user@my-box:~$ su<br />
-root@my-box:/home/user# cd /</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> user@my-box:~$</span><span class="w"> </span>su
+<span class="gp">root@my-box:/home/user#</span><span class="w"> </span><span class="nb">cd</span> /</code></pre></figure></div>
 <p>Crea un directorio vacio, por ejemplo, <code>dummy</code>. Esto es una chapucilla, si alguien sabe cómo hacerlo mejor que lo diga.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- root@my-box:/# mkdir dummy<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> root@my-box:/#</span><span class="w"> </span><span class="nb">mkdir </span>dummy</code></pre></figure></div>
 <p>Crea un nuevo módulo para tu máquina en el repositorio que vayas a usar (en este caso un repo remoto en <code>server:/svn/etc</code>) indicando sólo el directorio recién creado.</p>
 <div class="console">
-<p>{% highlight console %}<br />
- root@my-box:/# svn import dummy http://server/svn/etc/my-box/dummy<br />
-Password <root>: Pulsa <span class="caps">ENTER</span><br />
-Username: user<br />
-Password: ******<br />
-root@my-box:/#</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> root@my-box:/#</span><span class="w"> </span>svn import dummy http://server/svn/etc/my-box/dummy
+<span class="gp">Password &lt;root&gt;</span>: Pulsa ENTER
+<span class="go">Username: user
+Password: ******
+</span><span class="gp">root@my-box:/#</span></code></pre></figure></div>
 <p>Borra el directorio dummy y haz checkout del repo.</p>
 <div class="console">
-<p>{% highlight console %}<br />
-root@my-box:/# rmdir dummy<br />
-root@my-box:/# svn co http://server/svn/etc/my-box ./</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@my-box:/#</span><span class="w"> </span><span class="nb">rmdir </span>dummy
+<span class="gp">root@my-box:/#</span><span class="w"> </span>svn co http://server/svn/etc/my-box ./</code></pre></figure></div>
 <p>Añade los directorios (en modo no recursivo) en los que haya ficheros que quieras mantener controlados. El repo se utiliza de la forma habitual, pero con más cuidado :-D</p>
 <div class="console">
-<p>{% highlight console %}<br />
-root@my-box:/# svn add -N etc<br />
-root@my-box:/# svn add etc/passwd<br />
-root@my-box:/# svn add etc/fstab<br />
-root@my-box:/# svn ci</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@my-box:/#</span><span class="w"> </span>svn add <span class="nt">-N</span> etc
+<span class="gp">root@my-box:/#</span><span class="w"> </span>svn add etc/passwd
+<span class="gp">root@my-box:/#</span><span class="w"> </span>svn add etc/fstab
+<span class="gp">root@my-box:/#</span><span class="w"> </span>svn ci</code></pre></figure></div>
 <p>El directorio <code>dummy</code> se puede eliminar ahora:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- root@my-box:/# svn del dummy<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> root@my-box:/#</span><span class="w"> </span>svn del dummy</code></pre></figure></div>
 <h2>Otra manera de hacerlo</h2>
 <p>Existe otra manera de hacer esto mismo sin necesidad de incluir el fichero <code>dummy</code> que, en definitiva se queda para siempre en el repo, aunque lo borres.</p>
 <p>Bájate el repo y crea el directorio donde quieras añadir tu directorio.</p>
 <div class="console">
-<p>{% highlight console %}<br />
-root@my-box:~/repo/$ svn co -N http://server/svn/etc/ config<br />
-root@my-box:~/repo/$ cd config<br />
-root@my-box:~/repo/config$ svn mkdir my-box<br />
-root@my-box:~/repo/config$ svn ci -m &#8220;configuración de my-box&#8221;</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@my-box:~/repo/$</span><span class="w"> </span>svn co <span class="nt">-N</span> http://server/svn/etc/ config
+<span class="gp">root@my-box:~/repo/$</span><span class="w"> </span><span class="nb">cd </span>config
+<span class="gp">root@my-box:~/repo/config$</span><span class="w"> </span>svn <span class="nb">mkdir </span>my-box
+<span class="gp">root@my-box:~/repo/config$</span><span class="w"> </span>svn ci <span class="nt">-m</span> <span class="s2">"configuración de my-box"</span></code></pre></figure></div>
 <p>Con lo anterior se ha creado un directorio <code>.svn</code> en ese directorio. Ahora copia el directorio .svn creado al directorio inicial de tu configuración (a lo mejor necesitas permisos de root):</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-root@my-box:~/repo/config# cp -r my-box/.svn  /<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@my-box:~/repo/config#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-r</span> my-box/.svn  /</code></pre></figure></div>
 <p>Ahora ve añadiendo toda la ruta (en modo no recursivo) hasta meter los directorios que quieras controlar, y, una vez hecho eso, añade los ficheros que desees:</p>
 <div class="console">
-<p>{% highlight console %}<br />
- root@my-box:/# svn add -N etc<br />
-root@my-box:/# svn add -N etc/afbackup<br />
-root@my-box:/# svn add etc/afbackup/server.conf<br />
-root@my-box:/# svn add etc/afbackup/changer.conf</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> root@my-box:/#</span><span class="w"> </span>svn add <span class="nt">-N</span> etc
+<span class="gp">root@my-box:/#</span><span class="w"> </span>svn add <span class="nt">-N</span> etc/afbackup
+<span class="gp">root@my-box:/#</span><span class="w"> </span>svn add etc/afbackup/server.conf
+<span class="gp">root@my-box:/#</span><span class="w"> </span>svn add etc/afbackup/changer.conf</code></pre></figure></div>
 <p>Haz efectivos los cambios en el directorio donde copiaste el <code>.svn</code></p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-root@my-box:/# svn ci<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@my-box:/#</span><span class="w"> </span>svn ci</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li>Subversion personal</li>
@@ -5622,7 +5592,7 @@ root@my-box:/# svn ci<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

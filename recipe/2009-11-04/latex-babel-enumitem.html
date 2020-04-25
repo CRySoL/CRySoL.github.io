@@ -5207,29 +5207,28 @@
 	<p>Hay un pequeño bug en <code>babel</code> que da la lata si usas también el paquete <code>enumitem</code>. El error dice algo como:</p>
 <p><!--break--></p>
 <div>
-<p>{% highlight text <span>}<br />
-No file examples.aux.<br />
-(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)<br />
-(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd))<br />
-! Incomplete \iffalse; all text was ignored after line 19.<br />
-<inserted text><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">No file examples.aux.
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd))
+! Incomplete \iffalse; all text was ignored after line 19.
+&lt;inserted text&gt;</code></pre></figure></div>
 <p>Para parchear este problema hasta que lo arreglen basta con añadir esto:</p>
 <div>
-<p>{% highlight latex %}<br />
-[&#8230;]</p>
-<p>\usepackage[spanish]{babel}</p>
-<p>%- parche para babel<br />
-\makeatletter<br />
-\let\savees@listquot\es@listquot<br />
-\def\es@listquot{\protect\savees@listquot}<br />
-%- fin parche</p>
-<p>[&#8230;]</p>
-<p>\usepackage{enumitem}</p>
-<p>[&#8230;]<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-latex" data-lang="latex">[...]
+
+<span class="k">\usepackage</span><span class="na">[spanish]</span><span class="p">{</span>babel<span class="p">}</span>
+
+<span class="c">%- parche para babel</span>
+<span class="k">\makeatletter</span>
+<span class="k">\let\savees</span>@listquot<span class="k">\es</span>@listquot
+<span class="k">\def\es</span>@listquot<span class="p">{</span><span class="k">\protect\savees</span>@listquot<span class="p">}</span>
+<span class="c">%- fin parche</span>
+
+[...]
+
+<span class="k">\usepackage</span><span class="p">{</span>enumitem<span class="p">}</span>
+
+[...]</code></pre></figure></div>
 <p>Más información y detalles en <a href="http://www.tex-tipografia.com/spanish.html">http://www.tex-tipografia.com/spanish.html</a></p>
       </div>
 
@@ -5295,7 +5294,7 @@ No file examples.aux.<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

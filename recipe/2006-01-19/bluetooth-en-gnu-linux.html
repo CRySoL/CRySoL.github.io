@@ -5428,174 +5428,141 @@
 <p>Entre los comandos que nos instalan estos paquetes, puedes encontrar:</p>
 <h2>Examinar la interface</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>hciconfig -a<br />
-hci0:   Type: <span class="caps">USB</span><br />
-        BD Address: 00:08:1B:03:05:25 <span class="caps">ACL</span> <span class="caps">MTU</span>: 192:8 <span class="caps">SCO</span> <span class="caps">MTU</span>: 64:8<br />
-        UP <span class="caps">RUNNING</span> <span class="caps">PSCAN</span> <span class="caps">ISCAN</span><br />
-        RX bytes:385 acl:0 sco:0 events:18 errors:0<br />
-        TX bytes:319 acl:0 sco:0 commands:17 errors:0<br />
-        Features: 0xff 0xff 0&#215;0f 0&#215;00 0&#215;00 0&#215;00 0&#215;00 0&#215;00<br />
-        Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3<br />
-        Link policy: <span class="caps">RSWITCH</span> <span class="caps">HOLD</span> <span class="caps">SNIFF</span> <span class="caps">PARK</span><br />
-        Link mode: <span class="caps">SLAVE</span> <span class="caps">ACCEPT</span><br />
-        Name: &#8216;homer&#8217;<br />
-        Class: 0&#215;3e0100<br />
-        Service Classes: Networking, Rendering, Capturing<br />
-        Device Class: Computer, Uncategorized<br />
-        <span class="caps">HCI</span> Ver: 1.1 (0&#215;1) <span class="caps">HCI</span> Rev: 0&#215;20d <span class="caps">LMP</span> Ver: 1.1 (0&#215;1) <span class="caps">LMP</span> Subver: 0&#215;20d<br />
-        Manufacturer: Cambridge Silicon Radio (10)<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>hciconfig <span class="nt">-a</span>
+<span class="go">hci0:   Type: USB
+        BD Address: 00:08:1B:03:05:25 ACL MTU: 192:8 SCO MTU: 64:8
+        UP RUNNING PSCAN ISCAN
+        RX bytes:385 acl:0 sco:0 events:18 errors:0
+        TX bytes:319 acl:0 sco:0 commands:17 errors:0
+        Features: 0xff 0xff 0x0f 0x00 0x00 0x00 0x00 0x00
+        Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3
+        Link policy: RSWITCH HOLD SNIFF PARK
+        Link mode: SLAVE ACCEPT
+        Name: 'homer'
+        Class: 0x3e0100
+        Service Classes: Networking, Rendering, Capturing
+        Device Class: Computer, Uncategorized
+        HCI Ver: 1.1 (0x1) HCI Rev: 0x20d LMP Ver: 1.1 (0x1) LMP Subver: 0x20d
+        Manufacturer: Cambridge Silicon Radio (10)</span></code></pre></figure></div>
 <h3>Escaner (usando una iface determinada)</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- $ hcitool -a hci0 scan<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>hcitool <span class="nt">-a</span> hci0 scan</code></pre></figure></div>
 <h3>Sniffer de <span class="caps">HCI</span></h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- hcidump<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> hcidump</span></code></pre></figure></div>
 <h3>Servidor hci (hcid)</h3>
 <p>Su configuración está en <code>/etc/bluetooth/hcid.conf</code> y la base de datos con los pin en <code>/etc/bluetooth/pinDB</code></p>
 <h3>Descubrimiento de servicios</h3>
 <p>El demonio del protocolo de descubrimiento de servicios <span class="caps">SDP</span> (Service discovery protocol) es <code>sdpd</code></p>
 <h3>Gestión de <span class="caps">SDP</span></h3>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>sdptool<br />
-sdptool &#8211; <span class="caps">SDP</span> tool v2.24<br />
-Usage:<br />
-        sdptool [options] <command> [command parameters]<br />
-Options:<br />
-        -h              Display help<br />
-        -i              Specify source interface<br />
-Commands:<br />
-        search          Search for a service<br />
-        browse          Browse all available services<br />
-        records         Request all records<br />
-        add             Add local service<br />
-        del             Delete local service<br />
-        get             Get local service<br />
-        setattr         Set/Add attribute to a <span class="caps">SDP</span> record<br />
-        setseq          Set/Add attribute sequence to a <span class="caps">SDP</span> record</li>
-</ol>
-<p>Services:<br />
-        <span class="caps">DID</span> SP <span class="caps">DUN</span> <span class="caps">LAN</span> <span class="caps">FAX</span> <span class="caps">OPUSH</span> <span class="caps">FTP</span> HS HF <span class="caps">SAP</span> <span class="caps">NAP</span> GN <span class="caps">PANU</span> <span class="caps">HID</span> <span class="caps">CIP</span> <span class="caps">CTP</span><br />
-        A2SRC A2SNK <span class="caps">AVRCT</span> <span class="caps">AVRTG</span> SR1 <span class="caps">SYNCML</span> <span class="caps">ACTIVESYNC</span> <span class="caps">HOTSYNC</span> <span class="caps">PALMOS</span><br />
-        <span class="caps">NOKID</span> <span class="caps">PCSUITE</span><br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>sdptool
+<span class="go">sdptool - SDP tool v2.24
+Usage:
+</span><span class="gp">        sdptool [options] &lt;command&gt;</span><span class="w"> </span><span class="o">[</span><span class="nb">command </span>parameters]
+<span class="go">Options:
+        -h              Display help
+        -i              Specify source interface
+Commands:
+        search          Search for a service
+        browse          Browse all available services
+        records         Request all records
+        add             Add local service
+        del             Delete local service
+        get             Get local service
+        setattr         Set/Add attribute to a SDP record
+        setseq          Set/Add attribute sequence to a SDP record
+
+Services:
+        DID SP DUN LAN FAX OPUSH FTP HS HF SAP NAP GN PANU HID CIP CTP
+        A2SRC A2SNK AVRCT AVRTG SR1 SYNCML ACTIVESYNC HOTSYNC PALMOS
+        NOKID PCSUITE</span></code></pre></figure></div>
 <p>Es importante resaltar que para que un servicio sea descubierto, debes añadirlo mediante un <code>sdptool add &amp;lt;servicio&gt;</code>, la lista de abajo del comando anterior nos muestra los servicios disponibles.</p>
 <h2>Algunos comando útiles</h2>
 <p>Con <code>hcitool scan</code> obtendrás una lista de los dispositivos presentes a tu alrededor.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ hcitool scan<br />
-Scanning &#8230;<br />
-        00:15:A0:42:34:8D       Nokia 6680<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>hcitool scan
+<span class="go">Scanning ...
+        00:15:A0:42:34:8D       Nokia 6680</span></code></pre></figure></div>
 <p>Muestra la dirección bluetooth y el nombre, puedes comprobar la dirección bluetooth en los nokia 66** tecleando el código &#8220;*#2820#&#8221;</p>
 <p>Para obtener una lista de los servicios que ofrece cada dispositivo usamos la herramienta sdptool, en nuestro caso, y para ver lo que ofrece el móvil:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>sdptool browse 00:15:A0:42:34:8D</li>
-</ol>
-<p>Browsing 00:15:A0:42:34:8D &#8230;<br />
-Service Name: Hands-Free Audio Gateway<br />
-Service RecHandle: 0&#215;10003<br />
-Service Class ID List:<br />
-  &#8220;Handfree Audio Gateway&#8221; (0&#215;111f)<br />
-  &#8220;Generic Audio&#8221; (0&#215;1203)<br />
-Protocol Descriptor List:<br />
-  &#8220;L2CAP&#8221; (0&#215;0100)<br />
-  &#8220;<span class="caps">RFCOMM</span>&#8221; (0&#215;0003)<br />
-    Channel: 2<br />
-Language Base Attr List:<br />
-  code_ISO639: 0&#215;454e<br />
-  encoding:    0&#215;6a<br />
-  base_offset: 0&#215;100<br />
-Profile Descriptor List:<br />
-  &#8220;Handfree Audio Gateway&#8221; (0&#215;111f)<br />
-    Version: 0&#215;0101</p>
-<p>Service Name: Headset Audio Gateway<br />
-Service RecHandle: 0&#215;10004<br />
-Service Class ID List:<br />
-  &#8220;Headset Audio Gateway&#8221; (0&#215;1112)<br />
-  &#8220;Generic Audio&#8221; (0&#215;1203)<br />
-Protocol Descriptor List:<br />
-  &#8220;L2CAP&#8221; (0&#215;0100)<br />
-  &#8220;<span class="caps">RFCOMM</span>&#8221; (0&#215;0003)<br />
-    Channel: 3<br />
-Language Base Attr List:<br />
-  code_ISO639: 0&#215;454e<br />
-  encoding:    0&#215;6a<br />
-  base_offset: 0&#215;100<br />
-Profile Descriptor List:<br />
-  &#8220;Headset&#8221; (0&#215;1108)<br />
-    Version: 0&#215;0100</p>
-<p>&#8230;todos los servicios<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>sdptool browse 00:15:A0:42:34:8D
+<span class="go">
+Browsing 00:15:A0:42:34:8D ...
+Service Name: Hands-Free Audio Gateway
+Service RecHandle: 0x10003
+Service Class ID List:
+  "Handfree Audio Gateway" (0x111f)
+  "Generic Audio" (0x1203)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 2
+Language Base Attr List:
+  code_ISO639: 0x454e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  "Handfree Audio Gateway" (0x111f)
+    Version: 0x0101
+
+Service Name: Headset Audio Gateway
+Service RecHandle: 0x10004
+Service Class ID List:
+  "Headset Audio Gateway" (0x1112)
+  "Generic Audio" (0x1203)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 3
+Language Base Attr List:
+  code_ISO639: 0x454e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  "Headset" (0x1108)
+    Version: 0x0100
+
+...todos los servicios</span></code></pre></figure></div>
 <p>Esto proporciona toda la información que necesitas acerca de todos los servicios presentes en el dispositivo, en este caso el teléfono móvil.</p>
 <h2>Servicio dial-up networking</h2>
 <p>Nos vamos a centrar en el servicio dial-up networking, para ello observamos que la salida del comando anterior nos presenta la siguiente información:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>Service Name: Dial-Up Networking<br />
-Service RecHandle: 0&#215;1000e<br />
-Service Class ID List:<br />
-  &#8220;Dialup Networking&#8221; (0&#215;1103)<br />
-Protocol Descriptor List:<br />
-  &#8220;L2CAP&#8221; (0&#215;0100)<br />
-  &#8220;<span class="caps">RFCOMM</span>&#8221; (0&#215;0003)<br />
-    Channel: 3<br />
-Language Base Attr List:<br />
-  code_ISO639: 0&#215;454e<br />
-  encoding:    0&#215;6a<br />
-  base_offset: 0&#215;100<br />
-Profile Descriptor List:<br />
-  &#8220;Dialup Networking&#8221; (0&#215;1103)<br />
-    Version: 0&#215;0100<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">Service Name: Dial-Up Networking
+Service RecHandle: 0x1000e
+Service Class ID List:
+  "Dialup Networking" (0x1103)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 3
+Language Base Attr List:
+  code_ISO639: 0x454e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  "Dialup Networking" (0x1103)
+    Version: 0x0100</span></code></pre></figure></div>
 <p>Para indicarle al ordenador que vamos a usar ese servicio necesitas editar el archivos <code>/etc/bluetooth/rfcomm.conf</code> e insertar una entrada tal que:</p>
 <div>
-<p>{% highlight text <span>}<br />
-rfcomm1 {<br />
-        bind no;<br />
-        device 00:15:A0:42:34:8D;<br />
-        channel 3;<br />
-        comment &#8220;Dial-up networking&#8221;;<br />
-        }<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">rfcomm1 {
+        bind no;
+        device 00:15:A0:42:34:8D;
+        channel 3;
+        comment "Dial-up networking";
+        }</code></pre></figure></div>
 <p>donde el device es el identificador del movil y el channel el que nos indica el registro obtenido con sdptool, justo despues de &#8220;<span class="caps">RFCOMM</span>&#8221; (0&#215;0003).</p>
 <p>Reinicia para cargar la nueva configuración:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/bluez-utils restart<br />
-Restarting bluez-utils: hcid sdpd rfcomm.</li>
-</ol>
-<ol>
-	<li>rfcomm release 1</li>
-</ol>
-<ol>
-	<li>rfcomm connect 1<br />
-Connected /dev/rfcomm1 to 00:15:A0:42:34:8D on channel 10<br />
-Press <span class="caps">CTRL</span>-C for hangup<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/bluez-utils restart
+<span class="go">Restarting bluez-utils: hcid sdpd rfcomm.
+
+</span><span class="gp">#</span><span class="w"> </span>rfcomm release 1
+<span class="go">
+</span><span class="gp">#</span><span class="w"> </span>rfcomm connect 1
+<span class="go">Connected /dev/rfcomm1 to 00:15:A0:42:34:8D on channel 10
+Press CTRL-C for hangup</span></code></pre></figure></div>
 <p>Ya tienes una conexión lista, con lo cual, por ejemplo, si estas en un portátil en mitad del campo y quieres conectarte a internet con tu<br />
 portátil a través de tu móvil tienes que configurar un enlace ppp a través del móvil.</p>
 <p>Para eso, tienes comandos muy interesantes:</p>
@@ -5621,22 +5588,16 @@ portátil te pedirá en ambos dispositivos el pin.</p>
 <p>Para ello existe un interesante proyecto basado en Alsa, lo puedes encontrar en <a href="http://sourceforge.net/projects/bluetooth-alsa/">bluetooth-alsa</a> (no es paquete debian).</p>
 <p>Dos errores que surgieron en la configuración son:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>felix:# btsco<br />
-Error: control open (hw:0): No such device<br />
-Error: Can&#8217;t find device. Bail<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">felix:#</span><span class="w"> </span>btsco
+<span class="go">Error: control open (hw:0): No such device
+Error: Can't find device. Bail</span></code></pre></figure></div>
 <p>Esto indica que no tienes configurados los drivers de alsa y no encuentran los dispositivos. Prueba a instalar y ejecutar el alsaconf para instalar alsa.</p>
 <p>Otro problema, despues de instalar los drivers de alsa puede ser:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>felix:# btsco<br />
-Error: hwdep next device (hw:0): Operation not permitted<br />
-Error: control open (hw:1): No such device<br />
-Error: Can&#8217;t find device. Bail<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">felix:#</span><span class="w"> </span>btsco
+<span class="go">Error: hwdep next device (hw:0): Operation not permitted
+Error: control open (hw:1): No such device
+Error: Can't find device. Bail</span></code></pre></figure></div>
 <p>No tienes cargado el modulo del kernel <code>snd-bt-sco</code>, está en el directorio <code>kernel</code> del programa <code>btsco</code>, tienes que ejecutar <code>make; make install</code> en dicho directorio.</p>
 <p>Si al hacer <code>modprobe snd-bt-sco</code>, no lo encuentra  (y se te ha compilado todo bien) copia el .ko a mano a <code>/lib/modules/2.6.14-2-386/kernel/drivers/</code> poniendo la versión del kernel que tengas (la mia es una 2.6.14-2-386).</p>
 <h2>Comentarios</h2>
@@ -5711,7 +5672,7 @@ Error: Can&#8217;t find device. Bail<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

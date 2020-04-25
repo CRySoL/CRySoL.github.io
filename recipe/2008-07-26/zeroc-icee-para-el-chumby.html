@@ -5407,105 +5407,79 @@
 <h2>Primero los <i>translators</i></h2>
 <p>Como sabrás, para poder usar IceE, es necesario disponer de los <i>translators</i>, que crean los <i>stubs</i> a partir de las interfaces Slice que vayamos a usar. Puesto que son generadores de código, y por tanto, se ejecutan en la máquina que usamos para desarrollar, no se deben compilar para <span class="caps">ARM</span>. Así pues, los instalamos como si de cualquier otra cosa se tratara:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-<b>CHROOT@Chumby</b>:~# apt-get update<br />
-<b>CHROOT@Chumby</b>:~# apt-get install icee-translators</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:~# apt-get update
+<span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:~# apt-get <span class="nb">install </span>icee-translators</code></pre></figure></div>
 <p>Esto sería lo ideal, pero si solo tienes los <i>sources</i> de <span class="caps">SID</span>, a día de hoy (28/07/08) te va dar un errorcito tal que así:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-Los siguientes paquetes tienen dependencias incumplidas:<br />
-icee-translators:<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Depende: slice2cppe pero no va a instalarse<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Depende: slice2javae pero no va a instalarse</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">Los siguientes paquetes tienen dependencias incumplidas:
+icee-translators:
+</span><span class="gp">&amp;nbsp;</span>&amp;nbsp<span class="p">;</span>&amp;nbsp<span class="p">;</span>&amp;nbsp<span class="p">;</span>&amp;nbsp<span class="p">;</span>&amp;nbsp<span class="p">;</span>Depende: slice2cppe pero no va a instalarse
+<span class="gp">&amp;nbsp;</span>&amp;nbsp<span class="p">;</span>&amp;nbsp<span class="p">;</span>&amp;nbsp<span class="p">;</span>&amp;nbsp<span class="p">;</span>&amp;nbsp<span class="p">;</span>Depende: slice2javae pero no va a instalarse</code></pre></figure></div>
 <p>Tranquilidad, no te asustes. Se soluciona colocando los repos de Lenny (que sí tienen lo que hay que tener&#8230;):</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-<b>CHROOT@Chumby</b>:~# cat /etc/apt/sources.list<br />
-deb http://ftp.es.debian.org/debian sid main contrib non-free<br />
-deb-src http://ftp.es.debian.org/debian sid main contrib non-free<br />
-<b>CHROOT@Chumby</b>:~# echo &#8220;deb http://ftp.es.debian.org/debian/ lenny main contrib non-free&#8221; &gt;&gt; /etc/apt/sources.list<br />
-<b>CHROOT@Chumby</b>:~# apt-get update<br />
-<b>CHROOT@Chumby</b>:~# apt-get install icee-translators<br />
-&#8230;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:~# <span class="nb">cat</span> /etc/apt/sources.list
+<span class="go">deb http://ftp.es.debian.org/debian sid main contrib non-free
+deb-src http://ftp.es.debian.org/debian sid main contrib non-free
+</span><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:~# <span class="nb">echo</span> <span class="s2">"deb http://ftp.es.debian.org/debian/ lenny main contrib non-free"</span> &amp;gt<span class="p">;</span>&amp;gt<span class="p">;</span> /etc/apt/sources.list
+<span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:~# apt-get update
+<span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:~# apt-get <span class="nb">install </span>icee-translators
+<span class="c">...</span></code></pre></figure></div>
 <p>Con esto debería bastarte. Si aún así sigues teniendo problemas, siempre te queda la opción de bajarte las fuentes de la <a href="http://www.zeroc.com/icee/download.html">Web de ZeroC-IceE</a>. De nuevo, a día de hoy es posible que cuando vayas a compilar los translators, te encuentres con el siguiente problema:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-c++ -c -I.. -I../../include  -DICE_API_EXPORTS  -ftemplate-depth-128 -Wall -D_REENTRANT -fPIC -g BasicStream.cpp<br />
-In file included from ../../include/IceE/Proxy.h:25,<br />
-                 from ../../include/IceE/BuiltinSequences.h:22,<br />
-                 from ../../include/IceE/Properties.h:16,<br />
-                 from BasicStream.cpp:11:<br />
-../../include/IceE/Outgoing.h:54: error: <span class="caps">ISO</span> C++ forbids declaration of ‘auto_ptr’ with no type<br />
-../../include/IceE/Outgoing.h:54: error: invalid use of ‘::’<br />
-../../include/IceE/Outgoing.h:54: error: expected ‘;’ before ‘&lt;’ token<br />
-../../include/IceE/Outgoing.h:92: error: <span class="caps">ISO</span> C++ forbids declaration of ‘auto_ptr’ with no type<br />
-../../include/IceE/Outgoing.h:92: error: invalid use of ‘::’<br />
-../../include/IceE/Outgoing.h:92: error: expected ‘;’ before ‘&lt;’ token<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">c++ -c -I.. -I../../include  -DICE_API_EXPORTS  -ftemplate-depth-128 -Wall -D_REENTRANT -fPIC -g BasicStream.cpp
+In file included from ../../include/IceE/Proxy.h:25,
+                 from ../../include/IceE/BuiltinSequences.h:22,
+                 from ../../include/IceE/Properties.h:16,
+                 from BasicStream.cpp:11:
+../../include/IceE/Outgoing.h:54: error: ISO C++ forbids declaration of ‘auto_ptr’ with no type
+../../include/IceE/Outgoing.h:54: error: invalid use of ‘::’
+</span><span class="gp">../../include/IceE/Outgoing.h:54: error: expected ‘;</span>’ before ‘&amp;lt<span class="p">;</span>’ token
+<span class="go">../../include/IceE/Outgoing.h:92: error: ISO C++ forbids declaration of ‘auto_ptr’ with no type
+../../include/IceE/Outgoing.h:92: error: invalid use of ‘::’
+</span><span class="gp">../../include/IceE/Outgoing.h:92: error: expected ‘;</span>’ before ‘&amp;lt<span class="p">;</span>’ token</code></pre></figure></div>
 <p>Que se soluciona de una forma un tanto&#8230; en fin, se soluciona añadiendo las siguientes lineas en los siguientes ficheros:</p>
 <p>En <i>include/IceUtil/Config.h</i>:</p>
 <div>
-<p>{% highlight cpp <span>}<br />
-//<br />
-// Some include files we need almost everywhere.<br />
-//<br />
-#include <string.h>   /* &lt;&#8212;&#8212;&#8212; Esta linea <strong>/<br />
-#include <limits.h>   /</strong> &lt;&#8212;&#8212;&#8212; Esta linea */<br />
-#include <cassert><br />
-&#8230;{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">//</span>
+<span class="c1">// Some include files we need almost everywhere.</span>
+<span class="c1">//</span>
+<span class="cp">#include &lt;string.h&gt;   </span><span class="cm">/* &lt;------ Esta linea */</span><span class="cp">
+#include &lt;limits.h&gt;   </span><span class="cm">/* &lt;------ Esta linea */</span><span class="cp">
+#include &lt;cassert&gt;
+</span><span class="p">...</span></code></pre></figure></div>
 <p>En <i>include/Slice/DoNetNames.h</i>:</p>
 <div>
-<p>{% highlight cpp %}<br />
-#ifndef DOTNETNAMES_H<br />
-#define DOTNETNAMES_H</p>
-<p>#include <string.h>    /* &lt;&#8212;&#8212;&#8212; Esta linea */<br />
-#include <string></p>
-<p>namespace Slice<br />
-{<br />
-&#8230;{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#ifndef DOTNETNAMES_H
+#define DOTNETNAMES_H
+</span>
+<span class="cp">#include &lt;string.h&gt;    </span><span class="cm">/* &lt;------ Esta linea */</span><span class="cp">
+#include &lt;string&gt;
+</span>
+<span class="k">namespace</span> <span class="n">Slice</span>
+<span class="p">{</span>
+<span class="p">...</span></code></pre></figure></div>
 <p>Esta es la manera que se me ha ocurrido a mi, seguro que encuentras una mucho mejor. Si así es, te agradecería que me lo comentaras. Si necesitas algún paquete más para compilar los translators, sabes que usando <i>apt-get build-dep icee-translators</i> se instalan, ¿verdad? :-p</p>
 <h2>Compilar IceE</h2>
 <p>Ahora toca la parte más jugosa :-). Creo (y si no llevo razón, por favor, quitadmela) que IceE no esta empaquetado para <span class="caps">ARM</span>, o por lo menos, no esta en los repos oficiales. Por ello, lo primero es descargarse las fuentes. Lo puedes hacer desde la web de ZeroC-IceE o usando el repositorio de Debian, tú eliges.</p>
 <p><b>Nota:</b> si no te has descargado antes las fuentes de ningún paquete y estas en el chroot de mi anterior receta, necesitas instalarte el paquete <i>dpkg-dev</i>.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-<b>CHROOT@Chumby</b>:ice# apt-get source zeroc-icee<br />
-&#8230;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:ice# apt-get <span class="nb">source </span>zeroc-icee
+<span class="c">...</span></code></pre></figure></div>
 <p>Ahora es buen momento para configurar la instalación. Entra en el directorio de Ice. En el fichero <i>config/Make.rules</i> tienes algunos parámetros con los que jugar. Aquí dependerá de tus necesidades en concreto. Yo, personalmente, he dejado las siguientes variables así:</p>
 <div>
-<p>{% highlight text <span>}<br />
-prefix                  = /usr/icee<br />
-OPTIMIZE_SPEED          = yes<br />
-<span class="caps">STATICLIBS</span>              = yes<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">prefix                  = /usr/icee
+OPTIMIZE_SPEED          = yes
+STATICLIBS              = yes</code></pre></figure></div>
 <p>Tendrás que modificar tus variables de entorno para que el compilador busque en las rutas correspondientes a esta instalación (es decir, en <i>/usr/icee/lib</i> y <i>/usr/icee/include</i>) lo que necesite (o crear enlaces simbólicos&#8230;). Como estamos en una jaula, no importa ensuciarnos las manos ;-)</p>
 <p>Antes de compilar, un pequeño pero importante detalle: ¡tenemos que especificar que compilador usar! Para ello, basta con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-<b>CHROOT@Chumby</b>:zeroc-icee-1.2.0# export <span class="caps">CXX</span>=arm-linux-g++<br />
-<b>CHROOT@Chumby</b>:zeroc-icee-1.2.0# export AR=arm-linux-ar<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:zeroc-icee-1.2.0# <span class="nb">export </span><span class="nv">CXX</span><span class="o">=</span>arm-linux-g++
+<span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:zeroc-icee-1.2.0# <span class="nb">export </span><span class="nv">AR</span><span class="o">=</span>arm-linux-ar</code></pre></figure></div>
 <p>Y listo. Ya puedes hacer el esperado <i>make</i></p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-<b>CHROOT@Chumby</b>:zeroc-icee-1.2.0# make<br />
-<b>CHROOT@Chumby</b>:zeroc-icee-1.2.0# make install<br />
-&#8230;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:zeroc-icee-1.2.0# make
+<span class="gp">&lt;b&gt;</span>CHROOT@Chumby&lt;/b&gt;:zeroc-icee-1.2.0# make <span class="nb">install</span>
+<span class="c">...</span></code></pre></figure></div>
 <h2>Probando&#8230; un, dos&#8230;</h2>
 <p>Si tarda mucho la compilación, haztelo mirar, eso no es normal :-p Cuando haya terminado, seguro que estarás deseoso de probar el invento, ¿no? Pues lo vamos a hacer usando el típico <i>Hello World</i></p>
 <p>Para la ocasión, he empaquetado un pequeño ejemplo, que crea el servidor usando el compilador cruzado, y el cliente con el compilador para x86. De esta forma, puedes probar el ejemplo desde tu equipo y cerciorarte de que no te miento.</p>
@@ -5575,7 +5549,7 @@ OPTIMIZE_SPEED          = yes<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5340,12 +5340,7 @@
 <p>En primer lugar hay que redirigir el tráfico de nuestro servidor, del puerto 443 al 22. Una opción es lanzar el demonio ssh directamente en el puerto 443, pero eso no parece una solución elegante. No obstante quien quiera hacerlo no tiene más que tocar en <tt>/etc/ssh/sshd_config</tt>.</p>
 <p>Lo mas limpio es usar <tt>iptables</tt> para redirigir el trafico. La orden es esta.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>iptables -t nat -A <span class="caps">PREROUTING</span> -i ippp0 -p tcp &#8212;dport 443 -j <span class="caps">REDIRECT</span> &#8212;to-port 22</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>iptables <span class="nt">-t</span> nat <span class="nt">-A</span> PREROUTING <span class="nt">-i</span> ippp0 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 443 <span class="nt">-j</span> REDIRECT <span class="nt">--to-port</span> 22</code></pre></figure></div>
 <p>Con <tt>corkscrew</tt> instalado vamos al directorio <tt>$<span class="caps">HOME</span>/.ssh</tt> y editamos el fichero <tt>config</tt> (si no existe, lo creamos). En su interior ponemos esto:</p>
 <pre>
 Host servidor.casa.com
@@ -5354,10 +5349,7 @@ ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p
 <p>Donde <tt>proxy.curro.es</tt> el la dirección del proxy de nuestra red y 8080 es el puerto que usa el proxy. Las variables %h y %p se refieren al host y al port que usaremos para conectar y se le pasan desde el comando ssh como veremos a continuación.</p>
 <p>Ahora para conectar a cualquier sitio tan sólo necesitamos ejecutar la orden.</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ ssh -p 443 usuario@servidor.casa.com</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ssh <span class="nt">-p</span> 443 usuario@servidor.casa.com</code></pre></figure></div>
 <h2>Más difícil todavía</h2>
 <p>Si nuestro proxy necesita autenticación tendremos que crear un segundo fichero en <tt>.ssh/autenticacion</tt> con lo siguiente</p>
 <pre>usuario:password
@@ -5373,10 +5365,7 @@ ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p
 <h2>¿Utilidad final de todo esto?</h2>
 <p>Vale, ya puedo acceder mediante <span class="caps">SSH</span> al ordenador de casa desde el trabajo, ¿y que? Pues si tenéis problemas con el proxy de vuestro trabajo porque os deniega el acceso a algunas páginas web que os son imprescindibles y el departamento de sistemas os ignora completamente, tan solo tenéis que instalar un proxy <span class="caps">HTTP</span> en vuestro ordenador, como por ejemplo <tt>squid</tt> (la configuración por defecto de squid en Debian funciona para lo que queremos hacer) y tunelizar las peticiones desde nuestro ordenador con el siguiente comando.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ssh -p 443 usuario@servidor.casa.com -L 3128:localhost:3128<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span>ssh <span class="nt">-p</span> 443 usuario@servidor.casa.com <span class="nt">-L</span> 3128:localhost:3128</code></pre></figure></div>
 <p>Estamos suponiendo que el servidor squid casero corre en el puerto por defecto, y redirigimos nuestro puerto local hacia el puerto remoto. Ahora solo tenemos que configurar el programa que queramos para que use como proxy <pre>localhost:3128</pre> y todo listo, ya estamos usando el proxy de casa sin restricciones.</p>
 <h2>Enlaces relacionados</h2>
 <ul>
@@ -5446,7 +5435,7 @@ $ssh -p 443 usuario@servidor.casa.com -L 3128:localhost:3128<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

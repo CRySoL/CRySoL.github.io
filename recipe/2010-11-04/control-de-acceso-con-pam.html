@@ -5482,10 +5482,7 @@
 <p>Antes de comenzar, es necesario que sepas algunos conceptos. Los <em>servicios</em>  <span class="caps">PAM</span> son ficheros almacenados en el directorio <code>/etc/pam.d</code> en los que se definen un determinado conjunto de reglas de acceso. Por ejemplo, <code>/etc/pam.d/sshd</code> describe qué acciones se deben realizar para autenticar y gestionar las sesiones del servicio de ssh.</p>
 <p>Estos servicios tienen reglas de la siguiente forma:</p>
 <div>
-<p>{% highlight text <span>}<br />
-&lt;interfaz del módulo&gt;  <flags de control>   &lt;nombre módulo&gt;   <argumentos><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">&lt;interfaz del módulo&gt;  &lt;flags de control&gt;   &lt;nombre módulo&gt;   &lt;argumentos&gt;</code></pre></figure></div>
 <p>Los módulos, normalmente, se llaman <code>pam_*.so</code> y están muy bien documentados (man pam_*). Los módulos pueden ofrecer las siguientes interfaces:</p>
 <ul>
 	<li><code>auth</code>: referente a la comprobación de usuario y contraseña.</li>
@@ -5507,61 +5504,40 @@
 <p>Como muchos ya sabeis, no es fácil hacer a la primera que un servicio <span class="caps">PAM</span> funcione correctamente. Por ello, y utilizando la librería <code>python-pam</code> he hecho un mini-programa de test que te puede servir para probar un servicio de <span class="caps">PAM</span> para no temer que probar la autenticación contra la aplicación final.</p>
 <p>El script se llama <a href="http://arco.esi.uclm.es/~cleto.martin/pamtest.py">pamtest.py</a> y simplemente hay que pasarle el servicio <span class="caps">PAM</span> que se quiere probar. Para mis pruebas yo he creado el archivo <code>/etc/pam.d/test</code>, por lo que yo ejecuto lo siguiente para probarlo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ pamtest.py test<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pamtest.py <span class="nb">test</span></code></pre></figure></div>
 <h2>Ejemplos</h2>
 <p>Algunos ejemplos que pueden ser útiles.</p>
 <h3>Denegar el acceso root</h3>
 <p>Es posible realizar esta operación con varios módulos: <code>pam_access</code>, <code>pam_listfile</code>, <code>pam_succeed_if</code>&#8230;. En general, todos se utilizan para gestionar el acceso en base a usuario, grupos y criterios más refinados.</p>
 <p>Con <code>pam_access</code>, el servicio test quedaría así:</p>
 <div>
-<p>{% highlight text <span>}<br />
-auth required pam_unix.so<br />
-auth required pam_access.so debug accessfile=/tmp/access.conf<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">auth required pam_unix.so
+auth required pam_access.so debug accessfile=/tmp/access.conf</code></pre></figure></div>
 <p><code>pam_unix.so</code> realizará la autenticación a través de login y password de forma tradicional. Pero, además, <code>pam_access</code> utilizará el archivo <code>/tmp/access.conf</code> para especificar la política de seguridad. Si no se especifica el archivo, se utiliza <code>/etc/security/access.conf</code>. En él puedes encontrar muchos ejemplos.  Para nuestro objetivo, este archivo contiene:</p>
 <div>
-<p>{% highlight text <span>}<br />
-- : root : <span class="caps">ALL</span><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">- : root : ALL</code></pre></figure></div>
 <p>Para probarlo, debes ejecutar <code>pamtest.py</code> con sudo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo pamtest.py test<br />
-login: root<br />
-password:<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>pamtest.py <span class="nb">test</span>
+<span class="go">login: root
+password:</span></code></pre></figure></div>
 <h3>Aceptar sólo usuarios de un determinado grupo</h3>
 <p>Antes se ha utilizado <code>pam_access</code>, por lo que en esta ocasión voy a utilizar <code>pam_succeed_if</code>. De esta forma quedaría el servicio:</p>
 <div>
-<p>{% highlight text <span>}<br />
-auth required pam_unix.so<br />
-auth sufficient pam_succeed_if.so user ingroup dialout<br />
-auth sufficient pam_succeed_if.so uid eq 0<br />
-auth required pam_deny.so<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">auth required pam_unix.so
+auth sufficient pam_succeed_if.so user ingroup dialout
+auth sufficient pam_succeed_if.so uid eq 0
+auth required pam_deny.so</code></pre></figure></div>
 <p>Nótese que también se le permite el acceso al usuario root. También se hubiera podido utilizar <code>pam_listfile</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-auth required pam_unix.so<br />
-auth required pam_listfile.so item=group sense=allow file=/etc/groups.allow<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">auth required pam_unix.so
+auth required pam_listfile.so item=group sense=allow file=/etc/groups.allow</code></pre></figure></div>
 <p>En este caso <strong>sólo</strong> tiene acceso los grupos que se especifiquen en el archivo <code>/etc/groups.allow</code></p>
 <h3>Acceso ldap</h3>
 <p>Si tienes configurado un control de acceso basado en <span class="caps">LDAP</span>, utilizarlo en <span class="caps">PAM</span> es tan sencillo como el siguiente ejemplo:</p>
 <div>
-<p>{% highlight text <span>}<br />
-auth required pam_ldap.so<br />
-auth required pam_listfile.so item=user sense=deny file=/etc/user.deny<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">auth required pam_ldap.so
+auth required pam_listfile.so item=user sense=deny file=/etc/user.deny</code></pre></figure></div>
 <p>Donde se realizará la autenticación por <span class="caps">LDAP</span> y se prohibirá el acceso a los usuarios especificados en el archivo.</p>
 <h2>Referencias</h2>
 <ul>
@@ -5631,7 +5607,7 @@ auth required pam_listfile.so item=user sense=deny file=/etc/user.deny<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

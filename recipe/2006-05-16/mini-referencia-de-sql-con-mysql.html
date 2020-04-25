@@ -5196,111 +5196,60 @@
 <p/>
 <h3>Listar todas</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">SHOW</span> <span class="caps">DATABASES</span>;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>SHOW DATABASES<span class="p">;</span></code></pre></figure></div>
 <h3>Seleccionar</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">USE</span> database;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>USE database<span class="p">;</span></code></pre></figure></div>
 <h3>Crear</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">CREATE</span> <span class="caps">DATABASE</span> database;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>CREATE DATABASE database<span class="p">;</span></code></pre></figure></div>
 <h3>Borrar</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">DROP</span> <span class="caps">DATABASE</span> database;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>DROP DATABASE database<span class="p">;</span></code></pre></figure></div>
 <h2>Operaciones con tablas</h2>
 <p/>
 <h3>Listar tablas</h3>
 <p>Habiendo seleccionado previamente una base de datos.</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">SHOW</span> <span class="caps">TABLES</span>;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>SHOW TABLES<span class="p">;</span></code></pre></figure></div>
 <h3>Borrar una tabla</h3>
 <p>Se supone que sabes lo que haces&#8230;</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">DROP</span> <span class="caps">TABLE</span> table;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>DROP TABLE table<span class="p">;</span></code></pre></figure></div>
 <h3>Listar columnas de una tabla</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">SHOW</span> <span class="caps">FIELDS</span> <span class="caps">FROM</span> table;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>SHOW FIELDS FROM table<span class="p">;</span></code></pre></figure></div>
 <p>ó</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">DESCRIBE</span> table;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>DESCRIBE table<span class="p">;</span></code></pre></figure></div>
 <h3>Añadir una columna</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">ALTER</span> <span class="caps">TABLE</span> table <span class="caps">ADD</span> column type flags<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>ALTER TABLE table ADD column <span class="nb">type </span>flags</code></pre></figure></div>
 <p>Por ejemplo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">ALTER</span> <span class="caps">TABLE</span> users <span class="caps">ADD</span> age int<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>ALTER TABLE <span class="nb">users </span>ADD age int</code></pre></figure></div>
 <h3>Borrar una columna</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">ALTER</span> <span class="caps">TABLE</span> table <span class="caps">DROP</span> column<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>ALTER TABLE table DROP column</code></pre></figure></div>
 <h2>Operaciones con registros (filas)</h2>
 <p/>
 <h3>Insertar un registro</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">INSERT</span> <span class="caps">INTO</span> table <span class="caps">SET</span> column1=value1, column2=value2 <span class="caps">WHERE</span> id=key;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>INSERT INTO table SET <span class="nv">column1</span><span class="o">=</span>value1, <span class="nv">column2</span><span class="o">=</span>value2 WHERE <span class="nb">id</span><span class="o">=</span>key<span class="p">;</span></code></pre></figure></div>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">INSERT</span> <span class="caps">INTO</span> table (column1, column2) <span class="caps">VALUES</span> (value1, value2) <span class="caps">WHERE</span> id=key;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>INSERT INTO table <span class="o">(</span>column1, column2<span class="o">)</span> VALUES <span class="o">(</span>value1, value2<span class="o">)</span> WHERE <span class="nb">id</span><span class="o">=</span>key<span class="p">;</span></code></pre></figure></div>
 <h3>Insertar un registro mediante una consulta:</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">INSERT</span> <span class="caps">INTO</span> table (column1, column2) <span class="caps">SELECT</span> col1, col2 <span class="caps">FROM</span> table2 <span class="caps">WHERE</span> id=key;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>INSERT INTO table <span class="o">(</span>column1, column2<span class="o">)</span> SELECT col1, col2 FROM table2 WHERE <span class="nb">id</span><span class="o">=</span>key<span class="p">;</span></code></pre></figure></div>
 <h3>Borrar un registro</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
- mysql&gt; <span class="caps">DELETE</span> <span class="caps">FROM</span> table <span class="caps">WHERE</span> id=7;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> mysql&gt;</span><span class="w"> </span>DELETE FROM table WHERE <span class="nb">id</span><span class="o">=</span>7<span class="p">;</span></code></pre></figure></div>
 <h3>Modificar un campo de un registro</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-mysql&gt; <span class="caps">UPDATE</span> table <span class="caps">SET</span> column1=&#8216;new_value&#8217; <span class="caps">WHERE</span> column2=&#8216;key&#8217;;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">mysql&gt;</span><span class="w"> </span>UPDATE table SET <span class="nv">column1</span><span class="o">=</span><span class="s1">'new_value'</span> WHERE <span class="nv">column2</span><span class="o">=</span><span class="s1">'key'</span><span class="p">;</span></code></pre></figure></div>
 <p>Reemplazando texto en el valor del campo:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-mysql&gt; <span class="caps">UPDATE</span> table <span class="caps">SET</span> column1=<acronym title="column1, ‘old substring&#39;, ‘new substring’"><span class="caps">REPLACE</span></acronym>;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">mysql&gt;</span><span class="w"> </span>UPDATE table SET <span class="nv">column1</span><span class="o">=</span>REPLACE<span class="o">(</span>column1, ‘old substring<span class="s1">', ‘new substring’);</span></code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.rinconastur.net/php/php68.php"><span class="caps">PHP</span> y MySQL</a></li>
@@ -5370,7 +5319,7 @@ mysql&gt; <span class="caps">UPDATE</span> table <span class="caps">SET</span> c
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

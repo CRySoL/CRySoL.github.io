@@ -5156,48 +5156,27 @@
 <p><!--break--></p>
 <h2>Hacer una <span class="caps">ISO</span> desde un directorio</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mkisofs -RJ -V etiqueta -o cdimage.iso dir/<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mkisofs <span class="nt">-RJ</span> <span class="nt">-V</span> etiqueta <span class="nt">-o</span> cdimage.iso <span class="nb">dir</span>/</code></pre></figure></div>
 <h1>Hacer una <span class="caps">ISO</span> desde un disco</h1>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ cat /dev/cdrom &gt; cdimage.iso<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> /dev/cdrom <span class="o">&gt;</span> cdimage.iso</code></pre></figure></div>
 <p>ó</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ dd if=/dev/cdrom of=cdimage.iso<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">dd </span><span class="k">if</span><span class="o">=</span>/dev/cdrom <span class="nv">of</span><span class="o">=</span>cdimage.iso</code></pre></figure></div>
 <h2>Montar la <span class="caps">ISO</span> (para probarla)</h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mount cdimage.iso -r -t iso9660 -o loop /mnt<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mount cdimage.iso <span class="nt">-r</span> <span class="nt">-t</span> iso9660 <span class="nt">-o</span> loop /mnt</code></pre></figure></div>
 <h2>Detectando la grabadora</h2>
 <p>Si usas emulación <span class="caps">SCSI</span> prueba con:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ cdrecord -scanbus<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>cdrecord <span class="nt">-scanbus</span></code></pre></figure></div>
 <p>Si usas <strong>ide-cd</strong> (lo normal si usas Linux-2.6.x) prueba:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ cdrecord -scanbus dev=<span class="caps">ATAPI</span>:<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>cdrecord <span class="nt">-scanbus</span> <span class="nv">dev</span><span class="o">=</span>ATAPI:</code></pre></figure></div>
 <p>Si ése es tu caso, tendrás que poner &#8220;dev=<span class="caps">ATAPI</span>: &#8230;&#8221; en los ejemplos siguientes.</p>
 <h2>Grabar la imagen con <code>cdrecord</code></h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ cdrecord -v dev=0,0,0 -driveropts=burnfree -dao ./cdimage.iso<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>cdrecord <span class="nt">-v</span> <span class="nv">dev</span><span class="o">=</span>0,0,0 <span class="nt">-driveropts</span><span class="o">=</span>burnfree <span class="nt">-dao</span> ./cdimage.iso</code></pre></figure></div>
 <p>Un pequeño script que avise y expulse el CD al terminar:</p>
 <pre>
 #!/bin/bash
@@ -5208,36 +5187,19 @@ play /usr/lib/xcdroast/sound/test.wav
 <h2>Grabar un directorio a CD <em>al vuelo</em></h2>
 <p>En lo siguiente es recomendable poner un buffer de 4MB como poco (el parámetro &#8220;fs&#8221;).</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ mkisofs -RJ /<span class="caps">DIRECTORIO</span>/A/<span class="caps">GRABAR</span> | cdrecord -v fs=4m speed=8 dev=0,0,0 -<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mkisofs <span class="nt">-RJ</span> /DIRECTORIO/A/GRABAR | cdrecord <span class="nt">-v</span> <span class="nv">fs</span><span class="o">=</span>4m <span class="nv">speed</span><span class="o">=</span>8 <span class="nv">dev</span><span class="o">=</span>0,0,0 -</code></pre></figure></div>
 <h2>Grabar un directorio a <span class="caps">DVD</span> <em>al vuelo</em></h2>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ growisofs -Z /dev/dvd -RJ /<span class="caps">DIRECTORIO</span>/A/<span class="caps">GRABAR</span><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>growisofs <span class="nt">-Z</span> /dev/dvd <span class="nt">-RJ</span> /DIRECTORIO/A/GRABAR</code></pre></figure></div>
 <p>Esto será un <span class="caps">DVD</span> multisesión, para añadir otra sesión al mismo <span class="caps">DVD</span>:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ growisofs -M /dev/dvd -RJ /<span class="caps">DIRECTORIO</span>/A/<span class="caps">GRABAR</span><br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>growisofs <span class="nt">-M</span> /dev/dvd <span class="nt">-RJ</span> /DIRECTORIO/A/GRABAR</code></pre></figure></div>
 <p>Y para cerrar el disco:</p>
 <div class="console">
-<p>{% highlight console <span>}<br />
-$ growisofs -M /dev/dvd=/dev/zero<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>growisofs <span class="nt">-M</span> /dev/dvd<span class="o">=</span>/dev/zero</code></pre></figure></div>
 <h2>Borrar un <span class="caps">DVD</span> regrabable</h2>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>dvd+rw-format /dev/dvd<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w">  </span>dvd+rw-format /dev/dvd</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://quark.fe.up.pt/laespiral/recetas/1-100/receta16.html">Script que usa mkisofs y cdrecord para grabar &#8216;al vuelo&#8217;</a></li>
@@ -5307,7 +5269,7 @@ $ growisofs -M /dev/dvd=/dev/zero<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

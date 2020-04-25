@@ -5313,12 +5313,9 @@
 <p>El propio Guido sorprendió en su momento a propios y extraños con su propuesta <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=85551">Adding Optional Static Typing to Python</a> hace ya unos años. A pesar de todo (al menos por lo que yo sé) nada de esto ha sido incluido aún en las últimas versiones de Python. Sí se han incluido en Python 3 las <a href="http://www.python.org/dev/peps/pep-3107/">Function Annotations</a> que ofrecen soporte para implementar tipado estático, aunque la distribución estándar no lo hace.</p>
 <p>La cuestión es que debido a esta <em>carencia</em> es muy habitual encontrar en muchas librerías de uso extendido cosas parecidas a esto:</p>
 <div>
-<p>{% highlight python <span>}<br />
-def func(value):<br />
-    assert isinstance(value, str)<br />
-    [&#8230;]<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="p">[...]</span></code></pre></figure></div>
 <p>Y cuando este tipo de comprobaciones prolifera hace un poco más engorroso leer el código, y eso siempre es malo.</p>
 <h2>Decoradores</h2>
 <p>La forma más habitual de afrontar más o menos limpiamente este problema es utilizar <a href="http://www.python.org/dev/peps/pep-0318/">decoradores</a> de función. Bueno, lo que en Python se llaman «decoradores» aunque siendo mínimamente puristas no lo son porque no corresponden con la idea del <a href="http://en.wikipedia.org/wiki/Decorator_pattern">patrón de diseño decorator</a>.</p>
@@ -5327,14 +5324,11 @@ def func(value):<br />
 <h2>Implementando type-checking con un decorador</h2>
 <p>Como decía, no soy el primero al que se le ocurre forzar tipos con un decorador (aplico la máxima de <a href="/node/1377">copiar-antes-que-innovar</a> que tan buen resultado suele dar). El decorador más completo que he encontrado es el de la <a href="http://wiki.python.org/moin/PythonDecoratorLibrary#TypeEnforcement.28accepts.2BAC8-returns.29">PythonDecoratorLibrary</a>. Éste tiene una «feature» muy interesante: Puedes decidir qué ocurrirá si falla la comprobación de tipo: nada, un mensaje por stderr o una excepción. Aquí va un ejemplo (sacado de la página):</p>
 <div>
-<p>{% highlight python <span>}<br />
-TYPE_CHECK = 2<br />
-@accepts(int, debug=TYPE_CHECK)<br />
-def fib(n):<br />
-    if n in (0, 1): return n<br />
-    return fib(n-1) + fib(n-2)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">TYPE_CHECK</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="o">@</span><span class="n">accepts</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">TYPE_CHECK</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="k">return</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span></code></pre></figure></div>
 <p>Sin embargo no me convence, yo le pido más cosas:</p>
 <ul>
 	<li>Poder indicar el tipo solamente de algunos parámetros. El de arriba te obliga a poner los tipos de todos los parámetros de método o función.</li>
@@ -5352,159 +5346,137 @@ def fib(n):<br />
 	<li>Una función en la que se indica el tipo de todos los parámetros (por posición):</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-from pyarco.Type import accept</p>
-<p>@accept(int, int, str)<br />
-def func(i1, i2, s1):<br />
-     [&#8230;]</p>
-<p>&gt;&gt;&gt; func(&#8220;bye&#8221;, 1, &#8220;hi&#8221;)<br />
-TypeError: Argument &#8216;i1&#8217; should be &#8216;int&#8217; (&#8216;str&#8217; given)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pyarco.Type</span> <span class="kn">import</span> <span class="n">accept</span>
+
+<span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">s1</span><span class="p">):</span>
+     <span class="p">[...]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="p">(</span><span class="s">"bye"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"hi"</span><span class="p">)</span>
+<span class="nb">TypeError</span><span class="p">:</span> <span class="n">Argument</span> <span class="s">'i1'</span> <span class="n">should</span> <span class="n">be</span> <span class="s">'int'</span> <span class="p">(</span><span class="s">'str'</span> <span class="n">given</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Todos los parámetros pero con keywords:</li>
 </ul>
 <div>
-<p>{% highlight python <span>}<br />
-@accept(i1=int, i2=int, s1=str)<br />
-def func(i1, i2, s1):<br />
-     [&#8230;]<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="n">i1</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">i2</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">s1</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">s1</span><span class="p">):</span>
+     <span class="p">[...]</span></code></pre></figure></div>
 <ul>
 	<li>Indicando solo algunos tipos (con keywords):</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-@accept(i1=int, s1=str)<br />
-def func(i1, i2, s1):<br />
-     [&#8230;]</p>
-<p>&gt;&gt;&gt; func(1, &#8220;bye&#8221;, &#8220;hi&#8221;)<br />
-&gt;&gt;&gt; func(1, &#8220;bye&#8221;, s1=&#8220;hi&#8221;)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="n">i1</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">s1</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">s1</span><span class="p">):</span>
+     <span class="p">[...]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">"bye"</span><span class="p">,</span> <span class="s">"hi"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">"bye"</span><span class="p">,</span> <span class="n">s1</span><span class="o">=</span><span class="s">"hi"</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Con una función que tiene valores por defecto:</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-@accept(i1=int, i2=int, s1=str)<br />
-def func(i1, i2=0, s1=&#8217;&#8217;):<br />
-    [&#8230;]</p>
-<p>&gt;&gt;&gt; func(i1=1, s1=7)<br />
-TypeError: Argument &#8216;s1&#8217; should be &#8216;str&#8217; (&#8216;int&#8217; given)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="n">i1</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">i2</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">s1</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">s1</span><span class="o">=</span><span class="s">''</span><span class="p">):</span>
+    <span class="p">[...]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="p">(</span><span class="n">i1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">s1</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="nb">TypeError</span><span class="p">:</span> <span class="n">Argument</span> <span class="s">'s1'</span> <span class="n">should</span> <span class="n">be</span> <span class="s">'str'</span> <span class="p">(</span><span class="s">'int'</span> <span class="n">given</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Con una función que acepta una secuencia (varargs):</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-@accept(a=int)<br />
-def func(*a):<br />
-    [&#8230;]</p>
-<p>&gt;&gt;&gt; func(1, 2, 3, 4)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">):</span>
+    <span class="p">[...]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Una función que acepta una función y una tupla (opcional):</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-@accept(func=types.FunctionType, args=tuple)<br />
-def f(func, args=()):<br />
-    [&#8230;]</p>
-<p>def g():<br />
-    [&#8230;]</p>
-<p>&gt;&gt;&gt; f(g, (1,2))<br />
-&gt;&gt;&gt; f(g)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">types</span><span class="p">.</span><span class="n">FunctionType</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="nb">tuple</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">()):</span>
+    <span class="p">[...]</span>
+
+<span class="k">def</span> <span class="nf">g</span><span class="p">():</span>
+    <span class="p">[...]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">g</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Un método:</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-class A:<br />
-    @accept(b=int)<br />
-    def f(self, a, b):<br />
-        [&#8230;]</p>
-<p>&gt;&gt;&gt; a1 = A()<br />
-&gt;&gt;&gt; a1.f(&#8216;a&#8217;, 2)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="p">[...]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="p">.</span><span class="n">f</span><span class="p">(</span><span class="s">'a'</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Un constructor:</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-class A:<br />
-    @accept(b=int)<br />
-    def <i>init</i>(self, a, b, **kargs):<br />
-        [&#8230;]</p>
-<p>a1 = A(&#8216;a&#8217;, 3)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">**</span><span class="n">kargs</span><span class="p">):</span>
+        <span class="p">[...]</span>
+
+<span class="n">a1</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="s">'a'</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Un constructor que llama al constructor de la superclase. Es este caso es obligatorio usar el formato de keywords. No acepta parámetros posicionales:</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-class A:<br />
-    @accept(b=int)<br />
-    def <i>init</i>(self, a, b):<br />
-        [&#8230;]</p>
-<p>class B(A):<br />
-    def <i>init</i>(self, b):<br />
-        A.<i>init</i>(self, a=&#8216;A&#8217;, b=b)</p>
-<p>B(1)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="p">[...]</span>
+
+<span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="n">A</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="s">'A'</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+
+<span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Un parámetro que permite varios tipos (posicional):</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-@accept((int, str))<br />
-def f(a): pass</p>
-<p>f(1)<br />
-f(&#8216;hi&#8217;)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">@</span><span class="n">accept</span><span class="p">((</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="p">):</span> <span class="k">pass</span>
+
+<span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">f</span><span class="p">(</span><span class="s">'hi'</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Varios tipos (con keyword):</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-@accept(a=(int, str))<br />
-def f(a): pass</p>
-<p>f(1)<br />
-f(&#8216;hi&#8217;)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="p">):</span> <span class="k">pass</span>
+
+<span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">f</span><span class="p">(</span><span class="s">'hi'</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Sin consecuencia al violar el tipo. Como has visto, por defecto se eleva la excepción TypeError.</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-accept.level = None</p>
-<p>@accept(int)<br />
-def func(value): pass</p>
-<p>&gt;&gt;&gt; func(&#8220;hi&#8221;)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">accept</span><span class="p">.</span><span class="n">level</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">value</span><span class="p">):</span> <span class="k">pass</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="p">(</span><span class="s">"hi"</span><span class="p">)</span></code></pre></figure></div>
 <ul>
 	<li>Emitiendo un warning</li>
 </ul>
 <div>
-<p>{% highlight python %}<br />
-accept.level = &#8216;warn&#8217;</p>
-<p>@accept(int)<br />
-def func(value): pass</p>
-<p>&gt;&gt;&gt; func(&#8220;hi&#8221;)<br />
-RuntimeWarning: Argument &#8216;value&#8217; should be &#8216;int&#8217; (&#8216;str&#8217; given)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">accept</span><span class="p">.</span><span class="n">level</span> <span class="o">=</span> <span class="s">'warn'</span>
+
+<span class="o">@</span><span class="n">accept</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">value</span><span class="p">):</span> <span class="k">pass</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="p">(</span><span class="s">"hi"</span><span class="p">)</span>
+<span class="nb">RuntimeWarning</span><span class="p">:</span> <span class="n">Argument</span> <span class="s">'value'</span> <span class="n">should</span> <span class="n">be</span> <span class="s">'int'</span> <span class="p">(</span><span class="s">'str'</span> <span class="n">given</span><span class="p">)</span></code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.artima.com/weblogs/viewpost.jsp?thread=85551">Adding Optional Static Typing to Python</a></li>
@@ -5577,7 +5549,7 @@ RuntimeWarning: Argument &#8216;value&#8217; should be &#8216;int&#8217; (&#8216
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

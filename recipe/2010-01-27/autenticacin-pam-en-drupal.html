@@ -5489,13 +5489,10 @@
 <p>El módulo <a href="http://drupal.org/project/pam_auth"><span class="caps">PAM</span> Authentication</a> permite delegar la autenticación de usuarios de Drupal, a excepción de <em>admin</em> por razones obvias. El módulo es en realidad bastante sencillo porque delega todo el trabajo a la extencsón <code>php_pam</code>. Por eso, la configuración específica debería estar en el fichero <code>/etc/pam.d/php</code>.</p>
 <p>Este es un ejemplo que utiliza Kerberos como primera opción, si falla utiliza una servidor <span class="caps">LDAP</span>. Además exige que el usuario autentificado pertenezca al grupo «research»:</p>
 <div>
-<p>{% highlight text <span>}<br />
-auth [success=1 default=ignore] pam_krb5.so minimum_uid=5000<br />
-auth required pam_ldap.so try_first_pass<br />
-auth required pam_succeed_if.so user ingroup research<br />
-auth required pam_permit.so<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">auth [success=1 default=ignore] pam_krb5.so minimum_uid=5000
+auth required pam_ldap.so try_first_pass
+auth required pam_succeed_if.so user ingroup research
+auth required pam_permit.so</code></pre></figure></div>
       </div>
 
       
@@ -5560,7 +5557,7 @@ auth required pam_permit.so<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

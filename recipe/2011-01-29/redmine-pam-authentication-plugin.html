@@ -5161,68 +5161,65 @@
 	<li>rpam (gem)</li>
 </ul>
 <h2>Install dependences</h2>
-<div class="console">
-<p>{% highlight console %}</p>
-<p>$ sudo aptitude install libpam0g-dev<br />
-$ sudo gem install rpam<br />
-{% endhighlight %}</p>
-</div>
+<pre class="console">
+$ sudo aptitude install libpam0g-dev
+$ sudo gem install rpam
+</pre>
 <h2>Testing <code>rpam</code></h2>
 <p>Write that in a <code>auth.rb</code> file:</p>
 <div>
-<p>{% highlight ruby %}<br />
-#!/usr/bin/ruby</p>
-<p>require &#8216;rubygems&#8217;<br />
-require &#8216;rpam&#8217;<br />
-include Rpam</p>
-<p>user = <span class="caps">ARGV</span><sup class="footnote" id="fnr0"><a href="#fn0">0</a></sup><br />
-system &#8220;stty -echo&#8221;<br />
-pass = <span class="caps">STDIN</span>.gets.strip<br />
-system &#8220;stty echo&#8221;</p>
-<p>if authpam(user, pass) == true<br />
-      puts &#8220;Authenticate Successful&#8221;<br />
-else<br />
-      puts &#8220;Authenticate Failure&#8221;<br />
-end<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#!/usr/bin/ruby</span>
+
+<span class="nb">require</span> <span class="s1">'rubygems'</span>
+<span class="nb">require</span> <span class="s1">'rpam'</span>
+<span class="kp">include</span> <span class="no">Rpam</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="no">ARGV</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">system</span> <span class="s2">"stty -echo"</span>
+<span class="n">pass</span> <span class="o">=</span> <span class="no">STDIN</span><span class="p">.</span><span class="nf">gets</span><span class="p">.</span><span class="nf">strip</span>
+<span class="nb">system</span> <span class="s2">"stty echo"</span>
+
+<span class="k">if</span> <span class="n">authpam</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">pass</span><span class="p">)</span> <span class="o">==</span> <span class="kp">true</span>
+      <span class="nb">puts</span> <span class="s2">"Authenticate Successful"</span>
+<span class="k">else</span>
+      <span class="nb">puts</span> <span class="s2">"Authenticate Failure"</span>
+<span class="k">end</span></code></pre></figure></div>
 <p>And run it with:</p>
-<div class="console">
-<p>{% highlight console %}</p>
-<p>$ ruby ./auth.rb peter<br />
-{write password here}<br />
-Authenticate Successful<br />
-{% endhighlight %}</p>
-</div>
+<pre class="console">
+$ ruby ./auth.rb peter
+{write password here}
+Authenticate Successful
+</pre>
 <h2>The plugin</h2>
 <p>Following the instruction of <a href="http://www.redmine.org/projects/redmine wiki/Alternativecustom_authentication_HowTo">Alternative (custom) Authentication HowTo</a>, I wrote that trivial (but working) plugin:</p>
 <p>[ <a href="https://bitbucket.org/DavidVilla/redmine-auth-pam/raw/36d852ffda479de65afa12947511045bc0348f74/auth_source_pam.rb">auth_source_pam.rb</a>]</p>
 <div>
-<p>{% highlight ruby %}<br />
-require &#8216;rubygems&#8217;<br />
-require &#8216;rpam&#8217;<br />
-include Rpam</p>
-<p>class AuthSourcePam &lt; AuthSource</p>
-def authenticate(login, password)
-logger.debug &#8220;replacement <span class="caps">PAM</span> auth called&#8221; if logger &amp;&amp; logger.debug?
-return nil if login.blank? or password.blank? or not authpam(login, password)
-return [:firstname =&gt; login]
-end
-def auth_method_name
-&#8220;<span class="caps">PAM</span>&#8221;
-end
-<p>end</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">'rubygems'</span>
+<span class="nb">require</span> <span class="s1">'rpam'</span>
+<span class="kp">include</span> <span class="no">Rpam</span>
+
+<span class="k">class</span> <span class="nc">AuthSourcePam</span> <span class="o">&lt;</span> <span class="no">AuthSource</span>
+
+  <span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span><span class="n">login</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+    <span class="n">logger</span><span class="p">.</span><span class="nf">debug</span> <span class="s2">"replacement PAM auth called"</span> <span class="k">if</span> <span class="n">logger</span> <span class="o">&amp;&amp;</span> <span class="n">logger</span><span class="p">.</span><span class="nf">debug?</span>
+
+    <span class="k">return</span> <span class="kp">nil</span> <span class="k">if</span> <span class="n">login</span><span class="p">.</span><span class="nf">blank?</span> <span class="n">or</span> <span class="n">password</span><span class="p">.</span><span class="nf">blank?</span> <span class="n">or</span> <span class="n">not</span> <span class="n">authpam</span><span class="p">(</span><span class="n">login</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="ss">:firstname</span> <span class="o">=&gt;</span> <span class="n">login</span><span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">auth_method_name</span>
+    <span class="s2">"PAM"</span>
+  <span class="k">end</span>
+
+<span class="k">end</span></code></pre></figure></div>
 <p>Put that file in <code>/usr/share/redmine/app/models/</code> (in the case of Debian)</p>
 <h2>Register the plugin</h2>
 <p>Like the Authentication HowTo say, you must insert a record in the auth_sources database table. I use sqlite3 so in my case I did:</p>
-<div class="console">
-<p>{% highlight console %}</p>
-<p>$ sqlite3 /var/lib/dbconfig-common/sqlite3/redmine/instances/default/redmine_default<br />
-sqlite&gt; insert into auth_sources values (<span class="caps">NULL</span>, &#8216;AuthSourcePam&#8217;, &#8216;Pam&#8217;, &#8216;localhost&#8217;, 1, &#8216;user&#8217;, &#8216;pass&#8217;, &#8216;app&#8217;, &#8216;name&#8217;, &#8216;firstname&#8217;, &#8216;lastname&#8217;, &#8216;email&#8217;, 1, 0);<br />
-{% endhighlight %}</p>
-</div>
+<pre class="console">
+$ sqlite3 /var/lib/dbconfig-common/sqlite3/redmine/instances/default/redmine_default
+sqlite&gt; insert into auth_sources values (NULL, 'AuthSourcePam', 'Pam', 'localhost', 1, 'user', 'pass', 'app', 'name', 'firstname', 'lastname', 'email', 1, 0);
+</pre>
 <h2>Selecting authentication method</h2>
 <p>Now, you must restart redmine and go to the user administration page. In the &#8220;Authentication&#8221; section there is now a new option called &#8220;Authentication mode&#8221; and you may select among &#8220;internal&#8221; or &#8220;Pam&#8221;. That is all.</p>
 <center>
@@ -5299,7 +5296,7 @@ sqlite&gt; insert into auth_sources values (<span class="caps">NULL</span>, &#82
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

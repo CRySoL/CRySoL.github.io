@@ -5298,59 +5298,46 @@
 </ul>
 <p>Para instalarlos, si usas Debian ya sabes:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get -f install avr-libc gcc-avr binutils-avr gdb-avr</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nt">-f</span> <span class="nb">install </span>avr-libc gcc-avr binutils-avr gdb-avr</code></pre></figure></div>
 <h2>Compilando un programa</h2>
 <p>El siguiente ejemplo de Makefile sería para poder compilar un programa dividido en varios ficheros fuente para un AT90S8515. Se trata de un micro con 512 Bytes de <span class="caps">RAM</span>, 8 K de Flash y 512 Bytes de <span class="caps">EEPROM</span>. Éste modelo ya está un poco obsoleto y ha sido sustituido por el ATMEGA8515, que es totalmente compatible pero ofrece varias mejoras. Aunque este ejemplo servirá para ilustrar la creación de un Makefile:</p>
 <div>
-<p>{% highlight text %}<br />
-<span class="caps">MCU</span>=at90s8515<br />
-CC=avr-gcc<br />
-<span class="caps">OBJCOPY</span>=avr-objcopy<br />
-<span class="caps">CFLAGS</span>=-g <del>mmcu=$(<span class="caps">MCU</span>) -Wall -Wstrict-prototypes<br />
-#</del>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;<br />
-all: prueba.hex<br />
-#&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-<br />
-prueba.hex : prueba.out<br />
-	$(<span class="caps">OBJCOPY</span>) -R .eeprom -O ihex prueba.out prueba.hex</p>
-<p>prueba.out : prueba.o williams_8515.o potencia.o<br />
-	$(CC) $(<span class="caps">CFLAGS</span>) -o prueba.out -Wl,-Map,prueba.map\<br />
-                       prueba.o williams_8515.o potencia.o<br />
-	avr-objdump -S prueba.out &gt; prueba.des</p>
-<p>prueba.o : prueba.c<br />
-	$(CC) $(<span class="caps">CFLAGS</span>) -Os -c prueba.c</p>
-<p>potencia.o : potencia.c<br />
-	$(CC) $(<span class="caps">CFLAGS</span>) -Os -c potencia.c</p>
-<p>williams_8515.o: williams_8515.c<br />
-	$(CC) $(<span class="caps">CFLAGS</span>) -Os -c williams_8515.c<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">MCU=at90s8515
+CC=avr-gcc
+OBJCOPY=avr-objcopy
+CFLAGS=-g -mmcu=$(MCU) -Wall -Wstrict-prototypes
+#-------------------
+all: prueba.hex
+#-------------------
+prueba.hex : prueba.out
+	$(OBJCOPY) -R .eeprom -O ihex prueba.out prueba.hex
+
+prueba.out : prueba.o williams_8515.o potencia.o
+	$(CC) $(CFLAGS) -o prueba.out -Wl,-Map,prueba.map\
+                       prueba.o williams_8515.o potencia.o
+	avr-objdump -S prueba.out &gt; prueba.des
+
+prueba.o : prueba.c
+	$(CC) $(CFLAGS) -Os -c prueba.c
+
+potencia.o : potencia.c
+	$(CC) $(CFLAGS) -Os -c potencia.c
+
+williams_8515.o: williams_8515.c
+	$(CC) $(CFLAGS) -Os -c williams_8515.c</code></pre></figure></div>
 <p>Esto genera un fichero, <b>prueba.hex</b> con el contenido del código máquina para el microcontrolador. El código está en formato de <span class="caps">INTEL</span> <span class="caps">HEXADECIMAL</span>. También obtendrás otro archivo <b>prueba.dsm</b> en el que puedes ver el desensamblado del código generado.<br />
 Los ficheros fuente de los que se parte son <b>prueba.c</b>, <b>potencia.c</b> y <b>williams_8515.c</b></p>
 <h2>Otras cosas interesantes</h2>
 <p>Algunas cosas interesantes que nos ofrecen las binutils son por ejemplo:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ avr-objdump -h prueba.out</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>avr-objdump <span class="nt">-h</span> prueba.out</code></pre></figure></div>
 <p><code>prueba.out</code> fue generado por el <code>Makefile</code> y contiene información diversa sobre la compilación. En éste ejemplo, la salida mostrará el tamaño de las diferentes secciones del programa.</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ avr-size prueba.out</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>avr-size prueba.out</code></pre></figure></div>
 <p>Hace lo mismo que el comando mostrado anteriormente, pero de forma mas resumida.</p>
 <p>Por último, el comando mostrado en el <code>Makefile</code>:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ avr-objdump -S prueba.out</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>avr-objdump <span class="nt">-S</span> prueba.out</code></pre></figure></div>
 <p>Devuelve el desensamblado del código.</p>
 <h2>Enlaces interesantes</h2>
 <ul>
@@ -5421,7 +5408,7 @@ $ avr-objdump -S prueba.out</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5195,78 +5195,49 @@
 <h2>Instalación</h2>
 <p>Al instalar el servidor verás algo parecido a lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install mysql-server-5.0<br />
-Starting MySQL database server: mysqld.</li>
-</ol>
-<p>Checking for crashed MySQL tables in the background.<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>mysql-server-5.0
+<span class="go">Starting MySQL database server: mysqld.
+
+Checking for crashed MySQL tables in the background.</span></code></pre></figure></div>
 <h2>Administrador</h2>
 <p>El único usuario en este momento es <code>root</code>, aunque no es mismo <code>root</code> del sistema. Lo primero que debes hacer es entrar en la shell de MySQL:</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ mysql -u root<br />
-Welcome to the MySQL monitor.  Commands end with ; or \g.<br />
-Your MySQL connection id is 7 to server version: 5.0.22</p>
-<p>Type &#8216;help;&#8217; or &#8216;\h&#8217; for help. Type &#8216;\c&#8217; to clear the buffer.</p>
-<p>mysql&gt;<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mysql <span class="nt">-u</span> root
+<span class="gp">Welcome to the MySQL monitor.  Commands end with ;</span><span class="w"> </span>or <span class="se">\g</span><span class="nb">.</span>
+<span class="go">Your MySQL connection id is 7 to server version: 5.0.22
+
+</span><span class="gp">Type 'help;</span><span class="s1">' or '</span><span class="se">\h</span><span class="s1">' for help. Type '</span><span class="se">\c</span><span class="s1">' to clear the buffer.
+</span><span class="go">
+</span><span class="gp">mysql&gt;</span></code></pre></figure></div>
 <p>Y ponerle una password porque ahora mismo NO tiene. Para ello:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>mysql&gt; <span class="caps">SET</span> <span class="caps">PASSWORD</span> <span class="caps">FOR</span> root@localhost = <span class="caps">PASSWORD</span> (&#8216;algo_difícil_de_adivinar&#8217;);<br />
-Query OK, 0 rows affected (0.00 sec)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">mysql&gt;</span><span class="w"> </span>SET PASSWORD FOR root@localhost <span class="o">=</span> PASSWORD <span class="o">(</span><span class="s1">'algo_difícil_de_adivinar'</span><span class="o">)</span><span class="p">;</span>
+<span class="go">Query OK, 0 rows affected (0.00 sec)</span></code></pre></figure></div>
 <p>Muy importante: jamás le pongas al usuario root de MySQL la misma clave que tenga el superusurio del sistema.</p>
 <p>Puedes salir de la shell con <code>exit</code> o C-d, y probar que funciona. Ahora debes añadir la opción -p para que te pregunte la password.</p>
 <div class="console">
-<p>{% highlight console %}<br />
-$ mysql -u root -p<br />
-password:</p>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+<span class="go">password:</span></code></pre></figure></div>
 <h2>Cambiar la password de <code>root</code></h2>
 <p>Si olvidas la password del <code>root</code> de MySQL la puedes cambiar. Para ello, para el servidor de MySQL y arrancalo de nuevo indicando que no compruebe passwords:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/mysql stop</li>
-	<li>mysqld &#8212;skip-grant-tables</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>/etc/init.d/mysql stop
+<span class="gp">#</span><span class="w"> </span>mysqld <span class="nt">--skip-grant-tables</span></code></pre></figure></div>
 <p>Ahora arranca la shell y pon una nueva clave:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>/etc/init.d/mysql stop</li>
-	<li>mysqld &#8212;skip-grant-tables &amp;</li>
-	<li>mysql -u root mysql<br />
-mysql&gt; <span class="caps">UPDATE</span> user <span class="caps">SET</span> Password=<acronym title="&#39;otra_pass_dificil&#39;"><span class="caps">PASSWORD</span></acronym> where <span class="caps">USER</span>=&#8216;root&#8217;;<br />
-mysql&gt; <span class="caps">FLUSH</span> <span class="caps">PRIVILEGES</span>;<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/mysql stop
+<span class="gp">#</span><span class="w"> </span>mysqld <span class="nt">--skip-grant-tables</span> &amp;
+<span class="gp">#</span><span class="w"> </span>mysql <span class="nt">-u</span> root mysql
+<span class="gp">mysql&gt;</span><span class="w"> </span>UPDATE user SET <span class="nv">Password</span><span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">'otra_pass_dificil'</span><span class="o">)</span> where <span class="nv">USER</span><span class="o">=</span><span class="s1">'root'</span><span class="p">;</span>
+<span class="gp">mysql&gt;</span><span class="w"> </span>FLUSH PRIVILEGES<span class="p">;</span></code></pre></figure></div>
 <p>Y por último, reinicia el servidor para que funcione del modo convencional:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>killall -9 mysqld</li>
-	<li>/etc/init.d/mysql start</li>
-</ol>
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>killall <span class="nt">-9</span> mysqld
+<span class="gp">#</span><span class="w"> </span>/etc/init.d/mysql start</code></pre></figure></div>
 <h2>Usuarios y permisos</h2>
 <h3>Crear un usuario</h3>
 <div class="console">
-<p>{% highlight console <span>}<br />
-mysql&gt; <span class="caps">GRANT</span> <span class="caps">ALL</span> <span class="caps">PRIVILEGES</span> ON basededatos.* TO usuario@localhost <span class="caps">IDENTIFIED</span> BY &#8216;clavecilla&#8217;;<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">mysql&gt;</span><span class="w"> </span>GRANT ALL PRIVILEGES ON basededatos.<span class="k">*</span> TO usuario@localhost IDENTIFIED BY <span class="s1">'clavecilla'</span><span class="p">;</span></code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://www.mysql-hispano.org/page.php?id=4&amp;pag=1">Introducción a MySQL</a></li>
@@ -5335,7 +5306,7 @@ mysql&gt; <span class="caps">GRANT</span> <span class="caps">ALL</span> <span cl
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

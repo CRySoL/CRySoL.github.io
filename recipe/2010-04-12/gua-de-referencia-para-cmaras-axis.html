@@ -5471,43 +5471,25 @@
 <p>Por defecto, las cámara obtiene IP por <span class="caps">DHCP</span>. Para saber qué IP ha sido asignada puedes utilizar la herramienta <a href="https://arco.inf-cr.uclm.es/svn/public/misc/scapy-utils/arping.py">arping.py</a>.</p>
 <p>Para encontrar tu cámara <span class="caps">AXIS</span>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ ./arping.py MAC_CAMARA<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./arping.py MAC_CAMARA</code></pre></figure></div>
 <p>Si la cámara se ha configurado correctamente, <code>arping</code> te mostrará la IP que el servidor <span class="caps">DHCP</span> le ha asignado. Utiliza esta dirección para configurar la cámara vía web.</p>
 <h2>Imagen y vídeo</h2>
 <p>Obtener una imagen con un tamaño determinado:</p>
 <div>
-<p>{% highlight text <span>}<br />
-http://81.201.204.198/axis-cgi/jpg/image.cgi?resolution=640&#215;480<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">http://81.201.204.198/axis-cgi/jpg/image.cgi?resolution=640x480</code></pre></figure></div>
 <p>Obtener el vídeo <span class="caps">MPEG</span> a una calidad determinada (y en blanco y negro):</p>
 <div>
-<p>{% highlight text <span>}<br />
-http://146.186.123.229/axis-cgi/mjpg/video.cgi?resolution=320&#215;240&amp;camera=1&amp;compression=25&amp;color=0<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">http://146.186.123.229/axis-cgi/mjpg/video.cgi?resolution=320x240&amp;camera=1&amp;compression=25&amp;color=0</code></pre></figure></div>
 <h3><span class="caps">RTSP</span></h3>
 <p>Para ver el flujo <span class="caps">RTSP</span> de la cámara utiliza mplayer:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ mplayer rtsp://user:pass@ip-camara/mpeg4/media.amp<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mplayer rtsp://user:pass@ip-camara/mpeg4/media.amp</code></pre></figure></div>
 <p>o vlc:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ vlc rtsp://128.197.178.101/mpeg4/media.amp<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>vlc rtsp://128.197.178.101/mpeg4/media.amp</code></pre></figure></div>
 <p>El ejemplo de mplayer es el caso general, pero no hace falta que utilices user y pass si tu cámara tiene acceso libre al vídeo.</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>vlc http://192.168.0.2/axis-cgi/mjpg/video.cgi?fps=30&amp;nbrofframes=0<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">vlc http://192.168.0.2/axis-cgi/mjpg/video.cgi?fps=30&amp;nbrofframes=0</span></code></pre></figure></div>
 <h2>Reset</h2>
 <p>Para establecer los valores por defecto hay que hacer lo siguiente:<br />
 <ul><br />
@@ -5586,7 +5568,7 @@ http://146.186.123.229/axis-cgi/mjpg/video.cgi?resolution=320&#215;240&amp;camer
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

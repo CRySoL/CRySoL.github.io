@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -5496,6 +5496,8 @@
 
   
 
+  
+    
   
     
   
@@ -8621,29 +8623,20 @@ packets per second that allows transmitting data at a 24 Gbps rate.</p>
 <p>It is required to have an IP address configured on the Vlan 1 interface of the switch:</p>
 </p>
 <div>
-<p>{% highlight text <span>}<br />
-!<br />
-interface Vlan1<br />
- ip address 10.1.2.247 255.255.0.0<br />
-!<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">!
+interface Vlan1
+ ip address 10.1.2.247 255.255.0.0
+!</code></pre></figure></div>
 <p>
 <p><span class="caps">IGMP</span> snooping is enabled by using the command (in global configuration mode):</p>
 </p>
 <div>
-<p>{% highlight text <span>}<br />
-ip igmp snooping<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">ip igmp snooping</code></pre></figure></div>
 <p>
 <p><span class="caps">IGMP</span> querier is enabled by using the command (in global configuration mode):</p>
 </p>
 <div>
-<p>{% highlight text <span>}<br />
-ip igmp snooping querier<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">ip igmp snooping querier</code></pre></figure></div>
 <h2>Testing</h2>
 <p>
 <p>A stand on basis of Cisco Catalyst 3550-12T ( C3550-IPSERVICESK9-M, Version 12.2(40)SE ) and<br />
@@ -8660,16 +8653,14 @@ Fig. 1. General layout of the test stand.</p>
 use the following commands (the output is provided):</p>
 </p>
 <div>
-<p>{% highlight text %}<br />
-c3550#show ip igmp snooping querier<br />
-Vlan      IP Address        <span class="caps">IGMP</span> Version   Port<br />
-<del>-</del>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-<br />
-1         10.1.2.247        v2             Switch</p>
-<p>c3550#show ip igmp snooping groups<br />
-Vlan      Group             Version     Port List<br />
-<del>-</del>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">c3550#show ip igmp snooping querier
+Vlan      IP Address        IGMP Version   Port
+----------------------------------------------------------------
+1         10.1.2.247        v2             Switch
+
+c3550#show ip igmp snooping groups
+Vlan      Group             Version     Port List
+------------------------------------------------------------</code></pre></figure></div>
 <p>
 <p>As it can be seen the switch operates as an <span class="caps">IGMP</span> querier. In the groups list there are<br />
 no groups as no subscriber has requested a multicast stream. In this case the average<br />
@@ -8677,56 +8668,42 @@ data transfer rate on the client&#8217;s port equals 0 Mbps. To check this run t
 command:</p>
 </p>
 <div>
-<p>{% highlight text <span>}<br />
-c3550#show interfaces GigabitEthernet 0/2 | include 5 minute<br />
-  5 minute input rate 0 bits/sec, 0 packets/sec<br />
-  5 minute output rate 0 bits/sec, 0 packets/sec<br />
- {</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">c3550#show interfaces GigabitEthernet 0/2 | include 5 minute
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+ </code></pre></figure></div>
 <p>
 <p>At that on the port of NetUP <span class="caps">DVB</span> to IP gateway we can see data transfered<br />
 at the rate of 110-120 Mbps (full decoding of 4 transponders is performed<br />
 that is around 50 TV channels):</p>
 </p>
 <div>
-<p>{% highlight text <span>}<br />
-c3550#show interfaces GigabitEthernet 0/1 | include 5 minute<br />
-  5 minute input rate 125753000 bits/sec, 11558 packets/sec<br />
-  5 minute output rate 0 bits/sec, 0 packets/sec<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">c3550#show interfaces GigabitEthernet 0/1 | include 5 minute
+  5 minute input rate 125753000 bits/sec, 11558 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec</code></pre></figure></div>
 <p>
 <p>Due to <span class="caps">IGMP</span> snooping multicast packets are not coming to the client port. If the client<br />
 requests a TV channel, copied to his port are only those multicast packets that belong<br />
 to this TV channel. To check this let&#8217;s request a TV program on the client&#8217;s device:</p>
 </p>
 <div>
-<p>{% highlight text <span>}<br />
-vlc udp://@226.2.0.5:1234<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">vlc udp://@226.2.0.5:1234</code></pre></figure></div>
 <p>
 <p>The requested TV channel appears on the client&#8217;s TV screen. And on the switch in the groups list we can see a new record:</p>
 </p>
 <div>
-<p>{% highlight text <span>}<br />
-c3550#show ip igmp snooping groups<br />
-Vlan      Group             Version     Port List<br />
-<del>-</del>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-<br />
-1         226.2.0.5         v2          Gi0/2<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">c3550#show ip igmp snooping groups
+Vlan      Group             Version     Port List
+------------------------------------------------------------
+1         226.2.0.5         v2          Gi0/2</code></pre></figure></div>
 <p>
 <p>As we can see from this record, the switch is copying multicast packets for the group 226.2.0.5 to<br />
 the client port (Gi0/2). To check this we can check the rate of data transfer to the client port:</p>
 </p>
 <div>
-<p>{% highlight text <span>}<br />
-c3550#show interfaces GigabitEthernet 0/2 | include 5 minute<br />
-  5 minute input rate 0 bits/sec, 0 packets/sec<br />
-  5 minute output rate 3300000 bits/sec, 304 packets/sec<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">c3550#show interfaces GigabitEthernet 0/2 | include 5 minute
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 3300000 bits/sec, 304 packets/sec</code></pre></figure></div>
 <p>
 <p>As it can be seen, only one TV channel is being transfered to the client port at the rate of ~3 Mbps. Because of such behavior of the switch we avoid overloading the client&#8217;s port with unwanted multicast packets.</p>
 </p>
@@ -8735,24 +8712,23 @@ c3550#show interfaces GigabitEthernet 0/2 | include 5 minute<br />
 multicast packets are processed at the hardware level.</p>
 </p>
 <div>
-<p>{% highlight text %}<br />
-c3550#show processes cpu history</p>
-1111111111122222111111111111111111111111111111111111111111
-<p>100<br />
- 90<br />
- 80<br />
- 70<br />
- 60<br />
- 50<br />
- 40<br />
- 30<br />
- 20<br />
- 10<br />
-   0&#8230;.5&#8230;.1&#8230;.1&#8230;.2&#8230;.2&#8230;.3&#8230;.3&#8230;.4&#8230;.4&#8230;.5&#8230;.5&#8230;.<br />
-             0    5    0    5    0    5    0    5    0    5<br />
-               <span class="caps">CPU</span>% per second (last 60 seconds)<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">c3550#show processes cpu history
+
+
+    1111111111122222111111111111111111111111111111111111111111
+100
+ 90
+ 80
+ 70
+ 60
+ 50
+ 40
+ 30
+ 20
+ 10
+   0....5....1....1....2....2....3....3....4....4....5....5....
+             0    5    0    5    0    5    0    5    0    5
+               CPU% per second (last 60 seconds)</code></pre></figure></div>
 <p>
 <p><b>Important!</b> According to &#8220;IPv4 Multicast Unusable Group And Source Addresses&#8221; <sup class="footnote" id="fnr3"><a href="#fn3">3</a></sup> it is not recommended<br />
 to use certain ranges for IPv4 multicast addresses. For example, subnet 226.0.0.0 &#8211; 226.0.0.255. Cisco<br />
@@ -8940,7 +8916,7 @@ Durante el evento se organizarán charlas y talleres sobre software libre, como 
 
 Entre los asistentes a los eventos habrá un sorteo de un móvil HTC con Android y un equipo Media Center.
 
-Esta jornada  se engloba dentro de las actividades organizadas para la Semana Cultural del Campus Universitario de Albacete, que tendrá lugar del 26 al 30 de Abril. 
+Esta jornada  se engloba dentro de las actividades organizadas para la Semana Cultural del Campus Universitario de Albacete, que tendrá lugar del 26 al 30 de Abril.
 
 Puede encontrarse más información sobre la agenda de la jornada e inscribirse en: <a href="http://ceslcam.com/dia-del-software-libre-albacete.html">http://ceslcam.com/dia-del-software-libre-albacete.html</a>
 
@@ -8998,7 +8974,7 @@ Puede encontrarse más información sobre la agenda de la jornada e inscribirse 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="612 posts"
+     title="613 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5191,7 +5191,7 @@
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
-     title="12 posts"
+     title="13 posts"
      >GNESIS</a>
 </td></tr>
 <tr class="row7"><td class="col1">
@@ -7885,7 +7885,90 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2006-01-18/como-funciona-lo-del-vmware-que-esta-instalado-en-los-equipos-de-la-esi.html">Como funciona lo del vmware que esta instalado en los equipos de la ESI</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-01-18
+    
+      
+  <a href="/users.html#matisnow">
+   matisnow
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-18-como-funciona-lo-del-vmware-que-esta-instalado-en-los-equipos-de-la-esi.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-18-como-funciona-lo-del-vmware-que-esta-instalado-en-los-equipos-de-la-esi.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/194">node/194</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      Me gustaria saber el funcionamiento y la configuracion que debe de tener para su funcionamiento.
+
+Gracias de antemano!!!
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8057,7 +8140,7 @@ Aprovechando que los ordenadores de hoy en día no están realmente apagados mie
 </blockquote>
 
 <h2> Requisitos </h2>
-  
+
   Necesitamos que el ordenador que va a ser arrancado via red tenga una tarjeta de red con Wake-On-Lan (WOL) o Boot-On-Lan (BOL), una placa que soporte este modo de arranque, y activar dicha opción en la BIOS.
 
 <h2> Despertando al durmiente </h2>
@@ -8071,7 +8154,7 @@ Aprovechando que los ordenadores de hoy en día no están realmente apagados mie
 
   Con esto activamos el encendido en red de la tarjeta eth0 de nuestro ordenador mediante la técnica del <b> magic packet </b>.
  Sólamente necesitamos saber la MAC de nuestra tarjeta, que la podemos obtener con el comando <b> ifconfig </b> y luego, desde el ordenador "despertador" ejecuta:
-    
+
 
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>etherwake 00:11:9B:20:21:F6</code></pre></figure>
@@ -8701,22 +8784,12 @@ Para más información mirar la lista de correo :)
 <p>Bueno, este título es incorrecto (intencionadamente). Para los usuarios de sistemas tipo <em>hasefroch 95, XP</em>, etc. os puede resultar más cómodo pensar en los módulos del linux como en los drivers de los dispositivos. Esto no es del todo correcto ya que existen módulos que no hacen la función de drivers. A partir de ahora eliminaremos el calificativo de &#8220;drivers&#8221; y usaremos &#8220;módulos&#8221; (más correcto).</p>
 <p>Generalmente, la compilación de nuevos módulos no incluídos de serie en el kernel, no requiere de una compilación completa del núcleo, ni tan siquiera tener los fuentes completos (linux-source), simplemente una parte de ellos: <b>las cabeceras</b> (linux-headers). Así pues, para compilar módulos para nuestro núcleo tendremos que instalarnos las cabeceras:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install linux-headers-$(uname -r)<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>linux-headers-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span></code></pre></figure></div>
 <p>Puede que nuestra distro cuente con los fuentes del módulo que queremos instalar, entonces esta receta termina aquí, sólo tenéis que ejecutar <b>modules-assistant</b> y seguir las instrucciones. Si el módulo es &#8220;extraño&#8221; y los fuentes no vienen &#8220;de serie&#8221;, tendrán instrucciones apropiadas, que generalmente se resumirán en:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<p>$ make</p>
-<ol>
-	<li>make install</li>
-	<li>depmod -ae<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>make
+<span class="gp">#</span><span class="w"> </span>make <span class="nb">install</span>
+<span class="gp">#</span><span class="w"> </span>depmod <span class="nt">-ae</span></code></pre></figure></div>
 <p>(Notad que el primer make se hace como usuario, el <em>install</em> y el <em>depmod</em> como superusuario) Todos los modulos se relacionan entre si por sus dependencias, esto es: para cargar un módulo se requiere cargar otro previamente (lógico). Con <em>depmod</em> volvemos a calcular todas esas interdependencias, siempre que añadáis un módulo (o lo eliminéis) ejecutar esa línea para actualizar cambios.</p>
 <p>Instalar un módulo en realidad es copiar un fichero <b>.ko</b> en el directorio /lib/modules/$(uname -r)/ (y ahí se puede poner en cualquier subdirectorio, depmod los recorrerá todos).</p>
 <p>Normalmente los módulos suelen compilarse e instalarse así sin ningún problema, pero los hay más rollazos y puede ser que necesitemos parchear nuestro kernel.</p>
@@ -8725,89 +8798,44 @@ Para más información mirar la lista de correo :)
 <p>Diversos motivos pueden llevarnos al parcheo de un núcleo, el más común será el de instalar un módulo nuevo.</p>
 <p>Para parchear el kernel necesitaremos los fuentes (aquí no nos sirve <em>uname -r</em> porque los paquetes no nombran las revisiones del núcleo):</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install linux-source-2.6.14</li>
-	<li>cd /usr/src</li>
-	<li>unp linux-source-2.6.14.tar.bz2<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>linux-source-2.6.14
+<span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /usr/src
+<span class="gp">#</span><span class="w"> </span>unp linux-source-2.6.14.tar.bz2</code></pre></figure></div>
 <p>Si el parche no está en el repositorio oficial de la distribución vendrá con las oportunas intrucciones de uso, leedlas y que la fuerza os acompañe. Si el parche si está en vuestra distro, se instala, por ejemplo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>apt-get install kernel-patch-mppe<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>kernel-patch-mppe</code></pre></figure></div>
 <p>Estos parches tienen una forma automática de aplicarse:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cd /usr/src/linux-source-2.6.14</li>
-	<li>../kernel-patches/all/apply/mppe<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /usr/src/linux-source-2.6.14
+<span class="gp">#</span><span class="w"> </span>../kernel-patches/all/apply/mppe</code></pre></figure></div>
 <p>Pero existe una forma mejor que se explicará más adelante&#8230;</p>
 <h2>Configurando un Linux</h2>
 <p>Antes de compilar un kernel debemos configurar sus parámetros, son muchos y una gran cantidad de ellos no sabremos para qué sirven (la dura realidad). Normalmente deberemos modificar algún que otro parámetro para ajustarlo a las necesidades de algún módulo o programa. Entonces&#8230; ¿cómo hacemos para no cambiar todas las opciones al tuntún?&#8230; fácil, en /boot/config-$(uname -r) tenemos la configuración de los parámetros actuales del kernel en ejecución. Para que nuestro núcleo use esos parámetros haremos lo siguiente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cp /boot/config-$(uname -r) /usr/src/linux-source-2.6.14/.config<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cp</span> /boot/config-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span> /usr/src/linux-source-2.6.14/.config</code></pre></figure></div>
 <p>Con esto asumimos que el linux en ejecución tiene una versión 2.6.14, no es muy recomendable usar archivos de configuración para versiones distintas, sobre todo porque os faltarán parámetros. Una vez copiado este archivo procederemos a cambiar los parámetros apropiados, esto es, reconfigurarlo:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cd /usr/src/linux-source-2.6.14</li>
-	<li>make menuconfig<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /usr/src/linux-source-2.6.14
+<span class="gp">#</span><span class="w"> </span>make menuconfig</code></pre></figure></div>
 <p>o también:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>make xconfig<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>make xconfig</code></pre></figure></div>
 <p>La primera opción requiere tener instaladas las librerias de desarrollo de <em>ncurses</em> y la segunda (más bonita) las de <em>qt</em>. Modificaremos los parámetros y finalmente salvaremos la configuración en el archivo <b>.config</b>.</p>
 <h2>Finalmente la compilación</h2>
 <p>Bueno, la compilación a la antigua se hace muy fácilmente:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cd /usr/src/linux-source-2.6.14</li>
-	<li>make<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /usr/src/linux-source-2.6.14
+<span class="gp">#</span><span class="w"> </span>make</code></pre></figure></div>
 <p>Si el parche se aplicó bien y el núcleo esta bien configurado se compilará todo tranquilamente. Eso si&#8230; obtendremos una gran cantidad de archivos binarios que no podremos utilizar para nada, la forma correcta de compilarlo será usando el programa <em>kernel-package</em>:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cd /usr/src/linux-source-2.6.14</li>
-	<li>make-kpkg &#8212;initrd &#8212;bzImage buildpackage<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /usr/src/linux-source-2.6.14
+<span class="gp">#</span><span class="w"> </span>make-kpkg <span class="nt">--initrd</span> <span class="nt">--bzImage</span> buildpackage</code></pre></figure></div>
 <p>Esto creará un paquete .deb con nuestro nuevo núcleo, que podremos instalar y (teóricamente) usar.</p>
 <h2>Hacerlo todo junto en un sólo comando</h2>
 <p>Si tenemos el Linux sin parchear (pero <b>configurado</b> como se ha explicado  antes) podemos parchearlo y compilarlo todo de una forma fácil; supongamos que tenemos instalado el parche <em>mppe</em> como se dijo anteriormente, para hacerlo todo de una basta con teclear:</p>
 <div class="console">
-<p>{% highlight console %}</p>
-<ol>
-	<li>cd /usr/src/linux-source-2.6.14</li>
-	<li>make-kpkg &#8212;initrd &#8212;bzImage &#8212;added-patches mppe buildpackage<br />
-{% endhighlight %}<br />
-</div></li>
-</ol>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /usr/src/linux-source-2.6.14
+<span class="gp">#</span><span class="w"> </span>make-kpkg <span class="nt">--initrd</span> <span class="nt">--bzImage</span> <span class="nt">--added-patches</span> mppe buildpackage</code></pre></figure></div>
 <p>Además, si quedó algún nuevo parámetro por configurar (debido al resultado de aplicar el parche) se pedirá por consola su valor. Normalmente, cuando se pregunta por el soporte de un módulo en el núcleo las opciones son: <b>Y</b>, <b>N</b> y <b>M</b>. Si se responde <b>Y</b> el módulo será incluído en la misma imagen del núcleo, esto aumenta la velocidad de carga pero también aumenta el consumo de memoria (el núcleo ocupa más). Si se responde <b>N</b> el núcleo no soportará esa característica (estad seguros cuando eliminéis algo!) y lo más normal <b>M</b> que creará un módulo para soportar dicha característica.</p>
 <h2>Enlaces de interés</h2>
 <p>La lista podría ser enorme, pero vamos a poner unos pocos (añadid vosotros los que queráis):</p>
@@ -8825,98 +8853,6 @@ Para más información mirar la lista de correo :)
   </div>
 
   <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-01-11/wifi-de-la-uclm-bajo-gnu-linux.html">WiFi de la UCLM bajo GNU/Linux</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-01-11
-    
-      
-  <a href="/users.html#cleto">
-   cleto
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-11-wifi-de-la-uclm-bajo-gnu-linux.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-11-wifi-de-la-uclm-bajo-gnu-linux.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/178">node/178</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <h1>Preparando el núcleo</h1>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2006-01-11/wifi-de-la-uclm-bajo-gnu-linux.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
     
   </div>
 
@@ -8966,7 +8902,7 @@ Para más información mirar la lista de correo :)
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

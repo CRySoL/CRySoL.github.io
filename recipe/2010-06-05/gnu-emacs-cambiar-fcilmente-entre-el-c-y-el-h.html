@@ -5324,30 +5324,21 @@
 <h2>Configuración</h2>
 <p>El comando en cuestión se llama <code>ff-find-other-file</code>. Pon el siguiente código en tu <code>.emacs</code> para asociar la combinación <code>C-c o</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-(add-hook &#8217;c-mode-common-hook<br />
-    (lambda()<br />
-        (local-set-key (kbd &#8220;C-c o&#8221;) &#8217;ff-find-other-file)))<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(add-hook 'c-mode-common-hook
+    (lambda()
+        (local-set-key (kbd "C-c o") 'ff-find-other-file)))</code></pre></figure></div>
 <p>Esto abre el fichero correspondiente en otro buffer, pero si se ejecuta estando sobre una línea <code>#include</code> entonces abre ese fichero en lugar del que corresponda al fichero actual.</p>
 <p>Con la configuración por defecto Emacs busca en los directorios definidos en la variable <code>cc-search-directories</code> que incluye el directorio actual y los <code>include</code> del sistema. Pero cuando en un proyecto tienes directorios <code>src</code> e <code>include</code> potencialmente con subdirectorios esto no es suficiente.</p>
 <p>Afortunadamente se pueden definir directorios adicionales donde buscar. Añade esto a tu <code>.emacs</code>:</p>
 <div>
-<p>{% highlight text <span>}<br />
-(setq ff-search-directories (quote (&#8220;.&#8221; &#8220;../include/*&#8221; &#8220;../../*&#8221;)))<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(setq ff-search-directories (quote ("." "../include/*" "../../*")))</code></pre></figure></div>
 <p>Esto suponiendo que en tu proyecto tienes una estructura de directorios del tipo:</p>
 <div>
-<p>{% highlight text <span>}<br />
-proyecto<br />
-+- src<br />
-   +- include<br />
-   +- moduloA<br />
-   +- moduloB<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">proyecto
++- src
+   +- include
+   +- moduloA
+   +- moduloB</code></pre></figure></div>
 <h2>Referencias</h2>
 <ul>
 	<li><a href="http://emacs-fu.blogspot.com/2008/12/quickly-switching-between-header-and.html">http://emacs-fu.blogspot.com/2008/12/quickly-switching-between-header-and.html</a></li>
@@ -5418,7 +5409,7 @@ proyecto<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

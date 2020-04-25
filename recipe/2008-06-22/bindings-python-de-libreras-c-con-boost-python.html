@@ -5360,85 +5360,74 @@
 <h2>Hello (una función)</h2>
 <p>hello.cc</p>
 <div>
-<p>{% highlight cpp %}<br />
-#include <string></p>
-<p>std::string hello() {<br />
-   return &#8220;hello, world&#8221;;<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;string&gt;
+</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">hello</span><span class="p">()</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="s">"hello, world"</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>hello_wrapper.cc</p>
 <div>
-<p>{% highlight cpp %}<br />
-#include &lt;boost/python.hpp&gt;</p>
-<p>std::string hello();</p>
-<p>using namespace boost::python;</p>
-<p>BOOST_PYTHON_MODULE(Hello) {<br />
-    def(&#8220;hello&#8221;, hello);<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;boost/python.hpp&gt;
+</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">hello</span><span class="p">();</span>
+
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">boost</span><span class="o">::</span><span class="n">python</span><span class="p">;</span>
+
+<span class="n">BOOST_PYTHON_MODULE</span><span class="p">(</span><span class="n">Hello</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">def</span><span class="p">(</span><span class="s">"hello"</span><span class="p">,</span> <span class="n">hello</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>Makefile</p>
 <div>
-<p>{% highlight text %}<br />
-<span class="caps">CXXFLAGS</span>=-I/usr/include/python2.4<br />
-<span class="caps">LDFLAGS</span>=-shared -lboost_python</p>
-<p>Hello.so: hello.o hello_wrapper.o<br />
-	$(CC) $(<span class="caps">LDFLAGS</span>) -o $@ $^</p>
-<p>clean:<br />
-	$(RM) Hello.so *.o *~<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">CXXFLAGS=-I/usr/include/python2.4
+LDFLAGS=-shared -lboost_python
+
+Hello.so: hello.o hello_wrapper.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+clean:
+	$(RM) Hello.so *.o *~</code></pre></figure></div>
 <p>hello.py (ejemplo de uso)</p>
 <div>
-<p>{% highlight python <span>}<br />
-#!/usr/bin/python<br />
-import Hello<br />
-print Hello.hello()<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+</span><span class="kn">import</span> <span class="nn">Hello</span>
+<span class="k">print</span> <span class="n">Hello</span><span class="p">.</span><span class="n">hello</span><span class="p">()</span></code></pre></figure></div>
 <h2>Bindings para una clase</h2>
 <p>control.h</p>
 <div>
-<p>{% highlight cpp %}<br />
-class IntRW {<br />
-private:<br />
-    int _state;</p>
-<p>public:<br />
-    void set(int value) {<br />
-        _state = value;<br />
-    }</p>
-int get() {
-return _state;
-}
-<p>};<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">IntRW</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="kt">int</span> <span class="n">_state</span><span class="p">;</span>
+
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">set</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_state</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">get</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_state</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></figure></div>
 <p>control_wrapper.cc</p>
 <div>
-<p>{% highlight cpp %}<br />
-#include &lt;boost/python.hpp&gt;<br />
-#include &#8220;control.h&#8221;</p>
-<p>using namespace boost::python;</p>
-<p>BOOST_PYTHON_MODULE(Control)<br />
-{<br />
-    class_<IntRW>(&#8220;IntRW&#8221;)<br />
-        .def(&#8220;set&#8221;, &amp;IntRW::set)<br />
-        .def(&#8220;get&#8221;, &amp;IntRW::get)<br />
-    ;<br />
-}<br />
-{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;boost/python.hpp&gt;
+#include "control.h"
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">boost</span><span class="o">::</span><span class="n">python</span><span class="p">;</span>
+
+<span class="n">BOOST_PYTHON_MODULE</span><span class="p">(</span><span class="n">Control</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">class_</span><span class="o">&lt;</span><span class="n">IntRW</span><span class="o">&gt;</span><span class="p">(</span><span class="s">"IntRW"</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"set"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">IntRW</span><span class="o">::</span><span class="n">set</span><span class="p">)</span>
+        <span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">"get"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">IntRW</span><span class="o">::</span><span class="n">get</span><span class="p">)</span>
+    <span class="p">;</span>
+<span class="p">}</span></code></pre></figure></div>
 <p>control.py (ejemplo de uso)</p>
 <div>
-<p>{% highlight python <span>}<br />
-#!/usr/bin/python<br />
-import Control<br />
-actuator = Control.IntRW()<br />
-actuator.set(100)<br />
-print actuator.get()<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+</span><span class="kn">import</span> <span class="nn">Control</span>
+<span class="n">actuator</span> <span class="o">=</span> <span class="n">Control</span><span class="p">.</span><span class="n">IntRW</span><span class="p">()</span>
+<span class="n">actuator</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">actuator</span><span class="p">.</span><span class="n">get</span><span class="p">()</span></code></pre></figure></div>
 <h2>Referencias</h2>
 <p>La documentación de Boost.Python está un poco anticuada, pero es lo que hay:</p>
 <ul>
@@ -5510,7 +5499,7 @@ print actuator.get()<br />
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">

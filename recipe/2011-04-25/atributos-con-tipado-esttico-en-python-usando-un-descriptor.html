@@ -5316,48 +5316,43 @@
 <h2>Descriptores</h2>
 <p>Los descriptores de Python son clases que implementan un «protocolo» concreto, es decir, una serie de métodos. A saber:</p>
 <div>
-<p>{% highlight python <span>}<br />
-<i>get</i>(self, obj, type=None)<br />
-<i>set</i>(self, obj, value)<br />
-<i>delete</i>(self, obj)<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="n">__delete__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></code></pre></figure></div>
 <p>Aunque esto parezca bastante extraño, lo cierto es que los descriptores se usan en la mayoría de componentes del lenguaje: funciones, métodos estáticos y de clase, properties y muchas otras cosas. La <a href="http://docs.python.org/howto/descriptor.html">Descriptor HowTo Guide</a> define el descriptor como «un atributo de objeto con comportamiento asociado», y eso es porque es posible añadir código que se ejecutar cuando se pida (get), se asigne (set) o se destruya un atributo creado con un descriptor.</p>
 <p>Se distingue entre «data descriptors» si definen <code>__get__</code> y <code>__set__</code> y «non-data descriptors» si solo definen el <code>__get__</code>. Esta diferencia afecta al comportamiento del descriptor en lo referente al método <code>__get__</code> aunque ambos lo tienen. No voy a entrar más en detalle sobre esto porque aquí vamos a hacer un «data descriptor».</p>
 <h2>Tipado estático</h2>
 <p>Nuestro descriptor nos va a permitir definir el tipo de un atributo al declarar la clase. No será posible cambiar el tipo del atributo operando con las instancias de la clase, aunque sí el valor. El descriptor sería algo como:</p>
 <div>
-<p>{% highlight python %}<br />
-class TypedAttr(object):<br />
-    def <i>init</i>(self, name, cls):<br />
-        self.name = name<br />
-        self.cls = cls</p>
-def <i>get</i>(self, obj, objtype):
-if (obj is None):
-raise AttributeError
-try:
-return obj.<i>dict</i>[self.name]
-except KeyError:
-raise AttributeError
-def <i>set</i>(self, obj, val):
-if not isinstance(val, self.cls):
-raise TypeError(&#8220;&#8216;%s&#8217; given but &#8216;%s&#8217; expected&#8221; % (val.<i>class</i>.<i>name</i>, self.cls.<i>name</i>))
-obj.<i>dict</i>[self.name] = val
-<p>{% endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">TypedAttr</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cls</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">cls</span> <span class="o">=</span> <span class="n">cls</span>
+
+    <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="nb">AttributeError</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">obj</span><span class="p">.</span><span class="n">__dict__</span><span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">except</span> <span class="nb">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">AttributeError</span>
+
+    <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">cls</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="nb">TypeError</span><span class="p">(</span><span class="s">"'%s' given but '%s' expected"</span> <span class="o">%</span> <span class="p">(</span><span class="n">val</span><span class="p">.</span><span class="n">__class__</span><span class="p">.</span><span class="n">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">cls</span><span class="p">.</span><span class="n">__name__</span><span class="p">))</span>
+
+        <span class="n">obj</span><span class="p">.</span><span class="n">__dict__</span><span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></code></pre></figure></div>
 <p>Y se usa de este modo:</p>
 <div>
-<p>{% highlight python <span>}<br />
-&gt;&gt;&gt; class A(object):<br />
-&#8230;     a = TypedAttr(&#8216;__a&#8217;, str)<br />
-&gt;&gt;&gt;<br />
-&gt;&gt;&gt; a1 = A()<br />
-&gt;&gt;&gt; a1.a = &#8216;hi&#8217;<br />
-&gt;&gt;&gt;<br />
-&gt;&gt;&gt; a1.a = 3<br />
-&gt;&gt;&gt; TypeError: &#8216;int&#8217; given but &#8216;str&#8217; expected<br />
-{</span> endhighlight %}</p>
-</div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="p">...</span>     <span class="n">a</span> <span class="o">=</span> <span class="n">TypedAttr</span><span class="p">(</span><span class="s">'__a'</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="p">.</span><span class="n">a</span> <span class="o">=</span> <span class="s">'hi'</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="p">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">TypeError</span><span class="p">:</span> <span class="s">'int'</span> <span class="n">given</span> <span class="n">but</span> <span class="s">'str'</span> <span class="n">expected</span></code></pre></figure></div>
 <p>Puedes encontrar este descriptor en la última versión del paquete <a href="https://arco.esi.uclm.es/svn/public/prj/atheist/pyarco/Type.py">python-pyarco</a></p>
 <h2>Referencias</h2>
 <ul>
@@ -5428,7 +5423,7 @@ obj.<i>dict</i>[self.name] = val
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-25 02:51:16 -0500
+	  Generated at 2020-04-25 05:57:01 -0500
 	  <br/>
 		<a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 		   <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20automatic%20build/badge.svg" alt="_built">
