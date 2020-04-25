@@ -9,6 +9,11 @@ jobs:
     name: compile jekyll site
     steps:
     - uses: actions/checkout@v2
+      
+    - name: Setup timezone
+      uses: zcong1993/setup-timezone@master
+      with:
+        timezone: Europe/Madrid
 
     - name: login
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
