@@ -1,5 +1,9 @@
 name: Jekyll build
-on: [push]
+on: 
+  push:
+    paths: 
+      - 'source/**'
+        
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
