@@ -50,15 +50,15 @@ h2. Configuración de @ian@
 
 * Añadir configuración en @~/.config/ian/config@ (para ian) o @~/.bashrc@ (para el sistema).
 {% highlight text %}
-      DEBFULLNAME="Ana Rubio Ruiz"
-      DEBEMAIL=ana.rubio.ruiz@gmail.com
-      DEBSIGN_KEYID=<huella_GPG>
-      DEBREPO_URL=debrepo@debrepo/shared
+DEBFULLNAME="Ana Rubio Ruiz"
+DEBEMAIL=ana.rubio.ruiz@gmail.com
+DEBSIGN_KEYID=<huella_GPG>
+DEBREPO_URL=debrepo@debrepo/shared
 {% endhighlight %}
 
 * Ian necesita un editor por defecto (ej: emacs).
 {% highlight text %}
-      EDITOR="emacs -nw"
+EDITOR="emacs -nw"
 {% endhighlight %}
 
 ian prioriza los valores indicados en @~/.config/ian/config@ por encima de los de @~/.bashrc@.
