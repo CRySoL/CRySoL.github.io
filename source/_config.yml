@@ -24,6 +24,7 @@ exclude:
   - "changelog.md"
   - "docs"
   - "old"
+  - "vendor"
 
 # highlighter: pygments
 excerpt_separator: "<!--break-->"
@@ -50,7 +51,7 @@ author :
 # Else if you are pushing to username.github.io, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://CRySoL.github.io
+production_url : http://crysol.org
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
@@ -651,6 +652,9 @@ authors:
     nick: RRC19189
     email: RRC19189@Gmail.com
     picture: files/pictures/picture-3642.jpg
+  isaac.lacoba:
+    name: Isaac Lacoba
+    nick: isaac.lacoba
   ana_rubio:
-    name: ana_rubio
+    name: Ana Rubio
     nick: ana_rubio
