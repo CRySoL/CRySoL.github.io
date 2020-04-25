@@ -9,12 +9,15 @@ jobs:
     name: compile jekyll site
     steps:
     - uses: actions/checkout@v2
-      
+
+    - name: login
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        
     - name: Build the site in the jekyll/builder container
       run: |
         docker run \
         -v ${{ github.workspace }}/source:/srv/jekyll \
-        jekyll/jekyll:3.8 \
+        docker.pkg.github.com/crysol/crysol.github.io/jekyll-and-deps:3.8 \
         /bin/bash -c "chmod o+rw -R /srv/jekyll && jekyll build --trace -b crysol.org"
         
     - name: commit result
