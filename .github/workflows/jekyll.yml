@@ -1,4 +1,4 @@
-name: Jekyll automatic build
+name: Jekyll build
 on: [push]
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
