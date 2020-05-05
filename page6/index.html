@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
+
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
   <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
-
-  <li><a href="/recipe/2017-02-15/ultra-simple-tmux-recipe.html">Ultra simple tmux recipe</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="613 posts"
+     title="614 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="27 posts"
+     title="28 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7887,7 +7887,104 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2013-05-22/fallo-de-pdflatex-en-debian-sid.html">Fallo de pdflatex en debian sid</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2013-05-22
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2013-05-22-fallo-de-pdflatex-en-debian-sid.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2013-05-22-fallo-de-pdflatex-en-debian-sid.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
+    
+    	<li><a href="/tags.html#LaTeX-ref">LaTeX </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1705">node/1705</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Si tienes Debian sid y has actualizado hace poco probablemente pdflatex ha empezado a fallar:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>pdflatex main.tex
+<span class="go">This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian)
+
+kpathsea: Running mktexfmt pdflatex.fmt
+I can't find the format file `pdflatex.fmt'!</span></code></pre></figure></div>
+<p>Hay un bug abierto sobre esto: #709164</p>
+<p>La solución según este hilo es instalar una versión antigua de <code>libkpathsea6</code>, por ejemplo:</p>
+<p><a href="http://ftp.de.debian.org/debian/pool/main/t/texlive-bin/libkpathsea6_2012.20120628-4_amd64.deb">http://ftp.de.debian.org/debian/pool/main/t/texlive-bin/libkpathsea6_2012.20120628-4_amd64.deb</a></p>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8714,99 +8811,6 @@ Algunas cosas a tener en cuenta:
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2012-12-25/virtual-machine-unattended-debian-installations-with-libvirt-and-d-i-preseeding.html">Virtual machine unattended Debian installations with libvirt and d-i preseeding</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2012-12-25
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2012-12-25-virtual-machine-unattended-debian-installations-with-libvirt-and-d-i-preseeding.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2012-12-25-virtual-machine-unattended-debian-installations-with-libvirt-and-d-i-preseeding.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1694">node/1694</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>That recipe explains how to perform an unattended Debian <span class="caps">GNU</span>/Linux installation (thanks to <strong>preseeds</strong>) on a virtual machine using <code>libvirt</code>.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2012-12-25/virtual-machine-unattended-debian-installations-with-libvirt-and-d-i-preseeding.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8845,9 +8849,9 @@ Algunas cosas a tener en cuenta:
         <p>&copy; 2020 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
-	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
+	  See <a href="https://github.com/CRySoL/CRySoL.github.io" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-30 03:58:09 -0500
+	  Generated at 2020-05-05 13:31:27 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

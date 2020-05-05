@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
+
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
   <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
-
-  <li><a href="/recipe/2017-02-15/ultra-simple-tmux-recipe.html">Ultra simple tmux recipe</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="613 posts"
+     title="614 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="27 posts"
+     title="28 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7887,7 +7887,188 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-01-07/sistema-hbrido-paquetes-de-distintas-releases-con-apt.html">Sistema Híbrido: Paquetes de distintas "releases" con apt</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-01-07
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-07-sistema-hbrido-paquetes-de-distintas-releases-con-apt.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-07-sistema-hbrido-paquetes-de-distintas-releases-con-apt.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/172">node/172</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+¿Nunca habéis deseado probar un programa de una distribución más inestable sabiendo que podéis volver atrás? ¿Nunca habéis tenido que recurrir a una versión anterior de ningún paquete? Pues existía una manera más fácil, y aquí os explico cómo.
+</blockquote>
+
+
+<h2>Asunciones</h2>
+
+Asumiremos que tenemos instalada una "unstable", pero queremos tener acceso a algunos paquetes de "experimental" y... bueno, ya que nos ponemos, también de "stable" y "testing", pero con menor prioridad.
+
+<h2>Configurar la "release" por defecto</h2>
+
+Editáis el fichero (si no existe lo creáis) <tt>/etc/apt/apt.conf</tt> y añadís la línea:
+
+<pre>APT::Default-Release "unstable";</pre>
+
+
+<h2>Configurar las otras distros</h2>
+
+APT ya sabe cuál es la distro que queremos tener instalada, pero hay que decirle que existe más mundo. Para ello se utiliza el fichero <tt>/etc/apt/preferences</tt>:
+
+<pre>Package: *
+Pin: release o=Debian,a=unstable
+Pin-Priority: 900
+
+Package: *
+Pin: release o=Debian,a=experimental
+Pin-Priority: 400
+
+Package: *
+Pin: release o=Debian,a=testing
+Pin-Priority: 300
+
+Package: *
+Pin: release o=Debian,a=stable
+Pin-Priority: 200
+
+Package: *
+Pin: release o=Ubuntu
+Pin-Priority: -1
+</pre>
+
+<b>NOTA:</b> No, aún no lo he probado.
+
+Debo advertir que las prioridades son bastante curiosas y hay que tener cuidadín:
+
+<ul>
+<li><b>&lt; 0</b>: La versión no se instalará jamás.
+</li>
+
+<li><b>0 - 100</b>: El paquete no se reemplazará por una versión superior. Los paquetes instalados tienen prioridad 100.
+</li>
+
+<li><b>101-500</b>: La versión se instala si es más moderna que la existente y no existe ningún ejemplar en la versión objetivo.
+</li>
+
+<li><b>501-1000</b>: La versión se instala aunque no esté en la distro por defecto.
+</li>
+
+<li><b>1000:</b> La versión se instalará a toda costa, incluso si es inferior a la actual.
+</li>
+</ul>
+
+Típicamente se utilizan los valores -1, 100, 500, 900 y 1001.
+
+Lo de bloquear Ubuntu no es por mala leche: a menudo suele dar problemas mezclar paquetes. Cada uno que haga lo que quiera.
+
+<h2>Editar sources.list</h2>
+
+Claro, nos falta editar el sources.list y añadir todos los repositorios que nos dé la gana. Ya sabemos que no se va a instalar nada "extraño" (siempre que no metáis repositorios "extraños").
+
+<h2>Cómo usarlo</h2>
+
+Muy fácil: Para los paquetes de la distribución por defecto, como siempre:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">apt-get install lo-que-sea</span></code></pre></figure>
+</div>
+
+Para el resto, también fácil (donde pongo "experimental" poner el nombre de la distro):
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">apt-get install -t experimental lo-que-sea</span></code></pre></figure>
+</div>
+
+Todos ellos se "updatean" a la vez por el método habitual.
+
+<h2>Otras referencias</h2>
+
+Me disponía a escribir esta receta basándome en un ejemplo que tenía por algún lado. No he encontrado el ejemplo, pero sí un documento titulado <a href="http://www.ubuntu-es.org/node/595">Jugando con APT</a>, que explica cómo hacer lo mismo para Ubuntu.
+
+También están interesantes el <a href="http://www.debian.org/doc/manuals/apt-howto/ch-apt-get.es.html">Manual de APT</a> y un documentillo que he encontrado titulado <a href="http://www.argon.org/~roderick/apt-pinning.html">Using APT with more than 2 sources</a>, este último en inglés, claro.
+
+<ul>
+<li><a href="http://www.esdebian.org/articulos/24672/apt-pinning">http://www.esdebian.org/articulos/24672/apt-pinning</a></li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8756,98 +8937,6 @@ done</code></pre></figure></div>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/tale/2005-12-20/increble-pero-cierto.html">Increíble, pero cierto.</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-12-20
-    
-      
-  <a href="/users.html#magmax">
-   magmax
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-12-20-increble-pero-cierto.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-12-20-increble-pero-cierto.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#tale-ref">
-    		tale
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/160">node/160</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      A veces lo flipo. No suelo comentar lo que veo, pero esta vez ha podido conmigo.
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/tale/2005-12-20/increble-pero-cierto.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8886,9 +8975,9 @@ done</code></pre></figure></div>
         <p>&copy; 2020 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
-	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
+	  See <a href="https://github.com/CRySoL/CRySoL.github.io" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-30 03:58:09 -0500
+	  Generated at 2020-05-05 13:31:27 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

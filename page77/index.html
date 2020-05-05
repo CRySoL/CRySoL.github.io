@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
+
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
   <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
-
-  <li><a href="/recipe/2017-02-15/ultra-simple-tmux-recipe.html">Ultra simple tmux recipe</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="613 posts"
+     title="614 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="27 posts"
+     title="28 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7887,7 +7887,266 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-02-21/tabletas-wacom-en-x-org.html">Tabletas Wacom en X.Org</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-02-21
+    
+      
+  <a href="/users.html#int-0">
+   int-0
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-21-tabletas-wacom-en-x-org.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-21-tabletas-wacom-en-x-org.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#drivers-ref">drivers </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/574">node/574</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Hola! Dado que en GNU tenemos estupendísimos programas como <em>Inkscape</em> o <em>The Gimp</em> es cada vez más común el querer disponer de una tableta digitalizadora chula para poder trabajar con gráficos de una forma más cómoda y fácil. Si habéis pensado en comprar alguna y tenéis miedo del soporte que linux os pueda brindar, os recomiendo las <em>Wacom</em>, tienen un soporte estupendo (parece ser que wacom colabora con el desarrollador de los drivers). </blockquote>
+
+<h2>Instalando software necesario</h2>
+Los drivers soportan tanto linux 2.4.x como 2.6.x, nosotros explicaremos como instalarlo y configurarlo en linux de la rama 2.6. En Debian (como no podía ser de otra forma):
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>m-a ai wacom</code></pre></figure>
+</div>
+
+Y ya tenemos los módulos para el linux, ahora debemos instalar el driver para X.Org:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-get <span class="nb">install </span>xserver-xorg-input-wacom</code></pre></figure>
+</div>
+
+También puede ser útil contar con:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-get <span class="nb">install </span>wacom-tools</code></pre></figure>
+</div>
+
+Bien, ya tenemos todo listo para configurarlo, vamos a ello...
+
+<h2>Configurando X.Org</h2>
+<blockquote>Si todavía queda alguien que use Xfree86, esto es completamente compatible... ;)</blockquote>
+
+Las wacom disponen de varios dispositivos físicos apuntadores: el lápiz, un ratón, etc. Son capaces de detectar qué dispositivo estamos usando, es decir: si estamos utilizando el lápiz o el ratón (en mi caso). En el archivo de configuración de X.Org configuraremos los distintos tipos que soporta el driver y podremos tener configuraciones específicas para cada uno, así por ejemplo el puntero se comportará de una forma si usamos lápiz o de otra si estamos con el ratón (esto es genial!). Pues aquí va mi código para el archivo <tt>/etc/X11/xorg.conf</tt>:
+
+<pre>## Wacom Volito
+#
+Section "InputDevice"
+        Driver          "wacom"
+        Identifier      "stylus"
+        Option          "Device"                "/dev/input/wacom"
+        Option          "Type"                  "stylus"
+        Option          "USB"                   "on"
+        Option          "Threshold"             "15"
+        #Option         "Mode"                  "Relative"
+        Option          "Vendor"                "WACOM"
+EndSection
+
+Section "InputDevice"
+        Driver          "wacom"
+        Identifier      "eraser"
+        Option          "Device"                "/dev/input/wacom"
+        Option          "Type"                  "eraser"
+        Option          "USB"                   "on"
+        Option          "Threshold"             "15"
+        #Option         "Mode"                  "Relative"
+        Option          "Vendor"                "WACOM"
+EndSection
+
+Section "InputDevice"
+        Driver          "wacom"
+        Identifier      "cursor"
+        Option          "Device"                "/dev/input/wacom"
+        Option          "Type"                  "cursor"
+        Option          "USB"                   "on"
+        Option          "Threshold"             "15"
+        #Option         "Mode"                  "Relative"
+        Option          "Vendor"                "WACOM"
+EndSection</pre>
+
+...y añadiremos en la <em>Section "ServerLayout"</em> del mismo fichero:
+
+<pre>        InputDevice     "stylus"                "SendCoreEvents"
+        InputDevice     "eraser"                "SendCoreEvents"
+        InputDevice     "cursor"                "SendCoreEvents"</pre>
+
+En las opciones de los dispositivos se puede controlar TODO, hay muchísimos parámetros (consultad el manual). Pincipalmente tenemos <em>Threshold</em> (sensibilidad) y <em>Mode</em>, que puede ser <em>Relative</em> o <em>Absolute</em> (por defecto). El modo absoluto significa que las esquinas de la tableta son las esquinas de la pantalla, recorrer la tableta es recorrer la pantalla. El modo relativo sirve para trabajar con mayor precisión, pero es más incómodo y necesitaremos usar un ratón también.
+
+<h3>El dispositivo /dev/input/wacom</h3>
+Si instaláis en Debian (y supongo que en otras igual) os aparecerá un dispositivo <tt>/dev/input/wacom</tt> que será un enlace simbólico débil a <tt>/dev/input/eventX</tt>, siendo X un número de 1 al que sea. Esto es así porque debe existir una regla para <em>udev</em> tal que así (archivo <tt>/etc/udev/rules.d/10_wacom.rules</tt>):
+
+<pre>KERNEL="event*", SYSFS{idVendor}="056a", NAME="input/%k", SYMLINK="input/wacom%e"</pre>
+
+Con este archivo ahí y ejecutando lo que tenéis en la sección <em>Comportamiento errático del puntero</em> os debería aparecer ese enlace. De todas formas, si no os aparece esta es mi cutre-solución<em>-o-matic-2000</em>:
+
+Mediante <em>wacdump</em> averiguaremos el dispositivo de nuestra wacom:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>wacdump /dev/input/event2</code></pre></figure>
+</div>
+
+Si <em>eso</em> se trata de una wacom aparecerá algo como:
+
+<pre>MODEL=Wacom Volito                      ROM=1.4-1
+CLS=USB  VNDR=Wacom  DEV=Volito  SUB=MODEL-VOL</pre>
+
+Pulsáis Ctrl+C (o Ctrl+X+Alt+Esc+X+F+win+5+Ctrl+Esc+U si fuese <em>emacs</em>) para salir y hacéis el enlace:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /dev/input/event2 /dev/input/wacom</code></pre></figure>
+</div>
+
+Ahora, si reinciamos X.Org, tendremos la tableta funcionando... casi...
+
+<h2>Comportamiento errático del puntero</h2>
+Lo más normal es que mováis un poco el lápiz y el puntero se vuelva loco y se empiece a cliquear todo y se os quede la sesión "medio muerta" y me mandéis un mail poniéndome verde... pues bien, os comento el problema: cuando conectáis la tableta, el módulo <em>usbmouse</em> reclama el nuevo hardware y lo maneja él... MAL! Debemos hacer que se cargue primero el módulo <em>wacom</em> y luego lo que tenga que venir. También se puede configurar <em>udev</em> para ello... pero como tampoco me he pegado con eso, ahí va mi solución cutre:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>/etc/init.d/udev stop
+<span class="gp">$</span><span class="w"> </span>rmmod wacom usbmouse ehci_hcd ohci_hcd usbhid
+<span class="gp">$</span><span class="w"> </span>modprobe wacom
+<span class="gp">$</span><span class="w"> </span>/etc/inid.d/udev start</code></pre></figure>
+</div>
+
+...y ya podemos reiniciar X.Org y disfrutar de nuestra tableta! :)
+
+<h2>Apéndice A: instalación y compilación <em>from scratch</em></h2>
+Pues nada... nos gusta vivir al límite... eh? vayamos a la página del proyecto <a href="http://linuxwacom.sourceforge.net/">Linux Wacom</a> y pinchamos en <em>Project Status</em> en la versión en desarrollo (actualmente 0.7.7-4), guardamos el archivo en disco y lo descomprimimos:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>unp linuxwacom-0.7.7-4.tar.bz2
+<span class="gp">#</span><span class="nb">cd </span>linuxwacom-0.7.7-4</code></pre></figure>
+</div>
+
+Veamos qué conseguiremos con esto:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>./configure
+<span class="go">...morralla sin significado aparente para nosotros...
+----------------------------------------
+  BUILD ENVIRONMENT:
+       architecture - i486-linux-gnu
+       linux kernel - yes 2.6.18
+  module versioning - yes -DCONFIG_MODVERSIONS -DMODVERSIONS -include /lib/modules/2.6.18-3-686/build/include/linux/modversions.h
+      kernel source - yes /lib/modules/2.6.18-3-686/build
+           Xorg SDK - yes /usr/include/xorg
+          XSERVER64 - no
+           dlloader - yes
+               XLib - yes /usr/lib
+                TCL - yes /usr/include/tcl8.4/
+                 TK - yes /usr/include/tcl8.4/
+            ncurses - yes
+  BUILD OPTIONS:
+            wacom.o - no
+            wacdump - yes
+             xidump - yes
+        libwacomcfg - yes
+         libwacomxi - yes
+          xsetwacom - yes
+              hid.o - no
+         usbmouse.o - no
+            evdev.o - no
+         mousedev.o - no
+            input.o - no
+        tabletdev.o - no
+       wacom_drv.so - yes /usr/lib/xorg/modules/input
+        wacom_drv.o - no
+----------------------------------------</span></code></pre></figure>
+</div>
+
+Aquí nos dice que elementos nos va a generar y de cuáles va a pasar olímpicamente. Nos interesa (sobre todo) que genere <em>wacom.o</em> (el módulo para el kernel) y <em>wacom_drv.so</em> (el driver para X.Org). Si no os aparece a <em>yes</em> puede ser por dos causas: por defecto no se generá (ejecutar <em>./configure --help</em> y os indicarán los parámetros) o porque os falten librerías de desarrollo de las X o las cabeceras del núcleo. El resto de elementos a generar son módulos más o menos útiles cuya utilidad queda fuera de esta receta...
+Una vez hayamos ejecutado el <em>configure</em> y esté todo a nuestro gusto:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>make
+<span class="gp">$</span><span class="w"> </span>make <span class="nb">install</span></code></pre></figure>
+</div>
+
+Y si nada de esto da error... ya podemos empezar con la receta como si tal cosa... :)
+
+<h2>Enlaces</h2>
+Página del proyecto <a href="http://linuxwacom.sourceforge.net/">Linux Wacom</a>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8724,89 +8983,6 @@
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2007-02-19/unos-tests-de-logo.html">unos tests de logo...</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-02-19
-    
-      
-  <a href="/users.html#brue">
-   brue
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-19-unos-tests-de-logo.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-19-unos-tests-de-logo.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/570">node/570</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Es sólo un test
-
-<a href="http://www.brue.org/files/crysol_beta2_brue.png">http://www.brue.org/files/crysol_beta2_brue.png</a>
-
-si le interesa a alguien, el svg está en ->> <a href="http://www.brue.org/files/crysol_beta2_brue.svg">http://www.brue.org/files/crysol_beta2_brue.svg</a>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8845,9 +9021,9 @@ si le interesa a alguien, el svg está en ->> <a href="http://www.brue.org/files
         <p>&copy; 2020 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
-	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
+	  See <a href="https://github.com/CRySoL/CRySoL.github.io" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-30 03:58:09 -0500
+	  Generated at 2020-05-05 13:31:27 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
+
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
   <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
-
-  <li><a href="/recipe/2017-02-15/ultra-simple-tmux-recipe.html">Ultra simple tmux recipe</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="613 posts"
+     title="614 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="27 posts"
+     title="28 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7887,7 +7887,155 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-04-16/glib-io-channels-con-c.html">GLib IO Channels con C</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-04-16
+    
+      
+  <a href="/users.html#javieralso">
+   javieralso
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-04-16-glib-io-channels-con-c.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-04-16-glib-io-channels-con-c.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/645">node/645</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Programación de bucles de eventos en C para GNU/Linux utilizando GLib</blockquote>
+
+
+<h2> Introducción </h2>
+Siguiendo con la línea de <em>david</em> en su entrada <a href="http://cryso.inf-cr.uclm.es/node/465">GLib IO Channels con python</a> en el que implementaba el patrón <em>reactor</em> en <em>python</em>, ahora haré una pequeña introducción a la programación de éste mismo patrón en C.
+
+<h2> Patrón <em>reactor</em> en C. </h2>
+
+El código de ejemplo para ésta receta se encuentra disponible en el <a href="https://arco.inf-cr.uclm.es/svn/public/patterns/reactor_c_glib/">repo público de Arco</a> y puede ser descargado utilizando <a href="http://subversion.tigris.org">subversion</a>. Aquí se muestra el contenido del archivo con la implementación del patrón <em>reactor</em>:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;glib.h&gt;
+</span>
+<span class="n">gboolean</span> <span class="nf">handler1</span><span class="p">(</span><span class="n">gpointer</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">printf</span> <span class="p">(</span><span class="s">"Manejador 1</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">gboolean</span> <span class="nf">handler2</span><span class="p">(</span><span class="n">gpointer</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">printf</span> <span class="p">(</span><span class="s">"Manejador 2</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">gboolean</span> <span class="nf">handler3</span><span class="p">(</span><span class="n">GIOChannel</span> <span class="o">*</span><span class="n">source</span><span class="p">,</span> <span class="n">GIOCondition</span> <span class="n">condition</span><span class="p">,</span> <span class="n">gpointer</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">buff</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="n">fd</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="n">fd</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">buff</span><span class="p">[</span><span class="n">fd</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">printf</span> <span class="p">(</span><span class="s">"Manejador 3</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+  <span class="n">fd</span> <span class="o">=</span> <span class="n">g_io_channel_unix_get_fd</span> <span class="p">(</span><span class="n">source</span><span class="p">);</span>
+  <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">buff</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+  <span class="n">printf</span> <span class="p">(</span><span class="s">"Buffer: %s"</span><span class="p">,</span> <span class="n">buff</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">TRUE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">gpointer</span> <span class="n">data</span><span class="p">;</span>
+
+  <span class="n">g_timeout_add</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">handler1</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+  <span class="n">g_timeout_add</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">handler2</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+
+  <span class="n">g_io_add_watch</span><span class="p">(</span><span class="n">g_io_channel_unix_new</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">G_IO_IN</span><span class="p">,</span> <span class="n">handler3</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">g_main_loop_run</span><span class="p">(</span><span class="n">g_main_loop_new</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">));</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+ El código que se muestra es bastante simple y fácil de entender. Al principio, después de las inclusiones de las cabeceras necesarias, se declaran tres funciones que consisten en los <em>manejadores</em> de los eventos capturados. Los dos primeros son exactamente iguales y lo único que hacen es escribir un mensaje por pantalla. El tercer manejador se llama cuando se introducen datos por teclado. Lo único que hace es inicializar un buffer en el que después copiaremos los datos introducidos y finalmente los imprimiremos. Podemos ver que éstas tres funciones devuelven <em>TRUE</em>, mas adelante se verá el porqué.
+
+La "chicha" del asunto está en la función <em>main</em>, que es la que se encarga de asignar los <em>manejadores</em> anteriores a cada una de las señales y de inicializar el bucle de eventos.
+Las llamadas a <em>g_timeout_add</em> asignan los dos primeros manejadores a un evento de tiempo, que se generará, respectivamente, cada segundo y medio segundo. Por su parte, la llamada a <em>g_io_channel_unix_new</em> asigna el tercer manejador a los eventos de escritura generados a través de la entrada estándar (el teclado).
+Finalmente, la penúltima línea se encarga de poner en funcionamiento el <em>bucle principal</em>, creado por la función que se llama como primer parámetro. En ese momento, el programa se queda "congelado" ahí y lo único que hace es esperar a que se produzcan los eventos programados (los dos de temporización y la entrada por el teclado).
+Antes comenté que los manejadores siempre devolvian <em>TRUE</em>. Ésto se debe a que si devolviesen <em>FALSE</em>, no volverían a ser llamados. Así conseguimos que los manejadores vuelvan a ser ejecutados cuando se producen de nuevo los eventos.
+
+<h2> Referencias </h2>
+
+<a href="http://developer.gnome.org/doc/API/glib">API de GLib.</a>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8790,91 +8938,6 @@ PD: En los tipos de recetas metería al menos una categoría genérica de &#8220
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/new/2007-03-30/no-comprar-computadoras-hp.html">NO COMPRAR: Computadoras HP</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-03-30
-    
-      
-  <a href="/users.html#brue">
-   brue
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-03-30-no-comprar-computadoras-hp.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-03-30-no-comprar-computadoras-hp.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#new-ref">
-    		new
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/632">node/632</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Vosotros mismos:
-
-<a href="http://es.theinquirer.net/2007/03/28/si_instalas_linux_en_tu_hp_olv.html">http://es.theinquirer.net/2007/03/28/si_instalas_linux_en_tu_hp_olv.html</a>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8913,9 +8976,9 @@ PD: En los tipos de recetas metería al menos una categoría genérica de &#8220
         <p>&copy; 2020 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
-	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
+	  See <a href="https://github.com/CRySoL/CRySoL.github.io" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-30 03:58:09 -0500
+	  Generated at 2020-05-05 13:31:27 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
