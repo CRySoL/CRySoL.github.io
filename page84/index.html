@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
+
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
   <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
-
-  <li><a href="/recipe/2017-02-15/ultra-simple-tmux-recipe.html">Ultra simple tmux recipe</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="613 posts"
+     title="614 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="27 posts"
+     title="28 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7887,7 +7887,198 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-12-24/mdem-comtrend-ct-350-con-el-driver-ueagle-atm-remake.html">Módem Comtrend CT-350 con el driver ueagle-atm (remake)</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-12-24
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-12-24-mdem-comtrend-ct-350-con-el-driver-ueagle-atm-remake.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-12-24-mdem-comtrend-ct-350-con-el-driver-ueagle-atm-remake.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/476">node/476</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+<p>Esta receta es un &#8220;remake&#8221; de <a href="/node/254">la que hizo Nacho</a> (con su permiso) sobre el mismo tema. Sólo tiene algunos añadidos y alguna pequeña corrección.</p>
+</blockquote>
+<h2>Ingredientes</h2>
+<ul>
+	<li>Módem <span class="caps">ADSL</span> Contrend CT-350 <span class="caps">USB</span> de Telefónica &#8220;el azulito&#8221;.</li>
+	<li>Debian <span class="caps">GNU</span>/Linux</li>
+	<li>Linux &gt;= 2.6.10</li>
+	<li>subversion</li>
+	<li>unp</li>
+	<li>br2684ctl</li>
+	<li>ppp</li>
+	<li>pppoe</li>
+</ul>
+<h2>Módulos</h2>
+<p>Descarga los fuentes con subversion:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>svn co svn://svn.gna.org/svn/ueagleatm/trunk/ueagle-atm
+<span class="go">A    ueagle-atm/usbatm.h
+A    ueagle-atm/ueagle-atm.c
+A    ueagle-atm/COPYING
+A    ueagle-atm/usbatm.c
+A    ueagle-atm/Makefile
+Revisión obtenida: 323</span></code></pre></figure></div>
+<p>Compila los drivers:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~#</span><span class="w"> </span><span class="nb">cd </span>ueagle-atm
+<span class="gp">~/ueagle-atm#</span><span class="w"> </span>make <span class="nb">install</span></code></pre></figure></div>
+<h2>Firmware</h2>
+<p>Descárgalo y colócalo en su sitio con:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /lib/firmware
+<span class="gp">/lib/firmware#</span><span class="w"> </span>wget http://eagle-usb.org/ueagle-atm/non-free/ueagle-data-1.1.tar.gz
+<span class="gp">/lib/firmware#</span><span class="w"> </span>unp ueagle-data-1.1.tar.gz
+<span class="gp">/lib/firmware#</span><span class="w"> </span><span class="nb">mv </span>ueagle-data-1.1 ueagle-atm</code></pre></figure></div>
+<p>Esta es la última versión estable en el momento de la receta. Echa un vistazo en <a href="http://eagle-usb.org/ueagle-atm/non-free/">http://eagle-usb.org/ueagle-atm/non-free/</a> por si hay alguna versión posterior.</p>
+<h2>Cargando los módulos/firmware</h2>
+<p>Ahora, si enchufas el módem, deberían cargarse los módulos usbatm y ueagle-atm automáticamente. Puedes comprobarlo con:</p>
+<pre class="console">
+$ lsmod | grep usbatm
+$ lsmod | grep ueagle
+</pre>
+<p>Si no están cargados, cárgalos tú con:</p>
+<pre class="console">
+# depmod -ae
+# modprobe usbatm
+# modprobe ueagle-atm
+</pre>
+<p>Puedes echar un vistazo a <code>/var/log/syslog</code> para comprobar que todo ha ido bien. Debe aparecer algo como:</p>
+<pre>
+[ueagle-atm] driver ueagle 1.3 loaded
+usb 2-2: [ueagle-atm] ADSL device founded vid (0X1110) pid (0X9021) : Eagle II
+usb 2-2: reset full speed USB device using uhci_hcd and address 3
+usb 2-2: [ueagle-atm] using iso mode
+usb 2-2: [ueagle-atm] (re)booting started
+usbcore: registered new driver ueagle-atm
+usb 2-2: [ueagle-atm] modem operational
+usb 2-2: [ueagle-atm] ATU-R firmware version : 44e2ea17
+</pre>
+<h2>Bridge <span class="caps">RFC</span>-2684</h2>
+<p>El programa <code>br2684</code> es un puente para transportar diferentes protocolos sobre una conexión <span class="caps">ATM</span>, que es lo que suelen hacer los proveedores de <span class="caps">ADSL</span>. Para arrancarlo, ejetucta:</p>
+<pre class="console">
+# br2684ctl -c 0 -b -a 8.32
+br2684ctl[2508]: Interface "nas0" created sucessfully
+br2684ctl[2508]: Communicating over ATM 0.8.32, encapsulation: LLC
+br2684ctl[2508]: Interface configured
+</pre>
+<p>El <b>8.32</b> son el <span class="caps">VPI</span> y el <span class="caps">VCI</span> de tu <span class="caps">ISP</span>. Estos corresponden a Telefónica con IP dinámica. Si tienes otra cosa, tendrás que usar <a href="http://personal.telefonica.terra.es/web/adslusb/noticias/documentacion/20040506-parametros/index.html"> los adecuados</a>.</p>
+<h2>Usuario/contraseña</h2>
+<p>Tienes que añadir el nombre de usuario y contraseña al final del fichero <code>/etc/ppp/pap-secrets</code>. Si tienes la <span class="caps">ADSL</span> de Telefónica, la línea es:</p>
+<pre> adslppp@telefonicanetpa * adslppp </pre>
+<h2>Proveedor</h2>
+<p>También para Telefónica <span class="caps">ADSL</span>, escribe un fichero <code>/etc/ppp/peers/adsl</code>:</p>
+<pre>
+user "adslppp@telefonicanetpa"
+mtu 1412     # IMPORTANTE: imprescindible si vas a compartir la conexión, en caso contrario puedes quitarlo
+plugin rp-pppoe.so
+nas0
+noipdefault
+usepeerdns
+defaultroute
+persist
+noauth
+</pre>
+<h2>Para levantar la interfaz</h2>
+<p>Y si todo ha ido bien, al ejecutar lo siguiente deberías tener una conexión perfectamente funcional:</p>
+<pre class="console">
+# ifconfig nas0 up
+# pon adsl
+</pre>
+<h2>Y para desactivar la conexión</h2>
+<pre class="console">
+# poff
+# killall br2684ctl
+</pre>
+<h2>Automatizar la conexión:</h2>
+<p>Añade la siguiente sección al fichero <code>/etc/network/interfaces</code>:</p>
+<pre>
+auto ppp0
+iface ppp0 inet ppp
+      pre-up br2684ctl -c 0 -b -a 8.32
+      pre-up ifconfig nas0 up
+      provider adsl
+</pre>
+<h2>Referencias</h2>
+<ul>
+	<li><code>man br2684ctl</code></li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9000,99 +9191,6 @@ Por supuesto, gracias también, a todos los que hacen posible CRySoL y agradecer
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-12-05/glib-io-channels-con-python.html">GLib IO Channels con Python</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-12-05
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-12-05-glib-io-channels-con-python.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-12-05-glib-io-channels-con-python.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Python-ref">Python </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/465">node/465</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Cómo utilizar los IO-Channels de <a href="http://developer.gnome.org/doc/API/glib/">GLib</a> desde Python para implementar el patrón <em>reactor</em>.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2006-12-05/glib-io-channels-con-python.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9131,9 +9229,9 @@ Por supuesto, gracias también, a todos los que hacen posible CRySoL y agradecer
         <p>&copy; 2020 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
-	  See <a href="https://github.com/CRySoL/web.source" target="_blank">site sources</a>.
+	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-04-30 03:58:09 -0500
+	  Generated at 2020-05-12 13:25:27 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
