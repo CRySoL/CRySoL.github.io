@@ -166,6 +166,15 @@ h3. Borrar una dirección de una interfaz
 </div>
 
 
+h3. Cambiar la MTU de una interfaz
+
+<div class="console">
+{% highlight console %}
+$ ip link set mtu 1400 dev eth0
+{% endhighlight %}
+</div>
+
+
 h2. Tablas de rutas
 
 <p>
