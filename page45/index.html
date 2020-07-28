@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
+
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
 
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
-
-  <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="614 posts"
+     title="615 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="28 posts"
+     title="29 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7889,7 +7889,162 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2008-08-26/administrar-scripts-de-arranque.html">Administrar scripts de arranque</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2008-08-26
+    
+      
+  <a href="/users.html#nacho">
+   nacho
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-08-26-administrar-scripts-de-arranque.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-08-26-administrar-scripts-de-arranque.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#shell-ref">shell </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/991">node/991</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Es posible crear scripts y hacer que se ejecuten durante el arranque del sistema, antes de que se nos muestre el login. En esta receta veremos cómo incluirlos y cómo borrarlos.
+</blockquote>
+
+<h2>Introducción</h2>
+
+Durante el arranque y la parada del ordenador, el sistema entra en varios <a href="http://es.wikipedia.org/wiki/Nivel_de_ejecución"><b>niveles de ejecución</b></a>. Los niveles <tt>2, 3, 4, 5</tt> son los de arranque o inicio; <tt>0, 1, 6</tt> son los niveles de parada o apagado; y <tt>S</tt> es el nivel monousuario.
+
+En el directorio <tt>/etc</tt> hay una serie de directorios nombrados <tt>rcX.d</tt>, donde la X indica el nivel de ejecución. Dentro de estos directorios hay una serie de enlaces simbólicos hacia los scripts que se ejecutan en cada nivel.
+
+Los enlaces se llaman igual que el script al que apuntan, pero con un prefijo consistente en una <tt>S</tt> o una <tt>K</tt> más un número de dos dígitos. La letra indica si es un script de inicio (Start) o de parada (Kill), y el número indica el orden en que se ejecuta. Por defecto, este número es 20, aunque se puede cambiar, como veremos más adelante.
+
+<h2>Manejando los Scripts</h2>
+Lo primero es crear el script. Es necesario que exista antes de incluirlo para su ejecución en el arranque. Si echamos un ojo a los directorios rcX.d, veremos que la gran mayoría de los scripts están en <tt>/etc/init.d</tt>, así que es de suponer que ese es un buen lugar para colocar el nuestro (de hecho, no puede estar en otro sitio)
+
+<h3>Añadir un script</h3>
+El comando que vamos a utilizar es <tt>update-rc.d</tt>. Para añadir un script de inicio, lo haremos de la siguiente forma:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>update-rc.d miscript.sh defaults</code></pre></figure>
+</div>
+
+Con esto incluimos miscript.sh para que se ejecute en el arranque (en los niveles 2, 3, 4 y 5), y en la parada (niveles 0, 1 y 6). Es equivalente a escribir:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>update-rc.d miscript.sh start 20 2 3 4 5 <span class="nb">.</span> stop 0 1 6 .</code></pre></figure>
+</div>
+
+(nótese el punto al final)
+
+Supongamos ahora que queremos incluir nuestro script sólo en el inicio, con orden de ejecución 95, y sólo en los niveles 2 y 3:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>update-rc.d miscript.sh start 95 2 3 .</code></pre></figure>
+</div>
+
+(nótese el punto al final)
+
+
+<h3>Borrar un script</h3>
+
+Para borrar un script haríamos:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>update-rc.d miscript.sh remove</code></pre></figure>
+</div>
+
+Esto borra únicamente los enlaces simbólicos, no el script; y siempre y cuando se haya borrado el script previamente. Si se quiere borrar los enlaces aunque no se haya borrado el script, hay que utilizar la opción -f (force):
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>update-rc.d <span class="nt">-f</span> miscript.sh remove</code></pre></figure>
+</div>
+
+Para evitar liarla parda, tanto en la adición como en el borrado, es útil utilizar la opción -n (not really). Esto hace que no haga realmente las operaciones, si no que solamente nos diga qué habría hecho.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>update-rc.d <span class="nt">-n</span> miscript.sh defaults
+<span class="go">Adding system startup for /etc/init.d/miscript.sh ...
+</span><span class="gp">   /etc/rc0.d/K20miscript.sh -&gt;</span><span class="w"> </span>../init.d/miscript.sh
+<span class="gp">   /etc/rc1.d/K20miscript.sh -&gt;</span><span class="w"> </span>../init.d/miscript.sh
+<span class="gp">   /etc/rc6.d/K20miscript.sh -&gt;</span><span class="w"> </span>../init.d/miscript.sh
+<span class="gp">   /etc/rc2.d/S20miscript.sh -&gt;</span><span class="w"> </span>../init.d/miscript.sh
+<span class="gp">   /etc/rc3.d/S20miscript.sh -&gt;</span><span class="w"> </span>../init.d/miscript.sh
+<span class="gp">   /etc/rc4.d/S20miscript.sh -&gt;</span><span class="w"> </span>../init.d/miscript.sh
+<span class="gp">   /etc/rc5.d/S20miscript.sh -&gt;</span><span class="w"> </span>../init.d/miscript.sh</code></pre></figure>
+</div>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8813,99 +8968,6 @@ Saludos</p>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/humor/2008-08-11/microsincity.html">MicroSinCity</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2008-08-11
-    
-      
-  <a href="/users.html#cleto">
-   cleto
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-08-11-microsincity.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-08-11-microsincity.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#humor-ref">
-    		humor
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/966">node/966</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Una empresa que desarrolla software (a priori) y que se llama Microsoft tiene <a href="http://www.microsoft.com/spain/softlegal/videos">una sección muy curiosa</a> sobre "las ventajas del software legal", entiéndase por legal todo aquel producto que vende esta empresa.
-
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/humor/2008-08-11/microsincity.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8946,7 +9008,7 @@ Saludos</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 14:16:18 -0500
+	  Generated at 2020-07-28 15:01:08 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

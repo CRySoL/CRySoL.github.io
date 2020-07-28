@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
+
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
 
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
-
-  <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="614 posts"
+     title="615 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="28 posts"
+     title="29 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7889,7 +7889,96 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2013-02-08/configurar-apt-para-que-no-descargue-traducciones.html">Configurar apt para que no descargue traducciones</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2013-02-08
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2013-02-08-configurar-apt-para-que-no-descargue-traducciones.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2013-02-08-configurar-apt-para-que-no-descargue-traducciones.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1696">node/1696</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Desde que los indices de paquetes en los repositorios incluyen traducciones, las actualizaciones son aún más lentas. Esos ficheros pueden tener tamaños de varios megabytes. Pero como estas traducciones no son muy necesarias que digamos podemos configurar <code>apt</code> para indicarle qué traducciones queremos. Para eso, escribe un fichero <code>/etc/apt/apt.conf.d/99Translations</code> con el siguiente contenido:</p>
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Acquire::Languages "none";</code></pre></figure></div>
+<p>Como podrás imaginar, esta configuración hace que <code>apt</code> no descargue <em>ninguna</em> traducción. Verás que un <code>apt-get update</code>, y sobre todo un <code>aptitude update</code>, es bastante más rápido.</p>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8722,93 +8811,6 @@ Encryption IfRequested</code></pre></figure></div>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2012-03-29/separacin-silbica-en-libreoffice.html">Separación silábica en LibreOffice</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2012-03-29
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2012-03-29-separacin-silbica-en-libreoffice.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2012-03-29-separacin-silbica-en-libreoffice.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1570">node/1570</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <ul>
-	<li>Descargar el fichero correspondiente desde <a href="http://libreoffice-na.us/English/dictionary.html">http://libreoffice-na.us/English/dictionary.html</a></li>
-	<li>Instalar en LibreOffice desde Herramientas &#8594; Gestor de Extensiones</li>
-	<li>Editar el estilo de párrafo</li>
-	<li>En la pestaña «Flujo de Texto» marcar «Automáticamente»</li>
-</ul>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8849,7 +8851,7 @@ Encryption IfRequested</code></pre></figure></div>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 14:16:18 -0500
+	  Generated at 2020-07-28 15:01:08 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

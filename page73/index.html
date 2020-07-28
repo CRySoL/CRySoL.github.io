@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
+
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
 
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
-
-  <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="614 posts"
+     title="615 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="28 posts"
+     title="29 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7889,7 +7889,123 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-03-21/svn-externals-dependencias-entre-repos-subversion.html">SVN Externals: dependencias entre repos subversion</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-03-21
+    
+      
+  <a href="/users.html#oscarah">
+   oscarah
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-03-21-svn-externals-dependencias-entre-repos-subversion.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-03-21-svn-externals-dependencias-entre-repos-subversion.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+    	<li><a href="/tags.html#VCS-ref">VCS </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/624">node/624</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+<p>Los svn:external son una <em>feature</em> muy interesante de subversion, que permite que cuando descargas o actualizas una copia de un modulo automáticamente &#8216;tire&#8217; de otros módulos que pueden estar en otros repositorios. Una especie de gestión automática de dependencias entre repos.</p>
+</blockquote>
+<p>Es algo bastante sencillo, usaremos las propiedades de SubVersioN. En concreto &#8220;externals&#8221;. Los externals de svn son un conjunto de mappings entre un directorio local y una url que puede ser de cualquier cosa que se pueda traer mediante svn.</p>
+<p>Esto puede serte útil si, por ejemplo, necesitas construirte una copia de trabajo que contenga directorios de diferentes repositorios, o del mismo repositorio, pero de diferentes localizaciones.</p>
+<p>Para ello, simplemente editamos &#8220;los externals&#8221; del directorio en concreto:</p>
+<pre class="console">
+$ svn propedit svn:externals .
+</pre>
+<p>Lo que nos lanzará un editor de texto en el que podemos poner los mappings, de la siguiente manera:</p>
+<pre>
+dir_local url_destino
+</pre>
+<p>Cada línea será un directorio nuevo con el contenido que especifiquemos. También podemos ver los que ya existen con:</p>
+<pre class="console">
+$ svn propget svn:externals
+</pre>
+<p>Existen versiones acortadas de los comandos: pget o pg, pset o ps y pedit o pe para propget, propset y propedit respectivamente.</p>
+<p>Tiene algunas limitaciones: no se pueden colocar rutas relativas, ni usar ficheros como mappings. Al hacer <em>commit</em>, sólo se realiza en la copia de trabajo principal, no en las externas.</p>
+<h2>Posible problema</h2>
+<p>En los enlaces externos que usan ssh, por defecto determina que el nombre de usuario sea el local (igual que si haces <em>ssh host</em> sin especificar el nombre de usuario). Puedes modificar este comportamiento añadiendo los nuevos hosts en el archivo <code>~/.ssh/config</code> y especificando ahí el nombre de usuario para el servidor concreto al que se refieres el &#8220;external&#8221;:</p>
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Host repo.example.com
+     User Pepito.Grillo</code></pre></figure></div>
+<h2>Referencias</h2>
+<ul>
+	<li><a href="http://svnbook.red-bean.com/en/1.0/ch07s03.html">Externals Definitions</a></li>
+	<li><a href="http://www.pplux.com/2007/02/28/svnexternals-re-utiliza-tus-repositorios/">svn:externals re-utiliza tus repositorios</a></li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8989,98 +9105,6 @@ $ python Client.py
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/opinion/2007-03-15/dot-net-club-dont-set-club.html">Dot Net Club  (don't set club)</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-03-15
-    
-      
-  <a href="/users.html#darkgnu">
-   darkgnu
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-03-15-dot-net-club-dont-set-club.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-03-15-dot-net-club-dont-set-club.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#opinion-ref">
-    		opinion
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/613">node/613</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Antes de empezar, algo que escuché cuando venía para la escuela:
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/opinion/2007-03-15/dot-net-club-dont-set-club.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9121,7 +9145,7 @@ $ python Client.py
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 14:16:18 -0500
+	  Generated at 2020-07-28 15:01:08 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

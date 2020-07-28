@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
+
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
 
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
-
-  <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="614 posts"
+     title="615 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="28 posts"
+     title="29 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7889,7 +7889,232 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-11-17/redes-inalmbricas-multisalto-en-gnu-linux.html">Redes inalámbricas multisalto en GNU/Linux</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-11-17
+    
+      
+  <a href="/users.html#felix">
+   felix
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-17-redes-inalmbricas-multisalto-en-gnu-linux.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-17-redes-inalmbricas-multisalto-en-gnu-linux.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/102">node/102</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Esta receta describe cómo configurar una red inalámbrica multisalto (<acronym title="Mobile Ad-hoc Network">MANET</acronym>) bajo GNU Linux totalmente funcional.
+</blockquote>
+
+
+<h1>Introducción</h1>
+
+Las redes inalámbricas multisalto no necesitan de infraestructura fija para compartir datos entre distintos PC's, cada uno de los nodos que forman la red hacen las labores de un router de forma que se enrutan datos de unos a otros para formar una infraestructura de red dinámica. Si uno de los nodos tiene una conexión a Internet, los demas nodos pueden utilizar a éste como pasarela.
+
+<h1>Requisitos previos</h1>
+
+Como paso previo hay que hacer lo siguiente (a modo de precondiciones):
+
+<ul>
+ <li>En el kernel tienes que tener compilado el "Netfilters"</li>
+ <li>Habilitar el <em>Packet Forwarding</em>. En <tt>/etc/sysconfig/network</tt> añadir una línea:
+<pre>FORWARD_IPV4=yes</pre></li>
+ <li>Tener configuradas las tarjetas wireless.</li>
+</ul>
+
+<h1>Montar la red ad-hoc</h1>
+
+En lo relativo a la configuración de las tarjetas, es muy útil el comando <tt>iwconfig</tt> que permite la configuración de las tarjetas de forma similar al clásico <tt>ifconfig</tt>.
+
+En Debian, ese comando está en el paquete <tt>wireless-tools</tt>.
+
+Bien, tenemos una tarjeta Wireless (en mi caso PC Card WL100) configurada en un portátil con Debian.
+
+El <tt>iwconfig</tt> nos dice que tenemos:
+
+<pre class="console">
+eth1      IEEE 802.11-DS  ESSID:"COMPAQ"  Nickname:"Prism  I"
+          Mode:Managed  Frequency:2.457GHz  Access Point: 00:02:A5:2D:06:35
+          Bit Rate:11Mb/s   Tx-Power=15 dBm   Sensitivity:1/242700000
+          Retry min limit:8   RTS thr:off   Fragment thr:off
+          Encryption key:off
+          Power Management:off
+          Link Quality:49/1  Signal level:-53 dBm  Noise level:-144 dBm
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+</pre>
+
+Es el momento de observar dos cuestiones importantes, la primero de ellas es el <b>Mode</b> que está en "Managed" (utilizado para asociarse a puntos de acceso) y el segundo es el <b>ESSID</b>.
+
+Hay que señalar que para que esta tarjeta pueda formar parte de una red ad-hoc todas las tarjetas tienen que tener el mismo ESSID y estar puestas en modo ad-hoc.
+
+Para ello, y utilizando el <tt>iwconfig</tt> ejecutamos:
+
+<pre class="console">
+homer:~# iwconfig eth1 mode ad-hoc
+homer:~# iwconfig eth1 essid ARCO
+homer:~# iwconfig
+eth1      IEEE 802.11-DS  ESSID:"ARCO"  Nickname:"Prism  I"
+          Mode:Ad-Hoc  Frequency:2.457GHz  Cell: 02:23:7A:CF:F1:E5
+          Bit Rate:5.5Mb/s   Tx-Power=15 dBm   Sensitivity:1/242700000
+          Retry min limit:8   RTS thr:off   Fragment thr:off
+          Encryption key:off
+          Power Management:off
+          Link Quality:0  Signal level:0  Noise level:0
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+</pre>
+
+El segundo ordenador a utilizar en nuestra red es un ordenador de sobremesa con una tarjeta PCI-PCMCIA y con una tarjeta Wireless PC Card WL110. La salida del <tt>iwconfig</tt> es similar a la anterior, mientras que la salida del <tt>lsmod</tt> nos muestra el módulo <tt>orinoco_plx</tt> que es el driver que se ha usado.
+
+Ahora es el momento de configurar las direcciones IP que van a formar parte de nuestra red ad-hoc. Idealmente, un nodo ad-hoc debería ser capaz de autoconfigurarse para formar parte de la red. En principio nosotros vamos a asignar estas direcciones de forma estática.
+
+Edita el archivo <tt>/etc/networks/interfaces</tt> y añade la configuración de la interfaz eth1, por ejemplo:
+
+<pre>
+auto eth1
+iface eth1 inet static
+      address 10.10.0.4
+      netmask 255.255.255.0
+      gateway 10.10.0.1
+</pre>
+
+
+De forma que si ejecutamos:
+
+<pre class="console">
+radia:~# ifdown eth1
+radia:~# ifup eth1
+radia:~# ifconfig
+eth1      Link encap:Ethernet  HWaddr 00:02:A5:6F:28:FC
+          inet addr:10.10.0.4  Bcast:10.255.255.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1091 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:89 errors:20 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:100
+          RX bytes:81419 (79.5 KiB)  TX bytes:20266 (19.7 KiB)
+          Interrupt:11 Base address:0xd800
+</pre>
+
+Vemos la interfaz configurada con la dirección IP asociada.
+Debemos hacer lo mismo tanto en el portátil como el otro PC.(obviamente con direcciones IP distintas).
+Bien, en este momento deberíamos poder realizar un simple ping de un ordenador a otro a las direcciones que hayamos puesto, siempre y cuando estemos en el ámbito de cobertura.
+
+<h1>Enrutando paquetes</h1>
+
+Para tener una verdadera red inalámbrica multisalto debemos hacer que cada nodo enrute paquetes, para ello debemos instalar un algoritmo de enrutado, en nuestro caso vamos a usar el algoritmo AODV cuya implementación (una de ellas) podeis bajar de <a href="http://w3.antd.nist.gov/wctg/aodv_kernel/">aodv_kernel</a>
+
+Siguiendo los pasos del archivo README no debe haber ningún problema. Básicamente:
+<ul>
+<li> Te bajas el archivo y lo descomprimes.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">homer:~#</span><span class="w"> </span><span class="nb">tar </span>xvzf kernel-aodv_v2.2.2.tgz</code></pre></figure>
+</div>
+</li>
+<li> Ejecutas
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">homer:~#</span><span class="w"> </span>make</code></pre></figure>
+</div>
+
+</li>
+<li> Cambias los ficheros start.sh y start_gateway.sh según los parámetros de la subred</li>
+<li> ejecutas start.sh si eres cliente sin acceso a internet</li>
+<li> ejecutas start_gateway.sh si vas a funcionar como gateway dentro de la red ad-hoc</li>
+</ul>
+
+En este momento detectará todos los nodos dentro de su alcance y los añadirá a la tabla de enrutado. Para ver la tabla de enrutado:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">homer:~#</span><span class="w"> </span>less /proc/aodv/route_table</code></pre></figure>
+</div>
+
+
+<h1>Recetas relacionadas</h1>
+
+Estas recetas pueden ser útiles:
+
+<ul>
+</li><a href="/node/33">Configuración de una tarjeta de red en GNU/Linux</a></li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9005,97 +9230,6 @@ Suerte.
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-11-06/midi-por-software.html">Midi por software</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-11-06
-    
-      
-  <a href="/users.html#fsancho">
-   fsancho
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-06-midi-por-software.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-06-midi-por-software.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/87">node/87</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Más de uno, al pasarse a <span class="caps">GNU</span>/Linux se ha encontrado con el problema de no poder reproducir los ficheros midi porque su tarjeta no tiene ningún sintetizador midi integrado y los drivers alsa no lo emulan (cosa que suele venir de serie en los drivers de windows). Si te gustan los midis, o quieres recuperar el arte del karaoke desde <span class="caps">GNU</span>/Linux, ahí va esta pequeña receta.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2005-11-06/midi-por-software.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9136,7 +9270,7 @@ Suerte.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 14:16:18 -0500
+	  Generated at 2020-07-28 15:01:08 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

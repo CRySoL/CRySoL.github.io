@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
+
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
 
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
-
-  <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="614 posts"
+     title="615 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="28 posts"
+     title="29 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7889,7 +7889,151 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2008-11-05/bridges-de-red-para-virtualbox-y-qemu.html">Bridges de red para VirtualBox y QEMU</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2008-11-05
+    
+      
+  <a href="/users.html#nacho">
+   nacho
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-11-05-bridges-de-red-para-virtualbox-y-qemu.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-11-05-bridges-de-red-para-virtualbox-y-qemu.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#networking-ref">networking </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1039">node/1039</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Si alguna vez habéis utilizado VirtualBox, QEMU, VMWare o similares, puede que os hayáis encontrado con el problema de que no podéis acceder a servidores que se ejecutan en el <acronym title=Sistema Operativo>SO</acronym> huésped desde otros equipos externos.
+
+Eso es porque estas máquinas virtuales suelen traer soporte para <a href="http://es.wikipedia.org/wiki/NAT">NAT</a> pero no siempre para <a href="http://en.wikipedia.org/wiki/Ethernet_bridge"><em>bridging</em></a>. Una solución es crear un dispositivo que haga de puente entre el interfaz de red del SO huésped y el del SO anfitrión. En esta receta veremos cómo hacerlo.
+</blockquote>
+
+<h2>Ingredientes</h2>
+<ul>
+<li>uml-utils</li>
+<li>bridge-utils</li>
+</ul>
+
+
+<h2>El Puente</h2>
+Necesitamos crear un dispositivo en nuestro sistema anfitrión que haga las veces de puente. Lo podemos poner directamente en el archivo <tt>/etc/network/interfaces</tt>, de forma que se cree en el arranque y esté disponible en el sistema. Añadiremos las siguientes líneas al fichero:
+
+<pre>
+#dispsitivo puente para virtualización
+iface br0 inet dhcp
+bridge_ports eth0
+up chmod 0666 /dev/net/tun
+</pre>
+
+A continuación, reiniciamos la red con:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/networking restart</code></pre></figure>
+</div>
+
+Si miramos ahora las interfaces de red, veremos que tenemos un nuevo dispositivo llamado <tt>br0</tt>, que es el puente entre nuestra eth0 y los SO huésped.
+
+<h2>El Enlace</h2>
+
+Antes de nada, nos aseguramos de tener cargados el módulo <tt>tun</tt> y el <tt>kqemu</tt> (en caso de utilizar QEMU, claro).
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>modprobe tun kqemu</code></pre></figure>
+</div>
+
+Antes de arrancar la máquina virtual, será necesario crear un dispositivo que será el que se comunique con el interfaz del SO huésped, y añadirlo al puente br0.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>tunctl <span class="nt">-u</span> <span class="nv">$USER</span>
+<span class="go">Set 'tap0' persistent and owned by uid 1000
+</span><span class="gp">#</span><span class="w"> </span>ifconfig tap0 up
+<span class="gp">#</span><span class="w"> </span>brctl addif br0 tap0</code></pre></figure>
+</div>
+
+Si volvemos a mirar las interfaces de red, además del <tt>br0</tt> encontraremos también el <tt>tap0</tt>. Cuando vayamos a arrancar la máquina virtual, hay que configurarla para que utilice el dispositivo tap0 como interfaz de red. Las siguientes imágenes muestran cómo hacerlo en VirtualBox y QEMU:
+
+<center>
+<img src="/assets/files/vbox.jpg"/>
+<img src="/assets/files/qemu.jpg"/>
+</center>
+
+En ambos programas hay un campo de texto que pide el nombre de un script. Si hemos colocado las instrucciones anteriores de creación y configuración de los dispositivos br0 y tap0 en un script, podemos poner aquí el nombre del mismo. Así, supuestamente, se ejecutará el script antes de arrancar la máquina virtual, aunque a mí no me ha funcionado muy bien y he tenido que ejecutar el script manualmente.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8745,135 +8889,6 @@ EndSection</code></pre></figure></div>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2008-10-20/gnu-emacs-usando-emacs-cscope.html">GNU Emacs: usando emacs + cscope</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2008-10-20
-    
-      
-  <a href="/users.html#ricardo">
-   ricardo
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-10-20-gnu-emacs-usando-emacs-cscope.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-10-20-gnu-emacs-usando-emacs-cscope.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#emacs-ref">emacs </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1028">node/1028</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote class="head">
-Esta receta explica brevemente como configurar <b>emacs</b> para utilizarlo junto con <b>cscope</b>, una herramienta para navegar a través de código fuente C/C++.
-</blockquote>
-
-<h2>Ingredientes</h2>
-<ul>
-<li>emacs</li>
-<li>cscope</li>
-</ul>
-
-<h2>Configuración</h2>
-Si te has instalado cscope en Debian/Ubuntu se te habrá instalado la interfaz de cscope para (X)Emacs que se encuentra en el archivo <code>/usr/share/emacs/site-lisp/xcscope.el</code>. Para el resto de distribuciones tendrás que asegurarte de que el archivo xcscope.el está en un directorio donde Emacs pueda encontrarlo.
-
-El siguiente paso es editar el archivo <code>~/.emacs</code> añadiendo lo siguiente:
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">(require 'xcscope)</code></pre></figure>
-</div>
-
-Si deseas añadir atajos para hacer más comoda la introducción de algunas órdenes puedes añadir los siguiente también el el archivo <code>~/.emacs</code>:
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">(define-key global-map [(control f3)]  'cscope-set-initial-directory)
-(define-key global-map [(control f4)]  'cscope-unset-initial-directory)
-(define-key global-map [(control f5)]  'cscope-find-this-symbol)
-(define-key global-map [(control f6)]  'cscope-find-global-definition)
-(define-key global-map [(control f7)]
-  'cscope-find-global-definition-no-prompting)
-(define-key global-map [(control f8)]  'cscope-pop-mark)
-(define-key global-map [(control f9)]  'cscope-next-symbol)
-(define-key global-map [(control f10)] 'cscope-next-file)
-(define-key global-map [(control f11)] 'cscope-prev-symbol)
-(define-key global-map [(control f12)] 'cscope-prev-file)
-(define-key global-map [(meta f9)]  'cscope-display-buffer)
-(define-key global-map [(meta f10)] 'cscope-display-buffer-toggle)</code></pre></figure>
-</div>
-
-<h2>Funcionamiento</h2>
-Abres los ficheros de código fuente C/C++, utilizas los comandos del tipo <code>cscope-*</code> (<code>M-x cscope-*</code> o utilizas las teclas atajo) para buscar deficiones, símbolos, etc. El funcionamiento básico es así de sencillo.
-
-<h2>Referencias</h2>
-<ol>
-  <li> El propio archivo <code>xcscope.el</code> explica más profundamente, en los comentarios del principio del archivo, la configuración y el funcionamiento. </li>
-  <li> Página web de <a href="http://cscope.sourceforge.net/">cscope</a> </li>
-</ol>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8914,7 +8929,7 @@ Abres los ficheros de código fuente C/C++, utilizas los comandos del tipo <code
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 14:16:18 -0500
+	  Generated at 2020-07-28 15:01:08 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

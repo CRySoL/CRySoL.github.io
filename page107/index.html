@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
+
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
 
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
-
-  <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="614 posts"
+     title="615 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="28 posts"
+     title="29 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7889,7 +7889,288 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-01-19/bluetooth-en-gnu-linux.html">Bluetooth en GNU/Linux</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-01-19
+    
+      
+  <a href="/users.html#felix">
+   felix
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-19-bluetooth-en-gnu-linux.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-19-bluetooth-en-gnu-linux.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/197">node/197</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<p>Esta receta pretende ser un pequeño tutorial de uso de Bluetooth en <span class="caps">GNU</span>/Linux</p>
+</blockquote>
+<p>Usaremos básicamente las utilidades instaladas por el paquete bluez-utils empleadas en el desarrollo de aplicaciones bluetooth.</p>
+<h2>Ingredientes</h2>
+<p>Todos ellos paqutes Debian/Ubuntu</p>
+<ul>
+	<li><strong>bluetooth</strong>: la pila propiamente dicha</li>
+	<li><strong>bluez-pin</strong>: para gestionar los <span class="caps">PIN</span></li>
+	<li><strong>bluez-utils</strong>: servidores y utilidades</li>
+	<li><strong>bluez-hcidump</strong> sniffer de tráfico <span class="caps">HCI</span></li>
+</ul>
+<h2>Comandos</h2>
+<p>Entre los comandos que nos instalan estos paquetes, puedes encontrar:</p>
+<h2>Examinar la interface</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>hciconfig <span class="nt">-a</span>
+<span class="go">hci0:   Type: USB
+        BD Address: 00:08:1B:03:05:25 ACL MTU: 192:8 SCO MTU: 64:8
+        UP RUNNING PSCAN ISCAN
+        RX bytes:385 acl:0 sco:0 events:18 errors:0
+        TX bytes:319 acl:0 sco:0 commands:17 errors:0
+        Features: 0xff 0xff 0x0f 0x00 0x00 0x00 0x00 0x00
+        Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3
+        Link policy: RSWITCH HOLD SNIFF PARK
+        Link mode: SLAVE ACCEPT
+        Name: 'homer'
+        Class: 0x3e0100
+        Service Classes: Networking, Rendering, Capturing
+        Device Class: Computer, Uncategorized
+        HCI Ver: 1.1 (0x1) HCI Rev: 0x20d LMP Ver: 1.1 (0x1) LMP Subver: 0x20d
+        Manufacturer: Cambridge Silicon Radio (10)</span></code></pre></figure></div>
+<h3>Escaner (usando una iface determinada)</h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>hcitool <span class="nt">-a</span> hci0 scan</code></pre></figure></div>
+<h3>Sniffer de <span class="caps">HCI</span></h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> hcidump</span></code></pre></figure></div>
+<h3>Servidor hci (hcid)</h3>
+<p>Su configuración está en <code>/etc/bluetooth/hcid.conf</code> y la base de datos con los pin en <code>/etc/bluetooth/pinDB</code></p>
+<h3>Descubrimiento de servicios</h3>
+<p>El demonio del protocolo de descubrimiento de servicios <span class="caps">SDP</span> (Service discovery protocol) es <code>sdpd</code></p>
+<h3>Gestión de <span class="caps">SDP</span></h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>sdptool
+<span class="go">sdptool - SDP tool v2.24
+Usage:
+</span><span class="gp">        sdptool [options] &lt;command&gt;</span><span class="w"> </span><span class="o">[</span><span class="nb">command </span>parameters]
+<span class="go">Options:
+        -h              Display help
+        -i              Specify source interface
+Commands:
+        search          Search for a service
+        browse          Browse all available services
+        records         Request all records
+        add             Add local service
+        del             Delete local service
+        get             Get local service
+        setattr         Set/Add attribute to a SDP record
+        setseq          Set/Add attribute sequence to a SDP record
+
+Services:
+        DID SP DUN LAN FAX OPUSH FTP HS HF SAP NAP GN PANU HID CIP CTP
+        A2SRC A2SNK AVRCT AVRTG SR1 SYNCML ACTIVESYNC HOTSYNC PALMOS
+        NOKID PCSUITE</span></code></pre></figure></div>
+<p>Es importante resaltar que para que un servicio sea descubierto, debes añadirlo mediante un <code>sdptool add &amp;lt;servicio&gt;</code>, la lista de abajo del comando anterior nos muestra los servicios disponibles.</p>
+<h2>Algunos comando útiles</h2>
+<p>Con <code>hcitool scan</code> obtendrás una lista de los dispositivos presentes a tu alrededor.</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>hcitool scan
+<span class="go">Scanning ...
+        00:15:A0:42:34:8D       Nokia 6680</span></code></pre></figure></div>
+<p>Muestra la dirección bluetooth y el nombre, puedes comprobar la dirección bluetooth en los nokia 66** tecleando el código &#8220;*#2820#&#8221;</p>
+<p>Para obtener una lista de los servicios que ofrece cada dispositivo usamos la herramienta sdptool, en nuestro caso, y para ver lo que ofrece el móvil:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>sdptool browse 00:15:A0:42:34:8D
+<span class="go">
+Browsing 00:15:A0:42:34:8D ...
+Service Name: Hands-Free Audio Gateway
+Service RecHandle: 0x10003
+Service Class ID List:
+  "Handfree Audio Gateway" (0x111f)
+  "Generic Audio" (0x1203)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 2
+Language Base Attr List:
+  code_ISO639: 0x454e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  "Handfree Audio Gateway" (0x111f)
+    Version: 0x0101
+
+Service Name: Headset Audio Gateway
+Service RecHandle: 0x10004
+Service Class ID List:
+  "Headset Audio Gateway" (0x1112)
+  "Generic Audio" (0x1203)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 3
+Language Base Attr List:
+  code_ISO639: 0x454e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  "Headset" (0x1108)
+    Version: 0x0100
+
+...todos los servicios</span></code></pre></figure></div>
+<p>Esto proporciona toda la información que necesitas acerca de todos los servicios presentes en el dispositivo, en este caso el teléfono móvil.</p>
+<h2>Servicio dial-up networking</h2>
+<p>Nos vamos a centrar en el servicio dial-up networking, para ello observamos que la salida del comando anterior nos presenta la siguiente información:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">Service Name: Dial-Up Networking
+Service RecHandle: 0x1000e
+Service Class ID List:
+  "Dialup Networking" (0x1103)
+Protocol Descriptor List:
+  "L2CAP" (0x0100)
+  "RFCOMM" (0x0003)
+    Channel: 3
+Language Base Attr List:
+  code_ISO639: 0x454e
+  encoding:    0x6a
+  base_offset: 0x100
+Profile Descriptor List:
+  "Dialup Networking" (0x1103)
+    Version: 0x0100</span></code></pre></figure></div>
+<p>Para indicarle al ordenador que vamos a usar ese servicio necesitas editar el archivos <code>/etc/bluetooth/rfcomm.conf</code> e insertar una entrada tal que:</p>
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">rfcomm1 {
+        bind no;
+        device 00:15:A0:42:34:8D;
+        channel 3;
+        comment "Dial-up networking";
+        }</code></pre></figure></div>
+<p>donde el device es el identificador del movil y el channel el que nos indica el registro obtenido con sdptool, justo despues de &#8220;<span class="caps">RFCOMM</span>&#8221; (0&#215;0003).</p>
+<p>Reinicia para cargar la nueva configuración:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/bluez-utils restart
+<span class="go">Restarting bluez-utils: hcid sdpd rfcomm.
+
+</span><span class="gp">#</span><span class="w"> </span>rfcomm release 1
+<span class="go">
+</span><span class="gp">#</span><span class="w"> </span>rfcomm connect 1
+<span class="go">Connected /dev/rfcomm1 to 00:15:A0:42:34:8D on channel 10
+Press CTRL-C for hangup</span></code></pre></figure></div>
+<p>Ya tienes una conexión lista, con lo cual, por ejemplo, si estas en un portátil en mitad del campo y quieres conectarte a internet con tu<br />
+portátil a través de tu móvil tienes que configurar un enlace ppp a través del móvil.</p>
+<p>Para eso, tienes comandos muy interesantes:</p>
+<ul>
+	<li><strong>pand</strong>: <span class="caps">TCP</span>/IP sobre Bluetooth
+	<ul>
+		<li>&#8212;listen para el servidor</li>
+		<li>&#8212;connect <bluetooth_address> para el cliente</li>
+	</ul></li>
+	<li><strong>/etc/bluetooth/pan/dev-up</strong>: pand ejecuta este script al levantar <span class="caps">TCP</span>/IP.</li>
+	<li><strong>dund</strong>: Ejecutar <span class="caps">PPP</span> sobre Bluetooth <span class="caps">RFCOMM</span>
+	<ul>
+		<li>&#8212;listen para el servidor</li>
+		<li>&#8212;connect <bluetooth_address> para el cliente</li>
+	</ul></li>
+</ul>
+<p>Si no has establecido una &#8220;relación de confianza&#8221; entre tu móvil y tu<br />
+portátil te pedirá en ambos dispositivos el pin.</p>
+<h2>Protocolo <span class="caps">OBEX</span></h2>
+<p>Si quieres mandarle un archivo a tu teléfono puedes utilizar el protocolo <span class="caps">OBEX</span>. Con <code>gnome-obex-send</code> puedes mandarle un archivo y con <code>gnome-obex-server</code> debe aparecer una opción en nautilus, de forma que, si haces click en el botón derecho sobre un archivo debería aparecer una opcion para enviarlo via bluetooth.</p>
+<h2>Configurando un Headset</h2>
+<p>Una interesante aplicación es la de poder usar uno de esos micrófonos y auriculares bluetooth. Estos dispositivos implementan un servicio denominado <strong>headset</strong>.</p>
+<p>Para ello existe un interesante proyecto basado en Alsa, lo puedes encontrar en <a href="http://sourceforge.net/projects/bluetooth-alsa/">bluetooth-alsa</a> (no es paquete debian).</p>
+<p>Dos errores que surgieron en la configuración son:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">felix:#</span><span class="w"> </span>btsco
+<span class="go">Error: control open (hw:0): No such device
+Error: Can't find device. Bail</span></code></pre></figure></div>
+<p>Esto indica que no tienes configurados los drivers de alsa y no encuentran los dispositivos. Prueba a instalar y ejecutar el alsaconf para instalar alsa.</p>
+<p>Otro problema, despues de instalar los drivers de alsa puede ser:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">felix:#</span><span class="w"> </span>btsco
+<span class="go">Error: hwdep next device (hw:0): Operation not permitted
+Error: control open (hw:1): No such device
+Error: Can't find device. Bail</span></code></pre></figure></div>
+<p>No tienes cargado el modulo del kernel <code>snd-bt-sco</code>, está en el directorio <code>kernel</code> del programa <code>btsco</code>, tienes que ejecutar <code>make; make install</code> en dicho directorio.</p>
+<p>Si al hacer <code>modprobe snd-bt-sco</code>, no lo encuentra  (y se te ha compilado todo bien) copia el .ko a mano a <code>/lib/modules/2.6.14-2-386/kernel/drivers/</code> poniendo la versión del kernel que tengas (la mia es una 2.6.14-2-386).</p>
+<h2>Comentarios</h2>
+<p>Esta receta se irá ampliando conforme se prueben mas servicios y utilidades.</p>
+<h2>Referencias</h2>
+<ul>
+	<li><a href="http://sourceforge.net/projects/bluetooth-alsa/">bluetooth-alsa</a></li>
+	<li><a href="http://gsyc.escet.urjc.es/~rocapal/documentos/handset-nokia/handset-nokia.html">handset</a></li>
+	<li><a href="http://www.bluez.org/">Bluez</a></li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8706,94 +8987,6 @@ Para más información mirar la lista de correo :)
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2006-01-12/gnu-linux-media-center.html">¿GNU/Linux "Media Center"?</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-01-12
-    
-      
-  <a href="/users.html#Lk2">
-   Lk2
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-12-gnu-linux-media-center.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-12-gnu-linux-media-center.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/183">node/183</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Hola amigos
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/2006-01-12/gnu-linux-media-center.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8834,7 +9027,7 @@ Para más información mirar la lista de correo :)
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 14:16:18 -0500
+	  Generated at 2020-07-28 15:01:08 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
