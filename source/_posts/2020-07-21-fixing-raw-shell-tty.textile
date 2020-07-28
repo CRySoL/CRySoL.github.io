@@ -9,7 +9,7 @@ tags:
 
 ---
 
-This is a clone of the post at https://nullsec.us/fixing-a-raw-shell/ just for avoid it may be lost. All attribution is to its author (Mike).
+This is a clone of this "post":https://nullsec.us/fixing-a-raw-shell/ just for avoid it may be lost. All attribution is to its author (Mike).
 
 
 I've seen the python pty trick in a few places, first when taking OSCP labs. However, if you've noticed there's still some problems. 2 years ago at HackFest @r00k did a presentation where he improved the quality of the shell dramatically. Last year at HackFest, @jeffmcjunkin posted further improvements. All credit goes to them, and the excerpt below comes directly from Jeff McJunkin's SEC560 notes.
