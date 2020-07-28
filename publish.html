@@ -5473,18 +5473,18 @@
   <div class="row-fluid">
     <div class="span12">
       <p>Esta receta explica cómo crear posts en tu propio blog de CRySoL o colaborar con el sitio.</p>
-<p>La web de CRySoL es estática. Se genera a partir de un conjunto de ficheros markdown y textile y se compila a <span class="caps">HTML</span>/<span class="caps">CCS</span> usando el programa <a href="http://jekyllrb.com">jekyll</a>. Utiliza un conjunto de plantillas <a href="http://wiki.shopify.com/Liquid">Liquid</a>.</p>
-<p>Los fuentes del sitio se encuentran en un repositorio git alojado en github: <code>https://github.com/CRySoL/web.source/</code>. Cuando se hace push a dicho repositorio, github ejecuta jekyll automáticamente y deja el resultado accesible en <a href="http://crysol.github.io">http://crysol.github.io</a> (que es lo que aparece en la web).</p>
+<p>La web de CRySoL es estática. Se genera a partir de un conjunto de ficheros markdown y textile y se compila a <span class="caps">HTML</span>/<span class="caps">CCS</span> usando el programa <a href="http://jekyllrb.com">jekyll</a>.</p>
+<p>Los fuentes del sitio se encuentran en un repositorio git alojado en github: <code>https://github.com/CRySoL/CRySoL.github.io</code>. Cuando se hace push a dicho repositorio, github ejecuta jekyll automáticamente y deja el resultado accesible en <a href="https://crysol.github.io">https://crysol.github.io</a> y <a href="http://crysol.org">http://crysol.org</a>(que es lo que aparece en la web).</p>
 <p>Para crear un nuevo post basta crear un fichero en el directorio <code>/_posts</code> cuyo nombre tenga el formato <code>YEAR-MONTH-DAY-title.MARKUP</code>, siendo <span class="caps">MARKUP</span> el lenguaje en el que está escrito <code>markdown</code>, <code>textile</code> o <code>html</code>.</p>
 <p>Estos ficheros tienen un «preámbulo» que incluye información con el título, autor, categorías, etiquetas, etc. Puedes encontrar más detalle en <a href="http://jekyllrb.com/docs/frontmatter">jekyll post front-matter</a>, o simplemente mira el fuente de otro post existente.</p>
 <p>A pesar de eso, cualquiera puede escribir en la web de CRySoL. Existen dos formas básicas de editar tu blog en esta web.</p>
 <h2>La forma fácil</h2>
-<p>github tiene un sencillo editor web, de modo que podrás escribir tus post directamente en el navegador. Ve a <code>https://github.com/CRySoL/web.source/tree/master/_posts</code> y pulsa el iconito de una página con un <code>+</code>. Eso creará un nuevo fichero que puedes nombrar, editar y almacenar en el repositorio. Si está convenientemente formateado, en pocos minutos aparecerá en la página web.</p>
+<p>github tiene un sencillo editor web, de modo que podrás escribir tus post directamente en el navegador. Ve a <code>https://github.com/CRySoL/CRySoL.github.io/tree/master/source/_posts</code> y pulsa en el botón &#8220;Add file&#8221;. Eso creará un nuevo fichero que puedes nombrar, editar y almacenar en el repositorio. Si está convenientemente formateado, en pocos minutos aparecerá en la página web.</p>
 <h2>La forma potente</h2>
-<p>El editor de github es muy simple, demasiado. Si quieres editar tus post con un editor de verdad (como emacs) y probar que el resultado es el que esperas puedes hacer algo más interesante.</p>
+<p>El editor de github es muy simple, demasiado. Si quieres editar tus post con un editor de verdad y probar que el resultado es el que esperas puedes hacer algo más interesante.</p>
 <p>Clona el repositorio a tu computador:</p>
 <pre class="console">
-$ git clone https://github.com/CRySoL/web.source.git
+$ git clone https://github.com/CRySoL/CRySoL.github.io.git
 </pre>
 <p>Instala jekyll y sus dependencias:</p>
 <pre class="console">
@@ -5505,7 +5505,7 @@ $ git push
 <p>Pero aunque no seas miembro del equipo aún puedes colaborar con CRySoL gracias a la forma en que funciona git. Sigue estos pasos:</p>
 <ul>
 	<li>Crea una cuenta en github y haz login</li>
-	<li>Ve a <a href="https://github.com/CRySoL/web.source">https://github.com/CRySoL/web.source</a></li>
+	<li>Ve a <a href="https://github.com/CRySoL/CRySoL.github.io">https://github.com/CRySoL/CRySoL.github.io</a></li>
 	<li>Pulsa el botón «Fork»</li>
 </ul>
 <p>Ahora tienes una copia del repo de CRySoL en tu cuenta. A partir de ahí puedes aplicar todo lo explicado anteriormente sobre tu fork del repo. Cuando esté listo, debes solicitar a los administradores del repo original que integren tus cambios en el repo &#8220;oficial&#8221;. Para eso simplemente pulsa el botón «Pull Request» y espera a que un editor valide tus aportaciones.</p>
@@ -5529,7 +5529,7 @@ $ git push
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 15:01:08 -0500
+	  Generated at 2020-07-28 15:11:50 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

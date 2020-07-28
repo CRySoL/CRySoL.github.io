@@ -5238,19 +5238,11 @@
   <div class="row-fluid post-full">
     <div class="span12">
       <div class="content">
-	<p>This is a clone of the post at https://nullsec.us/fixing-a-raw-shell/ just for avoid it<br />
-may be lost. All attribution is to its author (Mike).</p>
-<p>I&#8217;ve seen the python pty trick in a few places, first when taking <span class="caps">OSCP</span> labs. However, if<br />
-you&#8217;ve noticed there&#8217;s still some problems. 2 years ago at HackFest @r00k did a<br />
-presentation where he improved the quality of the shell dramatically. Last year at<br />
-HackFest, @jeffmcjunkin posted further improvements. All credit goes to them, and the<br />
-excerpt below comes directly from Jeff McJunkin&#8217;s SEC560 notes.</p>
+	<p>This is a clone of the post at https://nullsec.us/fixing-a-raw-shell/ just for avoid it may be lost. All attribution is to its author (Mike).</p>
+<p>I&#8217;ve seen the python pty trick in a few places, first when taking <span class="caps">OSCP</span> labs. However, if you&#8217;ve noticed there&#8217;s still some problems. 2 years ago at HackFest @r00k did a presentation where he improved the quality of the shell dramatically. Last year at HackFest, @jeffmcjunkin posted further improvements. All credit goes to them, and the excerpt below comes directly from Jeff McJunkin&#8217;s SEC560 notes.</p>
 <p><!--break--></p>
-<p>Update 18/Jul/2018: It looks like a very similar (if not exactly the same) technique is<br />
-used in the following video, for those of you that want to see it in<br />
-action. https://youtu.be/5Hj_FkqU0Xc?t=26m15s</p>
-<p>Note that after entering the <code>stty raw -echo</code>, you&#8217;re not going to see the fg get typed, and<br />
-your terminal is going to be awful wonkey.</p>
+<p>Update 18/Jul/2018: It looks like a very similar (if not exactly the same) technique is used in the following video, for those of you that want to see it in action. https://youtu.be/5Hj_FkqU0Xc?t=26m15s</p>
+<p>Note that after entering the <code>stty raw -echo</code>, you&#8217;re not going to see the fg get typed, and your terminal is going to be awful wonkey.</p>
 <pre class=“console”>
 Gaining a comfortable shell with a TTY after gaining a netcat shell:
 python -c 'import pty; pty.spawn("/bin/bash")'
@@ -5265,8 +5257,7 @@ Background the shell by pressing Ctrl-Z
         stty rows X columns Y (using the output from “stty -a | head -n1” above)
 </pre>
 <p><code>echo $TERM</code> should return <code>xterm-256color</code> on Kali.</p>
-<p>The short of the commands listed below, with the exception of possibly the <span class="caps">HOME</span> and the X<br />
-and Y rows.</p>
+<p>The short of the commands listed below, with the exception of possibly the <span class="caps">HOME</span> and the X and Y rows.</p>
 <pre class=“console”>
 python -c 'import pty; pty.spawn("/bin/bash")'
 CTRL-Z
@@ -5343,7 +5334,7 @@ stty rows X columns Y
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 15:01:08 -0500
+	  Generated at 2020-07-28 15:11:50 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
