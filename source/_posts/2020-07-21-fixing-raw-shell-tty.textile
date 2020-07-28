@@ -20,7 +20,7 @@ Update 18/Jul/2018: It looks like a very similar (if not exactly the same) techn
 
 Note that after entering the @stty raw -echo@, you're not going to see the fg get typed, and your terminal is going to be awful wonkey.
 
-<pre class=“console”>
+<pre class="console">
 Gaining a comfortable shell with a TTY after gaining a netcat shell:
 python -c 'import pty; pty.spawn("/bin/bash")'
 Background the shell by pressing Ctrl-Z
@@ -38,7 +38,7 @@ Background the shell by pressing Ctrl-Z
 
 The short of the commands listed below, with the exception of possibly the HOME and the X and Y rows.
 
-<pre class=“console”>
+<pre class="console">
 python -c 'import pty; pty.spawn("/bin/bash")'
 CTRL-Z
 stty -a | head -n1
