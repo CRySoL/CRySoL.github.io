@@ -3,7 +3,16 @@ on:
   push:
     paths: 
       - 'source/**'
-        
+
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'  
+
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
