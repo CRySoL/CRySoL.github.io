@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
+
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
 
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
-
-  <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="614 posts"
+     title="615 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="28 posts"
+     title="29 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7889,7 +7889,102 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2016-03-04/revoke-gpg-key.html">How to revoke a GPG key</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2016-03-04
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2016-03-04-revoke-gpg-key.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2016-03-04-revoke-gpg-key.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#GPG-ref">GPG </a></li>
+    
+    	<li><a href="/tags.html#pgp-ref">pgp </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Generate revocation certificate:</p>
+<pre class="console">
+gpg -o revocation.asc --gen-revoke F8025C91
+</pre>
+<p>Import the certificate to revoke the corresponding key:</p>
+<pre class="console">
+gpg --import revocation.asc
+</pre>
+<p>Public the revoked key to servers:</p>
+<pre class="console">
+gpg --keyserver pgp.mit.edu --send-keys F8025C91
+</pre>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8724,118 +8819,6 @@ $ gsettings set org.gnome.nautilus.preferences sort-directories-first true
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2014-05-27/vagrant-multi-machine.html">multi machine Vagrantfile</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2014-05-27
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2014-05-27-vagrant-multi-machine.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2014-05-27-vagrant-multi-machine.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#vagrant-ref">vagrant </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>A <code>Vagrantfile</code> to generate several machines:</p>
-<noscript><pre># <del>*</del> mode: ruby <del>*</del><br />
-VAGRANTFILE_API_VERSION = &quot;2&quot;<br />
-<br />
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|<br />
-  config.vm.box_url = &quot;https://vagrantcloud.com/deb/jessie/version/1/provider/virtualbox.box&quot;<br />
-  config.vm.synced_folder &quot;shared&quot;, &quot;/shared&quot;, owner: &quot;root&quot;<br />
-<br />
-  config.ssh.shell = &quot;bash -c &#39;BASH_ENV=/etc/profile exec bash&#39;&quot;<br />
-  config.vm.provision :shell, :path =&gt; &quot;bootstrap.sh&quot;<br />
-  config.vm.synced_folder &quot;salt&quot;, &quot;/srv/salt&quot;<br />
-  config.vm.network &quot;public_network&quot;<br />
-<br />
-  [&quot;node1&quot;, &quot;node2&quot;].each do |nodename|<br />
-    puts nodename<br />
-    config.vm.define nodename do |node|<br />
-      node.vm.box = &quot;deb/jessie&quot;<br />
-      node.vm.hostname = nodename<br />
-<br />
-      node.vm.provider :virtualbox do |vb|<br />
-        vb.name = nodename<br />
-      end<br />
-    end<br />
-  end<br />
-<br />
-end</pre></noscript><script src="https://gist.github.com/davidvilla/a085ee4b18be14654733.js"> </script><p>Each machine has a different configuration via salt provision.</p>
-<p><!--
-;; Local Variables:
-;;  coding: utf-8
-;;  mode: flyspell
-;;  ispell-local-dictionary: "american"
-;; End:
---></p>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8876,7 +8859,7 @@ end</pre></noscript><script src="https://gist.github.com/davidvilla/a085ee4b18be
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 14:16:18 -0500
+	  Generated at 2020-07-28 15:01:08 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

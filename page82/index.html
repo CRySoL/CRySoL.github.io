@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
+
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
 
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
-
-  <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="614 posts"
+     title="615 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="28 posts"
+     title="29 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7889,7 +7889,137 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-01-20/montar-un-repositorio-trivial-de-paquetes-debian.html">Montar un repositorio trivial de paquetes Debian</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-01-20
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-20-montar-un-repositorio-trivial-de-paquetes-debian.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-20-montar-un-repositorio-trivial-de-paquetes-debian.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/506">node/506</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>A veces, para tener nuestros paquetes Debian generados disponibles en un repositorio no es necesario montar uno complejo (por ejemplo, cuando tus paquetes sólo están para una arquitectura). Los repositorios triviales nos permiten tener nuestros paquetes Debian personalizados disponibles en menos de 10 minutos.</blockquote>
+
+
+<h1>Estructura de directorios</h1>
+Inicialmente, debemos crear una estructura de directorios para nuestro nuevo repositorio trivial. Vamos a tomar como raíz el directorio <em>/var</em>, y dentro creamos los siguientes directorios:
+
+<pre>
+-var
+ +-mirepo
+   +-binary
+   +-source
+</pre>
+
+Utilizamos el comando <em>mkdir</em> para crear el antrerior árbol de directorios.
+
+<h1>Llenando el repositorio</h1>
+Una vez creada la estructura, copiamos nuestros paquetes binarios Debian (los .deb) en el directorio <em>binary</em> y los paquetes fuentes (los .dsc) en el directorio <em>source</em>. A continuación, creamos los ficheros índices de nuestro repositorio trivial utilizando <em>dpkg</em>:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /var/mirepo/
+<span class="gp">#</span><span class="w"> </span>dpkg-scanpackages binary /dev/null | <span class="nb">gzip</span> <span class="nt">-9c</span> <span class="o">&gt;</span> binary/Packages.gz
+<span class="gp">#</span><span class="w"> </span>dpkg-scansources <span class="nb">source</span> /dev/null | <span class="nb">gzip</span> <span class="nt">-9c</span> <span class="o">&gt;</span> <span class="nb">source</span>/Sources.gz</code></pre></figure>
+</div>
+Como vemos, lo anterior nos crea los índices de nuestros paquetes que serán consultados por <em>apt</em> cuando consulte el repositorio.
+<h1>Utilizando el repositorio</h1>
+Una vez que hemos hecho todo lo anterior podemos añadir la siguiente línea a nuestro <em>/etc/apt/sources.list</em> para utilizar el repositorio de forma local:
+<pre>deb file:///var/mirepo binary/</pre>
+Y si quieres tenerlo accesible de forma remota, puedes crear un enlace simbólico en <em>/var/www/</em> para redireccionar la consulta <em>http</em> a tu servidor Apache:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">cd</span> /var/www
+<span class="gp">#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /var/mirepo mirepo</code></pre></figure>
+</div>
+
+Y añadir como repositorio la línea:
+
+<pre>
+deb http://midominio.com/mirepo binary/
+</pre>
+
+<h1>Referencias</h1>
+<a href="http://es.tldp.org/Manuales-LuCAS/doc-guia-ubuntu-breeze/guia-ubuntu-htmls/repositorios.html">Traducción  al español del Howto oficial de Debian para crear repositorios.</a>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8987,97 +9117,6 @@ Pues, aunque tiene muchas cosas mejorables (sobre todo en la parte soft), este d
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-01-09/servidor-tftp-con-inetd-en-debian.html">Servidor TFTP con inetd en Debian</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-01-09
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-09-servidor-tftp-con-inetd-en-debian.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-09-servidor-tftp-con-inetd-en-debian.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/492">node/492</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Cómo instalar y configurar servidor y cliente en Debian <span class="caps">GNU</span>/Linux y derivados</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2007-01-09/servidor-tftp-con-inetd-en-debian.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9118,7 +9157,7 @@ Pues, aunque tiene muchas cosas mejorables (sobre todo en la parte soft), este d
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 14:16:18 -0500
+	  Generated at 2020-07-28 15:01:08 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

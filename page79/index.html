@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
+
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
 
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
-
-  <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="614 posts"
+     title="615 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="28 posts"
+     title="29 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7889,7 +7889,142 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-02-12/tes-emacs-code-browser-ecb.html">TES: Emacs Code Browser (ecb)</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-02-12
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-12-tes-emacs-code-browser-ecb.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-12-tes-emacs-code-browser-ecb.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#emacs-ref">emacs </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/553">node/553</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Un IDE para unirlos a todos. Muy útil para C, C++, Java, ... Consiste en un conjunto de ventanas que nos permiten acceder directamente a código.
+</blockquote>
+
+
+<h1>Ingredientes</h1>
+
+<b>Emacs</b>, por supuesto, y el paquete <b>ecb</b>.
+
+<h1>Activación</h1>
+
+Escribiremos una orden Emacs. Para ello podemos pulsar ESC+x o bien M+x (que es, realmente, lo mismo) y después escribir:
+
+<pre>M-x ecb-activate
+</pre>
+
+Y veremos las pantallitas nuevas.
+
+<h1>Más bonito</h1>
+
+Existen distintos tipos de ventanas. Podemos cambiar entre ellos en "Options"->"Customize Emacs"->"Specific Option"->"ecb-layout-name". Si miráis abajo veréis todas las posibilidades. A mí me gusta "top1", aunque podéis ir probando...
+
+<h1>Más rápido</h1>
+
+A menudo es un rollo tener que estar activándolo y desactivándolo. Por ello me gusta tener accesos de teclado para estos menesteres. Para ello sólo hay que editar nuestro .emacs (al final, por ejemplo):
+
+<pre>; Mis atajos de teclado
+(global-set-key [f12] 'ecb-toggle-ecb-windows)
+(global-set-key [C-f12] 'ecb-activate)
+(global-set-key [M-f12] 'ecb-deactivate)
+</pre>
+
+Las teclas que seleccionéis son opcionales. Con éstas podréis:
+
+<ul>
+<li><b>f12</b> Me permite mostrar/ocultar las ventanas cuando el modo ecb está activo.</li>
+<li><b>C-f12</b> Me permite cargar el modo ECB sólo cuando yo quiero (así Emacs es más rápido en general).</li>
+<li><b>M-f12</b> Sirve para descargar el modo ECB cuando me arrepiento (suelen ser pocas veces).</li>
+</ul>
+
+<h1>Referencias</h1>
+
+<a href="http://geosoft.no/development/emacs.html"> Emacs Tips & Tricks</a>
+
+<h1>Próxima semana:</h1>
+
+Suele ser útil saber en qué línea nos encontramos. Veremos cómo colorearla y otras opciones de color.
+
+<h1>Fe de erratas</h1>
+Gracias a Arturo: los comentarios del .emacs son con punto y coma (";"), no con la almohadilla ("#") que había anteriormente.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9171,99 +9306,6 @@ Un saludo.
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-01-30/webdav-con-apache2-en-debian-gnu-linux.html">WebDAV con Apache2 en Debian GNU/Linux</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-01-30
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-30-webdav-con-apache2-en-debian-gnu-linux.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-30-webdav-con-apache2-en-debian-gnu-linux.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/541">node/541</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Cómo configurar Apache2 para disponer de un directorio  WebDAV, accesible para lectura/escritura desde <span class="caps">GNOME</span> <span class="caps">VFS</span>, konqueror, cadaver o como una &#8220;web folder&#8221; desde el &#8220;sistema operativo más rentable de todos los tiempos&#8221;.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2007-01-30/webdav-con-apache2-en-debian-gnu-linux.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9304,7 +9346,7 @@ Un saludo.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 14:16:18 -0500
+	  Generated at 2020-07-28 15:01:08 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

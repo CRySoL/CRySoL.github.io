@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
+
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
 
   <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
-
-  <li><a href="/recipe/2017-05-19/essential-git-branching.html">Essential git branching</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="614 posts"
+     title="615 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5241,7 +5241,7 @@
 </td></tr>
 <tr class="row12"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#shell-ref'; hide_others()"
-     title="28 posts"
+     title="29 posts"
      >shell</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#Ice-ref'; hide_others()"
@@ -7889,7 +7889,107 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-10-19/recuperar-fotos-y-videos-borrados-de-una-cmara-digital.html">Recuperar fotos y videos borrados de una cámara digital</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-19
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-19-recuperar-fotos-y-videos-borrados-de-una-cmara-digital.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-19-recuperar-fotos-y-videos-borrados-de-una-cmara-digital.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/49">node/49</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Cómo recuperar las fotos y videos borrados por accidente de una tarjeta de memoria o la memoria interna de una cámara digital.
+</blockquote>
+<p>Entre la gran cantidad de software que existe para poder recuperar fotos y videos, he encontrado uno libre y que funciona bastante bien. Se trata de <a href="http://www.cgsecurity.org/index.html?photorec.html">Photorec</a>.</p>
+<h1>Instalación</h1>
+<p>Si utilizas Debian, Ubuntu o similar es tan fácil como:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>testdisk</code></pre></figure></div>
+<h1>Uso</h1>
+<p>Enchufa tu cámara o disco extraible y ejecuta <tt>photorec</tt>. Para que funcione correctamente, debes tener la ventana de la consola lo suficientemente grande como para que Photorec se ejecute con normalidad. De todos modos, el programita advierte de esta cuestión.</p>
+<p>Aparecerá una lista con los dispositivos que tengas enchufados y, si pulsas <span class="caps">INTRO</span> sobre el correspondiente, comenzará el escaneo. Conforme va avanzando, Photorec informa de los archivos encontrados y tardará más o menos en función del tamaño del disco (evidentemente).</p>
+<p>Una vez finalizado, las fotos o los videos se encuentran en un directorio que crea Photorec llamado <tt>recup_dir.*</tt>; siendo * el número de fiheros recuperados.</p>
+<p><span class="caps">OJO</span>! Este directorio creado pertenece al root. Tienes que utilizar <tt>chown</tt> para cambiar de propietario, o bien darle permisos con <tt>chmod</tt> para que tu usuario pueda ver su contenido sin problemas.</p>
+<h1> Referencias </h1>
+<ul>
+  <li><a href="http://www.cgsecurity.org/index.html?photorec.html">PhotoRec</a></li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9201,97 +9301,6 @@ dependiendo de lo que queramos hacer.
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-10-14/descargar-las-iso-de-los-dvd-de-debian-con-jigdo.html">Descargar las ISO de los DVD de Debian, con jigdo</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-10-14
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-14-descargar-las-iso-de-los-dvd-de-debian-con-jigdo.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-14-descargar-las-iso-de-los-dvd-de-debian-con-jigdo.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/35">node/35</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Cómo utilizar la herramienta <strong>jigdo</strong> para descargar las <span class="caps">ISO</span> de los CDs y DVDs de Debian.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2005-10-14/descargar-las-iso-de-los-dvd-de-debian-con-jigdo.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9332,7 +9341,7 @@ dependiendo de lo que queramos hacer.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-07-28 14:16:18 -0500
+	  Generated at 2020-07-28 15:01:08 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
