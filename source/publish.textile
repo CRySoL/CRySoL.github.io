@@ -9,7 +9,7 @@ Esta receta explica cómo crear posts en tu propio blog de CRySoL o colaborar co
 
 La web de CRySoL es estática. Se genera a partir de un conjunto de ficheros markdown y "textile":https://textile-lang.com/ y se compila a HTML/CCS usando el programa "jekyll":http://jekyllrb.com. 
 
-Los fuentes del sitio se encuentran en un repositorio git alojado en github: @https://github.com/CRySoL/CRySoL.github.io@. Cuando se hace push a dicho repositorio, github ejecuta jekyll automáticamente y deja el resultado accesible en <a href="https://crysol.github.io">https://crysol.github.io</a> y <a href="http://crysol.org">http://crysol.org</a>(que es lo que aparece en la web).
+Los fuentes del sitio se encuentran en un repositorio git alojado en github: @https://github.com/CRySoL/CRySoL.github.io@. Cuando se hace push a dicho repositorio, github ejecuta jekyll automáticamente y deja el resultado accesible en <a href="https://crysol.github.io">https://crysol.github.io</a> y <a href="http://crysol.org">http://crysol.org</a>, es decir, lo que estás viendo ahora.
 
 Para crear un nuevo post basta crear un fichero en el directorio @/_posts@ cuyo nombre tenga el formato @YEAR-MONTH-DAY-title.MARKUP@, siendo MARKUP el lenguaje en el que está escrito @markdown@, @textile@ o @html@.
 
