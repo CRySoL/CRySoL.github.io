@@ -16,7 +16,7 @@ I've seen the python pty trick in a few places, first when taking OSCP labs. How
 
 <!--break-->
 
-Update 18/Jul/2018: It looks like a very similar (if not exactly the same) technique is used in the following video, for those of you that want to see it in action. "":https://youtu.be/5Hj_FkqU0Xc?t=26m15s
+Update 18/Jul/2018: It looks like a very similar (if not exactly the same) technique is used in the following video, for those of you that want to see it in action. "$":https://youtu.be/5Hj_FkqU0Xc?t=26m15s
 
 Note that after entering the @stty raw -echo@, you're not going to see the fg get typed, and your terminal is going to be awful wonkey.
 
