@@ -9,8 +9,17 @@ tags:
 
 ---
 
-.h2 Remove ALL containers
+
+h4. Open a shell in container
+
+Or exec any program inside a running container:
 
 <pre class="console">
-$ docker container rm -f $(docker ps -aq)
+$ docker exec -it <container-id-or-name> sh
+</pre>
+
+h4. Remove ALL containers
+
+<pre class="console">
+$ docker rm -f $(docker ps -aq)
 </pre>
