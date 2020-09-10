@@ -1,0 +1,16 @@
+---
+layout: post
+title: My docker cheat-sheet
+author: david_villa
+comments: true
+category: recipe
+tags:
+  - docker
+
+---
+
+.h2 Remove ALL containers
+
+<pre class="console">
+$ docker container rm -f $(docker ps -aq)
+</pre>
