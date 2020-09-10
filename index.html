@@ -5053,15 +5053,15 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
+
+  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
+
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
-
-  <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
-
-  <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="615 posts"
+     title="617 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5331,7 +5331,7 @@
 </td></tr>
 <tr class="row22"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#git-ref'; hide_others()"
-     title="4 posts"
+     title="5 posts"
      >git</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sysadm-ref'; hide_others()"
@@ -5459,6 +5459,10 @@
   <a href="javascript:window.location.href='/tags.html#tmux-ref'; hide_others()"
      title="1 posts"
      >tmux</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
+     title="1 posts"
+     >docker</a>
 </td></tr>
 
 </table>
@@ -7864,7 +7868,177 @@
   
     
   
+    
+  
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2020-09-10
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2020-09-10-my-git-cheat-sheet.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2020-09-10-my-git-cheat-sheet.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#git-ref">git </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <h4>Delete all remote branches</h4>
+<pre class="console">
+$ git branch -a | grep -v master | awk -F'/' '{print $3}' | xargs git push origin --delete
+</pre>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2020-07-29
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2020-07-29-my-docker-cheat-sheet.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2020-07-29-my-docker-cheat-sheet.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#docker-ref">docker </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>.h2 Remove <span class="caps">ALL</span> containers</p>
+<pre class="console">
+$ docker container rm -f $(docker ps -aq)
+</pre>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8649,202 +8823,6 @@ set -g visual-activity on
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2016-11-20/plugins-en-python.html">Plugins en Python</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2016-11-20
-    
-      
-  <a href="/users.html#magmax">
-   magmax
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2016-11-20-plugins-en-python.md">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2016-11-20-plugins-en-python.md">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Python-ref">Python </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Siempre me ha gustado escribir aplicaciones extensibles, pero picarme todo un sistema de plugins me ha parecido tedioso.</p>
-
-<p>Por eso he intentado buscar librerías que me ayuden a crear plugins, aunque siempre he tenido problemas para la distribución de éstos, como <a href="http://magmax.org/blog/yapsy-un-sistema-de-plugins-pythonico">me ha pasado con Yapsy</a>.</p>
-
-<p>La verdad es que me he sentido como un auténtico estúpido al descubrir que Python tiene un sistema para escribir plugins muy sencillo de usar. Vamos a ver cómo.</p>
-
-<p><strong>Puedes encontrar el artículo original en: <a href="http://magmax.org/blog/plugins-en-python/">MagMax Blog</a></strong>.</p>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2016-11-20/plugins-en-python.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2016-11-05/annotate-stdout-and-stderr.html">How to annotate/tag stdout and stderr outputs with bash</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2016-11-05
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2016-11-05-annotate-stdout-and-stderr.md">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2016-11-05-annotate-stdout-and-stderr.md">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#bash-ref">bash </a></li>
-    
-    	<li><a href="/tags.html#shell-ref">shell </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Lets create a test script <code class="highlighter-rouge">test-std.sh</code>:</p>
-
-<pre class="bash">
-#!/bin/bash --
-
-echo info
-echo error &gt;&amp;2
-</pre>
-
-<p>We will use <code class="highlighter-rouge">sed</code> to prepend some text to each output line. To perform redirection we use a less known feature called <a href="https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html">process substitution</a>.</p>
-
-<pre class="console">
-$ ./test-std.sh 2&gt; &gt;(sed 's/^/err: /g') &gt; &gt;(sed 's/^/out: /g')
-out: info
-err: error
-</pre>
-
-<p>And… it’s possible to use a different color to each of them too</p>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8881,7 +8859,7 @@ err: error
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-03 03:57:48 -0500
+	  Generated at 2020-09-10 06:29:03 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

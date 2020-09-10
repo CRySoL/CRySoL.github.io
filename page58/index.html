@@ -5053,15 +5053,15 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
+
+  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
+
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
-
-  <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
-
-  <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="615 posts"
+     title="617 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5331,7 +5331,7 @@
 </td></tr>
 <tr class="row22"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#git-ref'; hide_others()"
-     title="4 posts"
+     title="5 posts"
      >git</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sysadm-ref'; hide_others()"
@@ -5459,6 +5459,10 @@
   <a href="javascript:window.location.href='/tags.html#tmux-ref'; hide_others()"
      title="1 posts"
      >tmux</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
+     title="1 posts"
+     >docker</a>
 </td></tr>
 
 </table>
@@ -7891,7 +7895,240 @@
   
     
   
+    
+  
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-12-07/conectar-a-internet-por-medio-de-un-mvil-3g-editado.html">Conectar a Internet por medio de un móvil 3G EDITADO</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-12-07
+    
+      
+  <a href="/users.html#javieralso">
+   javieralso
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-12-07-conectar-a-internet-por-medio-de-un-mvil-3g-editado.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-12-07-conectar-a-internet-por-medio-de-un-mvil-3g-editado.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#networking-ref">networking </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/817">node/817</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Cómo conectar a Internet por medio de un teléfono 3G en un sistema GNU/Linux</blockquote>
+
+<h1>Introducción</h1>
+Explicaré como he conseguido conectarme a internet desde mi <em>Debian</em>. En concreto yo me he conectado a través del operador <a href="http://www.simyo.es">Simyo</a>, que ofrece una tarifa de internet móvil de lo mas competitivo que he visto (perdón si ha parecido que hago publicidad, pero me ha parecido un "chollo" y tengo que compartilo con vosotros :-D).
+
+<h1>Ingredientes</h1>
+Ésto es lo que yo he utilizado:
+<ul>
+  <li>Teléfono libre con tecnología <a href="http://es.wikipedia.org/wiki/Universal_Mobile_Telecommunications_System">3G</a> (yo en concreto he utilizado un <em>Nokia 6630</em>)</li>
+  <li>Una tarjeta <em>Simyo</em></li>
+  <li>wvdial</li>
+</ul>
+
+También supondremos que tenemos tanto una conexión bluetooth establecida con nuestro teléfono en <em>/dev/rfcomm0</em> como una conexión USB en <em>/dev/ttyACM0</em>.
+
+<h1>Configuración de wvdial</h1>
+La conexión la estableceremos a través de wvdial. Para ello deberemos crear un archivo llamado <em>.wvdialrc</em> con el siguiente contenido:
+<pre>[Dialer SimyoUSB]
+Modem = /dev/ttyACM0
+Init1 = ATZ
+Init2 = ATQ0 V1 E1 S0=0 &C1 &D2
+Init3 = AT+CGDCONT=1,"IP","gprs-service.com"
+Phone = *99***1#
+Username = ''
+Password = ''
+
+[Dialer SimyoBT]
+Modem = /dev/rfcomm0
+Init1 = ATZ
+Init2 = ATQ0 V1 E1 S0=0 &C1 &D2
+Init3 = AT+CGDCONT=1,"IP","gprs-service.com"
+Phone = *99***1#
+Username = ''
+Password = ''
+</pre>
+
+<h1>Conexión</h1>
+Una vez hecho lo anterior, abrir una conexión es tan fácil como:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span><span class="nb">sudo </span>wvdial SimyoUSB</code></pre></figure>
+</div>
+Si queremos conectarnos a través del cable USB a nuestro móvil y
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@avalon:~$</span><span class="w"> </span><span class="nb">sudo </span>wvdial SimyoBT</code></pre></figure>
+</div>
+si queremos conectarnos a través del Bluetooth.
+
+<h1>Referencias</h1>
+Pues cerré el navegador sin darme cuenta de anotar todas las páginas en las que había buscado. Ya lo vuelvo a buscar en otro momento :-P
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-12-05/parted-y-python-pyparted.html">Parted y Python: pyparted</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-12-05
+    
+      
+  <a href="/users.html#int-0">
+   int-0
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-12-05-parted-y-python-pyparted.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-12-05-parted-y-python-pyparted.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Python-ref">Python </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/812">node/812</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Supongo que muchos de vosotros conoceréis <em>libparted</em>, la librería que hay debajo de los programas de particionado típicos de <em>GNU</em>. Muchos de vosotros conocéis también <em>Python</em>, si juntamos estas dos cosas tenemos que hacer programitas que manejen el particionado del disco va a estar al alcance de cualquiera. Llegados a este punto, no sobra decir que: <b>NO me responsabilizo de los daños que pueda causar el uso de esta receta</b>, yo lo he probado con un disco flash y me ha funcionado sin problemas. Quien quiera garantías... que las pague :P.</blockquote>
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2007-12-05/parted-y-python-pyparted.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8730,190 +8967,6 @@ Si probáis la receta, podéis envíar vuestras configuraciones (tanto del <em>s
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/new/2007-11-14/jornadas-sobre-el-uso-del-software-libre-y-la-incorporacin-de-las-tic-en-las-empresas.html">Jornadas sobre el uso del Software Libre y la incorporación de las TIC en las Empresas</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-11-14
-    
-      
-  <a href="/users.html#ceslcam">
-   ceslcam
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-11-14-jornadas-sobre-el-uso-del-software-libre-y-la-incorporacin-de-las-tic-en-las-empresas.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-11-14-jornadas-sobre-el-uso-del-software-libre-y-la-incorporacin-de-las-tic-en-las-empresas.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#new-ref">
-    		new
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/804">node/804</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Las jornadas se dividen en dos temáticas diferentes:
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/new/2007-11-14/jornadas-sobre-el-uso-del-software-libre-y-la-incorporacin-de-las-tic-en-las-empresas.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/offer/2007-11-14/bolsa-de-trabajo-ceslcam.html">Bolsa de Trabajo Ceslcam</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-11-14
-    
-      
-  <a href="/users.html#ceslcam">
-   ceslcam
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-11-14-bolsa-de-trabajo-ceslcam.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-11-14-bolsa-de-trabajo-ceslcam.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#offer-ref">
-    		offer
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/803">node/803</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      La bolsa de trabajo del CESLCAM es un servicio del Centro de Excelencia de Software Libre de Castilla-La Mancha, perteneciente al Parque Científico y Tecnológico de Albacete, cuyo objetivo es establecer el contacto entre las empresas oferentes de empleo y los profesionales demandantes del mismo.
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/offer/2007-11-14/bolsa-de-trabajo-ceslcam.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8954,7 +9007,7 @@ Si probáis la receta, podéis envíar vuestras configuraciones (tanto del <em>s
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-03 03:57:48 -0500
+	  Generated at 2020-09-10 06:29:03 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

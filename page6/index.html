@@ -5053,15 +5053,15 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
+
+  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
+
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
-
-  <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
-
-  <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="615 posts"
+     title="617 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5331,7 +5331,7 @@
 </td></tr>
 <tr class="row22"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#git-ref'; hide_others()"
-     title="4 posts"
+     title="5 posts"
      >git</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sysadm-ref'; hide_others()"
@@ -5459,6 +5459,10 @@
   <a href="javascript:window.location.href='/tags.html#tmux-ref'; hide_others()"
      title="1 posts"
      >tmux</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
+     title="1 posts"
+     >docker</a>
 </td></tr>
 
 </table>
@@ -7891,7 +7895,178 @@
   
     
   
+    
+  
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2013-06-06/reduce-pdf.html">Reducir resolución de un PDF</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2013-06-06
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2013-06-06-reduce-pdf.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2013-06-06-reduce-pdf.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#pdf-ref">pdf </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Este comando es relativamente fácil de encontrar, pero no está mal tenerlo a mano. Obviamente la gracia del asunto es el parámetro -r200x200:</p>
+<pre class="console">
+$ gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -r200x200 -sOutputFile=output.pdf input.pdf
+</pre>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2013-06-01/drupal-node-terms.html">Getting node terms from the drupal database</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2013-06-01
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2013-06-01-drupal-node-terms.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2013-06-01-drupal-node-terms.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#drupal-ref">drupal </a></li>
+    
+    	<li><a href="/tags.html#jekyll-ref">jekyll </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Migrating a drupal-6 site to jekyll I need to get <strong>term names</strong> to add the <code>tags</code> entry in the post <span class="caps">YAML</span> from-matter.</p>
+<p>I am using the jekyll-import ruby gem. The modification is easy and can be added directly to the <a href="https://github.com/jekyll/jekyll-import/blob/master/lib/jekyll/jekyll-import/drupal6.rb">drupal6</a> plugin.</p>
+<noscript><pre>400: Invalid request</pre></noscript><script src="https://gist.github.com/5764837.js"> </script><p>I apologize if this code smells. I am not a ruby programmer&#8230; yet.</p>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8624,197 +8799,6 @@ I can't find the format file `pdflatex.fmt'!</span></code></pre></figure></div>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/event/2013-02-14/debian-gnu-linux-install-party-v-7.html">Debian GNU/Linux Install Party V.7</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2013-02-14
-    
-      
-  <a href="/users.html#tato">
-   tato
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2013-02-14-debian-gnu-linux-install-party-v-7.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2013-02-14-debian-gnu-linux-install-party-v-7.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#event-ref">
-    		event
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1698">node/1698</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      El próximo día 22 de Febrero se celebrará en la ESI una Debian Install Party.
-
-La party está abierta a todo el mundo y puede venir quien quiera. El horario será de 16:00 - 21:00h, pero no será nada intensivo, más bien relajado y entre amigos.
-
-Si deseas asistir, envía un e-mail a la siguiente dirección: <b>josel.sanroma(arroba)alu.uclm.es</b> para pre-inscribirte, indicando el hardware que tiene el ordenador que vas a llevar. Si tienes una LiveCD, puedes enviar también la salida del comando "lspci". Además si traes un ordenador sin CD, indica si dispones de arranque por red o por USB (puedes encontrar esta información en el manual de instrucciones de tu motherboard o en la BIOS). Necesitamos todo esto para estar preparados ante posibles imprevistos.
-
-La pre-inscripción no obliga a nada, simplemente es para tener un número aproximado de participantes.
-
-
-Algunas cosas a tener en cuenta:
-
-<ul>
-    <li> <b>Lleva el disco duro particionado</b>, necesitas como mínimo unos <b>20GB</b> de espacio libre y particionado, es decir, una partición con al menos 20GB de espacio libre. En ese espacio se realizarán las particiones necesarias.Si no sabes como hacerlo avísanos antes para que te ayudemos porque en la party no habrá tiempo. </li>
-    <li> El horario será de 16:00h a 21:00h (Aula aún por confirmar). Estaremos allí a las 15:30h para que los asistentes puedan montar su puesto y estemos todos listos para empezar a las 16:00h. Se ruega puntualidad.</li>
-    <li> Puedes traer ordenador portátil o de sobremesa, pero no podemos asegurar que tengamos monitor, así que trae el tuyo propio en este caso.</li>
-    <li> Se realizarán diferentes talleres (Filosofía del Software Libre, Makefiles, conectividad SSH, herramientas colaborativas como repositorios, emacs, videojuegos libres, astronomía, instalación de entorno de desarrollo para Nintendo DS, etc) aún por decidir. </li>
-    <li> Tendrán prioridad los/as alumnos/as de la ESI.</li>
-</ul>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2013-02-10/altavoces-bluetooth-en-gnome.html">Altavoces bluetooth en GNOME</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2013-02-10
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2013-02-10-altavoces-bluetooth-en-gnome.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2013-02-10-altavoces-bluetooth-en-gnome.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#gnome-ref">gnome </a></li>
-    
-    	<li><a href="/tags.html#drivers-ref">drivers </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1697">node/1697</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Algunos altavoces, auriculares u otras cosas, como el Belkin Music Receiver (belkin U15) no funcionan directamente con <span class="caps">GNOME</span> (al menos en Debian). La solución es simple, aunque no es fácil de encontrar. Basta con:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>aptitude <span class="nb">install </span>pulseaudio-module-bluetooth pulseaudio-module-gconf</code></pre></figure></div>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8855,7 +8839,7 @@ Algunas cosas a tener en cuenta:
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-03 03:57:48 -0500
+	  Generated at 2020-09-10 06:29:03 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
