@@ -5053,15 +5053,15 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
+
+  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
+
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
-
-  <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
-
-  <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="615 posts"
+     title="617 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5331,7 +5331,7 @@
 </td></tr>
 <tr class="row22"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#git-ref'; hide_others()"
-     title="4 posts"
+     title="5 posts"
      >git</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sysadm-ref'; hide_others()"
@@ -5459,6 +5459,10 @@
   <a href="javascript:window.location.href='/tags.html#tmux-ref'; hide_others()"
      title="1 posts"
      >tmux</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
+     title="1 posts"
+     >docker</a>
 </td></tr>
 
 </table>
@@ -7891,7 +7895,213 @@
   
     
   
+    
+  
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-06-06/inhabilitar-touchpad-synaptics-mientras-escribes.html">Inhabilitar touchpad synaptics mientras escribes</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-06-06
+    
+      
+  <a href="/users.html#loren">
+   loren
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-06-06-inhabilitar-touchpad-synaptics-mientras-escribes.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-06-06-inhabilitar-touchpad-synaptics-mientras-escribes.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/328">node/328</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Cómo desactivar el touchpad mientras estás escribiendo, evitando así taps involuntarios.</blockquote>
+
+<h1>Antes de nada...</h1>
+Lo primero que tienes que hacer es asegurarte que tu touchpad es synaptics. Si es así, lo siguiente es comprobar que tienes instalado el módulo <a href="http://packages.debian.org/cgi-bin/search_contents.pl?word=syndaemon&searchmode=searchfiles&case=insensitive&version=unstable&arch=i386">xserver-xorg-input-synaptics</a>. Si no lo tienes, ¿a qué estas esperando?
+
+<h1>Manos a la obra!</h1>
+Una vez que has instalado el módulo, tendrás el comando <a href="http://linuxcommand.org/man_pages/syndaemon1.html">syndaemon</a> disponible, el cual monitorizará tu teclado y desactivará tu touchpad cada vez que escribas. Puedes probar su comportamiento introduciendo lo siguiente en una terminal:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>syndaemon <span class="nt">-i</span> 1 <span class="nt">-d</span></code></pre></figure>
+</div><ul><li>Con -i 1 le estás diciendo a syndaemon que quieres que tarde 1 segundo en volver a habilitar tu touchpad desde que presionas la última tecla de tu teclado.</li>
+<li>Con -d le dices que quieres que se ejecute como demonio del sistema.</li></ul>
+
+Ahora sólo falta que agregues ese comando a tu lista de programas al inicio del gestor de sesiones de Gnome.
+
+Si no usas Gnome, puedes agregar el siguiente script en tu directorio de scripts de inicio:
+<pre>#!/bin/bash
+syndaemon -i 1 -d
+</pre>
+Con esto puedes decir adiós a esos molestos taps involuntarios ;)
+
+<h1> Referencias </h1>
+
+<ul>
+<li><a href="http://www.esdebian.org/article.php/deshabilitar_touchpad">Deshabilitar el touchpad mientras se escribe</a></li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2006-06-06/el-da-de-la-bestia.html">El día de la bestia.</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-06-06
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-06-06-el-da-de-la-bestia.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-06-06-el-da-de-la-bestia.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/326">node/326</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      A menudo nos encontramos con noticias del tipo "hoy se acaba el mundo", debido a diferentes motivos sumamente importantes como que la fecha es el 1999-12-31, un eclipse lunar o a que ayer nos cruzamos con un gato negro. En fin... Que resulta sorprendente que no haya ninguna noticia del fin del mundo para hoy, día 2006-06-06 :-D
+
+Pues eso, chicos, que hoy es día 666.
+
+¡Pasad un buen día!
+
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/2006-06-06/el-da-de-la-bestia.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8608,180 +8818,6 @@ La <a href="http://www.fsf.org">Free Software Fundation (FSF)</a> ha lanzado una
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-05-28/mini-tutorial-de-gnu-gdb.html">Mini tutorial de GNU GDB</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-05-28
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-05-28-mini-tutorial-de-gnu-gdb.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-05-28-mini-tutorial-de-gnu-gdb.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/313">node/313</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <a href="http://arco.esi.uclm.es/~david.villa/doc/repo/gdb/gdb.html">Mini tutorial de GNU gdb</a>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-05-28/hacer-un-latiguillo-ethernet-cable-cruzado-cross-over.html">Hacer un «latiguillo» Ethernet - cable cruzado - cross over</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-05-28
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-05-28-hacer-un-latiguillo-ethernet-cable-cruzado-cross-over.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-05-28-hacer-un-latiguillo-ethernet-cable-cruzado-cross-over.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/308">node/308</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Esta receta indica cuál es la configuración de los hilos de un cable <span class="caps">UTP</span> para construir una cable directo o cruzado, tal como mandan los estándares.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2006-05-28/hacer-un-latiguillo-ethernet-cable-cruzado-cross-over.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8822,7 +8858,7 @@ La <a href="http://www.fsf.org">Free Software Fundation (FSF)</a> ha lanzado una
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-03 03:57:48 -0500
+	  Generated at 2020-09-10 06:29:03 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

@@ -5053,15 +5053,15 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
+
+  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
+
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
-
-  <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
-
-  <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="615 posts"
+     title="617 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5331,7 +5331,7 @@
 </td></tr>
 <tr class="row22"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#git-ref'; hide_others()"
-     title="4 posts"
+     title="5 posts"
      >git</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sysadm-ref'; hide_others()"
@@ -5459,6 +5459,10 @@
   <a href="javascript:window.location.href='/tags.html#tmux-ref'; hide_others()"
      title="1 posts"
      >tmux</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
+     title="1 posts"
+     >docker</a>
 </td></tr>
 
 </table>
@@ -7891,7 +7895,205 @@
   
     
   
+    
+  
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-04-04/wii-mando-con-libwiimote-en-gnu-linux-incluye-video-demo-p.html">Wii-Mando con Libwiimote en GNU/Linux (Incluye video-demo ;-P)</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-04-04
+    
+      
+  <a href="/users.html#morcy">
+   morcy
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-04-04-wii-mando-con-libwiimote-en-gnu-linux-incluye-video-demo-p.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-04-04-wii-mando-con-libwiimote-en-gnu-linux-incluye-video-demo-p.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#ocio-ref">ocio </a></li>
+    
+    	<li><a href="/tags.html#graphics-ref">graphics </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/636">node/636</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+Ampliando la información de Cleto sobre el Wiimando&#8230; De lo mejor que he visto son las librerías nativas de C libwiimote (paquete debian en su versión muy antigua), aunque a la fecha de escritura de este post van por la 0.4. Pueden descargarse en <a href="http://libwiimote.sourceforge.net/">http://libwiimote.sourceforge.net/</a>. Para compilarlas necesitarás tener libbluetooth y bluez.
+</blockquote>
+Estas librerías permiten recuperar la información de los sensores internos de aceleración y rotación del wiimando, reproducir pequeños samples de sonido en el altavoz e incluso acceder a la información guardada en los slots de memoria&#8230; Y además son muy sencillas.
+Como ejemplo de uso os dejo este pequeño video de ejemplo que hice ayer, que representa un objeto en OpenGL según la rotación del mando, junto con el código fuente.
+<ul>
+	<li><a href="http://www.morcy.org/video/wiigl.avi"><span class="caps">VIDEO</span> <span class="caps">DEMO</span> (XVid, 2MB)</a></li>
+	<li><a href="http://www.morcy.org/video/wiigl.c">Source Ejemplo WiiGL.c</a></li>
+</ul>
+La línea de compilación del ejemplo (se debería hacer un bonito makefile), una vez que tengáis instaladas estas librerías y las de OpenGL (+GLUT) sería algo así como:
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gcc <span class="nt">-I</span>/rutaHasta/libwiimote-0.4/src/ <span class="nt">-L</span>/rutaHasta/libwiimote-0.4/lib/ <span class="nt">-lGL</span> <span class="nt">-lGLU</span> <span class="nt">-lglut</span> <span class="nt">-lcwiimote</span> <span class="nt">-lbluetooth</span> <span class="nt">-lm</span> <span class="nt">-Os</span> <span class="nt">-Wall</span> <span class="nt">-pipe</span> <span class="nt">-D_ENABLE_TILT</span> <span class="nt">-D_ENABLE_FORCE</span> <span class="nt">-g</span> <span class="nt">-O2</span> <span class="nt">-o</span> wiigl wiigl.c</code></pre></figure></div>
+<p>Un saludo y happy wiiing!!<br />
+      Carlos</p>
+PD: En los tipos de recetas metería al menos una categoría genérica de &#8220;Gráficos&#8221; o similar. :-P
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-04-03/utilizar-un-mando-wii-con-tu-gnu-linux.html">Utilizar un mando Wii con tu GNU/Linux</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-04-03
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-04-03-utilizar-un-mando-wii-con-tu-gnu-linux.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-04-03-utilizar-un-mando-wii-con-tu-gnu-linux.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#ocio-ref">ocio </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/635">node/635</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Si tienes una Nintendo Wii y has comprobado todo lo que puedes hacer con un <a href="http://es.wikipedia.org/wiki/Control_Remoto_Wii">Wiimote</a>, es hora que lo conectes a tu PC con GNU. Esta receta es un ejemplo <b>muy básico</b> de lo que se puede hacer con él.</blockquote>
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2007-04-03/utilizar-un-mando-wii-con-tu-gnu-linux.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8692,291 +8894,6 @@ brue</p>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-03-22/recuperacin-de-un-sistema-completo-mondo-y-bacula.html">Recuperación de un sistema completo: Mondo y Bacula</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-03-22
-    
-      
-  <a href="/users.html#int-0">
-   int-0
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-03-22-recuperacin-de-un-sistema-completo-mondo-y-bacula.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-03-22-recuperacin-de-un-sistema-completo-mondo-y-bacula.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-    	<li><a href="/tags.html#security-ref">security </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/625">node/625</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>A pesar de que en anteriores recetas explicamos cómo realizar y recuperar backups en bacula, esto no es suficiente en el caso de querer recuperar un sistema completo. En caso de desastre total deberíamos volver a crear particiones, instalar un sistema base en el que recuperar los backups y, si no hicimos backup de la configuración del sistema, tendríamos que volver a configurarlo todo. Deberíamos separar backups del sistema y backups de los datos del sistema. Así podremos encontrar un método mejor para realizar nuestros respaldos.</blockquote>
-
-<h2>Backup de los datos</h2>
-Bien... hay mucho que explicar... pero está todo en las recetas sobre bácula:
-
-<ul>
-<li><a href="/node/400">Instalar un sistema Bacula</a></li>
-<li><a href="/node/549">Configurar un sistema Bacula</a></li>
-</ul>
-
-Lo único que debemos saber es qué es lo que vamos a almacenar. Esto es fácil: <tt>/var/</tt> (no todo... las bases de datos, páginas web, repositorios, etc.) y <tt>/home</tt>. Como seréis buenos usuarios, no usaréis <em>root</em> para nada, por tanto ese no hace falta salvar.
-
-Ahora sólo nos queda salvar el sistema...
-
-<h2>Backup del sistema</h2>
-Para hacer backup del sistema hay que tener en cuenta un par de cosas: qué ficheros salvar, sus enlaces, atributos, particiones, sector de arranque, etc. y lo que es más importante: en caso de que nos quedemos sin sistema... ¿cómo lo podemos recuperar? ¿una <em>live</em>? como véis no es tan trivial como puede parecer en un principio... necesitamos un método para hacer todo esto de una forma fácil y rápida: <b>mondo</b>.
-
-<h3>Instalar mondo</h3>
-Para los debianitas y similares:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-get <span class="nb">install </span>mondo</code></pre></figure>
-</div>
-
-Lo normal en estos casos es que ahora ponga unos comandillos para invocar a mondo... pero mondo tiene GUI!!! :jawdrop: (para que luego digan los de hassefroch) (algunos dirán que 6 botones en modo texto no son <em>gui</em>... pero otros dicen que un ratón tiene potenciómetros así que estamos en paz). Vienen muchas opciones, la más normal será <em>hard disk</em>. Esta opción creará unas imágenes <em>iso</em> del tamaño que digamos con nuestro respaldo del sistema. Hay una opción (<em>create DVD images</em>) que también podríamos usar... esta opción graba directamente los DVD's... pero tiene un problema: deberíamos estar todo el proceso ahí para ir cambiando los grabables... en un sistema grande eso puede ser un auténtico tostón.
-
-Otra cosa que hay que tener en cuenta es que en el directorio temporal necesitamos una gran cantidad de espacio libre (un poco más que el tamaño total de los ficheros a hacer backup).
-
-A la hora de hacer el backup excluiremos todos aquellos directorios que ya tengamos incluídos en las cintas de backup, <tt>/home</tt> sobre todo. En cuanto a <tt>/var</tt>, excluiremos todo aquello que no hayamos metido en cinta, cosas como la base de datos de <em>dpkg</em>, etc.
-
-<h2>Restaurar el sistema</h2>
-Bien... hemos creado las imágenes con <em>mondo</em> y justo después se nos ha reventado el sistema :jawdrop:. No pasa nada! Tanto si perdimos algunos ficheros como el sistema entero... reiniciamos el PC con el primer DVD insertado. El DVD arranca y nos aparece otra <em>gui</em> con varias opciones: testear backup, restauración manual y restauración automática. Realizamos una restauración automática, nos irá pidiendo los DVD's y extraerá los ficheros y tal.
-
-Una vez hayamos terminado reiniciaremos el PC ya sin los DVD's y arrancará nuestro sistema. Como nuestro sistema ya tenía bácula restauraremos los datos de <tt>/home</tt> desde las cintas (siguiendo las recetas).
-
-<h2>Apéndice A: automondo</h2>
-El uso del <em>gui</em> en mondo tiene un problema: exige interacción con el usuario. Puede ser que necesitemos poder crear imágenes sin que un usuario lo exija (<em>cron</em>). Además puede ser necesario almacenar alguna configuración en algún sitio.
-
-Para estas cosas he creado un pequeño y tonto <em>script</em> que he llamado <em>automondo</em>. El <em>script</em> lo copiaremos en <tt>/usr/sbin</tt>, lo llamaremos <tt>automondo</tt> y le daremos permisos de ejecución. El <em>script</em> es el siguiente:
-
-<pre>#!/bin/bash
-
-# Cargamos la configuracion (si existe)
-#
-CONFIG_FILE=/etc/mondo/automondo.conf
-if [ -e $CONFIG_FILE ]
-then
-        . $CONFIG_FILE
-fi
-# Cargamos valores por defecto (en caso de que no exista CFG o falten parametros)
-if [ -z "$IMG_DESTINATION" ]
-then
-        IMG_DESTINATION=/root/images/mondo
-fi
-if [ -z "$IMG_PREFIX" ]
-then
-        IMG_PREFIX=`hostname`
-fi
-if [ -z "$IMG_SIZE" ]
-then
-        IMG_SIZE=4200m
-fi
-if [ -z "$BCK_EXCLUDE" ]
-then
-        BCK_EXCLUDE="/tmp /lost+found"
-fi
-if [ -z "$TMP_DIR" ]
-then
-        TMP_DIR="/tmp"
-fi
-# Creamos el destino si no existe
-if [ ! -d $IMG_DESTINATION ]
-then
-        mkdir $IMG_DESTINATION
-fi
-# Creamos el temporal si no existe
-if [ ! -d $TMP_DIR ]
-then
-        mkdir $TMP_DIR
-fi
-# Invocamos el asunto...
-/usr/sbin/mondoarchive -O -d $IMG_DESTINATION -p $IMG_PREFIX -i -E "$BCK_EXCLUDE" -N -s $IMG_SIZE -9 -T "$TMP_DIR" -S "$TMP_DIR"</pre>
-
-Y ahora creamos el archivo <tt>/etc/mondo/automondo.conf</tt> con el siguiente contenido:
-
-<pre>
-# Destino para las imagenes
-#
-IMG_DESTINATION=/root/mondo/images
-
-# Prefijo en el nombre de las imagenes
-#
-IMG_PREFIX=`hostname`
-
-# Tamaño de los iso
-#
-IMG_SIZE=4200m
-
-# Directorios a excluir (proc y tal lo excluye mondo automáticamente)
-#
-BCK_EXCLUDE="/var/tmp /var/run /home /root/mondo"
-
-# Directorio temporal
-#
-TMP_DIR="/root/mondo/temp"</pre>
-
-Si ahora ejecutamos <em>automondo</em> se nos crearán automáticamente las imágenes del sistema ;).
-
-<blockquote>Nota: Existe un "pequeño" problema que no se muy bien como arreglar. Resulta que aunque las imágenes las crea bien y funcionan (doy fe) da un "error" al final del proceso y pide la pulsación de <em>intro</em> para continuar. Cleto me ha sugerido el siguiente cambio en la última línea del script:
-
-<pre>echo -e \n | /usr/sbin/mondoarchive -O -d $IMG_DESTINATION -p $IMG_PREFIX -i -E "$BCK_EXCLUDE" -N -s $IMG_SIZE -9 -T "$TMP_DIR" -S "$TMP_DIR"</pre>
-
-Es pasar un <em>intro</em> al programa para que se pulse... pero no termina de convencerme el asunto... ¿qué opináis?</blockquote>
-
-<h2>Enlaces</h2>
-Las recetas sobre bácula que menciono al principio.
-<a href="http://www.mondorescue.org/">Mondo Rescue Home Page.</a>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/2007-03-22/plataforma-anti-soporte-gratuito-a-microsoft.html">Plataforma anti soporte gratuito a microsoft</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-03-22
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-03-22-plataforma-anti-soporte-gratuito-a-microsoft.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-03-22-plataforma-anti-soporte-gratuito-a-microsoft.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/626">node/626</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Interesante <a href="http://aceitunassinhueso.com/2007/01/30/plataforma-anti-soporte-gratuito-a-microsoft/">propuesta</a> muy en la línea del post <a href="/node/380">Microsoft somos todos</a> de un tal Cleto que solía escribir por aquí.</p>
-<center>
-<p><img src="http://aceitunassinhueso.com/images/pasgm.png"/></p>
-</center>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9017,7 +8934,7 @@ Las recetas sobre bácula que menciono al principio.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-03 03:57:48 -0500
+	  Generated at 2020-09-10 06:29:03 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

@@ -5053,15 +5053,15 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
+
+  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
+
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
-
-  <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
-
-  <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="615 posts"
+     title="617 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5331,7 +5331,7 @@
 </td></tr>
 <tr class="row22"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#git-ref'; hide_others()"
-     title="4 posts"
+     title="5 posts"
      >git</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sysadm-ref'; hide_others()"
@@ -5459,6 +5459,10 @@
   <a href="javascript:window.location.href='/tags.html#tmux-ref'; hide_others()"
      title="1 posts"
      >tmux</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
+     title="1 posts"
+     >docker</a>
 </td></tr>
 
 </table>
@@ -7889,7 +7893,222 @@
   
     
   
+    
+  
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-10-07/arrancar-como-root-sin-conocer-la-clave-usando-grub.html">Arrancar como root sin conocer la clave (usando GRUB)</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-07
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-07-arrancar-como-root-sin-conocer-la-clave-usando-grub.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-07-arrancar-como-root-sin-conocer-la-clave-usando-grub.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/19">node/19</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Si metes la pata y te cargas la cuenta de root o simplemente has olvidado la clave, esta receta explica cómo recuperar la cuenta de root sin conocer la clave, siempre que uses GRUB como gestor de arranque.
+</blockquote>
+
+
+Cuando aparezca el menu de grub, tras encender la máquina, situate con los cursores en la línea del kernel que quieres usar. Pulsa 'e' para editar la entrada y edita la línea <tt>kernel</tt> (pulsando 'e' de nuevo). Añade al final de la línea lo siguiente:
+
+<pre>
+init=/bin/bash
+</pre>
+
+Esto hace que el sistema arranque una shell root sin pedir password. Es posible que el teclado esté en inglés y no puedas escribir el '=' y la '/', prueba '¡' y '-'. Pulsa 'b' para comenzar el arranque del kernel.
+
+La partición raíz suele montarse como sólo lectura, asi que si olvidaste la clave de <tt>root</tt> y quieres cambiarla primero deberás remontarla como lectura/escritura. Para ello:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mount <span class="nt">-o</span> remount,rw /dev/hda3</code></pre></figure>
+</div>
+
+suponiendo que <tt>/dev/hda3</tt> es tu partición raíz. Puedes averiguarlo ejecutando simplemente <tt>mount</tt>.
+
+Por último, cambia la clave de <tt>root</tt> ejecutando:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>passwd root
+<span class="gp">#</span><span class="w"> </span><span class="nb">sync</span>
+<span class="gp">#</span><span class="w"> </span>reboot</code></pre></figure>
+</div>
+
+<h2>Enlaces</h2>
+<ul>
+  <li><a href="http://quark.fe.up.pt/laespiral/recetas/101-200/receta105.html">GRUB Cómo</a>
+  <li><a href="http://www.mcc.ac.uk/grub/grub_3.html#SEC9">Grub Manual</a>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-10-05/cmo-escribir-una-receta.html">Cómo escribir una receta</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-05
+    
+      
+  <a href="/users.html#admin">
+   admin
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-05-cmo-escribir-una-receta.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-05-cmo-escribir-una-receta.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/4">node/4</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      Este documento define las normas de estilo que se deben aplicar a las recetas de la web de CRySoL. Se describe la estructura, el formato y típografía a utilizar. Esta receta sigue las normas que en ella se definen y sirve además como introducción a los formatos de entrada necesarios para poder escribir recetas.
+
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2005-10-05/cmo-escribir-una-receta.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8571,7 +8790,7 @@ Saludos.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-03 03:57:48 -0500
+	  Generated at 2020-09-10 06:29:03 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

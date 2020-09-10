@@ -5053,15 +5053,15 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
+
+  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
+
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
-
-  <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
-
-  <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="615 posts"
+     title="617 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5331,7 +5331,7 @@
 </td></tr>
 <tr class="row22"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#git-ref'; hide_others()"
-     title="4 posts"
+     title="5 posts"
      >git</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sysadm-ref'; hide_others()"
@@ -5459,6 +5459,10 @@
   <a href="javascript:window.location.href='/tags.html#tmux-ref'; hide_others()"
      title="1 posts"
      >tmux</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
+     title="1 posts"
+     >docker</a>
 </td></tr>
 
 </table>
@@ -7891,7 +7895,241 @@
   
     
   
+    
+  
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-10-21/apt-get-y-dpkg.html">apt-get y dpkg</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-21
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-21-apt-get-y-dpkg.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-21-apt-get-y-dpkg.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/59">node/59</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<p>Algunas posibilidades de las herramientas <tt>apt-get</tt> y <tt>dpkg</tt> de Debian <span class="caps">GNU</span>/Linux</p>
+</blockquote>
+<h2> Listar todos los ficheros de un paquete</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dpkg <span class="nt">-L</span> nombre_paquete</code></pre></figure></div>
+<h2> Instalar un paquete de una <em>release</em> concreta</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install</span> <span class="nt">-t</span> unstable nombre_paquete</code></pre></figure></div>
+<h2> Bloquear (<em>hold</em>) un paquete para que no se actualice en los <em>upgrades</em></h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">echo </span>nombre_paquete hold | dpkg <span class="nt">--set-selections</span></code></pre></figure></div>
+<h2> Quitar el bloqueo a un paquete</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">echo </span>nombre_paquete <span class="nb">install</span> | dpkg <span class="nt">--set-selections</span></code></pre></figure></div>
+<h2> Ver la versión de un paquete instalado</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-cache policy nombre_paquete | <span class="nb">grep </span>Installed</code></pre></figure></div>
+<h2> Listar los paquetes que contienen cierta cadena en su nombre</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nv">COLUMNS</span><span class="o">=</span>120 dpkg <span class="nt">-l</span> | <span class="nb">grep </span>string</code></pre></figure></div>
+<h2> Obtener el estado(<em>hold</em>, <em>purge</em>) de un paquete</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dpkg <span class="nt">--get-selections</span> nombre_paquete</code></pre></figure></div>
+<h2> Eliminar un paquete y sus ficheros de configuración</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">--purge</span> nombre_paquete</code></pre></figure></div>
+<h2> Ver las dependencias de un paquete y su descripción</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-cache showpkg nombre_paquete</code></pre></figure></div>
+<h2> Buscar paquetes relacionados con un término</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-cache search string</code></pre></figure></div>
+<h2> Posibles problemas</h2>
+<p>Al instalar un paquete, puede ocurrir que su script de post-instalación falle por alguna razón, lo cual impide que el paquete se instale correctamente.  Si eso ocurre puedes editar su script correspondiente en <tt>/var/lib/dpkg/info/<em>nombre_paquete</em>.postinst</tt> e intentar arreglarlo. Después simplemente ejecuta:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>dpkg <span class="nt">--configure</span> <span class="nt">-a</span></code></pre></figure></div>
+<h2>Reinstalar todos los paquetes instalados</h2>
+<p>Útil para limpiar los binarios si el sistema ha sido infectado con un virus o un rootkit. <span class="caps">USAR</span> <span class="caps">CON</span> PRECAUCIÓN.</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span>dpkg <span class="nt">--get-selections</span> | <span class="nb">grep</span> <span class="nt">-v</span> deinstall | <span class="nb">awk</span> <span class="s1">'{print $1}'</span><span class="si">)</span><span class="p">;</span> <span class="k">do </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> <span class="nt">--reinstall</span> <span class="nv">$i</span><span class="p">;</span> <span class="k">done</span></code></pre></figure></div>
+<h2> Enlaces</h2>
+<ul>
+<li>
+<a href="http://quark.fe.up.pt/laespiral/recetas/1-100/receta43.html">Configurar paquetes Debian</a>
+</li>
+<li>
+<p><a href="http://www.debian.org/doc/manuals/debian-tutorial/">Debian Tutorial</a></p>
+</li>
+<li>
+<p><a href="http://quark.fe.up.pt/laespiral/recetas/1-100/receta56.html">Cómo buscar software y paquetes asociados en Debian</a></p>
+</li>
+<li>
+<p><a href="http://www.courville.org/phpwiki/apt/dpkg">apt/dpkg</a></p>
+</li>
+<li>
+<p><a href="http://www.linuca.org/body.phtml?nIdNoticia=39">apt y dpkg. Herramientas de gestión de paquetes para Debian</a></p>
+</li>
+<li>
+<a href="http://linuxhelp.blogspot.com/2005/12/concise-apt-get-dpkg-primer-for-new.html"> A Concise apt-get / dpkg primer for new Debian users</a>
+</li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/new/2005-10-19/usuarios-ubuntu-quereis-howtos.html">¡Usuarios Ubuntu!, ¿quereis Howto's?</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-19
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-19-usuarios-ubuntu-quereis-howtos.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-19-usuarios-ubuntu-quereis-howtos.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#new-ref">
+    		new
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/50">node/50</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      ¡Pues tomad Howto's! :-)
+
+Es para la versión Hoary pero hay ciertas cosas que no dependen ni de que sea Hoary, ni que de sea Ubuntu. Muy chulo y muy completo. <a href="http://ubuntuguide.org/">AQUÍ LO TENEIS</a>.
+
+Un saludo!
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8966,341 +9204,6 @@ ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/tale/2005-10-16/cienes-y-cienes-de-cosas-como-dira-aquel.html">Cienes y cienes de cosas (como diría aquel)</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-10-16
-    
-      
-  <a href="/users.html#Lk2">
-   Lk2
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-16-cienes-y-cienes-de-cosas-como-dira-aquel.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-16-cienes-y-cienes-de-cosas-como-dira-aquel.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#tale-ref">
-    		tale
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/40">node/40</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Hola a todos ... ¿crysoleros? (¡qué horterada!).
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/tale/2005-10-16/cienes-y-cienes-de-cosas-como-dira-aquel.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-10-14/instalacin-de-edonkey2000.html">Instalación de eDonkey2000</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-10-14
-    
-      
-  <a href="/users.html#arturo">
-   arturo
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-14-instalacin-de-edonkey2000.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-14-instalacin-de-edonkey2000.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/38">node/38</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote> En esta receta explico como instalar eDonkey2000. La idea es instalar el core en un PC y el cliente <a href="http://ed2k-gtk-gui.sourceforge.net/">ed2k-gui</a> en otro PC distinto.</blockquote>
-
-
-<h1> Instalar el core </h1>
-
-Después de bajar el <em>core</em> desde <a href="http://forum.edonkey.com/viewtopic.php?t=69313">ed2k</a>, lo siguiente es instalarlo:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-i</span> el_core_que_sea.deb</code></pre></figure>
-</div>
-
-Y después configurarlo:
-
-<pre class="console">$ edonkeyclc
-[--- Storing settings in '/XXXXX/XXXX/.eDonkey2000' ---]
-
-Welcome to eDonkey2000 command line client 1.3.0
-Enter commands at any time (type '?' for help)
->
-</pre>
-
-Ahora se nos abre el shell del core. Lo primero será crearnos un usuario del core:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="w"> </span>name fulanito</code></pre></figure>
-</div>
-
-Ahora vamos a establecer la velocidad máxima de bajada (20 KB/sec) y de subida (7 KB/sec), por ejemplo:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="w"> </span>dumax 20 7</code></pre></figure>
-</div>
-
-Lo siguiente será crear un usuario y una contraseña para poder conectar desde los clientes gráficos a nuestro core (o cliente en modo texto):
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="w"> </span>pass usuario passwd</code></pre></figure>
-</div>
-
-Ten en cuenta que el passwd no se cifra ni nada por el estilo, por eso es aconsejable usarlo bajo una red segura.
-
-Veamos lo que hemos creado:
-
-<pre class="console">
-> vo
-Name:                   fulanito
-Max Download Speed:     20.00
-Max Upload Speed:       7.00
-Line Speed Down:        0.00
-TCP Port:               0
-UDP Port:               3620
-Admin Port:             4663
-Admin Name:             usuario
-Admin Pass:             passwd
-Verbose:                0
-SaveCorrupted:          1
-MaxConnections:         45
-ScreenLines:            24
-Allow Private Messages:         0
-Allow Viewing of Files:         0
-</pre>
-
-Una vez configurado el core, salimos guardando la configuración introducida.
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="w"> </span>q
-<span class="go">Are you sure wanna quit (Y/n)?
-y</span></code></pre></figure>
-</div>
-
-Y ahora lo que hacemos es volver a lanzar el mismo programa pero indicandole que espere conexiones del cliente gráfico:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>edonkeyclc <span class="nt">-g</span></code></pre></figure>
-</div>
-
-<h1> Instalar el gui </h1>
-
-En el otro PC nos tendremos que bajar el <acronym title="Graphic User Interface">GUI</acronym> <a href="http://ed2k-gtk-gui.sourceforge.net/download.shtml">ed2k-gui</a>.
-
-Al igual que antes, lo instalamos como <b>root</b> con:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-i</span> paquetito_gui.deb</code></pre></figure>
-</div>
-
-Ahora lo lanzamos mediante el comando "ed2k_gui" o en el menú Aplicaciones -> Internet -> Controlador central eDonkey2000 GTK+.
-
-Al iniciar el gui saldrá un ventana "Connect to...", pues bien, elegimos la segunda opción "Connect to a core running on another computer". Ahora hay que rellenar los siguientes datos:
-
-<pre>
-Hostname or IP: 1.2.3.4
-Admin Port: 4663
-Admin Username: usuario
-Admin Password: passwd
-</pre>
-
-Pulsamos aceptar y si todo ha ido bien deberiamos acceder al gui sin ningún problema. Una vez dentro hay que cambiar una opción importante para que el core siga corriendo en la otra máquina aunque cerremos el gui.  Esta opción se encuentra en la pestaña "Opciones" -> "GUI1". Hay que desmarcar la opción que pone "apagar el núcleo al salir". Las demás opciones a gusto del cosumidor :-).
-
-<h1>Script de inicio</h1>
-
-Este es el script que he incluido en /etc/init.d/ para que cuando se encienda la máquina el core se ejecute,
-yo lo he llamado "core-ed2k":
-
-<pre>
-#!/bin/bash
-
-PROGRAM=edonkeyclc
-PROGRAM_DIR=/home/tu_usuario
-PROGRAM_LOG=/tmp
-
-case "$1" in
-  start)
-     cd $PROGRAM_DIR
-     su - tu_usuario -c "$PROGRAM -g -l" >> $PROGRAM_LOG/edonkey.log &
-     sleep 5
-     echo -e "¡¡¡¡¡¡¡ CORE ejecutandose !!!!!!!\n"
-  ;;
-  stop)
-     sync
-     kill -9 `pidof $PROGRAM`
-     echo -e "¡¡¡¡¡¡¡ Parando el CORE !!!!!!!\n"
-     sleep 2
-  ;;
-  *)
-     echo "Uso: /etc/init.d/core-ed2k {start|stop}"
-     exit 1
-  ;;
-esac
-
-exit 0
-</pre>
-
-Este script se copia en /etc/init.d/ y ahora nos hace falta crear los enlaces init correspondientes. Mi equipo se ejcuta en el nivel 2, asi que:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>update-rc.d core-ed2k start 99 2 <span class="nb">.</span> stop 99 0 2 .</code></pre></figure>
-</div>
-
-Si por alguna razón el core deja de ejecutarse o queremos pararlo hacemos:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> /etc/init.d/core-ed2k {start|stop}</span></code></pre></figure>
-</div>
-
-dependiendo de lo que queramos hacer.
-
-<h1>Enlaces</h1>
-<ul>
-  <li><a href="http://edonkey.com/">eDonkey</a></li>
-  <li><a href="http://ed2k-gtk-gui.sourceforge.net">ed2k-gtk-gui</a></li>
-</ul>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9341,7 +9244,7 @@ dependiendo de lo que queramos hacer.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-03 03:57:48 -0500
+	  Generated at 2020-09-10 06:29:03 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

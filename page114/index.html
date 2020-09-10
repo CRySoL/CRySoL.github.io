@@ -5053,15 +5053,15 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
+
+  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
+
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
-
-  <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
-
-  <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="615 posts"
+     title="617 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5331,7 +5331,7 @@
 </td></tr>
 <tr class="row22"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#git-ref'; hide_others()"
-     title="4 posts"
+     title="5 posts"
      >git</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sysadm-ref'; hide_others()"
@@ -5459,6 +5459,10 @@
   <a href="javascript:window.location.href='/tags.html#tmux-ref'; hide_others()"
      title="1 posts"
      >tmux</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
+     title="1 posts"
+     >docker</a>
 </td></tr>
 
 </table>
@@ -7891,7 +7895,288 @@
   
     
   
+    
+  
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-11-27/ejecutar-programas-x-en-otra-mquina-vindolos-en-local.html">Ejecutar programas X en otra máquina viéndolos en local</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-11-27
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-27-ejecutar-programas-x-en-otra-mquina-vindolos-en-local.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-27-ejecutar-programas-x-en-otra-mquina-vindolos-en-local.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#networking-ref">networking </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/119">node/119</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+<p>A veces se necesita ejecutar un programa con interfaz gráfica que reside en una máquina distinta y queremos verlo en la máquina que estamos. Esta receta explica cómo conseguirlo sin tener que abrir una sesión X ni tener que utilizar un &#8220;escritorio remoto&#8221; como <tt>vnc</tt>.</p>
+</blockquote>
+<h2>Método 1: Exportar display</h2>
+<p>El método &#8216;clásico&#8217; cuando queremos ejecutar un programa en una máquina remota y ver su interfaz en nuestro cliente X local es:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@local:~$</span><span class="w"> </span>xhost remoto
+<span class="go">remoto being added to access control list
+</span><span class="gp">user@local:~$</span></code></pre></figure></div>
+<p>Con eso se consigue que el servidor X, que corre en nuestra máquina, acepte conexiones externas de la máquina &#8220;remoto&#8221;. Pero si queremos que admita conexiones de cualquier máquina hay que poner:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@local:~$</span><span class="w"> </span>xhost +
+<span class="go">access control disabled, clients can connect from any host
+</span><span class="gp">user@local:~$</span></code></pre></figure></div>
+<p>Aunque esto puede suponer un problema de seguridad grave.</p>
+<p>Ahora accede a la máquina remota con <tt>telnet</tt> o algo similar y exporta el &#8216;display&#8217; para aplicaciones X.</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@remoto:~$</span><span class="w"> </span><span class="nb">export </span><span class="nv">DISPLAY</span><span class="o">=</span><span class="nb">local</span>:0
+<span class="gp">user@remoto:~$</span></code></pre></figure></div>
+<p>La instrucción <tt>export</tt> declara una variable de entorno de la <em>shell</em> (no tiene nada que ver con la expresión exportar display).</p>
+<p>Con esto, la aplicación X sabrá que debe utilizar el servidor X de la máquina llamada &#8216;local&#8217; en lugar de usar el de la máquina en la que se ejecuta. Puedes comprobar que funciona con algo como:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@remoto:~$</span><span class="w"> </span>xeyes
+<span class="gp">user@remoto:~$</span></code></pre></figure></div>
+<p>Con lo que deberías ver el clásico programilla de los ojos en la máquina local.</p>
+<h2>Método 2: ssh</h2>
+<p>El servidor <tt>ssh</tt> es capaz de gestionar automáticamente la conexión X siempre que servidor y cliente estén configurados adecuadamente.</p>
+<p>Edita el fichero <tt>/etc/ssh/sshd_config</tt> del servidor y haz la siguiente modificación, que sirve para que el servidor <tt>ssh</tt> remoto devuelva el tráfico X11.</p>
+<pre>
+  X11Forwarding = yes
+</pre>
+<p>Edita el fichero <tt>/etc/ssh/ssh_config</tt> del cliente y haz la siguiente modificación, Esto hace que el cliente <tt>ssh</tt> local solicite el tráfico X11.</p>
+<pre>
+  ForwardX11 = yes
+</pre>
+<p>Como alternativa a esto, el usuario puede solicitarlo por línea de comando al hacer la conexión:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">ssh -X &lt;em&gt;</span>remoto&lt;/em&gt;</code></pre></figure></div>
+<p>Si lo haces en las dos máquinas, podrás utilizar este mecanismo en ambos sentidos. Sólo queda reiniciar el servidor con:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">root@remoto:~#</span><span class="w"> </span>/etc/init.d/ssh restart
+<span class="gp">root@remoto:~#</span></code></pre></figure></div>
+<p>Y ya tienes el efecto deseado, compruébalo con <tt>xeyes</tt>&#8230; (por ejemplo)</p>
+<h2>Enlaces</h2>
+<ul>
+	<li><a href="node/6"><span class="caps">SSH</span> y <span class="caps">SCP</span> para acceder a equipos remotos sin necesidad de clave</a></li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-11-27/abrir-una-sesin-x-en-otra-mquina.html">Abrir una sesión X en otra máquina</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-11-27
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-27-abrir-una-sesin-x-en-otra-mquina.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-27-abrir-una-sesin-x-en-otra-mquina.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/120">node/120</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Las X-Windows de los sistemas Unix tienen una arquitectura cliente-servidor. Aunque lo habitual es que los programas que vemos se ejecuten en nuestra máquina, es perfectamente posible abrir una sesión X en una máquina distinta mediante <acronym title="X Display Manager Control Protocol">XDMCP</acronym>
+</blockquote>
+
+
+<h1> Configuración</h1>
+
+Edita el fichero <tt>/etc/gdm/gdm_conf</tt> de la máquina que ejecuta el servidor X.
+
+Busca la sección <tt>[xdmcp]</tt>, y activa la opción <tt>enable=true</tt>.
+
+Es muy recomendable dejar la opción: <tt>AllowRemoteRoot=false</tt> para evitar problemas de seguridad.
+
+Esto es válido si se usa <tt>gdm</tt> como gestor de conexión. Si usas <tt>kdm</tt> o <tt>xdm</tt> la configuración puede variar.
+
+Ahora busca la sección <tt>[server-Standard]</tt> y edita la opción <tt>command</tt> para que NO incluya el argumento <tt>-nolisten tcp</tt>. Quedará algo como:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">command=/usr/X11R6/bin/X -deferglyphs 16 -audit 0</span></code></pre></figure>
+</div>
+
+
+<h1> Conexión</h1>
+
+Para conectar, bastará con escribir en la consola:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@client:~$</span><span class="w"> </span>X :0.1 <span class="nt">-query</span> <span class="o">[</span>server_host]
+<span class="gp">user@client:~$</span></code></pre></figure>
+</div>
+
+El <tt>0.1</tt> indica el <em>display</em> y el <em>screen</em>. Normalmente variará entre 0.0, 1.0, 2.0 y 3.0, y se podrá acceder, respectivamente, con F7, F8, F9 y F10.
+
+<h1>Varias sesiones X en la misma máquina</h1>
+
+Puede ser interesante tener una o varias sesiones X adicionales en la máquina local. Por ejemplo, con:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xinit <span class="nt">--</span> :1</code></pre></figure>
+</div>
+
+se abre un segundo cliente X (en F8) que ejecuta únicamente un x-terminal, pero sin gestor de ventanas ni de escritorio.
+
+<h1>Sesión X anidada</h1>
+
+Si en lugar de utilizar el comando X usa Xnest consigue el mismo efecto que en los ejemplos anteriores, pero en lugar de tener un terminal gráfico a pantalla completa obtiene una ventana del tamaño adecuado.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">user@client:~$</span><span class="w"> </span>Xnest :1 <span class="nt">-query</span> <span class="o">[</span>server_host]</code></pre></figure>
+</div>
+
+<h1>Referencias</h1>
+
+<ul>
+   <li>
+     <a href="http://grulla.hispalinux.es/articles/xterm.html">Ejecución de aplicaciones X remotas y configuración de un X Terminal</a>
+   </li>
+   <li>
+   <a href="http://es.wikipedia.org/wiki/XDMCP">Wikipedia :: XDMCP</a>
+   </li>
+</li>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8620,191 +8905,6 @@ OBSOLETA: Mira <a href="/node/357">Debian Plone en 5 minutos</a>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/tale/2005-11-19/bookcrossing-tambin-en-ciudad-real.html">"BookCrossing" ¿también en Ciudad Real?</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-11-19
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-19-bookcrossing-tambin-en-ciudad-real.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-19-bookcrossing-tambin-en-ciudad-real.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#tale-ref">
-    		tale
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/108">node/108</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Acabo de ver <a href="http://barrapunto.com/article.pl?sid=05/11/19/1320221">esta noticia en barrapunto</a> de nuestros colegas de Albacete sobre el fenómeno <a href="http://es.wikipedia.org/wiki/Bookcrossing">BookCrossing</a> y era algo a lo que hace tiempo que llevaba dándole vueltas. Creo que es un mecanismo sencillo y barato para difusión de cultura libre. ¿Qué te parece? ¿Crees que podría funcionar aquí? ¿Estarías dispuesto a ayudar a poner el tema en marcha?</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/tale/2005-11-19/bookcrossing-tambin-en-ciudad-real.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-11-18/configurar-eclipse.html">Configurar Eclipse</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-11-18
-    
-      
-  <a href="/users.html#magmax">
-   magmax
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-18-configurar-eclipse.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-18-configurar-eclipse.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/103">node/103</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-El documento pretende ser un manual "paso a paso" que permita configurar un proyecto Java con Eclipse. Se utilizará Eclipse 3.1 y el proyecto creado será un "tomcat project".
-</blockquote>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2005-11-18/configurar-eclipse.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8845,7 +8945,7 @@ El documento pretende ser un manual "paso a paso" que permita configurar un proy
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-03 03:57:48 -0500
+	  Generated at 2020-09-10 06:29:03 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

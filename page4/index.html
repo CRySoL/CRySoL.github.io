@@ -5053,15 +5053,15 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
+
+  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
+
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
-
-  <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
-
-  <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="615 posts"
+     title="617 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5331,7 +5331,7 @@
 </td></tr>
 <tr class="row22"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#git-ref'; hide_others()"
-     title="4 posts"
+     title="5 posts"
      >git</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sysadm-ref'; hide_others()"
@@ -5459,6 +5459,10 @@
   <a href="javascript:window.location.href='/tags.html#tmux-ref'; hide_others()"
      title="1 posts"
      >tmux</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
+     title="1 posts"
+     >docker</a>
 </td></tr>
 
 </table>
@@ -7891,7 +7895,203 @@
   
     
   
+    
+  
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2013-10-28/file-grain-sudo.html">Fine-grain sudo</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2013-10-28
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2013-10-28-file-grain-sudo.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2013-10-28-file-grain-sudo.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#sudo-ref">sudo </a></li>
+    
+    	<li><a href="/tags.html#shell-ref">shell </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p><code>sudo</code> lets a user run commands as she was a different user (usually root). The common configuration of <code>sudo</code> requests your password before run the command. As that is annoying, you may be tempted to write something like this in your <code>/etc/sudoers</code>:</p>
+<pre>
+john   ALL = ALL, NOPASSWD: APT
+</pre>
+<p>But this may be a big security issue&#8230;</p>
+<p>
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2013-10-28/file-grain-sudo.html">
+	
+          Read more
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2013-10-21/git-remove-from-history.html">git: removing files from history</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2013-10-21
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2013-10-21-git-remove-from-history.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2013-10-21-git-remove-from-history.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#git-ref">git </a></li>
+    
+    	<li><a href="/tags.html#shell-ref">shell </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>That deletes the given files from all the changesets along all the repository history, as they never were commited.</p>
+<p>It is not a very friendly command (it&#8217;s the git style!), but at least it can be done.</p>
+<pre class="console">
+$ git filter-branch --index-filter 'git rm -r --cached --ignore-unmatch &lt;file/dir&gt;' --prune-empty --tag-name-filter cat -- --all
+$ rm -rf .git/refs/original
+$ git reflog expire --expire=now --all
+$ git gc --prune=now
+$ git gc --aggressive --prune=now
+$ git push --force
+</pre>
+<p>Far as I know this is not possible with mercurial</p>
+<h2>References</h2>
+<ul>
+	<li>http://stackoverflow.com/questions/5563564/remove-files-from-git-repo-completely</li>
+	<li>https://help.github.com/articles/remove-sensitive-data</li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8628,184 +8828,6 @@ $ VBoxManage storageattach NAME --storagectl SATA --port 0 --device 0 --type hdd
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2013-07-10/get-shell-user-without-shell.html">How to get a shell for a non-shell user</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2013-07-10
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2013-07-10-get-shell-user-without-shell.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2013-07-10-get-shell-user-without-shell.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#shell-ref">shell </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Non shell unix users are useful to run services or daemons, but sometimes you may need a shell to test something failing&#8230;</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2013-07-10/get-shell-user-without-shell.html">
-	
-          Read more
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2013-07-09/puppet-install-latest-package.html">Ensuring last version of a package with puppet</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2013-07-09
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2013-07-09-puppet-install-latest-package.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2013-07-09-puppet-install-latest-package.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#puppet-ref">puppet </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Puppet is a powerful software infrastructure manager. That is, a program that enable you to specify what is installed and running in each computer of your network.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2013-07-09/puppet-install-latest-package.html">
-	
-          Read more
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8846,7 +8868,7 @@ $ VBoxManage storageattach NAME --storagectl SATA --port 0 --device 0 --type hdd
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-03 03:57:48 -0500
+	  Generated at 2020-09-10 06:29:03 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

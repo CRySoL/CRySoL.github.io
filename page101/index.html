@@ -5053,15 +5053,15 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
+
+  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
+
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
   <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
-
-  <li><a href="/recipe/2018-03-09/firma-digital-firefox.html">Autofirma con firefox y DNIe</a></li>
-
-  <li><a href="/recipe/2017-12-20/using-ian-for-package-build.html">Construir paquetes debian con ian</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="615 posts"
+     title="617 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5331,7 +5331,7 @@
 </td></tr>
 <tr class="row22"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#git-ref'; hide_others()"
-     title="4 posts"
+     title="5 posts"
      >git</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sysadm-ref'; hide_others()"
@@ -5459,6 +5459,10 @@
   <a href="javascript:window.location.href='/tags.html#tmux-ref'; hide_others()"
      title="1 posts"
      >tmux</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
+     title="1 posts"
+     >docker</a>
 </td></tr>
 
 </table>
@@ -7891,7 +7895,349 @@
   
     
   
+    
+  
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-03-25/depurar-un-programa-c-c.html">Depurar un programa (C, C++, ...)</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-03-25
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-03-25-depurar-un-programa-c-c.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-03-25-depurar-un-programa-c-c.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/267">node/267</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Ante las preguntas realizadas por Oscar sobre el uso de GDB y problemas con el famoso "segmentation fault", me he decidido a hacer un pequeño manual de GDB y otras herramientas útiles para el depurado. Seguramente se me queden muchas cosas en el tintero, pero todos sabemos que las recetas no están cerradas cuando se publican. Se agradecerán todos los comentarios.
+</blockquote>
+
+<h1>gdb</h1>
+
+GDB o el GNU DeBugger, es el programa usado para depurar los programas en GNU/Linux. No es el único, pero sí uno de los más potentes, sobre todo para programas escritos en C y C++.
+
+Para poder utilizar todas sus características, será necesario que, durante la compilación, dejemos información de depurado en el ejecutable. Si estamos utilizando <tt>gcc</tt> o <tt>cc</tt>, esto se hace mediante la opción <tt>-ggdb</tt>.
+
+¡Ya tenemos nuestro fichero preparado para ser depurado! Ahora basta utilizar la orden:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>gdb ejecutable</code></pre></figure>
+</div>
+
+y se nos abrirá la línea de órdenes de gdb (todo en modo texto, claro).
+
+Hay que tener en cuenta una cosa: cuando un programa falla, puede deberse a un error o bien a los efectos colaterales de un error. Me explico con un ejemplo: si tenemos un puntero no inicializado y le asignamos un valor, puede que dé error o puede que no (depende de dónde esté apuntando); por ello puede dar el problema más adelante (esto se conoce como el "Síndrome del puntero loco" entre los coleguitas :-D).
+
+Por ello, es interesante no pensar que gdb te dice "aquí está el problema", sino "el problema está por aquí", que es muy diferente.
+
+<h2>Uso de GDB</h2>
+
+gdb es bastante complejo, y sólo detallaré aquí los pasos iniciales para debugar el típico "hola mundo".
+
+Primero, cargaremos el ejecutable compilado con las opciones de debug "-ggdb":
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> gdb ejecutable</span></code></pre></figure>
+</div>
+
+Se nos inicia la línea de órdenes gdb. Lo primero, será poner un punto de ruptura ("Breakpoint"). Se puede poner en una línea determinada o bien en una función. Dado que nuestro programa "hola mundo" es pequeñín y no sabemos dónde pusimos el main, plantamos la ruptura en el propio main:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> gdb&gt;</span><span class="w"> </span>br main</code></pre></figure>
+</div>
+
+Y lo siguiente es ejecutar el programa:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> gdb&gt;</span><span class="w"> </span>r</code></pre></figure>
+</div>
+
+Así que se parará en la primera instrucción del main. Ahora podemos utilizar una serie de argumentos que explicaré brevemente:
+
+<ul>
+<li><b>p</b> "print" imprime el valor de una variable.</li>
+<li><b>d</b> "display" igual que print, pero se muestran cada vez que pulsemos "s" o "n".
+<li><b>n</b> "next" Continúa con la siguiente instrucción de la función actual</li>
+<li><b>s</b> "step" Continúa con la siguiente instrucción de la que se tiene información de depurado (si hay una llamada a función, entrará dentro).</li>
+<li><b>c</b> "continue" continúa la ejecución del programa.</li>
+<li><b>h</b> "help" muestra la ayuda</li>
+</ul>
+
+
+<h1>GNU/Emacs</h1>
+
+GDB sólo es muy poco amigable, así que yo prefiero utilizarlo junto con GNU/Emacs. Gano dos cosas, principalmente: ver el código y coloreado del mismo.
+
+Para ello, basta con pulsa ESC+x (o M+x) y escribir la orden "gdb". Emacs nos pedirá el resto de la línea de órdenes, donde pondremos el nombre del ejecutable y del core (si es que existe). Cuando lo tengamos, nos aparecerá una pantalla tipo terminal igual que si hubiéramos iniciado gdb en una consola, pero cuando comencemos a trazar el código se nos dividirá la pantalla en dos, mostrando en el otro lado el código (con una flechita muy molona que nos cuenta por dónde vamos).
+
+<h1>ddd</h1>
+
+Aunque muchas veces uso Emacs con gdb, debo admitir que mi favorito es ddd. Su instalación es realmente compleja:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>ddd</code></pre></figure>
+</div>
+
+Seguro que los de Windows lo tienen más fácil. Bien. El caso es que la pantalla se divide en tres partes (si no es así mira las opciones del menú "View") en las que tenemos, de arriba abajo: datos, código y terminal gdb. Precioso. Si cargamos un programa con opciones de debug ("-ggdb") podremos ver cómo se mueven los punteritos, cómo cambian las direcciones a las que apuntan, cómo se construyen las estructuras, ... Vamos, muchas cosas que nos cuentan pero no se ven ;)
+
+Y, a parte de los menús TK pseudo-molones, siempre tenemos la parte de abajo con un gdm normal.
+
+<b>NOTA</b> He observado un comportamiento extraño al pulsar con el ratón en la zona de datos o en la de GDB, ya que toma las teclas que pulses como entradas de la pantalla GDB, pero no funcionará el intro. Sin embargo, si pulsas directamente sobre la ventana de código, te funciona todo igual y el intro sí va. <s>No me preguntéis porqué es así, pero ocurre.</s> Seguramente esto sea así porque lo tenéis configurado de esta manera. Para solucionarlo, tenéis que ir a "Edit"->"Preferences", y en la pestaña "Startup" veréis que pone "Keyboard focus a)Point to Type b) Click to Type". Os podéis imaginar: seleccionáis si queréis que el foco se obtenga cuando el puntero del ratón está justo encima (bastante molesto) o os hace falta hacer click para dar el foco (molesto, pero no tanto).
+
+
+
+<h1>COREs</h1>
+
+Una gran ayuda frente a los "segmentation faults" son los archivos COREs. Te preguntarás dónde andan, claro :-D pues no andan por ningún sitio porque los tienes desactivados. Para activarlos, sólo tienes que hacer:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span><span class="nb">ulimit</span> <span class="nt">-c</span> unlimited</code></pre></figure>
+</div>
+
+Cuando vuelvas a ejecutar el programa te pondrá "segmentation fault (core dumped)". Genial. Ahora ejecuta gdb de la siguiente manera:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>gdb ejecutable core</code></pre></figure>
+</div>
+
+y puedes ver dónde cascó exactamente con la orden de gdb "whereis", que te mostrará la pila. Acuérdate de volver a quitar el límite de los cores o te ocuparán espacio en el disco duro (y no poco):
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span><span class="nb">ulimit</span> <span class="nt">-c</span> 0</code></pre></figure>
+</div>
+
+<h1>Más información</h1>
+
+<ul>
+<li>Páginas "man" de gdb, ddd, ...</li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-03-23/manos-libres-bluetooth-con-gnu-linux.html">Manos libres Bluetooth con GNU/Linux</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-03-23
+    
+      
+  <a href="/users.html#felix">
+   felix
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-03-23-manos-libres-bluetooth-con-gnu-linux.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-03-23-manos-libres-bluetooth-con-gnu-linux.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/266">node/266</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote> Una de las aplicaciones más útiles a realizar con los móviles Bluetooth es poder atender una llamada mediante el micrófono y los altavoces del PC o portátil. Lo que vulgarmente se denomina un "manos libres". En esta receta vamos a configurar nuestro GNU/Linux para poder ser utilizado de esta forma.
+</blockquote>
+
+<h2>Compilando el servicio</h2>
+
+Lo primero que hay que reconocer es que el servicio está un poco verde y no va a sonar todo lo bien que esperais, con paciencia y buceando en el código supongo que se puede ajustar, pero eso, simplemente supongo..
+
+Bueno, lo primero que hay que hacer es bajarse el servicio handsfree de su página <a href="http://www.pervasive.jku.at/_wiki/tiki-index.php?page=ProjectBluezHandsfree&PHPSESSID=750e8b3b616e60670dfe548d248f09eb">web</a>.
+
+Básicamente hay que seguir las instrucciones de la página web para compilar el servicio y como pre-requisitos :
+<ul>
+<li>Tener instalada la pila bluez y las herramientas asociadas. En la <a href="/node/197"> anterior receta</a> ya se daban unas nociones básicas de cómo usar estas herramientas.
+<li> Tenemos que tener instalado las librerias de desarrollo. En debian el paquete es libbluetooth1-dev.
+<li> Otra cosa a tener correctamente configurado es el sistema alsa así como sus librerías de desarrollo (libsound2-dev) para el tema del sonido.
+</ul>
+
+La aplicacion handsfree viene con un Makefile por lo que salvo errores de librerias y rutas con un simple make deberíais tener el servicio compilado.
+
+<h2> Ejecutando el servicio </h2>
+
+Bueno, ahora viene la parte de ejecución del servicio, lo primero es asociar el móvil con el PC, generalmente te pedirá el pin. Este paso no es necesario y siempre puedes introducir el pin cada vez que uses el servicio, pero vamos, lo más cómodo es asociarlo (bluez-pin es la herramienta para gestionar los PIN desde la parte del PC).
+
+A continuación es necesario añadir dos servicios al registro de servicios del PC, el serial port y el handsfree. Esto se realiza con sdptool, por lo tanto:
+<pre class="console">
+felix#:sdptool add SP
+felix#:sdptool add HF
+</pre>
+
+A continuación ejecutamos el servicio con:
+
+<pre class="console">
+felix#:./handsfree ADDR 3
+</pre>
+
+ADDR es la dirección de tu móvil y 3 el canal del handsfree.
+
+Para ver cuales son tus parámetros lo mejor es realizar un escaneo:
+
+<pre class="console">
+felix:hcitool scan
+Scanning ...
+        00:15:A0:42:34:8D       Nokia 6680
+</pre>
+
+En cuanto al canal, pues mostrar todos los servicios de tu móvil y fijarnos en el canal (Channel) con:
+<pre class="console">
+felix:~# sdptool browse 00:15:A0:42:34:8D
+
+Browsing 00:15:A0:42:34:8D ...
+
+...todos los servicios
+</pre>
+
+y ya esta todo, en teoría cuando recibas una llamada descuelgas y se escucha por los altavoces y hablas por el micro. Eso si, como dije al principio y dependiendo de la tarjeta de sonido puede sonar como los teleñecos :-).
+
+Es posible descolgar mediante comandos AT directamente desde el PC y utilizando el propio  programa.
+
+Con esto y un poquito de shell puedes tener tu GNU/Linux siempre listo para atender llamadas.
+
+
+un saludo
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8734,183 +9080,6 @@ porque nos ahorraremos un montón de problemas tanto de carácteres como de tama
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-03-10/mdem-comtrend-ct-350-en-gnu-linux-con-el-driver-ueagle-atm.html">Módem Comtrend CT-350 en GNU/Linux, con el driver ueagle-atm</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-03-10
-    
-      
-  <a href="/users.html#nacho">
-   nacho
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-03-10-mdem-comtrend-ct-350-en-gnu-linux-con-el-driver-ueagle-atm.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-03-10-mdem-comtrend-ct-350-en-gnu-linux-con-el-driver-ueagle-atm.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#drivers-ref">drivers </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/254">node/254</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2006-03-10/mdem-comtrend-ct-350-en-gnu-linux-con-el-driver-ueagle-atm.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/enquiry/2006-03-10/configurar-tv-en-ubuntu.html">Configurar TV en ubuntu</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-03-10
-    
-      
-  <a href="/users.html#fmreja">
-   fmreja
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-03-10-configurar-tv-en-ubuntu.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-03-10-configurar-tv-en-ubuntu.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#enquiry-ref">
-    		enquiry
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/255">node/255</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Hola, tengo un pc portatil "beep" con tarjeta de televisión interna y tras muchas pruebas, manuales y recetas... he llegado a la conclusión de que no se configurarla para poder ver la tele en mi ubuntu. Alguien ha instalado alguna?? puede ser problema de que no tenga el chip bt??
-
-Muchas gracias.
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8951,7 +9120,7 @@ Muchas gracias.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-03 03:57:48 -0500
+	  Generated at 2020-09-10 06:29:03 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
