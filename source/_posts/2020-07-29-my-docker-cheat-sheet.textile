@@ -25,6 +25,7 @@ $ docker rm -f $(docker ps -aq)
 </pre>
 
 h4. Remove ALL images
+
 <pre class="console">
 $ docker rmi $(docker images -aq)
 </pre>
