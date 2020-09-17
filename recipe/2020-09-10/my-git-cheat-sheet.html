@@ -5189,7 +5189,7 @@
       <div class="content">
 	<h4>Delete all remote branches</h4>
 <pre class="console">
-$ git fetch -p; git branch -a | grep -v master | awk -F'/' '{print $3}' | xargs git push origin --delete
+$ git fetch -p; git branch -r | grep -v master | sed "s/origin\///" | xargs git push origin --delete
 </pre>
       </div>
 
@@ -5255,7 +5255,7 @@ $ git fetch -p; git branch -a | grep -v master | awk -F'/' '{print $3}' | xargs 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-15 15:59:52 -0500
+	  Generated at 2020-09-17 05:51:23 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
