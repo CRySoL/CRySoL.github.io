@@ -7942,7 +7942,7 @@
     
       <h4>Delete all remote branches</h4>
 <pre class="console">
-$ git branch -a | grep -v master | awk -F'/' '{print $3}' | xargs git push origin --delete
+$ git fetch -p; git branch -r | grep -v master | sed "s/origin\///" | xargs git push origin --delete
 </pre>
     
   </div>
@@ -8023,9 +8023,18 @@ $ git branch -a | grep -v master | awk -F'/' '{print $3}' | xargs git push origi
 
   <div class="content">
     
-      <p>.h2 Remove <span class="caps">ALL</span> containers</p>
+      <h4>Open a shell in container</h4>
+<p>Or exec any program inside a running container:</p>
 <pre class="console">
-$ docker container rm -f $(docker ps -aq)
+$ docker exec -it &lt;container-id-or-name&gt; sh
+</pre>
+<h4>Remove <span class="caps">ALL</span> containers</h4>
+<pre class="console">
+$ docker rm -f $(docker ps -aq)
+</pre>
+<h4>Remove <span class="caps">ALL</span> images</h4>
+<pre class="console">
+$ docker rmi $(docker images -aq)
 </pre>
     
   </div>
@@ -8859,7 +8868,7 @@ set -g visual-activity on
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-10 06:29:03 -0500
+	  Generated at 2020-09-17 11:03:27 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
