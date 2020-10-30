@@ -1,7 +1,7 @@
 NAME=jekyll-patched
 SOURCE_IMAGE=jekyll/jekyll:3.8
 TARGET_IMAGE=docker.pkg.github.com/crysol/crysol.github.io/${NAME}:3.8
-CMD=/bin/bash -c "chmod o+rw -R /srv/jekyll && jekyll build --trace -b crysol.org"
+CMD=/bin/bash -c "bundle update jekyll; chmod o+rw -R /srv/jekyll && jekyll build --trace -b crysol.org"
 
 login:
 	@test ! -z "${GITHUB_USERNAME}" || (echo "ERROR: Define var GITHUB_USERNAME"; exit 1)
@@ -15,4 +15,4 @@ push:
 	docker push ${TARGET_IMAGE}
 
 run:
-	docker run --rm --volume="$$PWD/../source:/srv/jekyll" -it ${NAME} ${CMD}
+	docker run --rm --volume="$$PWD/..:/srv/jekyll" -it ${NAME} ${CMD}
