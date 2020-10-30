@@ -9018,6 +9018,11 @@ Muchas gracias.
 <pre class="console">
 $ git fetch -p; git branch -r | grep -v master | sed "s/origin\///" | xargs git push origin --delete
 </pre>
+<h4>Sync remote and local branches</h4>
+<pre class="console">
+$ git fetch --prune
+</pre>
+<p>Option &#8216;prune&#8217; removes local branches absent in remote.</p>
     
   </div>
 
@@ -9717,7 +9722,7 @@ set -g visual-activity on
 
   <div class="content">
     
-      <p>Lets create a test script <code class="highlighter-rouge">test-std.sh</code>:</p>
+      <p>Lets create a test script <code class="language-plaintext highlighter-rouge">test-std.sh</code>:</p>
 
 <pre class="bash">
 #!/bin/bash --
@@ -9726,7 +9731,7 @@ echo info
 echo error &gt;&amp;2
 </pre>
 
-<p>We will use <code class="highlighter-rouge">sed</code> to prepend some text to each output line. To perform redirection we use a less known feature called <a href="https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html">process substitution</a>.</p>
+<p>We will use <code class="language-plaintext highlighter-rouge">sed</code> to prepend some text to each output line. To perform redirection we use a less known feature called <a href="https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html">process substitution</a>.</p>
 
 <pre class="console">
 $ ./test-std.sh 2&gt; &gt;(sed 's/^/err: /g') &gt; &gt;(sed 's/^/out: /g')
@@ -72148,7 +72153,7 @@ En python un mail es básicamente un diccionario cuyas <em>keys</em> son los nom
 
 <div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">email.MIMEText</span> <span class="kn">import</span> <span class="n">MIMEText</span>
-<span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="s">"Hello World,</span><span class="si">\</span><span class="se">n</span><span class="s">o algo parecido..."</span><span class="p">)</span>
+<span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="s">"Hello World,</span><span class="se">\n</span><span class="s">o algo parecido..."</span><span class="p">)</span>
 <span class="n">msg</span><span class="p">[</span><span class="s">'Subject'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'Esto es una prueba'</span>
 <span class="n">msg</span><span class="p">[</span><span class="s">'From'</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Juancar I"</span>
 <span class="n">msg</span><span class="p">[</span><span class="s">'Reply-to'</span><span class="p">]</span> <span class="o">=</span> <span class="s">"La casa ficticia"</span>
@@ -186993,7 +186998,7 @@ a <span class="caps">PLAYING</span>. Una vez ahí, el flujo de datos puede fluir
     <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span> <span class="c1"># Por si se pulsa Ctrl+C
 </span>        <span class="k">pass</span>
 
-    <span class="k">print</span> <span class="s">"Parando... </span><span class="si">\</span><span class="se">n</span><span class="s">¡Adios!"</span></code></pre></figure></div>
+    <span class="k">print</span> <span class="s">"Parando... </span><span class="se">\n</span><span class="s">¡Adios!"</span></code></pre></figure></div>
 <p>Como nota, he de decir que la función &#8216;run&#8217; de gobject es un bucle de eventos, es decir, el programa se quedará en ese punto hasta que &#8216;run&#8217; retorne. En nuestro caso, eso sucede cuando se pulsa Ctrl+C o cuando se produce un evento <span class="caps">EOS</span> o <span class="caps">ERROR</span> (ya que entonces se llama a &#8216;quit&#8217; de Gobject).</p>
 <p>Ya esta sonando todo&#8230; bien. Ahora solo nos queda decidir que hacer cuando termine el flujo o se pulse Ctrl+C. Lo lógico es poner la tubería en estado <span class="caps">NULL</span> y salir. Eso haremos.</p>
 <div>
@@ -187051,7 +187056,7 @@ a <span class="caps">PLAYING</span>. Una vez ahí, el flujo de datos puede fluir
     <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span> <span class="c1"># Por si se pulsa Ctrl+C
 </span>         <span class="k">pass</span>
 
-    <span class="k">print</span> <span class="s">"Parando... </span><span class="si">\</span><span class="se">n</span><span class="s">¡Adios!"</span>
+    <span class="k">print</span> <span class="s">"Parando... </span><span class="se">\n</span><span class="s">¡Adios!"</span>
 
     <span class="n">pipeline</span><span class="p">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">gst</span><span class="p">.</span><span class="n">STATE_NULL</span><span class="p">)</span>
     <span class="k">return</span> <span class="mi">0</span>
@@ -379727,7 +379732,7 @@ Catalyst 3550-12T switch sends multicast packets to all ports regardless of clie
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-17 11:03:27 -0500
+	  Generated at 2020-10-30 05:51:04 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

@@ -5315,7 +5315,7 @@ Dependiendo de una opción se usará uno u otro.</p>
 
 <p>Estructura:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
 ├── app
 │   └── app.py
 ├── plugin1
@@ -5332,12 +5332,12 @@ Dependiendo de una opción se usará uno u otro.</p>
 
 <p>Vamos a comenzar escribiendo un plugin. Va a ser algo muy sencillo. Para
 ello, creamos dos ficheros; el primero será el plugin propiamente dicho,
-en el fichero <code class="highlighter-rouge">plugin1/plugin1/__init__.py</code>:</p>
+en el fichero <code class="language-plaintext highlighter-rouge">plugin1/plugin1/__init__.py</code>:</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">example</span><span class="p">():</span>
    <span class="k">print</span><span class="p">(</span><span class="s">"I'm plugin one"</span><span class="p">)</span></code></pre></figure>
 
-<p>Y aquí está el truco: en el archivo <code class="highlighter-rouge">plugin1/setup.py</code>:</p>
+<p>Y aquí está el truco: en el archivo <code class="language-plaintext highlighter-rouge">plugin1/setup.py</code>:</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
 
@@ -5351,12 +5351,12 @@ en el fichero <code class="highlighter-rouge">plugin1/plugin1/__init__.py</code>
     <span class="p">},</span>
 <span class="p">)</span></code></pre></figure>
 
-<p>Lo he reducido al mínimo. La parte importante es la de <code class="highlighter-rouge">entry_points</code>,
-ya que estoy definiendo un <em>entry point</em> llamado <code class="highlighter-rouge">plugin_system</code> que,
+<p>Lo he reducido al mínimo. La parte importante es la de <code class="language-plaintext highlighter-rouge">entry_points</code>,
+ya que estoy definiendo un <em>entry point</em> llamado <code class="language-plaintext highlighter-rouge">plugin_system</code> que,
 básicamente, asigna a una variable la función anterior.</p>
 
 <p>Con esto ya tenemos el plugin. Vamos a compilarlo (para ahorrar
-problemas, lo compilaremos como <code class="highlighter-rouge">source</code>):</p>
+problemas, lo compilaremos como <code class="language-plaintext highlighter-rouge">source</code>):</p>
 
 <div class="console">
 
@@ -5364,12 +5364,12 @@ problemas, lo compilaremos como <code class="highlighter-rouge">source</code>):<
 
 </div>
 
-<p>lo que generará el archivo <code class="highlighter-rouge">dist/plugin1-0.0.6.tar.gz</code>. La versión 0.0.6
+<p>lo que generará el archivo <code class="language-plaintext highlighter-rouge">dist/plugin1-0.0.6.tar.gz</code>. La versión 0.0.6
 es porque 0.0.1 era muy sosa XD</p>
 
 <h2 id="aplicación">Aplicación</h2>
 
-<p>Vamos ahora con la aplicación principal (<code class="highlighter-rouge">app/app.py</code>):</p>
+<p>Vamos ahora con la aplicación principal (<code class="language-plaintext highlighter-rouge">app/app.py</code>):</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">pkg_resources</span>
@@ -5397,7 +5397,7 @@ es porque 0.0.1 era muy sosa XD</p>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span></code></pre></figure>
 
-<p>Como se puede observar, hago uso intensivo de <code class="highlighter-rouge">pkg_resources</code>. Podemos
+<p>Como se puede observar, hago uso intensivo de <code class="language-plaintext highlighter-rouge">pkg_resources</code>. Podemos
 probar a listar los plugins instalados:</p>
 
 <div class="console">
@@ -5408,7 +5408,7 @@ probar a listar los plugins instalados:</p>
 </div>
 
 <p>Y no tendremos nada. Claro, falta instalar el plugin. Para ello,
-simplemente usamos <code class="highlighter-rouge">pip</code>, pero me voy a crear un <code class="highlighter-rouge">virtualenv</code> para no
+simplemente usamos <code class="language-plaintext highlighter-rouge">pip</code>, pero me voy a crear un <code class="language-plaintext highlighter-rouge">virtualenv</code> para no
 engorrinarme el sistema:</p>
 
 <div class="console">
@@ -5441,7 +5441,7 @@ Es más, podéis crear todos los que queráis XD</p>
 
 <h2 id="notas">Notas</h2>
 
-<p>La gracia es que podemos tener más de un <code class="highlighter-rouge">entrypoint</code>, o agruparlos por
+<p>La gracia es que podemos tener más de un <code class="language-plaintext highlighter-rouge">entrypoint</code>, o agruparlos por
 clave.</p>
 
 <p>Con esto ya no necesito <a href="http://yapsy.sourceforge.net/">Yapsy</a> ni
@@ -5515,7 +5515,7 @@ Plugins</a>.</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-17 11:03:27 -0500
+	  Generated at 2020-10-30 05:51:04 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

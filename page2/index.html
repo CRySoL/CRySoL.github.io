@@ -8065,7 +8065,7 @@
 
   <div class="content">
     
-      <p>Lets create a test script <code class="highlighter-rouge">test-std.sh</code>:</p>
+      <p>Lets create a test script <code class="language-plaintext highlighter-rouge">test-std.sh</code>:</p>
 
 <pre class="bash">
 #!/bin/bash --
@@ -8074,7 +8074,7 @@ echo info
 echo error &gt;&amp;2
 </pre>
 
-<p>We will use <code class="highlighter-rouge">sed</code> to prepend some text to each output line. To perform redirection we use a less known feature called <a href="https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html">process substitution</a>.</p>
+<p>We will use <code class="language-plaintext highlighter-rouge">sed</code> to prepend some text to each output line. To perform redirection we use a less known feature called <a href="https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html">process substitution</a>.</p>
 
 <pre class="console">
 $ ./test-std.sh 2&gt; &gt;(sed 's/^/err: /g') &gt; &gt;(sed 's/^/out: /g')
@@ -8882,7 +8882,7 @@ $ grpconv
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-17 11:03:27 -0500
+	  Generated at 2020-10-30 05:51:04 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

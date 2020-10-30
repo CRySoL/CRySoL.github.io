@@ -8493,7 +8493,7 @@ a <span class="caps">PLAYING</span>. Una vez ahí, el flujo de datos puede fluir
     <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span> <span class="c1"># Por si se pulsa Ctrl+C
 </span>        <span class="k">pass</span>
 
-    <span class="k">print</span> <span class="s">"Parando... </span><span class="si">\</span><span class="se">n</span><span class="s">¡Adios!"</span></code></pre></figure></div>
+    <span class="k">print</span> <span class="s">"Parando... </span><span class="se">\n</span><span class="s">¡Adios!"</span></code></pre></figure></div>
 <p>Como nota, he de decir que la función &#8216;run&#8217; de gobject es un bucle de eventos, es decir, el programa se quedará en ese punto hasta que &#8216;run&#8217; retorne. En nuestro caso, eso sucede cuando se pulsa Ctrl+C o cuando se produce un evento <span class="caps">EOS</span> o <span class="caps">ERROR</span> (ya que entonces se llama a &#8216;quit&#8217; de Gobject).</p>
 <p>Ya esta sonando todo&#8230; bien. Ahora solo nos queda decidir que hacer cuando termine el flujo o se pulse Ctrl+C. Lo lógico es poner la tubería en estado <span class="caps">NULL</span> y salir. Eso haremos.</p>
 <div>
@@ -8551,7 +8551,7 @@ a <span class="caps">PLAYING</span>. Una vez ahí, el flujo de datos puede fluir
     <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span> <span class="c1"># Por si se pulsa Ctrl+C
 </span>         <span class="k">pass</span>
 
-    <span class="k">print</span> <span class="s">"Parando... </span><span class="si">\</span><span class="se">n</span><span class="s">¡Adios!"</span>
+    <span class="k">print</span> <span class="s">"Parando... </span><span class="se">\n</span><span class="s">¡Adios!"</span>
 
     <span class="n">pipeline</span><span class="p">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">gst</span><span class="p">.</span><span class="n">STATE_NULL</span><span class="p">)</span>
     <span class="k">return</span> <span class="mi">0</span>
@@ -9001,7 +9001,7 @@ Desde hace bastante tiempo estoy tratando de iniciarme en el Proceso de Software
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-17 11:03:27 -0500
+	  Generated at 2020-10-30 05:51:04 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

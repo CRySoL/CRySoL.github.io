@@ -6080,8 +6080,8 @@ Host R: 192.168.123.254
   <span class="n">target</span><span class="o">=</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
   <span class="n">malhost</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 
-  <span class="n">timevalid</span> <span class="o">=</span> <span class="s">'</span><span class="si">\</span><span class="se">x00</span><span class="si">\</span><span class="se">x00</span><span class="si">\</span><span class="se">x07</span><span class="si">\</span><span class="se">x75</span><span class="s">'</span>
-  <span class="n">alen</span> <span class="o">=</span> <span class="s">'</span><span class="si">\</span><span class="se">x00</span><span class="si">\</span><span class="se">x04</span><span class="s">'</span>
+  <span class="n">timevalid</span> <span class="o">=</span> <span class="s">'</span><span class="se">\x00\x00\x07\x75</span><span class="s">'</span>
+  <span class="n">alen</span> <span class="o">=</span> <span class="s">'</span><span class="se">\x00\x04</span><span class="s">'</span>
 
   <span class="k">def</span> <span class="nf">arpspoof</span><span class="p">(</span><span class="n">psrc</span><span class="p">,</span> <span class="n">pdst</span><span class="p">,</span> <span class="n">mac</span><span class="p">):</span>
       <span class="n">a</span> <span class="o">=</span> <span class="n">ARP</span><span class="p">()</span>
@@ -6259,7 +6259,7 @@ Host R: 192.168.123.254
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-17 11:03:27 -0500
+	  Generated at 2020-10-30 05:51:04 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

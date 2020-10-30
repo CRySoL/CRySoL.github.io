@@ -5738,7 +5738,7 @@
 <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_PACKET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">htons</span><span class="p">(</span><span class="n">ETH_P_ALL</span><span class="p">))</span>
 
 <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s">'--</span><span class="si">\</span><span class="se">n</span><span class="s">'</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1600</span><span class="p">))</span></code></pre></figure></div>
+    <span class="k">print</span> <span class="s">'--</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1600</span><span class="p">))</span></code></pre></figure></div>
 <p>Es posible filtrar:</p>
 <ul>
 	<li>El <strong>tipo de trama</strong>: usando el último parámetro del constructor de <code>socket</code></li>
@@ -5754,7 +5754,7 @@
 <span class="n">s</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">'eth0'</span><span class="p">,</span> <span class="n">ETH_P_ARP</span><span class="p">))</span>
 
 <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s">'--</span><span class="si">\</span><span class="se">n</span><span class="s">'</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1600</span><span class="p">))</span></code></pre></figure></div>
+    <span class="k">print</span> <span class="s">'--</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1600</span><span class="p">))</span></code></pre></figure></div>
 <h3>Enviando</h3>
 <p>El mismo socket se puede utilizar para enviar datos. Para sintetizar un paquete, es decir, construir cabeceras de acuerdo a las especificaciones se utiliza normalmente el módulo struct. El siguiente listado envía una cabecera Ethernet. Si pones wireshark y capturas la trama enviada verás que te indica que es un &#8220;malformed packet&#8221; y con razón, ya que no tiene carga útil y eso lógicamente no tiene sentido. De modo que este programa no sirve para nada, sólo para que veas que se puede construir y enviar lo que quieras (siempre que tenga sentido, claro).</p>
 <div>
@@ -5764,7 +5764,7 @@
 
 <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_PACKET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">htons</span><span class="p">(</span><span class="n">ETH_P_ARP</span><span class="p">))</span>
 <span class="n">s</span><span class="p">.</span><span class="n">bind</span><span class="p">((</span><span class="s">'eth0'</span><span class="p">,</span> <span class="n">ETH_P_ARP</span><span class="p">))</span>
-<span class="n">s</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="s">'!6s6sh'</span><span class="p">,</span> <span class="s">'</span><span class="si">\</span><span class="se">xFF</span><span class="s">'</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="s">'</span><span class="si">\</span><span class="se">x00</span><span class="si">\</span><span class="se">x01</span><span class="si">\</span><span class="se">x02</span><span class="si">\</span><span class="se">x03</span><span class="si">\</span><span class="se">x04</span><span class="si">\</span><span class="se">x05</span><span class="s">'</span><span class="p">,</span> <span class="n">ETH_P_ARP</span><span class="p">))</span></code></pre></figure></div>
+<span class="n">s</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">struct</span><span class="p">.</span><span class="n">pack</span><span class="p">(</span><span class="s">'!6s6sh'</span><span class="p">,</span> <span class="s">'</span><span class="se">\xFF</span><span class="s">'</span><span class="o">*</span><span class="mi">6</span><span class="p">,</span> <span class="s">'</span><span class="se">\x00\x01\x02\x03\x04\x05</span><span class="s">'</span><span class="p">,</span> <span class="n">ETH_P_ARP</span><span class="p">))</span></code></pre></figure></div>
 <p>En el repo hay un <a href="https://bitbucket.org/arco_group/python-net/src/tip/raw/arping.py">ejemplo de arping en Python con sockets raw</a> que te puede servir como ejemplo completo de cómo diseccionar y sintetizar tramas Ethernet y mensajes <span class="caps">ARP</span>.</p>
 <h2>AF_INET</h2>
 <p>La principal diferencia con los sockets del apartado anterior es que estos gestionan las cabeceras de enlace y red. El siguiente programa muestra todos los paquetes IP que contienen un segmento <span class="caps">UDP</span>. El paquete capturado incluye las cabeceras IP y <span class="caps">UDP</span>:</p>
@@ -5774,7 +5774,7 @@
 <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">getprotobyname</span><span class="p">(</span><span class="s">"udp"</span><span class="p">))</span>
 
 <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s">'--</span><span class="si">\</span><span class="se">n</span><span class="s">'</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1600</span><span class="p">))</span></code></pre></figure></div>
+    <span class="k">print</span> <span class="s">'--</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1600</span><span class="p">))</span></code></pre></figure></div>
 <p>Es posible filtrar por cualquier protocolo que se pueda transportar sobre IP, es decir, valores válidos del campo &#8220;protocolo&#8221; de la cabecera IP. Para más información consulta el método <code>getprotobyname()</code>.</p>
 <h3>Enviando</h3>
 <p>Para enviar datos sobre este tipo de socket  debes utilizar <code>sendto()</code> indicando la dirección IP destino. El siguiente programa envía un paquete <span class="caps">UDP</span> que contiene el texto &#8220;hola internet&#8221;. El programa se encarga de construir la cabecera <span class="caps">UDP</span>, pero las cabeceras IP y Ethernet las construye el SO.</p>
@@ -5873,7 +5873,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-17 11:03:27 -0500
+	  Generated at 2020-10-30 05:51:04 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

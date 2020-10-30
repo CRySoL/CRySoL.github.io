@@ -5222,7 +5222,7 @@ def HelloWorldPython( ):
     <span class="s">"""Convert a Windows or GNU/Linux pathname into an OOo URL."""</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span> <span class="n">cPathname</span> <span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">cPathname</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">":"</span><span class="p">:</span>
         <span class="n">cPathname</span> <span class="o">=</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">cPathname</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">"|"</span> <span class="o">+</span> <span class="n">cPathname</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
-    <span class="k">return</span> <span class="s">"file://"</span> <span class="o">+</span> <span class="n">cPathname</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="si">\</span><span class="se">\</span><span class="s">"</span><span class="p">,</span> <span class="s">"/"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s">"file://"</span> <span class="o">+</span> <span class="n">cPathname</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\\</span><span class="s">"</span><span class="p">,</span> <span class="s">"/"</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">openURL</span><span class="p">(</span><span class="n">cUrl</span><span class="p">,</span> <span class="n">tProperties</span><span class="o">=</span><span class="p">()):</span>
     <span class="s">"""Open or Create a document from it's URL."""</span>
@@ -5270,7 +5270,7 @@ def HelloWorldPython( ):
 <div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
 </span><span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">os</span>
-<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">'OOARG=%s soffice -invisible "vnd.sun.star.script:oo2pdf.py</span><span class="si">\</span><span class="err">$m</span><span class="se">a</span><span class="s">in?language=Python&amp;location=user"'</span> <span class="o">%</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></code></pre></figure></div>
+<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">'OOARG=%s soffice -invisible "vnd.sun.star.script:oo2pdf.py\$main?language=Python&amp;location=user"'</span> <span class="o">%</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></code></pre></figure></div>
 <p>Lo metes en <code>~/bin/oo2pdf</code>, le das permisos de ejecución y lo puedes ejecutar con:</p>
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>oo2pdf fichero.odt</code></pre></figure></div>
@@ -5356,7 +5356,7 @@ def HelloWorldPython( ):
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-09-17 11:03:27 -0500
+	  Generated at 2020-10-30 05:51:04 -0500
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
