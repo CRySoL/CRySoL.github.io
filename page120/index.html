@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwrite</a></li>
+
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
-
-  <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="617 posts"
+     title="618 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5463,6 +5463,11 @@
   <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
      title="1 posts"
      >docker</a>
+</td></tr>
+<tr class="row37"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
+     title="1 posts"
+     >systemd</a>
 </td></tr>
 
 </table>
@@ -7897,7 +7902,180 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-10-07/ddclient-cliente-de-dns-dinmico-para-todos.html">ddclient, cliente de DNS dinámico para todos</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-07
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-07-ddclient-cliente-de-dns-dinmico-para-todos.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-07-ddclient-cliente-de-dns-dinmico-para-todos.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/25">node/25</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Tienes tarifa plana en casa pero tu IP es dinámica.  A pesar de eso te gustaría tener un servidor web y tus "cosillas" accesibles desde cualquier sitio. La solución a tus problemas es un servicio de DNS dinámico.
+</blockquote>
+
+
+
+<h2> Ingredientes </h2>
+
+<ul>
+<li> Una conexión a internet</li>
+<li> Debian GNU/Linux o derivados</li>
+<li> ddclient</li>
+</ul>
+
+<h2> Servidor de DNS dinámico </h2>
+
+Lo primero es crearte una cuenta en uno de los muchos sitios que tienen un servicio de DNS dinámico, muchos son gratuitos. Por ejemplo, <a href="http://www.dyndns.org">DynDNS.org</a>.
+
+Hay otros:
+
+<ul>
+<li> <a href="http://www.easydns.com">www.easydns.com</a></li>
+<li> <a href="http://www.dslreports.com">www.dslreports.com</a></li>
+<li> <a href="http://www.zoneedit.com">www.zoneedit.com</a></li>
+<li> <a href="http://hn.org/">hn.org</a></li>
+<li> etc</li>
+</ul>
+
+Al crear tu cuenta tendrás que indicar cómo se va a llamar tu máquina, por ejemplo, <tt>miservidor.dyndns.org</tt>.
+
+<h2> Instalar <tt>ddclient</tt> </h2>
+
+Simplemente:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>ddclient</code></pre></figure>
+</div>
+
+
+<h2> Configuración </h2>
+
+El propio sistema de instalación de paquetes de Debian te preguntará los parámetros de configuración. A continuación se ponen unos valores de ejemplo figurados.
+
+<ul>
+<li><b> servidor?</b> <a href="http://www.dyndns.org">www.dyndns.org</a> </b>
+<li><b> host?</b> miservidor.dyndns.org </b>
+<li><b> usuario?</b> dnsuser </b>
+<li><b> clave?</b> miclave </b>
+<li><b> interface?</b> eth0 </b>
+<li><b> ppp?</b> no </b>
+<li><b> daemon?</b> sí </b>
+<li><b> intervalo?</b> 300 </b>
+</ul>
+
+Cuando lo quieras reconfigurar puedes usar:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dpkg-reconfigure ddclient</code></pre></figure>
+</div>
+
+o editar directamente el fichero <tt>/etc/ddclient.conf</tt>:
+
+<pre>
+pid=/var/run/ddclient.pid
+protocol=dyndns2
+use=if, if=eth0
+server=members.dyndns.org
+login=pepito_grillo
+password=clave_de_pepito
+pepito.dyndns.org
+</pre>
+
+Recuerda reiniciar el demonio para activar los cambios:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/ddclient restart</code></pre></figure>
+</div>
+
+Y eso es todo, cada cierto tiempo, tu demonio <tt>ddclient</tt> se conectará al servidor y le indicará tu nueva IP, así que no importa que cambie.
+
+<h2> Referencias </h2>
+
+<ul>
+<li> <a href="http://ddclient.sourceforge.net/">ddclient</a></li>
+<li> <a href="http://www.dyndns.org/">DynDNS</a></li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8790,7 +8968,7 @@ Saludos.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-10-30 06:09:39 -0500
+	  Generated at 2020-11-04 12:23:02 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwrite</a></li>
+
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
-
-  <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="617 posts"
+     title="618 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5463,6 +5463,11 @@
   <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
      title="1 posts"
      >docker</a>
+</td></tr>
+<tr class="row37"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
+     title="1 posts"
+     >systemd</a>
 </td></tr>
 
 </table>
@@ -7899,7 +7904,88 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2005-10-21/configuracion-wifi-de-la-uclm-en-ubuntu-5-10.html">Configuracion wifi de la UCLM  en Ubuntu 5.10</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-21
+    
+      
+  <a href="/users.html#ritxi">
+   ritxi
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-21-configuracion-wifi-de-la-uclm-en-ubuntu-5-10.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-21-configuracion-wifi-de-la-uclm-en-ubuntu-5-10.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/58">node/58</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      Alguien me puede decir como puedo configurar la wifi de la universidad, tengo todos los datos de la conexion y no tengo problemas con la tarjeta wireless, solo que tampoco está configurada. Gracias por adelantado.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9078,132 +9164,6 @@ Aviso: algunas de las siguientes referencias tratan de Python 2. Aunque las dife
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-10-17/conectar-por-ssh-a-travs-de-un-proxy-http.html">Conectar por SSH a través de un proxy HTTP</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-10-17
-    
-      
-  <a href="/users.html#fsancho">
-   fsancho
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-17-conectar-por-ssh-a-travs-de-un-proxy-http.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-17-conectar-por-ssh-a-travs-de-un-proxy-http.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#networking-ref">networking </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/42">node/42</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-<p>Esta receta es para todos aquellos que estais en un entorno restrictivo en el que solo hay acceso al exterior a través de un proxy <span class="caps">HTTP</span>, como es mi caso actualmente.</p>
-</blockquote>
-<p>Tan solo os será necesario un programa llamado <a href="http://www.agroman.net/corkscrew/">Corkscrew</a>. Los usuarios de Debian y derivados lo tenemos a tiro de apt-get.</p>
-<h2>Explicación</h2>
-<p>¿Qué hace este programa? Pues aprovecha una capacidad del proxy, el método <span class="caps">CONNECT</span> que permite hacer una conexión a un puerto <span class="caps">TCP</span> usando al proxy como intermediario. Lógicamente esto es de sobra conocido por un administrador de red y lo mas normal es que el proxy esté situado detrás de un firewall que no permitirá al proxy acceder a puertos distintos de los puramente web. Estos puertos son el <span class="caps">HTTP</span>:80 y <span class="caps">HTTPS</span>:443, cabe la posibilidad de que también tengamos acceso a <span class="caps">FTP</span> a través del proxy, lo que significará que éste también puede acceder a los puertos 20 y 21.</p>
-<p>Con esta información ya nos vamos haciendo una idea de lo que va a pasar. Vamos a invocar <b>ssh</b> a través de Corkscrew para que se conecte al servidor de destino utilizando el proxy. El servidor de <span class="caps">SSH</span> utiliza el puerto 22 y lo normal es que el proxy no pueda acceder a dicho puerto, por este motivo será necesario que en el servidor al que queremos acceder le hayamos hecho un pequeño truco previo. El &#8220;truco&#8221; consiste en redirigir un puerto web que no esté en uso al puerto 22. Usualmente se utiliza el 443.</p>
-<p>Vamos a ver como se cocina todo esto junto.</p>
-<h2>Elaboración</h2>
-<p>En primer lugar hay que redirigir el tráfico de nuestro servidor, del puerto 443 al 22. Una opción es lanzar el demonio ssh directamente en el puerto 443, pero eso no parece una solución elegante. No obstante quien quiera hacerlo no tiene más que tocar en <tt>/etc/ssh/sshd_config</tt>.</p>
-<p>Lo mas limpio es usar <tt>iptables</tt> para redirigir el trafico. La orden es esta.</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>iptables <span class="nt">-t</span> nat <span class="nt">-A</span> PREROUTING <span class="nt">-i</span> ippp0 <span class="nt">-p</span> tcp <span class="nt">--dport</span> 443 <span class="nt">-j</span> REDIRECT <span class="nt">--to-port</span> 22</code></pre></figure></div>
-<p>Con <tt>corkscrew</tt> instalado vamos al directorio <tt>$<span class="caps">HOME</span>/.ssh</tt> y editamos el fichero <tt>config</tt> (si no existe, lo creamos). En su interior ponemos esto:</p>
-<pre>
-Host servidor.casa.com
-ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p
-</pre>
-<p>Donde <tt>proxy.curro.es</tt> el la dirección del proxy de nuestra red y 8080 es el puerto que usa el proxy. Las variables %h y %p se refieren al host y al port que usaremos para conectar y se le pasan desde el comando ssh como veremos a continuación.</p>
-<p>Ahora para conectar a cualquier sitio tan sólo necesitamos ejecutar la orden.</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ssh <span class="nt">-p</span> 443 usuario@servidor.casa.com</code></pre></figure></div>
-<h2>Más difícil todavía</h2>
-<p>Si nuestro proxy necesita autenticación tendremos que crear un segundo fichero en <tt>.ssh/autenticacion</tt> con lo siguiente</p>
-<pre>usuario:password
-</pre>
-<p>y en el fichero anterior (<tt>ssh_proxy</tt>) ponemos:</p>
-<pre>ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p $HOME/.ssh/autenticacion
-</pre>
-<h2>Un consejo final</h2>
-<p>Si os pasa, además de todo lo anterior, que vuestra conexión se corta cada dos por tres por falta de actividad basta con añadir esto en el fichero <tt>ssh_proxy</tt></p>
-<pre>ServerAliveInterval 60
-ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p
-</pre>
-<h2>¿Utilidad final de todo esto?</h2>
-<p>Vale, ya puedo acceder mediante <span class="caps">SSH</span> al ordenador de casa desde el trabajo, ¿y que? Pues si tenéis problemas con el proxy de vuestro trabajo porque os deniega el acceso a algunas páginas web que os son imprescindibles y el departamento de sistemas os ignora completamente, tan solo tenéis que instalar un proxy <span class="caps">HTTP</span> en vuestro ordenador, como por ejemplo <tt>squid</tt> (la configuración por defecto de squid en Debian funciona para lo que queremos hacer) y tunelizar las peticiones desde nuestro ordenador con el siguiente comando.</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span>ssh <span class="nt">-p</span> 443 usuario@servidor.casa.com <span class="nt">-L</span> 3128:localhost:3128</code></pre></figure></div>
-<p>Estamos suponiendo que el servidor squid casero corre en el puerto por defecto, y redirigimos nuestro puerto local hacia el puerto remoto. Ahora solo tenemos que configurar el programa que queramos para que use como proxy <pre>localhost:3128</pre> y todo listo, ya estamos usando el proxy de casa sin restricciones.</p>
-<h2>Enlaces relacionados</h2>
-<ul>
-	<li><a href="http://bulma.net/body.phtml?nIdNoticia=2116">Establecer una sesión <span class="caps">SSH</span> a través de Proxy</a></li>
-</ul>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9244,7 +9204,7 @@ ProxyCommand /usr/bin/corkscrew proxy.curro.es 8080 %h %p
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-10-30 06:09:39 -0500
+	  Generated at 2020-11-04 12:23:02 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwrite</a></li>
+
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
-
-  <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="617 posts"
+     title="618 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5463,6 +5463,11 @@
   <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
      title="1 posts"
      >docker</a>
+</td></tr>
+<tr class="row37"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
+     title="1 posts"
+     >systemd</a>
 </td></tr>
 
 </table>
@@ -7899,7 +7904,99 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2013-02-20/android-sdk-en-debian-64-bits.html">Android SDK en Debian 64 bits</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2013-02-20
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2013-02-20-android-sdk-en-debian-64-bits.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2013-02-20-android-sdk-en-debian-64-bits.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
+    
+    	<li><a href="/tags.html#android-ref">android </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1699">node/1699</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>El <span class="caps">SDK</span> de android (en concreto <code>adb</code>) requiere algunas librerías para i386. Si tienes una distribución de 64 bits necesitas instalar algunos paquetes adicionales que permiten usar dichas librerías. Simplemente ejecuta:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>dpkg <span class="nt">--add-architecture</span> i386
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get update
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>libc6:i386 libstdc++6:i386</code></pre></figure></div>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8739,94 +8836,6 @@ Algunas cosas a tener en cuenta:
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2012-05-23/configurar-las-impresoras-de-la-esi-en-tu-debian-gnu-linux.html">Configurar las impresoras de la ESI en tu Debian GNU/Linux</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2012-05-23
-    
-      
-  <a href="/users.html#paco">
-   paco
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2012-05-23-configurar-las-impresoras-de-la-esi-en-tu-debian-gnu-linux.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2012-05-23-configurar-las-impresoras-de-la-esi-en-tu-debian-gnu-linux.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1578">node/1578</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Haz un archivo <b>/etc/cups/client.conf</b> con el siguiente contenido:</p>
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">ServerName cupspro.esi.uclm.es
-Encryption IfRequested</code></pre></figure></div>
-<p>Ya. Es simple, pero nunca lo encuentras cuando lo necesitas.</p>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8867,7 +8876,7 @@ Encryption IfRequested</code></pre></figure></div>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-10-30 06:09:39 -0500
+	  Generated at 2020-11-04 12:23:02 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

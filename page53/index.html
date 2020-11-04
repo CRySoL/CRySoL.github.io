@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwrite</a></li>
+
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
-
-  <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="617 posts"
+     title="618 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5463,6 +5463,11 @@
   <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
      title="1 posts"
      >docker</a>
+</td></tr>
+<tr class="row37"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
+     title="1 posts"
+     >systemd</a>
 </td></tr>
 
 </table>
@@ -7899,7 +7904,130 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2008-03-06/gnu-emacs-enviar-emails.html">GNU Emacs: Enviar emails</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2008-03-06
+    
+      
+  <a href="/users.html#Vigilante">
+   Vigilante
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-03-06-gnu-emacs-enviar-emails.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-03-06-gnu-emacs-enviar-emails.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#emacs-ref">emacs </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/878">node/878</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+Esta receta explica como configurar <span class="caps">GNU</span> Emacs para poder enviar emails desde cuentas de Gmail.
+</blockquote>
+<h2>Introducción</h2>
+<p>Si eres un Emacs-adicto, te interesa enviar un e-mail de forma rápida mientras usas tu emacs o simplemente quieres ser un poco más geek, nada mejor que Emacs.</p>
+<h2>Ingredientes</h2>
+<ul>
+	<li>starttls &#8211; <span class="caps">TLS</span> encryption helper program</li>
+</ul>
+<h2>Configurar Emacs</h2>
+<p>Tienes que tener instalado el paquete starttls ya que Gmail utiliza <span class="caps">TLS</span> para el envío de emails. Después, lo único que queda es configurar tu Emacs. Para ello, abre el archivo . emacs (que se encuentra en tu home).</p>
+<pre class="console">$ emacs .emacs</pre>
+
+<pre>
+(setq send-mail-function 'smtpmail-send-it
+      message-send-mail-function 'smtpmail-send-it
+      smtpmail-starttls-credentials
+      '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials
+      '(("smtp.gmail.com" 587 "direccion@gmail.com" nil))
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587
+      smtpmail-debug-info t)
+(require 'smtpmail)
+</pre>
+<p>Simplemente pon tu dirección de correo en lugar de &#8220;direccion@gmail.com&#8221;. si quieres que al enviar un email Emacs no te pida tu password puedes cambiar el campo nil que está a continuación de &#8220;direccion@gmail.com&#8221; y poner en su lugar tu password.</p>
+<h2>Tips &amp; Tricks Email Emacs</h2>
+<ul>
+<p><b>Entrar en el modo email de Emacs:</b> C-x m<br />
+<b>Modo email en una nueva ventana:</b> C-x 4 m<br />
+<b>Modo email en un nuevo frame:</b> C-x 5 m<br />
+<b>Revisar la ortografía del e-mail:</b> M-x ispell-message<br />
+<b>Adjuntar un archivo:</b> C-c C-i file <span class="caps">RET</span><br />
+<b>Enviar el e-mail:</b> C-c C-s<br />
+<b>Enviar el e-mail y salir del buffer:</b> C-c C-c</p>
+</ul>
+<p>Se puede hacer mucho más, como crear alias para las direcciones de correo, saltar a un campo concreto del mail, incluir la firma&#8230; para todo ello, como siempre lo mejor es echar un vistazo a la documentación de </p>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8702,103 +8830,6 @@
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2008-02-26/pendrive-cifrado-con-dm-crypt-en-debian.html">Pendrive cifrado con dm-crypt en Debian</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2008-02-26
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-02-26-pendrive-cifrado-con-dm-crypt-en-debian.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-02-26-pendrive-cifrado-con-dm-crypt-en-debian.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#security-ref">security </a></li>
-    
-    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/866">node/866</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote class="head">
-<p class="head">Esta receta explica como utilizar <code>dm-crypt</code> para cifrar el sistema de ficheros de un pendrive o disco <span class="caps">USB</span> externo y luego montarlo cómodamente.</p>
-</blockquote>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2008-02-26/pendrive-cifrado-con-dm-crypt-en-debian.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8839,7 +8870,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-10-30 06:09:39 -0500
+	  Generated at 2020-11-04 12:23:02 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwrite</a></li>
+
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
-
-  <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="617 posts"
+     title="618 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5463,6 +5463,11 @@
   <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
      title="1 posts"
      >docker</a>
+</td></tr>
+<tr class="row37"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
+     title="1 posts"
+     >systemd</a>
 </td></tr>
 
 </table>
@@ -7899,7 +7904,168 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2008-11-10/introduccin-a-los-hilos-con-la-librera-glib.html">Introducción a los hilos con la librería glib</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2008-11-10
+    
+      
+  <a href="/users.html#manueldavid">
+   manueldavid
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-11-10-introduccin-a-los-hilos-con-la-librera-glib.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-11-10-introduccin-a-los-hilos-con-la-librera-glib.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1043">node/1043</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+Esta receta prentede ser una introducción a los hilos utilizando la librería glib.
+</blockquote>
+
+<h2>¿Qué es un hilo?</h2>
+Un hilo de ejecución es una característica que permite a una aplicación realizar varias tareas concurrentemente. Los distintos hilos de ejecución comparten una serie de recursos tales como el espacio de memoria, los archivos abiertos, situación de autenticación, etc. Esta técnica permite simplificar el diseño de una aplicación que debe llevar a cabo distintas funciones simultáneamente, por ejemplo si programamos videojuegos podemos tener un hilo para la Inteligencia Artificial, otro para la física y otro para el renderizado de los gráficos, pero todos ellos se ejecutarán de manera paralela.
+
+<h2>¿Qué es glib?</h2>
+La librería glib es una de las más importantes que existen en GNOME. Dentro de glib está implementada una serie de tipos de datos que nos hace más fácil, si cabe, el tratamiento de los datos y además tiene la propiedad de mejorar la portabilidad de nuestros programas.
+
+<h2>Un ejemplo sencillo de programa en C++ que crea dos hilos</h2>
+
+
+<div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;cstdlib&gt;
+#include &lt;iostream&gt;
+#include &lt;glib.h&gt;
+</span>
+<span class="n">GThreadFunc</span> <span class="nf">funcion_de_prueba</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">cadena</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">mensaje1</span> <span class="o">=</span> <span class="s">"mensaje_1"</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">mensaje2</span> <span class="o">=</span> <span class="s">"mensaje_2"</span><span class="p">;</span>
+
+  <span class="c1">//inicializamos el soporte para hilos en glib</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">g_thread_supported</span> <span class="p">())</span> <span class="n">g_thread_init</span> <span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+
+  <span class="c1">//reservamos memoria para los hilos de manera dinámica</span>
+  <span class="n">GThread</span> <span class="o">*</span><span class="n">productor</span> <span class="o">=</span> <span class="p">(</span><span class="n">GThread</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">GThread</span><span class="p">));</span>
+  <span class="n">GThread</span> <span class="o">*</span><span class="n">consumidor</span> <span class="o">=</span> <span class="p">(</span><span class="n">GThread</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">GThread</span><span class="p">));</span>
+
+  <span class="c1">//creamos los hilos</span>
+  <span class="n">productor</span> <span class="o">=</span> <span class="n">g_thread_create</span><span class="p">(</span> <span class="p">(</span><span class="n">GThreadFunc</span><span class="p">)</span><span class="n">funcion_de_prueba</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">mensaje1</span> <span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">consumidor</span> <span class="o">=</span> <span class="n">g_thread_create</span><span class="p">(</span> <span class="p">(</span><span class="n">GThreadFunc</span><span class="p">)</span><span class="n">funcion_de_prueba</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">mensaje2</span> <span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+
+  <span class="c1">//destruimos los hilos</span>
+  <span class="n">g_thread_join</span><span class="p">(</span><span class="n">productor</span><span class="p">);</span>
+  <span class="n">g_thread_join</span><span class="p">(</span><span class="n">consumidor</span><span class="p">);</span>
+
+  <span class="c1">//liberamos memoria</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">productor</span><span class="p">);</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">consumidor</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c1">//esta es la función que es llamada por los hilos</span>
+<span class="n">GThreadFunc</span> <span class="nf">funcion_de_prueba</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">cadena</span><span class="p">){</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"esta es la funcion de prueba</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"mensaje  %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">cadena</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+<h2>Resultados que deberás obtener</h2>
+<p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> esta es la funcion de prueba
+mensaje mensaje_1
+ esta es la funcion de prueba
+mensaje mensaje_2</span></code></pre></figure>
+</div></p>
+o bien
+<p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go"> esta es la funcion de prueba
+ esta es la funcion de prueba
+mensaje mensaje_1
+mensaje mensaje_2</span></code></pre></figure>
+</div></p>
+
+<h2>Referencias</h2>
+
+<a href="http://library.gnome.org/devel/glib/">Manual de glib</a>
+<a href="http://www.calcifer.org/documentos/librognome/glib.html">Documentos glib</a>
+<a href="http://www.greenbiteblog.org/index.php/programacion/40-programacion-general/119-programacion-multihilo-en-c.html">Blog de greenbite</a>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8775,98 +8941,6 @@ Igual deberíamos pararnos un momento a pensarlo, verdad?
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/new/2008-10-24/el-colmo-del-colmo-especulando-con-el-contenido-libre.html">El colmo del colmo: Especulando con el contenido libre</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2008-10-24
-    
-      
-  <a href="/users.html#nacho">
-   nacho
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-10-24-el-colmo-del-colmo-especulando-con-el-contenido-libre.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-10-24-el-colmo-del-colmo-especulando-con-el-contenido-libre.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#new-ref">
-    		new
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1031">node/1031</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Leyendo barrapunto, me he encontrado con una noticia que, sinceramente, no sé cómo calificar. Al parecer, la esgae es capaz de cobrar, lucrarse y enriquecerse hasta del contenido libre de autores no afiliados a ella, y <a href="http://notasdecarlos.blogspot.com/2007/12/coherente-no-quiere-decir-traidor.html">ha obtenido alrededor de 500.000 €</a> (no os perdáis el vídeo) de compensación por copia privada de (atención) LinEx.
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/new/2008-10-24/el-colmo-del-colmo-especulando-con-el-contenido-libre.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8907,7 +8981,7 @@ Igual deberíamos pararnos un momento a pensarlo, verdad?
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-10-30 06:09:39 -0500
+	  Generated at 2020-11-04 12:23:02 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">

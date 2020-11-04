@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwrite</a></li>
+
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
   <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
-
-  <li><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="617 posts"
+     title="618 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5463,6 +5463,11 @@
   <a href="javascript:window.location.href='/tags.html#docker-ref'; hide_others()"
      title="1 posts"
      >docker</a>
+</td></tr>
+<tr class="row37"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
+     title="1 posts"
+     >systemd</a>
 </td></tr>
 
 </table>
@@ -7899,7 +7904,154 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2010-03-26/cmake-compilando-aplicaciones-zeroc-ice.html">CMake: Compilando aplicaciones ZeroC Ice</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2010-03-26
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2010-03-26-cmake-compilando-aplicaciones-zeroc-ice.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2010-03-26-cmake-compilando-aplicaciones-zeroc-ice.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#devel-ref">devel </a></li>
+    
+    	<li><a href="/tags.html#Ice-ref">Ice </a></li>
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1347">node/1347</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Esta receta explica cómo compilar un Hola Mundo para el middleware ZeroC Ice utilizando CMake.</blockquote>
+
+<h2>Software necesario</h2>
+
+Puedes descargarte el software que se va a utilizar del siguiente repo subversion:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn co https://arco.esi.uclm.es/svn/public/samples/cmake/hello_ice</code></pre></figure>
+</div>
+
+En el repositorio se encuentra la implementación de un "Hola Mundo" para ZeroC Ice y el CMakeLists.txt asociado.
+
+<h2>Herramientas externas</h2>
+Un programa en Ice presenta un problema común: archivos que se generan con herramientas externas al proyecto son necesarios para la compilación. En Ice, <tt>slice2cpp</tt> genera código que debe ser incluido en la compilación.
+
+CMake proporciona un comando muy útil llamado ADD_CUSTOM_COMMAND y que permite definir cómo se generan ciertos objetivos. Utilizando este comando, veamos cómo quedaría el programa CMake para construir el Hola Mundo en Ice:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(hello_ice)
+
+FIND_LIBRARY(ice_lib Ice)
+FIND_PATH(ice_path Ice)
+
+IF(NOT ice_path)
+  MESSAGE(FATAL_ERROR "** Librería de Ice no encontrada")
+ENDIF()
+
+# Variable con los slices necesarios
+SET(SLICES ${CMAKE_CURRENT_SOURCE_DIR}/slice/hello.ice)
+
+# slice2cpp
+ADD_CUSTOM_COMMAND (
+  OUTPUT hello.cpp hello.h
+  COMMAND slice2cpp ${SLICES}
+  )
+
+INCLUDE_DIRECTORIES(
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_BINARY_DIR}  # slice2cpp deja el .h en el directorio en 'build'
+  ${ice_path}
+  )
+
+ADD_EXECUTABLE(Client hello.cpp Client.cpp)
+ADD_EXECUTABLE(Server hello.cpp helloI.cpp Server.cpp)
+TARGET_LINK_LIBRARIES(Server ${ice_lib})
+TARGET_LINK_LIBRARIES(Client ${ice_lib})</code></pre></figure>
+</div>
+
+Al principio, se hacen unas liberas comprobaciones de que la librería de Ice existe. A continuación se define el comando <tt>slice2cpp</tt> diciendo que como salidas los ficheros <tt>hello.cpp</tt> y <tt>hello.h</tt> a partir del fichero Slice <tt>hello.ice</tt>. Los archivos de salida son dependencias de los distintos ejecutables que se deben crear. Finalmente, se enlaza con las librerías necesarias.
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#command:add_custom_command">Comando ADD_CUSTOM_COMMAND en CMake 2.8</a></li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8867,93 +9019,6 @@ En este ejemplo se introduce el uso de módulos que se proporcionan en la distri
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2010-02-23/empezando-con-systemc.html">Empezando con SystemC</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2010-02-23
-    
-      
-  <a href="/users.html#CRySoL">
-   CRySoL
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2010-02-23-empezando-con-systemc.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2010-02-23-empezando-con-systemc.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1333">node/1333</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <h2>Entorno de desarrollo</h2>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/2010-02-23/empezando-con-systemc.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8994,7 +9059,7 @@ En este ejemplo se introduce el uso de módulos que se proporcionan en la distri
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-10-30 06:09:39 -0500
+	  Generated at 2020-11-04 12:23:02 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
