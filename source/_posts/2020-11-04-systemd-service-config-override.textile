@@ -1,0 +1,28 @@
+---
+layout: post
+title: Systemd service config overwrite
+author: david_villa
+comments: true
+category: recipe
+tags:
+  - systemd
+
+---
+
+You may tune systemd service files without touch provided package files just with something like:
+
+<pre class="console">
+$ sudo systemctl edit bluetooth.service
+</pre>
+
+Then, write your modifications:
+
+<pre>
+[Service]
+ExecStart=
+ExecStart=/usr/libexec/bluetooth/bluetoothd --noplugin=sap
+</pre>
+
+h4. References
+
+* https://raspberrypi.stackexchange.com/questions/40839/sap-error-on-bluetooth-service-status/99920#99920
