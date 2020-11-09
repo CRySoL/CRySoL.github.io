@@ -5356,7 +5356,7 @@ ssh -g -N -L lport:remotehost:rport remotehost
 <pre>
 ssh -N -R sport:localhost:dport remotehost
 </pre>
-<p>Esto le pide a la máquina <code>remotehost</code> que las conexiones que hagan a su puerto <code>sport</code> las redirija al puerto <code>dport</code> de <code>localhost</code>. Esto es útil por ejemplo para hacer un <strong>telnet inverso</strong>. Supongamos que queremos conectar desde la máquina <strong>server</strong> (que tiene una IP pública) a la máquina <strong>home</strong> que está NATeada y con un dirección privada. Pues hacemos lo siguiente.</p>
+<p>Esto le pide a la máquina <code>remotehost</code> que las conexiones que hagan a su puerto <code>sport</code> las redirija al puerto <code>dport</code> de <code>localhost</code>. Esto es útil por ejemplo para hacer un <strong>telnet inverso</strong>. Supongamos que queremos conectar desde la máquina <strong>server</strong> (que tiene una IP pública) a la máquina <strong>home</strong> que está NATeada y con una dirección privada. Pues hacemos lo siguiente.</p>
 <p>En la máquina <strong>home</strong>:</p>
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ssh <span class="nt">-N</span> <span class="nt">-R</span> 2222:localhost:22 pepe@server</code></pre></figure></div>
@@ -5454,7 +5454,7 @@ bash -c "sshpass -p `ssh-askpass` ssh -N -R 2222:localhost:22 pepe@server"
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-11-04 12:37:51 -0600
+	  Generated at 2020-11-09 04:45:25 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
