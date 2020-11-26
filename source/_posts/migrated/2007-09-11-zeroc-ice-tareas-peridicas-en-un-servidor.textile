@@ -24,7 +24,7 @@ Crear un servidor Ice es muy fácil con ayuda de la clase _Ice.Application_. El 
 {% highlight python %}
 import sys, Ice
 
-class Hello(Ice.Object):
+class HelloI(Ice.Object):
     def ice_ping(self, current=None):
         print "ping()"
 
@@ -33,7 +33,7 @@ class Server(Ice.Application):
         adapter = self.communicator().\
                   createObjectAdapterWithEndpoints("Server", "default -p 9999")
 
-        adapter.add(Hello(), Ice.stringToIdentity("Hello"))
+        adapter.add(HelloI(), Ice.stringToIdentity("Hello"))
         adapter.activate()
 
         self.shutdownOnInterrupt()
