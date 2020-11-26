@@ -55,8 +55,7 @@ Es cierto que no es el último alarido en prestaciones pero es poco mayor que un
 
 h2. Instalación
 
-Aunque según el wiki de fit-PC se puede arrancar el instalador desde un pendrive USB o con un CD-ROM externo, yo aconsejo seguir la receta "
-Instalar Debian desde red con PXE":/node/1080. Eso requiere otro PC y conexción a Internet, pero no creo que sea mucho pedir en estos días.
+Aunque según el wiki de fit-PC se puede arrancar el instalador desde un pendrive USB o con un CD-ROM externo, yo aconsejo seguir la receta "Instalar Debian desde red con PXE":/node/1080. Eso requiere otro PC y conexción a Internet, pero no creo que sea mucho pedir en estos días.
 
 Para activar el arranque por red entra en la BIOS pulsado "del" durante el arranque. Una vez dentro activa la opción "Etherboot" que está en  la sección "Custom Configuration".
 
