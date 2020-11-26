@@ -5467,7 +5467,7 @@
 <p class="head">Cómo ejecutar una (o varias) funciones periódicas en un servidor Ice.</p>
 </blockquote>
 <p><!--break--></p>
-<p>Crear un servidor Ice es muy fácil con ayuda de la clase <em>Ice.Application</em>. El <em>communicator()</em> corre en un hilo distinto dejando libre el flujo actual para realizar otras tareas. Lo habitual después de configurar el adaptador y arrancar el comunicador, es invocar el método <em>waitForShutdown()</em> en espera de que el servidor acabe. Este es un servidor mínimo en Python aplicando esa idea:</p>
+<p>Crear un servidor Ice es muy fácil con ayuda de la clase <em>Ice.Application</em>. El <em>communicator()</em> corre en un hilo distinto dejando libre el flujo actual para realizar otras tareas. Lo habitual después de configurar el adaptador y arrancar el comunicador, es invocar el método <code>waitForShutdown()</code> en espera de que el servidor acabe. Este es un servidor mínimo en Python aplicando esa idea:</p>
 <div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">Ice</span>
 
@@ -5521,7 +5521,7 @@
     <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">print</span> <span class="s">'Event!'</span>
         <span class="k">return</span> <span class="bp">True</span></code></pre></figure></div>
-<p>Y esto funciona bien salvo por una pequeña pero desesperante cuestión: el programa no se cierra al pulsar Ctrl-C. Para arreglarlo, parece que lo más sencillo es usar otro método de <em>Ice.Applicacion</em> llamado <tt>callbackOnInterrupt()</tt> que provoca la ejecución del método especial <tt>interruptCallback()</tt> cuando se produce alguna de las <a href="http://www.zeroc.com/doc/Ice-3.2.0/manual/Cpps.9.3.html#64174">señales prefijadas</a>. Se puede aprovechar la ejecución de ese método para terminar el bucle de eventos de gobject. De tal modo que el servidor quedaría algo como:</p>
+<p>Y esto funciona bien salvo por una pequeña pero desesperante cuestión: el programa no se cierra al pulsar Ctrl-C. Para arreglarlo, parece que lo más sencillo es usar otro método de <em>Ice.Applicacion</em> llamado <tt>callbackOnInterrupt()</tt> que provoca la ejecución del método especial <tt>interruptCallback()</tt> cuando se produce alguna de las <a href="https://doc.zeroc.com/ice/3.7/communicator-and-other-core-local-features/application-helper-class#26280330afc0961d49894fa382a1057b360e815e">señales prefijadas</a>. Se puede aprovechar la ejecución de ese método para terminar el bucle de eventos de gobject. De tal modo que el servidor quedaría algo como:</p>
 <div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Server</span><span class="p">(</span><span class="n">Ice</span><span class="p">.</span><span class="n">Application</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argv</span><span class="p">):</span>
@@ -5612,7 +5612,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-11-09 04:45:25 -0600
+	  Generated at 2020-11-26 05:49:50 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
