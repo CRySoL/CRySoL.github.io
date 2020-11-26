@@ -94,7 +94,7 @@ class Server(Ice.Application):
 </div>
 
 
-Y esto funciona bien salvo por una pequeña pero desesperante cuestión: el programa no se cierra al pulsar Ctrl-C. Para arreglarlo, parece que lo más sencillo es usar otro método de _Ice.Applicacion_ llamado <tt>callbackOnInterrupt()</tt> que provoca la ejecución del método especial <tt>interruptCallback()</tt> cuando se produce alguna de las "señales prefijadas":http://www.zeroc.com/doc/Ice-3.2.0/manual/Cpps.9.3.html#64174. Se puede aprovechar la ejecución de ese método para terminar el bucle de eventos de gobject. De tal modo que el servidor quedaría algo como:
+Y esto funciona bien salvo por una pequeña pero desesperante cuestión: el programa no se cierra al pulsar Ctrl-C. Para arreglarlo, parece que lo más sencillo es usar otro método de _Ice.Applicacion_ llamado <tt>callbackOnInterrupt()</tt> que provoca la ejecución del método especial <tt>interruptCallback()</tt> cuando se produce alguna de las "señales prefijadas":https://doc.zeroc.com/ice/3.7/communicator-and-other-core-local-features/application-helper-class#26280330afc0961d49894fa382a1057b360e815e. Se puede aprovechar la ejecución de ese método para terminar el bucle de eventos de gobject. De tal modo que el servidor quedaría algo como:
 
 
 
