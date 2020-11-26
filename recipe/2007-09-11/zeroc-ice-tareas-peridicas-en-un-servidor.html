@@ -5471,7 +5471,7 @@
 <div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">Ice</span>
 
-<span class="k">class</span> <span class="nc">Hello</span><span class="p">(</span><span class="n">Ice</span><span class="p">.</span><span class="n">Object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">HelloI</span><span class="p">(</span><span class="n">Ice</span><span class="p">.</span><span class="n">Object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">ice_ping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">print</span> <span class="s">"ping()"</span>
 
@@ -5480,7 +5480,7 @@
         <span class="n">adapter</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">communicator</span><span class="p">().</span>\
                   <span class="n">createObjectAdapterWithEndpoints</span><span class="p">(</span><span class="s">"Server"</span><span class="p">,</span> <span class="s">"default -p 9999"</span><span class="p">)</span>
 
-        <span class="n">adapter</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">Hello</span><span class="p">(),</span> <span class="n">Ice</span><span class="p">.</span><span class="n">stringToIdentity</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">))</span>
+        <span class="n">adapter</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">HelloI</span><span class="p">(),</span> <span class="n">Ice</span><span class="p">.</span><span class="n">stringToIdentity</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">))</span>
         <span class="n">adapter</span><span class="p">.</span><span class="n">activate</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="p">.</span><span class="n">shutdownOnInterrupt</span><span class="p">()</span>
@@ -5612,7 +5612,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-11-26 05:49:50 -0600
+	  Generated at 2020-11-26 06:27:21 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
