@@ -5166,19 +5166,19 @@ Será una tarjeta de red Ethernet 10/100. Esto permitirá que puedas enchufarle 
 </ul>
 <p>Esta configuración se corresponde con nuestra otra receta sobre <a href="/node/96">compartir la conexión</a>, de modo que es más sencillo seguir aquí desde aquella.</p>
 <h2>Tablas y reglas</h2>
-<p>Hay 3 tablas (o cadenas), que indican qué tipo de operación puede hacer el router con los paquetes.</p>
+<p>Hay 3 tablas principales, que indican qué tipo de operación puede hacer el router con los paquetes.</p>
 <ul>
 	<li><strong><span class="caps">FILTER</span></strong>: En esta tabla hay reglas que dicen qué hacer con los paquetes, pero sin modificarlos. Esta es la tabla por defecto, si no se indica otra.<br />
-Se puede definir 3 tipos de reglas:
+Se puede definir 3 tipos de reglas (cadenas):
 	<ul>
 		<li><strong><span class="caps">INPUT</span></strong>: Para paquetes cuyo destino es un socket de la propia máquina.</li>
 		<li><strong><span class="caps">OUTPUT</span></strong>: Para paquetes generados por la propia máquina.</li>
 		<li><strong><span class="caps">FORWARD</span></strong>: Para paquetes que llegan a la máquina, pero cuyo destino es una máquina distinta.</li>
 	</ul></li>
-	<li><strong><span class="caps">NAT</span></strong>: Implica a los paquetes que requieren crear nuevas conexiones. Normalmente implica algún tipo de traducción de dirección, ya sea dirección o puerto (modifican el paquete). También se puede definir 3 tipos de reglas:
+	<li><strong><span class="caps">NAT</span></strong>: Implica algún tipo de traducción, ya sea dirección o puerto (modifican el paquete). También hay 3 cadenas:
 	<ul>
-		<li><strong><span class="caps">PREROUTING</span></strong>: El paquete se modifica en cuanto llega a la máquina.</li>
-		<li><strong><span class="caps">POSTROUTING</span></strong>: El paquete se modifica después de decidir su destino (una vez rutado).</li>
+		<li><strong><span class="caps">PREROUTING</span></strong>: El paquete se modifica en cuanto llega a la máquina (desde la red).</li>
+		<li><strong><span class="caps">POSTROUTING</span></strong>: El paquete se modifica después de decidir su destino (hacia la red).</li>
 		<li><strong><span class="caps">OUTPUT</span></strong>: El paquete se ha generado en la propia máquina y se modifica antes de decidir su destino.</li>
 	</ul></li>
 	<li><strong><span class="caps">MANGLE</span></strong>: Implica modificaciones más sofisticadas del paquete, que van más allá de su dirección. Excede el alcance de esta receta.</li>
@@ -5206,6 +5206,9 @@ Se puede definir 3 tipos de reglas:
 <h3>Ver la configuración</h3>
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-L</span> <span class="o">[</span><span class="nt">-t</span> tabla] <span class="o">[</span><span class="nt">-v</span><span class="o">]</span></code></pre></figure></div>
+<p>O, si se tiene el paquete <tt>iptables-persistent</tt>:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables-save</code></pre></figure></div>
 <h3>Borrar todas las reglas de una tabla</h3>
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-F</span> <span class="o">[</span><span class="nt">-t</span> tabla]</code></pre></figure></div>
@@ -5234,13 +5237,13 @@ Se puede definir 3 tipos de reglas:
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-A</span> INPUT <span class="nt">-j</span> DROP</code></pre></figure></div>
 <p>Si quieres permitir algo más debes <strong>insertar</strong> la nueva regla <strong>antes</strong> del <span class="caps">DROP</span>. Por ejemplo: Aceptar conexiones <acronym title="443"><span class="caps">HTTPS</span></acronym> desde cualquier sitio:</p>
 <div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="k">*</span><span class="nt">-I</span> INPUT 7<span class="k">*</span> <span class="nt">-p</span> tcp <span class="nt">--dport</span> https <span class="nt">-j</span> ACCEPT</code></pre></figure></div>
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>iptables <span class="nt">-I</span> INPUT 7 <span class="nt">-p</span> tcp <span class="nt">--dport</span> https <span class="nt">-j</span> ACCEPT</code></pre></figure></div>
 <p>Por supuesto también puedes editar directamente el fichero en el que guardes la configuración de iptables (ver <a href="#guardar">guardar configuración</a>). El contenido de dicho fichero para la configuración fijada con estos comandos sería (no se muestran las tablas vacías):</p>
 <pre>
 *filter
-:INPUT ACCEPT [696743:123302283]
-:FORWARD ACCEPT [591745:477869546]
-:OUTPUT ACCEPT [801266:279702677]
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
 -A INPUT -p ICMP -j ACCEPT
 -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 -A INPUT -i eth1 -j ACCEPT
@@ -5250,9 +5253,9 @@ Se puede definir 3 tipos de reglas:
 -A INPUT -j DROP
 COMMIT
 *nat
-:PREROUTING ACCEPT [64615:3723067]
-:POSTROUTING ACCEPT [101:14282]
-:OUTPUT ACCEPT [10260:530443]
+:PREROUTING ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
 -A POSTROUTING -o eth0 -j MASQUERADE
 COMMIT
 </pre>
@@ -5353,7 +5356,7 @@ iface eth0 inet dhcp
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-12-24 04:36:58 -0600
+	  Generated at 2020-12-24 04:50:11 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
