@@ -87,6 +87,14 @@ h3. Ver la configuración
 {% endhighlight %}
 </div>
 
+O, si se tiene el paquete <tt>iptables-persistent</tt>:
+
+<div class="console">
+{% highlight console %}
+ # iptables-save
+{% endhighlight %}
+</div>
+
 h3. Borrar todas las reglas de una tabla
 
 
