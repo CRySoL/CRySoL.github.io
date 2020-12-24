@@ -31,16 +31,16 @@ Esta configuración se corresponde con nuestra otra receta sobre "compartir la c
 
 h2. Tablas y reglas
 
-Hay 3 tablas (o cadenas), que indican qué tipo de operación puede hacer el router con los paquetes.
+Hay 3 tablas principales, que indican qué tipo de operación puede hacer el router con los paquetes.
 
 * *FILTER*: En esta tabla hay reglas que dicen qué hacer con los paquetes, pero sin modificarlos. Esta es la tabla por defecto, si no se indica otra.
-Se puede definir 3 tipos de reglas:
+Se puede definir 3 tipos de reglas (cadenas):
 ** *INPUT*: Para paquetes cuyo destino es un socket de la propia máquina.
 ** *OUTPUT*: Para paquetes generados por la propia máquina.
 ** *FORWARD*: Para paquetes que llegan a la máquina, pero cuyo destino es una máquina distinta.
-* *NAT*: Implica a los paquetes que requieren crear nuevas conexiones. Normalmente implica algún tipo de traducción de dirección, ya sea dirección o puerto (modifican el paquete). También se puede definir 3 tipos de reglas:
-** *PREROUTING*: El paquete se modifica en cuanto llega a la máquina.
-** *POSTROUTING*: El paquete se modifica después de decidir su destino (una vez rutado).
+* *NAT*: Implica algún tipo de traducción, ya sea dirección o puerto (modifican el paquete). También hay 3 cadenas:
+** *PREROUTING*: El paquete se modifica en cuanto llega a la máquina (desde la red).
+** *POSTROUTING*: El paquete se modifica después de decidir su destino (hacia la red).
 ** *OUTPUT*: El paquete se ha generado en la propia máquina y se modifica antes de decidir su destino.
 * *MANGLE*: Implica modificaciones más sofisticadas del paquete, que van más allá de su dirección. Excede el alcance de esta receta.
 
