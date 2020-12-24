@@ -177,7 +177,7 @@ Si quieres permitir algo más debes *insertar* la nueva regla *antes* del DROP. 
 
 <div class="console">
 {% highlight console %}
- # iptables *-I INPUT 7* -p tcp --dport https -j ACCEPT
+ # iptables -I INPUT 7 -p tcp --dport https -j ACCEPT
 {% endhighlight %}
 </div>
 
