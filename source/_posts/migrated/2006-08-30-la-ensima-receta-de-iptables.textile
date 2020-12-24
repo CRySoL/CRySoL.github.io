@@ -185,9 +185,9 @@ Por supuesto también puedes editar directamente el fichero en el que guardes la
 
 <pre>
 *filter
-:INPUT ACCEPT [696743:123302283]
-:FORWARD ACCEPT [591745:477869546]
-:OUTPUT ACCEPT [801266:279702677]
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
 -A INPUT -p ICMP -j ACCEPT
 -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 -A INPUT -i eth1 -j ACCEPT
@@ -197,9 +197,9 @@ Por supuesto también puedes editar directamente el fichero en el que guardes la
 -A INPUT -j DROP
 COMMIT
 *nat
-:PREROUTING ACCEPT [64615:3723067]
-:POSTROUTING ACCEPT [101:14282]
-:OUTPUT ACCEPT [10260:530443]
+:PREROUTING ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
 -A POSTROUTING -o eth0 -j MASQUERADE
 COMMIT
 </pre>
