@@ -29,7 +29,7 @@ Será una tarjeta de red Ethernet 10/100. Esto permitirá que puedas enchufarle 
 Esta configuración se corresponde con nuestra otra receta sobre "compartir la conexión":/node/96, de modo que es más sencillo seguir aquí desde aquella.
 
 
-h2. Tablas y reglas
+h2. Tablas y cadenas
 
 Hay 3 tablas principales, que indican qué tipo de operación puede hacer el router con los paquetes.
 
@@ -46,6 +46,7 @@ Se puede definir 3 tipos de reglas (cadenas):
 
 Además de éstas que vienen de serie, el usuario puede crear otras.
 
+<img src="/files/iptables-chains.png"/>
 
 h2. Políticas
 
