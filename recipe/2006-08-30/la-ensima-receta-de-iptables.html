@@ -5165,7 +5165,7 @@ Debe ser algún tipo de conexión a Internet, que puede ser <span class="caps">R
 Será una tarjeta de red Ethernet 10/100. Esto permitirá que puedas enchufarle un conmutador y conectar &#8220;cienes y cienes&#8221; de ordenadores si quieres. Esta interfaz debes configurarla de forma estática, con una dirección IP privada, por ejemplo 192.168.0.1.  </li>
 </ul>
 <p>Esta configuración se corresponde con nuestra otra receta sobre <a href="/node/96">compartir la conexión</a>, de modo que es más sencillo seguir aquí desde aquella.</p>
-<h2>Tablas y reglas</h2>
+<h2>Tablas y cadenas</h2>
 <p>Hay 3 tablas principales, que indican qué tipo de operación puede hacer el router con los paquetes.</p>
 <ul>
 	<li><strong><span class="caps">FILTER</span></strong>: En esta tabla hay reglas que dicen qué hacer con los paquetes, pero sin modificarlos. Esta es la tabla por defecto, si no se indica otra.<br />
@@ -5184,6 +5184,7 @@ Se puede definir 3 tipos de reglas (cadenas):
 	<li><strong><span class="caps">MANGLE</span></strong>: Implica modificaciones más sofisticadas del paquete, que van más allá de su dirección. Excede el alcance de esta receta.</li>
 </ul>
 <p>Además de éstas que vienen de serie, el usuario puede crear otras.</p>
+<p><img src="/files/iptables-chains.png"/></p>
 <h2>Políticas</h2>
 <p>Existen dos <em>políticas</em> básicas para administrar un firewall.</p>
 <ul>
@@ -5356,7 +5357,7 @@ iface eth0 inet dhcp
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-12-24 04:50:11 -0600
+	  Generated at 2020-12-24 04:59:14 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
