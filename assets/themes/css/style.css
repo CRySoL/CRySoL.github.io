@@ -71,6 +71,7 @@
 /* crysol customization */
 
 body {
+  line-height: 16px;
 }
 
 a {
@@ -86,7 +87,7 @@ h2 {
 }
 
 h3 {
-  font-size: 130%;
+  font-size: 110%;
 }
 
 footer {
