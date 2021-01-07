@@ -48,12 +48,12 @@ $ gpg --keyserver <servidor> --send-key <huella_digital>
 
 h2. Configuración de @ian@
 
-* Añadir configuración en @~/.config/ian/config@ (para ian) o @~/.bashrc@ (para el sistema).
+* Añadir configuración en @~/.config/ian@ (para ian) o @~/.bashrc@ (para el sistema).
 {% highlight text %}
 DEBFULLNAME="Ana Rubio Ruiz"
 DEBEMAIL=ana.rubio.ruiz@gmail.com
 DEBSIGN_KEYID=<huella_GPG>
-DEBREPO_URL=debrepo@debrepo/shared
+DEBPOOL=debrepo@debrepo/shared
 {% endhighlight %}
 
 * Ian necesita un editor por defecto (ej: emacs).
@@ -61,45 +61,7 @@ DEBREPO_URL=debrepo@debrepo/shared
 EDITOR="emacs -nw"
 {% endhighlight %}
 
-ian prioriza los valores indicados en @~/.config/ian/config@ por encima de los de @~/.bashrc@.
-
-h2. Configuración de @dupload@
-
-@dupload@ es la herramienta oficial para subir paquetes a un repositorio. Crea un fichero
-@~/.dupload.conf@ con este contenido:
-
-{% highlight text %}
-package config;
-
-$default_host = "debrepo";
-
-$cfg{'debrepo'} = {
-    fqdn => "debrepo",
-    login => "repouser",
-    method => "scpb",
-    incoming => "/shared/incoming/",
-
-    # The dinstall on ftp-master sends emails itself
-    dinstall_runs => 1,
-};
-
-$postupload{'changes'} = 'ssh debrepo "reprepro -V -b /shared processincoming sid-process"';
-
-1;  # DO NOT remove this line!
-{% endhighlight %}
-
-h3. Configuración de SSH para acceder al repositorio
-
-Añade en tu @~/.ssh/config@ una sección para el host @debrepo@ similar a ésta:
-
-{% highlight text %}
-Host debrepo
-     Hostname example.net
-     User john
-     IdentityFile ~/.ssh/debian-repo
-{% endhighlight %}
-
-
+ian prioriza los valores indicados en @~/.config/ian@ por encima de los de @~/.bashrc@.
 
 h3. Generar clave SSH
 
@@ -110,9 +72,10 @@ $ ssh-keygen -b 4096
 * CLAVE PÚBLICA SSH: @~/.ssh/id_rsa.pub@
 * CLAVE PRIVADA SSH: @~/.ssh/id_rsa@
 
+
 h3. Configuración SSH
 
-Añadir al fichero @.ssh/config@:
+Añade en tu @~/.ssh/config@ una sección para el host @debrepo@ similar a ésta:
 
 {% highlight text %}
 Host debrepo
@@ -121,7 +84,8 @@ Host debrepo
     IdentityFile ~/.ssh/id_rsa
 {% endhighlight %}
 
-h2. Comando básicos @ian@
+
+h2. Comandos básicos @ian@
 
 Fecha de última versión:
 
@@ -135,4 +99,4 @@ Subir paquete:
 
 @ian upload@
 
-Más en: https://bitbucket.org/DavidVilla/ian/src/default/README.rst
+Más en: https://github.com/davidvilla/ian
