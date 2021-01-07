@@ -5228,42 +5228,18 @@ $ gpg --keyserver &lt;servidor&gt; --send-key &lt;huella_digital&gt;
 </pre>
 <h2>Configuración de <code>ian</code></h2>
 <ul>
-	<li>Añadir configuración en <code>~/.config/ian/config</code> (para ian) o <code>~/.bashrc</code> (para el sistema).<br />
+	<li>Añadir configuración en <code>~/.config/ian</code> (para ian) o <code>~/.bashrc</code> (para el sistema).<br />
 <figure class="highlight"><pre><code class="language-text" data-lang="text">DEBFULLNAME="Ana Rubio Ruiz"
 DEBEMAIL=ana.rubio.ruiz@gmail.com
 DEBSIGN_KEYID=&lt;huella_GPG&gt;
-DEBREPO_URL=debrepo@debrepo/shared</code></pre></figure></li>
+DEBPOOL=debrepo@debrepo/shared</code></pre></figure></li>
 </ul>
 <ul>
 	<li>Ian necesita un editor por defecto (ej: emacs).<br />
 <figure class="highlight"><pre><code class="language-text" data-lang="text">EDITOR="emacs -nw"</code></pre></figure></li>
 </ul>
-<p>ian prioriza los valores indicados en <code>~/.config/ian/config</code> por encima de los de <code>~/.bashrc</code>.</p>
-<h2>Configuración de <code>dupload</code></h2>
-<p><code>dupload</code> es la herramienta oficial para subir paquetes a un repositorio. Crea un fichero<br />
-<code>~/.dupload.conf</code> con este contenido:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">package config;
-
-$default_host = "debrepo";
-
-$cfg{'debrepo'} = {
-    fqdn =&gt; "debrepo",
-    login =&gt; "repouser",
-    method =&gt; "scpb",
-    incoming =&gt; "/shared/incoming/",
-
-    # The dinstall on ftp-master sends emails itself
-    dinstall_runs =&gt; 1,
-};
-
-$postupload{'changes'} = 'ssh debrepo "reprepro -V -b /shared processincoming sid-process"';
-
-1;  # DO NOT remove this line!</code></pre></figure><h3>Configuración de <span class="caps">SSH</span> para acceder al repositorio</h3>
-<p>Añade en tu <code>~/.ssh/config</code> una sección para el host <code>debrepo</code> similar a ésta:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Host debrepo
-     Hostname example.net
-     User john
-     IdentityFile ~/.ssh/debian-repo</code></pre></figure><h3>Generar clave <span class="caps">SSH</span></h3>
+<p>ian prioriza los valores indicados en <code>~/.config/ian</code> por encima de los de <code>~/.bashrc</code>.</p>
+<h3>Generar clave <span class="caps">SSH</span></h3>
 <pre class="console">
 $ ssh-keygen -b 4096
 </pre>
@@ -5272,18 +5248,18 @@ $ ssh-keygen -b 4096
 	<li><span class="caps">CLAVE</span> <span class="caps">PRIVADA</span> <span class="caps">SSH</span>: <code>~/.ssh/id_rsa</code></li>
 </ul>
 <h3>Configuración <span class="caps">SSH</span></h3>
-<p>Añadir al fichero <code>.ssh/config</code>:</p>
+<p>Añade en tu <code>~/.ssh/config</code> una sección para el host <code>debrepo</code> similar a ésta:</p>
 <figure class="highlight"><pre><code class="language-text" data-lang="text">Host debrepo
     Hostname debrepo.example.net
     User debrepo
-    IdentityFile ~/.ssh/id_rsa</code></pre></figure><h2>Comando básicos <code>ian</code></h2>
+    IdentityFile ~/.ssh/id_rsa</code></pre></figure><h2>Comandos básicos <code>ian</code></h2>
 <p>Fecha de última versión:</p>
 <p><code>ian release-date -y</code></p>
 <p>Compilar:</p>
 <p><code>ian build -c</code></p>
 <p>Subir paquete:</p>
 <p><code>ian upload</code></p>
-<p>Más en: https://bitbucket.org/DavidVilla/ian/src/default/<span class="caps">README</span>.rst</p>
+<p>Más en: https://github.com/davidvilla/ian</p>
       </div>
 
       
@@ -5343,12 +5319,12 @@ $ ssh-keygen -b 4096
       <hr/>
 
       <footer>
-        <p>&copy; 2020 CRySoL
+        <p>&copy; 2021 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
 	  See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
 	  <br/>
-	  Generated at 2020-12-24 05:40:10 -0600
+	  Generated at 2021-01-07 17:00:27 -0600
 	  <br/>
 	  <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
 	    <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built">
