@@ -32,51 +32,43 @@ Este pequeño tutorial utiliza la versión actual de Python (3.9) y presupone qu
 Nada como usar algo para aprender a usarlo. El intérprete de Python se puede utilizar como una <em>shell</em> (lo que se llama <em>modo interactivo</em>), algo que viene muy bien para dar nuestros primeros pasos.
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 $ python3
 Python 3.9.1+ (default, Jan 20 2021, 14:49:22)
 [GCC 10.2.1 20210110] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
 
-{% endhighlight %}
-</div>
+</pre>
 
 <h2>Variables y tipos</h2>
 
 Las variables no se declaran explícitamente, se pueden usar desde el momento en que se inicializan. Y normalmente no hay que preocuparse por liberar la memoria que ocupan, tiene un «recolector de basura» (como Java).
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 $ python3
 >>> a = "hola"
 
-{% endhighlight %}
-</div>
+</pre>
 
 En el modo interactivo se puede ver el valor de cualquier objeto simplemente escribiendo su nombre:
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> a
 'hola'
 
-{% endhighlight %}
-</div>
+</pre>
 
 Python es un lenguaje de tipado fuerte, pero dinámico. Eso significa que no se puede operar alegremente con tipos diferentes (como se hace en C). Las operaciones están definidas para trabajar con los tipos previstos.
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> a + 1
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: Can't convert 'int' object to str implicitly
 
-{% endhighlight %}
-</div>
+</pre>
 
 <p>
 Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las excepciones son el mecanismo más común de notificación de errores.
@@ -85,11 +77,9 @@ Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las
 Pero se puede cambiar el tipo de una variable sobre la marcha:
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> a = 3
-{% endhighlight %}
-</div>
+</pre>
 
 En realidad no hemos cambio el tipo de <tt>a</tt>, sino que hemos creado una nueva variable que reemplaza la anterior.
 
@@ -113,8 +103,7 @@ Una variable puede existir sin tener valor ni tipo, para ello se asigna el valor
 Lo habitual:
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> a = True
 >>> a
 True
@@ -128,16 +117,14 @@ True
 >>> b
 True
 
-{% endhighlight %}
-</div>
+</pre>
 
 <h3>Numéricos</h3>
 
 Python dispone de tipos <b>enteros</b> de cualquier tamaño que soportan todas las operaciones propias de C, incluidas las de bits. También hay <b>reales</b> como en cualquier otro lenguaje. Ambos tipos se pueden operar entre si sin problema. Incluso tiene soporte para números <b>complejos</b> de forma nativa.
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> a = 2
 >>> b = 3.0
 >>> a + b
@@ -145,43 +132,37 @@ Python dispone de tipos <b>enteros</b> de cualquier tamaño que soportan todas l
 >>> b - 4j
 (3-4j)
 
-{% endhighlight %}
-</div>
+</pre>
 
 
 <h3>Secuencias</h3>
 
 No hay tipo carácter, se utilizan <b>cadenas</b> de tamaño 1. Las cadenas admiten operaciones como la suma y la multiplicación.
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> greeting = 'hola '
 >>> greeting + 'mundo'
 'hola mundo'
 >>> greeting * 3
 'hola hola hola '
 
-{% endhighlight %}
-</div>
+</pre>
 
 El tipo <b>bytes</b> permite manejar secuencias de bytes. Es especialmente útil para serialización de datos. Por ejemplo, podemos convertir una cadena de caracteres UTF-8 a bytes y viceversa:
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> word = 'ñandú'
 >>> coded = word.encode()
 >>> coded
 b'\xc3\xb1and\xc3\xba'
 >>> coded.decode()
 'ñandú'
-{% endhighlight %}
-</div>
+</pre>
 
 Las <b>tuplas</b> son una agrupación de valores similar al concepto matemático de tupla. Se pueden <em>empaquetar</em> y <em>desempaquetar</em> varias variables (incluso de tipo diferente).
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> x = greeting, 'f', 3.0
 >>> x
 ('hola ', 'f', 3.0)
@@ -189,40 +170,34 @@ Las <b>tuplas</b> son una agrupación de valores similar al concepto matemático
 >>> v2
 'f'
 
-{% endhighlight %}
-</div>
+</pre>
 
 Las <b>Listas</b> son similares a los <em>vectores</em> o <em>arrays</em> de otros lenguajes, aunque en Python se pueden mezclar tipos.
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> x = [1, 'f', 3.0]
 >>> x[0]
 1
 
-{% endhighlight %}
-</div>
+</pre>
 
 Las listas también se pueden sumar y multiplicar:
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> x = [1, 'f', 3.0]
 >>> x + ['adios']
 [1, 'f', 3.0, 'adios']
 >>> x * 2
 [1, 'f', 3.0, 1, 'f', 3.0]
 
-{% endhighlight %}
-</div>
+</pre>
 
 Cualquier secuencia se puede indexar desde el final o mediante «rodajas» (<em>slices</em>):
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> greeting = 'holamundo'
 >>> greeting[-1]
 'o'
@@ -235,20 +210,17 @@ Cualquier secuencia se puede indexar desde el final o mediante «rodajas» (<em>
 >>> greeting[-6:-2]
 'amun'
 
-{% endhighlight %}
-</div>
+</pre>
 
 Los <b>diccionarios</b> son <em>tablas asociativas</em>:
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> grades = {'antonio':6, 'maria':9}
 >>> grades['antonio']
 6
 
-{% endhighlight %}
-</div>
+</pre>
 
 Python dispone de otros tipos de datos nativos como conjuntos (sets), pilas, colas, listas multidimensionales, etc.
 
@@ -258,16 +230,14 @@ Python dispone de otros tipos de datos nativos como conjuntos (sets), pilas, col
 Casi todo en Python está orientado a objetos, incluyendo las variables de tipos básicos, y hasta los literales!
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> cad = 'holamundo'
 >>> cad.upper()
 'HOLAMUNDO'
 >>> 'ADIOS'.lower()
 'adios'
 
-{% endhighlight %}
-</div>
+</pre>
 
 
 <h2> Módulos</h2>
@@ -275,13 +245,11 @@ Casi todo en Python está orientado a objetos, incluyendo las variables de tipos
 Los módulos son análogos a las 'librerías' o 'paquetes' de otros lenguajes. Para usarlos se utiliza la sentencia <tt>import</tt>:
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 >>> import sys
 >>> sys.exit(1)
 
-{% endhighlight %}
-</div>
+</pre>
 
 
 <h2> Estructuras de control</h2>
@@ -339,6 +307,7 @@ print(factorial(10))
 {% endhighlight %}
 </div>
 
+
 <h2>Python <em>is different</em></h2>
 
 Como cualquier lenguaje, Python tiene sus peculiaridades, y conocerlas puede ayudar a sacarle el máximo potencial. Siempre hay una manera más «pythónica» de hacer las cosas, utilizando por ejemplo las características de programación funcional que incorpora. Como ejemplo, el factorial se puede hacer aún más compacto con algo como:
@@ -365,11 +334,10 @@ Lo normal es escribir un programa en un fichero de texto con extensión <tt>.py<
 Y no olvides darle permisos de ejecución al fichero:
 
 
-<div class="console">
-{% highlight console %}
+<pre class="console">
 $ chmod +x fichero.py
 {% endhighlight %}
-</div>
+</pre>
 
 
 <h2> ¿Y ahora qué?</h2>
