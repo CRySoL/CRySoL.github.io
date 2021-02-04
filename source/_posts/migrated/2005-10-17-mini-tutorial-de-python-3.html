@@ -15,11 +15,17 @@ Un minúsculo tutorial para quién necesite o simplemente le apetezca aprender P
 
 <h2>Introducción</h2>
 
-Python es un lenguaje interpretado, interactivo y orientado a objetos. Se le compara con C++. Java o Perl.  Tiene variables, clases, objetos, funciones y todo lo que se espera que tenga un lenguaje de programación moderno. Cualquier programador puede empezar a trabajar con Python con poco esfuerzo.  Según muchos estudios, Python es uno de los lenguajes más fáciles de aprender y que permiten al novato ser productivo en tiempo record.
+<p>
+Python es un lenguaje interpretado, interactivo y orientado a objetos. Se le compara con C++. Java o Perl.  Tiene variables, clases, objetos, funciones y todo lo que se espera que tenga un lenguaje de programación «convencional». Cualquier programador puede empezar a trabajar con Python con poco esfuerzo.  Según muchos estudios, Python es uno de los lenguajes más fáciles de aprender y que permiten al novato ser productivo en tiempo record, lo cual lo hace ideal como primer lenguaje.
+</p>
 
-Python es perfecto como lenguaje «pegamento» y para prototipado rápido de aplicaciones (aunque se hagan luego en otros lenguajes). Pero también se pueden hacer programas serios como Zope, mailman, etc. Dispone de librerías para desarrollar aplicaciones multihilo, distribuidas, bases de datos, con interfaz gráfico, juegos, gráficos 3D y una larga lista.
+<p>
+Python es perfecto como lenguaje «pegamento» y para prototipado rápido de aplicaciones (aunque finalmente fuera necesario rehacerlasq en otros lenguajes), aunque eso no impica que no se puedan ser definitivos. Dispone de librerías para desarrollar aplicaciones multihilo, distribuidas, bases de datos, con interfaz gráfico, juegos, gráficos 3D, cálculo científico, machine learning y una larga lista.
+</p>
 
-Este pequeño tutorial utiliza la versión actual de Python (3.3) y presupone que el lector tiene nociones básicas de programación con algún lenguaje como C, Java o similar.
+<p>
+Este pequeño tutorial utiliza la versión actual de Python (3.9) y presupone que el lector tiene nociones básicas de programación con algún lenguaje como C, Java o similar.
+</p>
 
 <h2>Empezamos</h2>
 
@@ -29,8 +35,8 @@ Nada como usar algo para aprender a usarlo. El intérprete de Python se puede ut
 <div class="console">
 {% highlight console %}
 $ python3
-Python 3.3.4rc1 (default, Jan 27 2014, 11:28:31)
-[GCC 4.8.2] on linux
+Python 3.9.1+ (default, Jan 20 2021, 14:49:22)
+[GCC 10.2.1 20210110] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
 
@@ -44,14 +50,13 @@ Las variables no se declaran explícitamente, se pueden usar desde el momento en
 
 <div class="console">
 {% highlight console %}
-$ python
+$ python3
 >>> a = "hola"
 
 {% endhighlight %}
 </div>
 
-En el modo interactivo se puede ver el valor de cualquier objeto escribiendo simplemente su nombre:
-
+En el modo interactivo se puede ver el valor de cualquier objeto simplemente escribiendo su nombre:
 
 <div class="console">
 {% highlight console %}
@@ -61,9 +66,7 @@ En el modo interactivo se puede ver el valor de cualquier objeto escribiendo sim
 {% endhighlight %}
 </div>
 
-
-Python es un lenguaje de tipado fuerte pero dinámico. Eso significa que no se puede operar alegremente con tipos diferentes (como se hace en C).
-
+Python es un lenguaje de tipado fuerte, pero dinámico. Eso significa que no se puede operar alegremente con tipos diferentes (como se hace en C). Las operaciones están definidas para trabajar con los tipos previstos.
 
 <div class="console">
 {% highlight console %}
@@ -75,9 +78,11 @@ TypeError: Can't convert 'int' object to str implicitly
 {% endhighlight %}
 </div>
 
+<p>
 Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las excepciones son el mecanismo más común de notificación de errores.
+</p>
 
-Pero se puede cambiar el tipo de una variable sobre la marcha (como en Python :-) ).
+Pero se puede cambiar el tipo de una variable sobre la marcha:
 
 
 <div class="console">
@@ -86,6 +91,7 @@ Pero se puede cambiar el tipo de una variable sobre la marcha (como en Python :-
 {% endhighlight %}
 </div>
 
+En realidad no hemos cambio el tipo de <tt>a</tt>, sino que hemos creado una nueva variable que reemplaza la anterior.
 
 <h2>Tipos de datos</h2>
 
@@ -142,10 +148,10 @@ Python dispone de tipos <b>enteros</b> de cualquier tamaño que soportan todas l
 {% endhighlight %}
 </div>
 
+
 <h3>Secuencias</h3>
 
 No hay tipo carácter, se utilizan <b>cadenas</b> de tamaño 1. Las cadenas admiten operaciones como la suma y la multiplicación.
-
 
 <div class="console">
 {% highlight console %}
@@ -158,7 +164,20 @@ No hay tipo carácter, se utilizan <b>cadenas</b> de tamaño 1. Las cadenas admi
 {% endhighlight %}
 </div>
 
-Las <b>tuplas</b> son una agrupación de valores similar al concepto matemático de tupla. Se pueden empaquetar y desempaquetar varias variables (incluso de tipo diferente).
+El tipo <b>bytes</b> permite manejar secuencias de bytes. Es especialmente útil para serialización de datos. Por ejemplo, podemos convertir una cadena de caracteres UTF-8 a bytes y viceversa:
+
+<div class="console">
+{% highlight console %}
+>>> word = 'ñandú'
+>>> coded = word.encode()
+>>> coded
+b'\xc3\xb1and\xc3\xba'
+>>> coded.decode()
+'ñandú'
+{% endhighlight %}
+</div>
+
+Las <b>tuplas</b> son una agrupación de valores similar al concepto matemático de tupla. Se pueden <em>empaquetar</em> y <em>desempaquetar</em> varias variables (incluso de tipo diferente).
 
 
 <div class="console">
@@ -173,7 +192,7 @@ Las <b>tuplas</b> son una agrupación de valores similar al concepto matemático
 {% endhighlight %}
 </div>
 
-Las <b>Listas</b> son similares a los <em>vectores</em> o <em>arrays</em> de otros lenguajes, aunque en Python se pueden mezclar tipos. Y se pueden indexar desde el final.
+Las <b>Listas</b> son similares a los <em>vectores</em> o <em>arrays</em> de otros lenguajes, aunque en Python se pueden mezclar tipos.
 
 
 <div class="console">
@@ -181,8 +200,6 @@ Las <b>Listas</b> son similares a los <em>vectores</em> o <em>arrays</em> de otr
 >>> x = [1, 'f', 3.0]
 >>> x[0]
 1
->>> x[-1]
-3.0
 
 {% endhighlight %}
 </div>
@@ -201,12 +218,14 @@ Las listas también se pueden sumar y multiplicar:
 {% endhighlight %}
 </div>
 
-Las listas y las cadenas se pueden indexar mediante «rodajas» (<em>slices</em>):
+Cualquier secuencia se puede indexar desde el final o mediante «rodajas» (<em>slices</em>):
 
 
 <div class="console">
 {% highlight console %}
 >>> greeting = 'holamundo'
+>>> greeting[-1]
+'o'
 >>> greeting[1:6]
 'olamu'
 >>> greeting[:3]
@@ -233,6 +252,7 @@ Los <b>diccionarios</b> son <em>tablas asociativas</em>:
 
 Python dispone de otros tipos de datos nativos como conjuntos (sets), pilas, colas, listas multidimensionales, etc.
 
+
 <h3>Orientado a objetos</h3>
 
 Casi todo en Python está orientado a objetos, incluyendo las variables de tipos básicos, y hasta los literales!
@@ -249,6 +269,7 @@ Casi todo en Python está orientado a objetos, incluyendo las variables de tipos
 {% endhighlight %}
 </div>
 
+
 <h2> Módulos</h2>
 
 Los módulos son análogos a las 'librerías' o 'paquetes' de otros lenguajes. Para usarlos se utiliza la sentencia <tt>import</tt>:
@@ -262,9 +283,10 @@ Los módulos son análogos a las 'librerías' o 'paquetes' de otros lenguajes. P
 {% endhighlight %}
 </div>
 
+
 <h2> Estructuras de control</h2>
 
-Están disponibles las más habituales: <tt>for</tt>, <tt>while</tt>, <tt>if</tt>, <tt>if else</tt>, <tt>break</tt>, <tt>continue</tt>, <tt>return</tt>, etc. Todas funcionan de la forma habitual excepto <tt>for</tt>. El <tt>for</tt> de Python no es un <tt>while</tt> disfrazado, como ocurre la mayoría de lenguajes. Este <tt>for</tt> hace que, en cada iteración, la variable de control tome los valores que contiene una secuencia, es decir, que itere sobre ella; algo parecido al <a href="http://www.sgi.com/tech/stl/for_each.html"><tt>for_each</tt> de C++</a>, pero mucho más fácil de usar. Ejemplo:
+Están disponibles las más habituales: <tt>for</tt>, <tt>while</tt>, <tt>if</tt>, <tt>if else</tt>, <tt>break</tt>, <tt>continue</tt>, <tt>return</tt>, etc. Todas funcionan de la forma habitual excepto <tt>for</tt>. El <tt>for</tt> de Python no es un <tt>while</tt> disfrazado, como ocurre en algunos lenguajes. Este <tt>for</tt> hace que, en cada iteración, la variable de control tome los valores que contiene una secuencia, es decir, que itere sobre ella. Ejemplo:
 
 <pre class="console">
 >>> for c in "hello":
@@ -280,20 +302,20 @@ Están disponibles las más habituales: <tt>for</tt>, <tt>while</tt>, <tt>if</tt
 
 <h2>Indentación estricta</h2>
 
-En muchos lenguajes se aconseja «tabular» de determinada manera para facilitar su lectura. En Python este estilo es <b>obligatorio</b> porque el esquema de indentación define realmente los bloques. Es una importante peculiaridad de este lenguaje. Se <a href="http://www.python.org/doc/essays/styleguide.html">aconseja</a> tabulación blanda de 4 espacios. Mira el siguiente fragmento de un programa Python:
+En muchos lenguajes se aconseja «tabular» de determinada manera para facilitar su lectura. En Python este estilo es <b>obligatorio</b> porque el esquema de indentación <b>define</b> los bloques. Es una importante peculiaridad de este lenguaje. Se <a href="https://www.python.org/dev/peps/pep-0008">aconseja</a> tabulación blanda de 4 espacios. Mira el siguiente fragmento de un programa Python:
 
 
 <div>
 {% highlight python %}
 total = 0
-aprobados = 0
+passed = 0
 grades = {'antonio':6, 'maria':9}
 for i in grades.values():
    total += i
    if i >= 5:
-      aprobados += 1
+      passed += 1
 
-print('La media es:', total / len(grades))
+print('Average:', total / len(grades))
 {% endhighlight %}
 </div>
 
@@ -319,13 +341,14 @@ print(factorial(10))
 
 <h2>Python <em>is different</em></h2>
 
-Aunque Python se puede utilizar como un lenguaje convencional (tipo Java), siempre hay una manera más «pythónica» de hacer las cosas, utilizando por ejemplo las características de programación funcional que incorpora. Como ejemplo, el factorial se puede hacer aún más corto con algo como:
+Como cualquier lenguaje, Python tiene sus peculiaridades, y conocerlas puede ayudar a sacarle el máximo potencial. Siempre hay una manera más «pythónica» de hacer las cosas, utilizando por ejemplo las características de programación funcional que incorpora. Como ejemplo, el factorial se puede hacer aún más compacto con algo como:
 
 
 <div>
 {% highlight python %}
 from functools import reduce
-factorial = lambda x: reduce(int.__mul__, range(1, x+1), 1)
+from operator import mul
+factorial = lambda x: reduce(mul, range(1, x+1), 1)
 print(factorial(10))
 {% endhighlight %}
 </div>
@@ -333,11 +356,11 @@ print(factorial(10))
 Muy aconsejable <a href="http://dirtsimple.org/2004/12/python-is-not-java.html">Python Is Not Java</a>
 
 
-<h2>Hacer un fichero ejecutable</h2>
+<h2>Hacer un fichero «ejecutable»</h2>
 
-Lo normal es escribir un programa en un fichero de texto -con extensión <tt>.py</tt>- utilizando algún buen editor (como <tt>emacs</tt> o <tt>vim</tt>). Después ese fichero se puede ejecutar como cualquier otro programa. Para eso, la primera línea del fichero debe tener un «<a href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>», es decir, algo como:
+Lo normal es escribir un programa en un fichero de texto con extensión <tt>.py</tt>, utilizando algún buen editor (como <tt>code</tt>). Después ese fichero se puede ejecutar como cualquier otro programa. Para eso, la primera línea del fichero debe tener un «<a href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>», es decir, algo como:
 
-<pre>#!/usr/bin/python</pre>
+<pre>#!/usr/bin/python3</pre>
 
 Y no olvides darle permisos de ejecución al fichero:
 
@@ -351,28 +374,17 @@ $ chmod +x fichero.py
 
 <h2> ¿Y ahora qué?</h2>
 
-Aviso: algunas de las siguientes referencias tratan de Python 2. Aunque las diferencias respecto a Python 3 no son muy importantes, es conveniente tenerlo presente.
-
 <ul>
    <li><a href="https://github.com/gregmalcolm/python_koans/wiki">Python koans</a></li>
    <li>Empieza por el <a href="http://docs.python.org/3/tutorial/index.html">el tutorial oficial</a>.
    <li>Incluso hay varios libros libres:
       <ul>
-         <li><a href="http://www.diveintopython3.net/">Inmersión en Python 3</a></li>
-         <li><a href="http://learnpythonthehardway.org/">Learn Python, the hard way</a></li>
-         <li><a href="http://marmota.act.uji.es/MTP/pdf/python.pdf">Introducción a la programación en Python</a></li>
-         <li><a href="http://manuales.gfc.edu.co/python/thinkCSpy.es.pdf">Aprenda a pensar como un programador, con  Python</a></li>
-         <li><a href="http://www.byteofpython.info/">Byte of Python</a></li>
-         <li><a href="http://docs.python-guide.org/en/latest/intro/learning/">Learning Python</a>
-         <li><a href="https://www.google.es/search?q=learn+python">muchos más</a>...</li>
+        <li><a href="http://www.diveintopython3.net/">Inmersión en Python 3</a></li>
+        <li><a href="https://python.swaroopch.com/">Byte of Python</a></li>
+        <li><a href="http://docs.python-guide.org/en/latest/intro/learning/">Learning Python</a>
+        <li><a href="https://www.codecademy.com/catalog/language/python">Codeacademy</a></li>
+        <li><a href="http://repositori.uji.es/xmlui/bitstream/handle/10234/102653/s93_impressora.pdf">Introducción a la programación en Python 3/a></li>
       </ul>
    </li>
    <li>Si necesitas la referencia oficial, pues la <a href="http://docs.python.org/3">la página de Python</a></li>
-   <li>Y el proyecto <a href="http://pyspanishdoc.sourceforge.net/">pyspanishdoc</a>, cuyo objetivo es traducir la documentación oficial</li>
-</ul>
-
-<h2> Más referencias útiles</h2>
-
-<ul>
-<li> <a href="http://mail.python.org/pipermail/python-es/2002-August/001074.html">Tipos mutables e inmutables</a> </li>
 </ul>
