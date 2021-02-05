@@ -5329,39 +5329,43 @@ Este pequeño tutorial utiliza la versión actual de Python (3.9) y presupone qu
 Nada como usar algo para aprender a usarlo. El intérprete de Python se puede utilizar como una <em>shell</em> (lo que se llama <em>modo interactivo</em>), algo que viene muy bien para dar nuestros primeros pasos.
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>python3
-<span class="go">Python 3.9.1+ (default, Jan 20 2021, 14:49:22)
+<pre class="console">
+$ python3
+Python 3.9.1+ (default, Jan 20 2021, 14:49:22)
 [GCC 10.2.1 20210110] on linux
 Type "help", "copyright", "credits" or "license" for more information.
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span></code></pre></figure>
-</div>
+>>>
+
+</pre>
 
 <h2>Variables y tipos</h2>
 
 Las variables no se declaran explícitamente, se pueden usar desde el momento en que se inicializan. Y normalmente no hay que preocuparse por liberar la memoria que ocupan, tiene un «recolector de basura» (como Java).
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>python3
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a <span class="o">=</span> <span class="s2">"hola"</span></code></pre></figure>
-</div>
+<pre class="console">
+$ python3
+>>> a = "hola"
+
+</pre>
 
 En el modo interactivo se puede ver el valor de cualquier objeto simplemente escribiendo su nombre:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a
-<span class="go">'hola'</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> a
+'hola'
+
+</pre>
 
 Python es un lenguaje de tipado fuerte, pero dinámico. Eso significa que no se puede operar alegremente con tipos diferentes (como se hace en C). Las operaciones están definidas para trabajar con los tipos previstos.
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a + 1
-<span class="go">Traceback (most recent call last):
-</span><span class="gp">  File "&lt;stdin&gt;</span><span class="s2">", line 1, in &lt;module&gt;
-</span><span class="go">TypeError: Can't convert 'int' object to str implicitly</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> a + 1
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: Can't convert 'int' object to str implicitly
+
+</pre>
 
 <p>
 Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las excepciones son el mecanismo más común de notificación de errores.
@@ -5370,9 +5374,9 @@ Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las
 Pero se puede cambiar el tipo de una variable sobre la marcha:
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a <span class="o">=</span> 3</code></pre></figure>
-</div>
+<pre class="console">
+>>> a = 3
+</pre>
 
 En realidad no hemos cambio el tipo de <tt>a</tt>, sino que hemos creado una nueva variable que reemplaza la anterior.
 
@@ -5396,116 +5400,124 @@ Una variable puede existir sin tener valor ni tipo, para ello se asigna el valor
 Lo habitual:
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a <span class="o">=</span> True
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a
-<span class="go">True
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> not a
-<span class="go">False
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a and False
-<span class="go">False
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> 3 <span class="o">&gt;</span> 1
-<span class="go">True
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b <span class="o">=</span> 3 <span class="o">&gt;</span> 1
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b
-<span class="go">True</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> a = True
+>>> a
+True
+>>> not a
+False
+>>> a and False
+False
+>>> 3 > 1
+True
+>>> b = 3 > 1
+>>> b
+True
+
+</pre>
 
 <h3>Numéricos</h3>
 
 Python dispone de tipos <b>enteros</b> de cualquier tamaño que soportan todas las operaciones propias de C, incluidas las de bits. También hay <b>reales</b> como en cualquier otro lenguaje. Ambos tipos se pueden operar entre si sin problema. Incluso tiene soporte para números <b>complejos</b> de forma nativa.
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a <span class="o">=</span> 2
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b <span class="o">=</span> 3.0
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a + b
-<span class="go">5.0
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b - 4j
-<span class="go">(3-4j)</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> a = 2
+>>> b = 3.0
+>>> a + b
+5.0
+>>> b - 4j
+(3-4j)
+
+</pre>
 
 
 <h3>Secuencias</h3>
 
 No hay tipo carácter, se utilizan <b>cadenas</b> de tamaño 1. Las cadenas admiten operaciones como la suma y la multiplicación.
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> greeting <span class="o">=</span> <span class="s1">'hola '</span>
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> greeting + <span class="s1">'mundo'</span>
-<span class="go">'hola mundo'
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> greeting <span class="k">*</span> 3
-<span class="go">'hola hola hola '</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> greeting = 'hola '
+>>> greeting + 'mundo'
+'hola mundo'
+>>> greeting * 3
+'hola hola hola '
+
+</pre>
 
 El tipo <b>bytes</b> permite manejar secuencias de bytes. Es especialmente útil para serialización de datos. Por ejemplo, podemos convertir una cadena de caracteres UTF-8 a bytes y viceversa:
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> word <span class="o">=</span> <span class="s1">'ñandú'</span>
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> coded <span class="o">=</span> word.encode<span class="o">()</span>
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> coded
-<span class="go">b'\xc3\xb1and\xc3\xba'
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> coded.decode<span class="o">()</span>
-<span class="go">'ñandú'</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> word = 'ñandú'
+>>> coded = word.encode()
+>>> coded
+b'\xc3\xb1and\xc3\xba'
+>>> coded.decode()
+'ñandú'
+</pre>
 
 Las <b>tuplas</b> son una agrupación de valores similar al concepto matemático de tupla. Se pueden <em>empaquetar</em> y <em>desempaquetar</em> varias variables (incluso de tipo diferente).
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> x <span class="o">=</span> greeting, <span class="s1">'f'</span>, 3.0
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> x
-<span class="go">('hola ', 'f', 3.0)
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> v1, v2, v3 <span class="o">=</span> x
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> v2
-<span class="go">'f'</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> x = greeting, 'f', 3.0
+>>> x
+('hola ', 'f', 3.0)
+>>> v1, v2, v3 = x
+>>> v2
+'f'
+
+</pre>
 
 Las <b>Listas</b> son similares a los <em>vectores</em> o <em>arrays</em> de otros lenguajes, aunque en Python se pueden mezclar tipos.
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> x <span class="o">=</span> <span class="o">[</span>1, <span class="s1">'f'</span>, 3.0]
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> x[0]
-<span class="go">1</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> x = [1, 'f', 3.0]
+>>> x[0]
+1
+
+</pre>
 
 Las listas también se pueden sumar y multiplicar:
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> x <span class="o">=</span> <span class="o">[</span>1, <span class="s1">'f'</span>, 3.0]
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> x + <span class="o">[</span><span class="s1">'adios'</span><span class="o">]</span>
-<span class="go">[1, 'f', 3.0, 'adios']
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> x <span class="k">*</span> 2
-<span class="go">[1, 'f', 3.0, 1, 'f', 3.0]</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> x = [1, 'f', 3.0]
+>>> x + ['adios']
+[1, 'f', 3.0, 'adios']
+>>> x * 2
+[1, 'f', 3.0, 1, 'f', 3.0]
+
+</pre>
 
 Cualquier secuencia se puede indexar desde el final o mediante «rodajas» (<em>slices</em>):
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> greeting <span class="o">=</span> <span class="s1">'holamundo'</span>
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> greeting[-1]
-<span class="go">'o'
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> greeting[1:6]
-<span class="go">'olamu'
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> greeting[:3]
-<span class="go">'hol'
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> greeting[3:]
-<span class="go">'amundo'
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> greeting[-6:-2]
-<span class="go">'amun'</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> greeting = 'holamundo'
+>>> greeting[-1]
+'o'
+>>> greeting[1:6]
+'olamu'
+>>> greeting[:3]
+'hol'
+>>> greeting[3:]
+'amundo'
+>>> greeting[-6:-2]
+'amun'
+
+</pre>
 
 Los <b>diccionarios</b> son <em>tablas asociativas</em>:
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> grades <span class="o">=</span> <span class="o">{</span><span class="s1">'antonio'</span>:6, <span class="s1">'maria'</span>:9<span class="o">}</span>
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> grades[<span class="s1">'antonio'</span><span class="o">]</span>
-<span class="go">6</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> grades = {'antonio':6, 'maria':9}
+>>> grades['antonio']
+6
+
+</pre>
 
 Python dispone de otros tipos de datos nativos como conjuntos (sets), pilas, colas, listas multidimensionales, etc.
 
@@ -5515,13 +5527,14 @@ Python dispone de otros tipos de datos nativos como conjuntos (sets), pilas, col
 Casi todo en Python está orientado a objetos, incluyendo las variables de tipos básicos, y hasta los literales!
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad <span class="o">=</span> <span class="s1">'holamundo'</span>
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> cad.upper<span class="o">()</span>
-<span class="go">'HOLAMUNDO'
-</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> <span class="s1">'ADIOS'</span>.lower<span class="o">()</span>
-<span class="go">'adios'</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> cad = 'holamundo'
+>>> cad.upper()
+'HOLAMUNDO'
+>>> 'ADIOS'.lower()
+'adios'
+
+</pre>
 
 
 <h2> Módulos</h2>
@@ -5529,10 +5542,11 @@ Casi todo en Python está orientado a objetos, incluyendo las variables de tipos
 Los módulos son análogos a las 'librerías' o 'paquetes' de otros lenguajes. Para usarlos se utiliza la sentencia <tt>import</tt>:
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> import sys
-<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> sys.exit<span class="o">(</span>1<span class="o">)</span></code></pre></figure>
-</div>
+<pre class="console">
+>>> import sys
+>>> sys.exit(1)
+
+</pre>
 
 
 <h2> Estructuras de control</h2>
@@ -5586,6 +5600,7 @@ Nada mejor para explicar su sintaxis que un ejemplo:
 </span><span class="k">print</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span></code></pre></figure>
 </div>
 
+
 <h2>Python <em>is different</em></h2>
 
 Como cualquier lenguaje, Python tiene sus peculiaridades, y conocerlas puede ayudar a sacarle el máximo potencial. Siempre hay una manera más «pythónica» de hacer las cosas, utilizando por ejemplo las características de programación funcional que incorpora. Como ejemplo, el factorial se puede hacer aún más compacto con algo como:
@@ -5610,9 +5625,9 @@ Lo normal es escribir un programa en un fichero de texto con extensión <tt>.py<
 Y no olvides darle permisos de ejecución al fichero:
 
 
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">chmod</span> +x fichero.py</code></pre></figure>
-</div>
+<pre class="console">
+$ chmod +x fichero.py
+</pre>
 
 
 <h2> ¿Y ahora qué?</h2>
@@ -5696,7 +5711,7 @@ Y no olvides darle permisos de ejecución al fichero:
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2021-02-04 07:30:49 -0600
+          Generated at 2021-02-05 06:52:53 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
