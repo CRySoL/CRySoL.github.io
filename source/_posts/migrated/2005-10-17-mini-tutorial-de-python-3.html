@@ -98,14 +98,14 @@ Las anotaciones de las variables se almacenan en el atributo <tt>__annotations__
 {'pi': <class 'float'>}
 </pre>
 
-Esto no convierte a Python en un lenguaje de tipado estático, ya que la variable puede cambiar el tipo de valor que almacena independientemente de su definición sin producir errores:
+Esto no convierte a Python en un lenguaje de tipado estático. Su comportamiento es el mismo, y las variables puede cambiar el tipo de valor que almacenan independientemente de su definición sin producir errores:
 
 <pre class="console">
 >>> pi: float = 3.14
 >>> pi = "Tres coma catorce"
 </pre>
 
-El comportamiento dinámico del lenguaje no cambia. Sirve para facilitar la comprensión del código y poder llevar a cabo comprobaciones de tipos o <i>type checking</i> sobre el código escrito con herramientas como <a href="https://mypy.readthedocs.io/en/stable/"><i>MyPy</i>></a>.
+Sirve principalmente para facilitar la comprensión del código y poder llevar a cabo comprobaciones de tipos o <i>type checking</i> sobre el código escrito con herramientas como <a href="https://mypy.readthedocs.io/en/stable/"><i>MyPy</i></a>.
 
 <h2>Tipos de datos</h2>
 
