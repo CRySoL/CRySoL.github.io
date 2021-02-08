@@ -8855,8 +8855,9 @@ Este pequeño tutorial utiliza la versión actual de Python (3.9) y presupone qu
 
 <h2>Empezamos</h2>
 
+<p>
 Nada como usar algo para aprender a usarlo. El intérprete de Python se puede utilizar como una <em>shell</em> (lo que se llama <em>modo interactivo</em>), algo que viene muy bien para dar nuestros primeros pasos.
-
+</p>
 
 <pre class="console">
 $ python3
@@ -8864,49 +8865,54 @@ Python 3.9.1+ (default, Jan 20 2021, 14:49:22)
 [GCC 10.2.1 20210110] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
-
 </pre>
 
 <h2>Variables y tipos</h2>
 
+<p>
 Las variables no se declaran explícitamente, se pueden usar desde el momento en que se inicializan. Y normalmente no hay que preocuparse por liberar la memoria que ocupan, tiene un «recolector de basura» (como Java).
-
+</p>
 
 <pre class="console">
 $ python3
 >>> a = "hola"
-
 </pre>
 
+<p>
 En el modo interactivo se puede ver el valor de cualquier objeto simplemente escribiendo su nombre:
+</p>
 
 <pre class="console">
 >>> a
 'hola'
-
 </pre>
 
+<p>
 Python es un lenguaje de tipado fuerte, pero dinámico. Eso significa que no se puede operar alegremente con tipos diferentes (como se hace en C). Las operaciones están definidas para trabajar con los tipos previstos.
+</p>
 
 <pre class="console">
 >>> a + 1
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: Can't convert 'int' object to str implicitly
-
 </pre>
 
 <p>
 Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las excepciones son el mecanismo más común de notificación de errores.
 </p>
 
+<p>
 Pero se puede cambiar el tipo de una variable sobre la marcha:
+</p>
 
 <pre class="console">
 >>> a = 3
 </pre>
 
+<p>
 En realidad no hemos cambiado el tipo de <tt>a</tt>, sino que hemos creado una nueva variable que reemplaza la anterior.
+</p>
 
 <h3>Type checking</h3>
 Aunque Python es un lenguaje de tipado dinámico, en la versión 3.0 ya se daba la opción de hacer anotaciones sobre las variables y sus tipos, y actualmente (se introdujo con el <a href="https://www.python.org/dev/peps/pep-0484/">PEP 484</a>) existe un módulo donde se definen la semántica y convenciones para especificar de forma opcional esas anotaciones o <i>hints</i>.
@@ -8915,7 +8921,9 @@ Aunque Python es un lenguaje de tipado dinámico, en la versión 3.0 ya se daba 
 >>> pi: float = 3.14
 </pre>
 
-Las anotaciones de las variables se almacenan en el atributo <tt>__annotations__</tt>: 
+<p>
+Las anotaciones de las variables se almacenan en el atributo <tt>__annotations__</tt>:
+</p>
 
 <pre class="console">
 >>> a = "hola"
@@ -8924,22 +8932,26 @@ Las anotaciones de las variables se almacenan en el atributo <tt>__annotations__
 {'pi': <class 'float'>}
 </pre>
 
+<p>
 Esto no convierte a Python en un lenguaje de tipado estático. Su comportamiento es el mismo, y las variables puede cambiar el tipo de valor que almacenan independientemente de su definición sin producir errores:
+</p>
 
 <pre class="console">
 >>> pi: float = 3.14
 >>> pi = "Tres coma catorce"
 </pre>
 
+<p>
 Sirve principalmente para facilitar la comprensión del código y poder llevar a cabo comprobaciones de tipos o <i>type checking</i> sobre el código escrito con herramientas como <a href="https://mypy.readthedocs.io/en/stable/"><i>MyPy</i></a>.
+</p>
 
 <h2>Tipos de datos</h2>
 
-<p/>
-
 <h3>Valor Nulo</h3>
 
+<p>
 Una variable puede existir sin tener valor ni tipo, para ello se asigna el valor <tt>None</tt>. Es el valor adecuado cuando se quiere indicar que una variable no se refiere a ningún objeto:
+</p>
 
 <pre class="console">
 >>> a = None
@@ -8950,8 +8962,10 @@ Una variable puede existir sin tener valor ni tipo, para ello se asigna el valor
 
 
 <h3>Booleanos</h3>
-Lo habitual:
 
+<p>
+Lo habitual:
+</p>
 
 <pre class="console">
 >>> a = True
@@ -8966,13 +8980,13 @@ True
 >>> b = 3 > 1
 >>> b
 True
-
 </pre>
 
 <h3>Numéricos</h3>
 
+<p>
 Python dispone de tipos <b>enteros</b> de cualquier tamaño que soportan todas las operaciones propias de C, incluidas las de bits. También hay <b>reales</b> como en cualquier otro lenguaje. Ambos tipos se pueden operar entre si sin problema. Incluso tiene soporte para números <b>complejos</b> de forma nativa.
-
+</p>
 
 <pre class="console">
 >>> a = 2
@@ -8981,13 +8995,14 @@ Python dispone de tipos <b>enteros</b> de cualquier tamaño que soportan todas l
 5.0
 >>> b - 4j
 (3-4j)
-
 </pre>
 
 
 <h3>Secuencias</h3>
 
+<p>
 No hay tipo carácter, se utilizan <b>cadenas</b> de tamaño 1. Las cadenas admiten operaciones como la suma y la multiplicación.
+</p>
 
 <pre class="console">
 >>> greeting = 'hola '
@@ -8998,7 +9013,9 @@ No hay tipo carácter, se utilizan <b>cadenas</b> de tamaño 1. Las cadenas admi
 
 </pre>
 
+<p>
 El tipo <b>bytes</b> permite manejar secuencias de bytes. Es especialmente útil para serialización de datos. Por ejemplo, podemos convertir una cadena de caracteres UTF-8 a bytes y viceversa:
+</p>
 
 <pre class="console">
 >>> word = 'ñandú'
@@ -9009,8 +9026,9 @@ b'\xc3\xb1and\xc3\xba'
 'ñandú'
 </pre>
 
+<p>
 Las <b>tuplas</b> son una agrupación de valores similar al concepto matemático de tupla. Se pueden <em>empaquetar</em> y <em>desempaquetar</em> varias variables (incluso de tipo diferente).
-
+</p>
 
 <pre class="console">
 >>> x = greeting, 'f', 3.0
@@ -9019,21 +9037,21 @@ Las <b>tuplas</b> son una agrupación de valores similar al concepto matemático
 >>> v1, v2, v3 = x
 >>> v2
 'f'
-
 </pre>
 
+<p>
 Las <b>Listas</b> son similares a los <em>vectores</em> o <em>arrays</em> de otros lenguajes, aunque en Python se pueden mezclar tipos.
-
+</p>
 
 <pre class="console">
 >>> x = [1, 'f', 3.0]
 >>> x[0]
 1
-
 </pre>
 
+<p>
 Las listas también se pueden sumar y multiplicar:
-
+</p>
 
 <pre class="console">
 >>> x = [1, 'f', 3.0]
@@ -9041,11 +9059,11 @@ Las listas también se pueden sumar y multiplicar:
 [1, 'f', 3.0, 'adios']
 >>> x * 2
 [1, 'f', 3.0, 1, 'f', 3.0]
-
 </pre>
 
+<p>
 Cualquier secuencia se puede indexar desde el final o mediante «rodajas» (<em>slices</em>):
-
+</p>
 
 <pre class="console">
 >>> greeting = 'holamundo'
@@ -9059,26 +9077,27 @@ Cualquier secuencia se puede indexar desde el final o mediante «rodajas» (<em>
 'amundo'
 >>> greeting[-6:-2]
 'amun'
-
 </pre>
 
+<p>
 Los <b>diccionarios</b> son <em>tablas asociativas</em>:
-
+</p>
 
 <pre class="console">
 >>> grades = {'antonio':6, 'maria':9}
 >>> grades['antonio']
 6
-
 </pre>
 
+<p>
 Python dispone de otros tipos de datos nativos como conjuntos (sets), pilas, colas, listas multidimensionales, etc.
-
+</p>
 
 <h3>Orientado a objetos</h3>
 
+<p>
 Casi todo en Python está orientado a objetos, incluyendo las variables de tipos básicos, y hasta los literales!
-
+</p>
 
 <pre class="console">
 >>> cad = 'holamundo'
@@ -9086,25 +9105,26 @@ Casi todo en Python está orientado a objetos, incluyendo las variables de tipos
 'HOLAMUNDO'
 >>> 'ADIOS'.lower()
 'adios'
-
 </pre>
 
 
 <h2> Módulos</h2>
 
+<p>
 Los módulos son análogos a las 'librerías' o 'paquetes' de otros lenguajes. Para usarlos se utiliza la sentencia <tt>import</tt>:
-
+</p>
 
 <pre class="console">
 >>> import sys
 >>> sys.exit(1)
-
 </pre>
 
 
 <h2> Estructuras de control</h2>
 
+<p>
 Están disponibles las más habituales: <tt>for</tt>, <tt>while</tt>, <tt>if</tt>, <tt>if else</tt>, <tt>break</tt>, <tt>continue</tt>, <tt>return</tt>, etc. Todas funcionan de la forma habitual excepto <tt>for</tt>. El <tt>for</tt> de Python no es un <tt>while</tt> disfrazado, como ocurre en algunos lenguajes. Este <tt>for</tt> hace que, en cada iteración, la variable de control tome los valores que contiene una secuencia, es decir, que itere sobre ella. Ejemplo:
+</p>
 
 <pre class="console">
 >>> for c in "hello":
@@ -9120,8 +9140,9 @@ Están disponibles las más habituales: <tt>for</tt>, <tt>while</tt>, <tt>if</tt
 
 <h2>Indentación estricta</h2>
 
+<p>
 En muchos lenguajes se aconseja «tabular» de determinada manera para facilitar su lectura. En Python este estilo es <b>obligatorio</b> porque el esquema de indentación <b>define</b> los bloques. Es una importante peculiaridad de este lenguaje. Se <a href="https://www.python.org/dev/peps/pep-0008">aconseja</a> tabulación blanda de 4 espacios. Mira el siguiente fragmento de un programa Python:
-
+</p>
 
 <div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
@@ -9135,13 +9156,15 @@ En muchos lenguajes se aconseja «tabular» de determinada manera para facilitar
 <span class="k">print</span><span class="p">(</span><span class="s">'Average:'</span><span class="p">,</span> <span class="n">total</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">grades</span><span class="p">))</span></code></pre></figure>
 </div>
 
+<p>
 El cuerpo del bloque <tt>for</tt> queda definido por el código que está indentado un nivel debajo de él. Lo mismo ocurre con el <tt>if</tt>. La sentencia que define el bloque siempre lleva un ':' al final. No se utilizan llaves ni ninguna otra cosa para delimitar los bloques.
-
+</p>
 
 <h2>Funciones</h2>
 
+<p>
 Nada mejor para explicar su sintaxis que un ejemplo:
-
+</p>
 
 <div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
@@ -9156,8 +9179,9 @@ Nada mejor para explicar su sintaxis que un ejemplo:
 
 <h2>Python <em>is different</em></h2>
 
+<p>
 Como cualquier lenguaje, Python tiene sus peculiaridades, y conocerlas puede ayudar a sacarle el máximo potencial. Siempre hay una manera más «pythónica» de hacer las cosas, utilizando por ejemplo las características de programación funcional que incorpora. Como ejemplo, el factorial se puede hacer aún más compacto con algo como:
-
+</p>
 
 <div>
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="nb">reduce</span>
@@ -9166,7 +9190,9 @@ Como cualquier lenguaje, Python tiene sus peculiaridades, y conocerlas puede ayu
 <span class="k">print</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span></code></pre></figure>
 </div>
 
+<p>
 Muy aconsejable <a href="http://dirtsimple.org/2004/12/python-is-not-java.html">Python Is Not Java</a>
+</p>
 
 
 <h2>Hacer un fichero «ejecutable»</h2>
@@ -9175,8 +9201,9 @@ Lo normal es escribir un programa en un fichero de texto con extensión <tt>.py<
 
 <pre>#!/usr/bin/python3</pre>
 
+<p>
 Y no olvides darle permisos de ejecución al fichero:
-
+</p>
 
 <pre class="console">
 $ chmod +x fichero.py
@@ -9253,7 +9280,7 @@ $ chmod +x fichero.py
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2021-02-08 07:20:06 -0600
+          Generated at 2021-02-08 07:35:48 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
