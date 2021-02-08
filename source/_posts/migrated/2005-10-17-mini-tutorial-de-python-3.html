@@ -76,12 +76,35 @@ Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las
 
 Pero se puede cambiar el tipo de una variable sobre la marcha:
 
-
 <pre class="console">
 >>> a = 3
 </pre>
 
 En realidad no hemos cambio el tipo de <tt>a</tt>, sino que hemos creado una nueva variable que reemplaza la anterior.
+
+Aunque Python es un lenguaje de tipado dinámico, en la versión 3.0 ya se daba la opción de hacer anotaciones sobre las variables y sus tipos, y actualmente (se introdujo con el <a href="https://www.python.org/dev/peps/pep-0484/">PEP 484</a>) existe un módulo donde se definen la semántica y convenciones para especificar de forma opcional esas anotaciones o <i>hints</i>.
+
+<pre class="console">
+>>> pi: float = 3.14
+</pre>
+
+Las anotaciones de las variables se almacenan en el atributo <tt>__annotations__</tt>: 
+
+<pre class="console">
+>>> a = "hola"
+>>> pi: float = 3.14
+>>> __annotations__
+{'pi': <class 'float'>}
+</pre>
+
+Esto no convierte a Python en un lenguaje de tipado estático, ya que la variable puede cambiar el tipo de valor que almacena independientemente de su definición sin producir errores:
+
+<pre class="console">
+>>> pi: float = 3.14
+>>> pi = "Tres coma catorce"
+</pre>
+
+El comportamiento dinámico del lenguaje no cambia. Sirve para facilitar la comprensión del código y poder llevar a cabo comprobaciones de tipos o <i>type checking</i> sobre el código escrito con herramientas como <a href="https://mypy.readthedocs.io/en/stable/"><i>MyPy</i>></a>.
 
 <h2>Tipos de datos</h2>
 
