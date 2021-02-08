@@ -46971,7 +46971,7 @@ Python es un lenguaje interpretado, interactivo y orientado a objetos. Se le com
 </p>
 
 <p>
-Python es perfecto como lenguaje «pegamento» y para prototipado rápido de aplicaciones (aunque finalmente fuera necesario rehacerlasq en otros lenguajes), aunque eso no impica que no se puedan ser definitivos. Dispone de librerías para desarrollar aplicaciones multihilo, distribuidas, bases de datos, con interfaz gráfico, juegos, gráficos 3D, cálculo científico, machine learning y una larga lista.
+Python es perfecto como lenguaje «pegamento» y para prototipado rápido de aplicaciones (aunque finalmente fuera necesario rehacerlas en otros lenguajes), aunque eso no implica que no se puedan ser definitivos. Dispone de librerías para desarrollar aplicaciones multihilo, distribuidas, bases de datos, con interfaz gráfico, juegos, gráficos 3D, cálculo científico, machine learning y una larga lista.
 </p>
 
 <p>
@@ -47027,12 +47027,35 @@ Esa operación ha provocado que se dispare la excepción <tt>TypeError</tt>. Las
 
 Pero se puede cambiar el tipo de una variable sobre la marcha:
 
-
 <pre class="console">
 >>> a = 3
 </pre>
 
-En realidad no hemos cambio el tipo de <tt>a</tt>, sino que hemos creado una nueva variable que reemplaza la anterior.
+En realidad no hemos cambiado el tipo de <tt>a</tt>, sino que hemos creado una nueva variable que reemplaza la anterior.
+
+Aunque Python es un lenguaje de tipado dinámico, en la versión 3.0 ya se daba la opción de hacer anotaciones sobre las variables y sus tipos, y actualmente (se introdujo con el <a href="https://www.python.org/dev/peps/pep-0484/">PEP 484</a>) existe un módulo donde se definen la semántica y convenciones para especificar de forma opcional esas anotaciones o <i>hints</i>.
+
+<pre class="console">
+>>> pi: float = 3.14
+</pre>
+
+Las anotaciones de las variables se almacenan en el atributo <tt>__annotations__</tt>: 
+
+<pre class="console">
+>>> a = "hola"
+>>> pi: float = 3.14
+>>> __annotations__
+{'pi': <class 'float'>}
+</pre>
+
+Esto no convierte a Python en un lenguaje de tipado estático, ya que la variable puede cambiar el tipo de valor que almacena independientemente de su definición sin producir errores:
+
+<pre class="console">
+>>> pi: float = 3.14
+>>> pi = "Tres coma catorce"
+</pre>
+
+El comportamiento dinámico del lenguaje no cambia. Sirve para facilitar la comprensión del código y poder llevar a cabo comprobaciones de tipos o <i>type checking</i> sobre el código escrito con herramientas como <a href="https://mypy.readthedocs.io/en/stable/"><i>MyPy</i>></a>.
 
 <h2>Tipos de datos</h2>
 
@@ -380058,7 +380081,7 @@ Catalyst 3550-12T switch sends multicast packets to all ports regardless of clie
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2021-02-05 06:52:53 -0600
+          Generated at 2021-02-08 07:01:13 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
