@@ -88,36 +88,6 @@ Pero se puede cambiar el tipo de una variable sobre la marcha:
 En realidad no hemos cambiado el tipo de <tt>a</tt>, sino que hemos creado una nueva variable que reemplaza la anterior.
 </p>
 
-<h3>Type checking</h3>
-<p>Aunque Python es un lenguaje de tipado dinámico, en la versión 3.0 ya se daba la opción de hacer anotaciones sobre las variables y sus tipos, y actualmente (se introdujo con el <a href="https://www.python.org/dev/peps/pep-0484/">PEP 484</a>) existe un módulo donde se definen la semántica y convenciones para especificar de forma opcional esas anotaciones o <i>hints</i>.</p>
-
-<pre class="console">
->>> pi: float = 3.14
-</pre>
-
-<p>
-Las anotaciones de las variables se almacenan en el atributo <tt>__annotations__</tt>:
-</p>
-
-<pre class="console">
->>> a = "hola"
->>> pi: float = 3.14
->>> __annotations__
-{'pi': <class 'float'>}
-</pre>
-
-<p>
-El comportamiento del lenguaje es el mismo, y las variables puede cambiar el tipo de valor que almacenan independientemente de su definición sin producir errores:
-</p>
-
-<pre class="console">
->>> pi: float = 3.14
->>> pi = "Tres coma catorce"
-</pre>
-
-<p>
-Sirve principalmente para facilitar la comprensión del código y poder llevar a cabo comprobaciones de tipos o <i>type checking</i> sobre el código escrito con herramientas como <a href="https://mypy.readthedocs.io/en/stable/"><i>MyPy</i></a>.
-</p>
 
 <h2>Tipos de datos</h2>
 
@@ -266,6 +236,38 @@ Los <b>diccionarios</b> son <em>tablas asociativas</em>:
 <p>
 Python dispone de otros tipos de datos nativos como conjuntos (sets), pilas, colas, listas multidimensionales, etc.
 </p>
+
+<h3>Type checking</h3>
+<p>Aunque Python es un lenguaje de tipado dinámico, en la versión 3.0 ya se daba la opción de hacer anotaciones sobre las variables y sus tipos, y actualmente (se introdujo con el <a href="https://www.python.org/dev/peps/pep-0484/">PEP 484</a>) existe un módulo donde se definen la semántica y convenciones para especificar de forma opcional esas anotaciones o <i>hints</i>.</p>
+
+<pre class="console">
+>>> pi: float = 3.14
+</pre>
+
+<p>
+Las anotaciones de las variables se almacenan en el atributo <tt>__annotations__</tt>:
+</p>
+
+<pre class="console">
+>>> a = "hola"
+>>> pi: float = 3.14
+>>> __annotations__
+{'pi': <class 'float'>}
+</pre>
+
+<p>
+El comportamiento del lenguaje es el mismo, y las variables puede cambiar el tipo de valor que almacenan independientemente de su definición sin producir errores:
+</p>
+
+<pre class="console">
+>>> pi: float = 3.14
+>>> pi = "Tres coma catorce"
+</pre>
+
+<p>
+Sirve principalmente para facilitar la comprensión del código y poder llevar a cabo comprobaciones de tipos o <i>type checking</i> sobre el código escrito con herramientas como <a href="https://mypy.readthedocs.io/en/stable/"><i>MyPy</i></a>.
+</p>
+
 
 <h3>Orientado a objetos</h3>
 
