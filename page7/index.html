@@ -5027,6 +5027,8 @@
   
     
   
+    
+  
 
 
 
@@ -5073,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="618 posts"
+     title="619 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5376,7 +5378,7 @@
 </td></tr>
 <tr class="row27"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#virtualbox-ref'; hide_others()"
-     title="5 posts"
+     title="6 posts"
      >virtualbox</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sudo-ref'; hide_others()"
@@ -5489,13 +5491,13 @@
     </li>
   
 
-  <li><a>Page: 7 of 120</a></li>
+  <li><a>Page: 7 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page8">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -7906,7 +7908,99 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2013-02-27/instalar-un-mdulo-python-en-un-virtualenv.html">Instalar un módulo Python en un virtualenv</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2013-02-27
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2013-02-27-instalar-un-mdulo-python-en-un-virtualenv.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2013-02-27-instalar-un-mdulo-python-en-un-virtualenv.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Python-ref">Python </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1701">node/1701</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Generando el .tgz de distribución de un paquete &#8220;sample&#8221; e instalándolo con <code>pip</code>. Esto puede servir para comprobar que un paquete Python se puede instalar y desinstalar correctamente.</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~/sample$</span><span class="w"> </span>python setup.py sdist
+<span class="gp">$</span><span class="w"> </span>virtualenv <span class="nt">--clear</span> myenv
+<span class="gp">$</span><span class="w"> </span><span class="nb">.</span> myenv/bin/activate
+<span class="gp">$</span><span class="w"> </span>pip <span class="nb">install </span>sample/dist/sample<span class="k">*</span>
+<span class="gp">$</span><span class="w"> </span><span class="nb">echo </span>y | pip uninstall sample</code></pre></figure></div>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8743,99 +8837,6 @@ Algunas cosas a tener en cuenta:
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2012-09-05/ghdl-vhpidirect-o-como-crear-compilar-y-ejecutar-un-programa-vhdl-con-llamadas-a-cdigo-c.html">GHDL + VHPIDIRECT o como crear, compilar y ejecutar un programa VHDL con llamadas a código C</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2012-09-05
-    
-      
-  <a href="/users.html#psm1984">
-   psm1984
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2012-09-05-ghdl-vhpidirect-o-como-crear-compilar-y-ejecutar-un-programa-vhdl-con-llamadas-a-cdigo-c.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2012-09-05-ghdl-vhpidirect-o-como-crear-compilar-y-ejecutar-un-programa-vhdl-con-llamadas-a-cdigo-c.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1686">node/1686</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p><span class="caps">GHDL</span> ( <a href="http://ghdl.free.fr/">http://ghdl.free.fr/</a> ) es un simulador open-source para <span class="caps">VHDL</span>, que permite la compilación y ejecución del código <span class="caps">VHDL</span> directamente en PC. Otra característica avanzada es la capacidad de utilizar funciones C desde el código <span class="caps">VHDL</span>.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2012-09-05/ghdl-vhpidirect-o-como-crear-compilar-y-ejecutar-un-programa-vhdl-con-llamadas-a-cdigo-c.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8849,13 +8850,13 @@ Algunas cosas a tener en cuenta:
     </li>
   
 
-  <li><a>Page: 7 of 120</a></li>
+  <li><a>Page: 7 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page8">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -8876,7 +8877,7 @@ Algunas cosas a tener en cuenta:
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2021-02-10 08:42:28 -0600
+          Generated at 2021-02-15 09:53:21 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

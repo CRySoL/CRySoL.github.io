@@ -5027,6 +5027,8 @@
   
     
   
+    
+  
 
 
 
@@ -5073,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="618 posts"
+     title="619 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5376,7 +5378,7 @@
 </td></tr>
 <tr class="row27"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#virtualbox-ref'; hide_others()"
-     title="5 posts"
+     title="6 posts"
      >virtualbox</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sudo-ref'; hide_others()"
@@ -5489,13 +5491,13 @@
     </li>
   
 
-  <li><a>Page: 49 of 120</a></li>
+  <li><a>Page: 49 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page50">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -7906,7 +7908,110 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2008-06-07/scanner-hp-scanjet-3200c.html">Scanner HP Scanjet 3200C</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2008-06-07
+    
+      
+  <a href="/users.html#nacho">
+   nacho
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-06-07-scanner-hp-scanjet-3200c.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-06-07-scanner-hp-scanjet-3200c.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#graphics-ref">graphics </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/926">node/926</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Cómo conseguir escanear con el HP Scanjet 3200C</blockquote>
+
+
+La verdad es que es bastante sencillo. Tan sólo hay que seguir 3 sencillos pasos:
+
+<ol>
+<li>Ya que es un escáner de puerto paralelo, hay que asegurarse de tener activado EPP ó ECP en la BIOS</li>
+<li>Editar el fichero <tt>/etc/sane.d/dll.conf</tt> y comentamos TODOS los módulos, excepto el <tt>umax_pp</tt>.</li>
+<li>Editar el fichero <tt>/etc/sane.d/umax_pp.conf</tt> y establecer el puerto del escáner a auto (<tt>port auto</tt>)
+</ol>
+
+Ya está. Con eso, vuestro programa de escaneo debería ser capaz de reconocer el escáner sin problema.
+
+
+<h2>Referencias</h2>
+<a href="http://www.sane-project.org/lists/sane-mfgs-cvs.html">SANE Supported Devices</a>
+<a href="http://ubuntuforums.org/showpost.php?p=2677230&postcount=3">Ubuntu Forums</a>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8721,305 +8826,6 @@
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2008-05-02/bindings-python-de-libreras-c-con-sip.html">Bindings Python de librerías C++, con SIP</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2008-05-02
-    
-      
-  <a href="/users.html#cleto">
-   cleto
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-05-02-bindings-python-de-libreras-c-con-sip.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-05-02-bindings-python-de-libreras-c-con-sip.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-    	<li><a href="/tags.html#Python-ref">Python </a></li>
-    
-    	<li><a href="/tags.html#C++-ref">C++ </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/914">node/914</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote class="head">
-Cómo crear fácilmente bindings de Python para una librería C++ usando SIP
-</blockquote>
-
-<h2>Introducción</h2>
-¿Tienes algunas librerías en C++ hechas y no sabes cómo utilizarlas en Python? ¿Estás "decepcionado" porque tu programa construído totalmente en Python no es tan rápido como esperabas?. La solución es "bien sencilla": te programas una librería en C/C++ (si no la tienes) que haga el trabajo, construyes un wrapper para utilizarla en Python y... ¡listo!
-
-Para el primer paso no hay, de momento, solución automática. Pero para el segundo existen diversas herramientas que ayudan a la construcción del wrapper, su compilación e instalación. Una de estas herramientas, la que vamos a utilizar en esta receta, se llama python-sip. Asiste a la creación de los wrappers para librerías C/C++, aunque los ejemplos que se mostrarán serán de C++. Para más información, consulta la sección de <b>Enlaces</b>.
-
-<h2>Ingredientes</h2>
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>python-sip4 sip4</code></pre></figure>
-</div>
-
-<h2>Ejemplo</h2>
-<h3>Librería C++</h3>
-Para ilustrar el funcionamiento de python-sip, ¡qué mejor que un ejemplo!. Supón que la librería consta de una clase construída en C++ y cuyo fichero de cabecera (<em>Impresora.h</em>) es el siguiente:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;iostream&gt;
-#include &lt;set&gt;
-</span>
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">Impresora</span> <span class="p">{</span>
-<span class="nl">public:</span>
-  <span class="n">Impresora</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span><span class="p">);</span>
-  <span class="o">~</span><span class="n">Impresora</span><span class="p">();</span>
-
-  <span class="kt">void</span> <span class="n">imprimirLista</span><span class="p">(</span><span class="n">set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">);</span>
-
-<span class="nl">private:</span>
-  <span class="n">string</span> <span class="n">nombre</span><span class="p">;</span>
-<span class="p">};</span></code></pre></figure>
-</div>
-
-Y cuya implementación es la siguiente (<em>Impresora.cpp</em>):
-
-
-<div>
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;Impresora.h&gt;
-</span>
-<span class="n">Impresora</span><span class="o">::</span><span class="n">Impresora</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">nombre</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
-  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">nombre</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="n">Impresora</span><span class="o">::~</span><span class="n">Impresora</span><span class="p">()</span>
-<span class="p">{}</span>
-
-<span class="kt">void</span>
-<span class="n">Impresora</span><span class="o">::</span><span class="n">imprimirLista</span><span class="p">(</span><span class="n">set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">lista</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span> <span class="n">it</span><span class="o">=</span><span class="n">lista</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="p">;</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">lista</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span> <span class="p">)</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span><span class="p">;</span>
-
-  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"&lt;--- Imprime "</span> <span class="o">&lt;&lt;</span> <span class="n">nombre</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-</div>
-
-Como se puede apreciar, la clase tiene poca historia: tiene un atributo privado ("nombre") y un método para imprimir una lista (conjunto) de strings ordenados alfabéticamente. Para compilar esta librería tenemos el siguiente Makefile:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">CXXFLAGS = -I. -fPIC
-LFLAGS = -shared
-
-all: libImpresora.so
-
-libImpresora.so: Impresora.o
-	$(CC) $(CXXFLAGS) $(LFLAGS) $^ -o $@</code></pre></figure>
-</div>
-
-En definitiva, partimos de un archivo "libImpresora.so" que contiene la librería en C++ ya compilada. Ahora comienza la construcción del wrapper con ayuda de python-sip4.
-<h2>Construcción del wrapper</h2>
-Comenzamos creando un archivo que, por convenio, llamaremos "Impresora.sip". En este fichero especificaremos la estructura del wrapper con sintaxis sip, muy parecida a C++.  Una primera aproximación sería la siguiente:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="o">%</span><span class="n">Module</span> <span class="n">Ejemplos</span> <span class="mi">0</span>
-
-<span class="k">class</span> <span class="nc">Impresora</span> <span class="p">{</span>
-<span class="o">%</span><span class="n">TypeHeaderCode</span>
-<span class="cp">#include &lt; Impresora.h &gt;
-</span><span class="o">%</span><span class="n">End</span>
-
-<span class="nl">public:</span>
-  <span class="n">Impresora</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
-  <span class="o">~</span><span class="n">Impresora</span><span class="p">();</span>
-
-  <span class="kt">void</span> <span class="n">imprimirLista</span><span class="p">(</span><span class="n">SIP_PYLIST</span><span class="p">);</span>
-<span class="p">};</span></code></pre></figure>
-</div>
-
-<ul>
-<li><em>%Module</em> especifica el módulo en el que va estar incluída la librería, junto con un número de versión. En el ejemplo, el módulo es "Ejemplo" en su versión "0".</li>
-
-<li><em>%TypeHeaderCode</em> es necesario para que sip pueda leer la información de la clase que se va a "wrappear". Todo lo encerrado en ese bloque, sip lo utilizará para construir el wrapper con los tipos adecuados.</li>
-
-<li>Nótese que se ha modificado los tipos de los argumentos del constructor y del método "imprimirLista". Sip no soporta tipos como string (y no digamos sets de la STL de C++). Sin embargo, en el caso de string, basta con especificar de que se trata de un "char*" y C++ se encargará del cambio de tipo. El argumento de tipo set se ha sustituído por una constante de sip que representa una lista de Python. Existe una constante de este tipo para cada uno de los tipos de Python (SIP_PYDICT...). Consúltese las referencias para más información.</li>
-
-<li>Como se puede apreciar, no está especificado el atributo privado "nombre". Sip no soporta atributos ni métodos privados para la construcción del wrapper.</li>
-</ul>
-
-SIP_PYLIST representa a una lista de Python pero, ¿cómo se hará la correspondecia set->PythonList?. ¿Sip se encargará de ello?. Pues no. La correspondencia entre tipos complejos (objetos propios, clases auxiliares...) debe hacerse de forma explícita. Para especificar la conversión de uno a otro utilizaremos la directiva %MethodCode:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="o">%</span><span class="n">Module</span> <span class="n">Ejemplos</span> <span class="mi">0</span>
-<span class="k">class</span> <span class="nc">Impresora</span> <span class="p">{</span>
-<span class="o">%</span><span class="n">TypeHeaderCode</span>
-<span class="cp">#include &lt;Impresora.h&gt;
-</span><span class="o">%</span><span class="n">End</span>
-<span class="nl">public:</span>
-<span class="n">Impresora</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
-<span class="o">~</span><span class="n">Impresora</span><span class="p">();</span>
-<span class="kt">void</span> <span class="n">imprimirLista</span><span class="p">(</span><span class="n">SIP_PYLIST</span><span class="p">);</span>
-<span class="o">%</span><span class="n">MethodCode</span>
-<span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">arg</span><span class="p">;</span>
-<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">PyList_Size</span><span class="p">(</span><span class="n">a0</span><span class="p">);</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-     <span class="kt">char</span><span class="o">*</span> <span class="n">value</span> <span class="o">=</span> <span class="n">PyString_AsString</span><span class="p">(</span><span class="n">PyList_GetItem</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span><span class="n">i</span><span class="p">));</span>
-      <span class="n">arg</span><span class="p">.</span><span class="n">insert</span><span class="p">(,</span> <span class="n">value</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="n">sipCpp</span><span class="o">-&gt;</span><span class="n">imprimirLista</span><span class="p">(</span><span class="n">arg</span><span class="p">);</span>
-<span class="o">%</span><span class="n">End</span>
-<span class="p">};</span></code></pre></figure>
-</div>
-
-<ul>
-<li>Declaramos una variable del mismo tipo que el argumento que espera el método, en nuestro caso un set de strings.</li>
-<li><b>a0</b> es el argumento (SIP_PYLIST) de tipo PyObject* de la librería CPython. Por tanto, el bucle no sirve nada más que para guardar cada valor de la lista Python en el set.</li>
-<li><b>sipCpp</b> es un puntero al objeto de entorno, en nuestro caso, "Impresora*". Cuando tenemos el set completamente construído llamamos a "imprimirLista" con el parámetro convertido.</li>
-</ul>
-<h3>Construcción del Wrapper</h3>
-Una vez tenemos la especificación del fichero .sip, es hora de construir el wrapper de forma automática. Para ello, es aconsejable utilizar un pequeño script en python que genera los archivos .cpp y el Makefile final. Un fichero básico sería el siguiente:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sipconfig</span>
-
-<span class="c1"># The name of the SIP build file generated by SIP and used by the build
-# system.
-</span><span class="n">build_file</span> <span class="o">=</span> <span class="s">"impresora.sbf"</span>
-
-<span class="c1"># Get the SIP configuration information.
-</span><span class="n">config</span> <span class="o">=</span> <span class="n">sipconfig</span><span class="p">.</span><span class="n">Configuration</span><span class="p">()</span>
-
-<span class="c1"># Run SIP to generate the code.
-</span><span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">" "</span><span class="p">.</span><span class="n">join</span><span class="p">([</span><span class="n">config</span><span class="p">.</span><span class="n">sip_bin</span><span class="p">,</span> <span class="s">"-c"</span><span class="p">,</span> <span class="s">"."</span><span class="p">,</span> <span class="s">"-b"</span><span class="p">,</span> <span class="n">build_file</span><span class="p">,</span> <span class="s">"Impresora.sip"</span><span class="p">]))</span>
-
-<span class="c1"># Create the Makefile.
-</span><span class="n">makefile</span> <span class="o">=</span> <span class="n">sipconfig</span><span class="p">.</span><span class="n">SIPModuleMakefile</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">build_file</span><span class="p">)</span>
-
-<span class="c1"># Add the library we are wrapping.  The name doesn't include any platform
-# specific prefixes or extensions (e.g. the "lib" prefix on UNIX, or the
-# ".dll" extension on Windows).
-</span><span class="n">makefile</span><span class="p">.</span><span class="n">extra_libs</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Impresora"</span><span class="p">]</span>
-<span class="n">makefile</span><span class="p">.</span><span class="n">extra_lflags</span> <span class="o">=</span> <span class="p">[</span><span class="s">"-L."</span><span class="p">]</span>
-<span class="c1"># Generate the Makefile itself.
-</span><span class="n">makefile</span><span class="p">.</span><span class="n">generate</span><span class="p">()</span></code></pre></figure>
-</div>
-
-El código de este script es "autocomentado". Supongamos que el fichero que contiene el código anterior se llama  "configure.py":
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>python configure.py</code></pre></figure>
-</div>
-
-El comando anterior genera el wrapper en C++ y el Makefile que construirá todo.
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>make</code></pre></figure>
-</div>
-
-La compilación del wrapper generará un archivo "Ejemplos.so", que es la librería compartida que será utilizada por Python.
-
-<h3>Probando</h3>
-
-Tenemos 2 opciones:
-<ul>
-<li>Ejecutar "make install" y, por tanto, instalaremos el archivo "Ejemplos.so" en <em>/usr/lib/pythonX.X/site-packages</em> donde será accesible para cualquier programa Python que utilize el módulo Ejemplos.
-</li>
-<li>Probar la librería con iPython, ejecutándolo en el directorio donde se encuentra el nuevo módulo</li>
-</ul>
-
-Cualquiera que sea el modo de prueba se debe modificar la variable de entorno LD_LIBRARY_PATH para que el intérprete de Python pueda localizar el "libImpresora.so". A continuación, un ejemplo utilizando iPython:
-
-<div class="console">
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">~/pruebas/python-sip$ export LD_LIBRARY_PATH=.
-~/pruebas/python-sip$ ipython
-In [1]: import Ejemplos
-In [2]: imp = Ejemplos.Impresora("HAL9000")
-In [4]: imp.imprimirLista(["Dave", "tengo", "miedo"])
- Dave miedo tengo&lt;--- Imprime HAL9000</code></pre></figure>
-</div>
-</div>
-
-<h2>Referencias</h2>
-
-<ul>
-<li>Documentación de sip4 en  /usr/share/doc/sip4/reference/sipref.html, incluída en el paquete <b>sip4</b></li>
-<li><a href="http://docs.python.org/api/api.html">CPyton Reference</a>.</li>
-</ul>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9033,13 +8839,13 @@ In [4]: imp.imprimirLista(["Dave", "tengo", "miedo"])
     </li>
   
 
-  <li><a>Page: 49 of 120</a></li>
+  <li><a>Page: 49 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page50">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -9060,7 +8866,7 @@ In [4]: imp.imprimirLista(["Dave", "tengo", "miedo"])
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2021-02-10 08:42:28 -0600
+          Generated at 2021-02-15 09:53:21 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

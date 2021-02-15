@@ -5027,6 +5027,8 @@
   
     
   
+    
+  
 
 
 
@@ -5073,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="618 posts"
+     title="619 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5376,7 +5378,7 @@
 </td></tr>
 <tr class="row27"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#virtualbox-ref'; hide_others()"
-     title="5 posts"
+     title="6 posts"
      >virtualbox</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sudo-ref'; hide_others()"
@@ -5489,13 +5491,13 @@
     </li>
   
 
-  <li><a>Page: 103 of 120</a></li>
+  <li><a>Page: 103 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page104">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -7906,7 +7908,129 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-03-04/plugin-opacity-en-xgl-compiz.html">Plugin Opacity en Xgl/Compiz</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-03-04
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-03-04-plugin-opacity-en-xgl-compiz.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-03-04-plugin-opacity-en-xgl-compiz.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/246">node/246</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Esta receta describe como añadir el plugin de transparencias <b>opacity</b> para Xgl/Compiz.
+</blockquote>
+
+<h1>Requisitos</h1>
+Se supone que ya tienes aceleración 3D y <a href="/node/240">Xgl/Compiz</a> funcionando en tu máquina. A parte eso, necesitas como es lógico, el <a href="http://www.downwithnumbers.com/files/compiz_opacity.tar.gz">el plugin opácity</a>. Para comprender mejor cómo funciona este plugin para <b>compiz</b> puedes mirar <a href="http://www.downwithnumbers.com/compiz_plugins.html">este artículo</a>
+
+<h1>Instalando y activando el nuevo plugin</h1>
+Cogemos el .gz descargado y lo descomprimelo. Posteriormente, cópialo a <em>/usr/lib/compiz</em>, que es donde se encuentran por defecto los plugins de compiz carga. Para ello ejecuta:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>unp compiz_opacity.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo cp </span>libopacity.so /usr/lib/compiz/</code></pre></figure>
+</div>
+
+Una vez tengamos el archivo .so copiado, debes indicarle a compiz que lo cargue. Para ello, añade como argumento la palabra <b>opacity</b> a la llamada de @compiz@. Si tenías:
+
+<pre>
+#!/bin/bash
+gnome-window-decorator &  compiz --replace gconf decoration wobbly\
+fade minimize cube rotate zoom scale move resize place switcher &
+xmodmap /usr/share/xmodmap/xmodmap.es
+</pre>
+
+... debes modificarlo para que quede así:
+
+<pre>
+#!/bin/bash
+gnome-window-decorator &  compiz --replace gconf decoration wobbly\
+fade minimize cube rotate zoom scale move resize place switcher <b>opacity</b> &
+xmodmap /usr/share/xmodmap/xmodmap.es
+</pre>
+
+<h1>Probando opacity</h1>
+Para usar  el plugin hay que pulsar <b>control + may.izq + rueda_ratón</b> en una ventana (preferiblemente en la barra de título). Subiendo y bajando la rueda del ratón verás como varía la transparencia de la ventana completa; desde totalmente opaca a casi invisible.
+
+Espero que os guste. Un saludo!
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8747,97 +8871,6 @@ Aunque en la encuesta ganó que la "mini-party" se haría esta tarde, no va a se
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/new/2006-02-24/la-esi-organizar-la-party-quijote-2006.html">La ESI organizará la Party Quijote 2006</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-02-24
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-02-24-la-esi-organizar-la-party-quijote-2006.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-02-24-la-esi-organizar-la-party-quijote-2006.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#new-ref">
-    		new
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/233">node/233</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>La primera edición de la Party Quijote se celebró el año pasado en Albacete y fue organizada por la <acronym title="Escuela Politécnica Superior de Albacete"><span class="caps">EPSA</span></acronym>. Asistieron más de 400 personas que participaron durante 3 días en numerosos talleres, concursos, juegos y actividades de toda índole informática, incluyendo promoción y uso de software libre.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/new/2006-02-24/la-esi-organizar-la-party-quijote-2006.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8851,13 +8884,13 @@ Aunque en la encuesta ganó que la "mini-party" se haría esta tarde, no va a se
     </li>
   
 
-  <li><a>Page: 103 of 120</a></li>
+  <li><a>Page: 103 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page104">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -8878,7 +8911,7 @@ Aunque en la encuesta ganó que la "mini-party" se haría esta tarde, no va a se
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2021-02-10 08:42:28 -0600
+          Generated at 2021-02-15 09:53:21 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

@@ -5027,6 +5027,8 @@
   
     
   
+    
+  
 
 
 
@@ -5073,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="618 posts"
+     title="619 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5376,7 +5378,7 @@
 </td></tr>
 <tr class="row27"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#virtualbox-ref'; hide_others()"
-     title="5 posts"
+     title="6 posts"
      >virtualbox</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#sudo-ref'; hide_others()"
@@ -5478,6 +5480,8 @@
 <div class="span9">
   
 
+  
+    
   
     
   
@@ -8337,6 +8341,101 @@ Cmnd_Alias APT = /usr/bin/apt, /usr/bin/apt-get, /usr/bin/dpkg
   
     
       <div class="node teaser ">
+  <h2><a href="/recipe/2019-02-15/shrink-vbox-image.html">How to shrink VirtualBox image</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2019-02-15
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2019-02-15-shrink-vbox-image.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2019-02-15-shrink-vbox-image.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#virtualbox-ref">virtualbox </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Start VM and fill free space with zeros:</p>
+<pre class="console">
+$ sudo dd if=/dev/zero of /zeros bs=1M
+</pre>
+<p>Stop VM and from host, locate VM disk image:</p>
+<pre class="console">
+$ VBoxManage showvminfo VM_NAME | grep vdi
+</pre>
+<p>And finally:</p>
+<pre class="console">
+$ VBoxManage modifyhd --compact "PATH-TO-FILE.vdi"
+</pre>
+<h4>References</h4>
+<ul>
+	<li>http://www.netreliant.com/news/8/17/Compacting-VirtualBox-Disk-Images-Linux-Guests.html</li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
   <h2><a href="/recipe/2018-09-11/hg-useful-commands.html">Mercurial useful commands</a></h2>
 
   <div class="header">
@@ -8691,158 +8790,6 @@ Your branch is up-to-date with 'origin/foo.
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2017-02-15/ultra-simple-tmux-recipe.html">Ultra simple tmux recipe</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2017-02-15
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2017-02-15-ultra-simple-tmux-recipe.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2017-02-15-ultra-simple-tmux-recipe.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#tmux-ref">tmux </a></li>
-    
-    	<li><a href="/tags.html#shell-ref">shell </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>This is a new try to start using tmux. I am absolutly convenced about advantages of tmux, but for some strange reason, I am not able to learn its key combos&#8230;</p>
-<p>I hope this recipe should be a way to have the very basic functions always at a glance.</p>
-<table>
-	<tr>
-		<th>Panes                       </th>
-		<td> </td>
-	</tr>
-	<tr>
-		<td> horizontal split  </td>
-		<td> C-b %       </td>
-	</tr>
-	<tr>
-		<td> vertical split    </td>
-		<td> C-b &quot;       </td>
-	</tr>
-	<tr>
-		<td> move cursor       </td>
-		<td> C-b {arrow} </td>
-	</tr>
-	<tr>
-		<td> close             </td>
-		<td> C-b x       </td>
-	</tr>
-	<tr>
-		<td> maximize/minimize </td>
-		<td> C-b z       </td>
-	</tr>
-</table>
-<table>
-	<tr>
-		<th>Windows                 </th>
-		<td> </td>
-	</tr>
-	<tr>
-		<td> create            </td>
-		<td> C-b c   </td>
-	</tr>
-	<tr>
-		<td> change            </td>
-		<td> C-b {n} </td>
-	</tr>
-</table>
-<table>
-	<tr>
-		<th>Sessions                                 </th>
-		<td> </td>
-	</tr>
-	<tr>
-		<td> detach            </td>
-		<td> C-b d                    </td>
-	</tr>
-	<tr>
-		<td> attach            </td>
-		<td> tmux a                   </td>
-	</tr>
-	<tr>
-		<td> list              </td>
-		<td> tmux ls                  </td>
-	</tr>
-	<tr>
-		<td> kill              </td>
-		<td> tmux kill-session -t {n} </td>
-	</tr>
-</table>
-<h2>Config file</h2>
-<p>In your ~/.tmux.conf</p>
-<pre>
-set -g mouse on
-setw -g monitor-activity on
-set -g visual-activity on
-</pre>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8852,13 +8799,13 @@ set -g visual-activity on
     <li class="prev disabled"><a>&lsaquo;</a></li>
   
 
-  <li><a>Page: 1 of 120</a></li>
+  <li><a>Page: 1 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page2">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -8879,7 +8826,7 @@ set -g visual-activity on
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2021-02-10 08:42:28 -0600
+          Generated at 2021-02-15 09:53:21 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
