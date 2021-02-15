@@ -1,0 +1,33 @@
+---
+layout: post
+title: How to shrink VirtualBox image
+author: david_villa
+comments: true
+category: recipe
+tags:
+  - virtualbox
+
+---
+
+Start VM and fill free space with zeros:
+
+<pre class="console">
+$ sudo dd if=/dev/zero of /zeros bs=1M
+</pre>
+
+Stop VM and from host, locate VM disk image:
+
+<pre class="console">
+$ VBoxManage showvminfo VM_NAME | grep vdi
+</pre>
+
+And finally:
+
+<pre class="console">
+$ VBoxManage modifyhd --compact "PATH-TO-FILE.vdi"
+</pre>
+
+
+h4. References
+
+* http://www.netreliant.com/news/8/17/Compacting-VirtualBox-Disk-Images-Linux-Guests.html
