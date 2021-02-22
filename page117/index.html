@@ -5027,8 +5027,6 @@
   
     
   
-    
-  
 
 
 
@@ -5097,7 +5095,7 @@
      >challenge</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#opinion-ref'; hide_others()"
-     title="66 posts"
+     title="65 posts"
      >opinion</a>
 </td></tr>
 <tr class="row4"><td class="col1">
@@ -5491,13 +5489,13 @@
     </li>
   
 
-  <li><a>Page: 117 of 121</a></li>
+  <li><a>Page: 117 of 120</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page118">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -7906,262 +7904,7 @@
   
     
   
-    
-  
-    
-  
 
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-11-04/grub-protegido-con-contrasea.html">GRUB protegido con contraseña</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-11-04
-    
-      
-  <a href="/users.html#int-0">
-   int-0
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-04-grub-protegido-con-contrasea.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-04-grub-protegido-con-contrasea.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/80">node/80</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-El gestor de arranque GRUB permite hacer operaciones muy sensibles, como por ejemplo, modificar el dispositivo desde el que arranca el sistema o arrancar sin tener la contraseña de super-usuario. Para evitar esto, tienes la posibilidad de protoger GRUB con su propia contraseña
-</blockquote>
-
-
-Para ponerle una contraseña debes hacer lo siguiente (como root):
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>grub-md5-crypt</code></pre></figure>
-</div>
-
-Te pedirá una contraseña y su verificación, como resultado te dará un puñado de caracteres, los copias.
-
-Ahora edita el fichero <tt>/boot/grub/menu.lst</tt> y antes de la lista de items de arranque añade:
-
-<pre>
-password --md5 <em>pega_puñado_de_caracteres</em>
-</pre>
-
-Ahora cuando arranque <b>grub</b> sólo te permitirá seleccionar un item de arranque, o pulsar 'p' para introducir la clave y a partir de ahí tendrás acceso total hacer lo que quieras.
-
-Por cierto, si en alguna entrada de arranque pones 'lock' te pedirá la misma contraseña para poder usarla.
-
-fácil...
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-11-04/el-gestor-de-arranque-grub.html">El gestor de arranque GRUB</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-11-04
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-04-el-gestor-de-arranque-grub.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-04-el-gestor-de-arranque-grub.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/79">node/79</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-GNU Grub es mucho más que un gestor de arranque. Es el sustituto perfecto para LILO. es más potente, fiable y fácil de usar.
-</blockquote>
-
-
-
-<h1> Instalación del paquete </h1>
-
-Si tienes una distribución GNU/Linux basada en Debian es tan fácil como:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>grub</code></pre></figure>
-</div>
-
-En caso contrario puedes bajartelo de <a href="http://www.gnu.org/software/grub/grub-download.html">GNU</a>.
-
-<h1> Instalación del gestor de arranque </h1>
-Para instalar <b>grub</b> en el arranque del disco debes ejecutar:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>grub-install /dev/hda</code></pre></figure>
-</div>
-
-siempre que tu disco de arranque sea /dev/hda.
-
-<h1>Configuración</h1>
-
-Grub puede crear un fichero de configuración por defecto...
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>update-grub</code></pre></figure>
-</div>
-
-Este programa averigua qué kernels tienes instalados y modifica o crea (si no existe) un fichero <tt>menu.lst</tt> con los datos necesarios. Hazlo también después de instalar un nuevo kernel.
-
-<h1>El fichero <tt>menu.lst</tt></h1>
-
-Su aspecto típico es:
-
-<pre>
-timeout 4
-color black/cyan yellow/cyan
-default 0
-
-title Debian GNU/Linux [2.4.19-686 precompiled]
-root (hd0,4)
-kernel /boot/vmlinuz-2.4.19-686 root=/dev/hda5
-initrd /boot/initrd.img-2.4.19-686
-
-title Debian single-user (kernel 2.2.18)
-root (hd0,4)
-kernel /boot/vmlinuz-2.2.18 root=/dev/hda5 ro single
-initrd /boot/initrd-2.2.18.gz
-
-title Windows 98
-rootnoverify (hd0,0)
-makeactive
-chainloader +1
-</pre>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
   
     
       <div class="node teaser ">
@@ -9151,6 +8894,172 @@ Si quieres que el sistema de ficheros NFS se monte al arrancar debes añadir una
 
     
   
+    
+      <div class="node teaser ">
+  <h2><a href="/tale/2005-10-21/servidor-de-rdp-o-algo-parecido-para-gnu-linux.html">¿Servidor de RDP o algo parecido para GNU/Linux?</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-21
+    
+      
+  <a href="/users.html#Lk2">
+   Lk2
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-21-servidor-de-rdp-o-algo-parecido-para-gnu-linux.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-21-servidor-de-rdp-o-algo-parecido-para-gnu-linux.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#tale-ref">
+    		tale
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/57">node/57</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      Hola amiguetes, como diría aquel otro
+
+Os iba yo a preguntar, ya que le pregunté a Cleto y su respuesta no me ha funcionado ... ¿algún servidor así potente de rdp o algo similar para poder manejar una máquina conectada vía wifi desde otro PC en local?
+
+Me refiero a algo en plan gráfico, para aprovechar la velocidad de la conexión, y no un simple ssh, que ya conseguí hacerlo funcionar
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2005-10-21/configuracion-wifi-de-la-uclm-en-ubuntu-5-10.html">Configuracion wifi de la UCLM  en Ubuntu 5.10</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-21
+    
+      
+  <a href="/users.html#ritxi">
+   ritxi
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-21-configuracion-wifi-de-la-uclm-en-ubuntu-5-10.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-21-configuracion-wifi-de-la-uclm-en-ubuntu-5-10.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/58">node/58</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      Alguien me puede decir como puedo configurar la wifi de la universidad, tengo todos los datos de la conexion y no tengo problemas con la tarjeta wireless, solo que tampoco está configurada. Gracias por adelantado.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
+  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9164,13 +9073,13 @@ Si quieres que el sistema de ficheros NFS se monte al arrancar debes añadir una
     </li>
   
 
-  <li><a>Page: 117 of 121</a></li>
+  <li><a>Page: 117 of 120</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page118">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -9191,7 +9100,7 @@ Si quieres que el sistema de ficheros NFS se monte al arrancar debes añadir una
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2021-02-15 09:53:21 -0600
+          Generated at 2021-02-22 14:08:11 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

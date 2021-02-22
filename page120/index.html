@@ -5027,8 +5027,6 @@
   
     
   
-    
-  
 
 
 
@@ -5097,7 +5095,7 @@
      >challenge</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#opinion-ref'; hide_others()"
-     title="66 posts"
+     title="65 posts"
      >opinion</a>
 </td></tr>
 <tr class="row4"><td class="col1">
@@ -5491,13 +5489,11 @@
     </li>
   
 
-  <li><a>Page: 120 of 121</a></li>
+  <li><a>Page: 120 of 120</a></li>
 
   
-    <li class="next" title="next page">
-      <a href="/page121">&rsaquo;</a>
-    </li>
-    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
+    <li class="next disabled"><a>&rsaquo;</a></li>
+    <li class="next disabled"><a>&raquo;</a></li>
   
 
   </ul>
@@ -7906,273 +7902,7 @@
   
     
   
-    
-  
-    
-  
 
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-10-07/grabar-cds-y-dvds-fcilmente-desde-consola.html">Grabar CDs y DVDs fácilmente desde consola</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-10-07
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-07-grabar-cds-y-dvds-fcilmente-desde-consola.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-07-grabar-cds-y-dvds-fcilmente-desde-consola.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/26">node/26</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Uso básico de <code>mkisofs</code> y <code>cdrecord</code> para copiar y grabar CDs desde consola.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2005-10-07/grabar-cds-y-dvds-fcilmente-desde-consola.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-10-07/ddclient-cliente-de-dns-dinmico-para-todos.html">ddclient, cliente de DNS dinámico para todos</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-10-07
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-07-ddclient-cliente-de-dns-dinmico-para-todos.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-07-ddclient-cliente-de-dns-dinmico-para-todos.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/25">node/25</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-Tienes tarifa plana en casa pero tu IP es dinámica.  A pesar de eso te gustaría tener un servidor web y tus "cosillas" accesibles desde cualquier sitio. La solución a tus problemas es un servicio de DNS dinámico.
-</blockquote>
-
-
-
-<h2> Ingredientes </h2>
-
-<ul>
-<li> Una conexión a internet</li>
-<li> Debian GNU/Linux o derivados</li>
-<li> ddclient</li>
-</ul>
-
-<h2> Servidor de DNS dinámico </h2>
-
-Lo primero es crearte una cuenta en uno de los muchos sitios que tienen un servicio de DNS dinámico, muchos son gratuitos. Por ejemplo, <a href="http://www.dyndns.org">DynDNS.org</a>.
-
-Hay otros:
-
-<ul>
-<li> <a href="http://www.easydns.com">www.easydns.com</a></li>
-<li> <a href="http://www.dslreports.com">www.dslreports.com</a></li>
-<li> <a href="http://www.zoneedit.com">www.zoneedit.com</a></li>
-<li> <a href="http://hn.org/">hn.org</a></li>
-<li> etc</li>
-</ul>
-
-Al crear tu cuenta tendrás que indicar cómo se va a llamar tu máquina, por ejemplo, <tt>miservidor.dyndns.org</tt>.
-
-<h2> Instalar <tt>ddclient</tt> </h2>
-
-Simplemente:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>ddclient</code></pre></figure>
-</div>
-
-
-<h2> Configuración </h2>
-
-El propio sistema de instalación de paquetes de Debian te preguntará los parámetros de configuración. A continuación se ponen unos valores de ejemplo figurados.
-
-<ul>
-<li><b> servidor?</b> <a href="http://www.dyndns.org">www.dyndns.org</a> </b>
-<li><b> host?</b> miservidor.dyndns.org </b>
-<li><b> usuario?</b> dnsuser </b>
-<li><b> clave?</b> miclave </b>
-<li><b> interface?</b> eth0 </b>
-<li><b> ppp?</b> no </b>
-<li><b> daemon?</b> sí </b>
-<li><b> intervalo?</b> 300 </b>
-</ul>
-
-Cuando lo quieras reconfigurar puedes usar:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dpkg-reconfigure ddclient</code></pre></figure>
-</div>
-
-o editar directamente el fichero <tt>/etc/ddclient.conf</tt>:
-
-<pre>
-pid=/var/run/ddclient.pid
-protocol=dyndns2
-use=if, if=eth0
-server=members.dyndns.org
-login=pepito_grillo
-password=clave_de_pepito
-pepito.dyndns.org
-</pre>
-
-Recuerda reiniciar el demonio para activar los cambios:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>/etc/init.d/ddclient restart</code></pre></figure>
-</div>
-
-Y eso es todo, cada cierto tiempo, tu demonio <tt>ddclient</tt> se conectará al servidor y le indicará tu nueva IP, así que no importa que cambie.
-
-<h2> Referencias </h2>
-
-<ul>
-<li> <a href="http://ddclient.sourceforge.net/">ddclient</a></li>
-<li> <a href="http://www.dyndns.org/">DynDNS</a></li>
-</ul>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
   
     
       <div class="node teaser ">
@@ -8934,6 +8664,99 @@ Saludos.
 
     
   
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-09-13/ssh-y-scp-para-acceder-a-equipos-remotos-sin-escribir-la-clave-public-key-authentication.html">SSH y SCP para acceder a equipos remotos sin escribir la clave (public key authentication)</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-09-13
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-09-13-ssh-y-scp-para-acceder-a-equipos-remotos-sin-escribir-la-clave-public-key-authentication.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-09-13-ssh-y-scp-para-acceder-a-equipos-remotos-sin-escribir-la-clave-public-key-authentication.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#networking-ref">networking </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/6">node/6</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Cómo configurar <span class="caps">SSH</span> para poder usar <code>ssh</code> y <code>scp</code> para acceder a otras máquinas autorizadas sin necesidad de indicar la clave de usuario cada vez que se conecta. También muy útil cuando se usan repositorios remotos que se acceden por <span class="caps">SSH</span>.</p>
+<p>
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2005-09-13/ssh-y-scp-para-acceder-a-equipos-remotos-sin-escribir-la-clave-public-key-authentication.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
+  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8947,13 +8770,11 @@ Saludos.
     </li>
   
 
-  <li><a>Page: 120 of 121</a></li>
+  <li><a>Page: 120 of 120</a></li>
 
   
-    <li class="next" title="next page">
-      <a href="/page121">&rsaquo;</a>
-    </li>
-    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
+    <li class="next disabled"><a>&rsaquo;</a></li>
+    <li class="next disabled"><a>&raquo;</a></li>
   
 
   </ul>
@@ -8974,7 +8795,7 @@ Saludos.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2021-02-15 09:53:21 -0600
+          Generated at 2021-02-22 14:08:11 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
