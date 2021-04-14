@@ -5339,7 +5339,7 @@
 <h2>Redirigir conexiones a esta máquina hacia otra (<em>local forwarding</em>)</h2>
 <p>La sintaxis es simple:</p>
 <pre>
-ssh -g -N -L lport:remotehost:rport rhost
+ssh -g -N -L lport:localhost:rport rhost
 </pre>
 <p>Esto crea un túnel de modo que las conexiones al puerto <strong>lport</strong> de esta máquina ser redirigirán al puerto <strong>rport</strong> de la máquina <strong>rhost</strong> a través del túnel.</p>
 <p>Significado de los parámetros:</p>
@@ -5351,12 +5351,13 @@ ssh -g -N -L lport:remotehost:rport rhost
 	<li><strong>rhost:</strong> La máquina remota</li>
 	<li><strong>rport:</strong> El puerto de la máquina remota al que queremos enviar el tráfico</li>
 </ul>
+<p>Esto puede ser útil en muchas situaciones. Por ejemplo, tenemos un servicio en un <span class="caps">VPS</span> o VM remota que no es accesible públicamente, pero al que tenemos acceso mediante <span class="caps">SSH</span>.</p>
 <h2>Redirigir conexiones de otra máquina hacia ésta (<em>remote forwarding</em>)</h2>
 <p>Muy similar:</p>
 <pre>
-ssh -N -R sport:localhost:dport remotehost
+ssh -N -R sport:localhost:dport rhost
 </pre>
-<p>Esto le pide a la máquina <code>remotehost</code> que las conexiones que hagan a su puerto <code>sport</code> las redirija al puerto <code>dport</code> de <code>localhost</code>. Esto es útil por ejemplo para hacer un <strong>telnet inverso</strong>. Supongamos que queremos conectar desde la máquina <strong>server</strong> (que tiene una IP pública) a la máquina <strong>home</strong> que está NATeada y con una dirección privada. Pues hacemos lo siguiente.</p>
+<p>Esto le pide a la máquina <code>rhost</code> que las conexiones que hagan a su puerto <code>sport</code> las redirija al puerto <code>dport</code> de <code>localhost</code>. Esto es útil por ejemplo para hacer un <strong>telnet inverso</strong>. Supongamos que queremos conectar desde la máquina <strong>server</strong> (que tiene una IP pública) a la máquina <strong>home</strong> que está NATeada y con una dirección privada. Pues hacemos lo siguiente.</p>
 <p>En la máquina <strong>home</strong>:</p>
 <div class="console">
 <figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ssh <span class="nt">-N</span> <span class="nt">-R</span> 2222:localhost:22 pepe@server</code></pre></figure></div>
@@ -5454,7 +5455,7 @@ bash -c "sshpass -p `ssh-askpass` ssh -N -R 2222:localhost:22 pepe@server"
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2021-04-14 05:57:57 -0500
+          Generated at 2021-04-14 06:25:45 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
