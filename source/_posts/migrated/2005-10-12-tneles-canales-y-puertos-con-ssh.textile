@@ -20,7 +20,7 @@ h2. Redirigir conexiones a esta máquina hacia otra (<em>local forwarding</em>)
 La sintaxis es simple:
 
 <pre>
-ssh -g -N -L lport:remotehost:rport rhost
+ssh -g -N -L lport:localhost:rport rhost
 </pre>
 
 Esto crea un túnel de modo que las conexiones al puerto *lport* de esta máquina ser redirigirán al puerto *rport* de la máquina *rhost* a través del túnel.
