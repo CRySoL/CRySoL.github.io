@@ -34,16 +34,18 @@ Significado de los parámetros:
 * *rhost:* La máquina remota
 * *rport:* El puerto de la máquina remota al que queremos enviar el tráfico
 
+Esto puede ser útil en muchas situaciones. Por ejemplo, tenemos un servicio en un VPS o VM remota que no es accesible públicamente, pero al que tenemos acceso mediante SSH.
+
 
 h2. Redirigir conexiones de otra máquina hacia ésta (<em>remote forwarding</em>)
 
 Muy similar:
 
 <pre>
-ssh -N -R sport:localhost:dport remotehost
+ssh -N -R sport:localhost:dport rhost
 </pre>
 
-Esto le pide a la máquina @remotehost@ que las conexiones que hagan a su puerto @sport@ las redirija al puerto @dport@ de @localhost@. Esto es útil por ejemplo para hacer un *telnet inverso*. Supongamos que queremos conectar desde la máquina *server* (que tiene una IP pública) a la máquina *home* que está NATeada y con una dirección privada. Pues hacemos lo siguiente.
+Esto le pide a la máquina @rhost@ que las conexiones que hagan a su puerto @sport@ las redirija al puerto @dport@ de @localhost@. Esto es útil por ejemplo para hacer un *telnet inverso*. Supongamos que queremos conectar desde la máquina *server* (que tiene una IP pública) a la máquina *home* que está NATeada y con una dirección privada. Pues hacemos lo siguiente.
 
 En la máquina *home*:
 
