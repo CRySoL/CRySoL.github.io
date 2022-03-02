@@ -1,7 +1,7 @@
 ---
 migrated: node/935
 layout: post
-title: Manual básico de iproute2
+title: iproute2 básico
 created: 1213926802
 author: david_villa
 comments: true
@@ -75,8 +75,6 @@ h2. Interfaces (nivel de enlace)
 
 h3. Cambiar la dirección MAC
 
-
-
 <div class="console">
 {% highlight console %}
 
@@ -87,15 +85,12 @@ h3. Cambiar la dirección MAC
 
 h3. Desactivar una interfaz
 
-
-
 <div class="console">
 {% highlight console %}
 
 # ip link set eth1 down
 {% endhighlight %}
 </div>
-
 
 
 h2. Interfaces (nivel IP)
@@ -105,8 +100,6 @@ h2. Interfaces (nivel IP)
 h3. Listar direcciones
 
 Con este comando consigues (entre otras cosas) las direcciones lógicas y físicas de todos los interfaces conectados:
-
-
 
 <div class="console">
 {% highlight console %}
@@ -130,8 +123,6 @@ $ ip addr
 
 Para una interfaz concreta:
 
-
-
 <div class="console">
 {% highlight console %}
 
@@ -144,14 +135,11 @@ $ ip addr show dev eth0
 {% endhighlight %}
 </div>
 
-
-
 h3. Añadir una dirección a una interfaz
 
-
-<div class="console">
+<pre class="console">
 $ ip addr add 192.168.0.1 dev eth0
-</div>
+</pre>
 
 
 h3. Borrar una dirección de una interfaz
