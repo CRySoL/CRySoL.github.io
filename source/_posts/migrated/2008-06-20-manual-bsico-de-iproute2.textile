@@ -144,17 +144,16 @@ $ ip addr add 192.168.0.1 dev eth0
 
 h3. Borrar una dirección de una interfaz
 
-
-<div class="console">
+<pre class="console">
 $ ip addr del 192.168.0.1 dev eth0
-</div>
+</pre>
 
 
 h3. Cambiar la MTU de una interfaz
 
-<div class="console">
+<pre class="console">
 $ ip link set mtu 1400 dev eth0
-</div>
+</pre>
 
 
 h2. Tablas de rutas
@@ -177,8 +176,6 @@ h3. Añadir/eliminar una ruta por defecto
 
 Para añadir:
 
-
-
 <div class="console">
 {% highlight console %}
 
@@ -188,8 +185,6 @@ Para añadir:
 
 
 Para borrar:
-
-
 
 <div class="console">
 {% highlight console %}
@@ -205,8 +200,6 @@ h3. Añadir/eliminar una ruta para entrega directa
 
 <p>
 
-
-
 <div class="console">
 {% highlight console %}
 
@@ -215,8 +208,6 @@ h3. Añadir/eliminar una ruta para entrega directa
 # ip route del 192.168.0.0/24
 {% endhighlight %}
 </div>
-
-
 
 
 h2. ToDo
