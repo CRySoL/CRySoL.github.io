@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
+
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
-
-  <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="619 posts"
+     title="620 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5468,6 +5468,10 @@
   <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
      title="1 posts"
      >systemd</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#PostgreSQL-ref'; hide_others()"
+     title="1 posts"
+     >PostgreSQL</a>
 </td></tr>
 
 </table>
@@ -7904,7 +7908,102 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2010-05-15/installing-omnet-on-debian.html">Installing Omnet on Debian</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2010-05-15
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2010-05-15-installing-omnet-on-debian.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2010-05-15-installing-omnet-on-debian.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#networking-ref">networking </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1357">node/1357</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <h2>Ingredients</h2>
+<p>
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2010-05-15/installing-omnet-on-debian.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8850,168 +8949,6 @@ Puede encontrarse más información sobre la agenda de la jornada e inscribirse 
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2010-03-26/cmake-instalar-un-paquete.html">CMake: Instalar un paquete</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2010-03-26
-    
-      
-  <a href="/users.html#cleto">
-   cleto
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2010-03-26-cmake-instalar-un-paquete.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2010-03-26-cmake-instalar-un-paquete.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-    	<li><a href="/tags.html#devel-ref">devel </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1345">node/1345</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>Esta receta explica cómo utilizar, fundamentalmente, el comando INSTALL de CMake para crear objetivos de instalación.</blockquote>
-
-<h2>El comando INSTALL</h2>
-CMake proporciona <a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#command:install">el comando INSTALL</a> que facilita en gran medida seleccionar los componentes de nuestro proyecto que queremos instalar y dónde.
-
-En esta receta nos vamos a centrar en un uso básico del comando. Para algo más avanzado nada mejor que la documentación.
-
-<h2>Ejemplo</h2>
-
-Supongamos que queremos instalar un binario y dos versiones de una misma librería: una estática y otra dinámica. El código CMake para este caso podría ser el siguiente:
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
-PROJECT
-
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
-
-# Librerías
-ADD_LIBRARY(dummy_shared SHARED dummy.cpp)
-SET_PROPERTY(TARGET dummy_shared PROPERTY SOVERSION 1.0)
-ADD_LIBRARY(dummy_static STATIC dummy.cpp)
-SET_TARGET_PROPERTIES(dummy_shared dummy_static PROPERTIES OUTPUT_NAME dummy)
-
-# Ejecutable
-ADD_EXECUTABLE(hello hello.cpp)</code></pre></figure>
-</div>
-
-Inicialmente, podrías añadir un comando por cada uno de los componentes que queremos instalar indicando el directorio destino. Sin embargo, como es habitual necesitar instalar varios objetivos, el comando INSTALL proporciona una forma más compacta:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text"># ... el código anterior aquí
-
-SET_TARGET_PROPERTIES(dummy_shared
-      PROPERTIES    PUBLIC_HEADER  "${CMAKE_CURRENT_SOURCE_DIR}/dummy.h"
-
-INSTALL(TARGETS hello dummy_static dummy_shared
-RUNTIME          DESTINATION    bin
-ARCHIVE          DESTINATION    lib/static
-LIBRARY          DESTINATION    lib
-PUBLIC_HEADER    DESTINATION    include)</code></pre></figure>
-</div>
-
-En primer lugar, se asocia a la librería dinámica las cabeceras que serán necesarias instalar posteriormente como "cabeceras públicas" utilizando el comando SET_TARGET_PROPERTIES. Es posible asociar distintos archivos a objetivos para, posteriormente, usarlos en el comando INSTALL. De hecho, lo apropiado sería crear un FRAMEWORK... pero quizás es demasiado para este ejemplo. Consulta el manual para obtener más información que, además, explica cómo utilizar INSTALL de otras formas.
-
-La forma en que se ha usado INSTALL es la más compacta. Básicamente, viene a decir lo siguiente (por defecto, CMAKE_INSTALL_PREFIX=<tt>/usr/local</tt>):
-<ul>
-<li>Al objetivo <tt>hello</tt> se le debe tratar como un ejecutable (RUNTIME) y debe instalarse en el directorio ${CMAKE_INSTALL_PREFIX}/bin.</li>
-<li>Al objetivo <tt>dummy_static</tt> se le debe tratar como una librería estática (ARCHIVE) y debe instalarse en el directorio ${CMAKE_INSTALL_PREFIX}/lib/static.</li>
-<li>Al objetivo <tt>dummy_shared</tt> se le debe tratar como una librería dinámica (LIBRARY) y debe instalarse en el directorio ${CMAKE_INSTALL_PREFIX}/lib.</li>
-<li>Finalmente, las cabeceras públicas (PUBLIC_HEADER) configuradas a lo largo del programa deben instalarse en ${CMAKE_INSTALL_PREFIX}/include.</li>
-</ul>
-
-Y con ello, ya disponemos de un objetivo <tt>install</tt> en el Makefile generado que nos permitirá instalar el software.
-
-<h2>¿Cómo personalizar mi instalación?</h2>
-Supón que tienes un directorio en tu home llamado <tt>~/usr</tt> y que las variables de entorno pertinentes las tienes configuradas a ese path. Estaría muy bien que pudieras hacer que CMAKE_INSTALL_PREFIX tuviera un valor concreto para instalar el software en ese lugar. Para ello, simplemente ejecuta lo siguiente:
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>cmake <span class="nt">-DCMAKE_INSTALL_PREFIX</span><span class="o">=</span>~/usr ..</code></pre></figure>
-</div>
-
-Sin embargo, es posible que hayas instalado otras cosas en ese ruta (cabeceras de código, por ejemplo)  y las uses en tu proyecto. Obviamente, CMake no puede buscar en todo el disco duro en busca de la cabecera problemática. Por ello, es recomendable que cuando cambies el directorio de instalación también cambies lo siguiente:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>cmake <span class="nt">-DCMAKE_INSTALL_PREFIX</span><span class="o">=</span>~/usr <span class="nt">-DCMAKE_PREFIX_PATH</span><span class="o">=</span>~/usr ..</code></pre></figure>
-</div>
-
-De esta forma, los módulos que buscan cabeceras y librerías añadirán ese path a su ruta de búsqueda (además de las rutas del sistema).
-
-<h2>Referencias</h2>
-<ul>
-<li><a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#command:install">Comando INSTALL de CMake 2.8</a></li>
-<li><a href="http://www.cmake.org/cmake/help/cmake-2-8-docs.html#section_Variables">Variables That Change Behavior (CMake 2.8)</a></li>
-</ul>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9052,7 +8989,7 @@ De esta forma, los módulos que buscan cabeceras y librerías añadirán ese pat
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-03-05 12:37:47 -0600
+          Generated at 2022-05-07 09:12:23 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

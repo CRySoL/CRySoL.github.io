@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
+
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
-
-  <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="619 posts"
+     title="620 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5468,6 +5468,10 @@
   <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
      title="1 posts"
      >systemd</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#PostgreSQL-ref'; hide_others()"
+     title="1 posts"
+     >PostgreSQL</a>
 </td></tr>
 
 </table>
@@ -7904,7 +7908,227 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2009-11-28/creacin-de-un-plugin-de-munin-para-mldonkey.html">Creación de un plugin de munin para mldonkey</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2009-11-28
+    
+      
+  <a href="/users.html#fsancho">
+   fsancho
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2009-11-28-creacin-de-un-plugin-de-munin-para-mldonkey.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2009-11-28-creacin-de-un-plugin-de-munin-para-mldonkey.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#shell-ref">shell </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1265">node/1265</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+Munin es una herramienta de monitorización que recopila multitud de datos del sistema y los presenta en forma de gráficas incrustadas en una página web. La gran virtud de munin es su extrema sencillez a la hora de instalarlo y configurarlo. Trae de serie una grandísima cantidad de plugins para monitorizar casi cualquier variable del sistema.
+
+En esta receta veremos que también es extremadamente sencillo crear nuevos plugins para munin. Como ejemplo crearemos un plugin para monitorizar el consumo de ancho de banda de la aplicación mldonkey.
+</blockquote>
+
+<h2> Cómo crear un plugin para munin </h2>
+<p>
+Si conocemos un poco de lenguages de script y la naturaleza de los datos que queremos monitorizar, crear un plugin para munin es algo muy sencillo.
+</p>
+
+<h3> Obtención de los datos </h3>
+<p>
+Para el caso de mldonkey, utilizaremos el programa <em>mldonkey_command</em> que puede encontrarse en <em>/usr/bin</em> o bien en <em>/usr/lib/mldonkey/</em>. Este programa se conecta mediante telnet al servidor de mldonkey y ejecuta el comando que le pasemos como argumento. Para obtener los valores de velocidad de subida y descarga en ese mismo instante hay que utilizar el comando <em>bw_stats</em>. En el siguiente ejemplo veremos la salida que produce la ejecución:</p>
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>/usr/lib/mldonkey/mldonkey_command <span class="nt">-p</span> <span class="s2">"password"</span> bw_stats
+<span class="gp">&gt;</span><span class="w"> </span>bw_stats
+<span class="go">Down: 11.4 KB/s ( 64 + 11592 ) | Up: 9.9 KB/s ( 17 + 10118 ) | Shared: 1118/98.95G | Downloaded: 33.7M | Uploaded: 52.1M
+MLdonkey command-line:
+</span><span class="gp">&gt;</span></code></pre></figure>
+</div>
+
+<p>
+Los datos que queremos monitorizar están ahí, tan solo tenemos que limpiar un poco el texto. Utilizaremos los comandos <em>grep</em> y <em>cut</em>. Por supuesto cada uno puede utilizar lo que mejor sepa usar. Estos son los filtros que usaré para obtener cada una de las cifras:
+</p>
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>/usr/lib/mldonkey/mldonkey_command <span class="nt">-p</span> <span class="s2">""</span> bw_stats | <span class="nb">grep</span> ^Down | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"|"</span> <span class="nt">-f</span> 1 | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 2
+<span class="go">11.4
+</span><span class="gp">$</span><span class="w"> </span>/usr/lib/mldonkey/mldonkey_command <span class="nt">-p</span> <span class="s2">""</span> bw_stats | <span class="nb">grep</span> ^Down | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"|"</span> <span class="nt">-f</span> 2 | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 3
+<span class="go">9.9</span></code></pre></figure>
+</div>
+
+<p>
+Con esto ya sabemos como obtener los datos en bruto.  Para que munin acepte estos valores tan solo tendremos que ofrecérselo de una forma algo estructurada. Algo así:
+</p>
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"download.value "</span> <span class="nt">-n</span><span class="p">;</span> /usr/lib/mldonkey/mldonkey_command <span class="nt">-p</span> <span class="s2">""</span> bw_stats | <span class="nb">grep</span> ^Down | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"|"</span> <span class="nt">-f</span> 1 | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 2
+<span class="go">download.value 11.4
+</span><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"upload.value "</span> <span class="nt">-n</span> <span class="p">;</span> /usr/lib/mldonkey/mldonkey_command <span class="nt">-p</span> <span class="s2">""</span> bw_stats | <span class="nb">grep</span> ^Down | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"|"</span> <span class="nt">-f</span> 2 | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 3
+<span class="go">upload.value 9.9</span></code></pre></figure>
+</div>
+
+<p>
+Aquí observamos que creamos una especie de variable e invocamos su atributo valor, asignándole el dato que hemos leído. Ya tenemos lo complicado del script. El resto es tan solo dar formato a los datos.
+</p>
+
+<h3> La confiuración del plugin </h3>
+<p>
+Para que munin sepa mas acerca de la naturaleza de los datos, así como información mas detallada de la representación gráfica, debemos proporcionarsela en nuestro script. Munin lo hace invocando el plugin con el argumento <em>config</em>. En ese momento deberemos imprimir por pantalla las opciones de configuración. Para nuestro plugin serán las siguientes.
+</p>
+<tt>graph_title MLDonkey traffic</tt>: Indica que el título de la gráfica será MLDonkey traffic.
+<tt>graph_info This graph shows MLDonkey DL/UL rates.</tt>: Es una breve descripción de lo que representa la gráfica.
+<tt>graph_category mldonkey</tt>: Con esto indicamos que nuestra gráfica estará en una categoría llamada "mldonkey". Podríamos perfectamente ubicarla dentro de la categoría "Network".
+<tt>graph_order upload download</tt>: Indica el orden de las variables.
+<tt>graph_args -l 0 --base 1024</tt>: Indicamos que el valor mínimo es 0 y que las medidas serán en múltiplos de 1024.
+<tt>graph_period second</tt>: Indicamos que el periodo de medición de la gŕafica será el segundo. Eso significa que el valor en bruto que obtenemos es la velocidad medida en ese preciso instante.
+<tt>graph_vlabel bytes per ${graph_period}</tt>: Esta es la etiqueta que utilizamos para indicar en que unidades se mide el eje vertical. Como se ve, medimos en bytes por segundo.
+
+<p> Ahora, para cada una de las variables, debemos ajustar algunos parámetros. Como se vio anteriormente, la lectura de velocidad que ofrece el servidor de mldonkey, pero nosotros queremos representarlo en bytes por segundo. Para convertir el dato no es necesario modificarlo en el script, munin lo puede hacer por nosotros. Estos son los datos de configuración para cada variable.
+</p>
+<tt>download.label download speed</tt>: Esto sirve para darle un nombre descriptivo a la variable.
+<tt>download.max 50000</tt>: Con esto establecemos un valor máximo. 50.000 bytes por segundo parece un buen valor.
+<tt>download.min 0</tt>: Este es el valor mínimo que puede alcanzar la variable.
+<tt>download.cdef download,1024,*</tt>: Por último, multiplicamos la lectura por 1024 para obtener el valor en bytes, ya que el servidor de mldonkey nos da el valor en KB, que asumiremos que se trata de KiB.
+
+Con la variable <em>upload</em> haremos exactamente lo mismo. Y con esto ya tenemos toda la información necesaria para montar nuestro plugin.
+
+<h3> El plugin completo en un script </h3>
+Tan solo nos resta meter todo lo dicho antes en un script, mas alguna cosa mas que se explicará posteriormente.
+
+
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/sh
+
+if [ "$1" = "autoconf" ]; then
+    if [ -z "/usr/lib/mldonkey/mldonkey_command" ]; then
+        echo "$0: error: mldonkey_command not installed"
+        exit 1
+     else
+        echo yes
+        exit 0
+     fi
+fi
+
+if [ "$1" = "config" ]; then
+    echo "graph_title MLDonkey traffic"
+    echo 'graph_info This graph shows MLDonkey DL/UL rates.'
+    echo 'graph_category mldonkey'
+    echo "graph_order upload download"
+    echo 'graph_vlabel bytes per ${graph_period}'
+    echo 'graph_args -l 0 --base 1024'
+    echo 'graph_period second'
+
+    echo 'download.label download speed'
+    echo 'download.max 50000'
+    echo 'download.min 0'
+    echo 'download.cdef download,1024,*'
+
+    echo 'upload.label upload speed'
+    echo 'upload.max 50000'
+    echo 'upload.min 0'
+    echo 'upload.cdef upload,1024,*'
+    exit 0
+fi;
+
+MLBW=$(/usr/lib/mldonkey/mldonkey_command -p "" bw_stats 2&gt; /dev/null | grep ^Down)
+
+if [ $? -eq 0 ]; then
+   DOWN=$(echo $MLBW | cut -d "|" -f 1 | cut -d " " -f 2)
+   UP=$(echo $MLBW | cut -d "|" -f 2 | cut -d " " -f 3)
+else
+   DOWN=0;
+   UP=0;
+fi
+
+echo "download.value $DOWN"
+echo "upload.value $UP"</code></pre></figure>
+</div>
+
+<p>Cuando el script se invoca con el parámetro <em>autoconf</em> el plugin comprueba que tiene todo lo necesario para ejecutarse.  En el segundo bloque viene todo lo explicado anteriormente, que no es mas que una enumeración de todos los parámetros de la gráfica. Muchos de esos valores son opcionales y no dudes en jugar con ellos hasta dar con los mas adecuados. Puedes consultar una referencia completa de todos los argumentos en [3].
+
+Al final se ve que el plugin solo se limita a imprimir las variables con los valores de la forma que se explicó al principio de la receta.
+
+Sólo nos quedaría grabar el script en un fichero, darle atributos de ejecución, grabarlo en <em>/etc/munin/plugins</em> y reiniciar el demonio <em>munin-node</em>.
+
+<h2> Referencias </h2>
+
+[1] <a href="http://munin.projects.linpro.no/wiki/HowToWritePlugins">How To Write Munin Plugins </a>
+[2] <a href="">Plugins de munin para aMule (este plugin está basado en él) </a>
+[3] <a href="thttp://munin.projects.linpro.no/wiki/protocol-config">Todos los parámetros de una grafica</a>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8718,97 +8942,6 @@ Cheers.
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2009-11-03/escribir-caracteres-unicode-en-gnu-linux.html">Escribir caracteres Unicode en GNU/Linux</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2009-11-03
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2009-11-03-escribir-caracteres-unicode-en-gnu-linux.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2009-11-03-escribir-caracteres-unicode-en-gnu-linux.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1253">node/1253</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Cómo escribir caracteres «especiales» en <span class="caps">GNU</span>, tanto en consola como en las aplicaciones.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2009-11-03/escribir-caracteres-unicode-en-gnu-linux.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8849,7 +8982,7 @@ Cheers.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-03-05 12:37:47 -0600
+          Generated at 2022-05-07 09:12:23 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

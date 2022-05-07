@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
+
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
-
-  <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="619 posts"
+     title="620 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5468,6 +5468,10 @@
   <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
      title="1 posts"
      >systemd</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#PostgreSQL-ref'; hide_others()"
+     title="1 posts"
+     >PostgreSQL</a>
 </td></tr>
 
 </table>
@@ -7904,7 +7908,247 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2008-07-07/ubuntu-8-04-en-airis-kira-300.html">Ubuntu 8.04 en Airis Kira 300</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2008-07-07
+    
+      
+  <a href="/users.html#jalbusac">
+   jalbusac
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-07-07-ubuntu-8-04-en-airis-kira-300.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-07-07-ubuntu-8-04-en-airis-kira-300.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Oreto-ref">Oreto </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/944">node/944</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+En esta receta intentaré explicar los pasos que he seguido para instalar ubuntu 8.04 LST y que <b>funcione todo correctamente</b> en un airis kira 300. Los airis kira son portátiles de bajo coste con 7 pulgadas de pantalla que salieron hace poco tiempo al mercado <a href="http://www.airiskira.com/es/index.html">http://www.airiskira.com/es/index.html</a>. Cuando pides uno de estos ordenadores, tienes la posibilidad de solicitarlo con windows xp o bien una versión de linpus preinstalada, pero esto no quiere decir que otras distribuciones puedan funcionar a las mil maravillas.
+</blockquote>
+
+
+La primera piedra que encontramos en el camino es que el portátil carece de unidad de DVD o CD, por tanto, para instalar una nueva distribución necesitaremos una unidad externa o bien instalarla desde una memoria usb. Si finalmente optamos por esta última opción, en
+
+<a href="http://www.pendrivelinux.com/2008/05/15/usb-ubuntu-804-persistent-install-from-linux/">http://www.pendrivelinux.com/2008/05/15/usb-ubuntu-804-persistent-install-from-linux/</a>
+
+se explica paso a paso cómo preparar una imagen de ubuntu en una memoria usb para poder instalarla en cualquier ordenador. Una vez que tengamos ubuntu (o cualquier otra distribución) instalada en nuestra memoria usb, el siguiente paso es conectarla a nuestro portátil y proceder a la instalación (es posible que necesites especificar en la bios que arranque desde el usb). La instalación de ubuntu es tan sencilla como ir siguiendo los pasos que nos indica el proceso de instalación. Después de instalar el sistema hay unas cuantas cosillas que aún no funcionan:
+
+- Wifi.
+- Lector de tarjetas.
+- La tarjerta de vídeo no tiene el mejor rendimiento ni la mejor resolución.
+- Tampoco funciona la salida VGA.
+- No monta correctamente los dispositivos usb.
+
+Para solucionar estos problemas vayamos por partes (como diría Jack el destripador).
+
+1º) Para solucionar el problema de la wifi, lector de tarjetas y dispositivos usb seguí la siguiente guía:
+<a href="http://foro.airiskira.com/trucos-guias-y-manuales-f11/conseguir-que-funcione-todo-en-ubuntu-t292.htm">http://foro.airiskira.com/trucos-guias-y-manuales-f11/conseguir-que-funcione-todo-en-ubuntu-t292.htm</a>
+
+Una vez que descargas el kernel para el airis kira: <a href="http://service.one.de/download/index.php?&direction=0&order=&directory=NOTEBOOKS/ONE_A1xx/Linux%20Drivers/Binary-driver/Kernel">http://service.one.de/download/index.php?&direction=0&order=&directory=NOTEBOOKS/ONE_A1xx/Linux%20Drivers/Binary-driver/Kernel</a>
+
+1) Metemos el archivo bzImage en /boot
+2) Descomprimimos el archivo modules.tgz en /lib/modules
+3) Editamos el archivo /boot/grub/menu.lst y añadimos las siguientes líneas:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">title Kernel para el Kira
+root (hd0,0)
+kernel /boot/bzImage root=/dev/hdc1 ro locale=es_ES lang=es</code></pre></figure>
+</div>
+
+4) Editamos el archivo /etc/modules y añadimos la siguientes líneas:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">r8187
+vcrdrm
+vmsc</code></pre></figure>
+</div>
+
+2º) Instalar el driver de la tarjeta gráfica. Lo descargamos de la siguiente página:
+<a href="http://linux.via.com.tw/support/downloadFiles.action">http://linux.via.com.tw/support/downloadFiles.action</a> , elegimos Ubuntu 8.04 LST y CX700M/VX700 y descargarmos la versión unichrome.83.40692 (2.8M).
+
+Para instalarlo es muy sencillo, ejecutamos como super usuario:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./vinstall</code></pre></figure>
+</div>
+
+Finalmente, sustituimos el archivo /etc/X11/xorg.conf por este otro:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># xorg.conf (X.Org X Window System server configuration file)
+#
+# This file was generated by failsafeDexconf, using
+# values from the debconf database and some overrides to use vesa mode.
+#
+# You should use dexconf or another such tool for creating a "real" xorg.conf
+# For example:
+# sudo dpkg-reconfigure -phigh xserver-xorg
+Section "InputDevice"
+  Identifier  "Generic Keyboard"
+  Driver      "kbd"
+  Option      "XkbRules"  "xorg"
+  Option      "XkbModel"  "pc105"
+  Option      "XkbLayout"  "es"
+EndSection
+Section "InputDevice"
+Identifier "Configured Mouse"
+Driver "mouse"
+EndSection
+
+Section "InputDevice"
+Identifier "Synaptics Touchpad"
+Driver "synaptics"
+Option "SendCoreEvents" "true"
+Option "Device" "/dev/psaux"
+Option "Protocol" "auto-dev"
+Option "HorizEdgeScroll" "0"
+EndSection
+
+Section "Device"
+#Identifier "Configured Video Device"
+#Driver "vesa"
+Identifier "device1"
+Driver "via"
+#Option "DPMS"
+#Option "ActiveDevice" "DFP,CRT"
+#Option "PanelID" "8"
+#Option "LCDPort" "DFP_HIGHLOW"
+#Option "NoDDCValue"
+#The Option we were searching for:
+Option "DisplayHardwareLayout" "TTLLCD"
+Option "FnHotkey" "LCD, CRT"
+#Option "DisplayHardwareDevice" "LCD"
+Option "ActiveDevice" "LCD"
+#Option "ForceLCD"
+EndSection
+
+Section "Monitor"
+Identifier "monitor1"
+VendorName "Generic"
+ModelName "640x480 @ 60 Hz"
+HorizSync 30.0 - 72.0
+VertRefresh 50.0 - 75.0
+
+Modeline "800x480" 29.58 800 816 896 992 480 481 484 497
+
+# 800x480 @ 60.002 Hz (GTF) hsync: 29.82 kHz; pclk: 29.58 MHz
+Modeline "800x480@60gtf" 29.58 800 816 896 992 480 481 484 497 -HSync +Vsync
+
+# 800x480 59.48 Hz (CVT) hsync: 29.74 kHz; pclk: 29.50 MHz
+Modeline "800x480@60cvt" 29.50 800 824 896 992 480 483 493 500 -hsync +vsync
+
+# TV fullscreen mode or DVD fullscreen output.
+# 768x576 @ 79 Hz, 50 kHz hsync
+ModeLine "768x576" 50.00 768 832 846 1000 576 590 595 630
+
+# 768x576 @ 100 Hz, 61.6 kHz hsync
+ModeLine "768x576" 63.07 768 800 960 1024 576 578 590 616
+EndSection
+
+Section "Screen"
+Identifier "Default Screen"
+Device "Configured Video Device"
+Monitor "Configured Monitor"
+SubSection "Display"
+Modes "1024x768" "800x600"
+EndSubSection
+EndSection
+
+Section "ServerLayout"
+Identifier "Default Layout"
+Screen "Default Screen"
+InputDevice "Synaptics Touchpad"
+EndSection</code></pre></figure>
+</div>
+
+Con esto tenemos solucionado el problema de la tarjeta gráfica y la salida VGA. Me imagino que tras seguir estos pasos, la resolución por defecto será 800x480 que es, desde mi punto de vista, con la que mejor se ve la pantalla. Aún así podrás elegir de forma manual desde gnome aquella que más te guste.
+
+El único problema que no he conseguido solucionar todavía es que la luz de la wifi luce constantemente, a pesar de que se desactive. Si consigo solucionarlo editaré la receta para compartir la solución.
+
+
+
+
+
+
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8768,93 +9012,6 @@ Este script monta <em>/proc</em>, <em>/sys</em> y <em>/dev</em> dentro de la jau
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2008-06-15/aviso-a-los-autores-de-recetas.html">Aviso a los autores de recetas</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2008-06-15
-    
-      
-  <a href="/users.html#admin">
-   admin
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-06-15-aviso-a-los-autores-de-recetas.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-06-15-aviso-a-los-autores-de-recetas.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/932">node/932</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Con la reciente actualización del drupal de CRySoL hemos podido hacer el necesario upgrade a PHP5, y eso nos ha permitido instalar un módulo bastante decente para colorear listados de código con <a href="http://drupal.org/project/geshifilter">GeSHi</a>.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/2008-06-15/aviso-a-los-autores-de-recetas.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8895,7 +9052,7 @@ Este script monta <em>/proc</em>, <em>/sys</em> y <em>/dev</em> dentro de la jau
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-03-05 12:37:47 -0600
+          Generated at 2022-05-07 09:12:23 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

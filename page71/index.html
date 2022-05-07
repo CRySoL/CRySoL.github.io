@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
+
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
-
-  <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="619 posts"
+     title="620 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5468,6 +5468,10 @@
   <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
      title="1 posts"
      >systemd</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#PostgreSQL-ref'; hide_others()"
+     title="1 posts"
+     >PostgreSQL</a>
 </td></tr>
 
 </table>
@@ -7904,7 +7908,188 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-04-21/bogoutil-completa-bogofilter.html">Bogoutil: completa bogofilter</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-04-21
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-04-21-bogoutil-completa-bogofilter.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-04-21-bogoutil-completa-bogofilter.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/651">node/651</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Bogofilter es un filtro antispam que es muy sencillo de combinar con sylpheed y otros clientes de correo. El paquete bogoutils nos permite acceder a las estadísticas y opciones de la base de datos de bogofilter para obtener información adicional. Aquí se muestran algunas de las opciones
+</blockquote>
+
+
+<h1> Ingredientes </h1>
+
+Evidentemente, nos hará falta <b>bogofilter</b> (que ya incluye bogoutil),  algún cliente de correo configurado con bogofilter y varias semanas de filtrado de spam.
+
+
+<h1> Notas y cosas </h1>
+
+Una nota aclaratoria para todos los ejemplos que se vean en este artículo: He reutilizado la base de datos que tuve hace tiempo, donde no filtré correctamente todos los mailes que me llegaron. Eso ha repercutido en algunas de las estadísticas que mostraré a continuación (como por ejemplo, en la cantidad de mailes que muestran como <i>ham</i> algunas de las palabras, cuando son claramente <i>spam</i>).
+
+Otra cosa: las estadísticas que se muestran aquí sólo son de 3 meses, por lo que no se pueden generalizar (harían falta años para eso).
+
+<h2> Ham vs. Spam </h2>
+
+Como nota aclaratoria, diré que siempre que me refiera a "Ham" (jamón) me referiré a los mails deseados, mientras que "Spam" (la historia tiene algo que ver con una marca que hacía "Ham" malo) hace referencia a todo mail no deseado.
+
+<h2> Cómo funciona</h2>
+
+Bogofilter es un filtro bayesiano. Ni idea de qué significa eso, pero por lo que he podido ir observando, utiliza un sistema para puntuar cada palabra, y después calcula algún tipo de media con respecto a las palabras que hay (o algo así). Por ello, cada palabra recibe una puntuación. Este articulillo hará referencia a estas puntuaciones.
+
+<h1> Histórico </h1>
+
+¿No sentís curiosidad por saber si realmente se puede decidir si un mail es bueno o no por un conjunto de palabras? ¿No encontraremos palabras que son Ham y Spam al mismo tiempo? ¿Será eso lo corriente?
+
+Bueno, pues la manera de saberlo es simple:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>bogoutil <span class="nt">-H</span> ~/.bogofilter/wordlist.db
+<span class="go">Histogram
+score   count  pct  histogram
+</span><span class="gp">0.00   122021 61.10 #</span><span class="c">###############################################</span>
+<span class="gp">0.05      434  0.22 #</span><span class="w">
+</span><span class="gp">0.10      521  0.26 #</span><span class="w">
+</span><span class="gp">0.15      679  0.34 #</span><span class="w">
+</span><span class="gp">0.20     1118  0.56 #</span><span class="w">
+</span><span class="gp">0.25     1977  0.99 #</span><span class="w">
+</span><span class="gp">0.30      924  0.46 #</span><span class="w">
+</span><span class="gp">0.35     1845  0.92 #</span><span class="w">
+</span><span class="gp">0.40      712  0.36 #</span><span class="w">
+</span><span class="gp">0.45     4503  2.25 #</span><span class="c">#</span>
+<span class="gp">0.50      558  0.28 #</span><span class="w">
+</span><span class="gp">0.55     5490  2.75 #</span><span class="c">##</span>
+<span class="gp">0.60      507  0.25 #</span><span class="w">
+</span><span class="gp">0.65      577  0.29 #</span><span class="w">
+</span><span class="gp">0.70     1174  0.59 #</span><span class="w">
+</span><span class="gp">0.75      788  0.39 #</span><span class="w">
+</span><span class="gp">0.80      522  0.26 #</span><span class="w">
+</span><span class="gp">0.85      570  0.29 #</span><span class="w">
+</span><span class="gp">0.90      392  0.20 #</span><span class="w">
+</span><span class="gp">0.95    54405 27.24 #</span><span class="c">#####################</span>
+<span class="go">tot    199717
+hapaxes:  ham  109390 (54.77%), spam   31986 (16.02%)
+   pure:  ham  121951 (61.06%), spam   54197 (27.14%)</span></code></pre></figure>
+</div>
+
+Resulta curioso observar que el 61.20% de las palabras que recibo sólo se encuentran en correos Ham, y que el 27.24% sólo están en correos Spam. Así que se puede observar que es cierto que hay palabras que, directamente, deciden cuándo un correo es Spam.
+
+Fijaros que las concentraciones principales están en los extremos y el centro. Es lógico: los conectores (preposiciones, artículos, pronombres, ...) no serán decisorios.
+
+<h1> ¿Qué probabilidad hay de que "Sexo", "sex", "viagra", "ordenador" estén entre el spam</h1>
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>bogoutil <span class="nt">-p</span> ~/.bogofilter/wordlist.db
+<span class="go">                                spam    good    Fisher
+sexo
+sexo                                3       3  0.558117
+sex
+sex                                25       0  0.999658
+viagra
+viagra                              2       3  0.457457
+ordenador
+ordenador                          21      48  0.356059</span></code></pre></figure>
+</div>
+
+En cuanto introduzcáis la orden arriba citada, el cursor se quedará esperando que tecleéis las palabras a buscar o bien que pulséis CTRL+D para salir.
+
+Observando las estadísticas de arriba se observa que 3 buenos y 3 malos no son un 50%... Bueno, dije que bogofilter hacía "algún tipo de media", no la media aritmética :-D
+
+<h1>Despedida</h1>
+
+He escrito esto porque me parece curioso, no excesivamente útil. De todas maneras, permite comprobar que nuestro filtro bogofilter está funcionando realmente (y si no lo creéis, probad a mirar las posibilidades de una palabra y después marcad como spam un mail que la contenga).
+
+Espero que a alguien más también le parezca algo en lo que perder un ratejo ;)
+
+<h1>Referencias</h1>
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>man bogoutil</code></pre></figure>
+</div>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9138,99 +9323,6 @@ Para escribirlo, como ya hemos dicho, no necesitamos escribir los tonos (las til
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-04-10/gnu-emacs-ocultar-password-de-root-en-el-modo-shell.html">GNU Emacs: Ocultar password de root en el modo shell</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-04-10
-    
-      
-  <a href="/users.html#jorgeroden">
-   jorgeroden
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-04-10-gnu-emacs-ocultar-password-de-root-en-el-modo-shell.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-04-10-gnu-emacs-ocultar-password-de-root-en-el-modo-shell.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#emacs-ref">emacs </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/639">node/639</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Suelo usar la consola embebida, si se puede llamar así, dentro de emacs. Es muy útil porque me permite ejecutar scripts, y realizar numerosas tareas sin salir de emacs. El problema es que cuando se requieren tareas como root, al teclear la contraseña dentro de emacs, ésta se visualiza explícitamente. Para que salgan asteriscos que la oculten hay que incluir en el <code>.emacs</code> lo siguiente:
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2007-04-10/gnu-emacs-ocultar-password-de-root-en-el-modo-shell.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9271,7 +9363,7 @@ Para escribirlo, como ya hemos dicho, no necesitamos escribir los tonos (las til
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-03-05 12:37:47 -0600
+          Generated at 2022-05-07 09:12:23 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

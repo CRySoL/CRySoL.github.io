@@ -5053,6 +5053,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
+
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
@@ -5060,8 +5062,6 @@
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
-
-  <li><a href="/recipe/2020-05-05/fine-grain-sudo.html">Fine grain sudo</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5073,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="619 posts"
+     title="620 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5468,6 +5468,10 @@
   <a href="javascript:window.location.href='/tags.html#systemd-ref'; hide_others()"
      title="1 posts"
      >systemd</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#PostgreSQL-ref'; hide_others()"
+     title="1 posts"
+     >PostgreSQL</a>
 </td></tr>
 
 </table>
@@ -7904,7 +7908,100 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-01-02/compartir-una-impresora-cups-automgicamente.html">Compartir una impresora CUPS automágicamente</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-01-02
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-02-compartir-una-impresora-cups-automgicamente.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-02-compartir-una-impresora-cups-automgicamente.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/481">node/481</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>Cómo configurar <span class="caps">CUPS</span> para que sirva una impresora a toda una red sin que los clientes la conozcan de antemano.</p>
+<p>
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2007-01-02/compartir-una-impresora-cups-automgicamente.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9045,143 +9142,6 @@ y si tiene tiempo limitado, les agradeceria que me indiquen como crackearlo. Gra
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-12-11/video-streaming-en-flash-con-software-libre.html">Video Streaming en Flash con Software Libre</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-12-11
-    
-      
-  <a href="/users.html#morcy">
-   morcy
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-12-11-video-streaming-en-flash-con-software-libre.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-12-11-video-streaming-en-flash-con-software-libre.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/468">node/468</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-Una forma sorprendentemente sencilla de hacer streaming de video tipo YouTube, pero usando sólo software libre.
-</blockquote>
-
-
-Quién no conoce el streaming de video en flash. Páginas tan famosas como <a href="http://www.youtube.com">YouTube</a> o la versión de google <a href="http://video.google.com/">video.google.com</a> son capaces de reproducir videos en formato FLV de Flash. El formato Flash en si es una especificación libre de la que han salido algunos proyectos interesantes, como Flowplayer; un reproductor libre de formato FLV, con lo que podremos añadir videos a nuestras páginas empleando herramientas libres!! Veamos cómo...
-
-Lo primero que necesitamos es convertir nuestro video original en formato FLV. Para ello, haremos uso de ffmpeg, con una orden similar a la siguiente (os pego directamente la orden del video de ejemplo):
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>ffmpeg <span class="nt">-i</span> video.avi <span class="nt">-acodec</span> mp3 <span class="nt">-ar</span> 22050 <span class="nt">-ab</span> 32 <span class="nt">-f</span> flv <span class="nt">-s</span> 288×144 dest.flv</code></pre></figure>
-</div>
-
-Naturalmente, tendréis que cambiar la resolución del video destino (en este caso 288x144). Bien, tenemos un video en formato FLV. Para que el reproductor pueda saber la duración del video, permitir avanzar o retroceder en el video, etc... el fichero necesita unos metadatos que en la version actual de ffmpeg no añade. Suerte que tenemos un programa hecho en Ruby para estas marranadas llamado flvtool2:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>flvtool2 <span class="nt">-U</span> dest.flv</code></pre></figure>
-</div>
-
-Con esa sencilla orden, flvtool2 añade los metadatos escribiendo sobre el propio fichero que le pasamos como parámetros. Bien, ya casi hemos terminado... Sólo falta descargarnos el fichero swf del FlowPlayer e incluir en nuestro html un objeto como el siguiente:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;object</span> <span class="na">type=</span><span class="s">"application/x-shockwave-flash"</span> <span class="na">data=</span><span class="s">"FlowPlayer.swf"</span> <span class="na">width=</span><span class="s">"480"</span> <span class="na">height=</span><span class="s">"312"</span> <span class="na">id=</span><span class="s">"FlowPlayer"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">"allowScriptAccess"</span> <span class="na">value=</span><span class="s">"sameDomain"</span> <span class="nt">/&gt;</span>
-  <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">"movie"</span> <span class="na">value=</span><span class="s">"FlowPlayer.swf"</span> <span class="nt">/&gt;</span>
-  <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">"quality"</span> <span class="na">value=</span><span class="s">"high"</span> <span class="nt">/&gt;</span>
-  <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">"scale"</span> <span class="na">value=</span><span class="s">"noScale"</span> <span class="nt">/&gt;</span>
-  <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">"wmode"</span> <span class="na">value=</span><span class="s">"transparent"</span> <span class="nt">/&gt;</span>
-  <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">"flashvars"</span> <span class="na">value=</span><span class="s">"videoFile=jura.flv&amp;autoPlay=false&amp;loop=false&amp;autoBuffering=false&amp;splashImageFile=clicktoplay.jpg"</span><span class="nt">/&gt;</span>
-<span class="nt">&lt;/object&gt;</span></code></pre></figure>
-</div>
-
-Os recomiendo echar un vistazo a todas las opciones que soporta FlowPlayer, ya que se pueden poner thumbnails para videos largos, personalizar la imagen de "clicktoplay" (como he hecho en el ejemplo), cambiar el aspecto del reproductor mediante skins, etc...
-
-La resolución de reproducción del video, como veis en el html es en realidad el doble de la del fichero de video. Esto permite que el video se vea más grande, y la pérdida de calidad por el aumento de la resolución no se aprecia demasiado (en las escenas rápidas se ve peor, pero no es problema de la resolución, sino por el algoritmo de codificación). Fijaos en el principio del video...
-
-Bueno, pues os dejo con el video de presentación del festival de cortos Annecy del 2002 titulado "Jurannessic"... o cómo se descubrió el fenómeno de la persistencia de la visión. Bye!!
-
-<center>
-<object type="application/x-shockwave-flash" data="/assets/files/FlowPlayerDark.swf" width="480" height="312" id="FlowPlayer"><param name="allowScriptAccess" value="sameDomain" />
-<param name="movie" value="/assets/files/FlowPlayerDark.swf" />
-<param name="quality" value="high" />
-<param name="scale" value="noScale" />
-<param name="wmode" value="transparent" />
-<param name="flashvars" value="videoFile=http://arco.esi.uclm.es/~josel.segura/enjuto_test.flv&autoPlay=false&loop=false&autoBuffering=false&splashImageFile=http://arco.esi.uclm.es/~josel.segura/enjuto_test.png" /></object>
-</center>
-
-<h2> Referencias </h2>
-
-<ul>
-  <li><a href="http://boxel.info/morcy/index.php?m=12&y=06&entry=entry061205-200831">Video Streaming en Flash con Software Libre</a></li>
-</ul>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9222,7 +9182,7 @@ Bueno, pues os dejo con el video de presentación del festival de cortos Annecy 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-03-05 12:37:47 -0600
+          Generated at 2022-05-07 09:12:23 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
