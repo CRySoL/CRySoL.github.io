@@ -1,0 +1,53 @@
+---
+layout: post
+title: Volcar (y recuperar) una base de datos PostgreSQL
+author: david_villa
+comments: true
+category: recipe
+tags:
+- PostgreSQL
+
+---
+Esta receta explica una forma sencilla de hacer una copia de seguridad de una base de datos PostgreSQL completa para poderla restaurar en caso de catástrofe o mudanza.
+
+
+<!--break-->
+
+
+h2. Hacer una copia de seguridad
+
+El comando a utilizar es @pg_dump@ que tiene la siguiente sintaxis básica:
+
+<pre>mysqldump -U [user] [dbname] -F [format] -f backup.sql</pre>
+
+por ejemplo:
+
+<div class="console">
+{% highlight console %}
+# pg_dump -U postgres -Ft postgres -f db.tar
+{% endhighlight %}
+</div>
+
+
+h2. Recuperar la base de datos desde un fichero
+
+La contraparte de @pg_dump@ es @pg_restore@:
+
+<div class="console">
+{% highlight console %}
+# pg_restore --clean -U postgres -Ft --dbname postgres db.tar
+{% endhighlight %}
+</div>
+
+Este comando sobreescribe la base de datos existente. Si la base de datos no existiera aún, se puede usar el argumento @--create@.
+
+
+h2. Comentarios
+
+El parámetro @Ft@ indica que el formato del fichero a generar/cargar es "tar", aunque también permite volcarlo a un fichero de sentencias SQL.
+
+
+h2. Referencias
+
+* "PostgreSQL pg_dump & pg_restore Guide":https://simplebackups.com/blog/postgresql-pgdump-and-pgrestore-guide-examples/
+
