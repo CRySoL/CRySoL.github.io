@@ -5027,6 +5027,8 @@
   
     
   
+    
+  
 
 
 
@@ -5053,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
+
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
@@ -5060,8 +5064,6 @@
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="620 posts"
+     title="621 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5473,6 +5475,11 @@
      title="1 posts"
      >PostgreSQL</a>
 </td></tr>
+<tr class="row38"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
+     title="1 posts"
+     >ffmpeg</a>
+</td></tr>
 
 </table>
 </div>
@@ -5493,13 +5500,13 @@
     </li>
   
 
-  <li><a>Page: 100 of 120</a></li>
+  <li><a>Page: 100 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page101">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -7910,7 +7917,131 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-04-10/edicin-de-imgenes-en-consola-con-imagemagick.html">Edición de imágenes en consola, con ImageMagick</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-04-10
+    
+      
+  <a href="/users.html#aledelgal">
+   aledelgal
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-04-10-edicin-de-imgenes-en-consola-con-imagemagick.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-04-10-edicin-de-imgenes-en-consola-con-imagemagick.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/280">node/280</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<p>ImageMagick es una colección de herramientas y librerías para leer, escribir y manipular una imagen en diversos formatos. Las operaciones de pocesamiento de imágenes están disponibles en línea de comandos. Se pueden redimensionar, cambiar su resolución, rotar, añadir texto, añadir efectos artísticos, etc&#8230;, lo que quieras.</p>
+</blockquote>
+<h2>Instalación de imageMagick</h2>
+<p>Yo cuando lo descubrí ya lo tenía instalado, pero de todas formas está en los repositorios, es tan fácil como:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>imagemagick</code></pre></figure></div>
+<h2>Redimensionar una imagen.</h2>
+<p>Existen varias opciones:</p>
+<p>Redimensionarla porcentualmente:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>convert <span class="nt">-sample</span> 50%x50% imgagen.jpg nuevaimagen.jpg</code></pre></figure></div>
+<p>Cambiarle la resolución (a 800&#215;600):</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>convert <span class="nt">-resize</span> 800x600 imagen.jpg nuevaimagen.jpg</code></pre></figure></div>
+<h2>Cambiar la calidad</h2>
+<p>En este caso, al 85%:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w">  </span>convert <span class="nt">-quality</span> 85 imagen.jpg nuevaimagen.jpg</code></pre></figure></div>
+<h2>Rotar una imagen</h2>
+<p>Para rotar hacia la derecha indica el número de grados como un número positivo. Si quieres rotar hacia la izquierda indica el número de grados como un número negativo.</p>
+<p>Así rotaríamos 90 grados a la derecha:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>convert <span class="nt">-rotate</span> 90 input.jpg output.jpg</code></pre></figure></div>
+<h2>Añadir texto a una imagen</h2>
+<p>Opciones:</p>
+<ul>
+	<li>fill white rellena las letras de color blan en lugar del negro por defecto</li>
+	<li>pointsize especifica el tamaño de letra</li>
+	<li>draw &#8216;text 10,50 &quot; &#8230; &quot;&#8217; Dibuja el texto entre las comillas dobles en la posición 10,50</li>
+</ul>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>convert <span class="nt">-font</span> helvetica <span class="nt">-fill</span> white <span class="nt">-pointsize</span> 36 <span class="nt">-draw</span> <span class="s1">'text 10,50 "Dia de campo..." imagen.jpg imagencomentada.jpg</span></code></pre></figure></div>
+<h2>Y mucho más</h2>
+<p>Hay muchos más comandos para hacer efectos artísticos, como por ejemplo &#8220;spread&#8221; para indicar en qué medida se va a esparcir una imagen; &#8220;solarize&#8221; para indicar un grado de solarizado; etc, etc, etc, &#8230;</p>
+<p>Luego seguiré con esta receta, añadiendo bien añadido cómo se hacen los efectos artísticos, cómo se hace un script para hacer lo que quieras con todas las imágenes de un directorio, etc&#8230;Pero ahora mismo no puedo ;)  Si alguien se anima&#8230;</p>
+<h2>Referencias</h2>
+<ul>
+	<li><code>man convert</code></li>
+	<li><a href="http://www.starlinux.net">Starlinux</a></li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8788,100 +8919,6 @@ Para configurar el tipo de conexión que tiene nuesra calculadora lo podemos hac
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-03-28/restringir-secuencias-controlalt-en-el-servidor-x.html">Restringir secuencias "Control+Alt+..." en el servidor X</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-03-28
-    
-      
-  <a href="/users.html#cleto">
-   cleto
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-03-28-restringir-secuencias-controlalt-en-el-servidor-x.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-03-28-restringir-secuencias-controlalt-en-el-servidor-x.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/270">node/270</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-Esta receta pretende mostrar cómo deshabilitar las secuencias "control+alt" en el servidor gráfico X. Puede ser útil hacer esto en computadores que van a ser utilizados por el público en general y se requieren restricciones en el teclado para el buen funcionamiento del mismo.
-</blockquote>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2006-03-28/restringir-secuencias-controlalt-en-el-servidor-x.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8895,13 +8932,13 @@ Esta receta pretende mostrar cómo deshabilitar las secuencias "control+alt" en 
     </li>
   
 
-  <li><a>Page: 100 of 120</a></li>
+  <li><a>Page: 100 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page101">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -8922,7 +8959,7 @@ Esta receta pretende mostrar cómo deshabilitar las secuencias "control+alt" en 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-07-12 04:21:46 -0500
+          Generated at 2022-08-21 10:34:15 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

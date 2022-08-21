@@ -5027,6 +5027,8 @@
   
     
   
+    
+  
 
 
 
@@ -5053,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
+
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
@@ -5060,8 +5064,6 @@
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="620 posts"
+     title="621 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5473,6 +5475,11 @@
      title="1 posts"
      >PostgreSQL</a>
 </td></tr>
+<tr class="row38"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
+     title="1 posts"
+     >ffmpeg</a>
+</td></tr>
 
 </table>
 </div>
@@ -5493,13 +5500,13 @@
     </li>
   
 
-  <li><a>Page: 5 of 120</a></li>
+  <li><a>Page: 5 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page6">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -7910,7 +7917,99 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2013-09-23/virtualbox-vmdk-to-vdi.html">Converting .vmdk virtual disk to .vdi format from command line</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2013-09-23
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2013-09-23-virtualbox-vmdk-to-vdi.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2013-09-23-virtualbox-vmdk-to-vdi.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#devel-ref">devel </a></li>
+    
+    	<li><a href="/tags.html#virtualbox-ref">virtualbox </a></li>
+    
+    	<li><a href="/tags.html#shell-ref">shell </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>When you have a functional virtual machine but you want to have the virtual disk in a different format.</p>
+<p>Something like this should be enough. You must known the name of the virtual disk controller (&#8220;<span class="caps">SATA</span>&#8221; in the example):</p>
+<pre class="console">
+$ VBoxManage storageattach NAME --storagectl SATA --port 0 --device 0 --type hdd --medium none
+$ VBoxManage clonehd --format vdi OLD_DISK.vmdk NEW_DISK.vdi
+$ VBoxManage storageattach NAME --storagectl SATA --port 0 --device 0 --type hdd --medium NEW_DISK.vdi
+</pre>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8722,89 +8821,6 @@ libpulsecommon-4.0.so: cannot open shared object file: No such file or directory
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2013-06-25/git-dir.html">unfriendly commands: git dealing with a repository in other directory</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2013-06-25
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2013-06-25-git-dir.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2013-06-25-git-dir.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#git-ref">git </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>mercurial</p>
-<pre class="console">
-$ hg -R foo/bar st
-</pre>
-<p>git</p>
-<pre class="console">
-$ git --git-dir=foo/bar/.git --work-tree=$(pwd)/foo/bar status
-</pre>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8818,13 +8834,13 @@ $ git --git-dir=foo/bar/.git --work-tree=$(pwd)/foo/bar status
     </li>
   
 
-  <li><a>Page: 5 of 120</a></li>
+  <li><a>Page: 5 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page6">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -8845,7 +8861,7 @@ $ git --git-dir=foo/bar/.git --work-tree=$(pwd)/foo/bar status
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-07-12 04:21:46 -0500
+          Generated at 2022-08-21 10:34:15 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

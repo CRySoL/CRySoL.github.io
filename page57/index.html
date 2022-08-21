@@ -5027,6 +5027,8 @@
   
     
   
+    
+  
 
 
 
@@ -5053,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
+
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
@@ -5060,8 +5064,6 @@
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="620 posts"
+     title="621 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5473,6 +5475,11 @@
      title="1 posts"
      >PostgreSQL</a>
 </td></tr>
+<tr class="row38"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
+     title="1 posts"
+     >ffmpeg</a>
+</td></tr>
 
 </table>
 </div>
@@ -5493,13 +5500,13 @@
     </li>
   
 
-  <li><a>Page: 57 of 120</a></li>
+  <li><a>Page: 57 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page58">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -7910,7 +7917,83 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/quote/2008-01-11/easy-to-shoot.html">“C makes it easy to shoot yourself in the foot; C++ makes it harder, but when you do, it blows away your whole leg”</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2008-01-11
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2008-01-11-easy-to-shoot.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2008-01-11-easy-to-shoot.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#quote-ref">
+    		quote
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#C++-ref">C++ </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <p>― Bjarne Stroustrup</p>
+<p>«Con C es fácil dispararse en un pie. Con C++ es más difícil, pero cuando lo haces, te arranca la pierna entera».</p>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8877,321 +8960,6 @@ Warining: Starting R2 with no idle-pc value
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-12-10/analizador-lxico-sintctico-y-semntico-con-jflex-y-cup.html">Analizador léxico, sintáctico y semántico con JFlex y CUP</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-12-10
-    
-      
-  <a href="/users.html#Vigilante">
-   Vigilante
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-12-10-analizador-lxico-sintctico-y-semntico-con-jflex-y-cup.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-12-10-analizador-lxico-sintctico-y-semntico-con-jflex-y-cup.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/819">node/819</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote class="head">
-   La siguiente receta explica con un ejemplo como construir un analizador léxico con JFlex y un analizador sintáctico y semántico con CUP (obviamente para Java). Además, muestra el uso de producciones de error.
-</blockquote>
-
-
-<h2>Requisitos</h2>
-
-<ul>
-  <li> jflex - analizador léxico para Java </li>
-  <li> cup - analizador sintáctico/semántico LALR para Java </li>
-</ul>
-
-<h2>Construcción</h2>
-El ejemplo consiste en un conversor de unidades métricas. Admitiría textos de entradas del siguiente tipo:
-
-<code>Entrada.txt</code>
-<pre>
-Km 1 mm;
-dm 3 dm;
-Hm 393 m;
-Dm 54 cm, mm 3429 dm;
-Km 23 Dm;
-dm 322 cm, Hm 0923 mm;
-</pre>
-
-y devuelve en consola:
-<pre class="console">
-1 Km  son 1000000 mm;
-3 dm son 3 dm;
-393 Hm son 39300 m;
-...
- </pre>
-
-Un archivo flex tiene la siguiente estructura (cada sección se separa mediante %%) :
-
-<ol>
-  <li> Código de usuario </li>
-  <li> Opciones y declaraciones </li>
-  <li> Reglas léxicas </li>
-</ol>
-
-<code>Conversor.lex</code>
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">//* ------------Sección codigo-usuario -------- */
-import java_cup.runtime.*;
-%%
-/*- Sección de opciones y declaraciones -*/
-/*-OPCIONES --*/
-/* Nombre de la clase generada para el analizador lexico */
-%class conversor
-/* Indicar funcionamiento autonomo*/
-%standalone
-%8bit
-/* Acceso a la columna y fila actual de analisis CUP */
-%line
-%column
-/* Habilitar la compatibilidad con el interfaz CUP para el generador sintactico*/
-%cup
-/*-- DECLARACIONES --*/
-%{/*Crear un nuevo objeto java_cup.runtime.Symbol con información sobre el token actual sin valor*/
-
-  private Symbol symbol(int type){
-    return new Symbol(type,yyline,yycolumn);
-  }
-/* Crear un nuevo objeto java_cup.runtime.Symbol con información sobre el token actual con valor*/
-  private Symbol symbol(int type,Object value){
-    return new Symbol(type,yyline,yycolumn,value);
-  }
-%}
-/*-- MACRO DECLARACIONES --*/
-LineTerminator = \r|\n|\r\n
-WhiteSpace     = {LineTerminator} | [ \t\f]
-//finConversion	= [,;]
-num_int = [0-9]+
-%%
-/*-------- Sección de reglas lexicas ------ */
-&lt;YYINITIAL&gt; {
-//{finConversion}{ return symbol.FCONVERSION}
-
-","	{ return symbol(sym.COMA);}
-";"	{ return  symbol(sym.PUNTOCOMA);}
-"mm"	{ return  symbol(sym.MM); }
-"cm"	{ return  symbol(sym.CM); }
-"dm"	{ return  symbol(sym.DCM); }
-"m"	{ return  symbol(sym.M); }
-"Dm"	{ return  symbol(sym.DCAM); }
-"Hm"	{ return  symbol(sym.HM); }
-"Km"	{ return  symbol(sym.KM); }
-{num_int}	{ return symbol(sym.NUMBER, new Integer(yytext())); }
-
-{WhiteSpace}	{ }
-. {System.out.println("tokenÂ ilegalÂ &lt;" + yytext()+ "&gt;Â Â linea:Â " + (yyline+1) + "Â columna:Â " + (yycolumn+1));}
-}</code></pre></figure>
-</div>
-
-En cuanto a un fichero CUP se pueden diferenciar cinco partes:
-
-<ol>
-  <li>Especificaciones de “package” e “imports”. </li>
-  <li> Componentes de código de usuario. </li>
-  <li> Lista de símbolos de la gramática(terminales­no terminales). </li>
-  <li> Declaraciones de precedencia. </li>
-  <li> Especificación de la gramática. </li>
-</ol>
-
-<code>Conversor.cup</code>
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">/*­­­­Sección de declaraciones package e imports­­­­­­­­­*/
-import java_cup.runtime.*;
-/*­­­­ Sección componentes de código de usuario ­­­­*/
-parser code {:
-    public void report_error(String message, Object info) {
-       	StringBuffer m = new StringBuffer("Error");
-		System.out.println("Mensaje: "+message);
-		System.out.println("info: "+info.toString());
-		if(info instanceof java_cup.runtime.Symbol) {
-			java_cup.runtime.Symbol s=((java_cup.runtime.Symbol)info);
-			/* Comprueba si el numero de línea es mayor o igual que cero */
-			if(s.left &gt;= 0) {
-				m.append(" en linea "+(s.left+1));
-				/*Comprueba si el numero de columna es mayoro igual que cero */
-				if (s.right &gt;= 0)
-					m.append(", y columna "+(s.right+1));
-			}
-		}
-		m.append(" : "+message);
-		System.err.println(m);
-    }
-    public void report_fatal_error(String message, Object info) {
-       	report_error(message, info);
-		System.exit(1);
-    }
-
-public void conversion(String a, String b, int n){
-
-	int c=0,d=0;
-	System.out.print(n+" ");
-	if (a=="Km"){ c=6; System.out.print("Km"); }
-	else if (a=="Hm"){ c=5; System.out.print("Hm"); }
-	else if (a=="Dm"){ c=4; System.out.print("Dm"); }
-	else if (a=="m"){ c=3; System.out.print("m"); }
-	else if (a=="dm"){ c=2; System.out.print("dm"); }
-	else if (a=="cm"){ c=1; System.out.print("cm"); }
-	else if (a=="mm"){ c=0; System.out.print("mm"); }
-
-	if (b=="Km") d=6;
-	else if (b=="Hm") d=5;
-	else if (b=="Dm") d=4;
-	else if (b=="m") d=3;
-	else if (b=="dm") d=2;
-	else if (b=="cm") d=1;
-	else if (b=="mm") d=0;
-
-	System.out.print(" son "+n*Math.pow(10,c-d)+" ");
-
-}
-
-:};
-/*­­­ Declaración de la lista de símbolos de la gramática ­­­­­*/
-
-/* Produciones de flujo normal */
-terminal COMA, PUNTOCOMA, MM, DCM, CM, M, DCAM, HM, KM;
-terminal Integer NUMBER;
-non terminal Object programa, linea, expresiones, medida;
-
-/* ­­­­­­­­­­­­­­ Declaración de la gramática  ­­­­­­­­­­­ */
-programa ::= programa linea | linea;
-
-linea ::= error NUMBER medida PUNTOCOMA {: parser.report_error("revise la sintaxis",null); :} |
-	medida:m1 NUMBER:n medida:m2 PUNTOCOMA {: parser.conversion(m1.toString(),m2.toString(),n.intValue());
- 	System.out.println(m2); :} |
-	expresiones medida:m1 NUMBER:n medida:m2 PUNTOCOMA
- 	{: parser.conversion(m1.toString(),m2.toString(),n.intValue());
-	System.out.println(m2); :} ;
-
-expresiones ::= expresiones medida:m1 NUMBER:n medida:m2 COMA
-	{: parser.conversion(m1.toString(),m2.toString(),n.intValue());
-	System.out.println(m2); :} |
-	medida:m1 NUMBER:n medida:m2 COMA {: parser.conversion(m1.toString(),m2.toString(),n.intValue());
- 	System.out.println(m2); :} |
-	error NUMBER medida COMA {: parser.report_error("revise las medidas en mayusculas",null); :};
-
-medida ::= KM {: RESULT="Km"; :} | HM {: RESULT="Hm"; :} | DCAM {: RESULT="Dm"; :} |
-	M {: RESULT="m"; :} | DCM {: RESULT="dm"; :} |
-	CM {: RESULT="cm"; :} | MM {: RESULT="mm"; :};</code></pre></figure>
-</div>
-
-Necesitas un fichero que cree un objeto parser y comience el análisis.
-
-<code>Main.java</code>
-
-<div>
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java_cup.runtime.Symbol</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
-<span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
-    <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">do_debug_parse</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-    <span class="kd">static</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span> <span class="o">{</span>
-		<span class="n">parser</span> <span class="n">parser_obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">parser</span><span class="o">(</span><span class="k">new</span> <span class="n">conversor</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">])));</span>
-		<span class="nc">Symbol</span> <span class="n">parse_tree</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-		<span class="k">try</span> <span class="o">{</span>
-			<span class="k">if</span> <span class="o">(</span><span class="n">do_debug_parse</span><span class="o">)</span>
-				 <span class="n">parse_tree</span> <span class="o">=</span> <span class="n">parser_obj</span><span class="o">.</span><span class="na">debug_parse</span><span class="o">();</span>
-			<span class="k">else</span> <span class="n">parse_tree</span> <span class="o">=</span> <span class="n">parser_obj</span><span class="o">.</span><span class="na">parse</span><span class="o">();</span>
-			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Entrada correcta"</span><span class="o">);</span>
-		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Horror"</span><span class="o">);</span>
-		<span class="o">}</span>
-
-    <span class="o">}</span>
-<span class="o">}</span></code></pre></figure>
-</div>
-
-<code>Makefile</code>
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">all: java
-	javac *.java
-
-java:
-	jflex *.lex
-	cup *.cup
-
-clean:
-	$(RM) *.class
-	$(RM) parser.java sym.java
-	$(RM) *~</code></pre></figure>
-</div>
-
-<h2>Referencias</h2>
-<a href="http://jflex.de/">JFlex</a>
-<a href="http://www2.cs.tum.edu/projects/cup/">CUP</a>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9205,13 +8973,13 @@ clean:
     </li>
   
 
-  <li><a>Page: 57 of 120</a></li>
+  <li><a>Page: 57 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page58">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -9232,7 +9000,7 @@ clean:
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-07-12 04:21:46 -0500
+          Generated at 2022-08-21 10:34:15 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

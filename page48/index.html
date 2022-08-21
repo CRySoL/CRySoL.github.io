@@ -5027,6 +5027,8 @@
   
     
   
+    
+  
 
 
 
@@ -5053,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
+
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
@@ -5060,8 +5064,6 @@
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
   <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-21/fixing-raw-shell-tty.html">Fixing raw shell tty</a></li>
 
 </ul>
 </div>
@@ -5073,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="620 posts"
+     title="621 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5473,6 +5475,11 @@
      title="1 posts"
      >PostgreSQL</a>
 </td></tr>
+<tr class="row38"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
+     title="1 posts"
+     >ffmpeg</a>
+</td></tr>
 
 </table>
 </div>
@@ -5493,13 +5500,13 @@
     </li>
   
 
-  <li><a>Page: 48 of 120</a></li>
+  <li><a>Page: 48 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page49">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -7910,7 +7917,171 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2008-07-08/carga-dinmica-de-contenido-html-con-xmlhttprequest.html">Carga dinámica de contenido HTML con XMLHttpRequest</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2008-07-08
+    
+      
+  <a href="/users.html#jalbusac">
+   jalbusac
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-07-08-carga-dinmica-de-contenido-html-con-xmlhttprequest.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-07-08-carga-dinmica-de-contenido-html-con-xmlhttprequest.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Oreto-ref">Oreto </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/945">node/945</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+El objetivo principal de este mini tutorial es describir cómo podemos cargar código HTML de forma dinámica con el objeto XMLHttpRequest; todo ello sin necesidad de que la página recargue todo su contenido. No me centraré en hablar sobre AJAX ya que hay multitud de páginas que hablan sobre ello.
+</blockquote>
+
+Veamos un ejemplo en el que disponemos de un menú con tres enlaces y una zona central donde se muestran los contenidos (dependiendo de la pestaña o enlace que pulse el usuario se mostrará un contenido u otro). Aunque visualmente dé la sensación de que la página no se recarga, con el objeto XMLHttpRequest podemos realizar peticiones en segundo plano al servidor. En primer lugar debemos crear el objeto XMLHttpResquest; su creación varía en función del navegador en uso:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">language</span><span class="o">=</span><span class="err">”</span><span class="nx">javascript</span><span class="err">”</span><span class="o">&gt;</span>
+<span class="kd">var</span> <span class="nx">xmlhttp</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="k">try</span><span class="p">{</span>
+<span class="c1">//comprobamos si es IE</span>
+<span class="nx">xmlhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ActiveXObject</span><span class="p">(</span><span class="dl">"</span><span class="s2">Msxml2.XMLHTTP</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+<span class="k">try</span><span class="p">{</span>
+<span class="nx">xmlhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ActiveXObject</span><span class="p">(</span><span class="dl">"</span><span class="s2">Microsoft.XMLHTTP</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+<span class="nx">xmlhttp</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">xmlhttp</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">XMLHttpRequest</span> <span class="o">!=</span> <span class="dl">'</span><span class="s1">undefined</span><span class="dl">'</span><span class="p">){</span>
+<span class="nx">xmlhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/script&gt;</span></code></pre></figure>
+</div>
+
+Una vez que el objeto XMLHttpResquest ha sido creado, podemos comenzar a trabajar con él para realizar peticiones al servidor. Para este ejemplo, antes de utilizarlo, necesitamos otra serie de ingredientes para completar la receta, como son el menú desplegable con los diferentes enlaces y la capa donde se cargará el contenido de forma dinámica.
+
+Creación del menú:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">"menu"</span> <span class="na">name=</span><span class="s">"menu"</span> <span class="na">onchange=</span><span class="s">"javascript:cambiaTexto();"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"pagina1.html"</span><span class="nt">&gt;</span>Texto 1<span class="nt">&lt;/option&gt;</span>
+	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"página2.html"</span><span class="nt">&gt;</span>Texto 2<span class="nt">&lt;/option&gt;</span>
+	<span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"pagina3.html"</span><span class="nt">&gt;</span>Texto 3<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span></code></pre></figure>
+</div>
+
+Es muy importante que cuando creemos el menú le asociemos un nombre y sobre todo un identificador (id), ya que será necesario para recuperar su valor desde javascript. También asociamos al menú el evento <i>onchange</i>, de tal forma que, cuando cambie su estado (se seleccione una opción diferente) se produzca la llamada a una función, en este caso la hemos denominado <i>cambiaTexto()</i>.
+
+Creación de la capa donde se cargará el contenido de forma dinámica:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"texto"</span> <span class="na">name=</span><span class="s">"texto"</span> <span class="na">width=</span><span class="s">”500”</span> <span class="na">height=</span><span class="s">”400”</span><span class="nt">&gt;&lt;/div&gt;</span></code></pre></figure>
+</div>
+
+Al igual que ocurría con el menú, también es necesario asociar un identificador para la capa (creada con la etiqueta <div>). Una vez que tenemos los ingredientes preparados ya podemos implementar la función en código JavaScript que se encargará de variar el contenido de la capa utilizando el objeto XMLHttpRequest.
+
+Función cambiaTexto():
+
+
+<div>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">cambiaTexto</span><span class="p">(){</span>
+	<span class="kd">var</span> <span class="nx">menu</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">menu</span><span class="dl">"</span><span class="p">);</span>
+	<span class="kd">var</span> <span class="nx">capa</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">texto</span><span class="dl">"</span><span class="p">);</span>
+	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span> <span class="nx">menu</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+		<span class="k">if</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">){</span>
+			<span class="nx">capa</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+Para poder manipular el menú y la capa creada con código HTML, utilizamos la función getElementById. El valor actual del menú contendrá el enlace de la página que hemos elegido <i>menu.value</i>. Por tanto, podemos hacer la petición del contenido de dicha página con el objeto <i>xmlhttp</i> y la función <i>open</i>. Además, podemos apreciar que en este ejemplo hemos realizado la petición con el método GET, pero es importante saber que no es la única forma, ya que existe varios métodos: GET, POST, HEAD, DELETE, TRACE, OPTIONS y CONNECT.
+
+Finalmente, cuando la petición es satisfecha podemos cargar el contenido que ha sido solicitado en la capa (<i>capa.innerHTML = xmlhttp.responseText</i>)
+
+Como hemos podido apreciar en este breve tutorial, AJAX se basa principalmente en el uso del objeto XMLHttpResquest. Además, se ha descrito cómo cargar en una capa contenido html de forma dinámica sin recargar todo el contenido de la página principal. Por otra parte, también podemos destacar que la combinación de AJAX y PHP es sencilla y de gran utilidad; en este ejemplo, hemos utilizado el objeto XMLHttpResquest para solicitar páginas html pero, de la misma forma, podríamos haber solicitado páginas PHP que accedan a una base de datos, recuperar información y construir código HTML de forma dinámica. El uso de AJAX cobra sentido cuando tenemos la intención de crear aplicaciones web similares a las aplicaciones de escritorio.
+
+<h2> Referencias </h2>
+
+<ul>
+<li> Introducción a AJAX con PHP. Babin, Lee (Ed. Anaya Multimedia). 2005. </li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8882,136 +9053,6 @@ ellos plagian</p>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2008-06-16/entornos-chroot-con-cdebootstrap-en-debian.html">Entornos chroot con cdebootstrap en Debian</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2008-06-16
-    
-      
-  <a href="/users.html#javieralso">
-   javieralso
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-06-16-entornos-chroot-con-cdebootstrap-en-debian.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-06-16-entornos-chroot-con-cdebootstrap-en-debian.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/933">node/933</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>Si utilizas varias aplicaciones que tienen librerías que entran en conflicto entre sí, una solución puede ser "enjaularla" para que no entre en conflicto con tu sistema. Aquí explico cómo crear una <em>jaula</em> en pocos pasos, que permitirá entre otras cosas aislar aplicaciones.
-</blockquote>
-
-
-Además, el uso de <em>jaulas</em> también puede resultar útil si tienes ciertos servicios como servidores web o ftp y quieres aumentar un poco mas la seguridad del sistema, ya que hace, al menos algo mas difícil, el acceso al sistema, debido a que éste queda, en teoría, fuera del alcance del sistema enjaulado.
-
-En mi caso, yo he utilizado la <em>jaula</em> para aislar dos compiladores cruzados para microcontroladores AVR, debido a que utilizo <a href="/node/405">tinyos</a> y necesita una versión muy concreta de <a href="http://www.nongnu.org/avr-libc/">avr-libc</a> que entra en conflicto con ya que yo <a href="/node/530">tengo instalada</a>.
-
-<h2>Empezando</h2>
-
-Bueno, para poder empezar, necesitas tener instalado <em>cdebootstrap</em>, si usas <a href="http://www.debian.org/index.es.html">Debian</a> ya sabes, <em>apt-get</em> (o <em>aptutude</em>, que esto parece como ser del Bétis o del Sevilla ;)).
-
-Una vez con <em>cdebootstrap</em> instalado, creas un directorio en el lugar en el que quieras tener tu <em>jaula</em> instalada. Yo por ejemplo, la he creado en <em>/usr/local/tinyos</em> por ésto de tener las cosas un poco mas ordenaditas. Cuando ya tengas el directorio creado invocas a <em>cdebootstrap</em> con un comando tal que éste:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@rigoberto:~$</span><span class="w"> </span><span class="nb">sudo </span>cdebootstrap unstable /usr/local/tinyos/  http://babel.esi.uclm.es/debian</code></pre></figure>
-</div>
-
-Esto crea, dentro de <em>/usr/local/tinyos/</em> un sistema <em>unstable</em> totalmente desnudo (con lo mas básico) partiendo del repositorio que le hemos pasado.
-
-Ahora, para poderlo utilizar, necesitas montar <em>/proc</em> y <em>/dev</em>. Éste último no es que sea especialmente necesario a menos que vayas a utilizar algún dispositivo de entrada/salida. En mi caso, como necesito un puerto serie para poder programar las motas, he de montarlo dentro de la jaula.
-Para montar las unidades y acceder a la jaula, se puede utilizar un script como el siguiente, que lo hace todo de forma automática:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">#!/bin/bash
-
-sudo mount -t proc none /usr/local/tinyos/proc
-sudo mount -t sysfs none /usr/local/tinyos/sys
-sudo mount --bind /dev /usr/local/tinyos/dev
-sudo chroot /usr/local/tinyos
-sudo umount /usr/local/tinyos/dev
-sudo umount /usr/local//tinyos/sys
-sudo umount /usr/local/tinyos/proc</code></pre></figure>
-</div>
-
-Este script monta <em>/proc</em>, <em>/sys</em> y <em>/dev</em> dentro de la jaula y ejecuta <em>chroot</em> para cambiar el raíz. Cuando sale del <em>chroot</em>,  desmonta todo otra vez.
-
-<h2> Referencias </h2>
-
-<ul>
-<li><a href="http://administradores.educarex.es/wiki/index.php/Creaci%C3%B3n_de_un_Entorno_chroot">Creación de un Entorno chroot</a></li>
-</ul>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9025,13 +9066,13 @@ Este script monta <em>/proc</em>, <em>/sys</em> y <em>/dev</em> dentro de la jau
     </li>
   
 
-  <li><a>Page: 48 of 120</a></li>
+  <li><a>Page: 48 of 121</a></li>
 
   
     <li class="next" title="next page">
       <a href="/page49">&rsaquo;</a>
     </li>
-    <li class="next"><a href="/page120" title="last page">&raquo;</a></li>
+    <li class="next"><a href="/page121" title="last page">&raquo;</a></li>
   
 
   </ul>
@@ -9052,7 +9093,7 @@ Este script monta <em>/proc</em>, <em>/sys</em> y <em>/dev</em> dentro de la jau
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-07-12 04:21:46 -0500
+          Generated at 2022-08-21 10:34:15 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
