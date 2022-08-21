@@ -1,0 +1,28 @@
+---
+layout: post
+title: Edición de vídeo desde consola con ffmpeg
+author: david_villa
+comments: true
+category: recipe
+tags:
+- ffmpeg
+
+---
+
+Edición básica de vídeo desde consola
+
+<!--break-->
+
+
+h2. Rotar vídeo editando únicamente metadatos (180º en el ejemplo):
+
+<pre>
+$ ffmpeg -i in.mp4 -c copy -metadata:s:v:0 rotate=180 out.mp4
+</pre>
+
+
+h2. Eliminar la pista de audio de un vídeo
+
+<pre>
+$ ffmpeg -i in.mp4 -c copy -an out.mp4
+</pre>
