@@ -1,0 +1,181 @@
+---
+layout: post
+title: Mini referencia de SQL con Postgres
+author: david_villa
+comments: true
+category: recipe
+tags:
+- Postgres
+---
+Esto es sólo una pequeña referencia rápida de operaciones habituales con Postgres.
+
+
+<!--break-->
+
+h2. Ejecutar una sentencia SQL desde la shell
+
+<div class="console">
+{% highlight console %}
+$ psql -h localhost -d <database> -U <user> -c "select * from table"
+{% endhighlight %}
+</div>
+
+<!--
+
+h2. Operaciones con bases de datos
+
+<p/>
+
+h3. Listar todas
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+h3. Seleccionar
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+h3. Crear
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+h3. Borrar
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+
+h2. Operaciones con tablas
+
+<p/>
+
+h3. Listar tablas
+
+Habiendo seleccionado previamente una base de datos.
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+
+h3. Borrar una tabla
+
+Se supone que sabes lo que haces...
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+
+h3. Listar columnas de una tabla
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+ó
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+
+h3. Añadir una columna
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+Por ejemplo:
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+h3. Borrar una columna
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+
+h2. Operaciones con registros (filas)
+
+<p/>
+
+h3. Insertar un registro
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+h3. Insertar un registro mediante una consulta:
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+h3. Borrar un registro
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+h3. Modificar un campo de un registro
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+Reemplazando texto en el valor del campo:
+
+
+<div class="console">
+{% highlight console %}
+{% endhighlight %}
+</div>
+
+h2. Referencias
+
+-->
