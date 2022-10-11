@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,190 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-02-02/wifi-rt2500-de-ralink-en-gnu-linux.html">WiFi RT2500 de Ralink en GNU/Linux</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-02-02
+    
+      
+  <a href="/users.html#javieralso">
+   javieralso
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-02-02-wifi-rt2500-de-ralink-en-gnu-linux.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-02-02-wifi-rt2500-de-ralink-en-gnu-linux.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/214">node/214</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Cómo compilar e instalar los drivers para las tarjetas WiFi RT2500 de Ralink en GNU/linux
+</blockquote>
+
+<h2>Introducción</h2>
+
+Las tarjetas wifi con chipset Ralink RT2500 cada vez son más comunes. Se encuentran integradas en muchos equipos portátiles y como tarjetas PCMCIA para portátiles, por ejemplo. Por desgracia, los núcleos Linux no traen soporte para este chipset. Poe eso hay tienes que añadirlo tú, aunque la tarea es bastante más fácil de lo que puede parecer.
+
+<h2>Lo primero, ¿Tienes una RT2500?</h2>
+
+Bueno, para los menos versados en este tema, la forma de saber qué chipset utiliza tu interfaz wireless (así como cualquier hardware de nuestro equipo) es con el comando <tt>lspci</tt>.
+
+Cuando ejecutes este comando, podrás ver una lista de todos los dispositivos PCI que tienes en tu sistema (si tienes insertada alguna PCMCIA en tu también aparecerá). Ahora solo queda buscar el dispositivo de red que tengas instalado y si ves que su chipset es RT2500 puedes continuar.
+
+<h2>Qué necesitamos</h2>
+
+Necesitas los fuentes del driver. Éstos se pueden obtener de varias maneras:
+<ul>
+<li>Paquete debian:
+<pre class="console">
+$apt-get -f install rt2500-source
+</pre>
+</li>
+<li>
+Bajarte el <a href="http://sourceforge.net/projects/rt2400">Código Fuente</a> del driver directamente de internet. De esta forma podrás conseguir la última versión disponible.</li>
+</ul>
+
+También necesitas los <em>headers</em> del núcleo que estés utilizando. En Debian:
+
+<pre class="console">
+# apt-get -f install linux-headers-$(uname -r)
+</pre>
+
+Ahora ya puedes continuar con la compilación.
+
+
+<h2>Compilación e instalación</h2>
+
+En primer lugar deberemos crear un enlace hacia el directorio en el que están nuestros headers que se llame <em>linux</em> para que a la hora de compilar se encuentren todas las librerias necesarias:
+
+<pre class="console">
+$ cd /usr/src/
+$ ln -s kernel-headers-2.6.8-1-686 linux
+</pre>
+
+Otra cosa importante es que debes compilar este driver con la versión 3.4 de gcc, si no, es muy probable que surjan problemas. Si no lo tienes instalado:
+
+<pre class="console">
+# apt-get -f install gcc-3.4
+</pre>
+
+Ahora ya estás en condiciones de descomprimir los fuentes y compilarlos. Si has descargado los fuentes con apt, éstos se encontrarán en <tt>/usr/src/rt2500.tar.gz</tt>. Descomprímelos y compílamos:
+
+<pre class="console">
+$ tar -zxvf rt2500.tar.gz
+$ cd modules
+$ make CC=gcc-3.4
+</pre>
+
+Una vez compilado todo sin problemas, puedes proceder con la instalación:
+
+<pre class="console">
+$ make install
+</pre>
+
+La instalación habrá creado el fichero <tt>/etc/modprobe.conf</tt>. Dentro de este fichero habrá algo del estilo '<em>alias ra0 rt2500</em>'. Tienes que copiar esa línea dentro del archivo <tt>/etc/modules.conf</tt> y después borrar el archivo <tt>/etc/modprobe.conf</tt>.
+
+Con esto, se supone que el driver ha quedado instalado. Ahora tan solo queda cargar el módulo:
+
+<pre class="console">
+# modprobe rt2500
+</pre>
+
+Si esto no funciona (que debería), puedes probar esto otro (dentro del directorio donde has compilado el driver):
+
+<pre class="console">
+# insmod rt2500.ko
+</pre>
+
+y con esto el driver deberia quedar perfectamente instalado y tu dispositivo de red detectarse como <tt>ra0</tt>.
+A veces (sobre todo con las versiones más nuevas de Linux) el comando <tt>depmod</tt> parece no funcionar bien, por ello, es conveniente, después de tener el módulo cargado ejecutar:
+
+<pre class="console">
+# update-modules
+</pre>
+
+Con ello habrás actualizado correctamente la lista de módulos y el correspondiente a tu WiFi se cargará durante el arranque.
+
+<h2>Enlaces</h2>
+<ul>
+<li>
+<a href="http://sourceforge.net/projects/rt2400">RT2400/2500 para GNU/Linux</a>
+</li>
+<li>
+<a href="http://rt2x00.serialmonkey.com/wiki/index.php/Main_Page">Web del proyecto en serialmonkey.com</a>
+</li>
+<li>
+<a href="http://www.esdebian.org/forum/viewtopic.php?forum=7&showtopic=61164">dichosa wireless ralink rt2500</a>
+</li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8923,100 +9110,6 @@ Vamos a crear ahora nuestra imagen initrd. Esta es una imagen comprimida de nues
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-01-24/virtualizacin-fcil-con-xen3.html">Virtualización fácil con Xen3</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-01-24
-    
-      
-  <a href="/users.html#int-0">
-   int-0
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-24-virtualizacin-fcil-con-xen3.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-24-virtualizacin-fcil-con-xen3.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/201">node/201</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>Esta receta no se si tendrá muchas aplicaciones "domésticas", en ella vamos a tratar de crear <em>n</em> máquinas virtuales en una única máquina física. Esto permitirá crear (por ejemplo) <em>n</em> servidores, cada uno con unos servicios determinados en una misma máquina física. Con ello se consigue (entre otras cosas) proteger unos servicios mas "críticos" de otros más "vulnerables" (lo que pase en una máquina es independiente al resto).</blockquote>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2006-01-24/virtualizacin-fcil-con-xen3.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9057,7 +9150,7 @@ Vamos a crear ahora nuestra imagen initrd. Esta es una imagen comprimida de nues
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

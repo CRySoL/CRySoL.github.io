@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,307 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-05-10/creacin-de-mdulos-e-interfaces-en-nesc-para-tinyos-2.html">Creación de módulos e interfaces en nesC para TinyOS 2</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-05-10
+    
+      
+  <a href="/users.html#javieralso">
+   javieralso
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-05-10-creacin-de-mdulos-e-interfaces-en-nesc-para-tinyos-2.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-05-10-creacin-de-mdulos-e-interfaces-en-nesc-para-tinyos-2.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#embedded-ref">embedded </a></li>
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/677">node/677</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Después de pelearme con <a href="/node/405"><b>tinyOS</b></a> he conseguido comprender mas o menos como va el tema de los módulos y <em>wiring</em> (conexionado lógico entre módulos). Aquí dejo un ejemplo muy básico y la explicación que ilustra lo suficiente para poder comenzar a hacer cosillas.</blockquote>
+
+
+<h2>Introducción</h2>
+
+tinyOS se basa en el uso de módulos que se "cablean" (<em>wiring</em>) entre sí para dar lugar a la aplicación en sí. Este cableado se lleva a cabo en lo que se conoce como <em>configuraciones</em> y podemos tener montones de configuraciones distintas para una misma aplicación. De este modo, podemos conseguir que una misma aplicación pueda correr en distintas arquitecturas hardware sin apenas tocar código, solo modificando las configuraciones, lo que hará que se utilicen unos módulos u otros que se encargan del control a mas bajo nivel.
+
+Básicamente, aquí hablaré de:
+<ul>
+  <li>Módulos</li>
+  <li>Interfaces</li>
+  <li>Configuraciones</li>
+</ul>
+
+Todo el código de ejemplo que se usa en esta receta puede descargarse, vía subversión, del repositorio público de <a href="thhp://arco.inf-cr.uclm.es"><b>ARCO</b></a> de la siguiente forma:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@richie:~$</span><span class="w"> </span>svn co https://arco.inf-cr.uclm.es/svn/public/prj/tinyOS</code></pre></figure>
+</div>
+
+y con ésto ya podremos seguir todos los ejemplos dados a continuación.
+
+<h2>Interfaces</h2>
+
+Las <em>interfaces</em> se pueden definir como la parte "visible" de los módulos. No se puede acceder a ninguna función de un módulo si antes no ha sido definida en una interfaz.
+Una interfaz puede ser provista por varios módulos distintos. Por ejemplo, podemos tener una interfaz de comunicaciones que abstraiga los procedimientos de envío y recepción de mensajes y varios módulos que hagan uso de esa interfaz, uno para cada tipo de hardware subyacente (por ejemplo no se maneja igual el hardware de comunicaciones de una <em>mica2</em> que el de una <em>telos</em>). Los métodos serán los mismos y se llamarán igual (la interfaz es la misma), pero la implementación interna puede ser totalmente distinta. Nosotros lo veremos como una caja negra.
+
+En nuestro ejemplo se utilizan dos interfaces: <b>interfaz2</b>, en el archivo <em>interfaz2.nc</em> e <b>interfazPRB</b> en el archivo <em>interfazPRB.nc</em>. Las implementaciones son las que siguen:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">interface</span> <span class="n">interfaz2</span> <span class="p">{</span>
+  <span class="n">command</span> <span class="kt">void</span> <span class="n">i2c1</span><span class="p">();</span>
+  <span class="n">command</span> <span class="kt">uint16_t</span> <span class="n">i2c2</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">);</span>
+  <span class="n">command</span> <span class="kt">uint16_t</span> <span class="n">i2c3</span><span class="p">(</span><span class="kt">char</span> <span class="n">d</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+para <em>interfaz2.nc</em> y
+
+
+<div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">interface</span> <span class="n">interfazPRB</span> <span class="p">{</span>
+  <span class="n">command</span> <span class="kt">void</span> <span class="n">comando1</span><span class="p">();</span>
+  <span class="n">command</span> <span class="kt">int</span> <span class="n">comando2</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+para <em>interfazPRB.nc</em>
+
+Bueno. Se puedes ver, escribir una un interfaz es bastante simple. Lo único que hay que hacer es especificar el nombre de la y los comandos de que consta. Estos comandos son los prototipos (como se llama en <em>ANSI C</em>) de las funciones precedidos de la palabra reservada <b>command</b>. Si quisiesesmos declarar <em>señales</em>, utilizariamos el modificador <b>signal</b>. El nombre del archivo debe de ser el mismo que el del interfaz, respetando las mayúsculas y con extensión <em>.nc</em>.
+
+<h2>Módulos</h2>
+
+Los módulos implementan bloques funcionales generalmente de un nivel de abstracción más bajo que el bloque que los referencia. Un mismo módulo puede proveer varias interfaces y por lo tanto puede implementar distintas funcionalidades (Por ejemplo el módulo <em>AMSender</em> provee las interfaces <em>Packet</em>, <em>AMPacket</em>, <em>AMSend</em>, etc...). Lo lógico es que todos los conjuntos de funciones (interfaces) que implementa un módulo guarden algún tipo de relación.
+
+En nuestro caso, utilizamos dos módulos: <em>modulo2C</em>, implementado en <b>modulo2C.nc</b> y <em>moduloC</em> implementado en <b>moduloC.nc</b>.
+Éste es el contenido de los archivos:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">module</span> <span class="n">modulo2C</span> <span class="p">{</span>
+  <span class="n">provides</span> <span class="p">{</span>
+    <span class="n">interface</span> <span class="n">interfaz2</span><span class="p">;</span>
+    <span class="cm">/*
+      Única interfaz proporcionada por el módulo
+    */</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">implementation</span>
+<span class="p">{</span>
+  <span class="n">command</span> <span class="kt">void</span> <span class="n">interfaz2</span><span class="p">.</span><span class="n">i2c1</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">v1</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">v2</span><span class="p">;</span>
+    <span class="n">v2</span> <span class="o">=</span> <span class="n">v1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">command</span> <span class="kt">uint16_t</span> <span class="n">interfaz2</span><span class="p">.</span><span class="n">i2c2</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="mi">2</span><span class="o">*</span><span class="n">c</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">command</span> <span class="kt">uint16_t</span> <span class="n">interfaz2</span><span class="p">.</span><span class="n">i2c3</span><span class="p">(</span><span class="kt">char</span> <span class="n">d</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">d</span><span class="o">*</span><span class="n">d</span><span class="o">*</span><span class="n">d</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+para <em>modulo2C</em> y
+
+
+<div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">module</span> <span class="n">moduloC</span> <span class="p">{</span>
+  <span class="n">provides</span> <span class="n">interface</span> <span class="n">interfazPRB</span><span class="p">;</span>
+  <span class="n">uses</span> <span class="p">{</span>
+    <span class="n">interface</span> <span class="n">interfaz2</span><span class="p">;</span>
+    <span class="n">interface</span> <span class="n">Leds</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">implementation</span> <span class="p">{</span>
+  <span class="n">command</span> <span class="kt">void</span> <span class="n">interfazPRB</span><span class="p">.</span><span class="n">comando1</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">call</span> <span class="n">Leds</span><span class="p">.</span><span class="n">led0Toggle</span><span class="p">();</span>
+    <span class="n">call</span> <span class="n">Leds</span><span class="p">.</span><span class="n">led1Toggle</span><span class="p">();</span>
+    <span class="n">call</span> <span class="n">Leds</span><span class="p">.</span><span class="n">led2Toggle</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="n">command</span> <span class="kt">int</span> <span class="n">interfazPRB</span><span class="p">.</span><span class="n">comando2</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">call</span> <span class="n">Leds</span><span class="p">.</span><span class="n">set</span><span class="p">((</span><span class="kt">uint8_t</span><span class="p">)</span><span class="n">c</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+Cada uno de los módulos se compone de dos partes. La primera es la declaración. En ella se especifica el nombre del módulo, así como las interfaces que provee y las interfaces que usa. En el caso de <em>moduloC</em>, por ejemplo, podemos ver que la interfaz que proporciona es la interfaz <em>interfacePRB</em> y utiliza las interfaces <em>interfaz2</em> y <em>Leds</em>.
+A continuación sigue la implementación. Aquí debe hacerse la implementación de cada uno de los comandos especificados en la interfaz. En éste caso no hay señales. Si las hubiese, la forma de lanzarlas es llamarlas como funciones normales (precedidas de la palabra reservada <b>signal</b>) cuando sea necesario. En éste caso, como se trata solo de un ejemplo, las funciones son totalmente triviales.
+
+No queda mucho mas que comentar acerca de los módulos. Básicamente, después de ésto solo faltaría escribir la configuración con el <em>wiring</em> entre módulos e interfaces. ¿Y qué es eso?, pues ahora mismo lo explico.
+
+<h2>Configuraciones</h2>
+
+Como se ha dicho anteriormente, una aplicación escrita para <b>tinyOS</b> se compone de implementación de módulos y de configuraciones. En algunos casos, pueden hacerse aplicaciones solo con archivos de configuraciones. Un archivo de configuración consiste básicamente en un archivo formado por los módulos (o componentes) a utilizar en la aplicación y la relación que hay entre dichos módulos y las interfaces utilizadas por otros módulos.
+
+En un principio esto puede parecer bastante lioso, así que nada mejor que verlo con algún ejemplo. Veamos primero el archivo de configuración <b>moduloEjm.nc</b>:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">configuration</span> <span class="n">moduloEjmC</span> <span class="p">{</span>
+  <span class="n">provides</span> <span class="n">interface</span> <span class="n">interfazPRB</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">implementation</span>  <span class="p">{</span>
+
+  <span class="n">components</span> <span class="n">LedsC</span><span class="p">;</span>
+  <span class="n">components</span> <span class="n">modulo2C</span><span class="p">;</span>
+  <span class="n">components</span> <span class="n">moduloC</span><span class="p">;</span>
+
+  <span class="n">moduloC</span><span class="p">.</span><span class="n">Leds</span> <span class="o">-&gt;</span> <span class="n">LedsC</span><span class="p">;</span>
+  <span class="n">moduloC</span><span class="p">.</span><span class="n">interfaz2</span> <span class="o">-&gt;</span> <span class="n">modulo2C</span><span class="p">;</span>
+
+  <span class="n">interfazPRB</span> <span class="o">=</span> <span class="n">moduloC</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+Paso a paso para no liarnos:
+
+Lo primero que tenemos que hacer es indicar que estamos hablando de una configuración, en éste caso <em>moduloEjmC</em>. Como siempre, dicho nombre coincide con el del archivo en el que se aloja. Ésta configuración, provee una interfaz (aunque podrian ser mas), la interfaz <em>interfazPRB</em>.
+En la parte de implementación vemos que utilizamos tres módulos o componentes: <em>LedsC</em>,  <em>modulo2C</em> y <em>moduloC</em>. Éstos son los módulos cuya funcionalidad necesitaremos para llevar a cabo las tareas de la configuración en la que estamos trabajando.
+
+Después nos encontramos con la parte de <em>wiring</em>. Aquí tenemos dos conexiones:
+<ul>
+  <li><em>moduloC.Leds -> LedsC;</em></li>
+  <li><em>moduloC.interfaz2 -> modulo2C;</em></li>
+</ul>
+
+ ¿Qué hace ésto? fácil, hemos conectado la interfaz <em>Leds</em> utilizada en la implementación del módulo <em>moduloC</em> con el componente (o módulo) <em>LedsC</em> que provee dicha interfaz y que hemos declarado anteriormente en la sección <em>components</em>. Con ésto, cada vez que invoquemos a alguno de los comando de ésta interfaz, lo que en realidad estaremos haciendo será llamar a los métodos con dicho nombre que haya implementados en el módulo <em>LedsC</em>. Si tuviésemos otro módulo con la misma interfaz, podriamos haberlo utilizado indistintamente, con la única diferencia de la implementación que esconda detrás, claro.
+
+La segunda conexión ya queda algo mas clara, conecta el interfaz <em>interfaz2</em> de <em>moduloC</em> con el módulo <em>modulo2C</em> que provee dicha interfaz y que nosotros mismos escribimos.
+
+Finalmente, en la última línea, podemos ver una asignación distinta a todas las vistas anteriormente. Ésta asignación lo único que hace es conectar la interfaz que se provee (<em>interfazPRB</em>) con el módulo que proveerá la funcionalidad a dicha interfaz, que en éste caso es <em>moduloC</em>.
+
+Ahora, lo único que falta es utilizar todo ésto:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">configuration</span> <span class="n">ejmAppC</span><span class="p">{}</span>
+
+<span class="n">implementation</span>
+<span class="p">{</span>
+  <span class="n">components</span> <span class="n">MainC</span><span class="p">,</span> <span class="n">ejmC</span><span class="p">;</span>
+  <span class="n">components</span> <span class="n">moduloEjmC</span><span class="p">;</span>
+
+  <span class="n">ejmC</span> <span class="o">-&gt;</span> <span class="n">MainC</span><span class="p">.</span><span class="n">Boot</span><span class="p">;</span>
+  <span class="n">ejmC</span><span class="p">.</span><span class="n">interfazPRB</span> <span class="o">-&gt;</span> <span class="n">moduloEjmC</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+Aquí tenemos el contenido de <b>ejmAppC.nc</b>, que tiene la configuración <em>ejmAppC</em>.
+
+Esta configuración podemos ver que no provee interfaz alguna, pero que sí usa componentes, en concreto <em>MainC</em>, <em>ejmC</em> y <em>moduloEjmC</em>. Los dos últimos son familiares ;-)
+
+Después tenemos los <em>wirings</em>: uno que conecta la interfaz <em>Boot</em> del módulo <em>MainC</em> (utilizado para informar de que tinyOS ha arrancado y demás) con el módulo de mayor nivel de nuestra aplicación (la aplicación en si), <em>ejmC</em> y otro que conecta la interfaz <em>interfazPRB</em> que utiliza la aplicación, con el módulo (aunque lo hayamos "implementado" en un archivo de configuración, lo estamos tratando como un módulo, ya que esa configuración corresponde a la de un módulo) <em>moduloEjmC</em>.
+
+Con ésto, ya solo nos falta implementar las funciones de nuestro programita propiamente dicho:
+
+
+<div>
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">module</span> <span class="n">ejmC</span> <span class="p">{</span>
+  <span class="n">uses</span> <span class="n">interface</span> <span class="n">Boot</span><span class="p">;</span>
+  <span class="n">uses</span> <span class="n">interface</span> <span class="n">interfazPRB</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">implementation</span> <span class="p">{</span>
+  <span class="n">event</span> <span class="kt">void</span> <span class="n">Boot</span><span class="p">.</span><span class="n">booted</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">call</span> <span class="n">interfazPrb</span><span class="p">.</span><span class="n">comando1</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+</div>
+
+Aquí puedes ver cómo se define un módulo llamado <em>ejmC</em> y que utiliza las interfaces <em>Boot</em> e <em>interfazPRB</em> que ya conectamos anteriormente a cada uno de los módulos que queríamos que nos diesen la funcionalidad.
+
+A continuación, en la parte de la implementación tan solo tenemos que implementar las funciones y comandos que necesitemos para dar la funcionalidad que queramos a nuestro programita.
+
+¿Qué por qué este es el módulo de mayor nivel? Bueno, por nada en especial. Simplemente que implementa la interfaz <em>Boot</em> del módulo <em>MainC</em>, quien lanzará el evento <em>Boot.booted</em> cuando tinyOS termine de arrancar y por tanto entregará el control del hilo principal a dicho evento, comenzando la ejecución del programa por ahí.
+
+<h2>Referencias</h2>
+
+<ul>
+  <li>Página principal de tinyOS: <a href="http://www.tinyos.net">www.tinyos.net</a></li>
+  <li>Documentación y tutoriales <em>on-line</em> acerca de tinyOS 2: <a href="http://www.tinyos.net/tinyos-2.x/doc/">www.tinyos.net/tinyos-2.x/doc/</a></li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8868,112 +9172,6 @@ Son bienvenidas las tuberías para reproducir otros tipos de ficheros.
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-04-24/emule-y-torrents-en-gnu-linux.html">Emule y torrents en GNU/Linux</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-04-24
-    
-      
-  <a href="/users.html#int-0">
-   int-0
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-04-24-emule-y-torrents-en-gnu-linux.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-04-24-emule-y-torrents-en-gnu-linux.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#networking-ref">networking </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/653">node/653</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>Hola buenas! todos nosotros somos adictos en mayor/menor medida a las redes P2P, de ellas descargamos películas, discos y algunos <em>delincuentes</em> programas y juegos. No es ningún secreto que la mayoría de los <em>internautas</em> españoles usan su conexión a internet para esto, las ISP's lo saben y como pasan de que su red se colapse realizan un filtro de protocolo a <em>emule</em> y <em>torrents</em> (las compañías evidentemente te lo negarán). No vale cambiar el puerto de escucha porque no se hace un filtro de puertos, se realiza filtro de protocolo. Se sospecha que Telefónica y Ono lo hacen; si es verdad que lo hacen deberían por lo menos avisar, así que nosotros vamos a intentar hacerles la pirula.</blockquote>
-
-<h1>Conexiones ofuscadas</h1>
-Nuestro problema está en que si un <em>router</em> de nuestro ISP <em>sabe</em> qué protocolo está transportando, podrá aplicar unas reglas de <em>QoS</em> (calidad de servicio) que probablemente a nosotros no nos haga ninguna gracia. La solución es más o menos sencilla: <em>ofuscar</em> el protocolo. Ofuscar una conexión es "desbaratar" el paquete saliente de forma que sea irreconocible, cuando llega a su destino, el receptor conoce la forma de recomponer el paquete. Hasta lo que sé, por ahora es la propia aplicación la que debe ofuscar el protocolo.
-
-<h1>Emule</h1>
-En GNU/Linux no disponemos de un buen cliente para <em>edonkey</em> que permita ofuscación de protocolo... debemos recurrir al maravilloso y archiconocido <em>eMule</em>. Tranquilos porque tiene licencia GPL :-P. Pero Int-0 se ha vuelto loco!! si eso es para hassefroch!!. Pues si... pero nosotros tenemos <em>wine</em> ;-)
-
-Pues bien, el <em>emule</em> funciona bastante bien con <em>wine</em> pero existe un problema: para alcanzar buenas velocidades es necesario abrir un <em>raw socket UDP</em> y esto sólo se puede hacer con wine si se es administrador :O. La forma en la que yo lanzo <em>emule</em> (no la versión con instalador, sino la que está lista para ejecutar) es la siguiente:
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">sudo </span>wine emule.exe</code></pre></figure>
-</div>
-
-<blockquote>Hay que advertir que esto es <em>PELIGROSO</em>, para paliar un poco los problemas, podríamos crear una jaula <em>chroot</em> o algo así, si alguno lo hace que mande un post o modifique la receta :-P.</blockquote>
-
-Una vez arrancado la mula, nos vamos a <em>Preferencias > Seguridad > Activar la Ofuscación de Protocolo</em> y listo!. El <em>único</em> problema de todo esto es que no hay mucha gente que use ofuscación, por ese motivo sólo descargaréis a máxima velocidad de clientes que usen también ofuscación.
-
-<h1>Torrent</h1>
-Bueno, este es el protocolo de p2p de GNU por excelencia :-). Aquí tenemos clientes en muchos sabores... pero que permitan la ofuscación de protocolo reduce bastante el abanico, concretamente (que yo conozca): Azureus y ktorrent. El Azureus está muy chulo pero tiene un inconveniente: carga mucho la máquina. El Ktorrent es más ligerito. Tanto Azureus como ktorrent permiten conexiones ofuscadas (pero en las opciones aparece como <em>permitir cifrado de protocolo</em>), así que ya sabeís, cualquiera de los dos os vale, además que ambos son paquete Debian.
-
-Y con esto termino... ya sabéis que la descarga de cierto software es absolutamente ilegal y la desapruebo completamente. Esta receta NO sirve para delinquir sino para <em>paliar</em> parcialmente la política restrictiva de los ISP's (no la discuto, pero me parece FATAL que no lo avisen oficialmente).
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9014,7 +9212,7 @@ Y con esto termino... ya sabéis que la descarga de cierto software es absolutam
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

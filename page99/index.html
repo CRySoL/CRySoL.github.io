@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,124 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-04-27/tu-gnu-linux-siempre-en-hora-y-con-tiempo-contnuo-con-ntp.html">Tu GNU/Linux siempre en hora (y con tiempo contínuo) con NTP</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-04-27
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-04-27-tu-gnu-linux-siempre-en-hora-y-con-tiempo-contnuo-con-ntp.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-04-27-tu-gnu-linux-siempre-en-hora-y-con-tiempo-contnuo-con-ntp.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/291">node/291</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<p>Ciertas tareas dependen del tiempo para funcionar (por ejemplo, el salvapantallas, make, cron, &#8230;). Es interesante no tener que preocuparse de la hora del sistema, así como que la hora no cambie bruscamente. ¡Y es muy fácil!</p>
+</blockquote>
+<h2>Paquetes necesarios</h2>
+<p>Sólo necesitaremos un paquete: <tt>ntpdate</tt>. En nuestro sistema basado en Debian es tan sumamente complicado como de costumbre:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>ntpdate</code></pre></figure></div>
+<h2>Explicación</h2>
+<p>En el mundo hay una serie de relojes de alta precisión (relojes atómicos) que son los que de verdad llevan la hora del mundo (¿u os pensábais que lo hacía el reloj de la Puerta del Sol? :P). Mediante fibra óptica, están conectados una serie de servidores de acceso restringido. A éstos, se les conectan una serie de servidores de acceso restringido&#8230; y así un par de niveles más, hasta que llegan los servidores públicos. Así hay muchos y no los sobrecargamos.</p>
+<p>Cada vez que un host intenta sincronizarse lo que se hace es lanzar varias peticiones, calcular el tiempo de retardo existente debido a la red, tomar en cuenta varios factores y estimar la hora real. El error es mínimo (salvo algunas veces que casca todo el sistema y te pone la hora del día anterior, como me ha pasado hace un rato).</p>
+<p>Así, groso modo -como mandan las recetas- es como funciona.</p>
+<h2>Tiempo lineal</h2>
+<p>Algunos programas pueden tener problemas con los saltos de tiempo misteriosos. Este es el caso del salvapantallas, por ejemplo: si lo tenemos puesto cada 10 minutos y adelantamos el reloj 1 hora, salta. Cron también puede tener problemas: si en nuestro PC de casa tenemos la tarea &#8220;salvar_el_mundo&#8221; programada para las 13:45 y a las 13:30 cambiamos la hora a las 14:30, la tarea no se ejecutará, con resultados desastrosos.</p>
+<p>Por ello conviene que nuestro PC no se salte ni un minuto, ¿no creéis?</p>
+<p>Pues hacerlo es tan sencillo como cambiar la configuración de ntpdate, que se encuentra en el fichero <tt>/etc/default/ntpdate</tt>, y añadirle a la línea &#8220;<span class="caps">NTPOPTIONS</span>&#8221; la opción &#8220;-B&#8221;. A mí me quedaría así:</p>
+<pre>
+# servers to check.   (Separate multiple servers with spaces.)
+NTPSERVERS="pool.ntp.org"
+#
+# additional options for ntpdate
+#NTPOPTIONS="-v"
+NTPOPTIONS="-u -B"
+</pre>
+<p>Y, ahora, el mundo está a salvo (aunque en algunos casos nuestro PC puede tardar horas semanas en sincronizarse&#8230;) ;D</p>
+<p>Lo que ocurre ahora es que los minutos de nuestro PC son más lentos/rápidos que los habituales, pero eso no significa que nos saltemos ni un segundo ;)</p>
+<h2>rdate</h2>
+<p>Servidores:</p>
+<ul>
+	<li>tick.uh.edu</li>
+</ul>
+<h2>Referencias</h2>
+<ul>
+	<li><a href="http://www.tldp.org/HOWTO/TimePrecision-HOWTO/index.html">Managing Accurate Date and Time</a></li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8740,89 +8861,6 @@ Esta pequeña pequeñísima receta trata sobre cómo hacer un script para escuch
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/tale/2006-04-10/el-sistema-operativo-ncleo-2-6-12.html">El sistema operativo "Núcleo 2.6.12"?</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-04-10
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-04-10-el-sistema-operativo-ncleo-2-6-12.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-04-10-el-sistema-operativo-ncleo-2-6-12.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#tale-ref">
-    		tale
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/282">node/282</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Esto pasa por no llamar a las cosas por su nombre:</p>
-<p>Mirad las características del <a href="http://www.tecnologia.carrefour.es/electronic_productdetails.asp?Query=&amp;ProdTypeId=13&amp;CatId=1004814&amp;PrevCatId=0&amp;ProdId=2517218&amp;ST=BF1004814">ordenador a 400€</a> de Carrefour</p>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8863,7 +8901,7 @@ Esta pequeña pequeñísima receta trata sobre cómo hacer un script para escuch
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

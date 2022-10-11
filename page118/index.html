@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,226 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-10-23/compartir-ficheros-con-nfs.html">Compartir ficheros con NFS</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-23
+    
+      
+  <a href="/users.html#arturo">
+   arturo
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-23-compartir-ficheros-con-nfs.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-23-compartir-ficheros-con-nfs.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#networking-ref">networking </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/64">node/64</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote> En esta receta explico como compartir ficheros entre dos o más máquinas mediante NFS (Network File System). Una de las máquinas tiene que hacer de servidor y la otra de cliente.</blockquote>
+
+<h2> Ingredientes </h2>
+
+Hay que tener instalados los paquetes:
+
+<ul>
+ <li>nfs-kernel-server</li>
+ <li>nfs-common</li>
+ <li>portmap</tt>
+</ul>
+
+<b>portmap</b> permitirá realizar conexiones RPC al servidor y es el encargado de permitir o no el acceso al servidor a equipos concretos. Para saber si tienes <tt>portmap</tt> instalado bastará con hacer:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>ps aux | <span class="nb">grep </span>portmap</code></pre></figure>
+</div>
+
+Deberías obtener algo así:
+
+<pre class="console">
+daemon    1367  0.0  0.4  1612  564 ?        Ss   Oct24   0:00 /sbin/portmap
+arturo    9096  0.0  0.5  2044  760 pts/0    S+   01:43   0:00 grep portmap
+</pre>
+
+Para saber si NFS está en marcha haz una consulta al portmap para que te indique qué servicios tiene en marcha:
+
+<pre class="console"> $ rpcinfo -p
+   programa vers proto   puerto
+    100000    2   tcp    111  portmapper
+    100000    2   udp    111  portmapper
+    100003    2   udp   2049  nfs  <--
+    100003    3   udp   2049  nfs  <--
+    100003    4   udp   2049  nfs  <--
+    100003    2   tcp   2049  nfs  <--
+    100003    3   tcp   2049  nfs  <--
+    100003    4   tcp   2049  nfs  <--
+    100021    1   udp   1028  nlockmgr
+    100021    3   udp   1028  nlockmgr
+    100021    4   udp   1028  nlockmgr
+    100021    1   tcp   1024  nlockmgr
+    100021    3   tcp   1024  nlockmgr
+    100021    4   tcp   1024  nlockmgr
+    100005    1   udp    749  mountd
+    100005    1   tcp    752  mountd
+    100005    2   udp    749  mountd
+    100005    2   tcp    752  mountd
+    100005    3   udp    749  mountd
+    100005    3   tcp    752  mountd
+    100024    1   udp    762  status
+<b>    100024    1   tcp    765  status </b>
+</pre>
+
+Fijate en las líneas marcadas con una flecha. Si el portmap no ofrece los servicios de NFS, es porque no se tiene instalado el servidor NFS.
+
+
+<h2>Directorios compartidos</h2>
+
+Una vez hecho esto, tienes que decidir lo que quieres compartir. Para ello edita el fichero <tt>/etc/exports</tt>; y añade el directorio que quieras dejar accesible, los permisos y el equipo o equipos que van a acceder a él.
+
+<pre>
+/home/arturo    192.168.0.4(rw)
+/usr/local      192.168.0.0/24(rw)
+</pre>
+
+Con esto indicas que vas exportar <tt>/home/arturo</tt> y <tt>/usr/local</tt>  permitiendo acceso a tu rango de direcciones locales en modo de lectura/escritura.
+
+En el caso del primero se accede sólo desde el equipo 192.168.0.4 en modo lectura-escritura, y en segundo toda la red local puede acceder a <tt>/usr/local</tt>.
+
+Para tener un poco más de seguridad es necesario editar el fichero <tt>/etc/hosts.deny</tt> y añadir:
+
+<pre>
+portmap:ALL
+lockd:ALL
+mountd:ALL
+rquotad:ALL
+statd:ALL
+</pre>
+
+Y en <tt>/etc/hosts.allow</tt> añadir lo siguiente:
+
+<pre>
+portmap:192.168.0.
+lockd:192.168.0.
+mountd:192.168.0.
+rquotad:192.168.0.
+statd:192.168.0.
+</pre>
+
+Con esto la seguridad es suficiente, aunque siempre se puede configurar de una forma más individualizada.
+
+Si has cambiado el fichero <tt>/etc/exports</tt> después de iniciar el servicio NFS debes indicar al sistema que vuelva a leer el fichero y active los cambios. Esto lo puedes hacer reiniciando el demonio:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>/etc/init.d/nfs-kernel-server restart</code></pre></figure>
+</div>
+
+O bien:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>exportfs <span class="nt">-ra</span></code></pre></figure>
+</div>
+
+
+<h2> Configurando el cliente </h2>
+
+Ahora que ya tienes el servidor funcionando, prueba el acceso al directorio compartido desde la máquina cliente. Por ejemplo:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>mount 192.168.0.1:/home/arturo /mnt/nfs</code></pre></figure>
+</div>
+
+Esto montaría el directorio <tt>/home/arturo</tt> del servidor en <tt>/mnt/nfs</tt> del cliente. Hay que tener en cuenta que el directorio <tt>/mnt/nfs</tt> debe tener los permisos pertinentes.
+
+Sino se monta, debes revisar los ficheros de configuración del servidor y comprobar que son correctos.
+
+<h2> Montando desde <tt>/etc/fstab</tt> </h2>
+
+Si quieres que el sistema de ficheros NFS se monte al arrancar debes añadir una entrada en el fichero <tt>/etc/fstab</tt>:
+
+<pre>
+192.168.0.1:/home/arturo /mnt/nfs nfs rw,hard,intr,user,defaults 0 0
+</pre>
+
+<h1>Enlaces</h1>
+<ul>
+  <li><a href="http://nfs.sourceforge.net/">Linux NFS faq</a></li>
+  <li><a href="http://nfs.sourceforge.net/nfs-howto/intro.html">nfs-howto</a></li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8777,94 +9000,6 @@ Cómo recuperar las fotos y videos borrados por accidente de una tarjeta de memo
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2005-10-18/algunos-que-otros-problemillas-con-la-web-de-cisco.html">Algunos que otros problemillas con la web de Cisco</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-10-18
-    
-      
-  <a href="/users.html#jota">
-   jota
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-18-algunos-que-otros-problemillas-con-la-web-de-cisco.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-18-algunos-que-otros-problemillas-con-la-web-de-cisco.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/47">node/47</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Bueno, pues hoy arranco la web de CISCO y al intentar ejecutar las pruebas, cual es mi sorpresa cuando veo que el test no se ve apropiademante! Concreto, me aparecen las casillas para marcar las respuestas, las pestañas para seleccionar las preguntas, las imagenes en caso de haberlas, pero no me aparece nada de texto... sorprendente cuan menos!
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/2005-10-18/algunos-que-otros-problemillas-con-la-web-de-cisco.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8905,7 +9040,7 @@ Cómo recuperar las fotos y videos borrados por accidente de una tarjeta de memo
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

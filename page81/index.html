@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,176 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2007-01-26/reconfigurando-el-xport-al-vuelo.html">Reconfigurando el XPORT "al vuelo"</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-01-26
+    
+      
+  <a href="/users.html#javieralso">
+   javieralso
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-26-reconfigurando-el-xport-al-vuelo.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-26-reconfigurando-el-xport-al-vuelo.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#embedded-ref">embedded </a></li>
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/537">node/537</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Siguiendo mis experimentos con el XPORT de Lantronix he descubierto cómo obtener la configuración de este dispositivo, modificarla y aplicársela después. Aquí comento un poco los resultados obtenidos.</blockquote>
+
+
+<h1>INTRODUCCIÓN</h1>
+
+En una<a href="/node/532"> entrada anterior de mi blog</a> referente al XPORT, comenté un poco ciertas características de este dispositivo y como configurarlo para realizar conexiones activas y pasivas por TCP y envío y recepción de datagramas UDP además de como entrar en su <b>Modo monitor</b>. Esto último permite hacer ciertas operaciones de diagnóstico, como ya comenté en su momento. Aquí las que nos interesan son la obtención de la configuración para su posterior modificación y reconfiguración de la unidad.
+
+<h1>OBTENCIÓN DE LA CONFIGURACIÓN</h1>
+
+Bueno, para obtener la configuración de la unidad lo primero que tenemos que hacer es entrar en <b>Modo Monitor</b>. Una vez que hemos entrado en dicho modo, pedimos la configuración al dispositivo a través del comando <b>GC</b>:
+
+<pre>
+Welcome to minicom 2.2
+
+OPCIONES: I18n
+Compilado en Jan  7 2007, 18:00:43.
+Port /dev/ttyUSB0
+
+                 Presione CTRL-A Z para obtener ayuda sobre teclas especiales
+
+AT S7=45 S0=0 L1 V1 X4 &c1 E1 Q0
+OK
+*** NodeSet 2.0 ***
+0>GC
+:20000010000005000000002D00000000000000004C0200001127204EC0A8000AD600000062
+:20002010000080000000000000000000000000000000000000000000000000000000000030
+:200040104C0200001227000000000000C00000000000000000000000000000000000000049
+:1800601000000000000000000000000000000000000000000000000078
+:00000001FF
+0>
+
+</pre>
+Con esto tenemos la configuración actual del XPORT. Lo que nos ha devuelto es un archivo en formato <a href="http://www.cs.net/lucid/intel.htm">INTEL HEX</a>. Bueno, para el caso de las conexiones TCP, la dirección de las conexiones activas se encuentra a partir de la dirección 0x18: en nuestro caso podemos ver que la información aquí guardada es <em>C0A8000A</em>. Esto se corresponde con la IP <em>192.168.0.10</em>. Para el caso del puerto remoto, la información referente se encuentra a partir de la dirección 0x16. Observamos que es <em>204E</em>, que corresponde con el puerto <em>20000</em> usando little endian. Bueno, para cambiar la IP y el puerto tan solo tenemos que modificar la información en estas direcciones (sin olvidar actualizar el último byte de la línea correspondiente al Checksum), enviar el nuevo archivo al xport y reiniciar.
+
+<h1>RECONFIGURACIÓN DE LA UNIDAD</h1>
+
+Bueno, pues vamos a reconfigurar "al vuelo" el XPORT para asignarle la dirección &lt;192.168.0.20:20150&gt;. Para ello cogemos el arhivo anterior y sustuimos la primera línea por la siguiente:
+
+<pre>
+:20000010000005000000002D00000000000000004C0200001127B64EC0A80014D6000000C2
+</pre>
+
+Después volvemos al modo monitor y con el comando <b>SC</b> enviamos el archivo enterito:
+
+<pre>
+
+Welcome to minicom 2.2
+
+OPCIONES: I18n
+Compilado en Jan  7 2007, 18:00:43.
+Port /dev/ttyUSB0
+
+                 Presione CTRL-A Z para obtener ayuda sobre teclas especiales
+
+AT S7=45 S0=0 L1 V1 X4 &c1 E1 Q0
+OK
+*** NodeSet 2.0 ***
+0>GC
+:20000010000005000000002D00000000000000004C0200001127B64EA1432614D600000020
+:20002010000080000000000000000000000000000000000000000000000000000000000030
+:200040104C0200001227000000000000C00000000000000000000000000000000000000049
+:1800601000000000000000000000000000000000000000000000000078
+:00000001FF
+0>SC
+0>RS
+NO CARRIER
+</pre>
+Una vez que se invoca al comando <b>SC</b> se queda en espera de recibir el archivo de configuración. Cuando se le envía (En la captura mostrada no ha habido eco), responde con <em>0&gt;</em> para indicar que ha sido guardado correctamente.
+Para finalizar se reinicia la unidad con el comando <b>RS</b>. El XPORT tarda unos 10 segundos en reiniciar y acto seguido informa de que está disponible con el mensaje <em>NO CARRIER</em>.
+
+Si volvemos a leer la configuración del XPORT:
+
+<pre>
+0>RS
+NO CARRIER
+*** NodeSet 2.0 ***
+0>GC
+:20000010000005000000002D00000000000000004C0200001127B64EA1432614D600000020
+:20002010000080000000000000000000000000000000000000000000000000000000000030
+:200040104C0200001227000000000000C00000000000000000000000000000000000000049
+:1800601000000000000000000000000000000000000000000000000078
+:00000001FF
+0>
+</pre>
+podremos ver los cambios ya aplicados.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8919,98 +9092,6 @@ Ale, a disfrutarla ;-)
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-01-21/router-nat-proxy-firewall.html">Router NAT proxy firewall</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-01-21
-    
-      
-  <a href="/users.html#fsancho">
-   fsancho
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-21-router-nat-proxy-firewall.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-21-router-nat-proxy-firewall.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/517">node/517</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Sencillos pasos para compartir una conexión a Internet
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2007-01-21/router-nat-proxy-firewall.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9051,7 +9132,7 @@ Ale, a disfrutarla ;-)
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

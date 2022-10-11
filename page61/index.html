@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,125 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-09-26/zeroc-icegrid-gua-rpida-i.html">ZeroC IceGrid: Guía rápida I</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-09-26
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-09-26-zeroc-icegrid-gua-rpida-i.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-09-26-zeroc-icegrid-gua-rpida-i.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Ice-ref">Ice </a></li>
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/780">node/780</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Esta receta es la primera parte de la Guía Rápida. En esta primera parte mostraremos los conceptos básicos para conocer y comprender la estructura de IceGrid.</blockquote>
+
+<h2>Conceptos básicos</h2>
+<b>IceGrid</b> es el servicio de Ice que puede proporcionar <em>transparencia de localización</em> en un sistema distribuido dinámico. Es decir, la transparencia de localización permite a un cliente contactar con un objeto remoto sin conocer realmente en qué máquina y en qué puerto está.
+
+Ice proporciona métodos para especificar un <em>Endpoint</em> determinado. Recordemos:
+<ul><li>Explícitamente en el código.</li>
+<li>Pasado como párametro en la línea de órdenes.</li>
+<li>En un fichero de configuración.</li></ul>
+Los dos primeros métodos requieren utilizar la función <em>createObjectAdapterWithEndpoints</em>, que necesita el endpoint como parámetro; mientras que el tercero requiere un fichero de configuración y el uso de <em>createObjectAdapater</em>.
+
+Sin embargo, si nos encontramos en un sistema dinámico en el que no se conocen la situación exacta de los servidores (o ésta cambia con el tiempo), el cambio en los Endpoints supondría, por este orden según el método utilizado:
+<ul><li>Modificar el código y recompilar la aplicación.</li>
+<li>Modificar scripts de inicialización de la aplicación.</li>
+<li>Modificar el fichero de configuración</li></ul>
+
+IceGrid permite a un cliente encontrar adaptadores de objetos remotos de los cuales sólo conoce el nombre (<em>Objeto1@Adaptador</em>). Este tipo de objetos son los "well-known objects" (objetos bien conocidos).
+
+<h2>Estructura de un sistema que use IceGrid</h2>
+Para IceGrid, el sistema distribuído tiene la siguiente jerarquía:
+<ul><li><b>Registry</b>: nodo del sistema que se encarga de la transparencia de localización y funciona como "DNS" de todo el sistema. Por ello, debe conocer la estructura completa del sistema y de todos los recursos. Debe de ser <b>único</b> (puede haber otro registry en el sistema, pero con funciones de respaldo).</li>
+<li><b>Nodos</b>: normalmente se identifica a un computador físico del sistema. Esto no es del todo cierto, ya que un mismo computador puede tener varios nodos. Sin embargo, para el objetivo de esta guía es suficiente pensar que un nodo es un computador del grid.</li>
+<li><b>Servidor</b>: un nodo puede tener varios servidores, es decir, un punto del sistema puede ofrecer distintos servicios al resto de nodos. Un servidor, de una forma muy somera, puede verse como una aplicación corriendo en un puerto determinado.</li>
+<li><b>Adaptadores de objetos</b>: cada servidor puede tiener uno o varios adaptadores de objetos. Es en este punto donde podemos especificar cuáles van a ser los objetos bien conocidos y otros parámetros.</li></ul>
+
+<h2>En la siguiente parte...</h2>
+Se propondrá un ejemplo de uso de IceGrid mediante la herramienta IceGrid-gui con un ejemplo básico.
+
+<h2>Referencias</h2>
+<ul><li><a href="http://www.zeroc.com/newsletter/issue19.pdf">Teach yourself IceGrid in 10 minutes </a></li></ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8751,103 +8873,6 @@ Como información, cuesta 170 euros y es duplex. Lo poco que he probado ha sido 
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-09-06/obtener-la-ip-con-scapy.html">Obtener la IP con scapy</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-09-06
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-09-06-obtener-la-ip-con-scapy.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-09-06-obtener-la-ip-con-scapy.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#scapy-ref">scapy </a></li>
-    
-    	<li><a href="/tags.html#networking-ref">networking </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/770">node/770</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote class="head">
-<p class="head">Un pequeño script para averiguar &#8220;la IP del equipo&#8221;</p>
-</blockquote>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2007-09-06/obtener-la-ip-con-scapy.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8888,7 +8913,7 @@ Como información, cuesta 170 euros y es duplex. Lo poco que he probado ha sido 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

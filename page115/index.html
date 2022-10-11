@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,97 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2005-11-25/consulta-sobre-distro.html">Consulta sobre distro</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-11-25
+    
+      
+  <a href="/users.html#Lk2">
+   Lk2
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-25-consulta-sobre-distro.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-25-consulta-sobre-distro.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/111">node/111</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      Hola a todos.
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/2005-11-25/consulta-sobre-distro.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8979,260 +9073,6 @@ NumberOfPages: 1</span></code></pre></figure></div>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-11-13/compartir-la-conexin-a-internet-router-domstico-con-gnu-linux.html">Compartir la conexión a Internet (router doméstico) con GNU/Linux</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-11-13
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-11-13-compartir-la-conexin-a-internet-router-domstico-con-gnu-linux.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-11-13-compartir-la-conexin-a-internet-router-domstico-con-gnu-linux.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#networking-ref">networking </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/96">node/96</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-Esta receta explica cómo configurar un ordenador con Debian (también Ubuntu y sucedáneos) para que sirva como router de tu pequeña red doméstica. La idea es que varios equipos puedan salir a Internet por medio de una sola conexión y con una única IP pública. Una vez consigas esto, hay varias cosas más que puedes hacer con él...
-</blockquote>
-
-<h2>Ingredientes</h2>
-
-<ul>
-  <li><b>Un ordenador:</b>
-  <p>
-    Este equipo hará de <a href="http://es.wikipedia.org/wiki/Router">router</a>. Sirve cualquier cosa mayor de un Pentium. Un K6 o un PII con 64 MB de RAM es más que suficiente para los servicios básicos. Es una buena oportunidad para reciclar tu viejo sobremesa, una vez instalado le sobre el monitor, teclado, ratón, CD-ROM y tarjeta de sonido; la de vídeo déjala puesta por si acaso.
-  </p>
-  </li>
-  <li><b>iptables</b>:
-  <p>
-    Herramienta de administración de filtrado de paquetes IP.</li>
-  </p>
-  <li><b>Un Linux "de los nuevos":</b>
-  <p>
-Como vas a utilizar <b>iptables</b> necesitas un Linux-2.6 o superior (aunque también serviría un 2.4).
-  </p>
-  </li>
-  <li><b>dnsmasq >= 2.46:</b>
-  <p>
-   Es un servidor <acronym title="Dynamic Host Configuration Protocol">DHCP</acronym> y caché <acronym title="Domain Name Server">DNS</acronym> muy versátil y fácil de configurar.
-  </p>
-  </li>
-</ul>
-
-<h2>Configuración de las interfaces de Red</h2>
-
-Ese ordenador "de desecho" del que hablaba antes lo llamaremos a partir de ahora con el original nombre de <em>Router</em>. Bien, <em>Router</em> debe tener, al menos, dos interfaces de red:
-<ul>
-  <li><b>Una conexión a Internet (eth0)</b>.
-<p>Debe ser algún tipo de conexión a Internet, que puede ser RTC, ADSL, cable-modem, etc. Supondremos para esta receta que usas un modem ADSL con conexión Ethernet.
-</p>
-
-<p>Conste que podría ser RDSI, ppp o cualquier otro tipo de interfaz de red sin que ello afecte al resto del procecimiento. Supondremos que esta interfaz ya la tienes configurada conforme a las instrucciones de tu ISP.
-</p>
-  </li>
-  <li><b>Una conexión a tu red local (eth1)</b>:
-<p>Será una tarjeta de red Ethernet 10/100. Esto permitirá que puedas enchufarle un conmutador y conectar "cienes y cienes" de ordenadores si quieres.
-</p>
-
-<p>Esta interfaz debes configurarla de forma estática, con una dirección IP privada, por ejemplo 192.168.0.1.</p>
-  </li>
-</ul>
-
-Aquí puedes ver un fichero completo <tt>/etc/network/interfaces</tt> para el caso en que eth0 se configure por DHCP contra tu ISP.
-
-<pre>
-auto lo
-iface lo inet loopback
-
-auto eth0
-iface eth0 inet dhcp
-
-auto eth1
-iface eth1 inet static
-      address 192.168.0.1
-      netmask 255.255.255.0
-      broadcast 192.168.0.255
-</pre>
-
-
-<a name="forwarding"> </a>
-<h1>Activa el <em>forwarding</em> (reenvío)</h1>
-
-Normalmente un ordenador conectado a una red TCP/IP descarta todos los paquetes IP que le llegan pero no van dirigidos a él, es decir, aquellos cuya direcci IP no corresponde a ninguna de las interfaces de la máquina. Sin embargo, un router debe tratar paquetes IP que <b>no</b> son para él. Para conseguir esto debes activarlo explícitamente con:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">Router:~#</span><span class="w"> </span><span class="nb">echo </span>1 <span class="o">&gt;</span> /proc/sys/net/ipv4/ip_forward</code></pre></figure>
-</div>
-
-O mejor aún, como queremos que ocurra la siguiente vez que arranque el equipo, modifica el fichero <tt>/etc/sysctl.conf</tt> para que quede así:
-
-<pre>
-net.ipv4.ip_forward=1
-</pre>
-
-<h2>Activa el NAT</h2>
-
-El <acronym title="Network Address Translation"><a href="http://es.wikipedia.org/wiki/NAT">NAT</a></acronym> es una técnica que permite que varios ordenadores puedan acceder a Internet aunque sólo se disponga de una IP pública. El NAT se encarga de "traducir" las direcciones IPs privadas por la única pública al enviar y realiza el proceso inverso al recibir las respuestas. Para activarlo escribe:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">Router:~#</span><span class="w"> </span>iptables <span class="nt">-t</span> nat <span class="nt">-A</span> POSTROUTING <span class="nt">-o</span> eth0 <span class="nt">-j</span> MASQUERADE</code></pre></figure>
-</div>
-
-Con esto, los equipos conectados a la interfaz <b>eth1</b> de <em>Router</em> ya tienen conexión a Intenet, aunque sus IPs habría que configurarlas "a mano" y no son capaces de resolver nombres. Vamos a ver cómo solucionar esas dos cuestiones.
-
-<h2>Servidor DHCP y caché DNS</h2>
-
-Una vez instalado <b>dnsmasq</b>, haz las siguientes modificaciones en el fichero <tt>/etc/dnsmasq.conf</tt>:
-
-<pre>
-listen-address=192.168.0.1
-bind-interfaces
-dhcp-range=192.168.0.2,192.168.0.254,12h
-</pre>
-
-Si usas una versión de <tt>dnsmasq</tt> más antigua quizá tengas que poner también
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">dhcp-option=3,192.168.0.1
-dhcp-option=6,192.168.0.1</code></pre></figure>
-</div>
-
-Este fichero está muy bien documentado con comentarios e incluye ejemplos de todas las posibilidades. Después de realizar las modificaciones reinicia el servicio con:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">Router:~#</span><span class="w"> </span>/etc/init.d/dnsmasq restart
-<span class="go">Restarting DNS forwarder and DHCP server: dnsmasq.</span></code></pre></figure>
-</div>
-
-Simplemente con eso, <b>dnsmasq</b> te da los siguientes servicios:
-
-<ul>
-  <li>Si configuras los clientes de tu red local para usar DHCP obtendrán una IP del rango 192.168.0.[2-254]</li>
-  <li>Se configuran automáticamente para usar tu <em>Router</em> como pasarela y como DNS.</li>
-  <li><em>Router</em> cachea todas las peticiones DNS que realicen los clientes y las redirije a los servidores DNS configurados en el <tt>/etc/resolv.conf</tt> de <em>Router</em>.</li>
-  <li>Dispone de DNS dinámico local. Si los clientes especifican un nombre al hacer su petición DHCP, el resto de los clientes podrán usar ese nombre para resolver su IP.</li>
-</ul>
-
-Además <b>dnsmasq</b> permite asignar IPs fijas (del rango) y nombres dependiendo de la MAC y otras muchas opciones avanzadas.
-
-<h2>Nombre público para el <em>Router</em> (opcional)</h2>
-
-Puedes configurarlo siguiendo la <a href="?q=node/25">receta de DNS dinámico público</a>.
-
-<h2>Proxy web (opcional)</h2>
-Por hacer. Una receta sobre squid?
-
-<h2>Firewall, proteger los equipos de la red local (opcional)</h2>
-Ver la <a href="/node/339">Receta de iptables</a>
-
-
-<h2>Servidores en la red local accesibles desde el exterior (opcional)</h2>
-Ver la <a href="/node/339">Receta de iptables</a>
-
-
-<h2>Guardar la configuración de <b>iptables</b></h2>
-
-Para guardar las reglas activas (las que has ido poniendo hasta ahora) ejecuta:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">Router:~#</span><span class="w"> </span>iptables-save <span class="o">&gt;</span> /etc/iptables.up.rules</code></pre></figure>
-</div>
-
-Y ahora hay que hacer que esa configuración se cargue automáticamente al levantar la interfaz de red principal (la externa). Para ello, edita de nuevo el fichero <tt>/etc/network/interfaces</tt> para que la entrada de eth0 quede así:
-
-<pre>
-auto eth0
-iface eth0 inet dhcp
-      pre-up iptables-restore < /etc/iptables.up.rules
-</pre>
-
-<h2>Referencias</h2>
-<ul>
-  <li><a href="http://www.esdebian.org/staticpages/index.php?page=20040921021605992">Cómo Balancear conexiones a Internet</a>
-  </lai>
-  <li><a href="http://bulma.net/body.phtml?nIdNoticia=1615">Enrutado en base a marcas de paquetes. Iproute + Iptables</a>
-  </li>
-  <li><a href="http://bulma.net/body.phtml?nIdNoticia=861">Ponle un Firewall a tu Linux. Iptables</a></li>
-  <li><a href="http://bulma.net/body.phtml?nIdNoticia=1522">iptables y NAT para vagos</a></li>
-  <li><a href="http://www.falkotimme.com/howtos/perfect_setup_debian_sarge/">The Perfect Setup - Debian Sarge (3.1)</a></li>
-</ul>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9273,7 +9113,7 @@ iface eth0 inet dhcp
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

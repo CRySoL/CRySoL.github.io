@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,193 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-01-11/creacin-de-paquetes-debian-binarios.html">Creación de paquetes Debian binarios</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-01-11
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-11-creacin-de-paquetes-debian-binarios.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-11-creacin-de-paquetes-debian-binarios.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Debian-devel-ref">Debian-devel </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/177">node/177</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+A menudo resulta interesante crear un paquete debian de un programa, para su sencilla instalación/desinstalación. Esta receta, inicialmente escrita por Fernando Rincón, explica cómo hacer lo básico en pocos pasos.
+</blockquote>
+
+<h1> Generación de la estructura de directorios</h1>
+
+En primer lugar debe crearse un directorio de trabajo (debian), a partir del cual se generará la estructura de directorios del paquete, considerando que el directorio de trabajo es el directorio raíz. A continuación se distribuirán los archivos que forman parte del paquete en los subdirectorios correspondientes.
+
+Si se desea instalar el fichero mi_ejecutable en la ubicación <tt>/usr/bin/mi_ejecutable</tt>, la estructura del directorio de trabajo debería ser la siguiente:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">./debian/usr/bin/mi_ejecutable</span></code></pre></figure>
+</div>
+
+
+
+<h1> Generación de los ficheros de control</h1>
+
+Hay varios tipos de ficheros de control. El fichero control propiamente dicho indica las características y dependencias del paquete. Los ficheros <tt>preinst</tt>, <tt>postinst</tt>, <tt>prerm</tt> y <tt>postrm</tt> son los scripts que se ejecutan durante la instalación, la actualización y el borrado de un paquete, para la configuración/desconfiguración de los programas incluidos en el paquete (Ver sección 6 de [3]).
+
+Los ficheros de control deben almacenarse en la siguiente ubicación:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">debian/DEBIAN</span></code></pre></figure>
+</div>
+
+
+
+<h2> El fichero Control</h2>
+
+Para la generación del paquete es imprescindible la creación de un fichero de control (también llamado control), en el que se indicará el nombre del paquete, la versión, la sección a la que pertenece, la prioridad de instalación, etc ... La descripción exacta del contenido de cada campo puede encontrarse en la sección 3 de [3].
+
+Por ejemplo:
+
+<pre>Package: linuxstatus
+Version: 1.1-1
+Section: base
+Priority: optional
+Architecture: all
+Depends: bash (>= 2.05a-11), textutils (>= 2.0-12), awk, procps (>= \
+1:2.0.7-8), sed (>= 3.02-8), grep (>= 2.4.2-3), coreutils (>= 5.0-5)
+Maintainer: Chr. Clemens Lee <clemens@kclee.com>
+Description: Linux system information
+ This script provides a broad overview of different
+ system aspects.
+</pre>
+
+
+<h2> Configuración mediante debconf</h2>
+
+Debconf proporciona una base de datos con un frontend que facilita el proceso de configuración de un paquete recién instalado o actualizado. Se basa en el uso de una serie de reglas que definen las preguntas a realizar al usuario, y el tipo de valores que
+
+<h1> Construcción del paquete</h1>
+
+Desde el directorio inmediatamente superior al directorio de trabajo debian debe ejecutarse:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>fakeroot dpkg-deb <span class="nt">--build</span> debian .</code></pre></figure>
+</div>
+
+
+Esto generará un paquete con el nombre <paquete>_<versión>_<arquitectura>.deb.
+
+<h1> Referencias</h1>
+<ul>
+<li>
+[1] <a href="http://tldp.org/HOWTO/Debian-Binary-Package-Building-HOWTO/index.html"> Debian Binary Package Building HOWTO</a>  [en]
+</li>
+<li>
+[2] <a href="http://www.debian.org/doc/maint-guide/"> Debian New Maintainers' Guide</a>  [en]
+</li>
+<li>
+[3]<a href="http://www.debian.org/doc/debian-policy/index.html"> Debian Policy Manual </a> [en]
+</li>
+<li>
+[4] <a href="http://www.kitenet.net/~joey/debconf-debconf/tutorial-doc.html"> The Debconf Programmer's Tutorial</a>  [en]
+</li>
+<li>
+<a href="http://www.linuks.mine.nu/irc/debian-packaging/">Debian Packaging </a> [en]
+</li>
+<li><a href="http://es.tldp.org/Presentaciones/200002hispalinux/conf-29/29-html/">Creación de paquetes de Debian  </a>[es]
+</li>
+<li><a href="http://www-106.ibm.com/developerworks/linux/library/l-debpkg.html?ca=dgr-lnxw57DebianLinux">Create Debian Linux packages </a> [en]
+</li>
+<li><a href="http://arco.inf-cr.uclm.es/mdoc-deb.html">Como crear un paquete de Debian sin software de ayuda </a> [es]
+</li>
+</ul>
+
+
+<h2> Más información</h2>
+
+El manual para mantenedores Debian está disponible en castellano y es paquete deb: maint-guide-es.
+
+
+<h1> Autoría </h1>
+
+La <a href="http://arco.inf-cr.uclm.es/mdoc-deb.html">receta original</a> se publicó en la web del <a href="http://arco.inf-cr.uclm.es/">Grupo ARCO</a>. Su autor fue Fernando Rincón. Yo tan sólo la he transcrito a Crysol.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8844,91 +9034,6 @@ No tardaron en llegar las primeras versiones para GNU/Linux, que con mas o menos
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/tale/2005-12-26/linux-en-un-smartphone.html">¿Linux en un smartphone?</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-12-26
-    
-      
-  <a href="/users.html#aledelgal">
-   aledelgal
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-12-26-linux-en-un-smartphone.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-12-26-linux-en-un-smartphone.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#tale-ref">
-    		tale
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/166">node/166</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Hola, tenía yo una curiosidad:
-   Papá Noël me ha traído un nokia de estos que lleva mp3 y todo, en concreto el 6630. Lleva el SO Symbian 8.0 (o el 7.0, no sé ahora mismo).
-¿Se le podría poner Linux o es imposible?. Era sólo por saberlo, porque creo que hasta te quitan la garantía si haces eso.
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8969,7 +9074,7 @@ No tardaron en llegar las primeras versiones para GNU/Linux, que con mas o menos
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

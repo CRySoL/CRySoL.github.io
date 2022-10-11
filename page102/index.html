@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,211 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-03-15/correr-programas-dos-en-molinux-con-dosemu.html">Correr programas DOS en Molinux con Dosemu</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-03-15
+    
+      
+  <a href="/users.html#Geronimo">
+   Geronimo
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-03-15-correr-programas-dos-en-molinux-con-dosemu.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-03-15-correr-programas-dos-en-molinux-con-dosemu.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Molinux-ref">Molinux </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/258">node/258</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Aunque parezca mentira, no pocas empresas u oficinas tienen algún programa <acronym title="Dos Operating System">DOS</acronym> hecho a medida que las hacen depender de MS-DOS, y por tanto de MS Windows. Esto puede ser un gran problema a la hora de una posible migración a GNU/Linux. Con esta receta aprenderemos cómo ejecutar estos programas en una Molinux Sancho gracias al emulador <strong>dosemu</strong>.</blockquote>
+
+<h2>Instalación de dosemu</h2>
+
+Dosemu es un emulador de <acronym title="Dos Operating System">DOS</acronym> para GNU/Linux, licenciado bajo la GPL, que permite correr un DOS (MS-DOS, FreeDOS...) y aplicaciones DOS. Utilizaremos además <a href="http://www.freedos.org">FreeDOS</a>. FreeDOS es un proyecto que aspira a crear un sistema operativo libre que sea totalmente compatible con las aplicaciones y los controladores de MS-DOS.
+
+Ni dosemu ni FreeDOS están en los repositorios de Molinux Sancho, así que añadire unos repositorios de Ubuntu Breezy (no olvides que Sancho es en realidad una Breezy). Para ello debes editar el fichero <tt>/etc/apt/sources.list</tt> y añadir la siguiente línea:
+
+<pre>deb http://archive.ubuntu.com/ubuntu breezy main multiverse</pre>
+
+y ejecutar posteriormente <tt>aptitude update</tt> como de costumbre. A continuación instala los paquetes:
+
+<ul>
+<li><tt>dosemu</tt></li>
+<li><tt>dosemu-freedos</tt></li>
+<li><tt>xfonts-dosemu</tt></li>
+</ul>
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo aptitude install dosemu dosemu-freedos xfonts-dosemu</span></code></pre></figure>
+</div>
+
+<h2>Ajustes post-instalación</h2>
+
+El paquete es <em>casi</em> perfecto, sólo necesita un par de ajustes para tener dosemu completamente operativo y funcional.
+
+<h3>Violación de segmento al ejecutar dosemu</h3>
+
+Si al ejecutar Dosemu te da una violación de segmento con el siguiente error:
+
+<pre>ERROR: cpu exception in dosemu code outside of VM86()!
+trapno: 0x0e  errorcode: 0x00000004  cr2: 0x468a5b2d
+eip: 0x468a5b2d  esp: 0xbf8fffc5  eflags: 0x00210286
+cs: 0x0073  ds: 0x007b  es: 0x007b  ss: 0x007b
+Page fault: read instruction to linear address: 0x468a5b2d
+CPU was in user mode
+Exception was caused by non-available page
+/usr/bin/dosemu: line 218: 16058 Violación de segmento  $SUDO $BINARY $XFLAG "$@"
+</pre>
+
+es un problema con versiones del kernel Linux posteriores a la 2.6.12. Es debido a cambios en  la ¿generación de direcciones virtuales? (<em>virtual address randomization</em>) del kernel. La solución es ejecutar
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">sudo echo 0 &gt;</span><span class="w"> </span>/proc/sys/kernel/randomize_va_space</code></pre></figure>
+</div>
+
+la primera vez que ejecutes dosemu. Lo ideal es hacer un script y ponerlo en el arranque de la máquina.
+
+<h3>Cuando ejecuto <tt>xdosemu</tt> no encuentra la fuente vga, y muchos carácteres están mal</h3>
+
+Si miras el contenido del paquete <tt>xfonts-dosemu</tt>:
+
+
+<pre class="console">
+[00:11:47][david@minipimer]:~$ dpkg -c /var/cache/apt/archives/xfonts-dosemu_1.2.1-3_all.deb
+drwxr-xr-x root/root         0 2004-10-06 16:23:25 ./
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./etc/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./etc/X11/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./etc/X11/fonts/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./etc/X11/fonts/misc/
+-rw-r--r-- root/root       425 2003-06-23 02:02:07 ./etc/X11/fonts/misc/xfonts-dosemu.alias
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/X11R6/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/X11R6/lib/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/misc/
+-rw-r--r-- root/root      4626 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/misc/vga.pcf.gz
+-rw-r--r-- root/root      5648 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/misc/dosemu-vga11x19.pcf.gz
+-rw-r--r-- root/root      4783 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/misc/vga-cp866.pcf.gz
+-rw-r--r-- root/root      5255 2004-10-06 16:23:24 ./usr/X11R6/lib/X11/fonts/misc/vga10x20-cp866.pcf.gz
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/share/
+drwxr-xr-x root/root         0 2004-10-06 16:23:24 ./usr/share/doc/
+drwxr-xr-x root/root         0 2004-10-06 16:23:25 ./usr/share/doc/xfonts-dosemu/
+-rw-r--r-- root/root      3740 2004-10-06 16:22:27 ./usr/share/doc/xfonts-dosemu/copyright
+-rw-r--r-- root/root     93715 2004-03-06 15:03:08 ./usr/share/doc/xfonts-dosemu/changelog.gz
+-rw-r--r-- root/root      6490 2004-10-06 16:22:27 ./usr/share/doc/xfonts-dosemu/changelog.Debian.gz
+</pre>
+
+observarás que el fichero de la fuente vga lo guarda en el directorio <tt>/usr/X11R6/lib/X11/fonts/misc/</tt>. Por defecto Molinux no busca fuentes ahí:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">[00:12:46][david@minipimer]:~$</span><span class="w"> </span><span class="nb">grep </span>misc /etc/X11/xorg.conf
+<span class="go">        FontPath        "/usr/share/X11/fonts/misc"</span></code></pre></figure>
+</div>
+
+La solución es por tanto sencilla; debes añadir la línea
+
+<pre>        FontPath        "/usr/X11R6/lib/X11/fonts/misc/"</pre>
+
+justo después de la línea que nos salió anteriormente. Reinia el servidor X posteriormente.
+
+
+
+<h2>Invocación</h2>
+
+Si ejecutamos dosemu desde una emulación del terminal tendremos bastantes menos problemas que si lo hiciésemos desde un terminal normal y corriente. Además, dependiendo del programa, será posible que necesitemos derechos de superusuario para acceder a determinados puertos y tal.
+
+Para programas DOS normales, la mejor solución sin duda será usar xdosemu:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>xdosemu programa.exe</code></pre></figure>
+</div>
+
+porque nos ahorraremos un montón de problemas tanto de carácteres como de tamaño del terminal y demás. xdosemu de hecho nos abre una ventana con el programa DOS al igual que si lo hubiésemos ejecutado en MS Windows.
+
+
+<h2>Referencias</h2>
+
+<ul>
+<li><a href="http://es.wikipedia.org/wiki/DOS">Wikipedia :: DOS</li>
+<li><a href="http://www.dosemu.org">Proyecto dosemu</a></li>
+<li><a href="http://www.freedos.org">Proyecto FreeDOS</a></li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8734,91 +8942,6 @@ Y ya se puede acceder a las anticuadas redes Mindows mediante <tt>smb://</tt> en
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/tale/2006-03-04/quieres-consultar-redcampus.html">¿Quieres consultar Redcampus?</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-03-04
-    
-      
-  <a href="/users.html#cleto">
-   cleto
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-03-04-quieres-consultar-redcampus.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-03-04-quieres-consultar-redcampus.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#tale-ref">
-    		tale
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/247">node/247</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <h1>¡¡¡KERNEL PANIC!!!! :-D</h1>
-
-<img src="http://www.duende-cr.com/blog/files/images/colgado.jpg"></img>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8859,7 +8982,7 @@ Y ya se puede acceder a las anticuadas redes Mindows mediante <tt>smb://</tt> en
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

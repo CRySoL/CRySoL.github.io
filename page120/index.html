@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,302 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-10-10/netcat-la-navaja-suiza-de-tcp-ip.html">Netcat, la navaja suiza de TCP/IP</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-10
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-10-netcat-la-navaja-suiza-de-tcp-ip.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-10-netcat-la-navaja-suiza-de-tcp-ip.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#networking-ref">networking </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/28">node/28</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<p>Netcat es una de las herramientas más potentes y flexibles que existen en el campo de la programación, depuración, análisis y manipulación de redes y servicios <span class="caps">TCP</span>/IP. Es un recurso imprescindible tanto para expertos en seguridad de redes como para hackers. Esta receta incluye varios ejemplos de uso de  <b><span class="caps">GNU</span> netcat</b>.</p>
+</blockquote>
+<h2> Introducción </h2>
+<p>Aunque <tt>netcat</tt> puede hacer muchas cosas, su función principal es muy simple:</p>
+<ol>
+  <li>Crea un socket con el destino indicado si es cliente, o en el puerto indicado, si es servidor</li>
+  <li>Una vez conectado, envía por el socket todo lo que llegue en su entrada estándar y envía a su salida estándar todo lo que llegue por el socket</li>
+</ol>
+<p>Algo tan simple resulta ser extraordinariamente potente y flexible como vas a ver e continuación. Por simplicidad se utilizan conexiones locales aunque, por supuesto, se pueden utilizar entre máquinas diferentes.</p>
+<h2> Ingredientes </h2>
+<ul>
+<li>netcat</li>
+<li>bash (o equivalente)</li>
+<li>utilidades <span class="caps">GNU</span> básicas</li>
+</ul>
+<h2>Sintaxis</h2>
+
+<pre>
+nc [-options] hostname port[s] [ports]
+nc -l -p port [-options] [hostname] [port]
+</pre>
+<h2>Parámetros básicos</h2>
+<ul>
+<li> <b>-l:</b> modo &#8216;listen&#8217;, queda a la espera de conexiones entrantes.</li>
+<li> <b>-p:</b> puerto local</li>
+<li> <b>-u:</b> modo <span class="caps">UDP</span></li>
+<li> <b>-e:</b> ejecuta el comando dado después de conectar</li>
+<li> <b>-c:</b> ejecuta órdenes de shell (hace <tt>/bin/sh -c [comando]</tt> después de conectar</li>
+</ul>
+<h2> Un chat para dos</h2>
+<h3>Servidor</h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000</code></pre></figure></div>
+<h3>Cliente</h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc localhost 2000</code></pre></figure></div>
+<h2> Transferencia de ficheros</h2>
+<p>La instancia de <tt>nc</tt> que <em>escucha</em> recibe el fichero. El receptor ejecuta:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 <span class="o">&gt;</span> fichero.recibido</code></pre></figure></div>
+<p>Y el emisor:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc localhost 2000 &amp;lt<span class="p">;</span> fichero</code></pre></figure></div>
+<h2>Servidor de <tt><a href="http://en.wikipedia.org/wiki/ECHO_protocol">echo</a></tt></h2>
+<p>Ponemos un servidor que ejecuta <tt>cat</tt> de modo que devolverá todo lo que<br />
+se le envíe</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 <span class="nt">-e</span> /bin/cat</code></pre></figure></div>
+<p>Y en otra consola:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc localhost 2000
+<span class="go">hola
+hola
+</span><span class="c">...</span></code></pre></figure></div>
+<h2>Servidor de <tt><a href="http://www.ietf.org/rfc/rfc0867.txt">daytime</a></tt></h2>
+<p>Exactamente lo mismo que el ejemplo anterior pero ejecutando <tt>date</tt> en lugar de <tt>cat</tt>.</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 <span class="nt">-e</span> /bin/date</code></pre></figure></div>
+<p>Y en otra consola:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc localhost 2000
+<span class="go">lun feb 23 21:26:48 CET 2004</span></code></pre></figure></div>
+<h2> shell remota estilo <a href="http://es.wikipedia.org/wiki/Telnet">telnet</a></h2>
+<h3>Servidor</h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 <span class="nt">-e</span> /bin/bash</code></pre></figure></div>
+<h3>Cliente</h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc localhost 2000</code></pre></figure></div>
+<h2>Telnet inverso</h2>
+<p>En esta ocasión es el cliente quien pone el terminal remoto</p>
+<h3> Servidor </h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000</code></pre></figure></div>
+<h3> Cliente </h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 <span class="nt">-e</span> /bin/bash</code></pre></figure></div>
+<h2>Cliente de <span class="caps">IRC</span></h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="k">*</span>nc irc.freenode.net 6666<span class="k">*</span>
+<span class="go">NOTICE AUTH :*** Looking up your hostname...
+NOTICE AUTH :*** Found your hostname, welcome back
+NOTICE AUTH :*** Checking ident
+NOTICE AUTH :*** No identd (auth) response
+*NICK nadie*
+*USER nadie nadie nadie :nadie*
+:kubrick.freenode.net 001 nadie :Welcome to the freenode IRC Network nadie
+:kubrick.freenode.net 002 nadie :Your host is kubrick.freenode.net[kubrick.freenode.net/6666], running version hyperion-1.0.2b
+[...]</span></code></pre></figure></div>
+<p>y a partir de ahí puedes introducir cualquier comando de <span class="caps">IRC</span>:</p>
+<ul>
+	<li><span class="caps">LIST</span></li>
+	<li><span class="caps">JOIN</span> #canal</li>
+	<li><span class="caps">PART</span> #canal</li>
+	<li><span class="caps">PRIVMSG</span> #canal :mensaje</li>
+	<li><span class="caps">WHO</span> #canal</li>
+	<li><span class="caps">QUIT</span></li>
+</ul>
+<h2> Cliente de correo <a href="http://es.wikipedia.org/wiki/SMTP"><span class="caps">SMTP</span></a></h2>
+<p>Podemos usar <tt>netcat</tt> para enviar correo electrónico por medio de un servidor <span class="caps">SMTP</span>, utilizando el protocolo directamente:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">~$</span><span class="w"> </span>nc mail.servidor.com
+<span class="go">220 mail.servidor.com ESMTP Postfix
+HELO yo
+250 mail.servidor.com
+MAIL FROM:guillermito@microchof.com
+250 Ok
+RCPT TO:manolo@cocaloca.es
+250 Ok
+DATA
+</span><span class="gp">354 End data with &amp;lt;</span>CR&gt;&amp;lt<span class="p">;</span>LF&gt;.&amp;lt<span class="p">;</span>CR&gt;&amp;lt<span class="p">;</span>LF&gt;
+<span class="go">Aviso: su licencia ha caducado. Me deben un pastón.
+</span><span class="c">.
+</span><span class="go">250 Ok: queued as D44314A607
+QUIT
+221 Bye</span></code></pre></figure></div>
+<h2> <span class="caps">HTTP</span></h2>
+<p>Es sencillo conseguir un cliente y un servidor <span class="caps">HTTP</span> rudimentarios.</p>
+<h3> Servidor</h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> http <span class="nt">-c</span> <span class="s2">"cat index.html"</span></code></pre></figure></div>
+<p>Al cual podemos conectar con cualquier navegador <span class="caps">HTTP</span>, como por ejemplo <a href="http://www.mozilla.org/products/firefox/">firefox</a>.</p>
+<h3> Cliente</h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"GET /"</span> | nc www.google.com 80 <span class="o">&gt;</span> index.html</code></pre></figure></div>
+<h2> Streaming de audio</h2>
+<p>Un sencillo ejemplo para hacer <em>streaming</em> de un fichero <tt>.mp3</tt>:</p>
+<h3> Servidor </h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 &lt; fichero.mp3</code></pre></figure></div>
+<p>y para servir todos los .mp3 de un directorio:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cat</span> <span class="k">*</span>.mp3 | nc <span class="nt">-l</span> <span class="nt">-p</span> 2000</code></pre></figure></div>
+<h3> Cliente </h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 | madplay -</code></pre></figure></div>
+<h2> Streaming de video</h2>
+<p/>
+<h3> Servidor </h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 &lt; pelicula.avi</code></pre></figure></div>
+<h3> Cliente </h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 | mplayer -</code></pre></figure></div>
+<h2> Proxy </h2>
+<p>Sirva para redirigir una conexión a otro puerto u otra máquina:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 <span class="nt">-c</span> <span class="s2">"nc example.org 22"</span></code></pre></figure></div>
+<p>El tráfico recibido en el puerto 2000 de esta máquina se redirige a la máquina example.org:22. Permite incluso que la conexión entrante sea <span class="caps">UDP</span> pero la redirección sea <span class="caps">TCP</span> o viceversa!</p>
+<h2> Clonar un disco a través de la red </h2>
+<p>Esto se debe usar con muchísima precaución. ¡Si no estás 100% seguro, no lo hagas! No digas que no te avisé.</p>
+<p>Es este ejemplo voy a copiar un pen drive <span class="caps">USB</span> que está conectado al servidor a un fichero en el cliente y después lo voy a montar para acceder al contenido.</p>
+<h3> Servidor </h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">dd </span><span class="k">if</span><span class="o">=</span>/dev/sda1 | nc <span class="nt">-l</span> <span class="nt">-p</span> 2000</code></pre></figure></div>
+<h3> Cliente </h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 | <span class="nb">dd </span><span class="nv">of</span><span class="o">=</span>pendrive.dump
+<span class="gp">$</span><span class="w"> </span>mount pendrive.dump <span class="nt">-r</span> <span class="nt">-t</span> vfat <span class="nt">-o</span> loop /mnt/usb</code></pre></figure></div>
+<h2>Ratón remoto</h2>
+<p>Es decir, usar el ratón conectado a una máquina para usar el entorno gráfico de otra. El ejemplo está pensado para Xorg.</p>
+<h3>Servidor</h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 &lt; /dev/input/mice</code></pre></figure></div>
+<h3>Cliente</h3>
+<p>Editar el fichero <code>/etc/X11/xorg.conf</code> y modificar la configuración del ratón para que queda así:</p>
+<pre>
+Section "InputDevice"
+    Driver     "mouse"
+    ...
+    Option    "Device"    "/tmp/fakemouse"
+    ....
+EndSection
+</pre>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkfifo</span> /tmp/fakemouse
+<span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 <span class="o">&gt;</span> /tmp/fakemouse
+<span class="gp">#</span><span class="w"> </span>/etc/init.d/gdm restart</code></pre></figure></div>
+<h2> Medir el ancho de banda </h2>
+<p/>
+<h3>Servidor</h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc <span class="nt">-l</span> <span class="nt">-p</span> 2000 | pv <span class="o">&gt;</span> /dev/null</code></pre></figure></div>
+<h3>Cliente</h3>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc server.example.org 2000 &lt; /dev/zero</code></pre></figure></div>
+<h2> Imprimir un documento en formato <a href="http://en.wikipedia.org/wiki/PostScript">PostScript</a></h2>
+<p>Funciona en impresoras que soporten el estándar AppSocket/JetDirect, que son la mayoría de las que se conectan por Ethernet.</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cat </span>fichero.ps | nc <span class="nt">-q</span> 1 nombre.o.ip.de.la.impresora 9100</code></pre></figure></div>
+<h2>Ver «La Guerra de las Galaxias»</h2>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>nc towel.blinkenlights.nl 23</code></pre></figure></div>
+<h2>Otros &quot;netcat&quot;s</h2>
+<ul>
+	<li><a href="http://farm9.org/Cryptcat/">cryptcat</a> &#8211; netcat cifrado.</li>
+	<li><a href="http://www.dest-unreach.org/socat/">socat</a> &#8211; Cuando netcat te queda corto.</li>
+	<li><a href="http://packages.debian.org/sid/socket">socket</a></li>
+	<li><a href="http://nmap.org/ncat/">ncat</a></li>
+</ul>
+<h2> Referencias</h2>
+<ul>
+    <li><a href="http://netcat.sourceforge.net/">The <span class="caps">GNU</span> Netcat project</a></li>
+    <li><a href="http://www.stearns.org/doc/nc-intro.current.html">Netcat &#8211; network connections made easy</a></li>
+    <li><a href="http://www.linuxgazette.com/issue74/zhaoway.html">Play with the Lovely Netcat</a></li>
+    <li><a href="http://bulma.net/body.phtml?nIdNoticia=714">Usando la herramienta netcat en <span class="caps">GNU</span>/Linux. La navaja suiza del protocolo <span class="caps">TCP</span>/IP</a></li>
+    <li><a href="http://linuca.org/body.phtml?nIdNoticia=276">Netcat o nc</a></li>
+    <li><a href="http://www.wikilearning.com/tutorial_de_netcat-wkc-629.htm">Tutorial de netcat</a></li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8862,87 +9161,6 @@ Un saludo!
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2005-09-23/acabo-de-registrarme-en-el-portal.html">Acabo de registrarme en el Portal</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-09-23
-    
-      
-  <a href="/users.html#Ismael_Caballero">
-   Ismael.Caballero
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-09-23-acabo-de-registrarme-en-el-portal.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-09-23-acabo-de-registrarme-en-el-portal.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/11">node/11</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Pues eso, que he mirado el correo y he visto un mensaje de David anunciando <b>la nueva web de crysol </b>y después de haberla visitado, pues eso, que me acabo de registrar.
-Me voy a la cama que estoy un poco cansado y mañana hay que madrugar para seguir currando.
-Saludos.
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8983,7 +9201,7 @@ Saludos.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

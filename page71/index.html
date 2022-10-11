@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
+
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
   <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
-
-  <li><a href="/recipe/2020-07-29/my-docker-cheat-sheet.html">My docker cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="621 posts"
+     title="622 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5479,6 +5479,10 @@
   <a href="javascript:window.location.href='/tags.html#ffmpeg-ref'; hide_others()"
      title="1 posts"
      >ffmpeg</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
+     title="1 posts"
+     >Postgres</a>
 </td></tr>
 
 </table>
@@ -7919,7 +7923,115 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-04-24/emule-y-torrents-en-gnu-linux.html">Emule y torrents en GNU/Linux</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-04-24
+    
+      
+  <a href="/users.html#int-0">
+   int-0
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-04-24-emule-y-torrents-en-gnu-linux.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-04-24-emule-y-torrents-en-gnu-linux.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#networking-ref">networking </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/653">node/653</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Hola buenas! todos nosotros somos adictos en mayor/menor medida a las redes P2P, de ellas descargamos películas, discos y algunos <em>delincuentes</em> programas y juegos. No es ningún secreto que la mayoría de los <em>internautas</em> españoles usan su conexión a internet para esto, las ISP's lo saben y como pasan de que su red se colapse realizan un filtro de protocolo a <em>emule</em> y <em>torrents</em> (las compañías evidentemente te lo negarán). No vale cambiar el puerto de escucha porque no se hace un filtro de puertos, se realiza filtro de protocolo. Se sospecha que Telefónica y Ono lo hacen; si es verdad que lo hacen deberían por lo menos avisar, así que nosotros vamos a intentar hacerles la pirula.</blockquote>
+
+<h1>Conexiones ofuscadas</h1>
+Nuestro problema está en que si un <em>router</em> de nuestro ISP <em>sabe</em> qué protocolo está transportando, podrá aplicar unas reglas de <em>QoS</em> (calidad de servicio) que probablemente a nosotros no nos haga ninguna gracia. La solución es más o menos sencilla: <em>ofuscar</em> el protocolo. Ofuscar una conexión es "desbaratar" el paquete saliente de forma que sea irreconocible, cuando llega a su destino, el receptor conoce la forma de recomponer el paquete. Hasta lo que sé, por ahora es la propia aplicación la que debe ofuscar el protocolo.
+
+<h1>Emule</h1>
+En GNU/Linux no disponemos de un buen cliente para <em>edonkey</em> que permita ofuscación de protocolo... debemos recurrir al maravilloso y archiconocido <em>eMule</em>. Tranquilos porque tiene licencia GPL :-P. Pero Int-0 se ha vuelto loco!! si eso es para hassefroch!!. Pues si... pero nosotros tenemos <em>wine</em> ;-)
+
+Pues bien, el <em>emule</em> funciona bastante bien con <em>wine</em> pero existe un problema: para alcanzar buenas velocidades es necesario abrir un <em>raw socket UDP</em> y esto sólo se puede hacer con wine si se es administrador :O. La forma en la que yo lanzo <em>emule</em> (no la versión con instalador, sino la que está lista para ejecutar) es la siguiente:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">sudo </span>wine emule.exe</code></pre></figure>
+</div>
+
+<blockquote>Hay que advertir que esto es <em>PELIGROSO</em>, para paliar un poco los problemas, podríamos crear una jaula <em>chroot</em> o algo así, si alguno lo hace que mande un post o modifique la receta :-P.</blockquote>
+
+Una vez arrancado la mula, nos vamos a <em>Preferencias > Seguridad > Activar la Ofuscación de Protocolo</em> y listo!. El <em>único</em> problema de todo esto es que no hay mucha gente que use ofuscación, por ese motivo sólo descargaréis a máxima velocidad de clientes que usen también ofuscación.
+
+<h1>Torrent</h1>
+Bueno, este es el protocolo de p2p de GNU por excelencia :-). Aquí tenemos clientes en muchos sabores... pero que permitan la ofuscación de protocolo reduce bastante el abanico, concretamente (que yo conozca): Azureus y ktorrent. El Azureus está muy chulo pero tiene un inconveniente: carga mucho la máquina. El Ktorrent es más ligerito. Tanto Azureus como ktorrent permiten conexiones ofuscadas (pero en las opciones aparece como <em>permitir cifrado de protocolo</em>), así que ya sabeís, cualquiera de los dos os vale, además que ambos son paquete Debian.
+
+Y con esto termino... ya sabéis que la descarga de cierto software es absolutamente ilegal y la desapruebo completamente. Esta receta NO sirve para delinquir sino para <em>paliar</em> parcialmente la política restrictiva de los ISP's (no la discuto, pero me parece FATAL que no lo avisen oficialmente).
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9207,94 +9319,6 @@ brue</p>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2007-04-11/gaim-cambia-de-nombre.html">Gaim cambia de nombre</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-04-11
-    
-      
-  <a href="/users.html#Vigilante">
-   Vigilante
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-04-11-gaim-cambia-de-nombre.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-04-11-gaim-cambia-de-nombre.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/640">node/640</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Hace ya 5 días, que se publicó la noticia, pero yo me he enterado hoy. Debido a los problemas legales de Gaim con AOL y AIM, Gaim cambia de nombre, así como algunas de sus librerías. El nuevo nombre será Pidgin; que tiene significado, es dicho de forma llana, como una nueva lengua creada de mezclar dos, no algo del estilo de Chiquito de La Calzada, sino algo así como cuando vamos a un país extranjero y traducimos literalmente cambiando las palabras de nuestro idioma y ponemos la palabra extranjera.
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/2007-04-11/gaim-cambia-de-nombre.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9335,7 +9359,7 @@ brue</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-08-21 10:34:15 -0500
+          Generated at 2022-10-11 06:32:02 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
