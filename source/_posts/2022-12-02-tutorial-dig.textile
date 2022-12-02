@@ -1,0 +1,89 @@
+---
+layout: post
+title: Tutorial básico de dig
+author: david_villa
+comments: true
+category: recipe
+tags:
+- dig
+- DNS
+---
+
+Algunos comandos básicos con dig para hacer consultas DNS.
+
+
+<!--break-->
+
+h2. Obtener registro A (dominio a IPv4)
+
+Contiene la IPv4 correspondiente al dominio
+
+<div class="console">
+{% highlight console %}
+$ dig +short google.es
+216.58.210.163
+{% endhighlight %}
+</div>
+
+
+h2. Obtener registro A (dominio a IPv6)
+
+Contiene la IPv6 correspondiente al dominio
+
+<div class="console">
+{% highlight console %}
+$ dig +short google.es aaaa
+2a00:1450:4003:808::2003
+{% endhighlight %}
+</div>
+
+
+h2. Obtener registro SOA (Start Of Authority)
+
+Este registro solo se puede encontrar en el servidor DNS que sea autoridad de la zona.
+
+<div class="console">
+{% highlight console %}
+$ dig +short google.es soa
+ns1.google.com. dns-admin.google.com. 148594331 900 900 1800 60
+{% endhighlight %}
+</div>
+
+
+h2. Obtener registro MX (Mail eXchange)
+
+Apuntan a los servidores que gestionan el correo electrónico de ese dominio, ordenados por
+prioridad.
+
+<div class="console">
+{% highlight console %}
+$ dig +short google.es mx
+30 alt2.aspmx.l.google.com.
+40 alt3.aspmx.l.google.com.
+50 alt4.aspmx.l.google.com.
+20 alt1.aspmx.l.google.com.
+10 aspmx.l.google.com.
+{% endhighlight %}
+</div>
+
+
+h2. Obtener registro PTR (IP a dominio)
+
+Contiene el dominio correspondiente a la IP indicada.
+
+<div class="console">
+{% highlight console %}
+$ dig +short -x 172.217.17.14
+mad07s09-in-f14.1e100.net.
+{% endhighlight %}
+</div>
+
+
+h2. Obtener registros TXT
+
+<div class="console">
+{% highlight console %}
+$ dig +noall +answer mail.google.com txt
+mail.google.com.	43124	IN	TXT	"google-site-verification=PncXpRKRCAlDAdlesTtNFf6k9TvgxgcRfojdaKkEACY"
+{% endhighlight %}
+</div>
