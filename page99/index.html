@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,125 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-04-28/arreglar-emacs-sin-fuentes.html">Arreglar Emacs sin fuentes</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-04-28
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-04-28-arreglar-emacs-sin-fuentes.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-04-28-arreglar-emacs-sin-fuentes.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#emacs-ref">emacs </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/292">node/292</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Recientemente he perdido las fuentes de mi querido Emacs. Estaban ahí, y de repente sólo me aparecían cuadritos de colores (muy monos, eso sí, de colores y todo). Sin embargo, por fin, he encontrado una solución, aunque sea temporal.
+</blockquote>
+
+<h1>Solución provisional</h1>
+<h2>Qué fuentes tienes en el sistema</h2>
+Lo primero es saber qué fuentes tienes en el sistema. Para ello basta ejecutar:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">xlsfonts</span></code></pre></figure>
+</div>
+
+Eso sí... preparaos para una salida laaaaarga.
+
+<h2>Una fuente para Emacs</h2>
+
+Ahora basta con decirle a Emacs la fuente que quieres. A mí me ha gustado una courier (se parecía bastante a la que tenía antes):
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">emacs -font -adobe-courier-medium-o-normal--12-120-75-75-m-70-iso8859-1</span></code></pre></figure>
+</div>
+
+<h2>Escribir menos</h2>
+
+Como escribir esa parrafada cada vez es un rollo... pues vamos a hacerle un alias. Para ello editamos el fichero <tt>.bashrc</tt> y le añadimos la línea siguiente:
+
+<pre>alias emacs="emacs -font -adobe-courier-medium-r-normal--14-140-75-75-m-90-iso10646-1"
+</pre>
+
+Y conseguimos que Emacs se abra con esa fuente. No es lo mejor, pero funciona.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8767,100 +8894,6 @@ NTPOPTIONS="-u -B"
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/script/2006-04-10/script-para-escuchar-emisoras-de-radio-por-internet.html">Script para escuchar emisoras de radio por internet</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-04-10
-    
-      
-  <a href="/users.html#aledelgal">
-   aledelgal
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-04-10-script-para-escuchar-emisoras-de-radio-por-internet.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-04-10-script-para-escuchar-emisoras-de-radio-por-internet.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#script-ref">
-    		script
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/281">node/281</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-Esta pequeña pequeñísima receta trata sobre cómo hacer un script para escuchar las radios que más nos gusten por internet sin tener que estar mirando cual era la dirección .asx que tenía tal radio.
-</blockquote>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/script/2006-04-10/script-para-escuchar-emisoras-de-radio-por-internet.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8901,7 +8934,7 @@ Esta pequeña pequeñísima receta trata sobre cómo hacer un script para escuch
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

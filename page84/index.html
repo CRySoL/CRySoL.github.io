@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,371 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-01-06/streaming-multimedia-con-flumotion.html">Streaming multimedia con Flumotion</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-01-06
+    
+      
+  <a href="/users.html#arturo">
+   arturo
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-06-streaming-multimedia-con-flumotion.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-06-streaming-multimedia-con-flumotion.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#gstreamer-ref">gstreamer </a></li>
+    
+    	<li><a href="/tags.html#multimedia-ref">multimedia </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/483">node/483</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<a href="http://www.flumotion.net/">Flumotion</a> es una plataforma de streaming escrito en <a href="http://www.python.org/">Python</a>. Es una buena alternativa para hacer streaming live o VoD. La implementación se basa en dos frameworks expectaculares: <a href="http://www.gstreamer.net/">gstreamer</a> y <a href="http://twistedmatrix.com/trac/">twisted</a>.
+
+Entre las demás alternativas existentes para streaming, flumotion es una buena alternativa aunque la versión libre no soporta ni RTP ni broadcast streaming. Flumotion es paquete debian, pero la versión que está empaquetada no ofrece los mismos servicios que la versión 0.3.2 que se utiliza en esta receta.
+</blockquote>
+
+
+
+<h1> Introducción </h1>
+
+Esta plataforma se descompone en tres niveles:
+
+<ul>
+<li>High level: En este nivel hay manager's, atmosphere y flows.</li>
+<li>Mid level: demonios de manager's y sorker's</li>
+<li>Low level: componentes</li>
+</ul>
+
+Sólo existe una atmósfera en la que existe un manager dentro del "planeta" y luego hay flujos que contienen semillas y demás movidas.
+Esto no lo entiendo ni yo, pero es la paranoia del desarrollador, así que habrá que tenerlo en cuenta.
+
+En fin, que este tipo de diseño permite una instalación distribuida ya que el manager puede ejecutarse en un host y luego tener uno
+o varios workers que se encarguen de diferentes flujos y así conseguir un sistema distribuido "acojonante". Si queréis ver mas sobre
+esto leed el <a href="http://www.flumotion.net/doc/flumotion/manual/html/index.html">manual</a>, aunque no esperéis gran cosa.
+
+
+<h1> Ingredientes </h1>
+
+Lo primero es conseguir los <a href="http://www.flumotion.net/src/flumotion/flumotion-0.3.2.tar.bz2">fuentes</a> de la versión
+0.3.2 de flumotion. También se pueden conseguir en el repo subversion:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>svn co https://core.fluendo.com/svn/flumotion/trunk flumotion</code></pre></figure>
+</div>
+
+<h1> Instalación </h1>
+
+Ahora toca compilar e instalar:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./configure <span class="o">&amp;&amp;</span> make <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>make <span class="nb">install</span></code></pre></figure>
+</div>
+
+En <tt>/usr/local/bin/</tt> tendremos todos los ejecutables de la plataforma. Como Flumotion utiliza conexiones SSL para poder
+administrar es necesario crearse un certificado con <b>openssl</b> o utilizar el de prueba que esta en <tt>conf/default.pem</tt>.
+
+Por defecto el certificado debe estar en <tt>/usr/local/etc/flumotion/</tt>. Sino hay que indicar su ubicación por línea de comandos.
+
+
+<h1> Prueba inicial </h1>
+
+Lo primero ser ejecutar el manager:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>flumotion-manager <span class="nt">-d</span> 3 conf/managers/default/planet.xml <span class="o">&gt;</span> log/manager.log &amp;</code></pre></figure>
+</div>
+
+Ahora, de momento, solo ejecutaremos un worker:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>flumotion-worker <span class="nt">-d</span> 3 <span class="nt">-u</span> user <span class="nt">-p</span> <span class="nb">test</span> <span class="o">&gt;</span> log/worker.log &amp;</code></pre></figure>
+</div>
+
+Para ver las demás opciones consultar el <a href="http://www.flumotion.net/doc/flumotion/manual/html/index.html">manual</a>. Aunque
+no esperéis gran cosa.
+
+Ahora lanzémos la interfaz de administración. Hay dos: una con gtk y otra con ncurses. Yo utilizo la de gtk:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>flumotion-admin <span class="nt">-v</span></code></pre></figure>
+</div>
+
+Como se muestra en el <a href="http://www.flumotion.net/doc/flumotion/manual/manual.pdf">manual</a> la conexión con el manager se
+puede hacer con o sin conexión SSL. Ya que nos ponemos, utilizamos SSL que por defecto se conecta por el puerto 7531. Si la conexión
+no existe la creamos para futuros accesos. Lo primero que aparecerá en la interfaz de administración ser el <b>wizard</b>. Dentro de
+el podremos configurar varios flujos, productores, consumidores, etc. Si le damos a todo "Siguiente" al final se crearan los <b>jobs</b>
+necesarios para hacer nuestra primera prueba. Una vez arrancados todos los procesos es hora de probar el streaming. Por defecto podremos
+acceder a el en la url http://localhost:8800/. Podremos acceder mediante un browser o con xine, mplayer, etc; en definitiva con el
+reproductor multimedia que ms os guste. En este punto podremos observar la carta de ajuste de gstreamer.
+
+La interfaz de administración en modo texto se llama: <b>flumotion-admin-text</b> y funciona de una forma similar a la anterior.
+
+<h1> Configuración básica </h1>
+
+Como alguien se habrá podido imaginar, los ficheros de configuración están en el directorio <tt>con/</tt>. Estos ficheros de configuración son
+XML, lo cual facilita bastante el trabajo con la plataforma. El primer fichero a tener en cuenta es <tt>planet.xml</tt>:
+
+<pre>
+ < planet >
+  < manager name="planet" >
+    < host >fulanito< /host >
+    < port >50000< /port >
+    < transport >TCP< /transport >
+    < certificate>/path/default.pem< /certificate >
+    < debug >5< /debug >
+
+    < component name="manager-bouncer" type="htpasswdcrypt-bouncer" >
+      < property name="data" >< ![CDATA[
+ user:PSfNpHTkpTx1M
+ ]] >< /property >
+    < /component >
+   < /manager >
+ < /planet >
+</pre>
+
+Para el worker es necesario el fichero <tt>default.xml</tt> en <tt>conf/workers</tt>:
+
+<pre>
+< worker>
+< worker name="default">
+    < manager>
+      < host>fulanito< /host>
+      < port>50000< /port>
+      < transport>< /transport>
+    < /manager>
+
+    < authentication type="plaintext">
+      < username>user< /username>
+      < password>test< /password>
+    < /authentication>
+
+    < feederports>8650-8669< /feederports>
+    < debug>*:4< /debug>
+
+< /worker>
+
+</pre>
+
+
+Como mínimo es necesario un manager y luego se pueden utilizar tantos componentes como se necesiten. En este caso se utiliza
+un "htpasswdcrypt-bouncer" para hacer la autenticación del administrador. En el worker hay que indicar el usuario/password
+necesario para acceder a la interfaz de administración.
+
+Otro fichero a tener en cuenta es el de los flujos. En principio se puede poner cualquier nombre a este fichero, pero habrá
+que meterlo dentro de un directorio con el mismo nombre. Por ejemplo, dentro del directorio <tt>default/flows</tt> habrá que
+añadir nuestros flujos. Por defecto, esta el fichero <tt>ogg-test-theora.xml</tt> para hacer pruebas. Su contenido es el
+siguiente:
+
+<pre>
+< ?xml version="1.0" ?>
+< planet>
+  < flow name="default">
+    < component name="video-source" type="videotest" worker="localhost">
+      < !-- properties -->
+      < property name="format">video/x-raw-yuv< /property>
+      < property name="framerate">50/10< /property>
+      < property name="height">240< /property>
+      < property name="pattern">0< /property>
+      < property name="width">320< /property>
+    < /component>
+    < component name="video-encoder" type="theora-encoder" worker="localhost">
+      < source>video-source< /source>
+      < !-- properties -->
+      < property name="bitrate">400< /property>
+    < /component>
+    < component name="muxer-video" type="ogg-muxer" worker="localhost">
+      < source>video-encoder< /source>
+    < /component>
+    < component name="http-video" type="http-streamer" worker="localhost">
+      < source>muxer-video< /source>
+      < !-- properties -->
+      < property name="bandwidth_limit">10< /property>
+      < property name="burst_on_connect">True< /property>
+      < property name="mount_point">/< /property>
+      < property name="port">8800< /property>
+      < property name="user_limit">1024< /property>
+    < /component>
+  < /flow>
+< /planet>
+</pre>
+
+Como puede verse, solo tenemos un flujo que se llama "default". Y luego hay cuatro componentes:
+
+<ul>
+<li> <b>video-source:</b> que es de tipo videotest y se le asocia al worker localhost.
+<li> <b>video-encoder:</b> que es de tipo theora-encoder.
+<li> <b>muxer-video:</b> de tipo ogg-muxer. Este componente es el contenedor del stream.
+<li> <b>http-video:</b> de tipo http-streamer, que "saca" el stream por http ap puerto 8800.
+</ul>
+
+El componente <b>video-source</b> es un productor, que genera la carta de ajuste de gstreamer en formato YUV con un ratio de 5
+y un tamao de 320x240. El siguiente, <b>video-encoder</b> toma como entrada el stream de <b>video-source</b> y lo codifica en
+formato ogg con un bitrate de 400, para posteriormente ser "mezclado" por <b>ogg-muxer</b>. Y finalmente. <b>http-video</b> hace
+el streaming final sobre http.
+
+Para probar otras configuraciones podemos utilizar el wizard. Con el wizard podemos tomar streaming a partir de webcams, cmaras
+digitales, capturadores de TV, etc. Segn para lo que queramos nuestro servidor seleccionamos uno u otro. Tambin podemos elegir
+audio o video, o los dos con overlay incluido; para finalmente pasarlo por http por nuestro puerto preferido. Todo esto configurable
+fcilmente mediante la interfaz grfica.
+
+<h1> Configuracin intermedia </h1>
+
+En el apartado anterior solo hemos visto ejemplos bsicos (y lo que queda por llegar). Ahora es hora de ver todos los componentes
+disponibles en la versin 0.3.2. Para ver los componentes disponibles hay que utilizar el comando:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>flumotion-inspect</code></pre></figure>
+</div>
+
+El cual nos mostrar los componentes y plugs disponibles en nuestra versin. Si utilizais un versin antiga vereis como disponeis
+de menos componentes, como es el caso de la versin empaquetada para debian. Para obtener ms informacin sobre un componente
+concreto hacer:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>flumotion-inspect http-server</code></pre></figure>
+</div>
+
+por ejemplo. Veremos las propiedades del componente <b>http-server</b>, que es el que voy a utilizar para el próximo ejemplo de
+configuración. Este componente te permite tomar como fuente un fichero multimedia (usa ogg/vorbis por dios) y el solito se
+encarga de hacer el streaming sobre la url que le especifiquemos. El fichero de flujo nuevo quedará así:
+
+<pre>
+< ?xml version="1.0" ?>
+< planet>
+  < flow name="default">
+    < component name="HTTP" type="http-server" version="0.3.2" worker="localhost">
+      < property name="hostname">fulanito< /property>
+      < property name="mount-point">/< /property>
+      < property name="path">/var/www/video.ogg< /property>
+      < property name="port">8800< /property>
+    < /component>
+  < /flow>
+< /planet>
+</pre>
+
+Accediendo a la URL: http://fulanito:8800 veremos nuestro video en HTTP streaming.
+
+<h1> Configuración avanzada </h1>
+
+Ya lo haré.
+
+<h1> Visualizar el streaming </h1>
+
+Anteriormente he comentado como se podría ver el video en streaming, bien mediante un browser o bien mediante nuestro reproductor
+multimedia favorito. Pero cuando se pretende que el acceso a estos contenidos multimedia sean portables (todo el mundo me entiende)
+es necesario buscar otro tipo de alternativas. La mejor sin duda es utilizar un browser y en esto ya han pensado los desarrolladores
+de flumotion. Para ello han desarrollado <a href="http://www.flumotion.net/cortado/">cortado</a>. Cortado es un applet que permite una
+fácil visualización de los streams. Utilizarlo es muy sencillo, tan solo hay que añadirlo a nuestra web:
+
+<pre>
+< \applet width="320" height="240" code="com.fluendo.player.Cortado.class"
+archive="http://stream.fluendo.com/cortado/cortado-ovt-debug.jar" >
+
+< param value="http://fulanito:8800/" name="url" />
+< param value="true" name="seekable" />
+< param value="53.9" name="duration" />
+< param value="10.0" name="framerate" />
+< param value="true" name="keepaspect" />
+< param value="true" name="video" />
+< param value="false" name="audio" />
+< param value="200" name="bufferSize" />< /applet>
+</pre>
+
+Según los requisitos, podemos configurar de una forma u otra los diferentes parametros del applet. Para ello consultar el API del applet.
+
+
+<h1>Referencias</h1>
+
+<ul>
+<li><a href="http://www.flumotion.net">Flumotion: Open Source Multimedia Streaming</a></li>
+</ul>
+
+<h1> TODO </h1>
+
+Instalación distribuida.
+Configuración avanzada del server.
+Configuración avanzada de cortado.
+Otra receta de VideoLAN.
+Otra receta de Icecast2.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9074,97 +9447,6 @@ Lo de xypic no lo conocía pero parece que es bastante mejor que <em>xymatrix</e
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/opinion/2006-12-16/restart-your-system.html">Restart your system!</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-12-16
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-12-16-restart-your-system.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-12-16-restart-your-system.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#opinion-ref">
-    		opinion
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/473">node/473</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Seguro que más de una vez, y de 20, se os ha colgado el firefox (a.k.a iceweasel), lo matas (o se muere solo) y a veces al volverlo a ejecutar sale un mensajito como este:</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/opinion/2006-12-16/restart-your-system.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9205,7 +9487,7 @@ Lo de xypic no lo conocía pero parece que es bastante mejor que <em>xymatrix</e
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

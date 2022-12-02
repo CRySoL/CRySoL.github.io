@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,179 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-04-24/reproductores-gstreamer.html">Reproductores GStreamer</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-04-24
+    
+      
+  <a href="/users.html#diego">
+   diego
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-04-24-reproductores-gstreamer.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-04-24-reproductores-gstreamer.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#gstreamer-ref">gstreamer </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/654">node/654</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">Vamos a ver como podemos crear reproductores GStreamer para los distintos códecs de audio y vídeo existentes, usando gst-launch y construyendo las distintas tuberías usando los distintos plugins de GStreamer.
+</blockquote>
+
+
+<h2>Ingredientes</h2>
+Necesitas tener instalados los paquetes gstreamer0.10-tools y los plugins necesarios: gstreamer0.10-plugins-base, gstreamer0.10-farsight, gstreamer0.10-plugins-good, gstreamer0.10-plugins-ugly, gstreamer0.10-alsa, gstreamer0.10-ffmpeg y gstreamer0.10-x. Veremos como podemos crear reproductores genéricos, de audio y de vídeo. Según el códec del fichero que quieras reproducir, tienes que ejecutar en una consola la tubería GStreamer oportuna.
+
+<h2>Reproductor Genérico</h2>
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 playbin <span class="nv">uri</span><span class="o">=</span>file:///home/usuario/file.mpg</code></pre></figure>
+</div>
+
+<h2>Reproductor de Audio</h2>
+
+Genérico
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 filesrc <span class="nv">location</span><span class="o">=</span>file.ogg <span class="o">!</span> decodebin <span class="o">!</span> audioconvert <span class="o">!</span> alsasink</code></pre></figure>
+</div>
+
+Ogg Vorbis
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 filesrc <span class="nv">location</span><span class="o">=</span>file.ogg <span class="o">!</span> oggdemux <span class="o">!</span> vorbisdec <span class="o">!</span> audioconvert <span class="o">!</span> alsasink</code></pre></figure>
+</div>
+
+FLAC
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 filesrc <span class="nv">location</span><span class="o">=</span>file.flac <span class="o">!</span> flacdec <span class="o">!</span> audioconvert <span class="o">!</span> alsasink</code></pre></figure>
+</div>
+
+MP3
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 filesrc <span class="nv">location</span><span class="o">=</span>file.mp3 <span class="o">!</span> mad <span class="o">!</span> audioconvert <span class="o">!</span> alsasink</code></pre></figure>
+</div>
+
+<h2>Reproductor de Vídeo</h2>
+
+Genérico
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 filesrc <span class="nv">location</span><span class="o">=</span>file.ogg <span class="o">!</span> decodebin <span class="o">!</span> ffmpegcolorspace <span class="o">!</span> xvimagesink</code></pre></figure>
+</div>
+
+Ogg Theora
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 filesrc <span class="nv">location</span><span class="o">=</span>file.ogg <span class="o">!</span> oggdemux <span class="o">!</span> theoradec <span class="o">!</span> xvimagesink</code></pre></figure>
+</div>
+
+MPEG2
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 filesrc <span class="nv">location</span><span class="o">=</span>file.mpg <span class="o">!</span> ffdemux_mpegts <span class="o">!</span> mpeg2dec <span class="o">!</span> xvimagesink</code></pre></figure>
+</div>
+
+MPEG4
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 filesrc <span class="nv">location</span><span class="o">=</span>file.mp4 <span class="o">!</span> ffdemux_mov_mp4_m4a_3gp_3g2_mj2 <span class="o">!</span> ffdec_mpeg4 <span class="o">!</span> xvimagesink</code></pre></figure>
+</div>
+
+<h2>Reproductor de Audio y Vídeo</h2>
+
+Genérico
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 filesrc <span class="nv">location</span><span class="o">=</span>file.ogg <span class="o">!</span> decodebin <span class="nv">name</span><span class="o">=</span>decoder
+<span class="go">decoder. ! ffmpegcolorspace ! xvimagesink
+decoder. ! audioconvert ! alsasink</span></code></pre></figure>
+</div>
+
+Ogg Vorbis/Theora
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gst-launch-0.10 filesrc <span class="nv">location</span><span class="o">=</span>file.ogg <span class="o">!</span> oggdemux <span class="nv">name</span><span class="o">=</span>demuxer
+<span class="go">demuxer. ! theoradec ! xvimagesink
+demuxer. ! vorbisdec ! audioconvert ! alsasink</span></code></pre></figure>
+</div>
+
+<h2>Más información</h2>
+Si quieres saber los plugins GStreamer instalados en el sistema, puedes usar gst-inspect-0.10.
+Son bienvenidas las tuberías para reproducir otros tipos de ficheros.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9225,100 +9406,6 @@ brue</p>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/new/2007-04-11/nueva-versin-de-debian.html">Nueva versión de Debian</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-04-11
-    
-      
-  <a href="/users.html#Lk2">
-   Lk2
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-04-11-nueva-versin-de-debian.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-04-11-nueva-versin-de-debian.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#new-ref">
-    		new
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/642">node/642</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Me extraña que nadie se haya hecho aún eco de esta noticia ... si si, que para Debian esto si es noticia: nueva versión estable.
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/new/2007-04-11/nueva-versin-de-debian.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9359,7 +9446,7 @@ brue</p>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

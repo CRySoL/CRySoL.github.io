@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,158 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2010-02-03/enviar-correo-a-travs-de-gmail-con-python.html">Enviar correo a través de Gmail con Python</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2010-02-03
+    
+      
+  <a href="/users.html#int-0">
+   int-0
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2010-02-03-enviar-correo-a-travs-de-gmail-con-python.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2010-02-03-enviar-correo-a-travs-de-gmail-con-python.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Python-ref">Python </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1328">node/1328</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Buenas... pues para aquellos que necesiten hacer un programita que mande notificaciones a alguien, puede usar alguno de los cientos de programas que existen por ahí... o puede hacer su propio notificador vía e-mail. En python es ultra sencillo y hay varios métodos, que yo conozca: conectar a un servidor <em>SMTP</em>, autenticarse y mandar el mensaje; o ser uno mismo el servidor y conectarse con un <em>relay</em> que te autorice (también soportado en python). En esta receta explicamos la primera, que es más simple (aunque también requiere tener la contraseña por algún lado, en el ejemplo la pediremos al usuario y listo...).</blockquote>
+
+<h2>A cerca de Gmail</h2>
+Bueno, este servidor, al igual que otros muchos por ahí, utiliza conexiones cifradas, por lo que mandar un correo nos obligará a establecer una conexión segura antes de autenticarnos (lo cual está muy requetebién y es muy sencillo).
+
+Supongo que esta receta funcionará igual para todos aquellos servidores que requieran TLS puesto que cumple con la RFC 821 y la RFC 1869 (que alguien ponga los enlaces si quiere, yo voy con prisas :P).
+
+<h2>Componer el mensaje</h2>
+En python un mail es básicamente un diccionario cuyas <em>keys</em> son los nombres de los campos: <em>Subject</em>, <em>Reply-To</em>, etc... pero que además nos ofrece un par de métodos interesantes que nos permiten <em>attach-ear</em> imágenes y codificar todo el mensaje como mensaje <em>MIME</em>:
+
+<h2>Mensaje de texto corriente y moliente</h2>
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">email.MIMEText</span> <span class="kn">import</span> <span class="n">MIMEText</span>
+<span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="s">"Hello World,</span><span class="se">\n</span><span class="s">o algo parecido..."</span><span class="p">)</span>
+<span class="n">msg</span><span class="p">[</span><span class="s">'Subject'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'Esto es una prueba'</span>
+<span class="n">msg</span><span class="p">[</span><span class="s">'From'</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Juancar I"</span>
+<span class="n">msg</span><span class="p">[</span><span class="s">'Reply-to'</span><span class="p">]</span> <span class="o">=</span> <span class="s">"La casa ficticia"</span>
+<span class="n">msg</span><span class="p">[</span><span class="s">'To'</span><span class="p">]</span> <span class="o">=</span> <span class="s">"La Sofi"</span></code></pre></figure>
+</div>
+Como dijimos antes, los campos se tratan igual que en un diccionario. Hay que tener en cuenta que no son obligatorios y que podemos <em>falsear</em> el origen y el destino del mismo, aunque para enviar el correo <b>SI</b> es necesario origen y destino reales, pero los datos que aparecerán en el correo al destinatario serán los que pongamos aquí. Tened cuidado con poner cosas demasiado "raras" o no rellenar suficientes campos porque entonces vuestro <em>mail</em> será considerado <em>Spam</em> casi con toda seguridad...
+
+<h2>Mensaje con texto y fotos</h2>
+<blockquote>Esto está sacado de la documentación de python y no lo he probado, pero <em>en teoría</em> funciona, si alguien me lo confirma pues mejor que mejor. Como dije antes, voy con prisa! :P</blockquote>
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">email.mime.image</span> <span class="kn">import</span> <span class="n">MIMEImage</span>
+<span class="kn">from</span> <span class="nn">email.mime.multipart</span> <span class="kn">import</span> <span class="n">MIMEMultipart</span>
+
+<span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEMultipart</span><span class="p">()</span>
+<span class="n">msg</span><span class="p">[</span><span class="s">'Subject'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'Tu maridito achantando!'</span>
+<span class="n">msg</span><span class="p">[</span><span class="s">'From'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'Juancar I'</span>
+<span class="n">msg</span><span class="p">[</span><span class="s">'To'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'La Sofi'</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">preamble</span> <span class="o">=</span> <span class="s">'Nuestro viajecito pagado'</span>
+<span class="n">imagen</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'/home/juancar/vacaciones/visita_usa/callate01.png'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span>
+<span class="n">attachment</span> <span class="o">=</span> <span class="n">MIMEImage</span><span class="p">(</span><span class="n">imagen</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+<span class="n">imagen</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">msg</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">attachment</span><span class="p">)</span></code></pre></figure>
+</div>
+
+Aquí tenéis cómo enviar un mensaje con imágenes, podéis <em>attachear</em> cuantas imágenes queráis de la misma manera. Si queréis envíar sonidos o algún otro tipo de fichero, consultad la documentación de python porque se pueden componer cosas bastante chulas de forma similar (básicamente cambiar la clase MIMEImage por una más adecuada).
+
+<h2>Conectar con el servidor SMTP</h2>
+Asumimos aquí que tienes un objeto <em>msg</em> construído como anteriormente explicamos, pues bien, la cosa queda más o menos tal que así:
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">getpass</span>
+<span class="kn">import</span> <span class="nn">smtplib</span>
+<span class="n">sender</span> <span class="o">=</span> <span class="n">smtplib</span><span class="p">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s">'smtp.gmail.com'</span><span class="p">)</span>
+<span class="n">sender</span><span class="p">.</span><span class="n">ehlo</span><span class="p">()</span>
+<span class="n">sender</span><span class="p">.</span><span class="n">starttls</span><span class="p">()</span>
+<span class="n">usuario_gmail</span> <span class="o">=</span> <span class="s">'ssmm_juancar'</span>
+<span class="n">sender</span><span class="p">.</span><span class="n">login</span><span class="p">(</span><span class="n">usuario_gmail</span><span class="p">,</span> <span class="n">getpass</span><span class="p">.</span><span class="n">getpass</span><span class="p">())</span>
+<span class="n">origen</span> <span class="o">=</span> <span class="n">usuario_gmail</span> <span class="o">+</span> <span class="s">'@gmail.com'</span>
+<span class="n">destino</span> <span class="o">=</span> <span class="s">'ssmm_sofi@yahoo.es'</span>
+<span class="n">sender</span><span class="p">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">origen</span><span class="p">,</span> <span class="n">destino</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">as_string</span><span class="p">())</span>
+<span class="n">sender</span><span class="p">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure>
+</div>
+
+Y así de fácil es!
+En este punto sabed que el origen y el destino deben ser auténticos, en caso contrario, el servidor de <em>gmail</em> nos dirá que hasta luego (y en el error nos da un bonito enlace con ayuda sobre su SMTP). Otra cosa más, si nuestro servidor utiliza algún tipo de certificado especial, se puede especificar en la función <em>starttls()</em>.
+
+<h2>Enlaces</h2>
+<ul><li><a href="http://docs.python.org/library/email-examples.html">http://docs.python.org/library/email-examples.html</a></li>
+<li><a href="http://www.wellho.net/mouth/1043_Sending-an-email-from-Python.html">http://www.wellho.net/mouth/1043_Sending-an-email-from-Python.html</a></li></ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8921,99 +9081,6 @@ Aunque suene un poco delictivo (o como les gusta llamarlo ahora, <em>pirata</em>
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2010-01-03/creando-tneles-tcp-ip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh.html">Creando túneles TCP/IP (port forwarding) con SSH: Los 8 escenarios posibles usando OpenSSH</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2010-01-03
-    
-      
-  <a href="/users.html#CRySoL">
-   CRySoL
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2010-01-03-creando-tneles-tcp-ip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2010-01-03-creando-tneles-tcp-ip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#networking-ref">networking </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1317">node/1317</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Esta receta es una copia (gracias a su licencia CC) de un post del blog de <a href="http://www.vicente-navarro.com/blog/2009/05/24/creando-tuneles-tcpip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh">Vicente Navarro</a> (un blog con un contenido estupendo por cierto). La pongo aquí porque me parece un material muy bueno y en previsión de que (<span class="caps">FSM</span> no lo quiera) dicho blog desaparezca repentinamente.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2010-01-03/creando-tneles-tcp-ip-port-forwarding-con-ssh-los-8-escenarios-posibles-usando-openssh.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9054,7 +9121,7 @@ Aunque suene un poco delictivo (o como les gusta llamarlo ahora, <em>pirata</em>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

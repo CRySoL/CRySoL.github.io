@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,147 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2009-07-11/cmo-instalar-opencv-en-ubuntu-9-04.html">¿Cómo instalar OpenCV en Ubuntu 9.04?</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2009-07-11
+    
+      
+  <a href="/users.html#manueldavid">
+   manueldavid
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2009-07-11-cmo-instalar-opencv-en-ubuntu-9-04.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2009-07-11-cmo-instalar-opencv-en-ubuntu-9-04.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1129">node/1129</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+Esta receta prentede mostrar al usuario cómo instalar OpenCV en Ubuntu 9.04.
+</blockquote>
+
+<h2>Posibles problemas</h2>
+Según he podido comprobar y además leer, <a href="http://ubuntuforums.org/archive/index.php/t-1076793.html">aquí</a>,  <a href="http://plagatux.es/2009/04/opencv-11pre-ffmpeg-en-linux/">y aquí</a>, entre otros; existen problemas entre la última versión de la librería de OpenCV 1.1 y la librería ffmpeg, problemas que provocarán fallos a la hora de compilar OpenCV.
+
+<h2>¿Cómo evitar estos problemas e instalar OpenCV correctamente?</h2>
+Hay que seguir los siguientes pasos:
+1) teclea:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-key adv <span class="nt">--recv-keys</span> <span class="nt">--keyserver</span> keyserver.ubuntu.com cafc44ee7f39098ce6ec229cca70e6a9087475a0</code></pre></figure>
+</div>
+
+2) Ve a tu archivo <em>sources.list</em> y añade la siguiente línea:
+<pre>
+deb http://ppa.launchpad.net/gijzelaar/opencv/ubuntu jaunty main
+</pre>
+
+
+3) teclea:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get update</code></pre></figure>
+</div>
+
+4) ahora, escribe lo que sigue:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> <span class="s2">"entra al directorio que desees"</span>
+<span class="gp">$</span><span class="w"> </span>svn co https://opencvlibrary.svn.sourceforge.net/svnroot/opencvlibrary/trunk</code></pre></figure>
+</div>
+
+5) Entra en el directorio trunk:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /trunk/opencv</code></pre></figure>
+</div>
+
+6) Realiza:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./configure
+<span class="gp">$</span><span class="w"> </span>make
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>make <span class="nb">install</span></code></pre></figure>
+</div>
+
+7) No te debería de dar errores y ya lo tienes instalado.
+
+<h2>Referencias</h2>
+
+<a href="http://gijs.pythonic.nl/blog/2009/may/3/getting-video-io-working-opencv-and-ubuntu-jaunty-/">Getting video i/o working with opencv and Ubuntu Jaunty (9.04)</a>
+<a href="http://cellprogramming.wordpress.com/2009/05/24/opencv-cvcapturefromavi-error-in-ubuntu-9-04/">OpenCV cvCaptureFromAVI error in Ubuntu 9.04</a>
+<a href="http://opencv.willowgarage.com/wiki/InstallGuide_Linux">Installing OpenCV on Linux</a>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8718,96 +8867,6 @@ Cuidado con el zoom, vuestra CPU puede sufrir convulsiones...
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2009-05-11/molinux-zero-distribucin-gnu-linux-para-equipos-obsoletos-y-con-pocos-recursos.html">Molinux Zero: distribución GNU/Linux para equipos obsoletos y con pocos recursos</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2009-05-11
-    
-      
-  <a href="/users.html#ceslcam">
-   ceslcam
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2009-05-11-molinux-zero-distribucin-gnu-linux-para-equipos-obsoletos-y-con-pocos-recursos.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2009-05-11-molinux-zero-distribucin-gnu-linux-para-equipos-obsoletos-y-con-pocos-recursos.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Molinux-ref">Molinux </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1118">node/1118</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      La Consejería de Industria de la Junta de Comunidades de Castilla-La Mancha, a través del Centro de Excelencia de Software Libre de Castilla-La Mancha crea una distribución ligera que puede ser utilizada en ordenadores antiguos. Se caracteriza principalmente por necesitar recursos mínimos  para poder funcionar. Así mismo dispone de todos los aplicativos necesarios para el funcionamiento diario de cualquier persona en la Sociedad de la Información: procesador de textos, hoja de cálculo, diseño gráfico, navegación por internet, correo electrónico, chat y otros aplicativos de propósito general. Todo ello incluido en un sistema operativo actual que le permite ser usado también en equipos nuevos.
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/2009-05-11/molinux-zero-distribucin-gnu-linux-para-equipos-obsoletos-y-con-pocos-recursos.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8848,7 +8907,7 @@ Cuidado con el zoom, vuestra CPU puede sufrir convulsiones...
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

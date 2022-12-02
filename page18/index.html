@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,406 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2010-12-09/kit-de-desarrollo-libre-para-ps3.html">Kit de desarrollo libre para PS3</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2010-12-09
+    
+      
+  <a href="/users.html#int-0">
+   int-0
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2010-12-09-kit-de-desarrollo-libre-para-ps3.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2010-12-09-kit-de-desarrollo-libre-para-ps3.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#embedded-ref">embedded </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1438">node/1438</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Hola amigüitos! si sois alegres poseedores de una PS3 con FW3.50 o anterior y tenéis a vuestra disposición algún dispositivo <em>jailbreaker</em> sabréis que la ejecución de programas caseros o <em>homebrew</em> está en vuestras manos. Pero claro, eso para está web no es nada... a nosotros nos gusta más <em>desarrollar</em> esos programas caseros. Existen por internet varios <em>SDK's</em> oficiales filtrados, pero que no debéis usar (ni, por tanto, publicar aplicaciones compiladas con esos kits). Es ilegal que los uséis porque no tenéis la licencia, así que si encontráis alguno, como material didáctico están muy bien, pero hasta ahí su utilidad práctica. En esta receta explicaremos cómo compilarnos nuestro propio kit de desarrollo legal para hacer nuestras aplicaciones caseras legales que correrán en cosolas <em>jailbreakadas</em>.</blockquote>
+
+<h2>Qué necesitamos</h2>
+Bueno, nuestra distro tiene que contar con los siguientes paquetes:
+
+<pre class="console">
+# aptitude install git libelf-dev python zlib-dev autotools autoconf automake bison flex gcc make autotools patch subversion wget texinfo
+</pre>
+Lamentablemente puede que se me olvide alguno, si es así rogaría que me lo comentaseis.
+
+Ahora necesitamos un sitio donde meterlo todo, es decir, <tt>/usr/local/</tt>. Ahí crearemos un directorio y le daremos permisos de escritura al grupo <em>staff</em> (al que perteneceremos) para no tener que hacer las cosas como <em>root</em>:
+
+<pre class="console">
+# cd /usr/local
+# mkdir ps3dev
+# chown root:staff ps3dev
+# chmod 775 ps3dev
+</pre>
+
+Vale y ahora ajustaremos las variables de entorno para que todo quede bien organizadito (estas lineas, además de ejecutarlas, añadirlas en vuestro <tt>~/.bashrc</tt> o similar) (esto hacedlo ya como vuestro usuario):
+
+<pre class="console">
+$ export PS3DEV=/usr/local/ps3dev
+$ export PATH=$PATH:$PS3DEV/bin
+$ export PATH=$PATH:$PS3DEV/ppu/bin
+$ export PATH=$PATH:$PS3DEV/spu/bin
+</pre>
+
+Bien, con esto podremos compilarnos e instalar la <em>toolchain</em>, pero nos hará falta el <em>SDK</em> para poder crear nuestros ejecutables para la PS3. Le haremos sitio al <em>SDK</em> de la siguiente manera:
+
+<pre class="console">
+$ cd $PS3DEV
+$ mkdir psl1ght
+</pre>
+
+Y de la misma manera que antes, creamos la variable de entorno (meted esto también en vuestro <tt>~/.bashrc</tt>):
+
+<pre class="console">
+$ export PSL1GHT=$PS3DEV/psl1ght
+</pre>
+
+Vale, ya lo tenemos todo listo... ahora a descargar y compilar...
+
+<h2>Compilar e instalar la <em>toolchain</em></h2>
+
+Bueno, yo tengo mi directorio <tt>~/repos</tt> donde guardo todas estas cosas, vosotros podéis meterlo donde os plazca... si lo hacéis como yo:
+
+<pre class="console">
+$ cd ~/repos
+</pre>
+
+Y a descargar:
+
+<pre class="console">
+$ git clone https://github.com/ooPo/ps3toolchain.git
+</pre>
+
+Cuando esto termine: a compilar, parchear e instalar, es decir:
+
+<pre class="console">
+$ cd ps3toolchain
+$ ./toolchain.sh
+</pre>
+
+Y esto tardará la vidaaaa... (bueno, según vuestros sistemas...) el caso es que tiene que crear dos <em>toolchains</em> una para el <em>PowerPC</em> (conocido como <em>PPU</em>) y otra para los <em>Synergistic Processors</em> (conocidos como <em>SPU's</em>).
+
+<blockquote>Atención: debido a que algunas URL's que utiliza el script pueden estar <em>offline</em>, habría que realizar los siguientes cambios en estos scripts: <tt>scripts/002-gcc-4.5.1-PPU-stage1.sh</tt>, <tt>scripts/004-gcc-4.5.1-PPU-stage2.sh</tt>, <tt>scripts/007-gcc-4.5.1-SPU-stage1.sh</tt> y <tt>scripts/009-gcc-4.5.1-SPU-stage2.sh</tt>
+La línea:
+<pre>wget --continue http://www.mpfr.org/mpfr-2.4.2/mpfr-2.4.2.tar.bz2 || { exit 1; }</pre>
+sustituirla por:
+<pre>wget --continue http://ftp.gnu.org/gnu/mpfr/mpfr-2.4.2.tar.bz2 || {exit 1; }</pre>
+</blockquote>
+
+Si todo ha salido bien podréis hacer algo como:
+
+<pre class="console">
+$ ppu-gcc --version
+ppu-gcc (GCC) 4.5.1
+Copyright (C) 2010 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre>
+
+<pre class="console">
+$ spu-gcc --version
+spu-gcc (GCC) 4.5.1
+Copyright (C) 2010 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre>
+
+<h2>Compilar e instalar el <em>SDK</em>: <em>PSL1GHT</em></h2>
+
+Bueno, como antes, si tenéis vuestros repos en <tt>~/repos</tt> haced lo siguiente y si no, hacedlo donde queráis:
+
+<pre class="console">
+$ cd ~/repos
+</pre>
+
+Descargamos el <em>SDK</em>:
+
+<pre class="console">
+$ git clone https://github.com/HACKERCHANNEL/PSL1GHT.git
+</pre>
+
+Cuando esto termine: a compilar, parchear e instalar, es decir:
+
+<pre class="console">
+$ cd PSL1GHT
+$ make
+$ make install
+</pre>
+
+Como su nombre indica... es ligerito así que no tardará mucho... después de esto ya estaréis en condiciones de crear vuestros programas para la PS3... peero...
+
+<h2>Algunas librerías útiles</h2>
+Si queremos instalarnos algunas librerías portadas a la PS3 como <em>zlib</em>, <em>libpng</em>, <em>libjpeg</em>, <em>freetype</em>, <em>pixman</em>, <em>libogg</em>, <em>libvorbis</em>, <em>libzip</em> o incluso <em>cairo</em>, haremos lo siguiente:
+
+
+<pre class="console">
+$ cd ~/repos
+</pre>
+
+Descargamos los scripts de <em>ooPo</em> que es muy majo:
+
+<pre class="console">
+$ git clone https://github.com/ooPo/ps3libraries.git
+</pre>
+
+Y a compilar e instalar, es decir:
+
+<pre class="console">
+$ cd ps3libraries
+$ ./libraries.sh
+</pre>
+
+Ya tenemos bastantes cositas para empezar a programar un <em>hola mundo</em> y algo más... pero como ya os dije antes, hay muchas librerías útiles por ahí que podemos ir instalando según nuestra necesidad.
+
+<h2><em>vpcomp:</em> compilador de <em>programas</em> de vértices</h2>
+Primero: ¿qué <em>demonios</em> es esto? pues más o menos lo siguiente: resulta que para mover vértices y todo ese rollo, los señores de <em>NVIDIA</em> han creado una especie de "máquina virtual", la cual interpreta una serie de <em>opcodes</em> para trabajar con datos escalares y vectoriales. En la PS3 esta máquina virtual puede interpretarse mediante una <em>SPU</em>, pero claro, alguien debe compilar esos <em>programas de vértices</em> en estos opcodes para la <em>SPU</em>, esto es: <b>vpcomp</b>
+
+<h3>Requisitos no muy libres</h3>
+Bueno, esto necesita el <em>NVidia Cg Toolkit</em> que es un compilador/intérprete de una especie de lenguaje ensamblador para <em>OpenGL</em>, podemos descargarnos <em>gratis</em> del <a href="http://developer.nvidia.com/page/cg_main.html">NVIDIA Cg website</a>. Descargaros el <b>tgz</b> de vuestra arquitectura (x86 o x86/64).
+
+Ahora viene una cutrez: no vamos a instalar este paquete en nuestro sistema (bueno, si vosotros queréis dadle caña, lo tenéis también como paquete Debian). Como sólo necesitamos una biblioteca, vamos descomprimir el tgz y a copiar sólo lo que necesitamos en <tt>/usr/local</tt> (suponemos que estamos en el directorio donde descargamos el fichero):
+
+<pre class="console">
+$ unp Cg-3.0_November2010_x86.tgz
+$ cp usr/lib/libCg.so /usr/local/lib/
+$ cp -r usr/lib/include/Cg /usr/local/include/
+$ sudo ldconfig
+</pre>
+
+La última línea refresca la caché de bibliotecas, para asegurarnos que la tenemos "disponible".
+
+<h3>Compilar e instalar</h3>
+Bien, ya podemos volver al repositorio de <em>PSL1GHT</em> para compilarnos el <em>compilador</em>...
+
+<pre class="console">
+ $ cd PSL1GHT/psl1ght/tools/vpcomp
+$ make
+</pre>
+
+Se siente, el <tt>Makefile</tt> no tiene el target <em>install</em>, así que a <em>manímetro</em>:
+
+<pre class="console">
+ $ cp vpcomp $PSL1GHT/bin/
+</pre>
+
+Y ya tenemos listo nuestro compilador de vértices... ;)
+
+<h2><em>Tiny3D:</em> algo parecido al <em>OpenGL</em> en la PS3</h2>
+Si, el <em>RSX</em> devora <em>OpenGL</em> que da gusto... pero para explotar eso (por ahora) tendríamos que echar mano del <em>SDK oficial</em> así que por ahora nos contentaremos con el magnífico <em>Tiny3D</em> de <em>Hermes</em>.
+
+<h3>Requisitos</h3>
+Todos los pasos anteriores, incluído el <em>vpcomp</em>.
+
+<h3>Compilación e instalación</h3>
+Pues nada, en nuestro directorio de repositorios:
+
+<pre class="console">
+$ git clone https://github.com/hermesEOL/tiny3d.git
+$ cd tiny3d
+$ make all
+
+</pre>
+
+Si no hay ningún error, estaremos listos para usar la biblioteca. En <tt>tiny3d/docs</tt> tenéis un documentillo sobre la biblioteca y el <em>RSX</em> de la PS3.
+
+<h2><em>ps3soundlib:</em> audio fácil para nuestros programas</h2>
+También gracias a <em>Hermes</em> tenemos esta biblioteca que nos permite utilizar samples de 8 y 16 bits en mono y stereo. Reproducir los samples en <em>loop</em>, una vez , o incluso llamando a un <em>callback</em> al finalizar. En fin... más cositas útiles.
+<h3>Requisitos</h3>
+Los pasos para obtener la <em>toolchain</em> y el <em>PSL1GHT</em>, con eso es suficiente...
+<h3>Compilar e instalar</h3>
+Desde nuestro directorio de repositorios:
+
+<pre class="console">
+$ git clone https://github.com/hermesEOL/ps3soundlib.git
+$ cd ps3soundlib
+$ make
+$ make install
+</pre>
+
+Al igual que antes, si no obtuvimos ningún error, ya tendremos la biblioteca lista para usar en nuestros <em>homebrews</em>.
+
+<h2>Guinda: la librería <em>SDL</em></h2>
+<blockquote>Antes de que alguien se lleve a equívocos, hace tiempo que <em>SDL</em> fue oficialmente portado a PS3, entonces: <em>¿para qué todo esto?</em>. Pues fácil, el <em>port</em> en realidad es para el <em>OtherOS</em>, es decir, algún <em>GNU/Linux</em> que tengáis corriendo en aquellas PS3 con un FW que disponga de esa opción. Y os permitiría crear aplicaciones para <em>esa</em> distribución. En cambio este <em>port</em> os permitirá crear aplicaciones que utilicen <em>SDL</em> de forma <em>nativa</em> en la PS3. Es decir, sin necesidad de <em>OtherOs</em> ni nada por el estilo: compiláis, obtenéis un <tt>PKG</tt> que podréis instalar y a funcionar... ;)</blockquote>
+
+<h3>Requisitos</h3>
+Los pasos para obtener la <em>toolchain</em>, el <em>PSL1GHT</em> y las <em>ps3libraries</em> (ya sabéis: <em>Algunas librerías útiles</em>).
+
+<h3>Compilación e instalación</h3>
+Como siempre, desde nuestro directorio de repositorios:
+
+<pre class="console">
+$ git clone https://github.com/cebash/SDL_PSL1GHT.git
+$ cd SDL_PSL1GHT
+$ ./script.sh
+$ make
+$ make install
+</pre>
+
+Y si no tuvimos ningún error tendremos <em>libSDL</em> listo para usar en nuestras aplicaciones <em>homebrew</em>.
+
+Y ya está... creo que con esto podremos empezar a hacer nuestras aplicaciones caseras. De todas formas existen más librerías y utilidades por ahí que según vaya probando iré añadiendo en la receta, ok?
+
+<h2>Para terminar: <tt>Makefile</tt></h2>
+Os pongo un <tt>Makefile</tt> típico para que os cree los <em>targets</em> automáticos para generar los archivos <em>PKG</em> que contienen nuestras aplicaciones y que podremos instalar en la consola para ejecutar/distribuír nuestras creaciones.
+<pre>.SUFFIXES:
+ifeq ($(strip $(PSL1GHT)),)
+$(error "PSL1GHT must be set in the environment.")
+endif
+
+include $(PSL1GHT)/Makefile.base
+
+TARGET		:=	$(notdir $(CURDIR))
+BUILD		:=	build
+SOURCE		:=	source
+INCLUDE		:=	include
+DATA		:=	data
+LIBS		:=	-lzip -lz -lgcm_sys -lreality -lsysutil -lio -ljpgdec -lnet -lsysmodule
+
+TITLE		:=	Hello World - PSL1GHT
+APPID		:=	TEST00003
+CONTENTID	:=	UP0001-$(APPID)_00-0000000000000000
+
+CFLAGS		+= -g -O2 -Wall --std=gnu99
+CXXFLAGS	+= -g -O2 -Wall
+
+ifneq ($(BUILD),$(notdir $(CURDIR)))
+
+export OUTPUT	:=	$(CURDIR)/$(TARGET)
+export VPATH	:=	$(foreach dir,$(SOURCE),$(CURDIR)/$(dir)) \
+					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
+export BUILDDIR	:=	$(CURDIR)/$(BUILD)
+export DEPSDIR	:=	$(BUILDDIR)
+
+CFILES		:= $(foreach dir,$(SOURCE),$(notdir $(wildcard $(dir)/*.c)))
+CXXFILES	:= $(foreach dir,$(SOURCE),$(notdir $(wildcard $(dir)/*.cpp)))
+SFILES		:= $(foreach dir,$(SOURCE),$(notdir $(wildcard $(dir)/*.S)))
+BINFILES	:= $(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.bin)))
+
+export OFILES	:=	$(CFILES:.c=.o) \
+					$(CXXFILES:.cpp=.o) \
+					$(SFILES:.S=.o) \
+					$(BINFILES:.bin=.bin.o)
+
+export BINFILES	:=	$(BINFILES:.bin=.bin.h)
+
+export INCLUDES	:=	$(foreach dir,$(INCLUDE),-I$(CURDIR)/$(dir)) \
+					-I$(CURDIR)/$(BUILD)
+
+.PHONY: $(BUILD) clean pkg run
+
+$(BUILD):
+	@[ -d $@ ] || mkdir -p $@
+	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+
+clean:
+	@echo Clean...
+	@rm -rf $(BUILD) $(OUTPUT).elf $(OUTPUT).self $(OUTPUT).a $(OUTPUT).pkg
+
+pkg: $(BUILD)
+	@echo Creating PKG...
+	@mkdir -p $(BUILD)/pkg
+	@mkdir -p $(BUILD)/pkg/USRDIR
+	@cp $(ICON0) $(BUILD)/pkg/
+	@$(FSELF) -n $(BUILD)/$(TARGET).elf $(BUILD)/pkg/USRDIR/EBOOT.BIN
+	@$(SFO) --title "$(TITLE)" --appid "$(APPID)" -f $(SFOXML) $(BUILD)/pkg/PARAM.SFO
+	@$(PKG) --contentid $(CONTENTID) $(BUILD)/pkg/ $(OUTPUT).pkg
+
+run: $(BUILD)
+	@$(PS3LOADAPP) $(OUTPUT).self
+
+else
+
+DEPENDS	:= $(OFILES:.o=.d)
+
+$(OUTPUT).self: $(OUTPUT).elf
+$(OUTPUT).elf: $(OFILES)
+$(OFILES): $(BINFILES)
+
+-include $(DEPENDS)
+
+endif</pre>
+
+Está sacado del ejemplo <em>Hola mundo</em> del PSL1GHT.
+
+<h2> Ps3sdk Builder</h2>
+Bueno, aquí podréis encontrar un proyecto propio en fase ultrabeta quick & dity pero que instala (probado) el <em>toolchain</em>, el <em>psl1ght</em>, las <em>ps3libraries</em> y la <em>sdl_psl1ght</em> configurando las variables de entorno y todo ese rollo. <b>¡Cuidado porque no comprueba que tengáis los paquetes necesarios comentados en la receta!</b>.
+<a href="http://github.com/int-0/Ps3sdk-Builder">Ps3sdk-Builder at github.com</a>
+
+Disfruten! :D
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8762,100 +9170,6 @@
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/new/2010-11-07/introduccin-a-la-programacin-en-emacs-lisp-de-chassell.html">Introducción a la programación en Emacs Lisp, de Chassell</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2010-11-07
-    
-      
-  <a href="/users.html#suso">
-   suso
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2010-11-07-introduccin-a-la-programacin-en-emacs-lisp-de-chassell.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2010-11-07-introduccin-a-la-programacin-en-emacs-lisp-de-chassell.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#new-ref">
-    		new
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#emacs-ref">emacs </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1428">node/1428</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Actualizo la Introducción a la programación en Emacs Lisp,
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/new/2010-11-07/introduccin-a-la-programacin-en-emacs-lisp-de-chassell.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8896,7 +9210,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

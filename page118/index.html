@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,153 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2005-10-25/instalar-programas-con-stow.html">Instalar programas con STOW</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2005-10-25
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-25-instalar-programas-con-stow.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-25-instalar-programas-con-stow.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/67">node/67</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Cómo utilizar el gestor de instalación de paquetes <b>GNU stow</b></blockquote>
+
+<h2>Introducción</h2>
+<b>stow</b> es una pequeña herramienta que sirve para instalar paquetes (normalmente a partir de sus fuentes). Permite que los binarios, ficheros de cabecera y de ayuda del paquete estén accesibles; pero teniendo controlado dónde va a parar cada fichero, de modo que la desistalación elimina TODO lo instalado. En cualquier caso, siempre es preferible utilizar el sistema de paquetes de la distribución (deb, rpm,) pues suele permitir un mejor control del sistema.
+
+<h2>Instalación de stow</h2>
+
+Suele estar disponible como paquete en las distribuiciones de GNU/Linux más extendidas. En Debian GNU/Linux y distribuciones derivadas (como Ubuntu) es tan fácil como:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>stow</code></pre></figure>
+</div>
+
+<h2>Instalación de un paquete usando stow</h2>
+
+Supongamos que vas a instalar un paquete a partir de sus fuentes, por ejemplo, <tt>gnome-commander-1.1.5.tar.gz</tt>. Primero se descomprime:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>unp gnome-commander-1.1.5.tar.gz
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>gnome-commander-1.1.5/&lt;br/&gt;</code></pre></figure>
+</div>
+
+A continuación "configuramos" el sistema de compilación. Con <tt>prefix</tt> se indica a <tt>configure</tt> el directorio en el que se va a instalar el programa. Lo más aconsejable es utilizar un subdirectorio que cuelgue de <tt>/usr/local/stow</tt> es un buen sitio.  Si ese directorio no hay que crearlo. El grupo propietario del directorio <tt>stow</tt> debería ser <tt>staff</tt>. Resulte este punto puedes proceder:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./configure <span class="nt">--prefix</span><span class="o">=</span>/usr/local/stow/gnome-commander
+<span class="gp">$</span><span class="w"> </span>make
+<span class="gp">$</span><span class="w"> </span>make <span class="nb">install</span></code></pre></figure>
+</div>
+
+Con esto, los binarios quedan instalados en el directorio indicado. Sin embargo, esos directorios no están en el PATH y el programa no se puede invocar a menos que se indique la ruta completa. Aquí es donde entra en juego <b>stow</b>.
+
+Una vez instalado hacemos lo siguiente. Es importante cambiar al directorio <tt>/usr/local/stow</tt> o de lo contrario habría que indicar las rutas explícitamente.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">/usr/local/stow$</span><span class="w"> </span>stow gnome-commander</code></pre></figure>
+</div>
+
+<b>stow</b> crea enlaces a los ficheros de modo que son accesibles desde <tt>/usr/local/bin</tt>, <tt>/usr/local/lib</tt>, etc.
+
+Para poder hacer esto hay que ser <tt>root</tt>, o mejor, hacer que tu usuario pertenezca al grupo <tt>staff</tt> (el propietario del directorio).
+
+<h2>Des-intalar un paquete gestionado con <b>stow</b></h2>
+
+Si quieres que <b>stow</b> elimine los enlaces que creó para un paquete concreto simplemente ejecuta:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">/usr/local/stow$</span><span class="w"> </span>stow <span class="nt">-D</span> gnome-commander</code></pre></figure>
+</div>
+
+Después de esto puedes borrar el directorio <tt>/usr/local/stow/gnome-commander</tt> sin problema, y todo habrá quedado tan limpito como antes de instalarlo.
+
+<h2>Referencias</h2>
+<ul>
+  <li>
+    <a href="http://www.gnu.org/software/stow/stow.html">GNU Stow</a>
+  </li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8909,97 +9064,6 @@ Cómo recuperar las fotos y videos borrados por accidente de una tarjeta de memo
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2005-10-18/cambiar-la-direccin-mac-de-una-tarjeta-de-red.html">Cambiar la dirección MAC de una tarjeta de red</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2005-10-18
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2005-10-18-cambiar-la-direccin-mac-de-una-tarjeta-de-red.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2005-10-18-cambiar-la-direccin-mac-de-una-tarjeta-de-red.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/46">node/46</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>En determinadas «circunstancias especiales» puede ser necesario que un PC tenga una tarjeta de red con una dirección <span class="caps">MAC</span> específica. Esta receta explica cómo conseguirlo con <code>ifconfig</code>, <code>iproute</code> o <code>macchanger</code></p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2005-10-18/cambiar-la-direccin-mac-de-una-tarjeta-de-red.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9040,7 +9104,7 @@ Cómo recuperar las fotos y videos borrados por accidente de una tarjeta de memo
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

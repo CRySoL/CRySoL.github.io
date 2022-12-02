@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,176 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-12-13/emulador-de-cisco-ios-dynamips-y-dynagen.html">Emulador de Cisco IOS: Dynamips y Dynagen</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-12-13
+    
+      
+  <a href="/users.html#felix">
+   felix
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-12-13-emulador-de-cisco-ios-dynamips-y-dynagen.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-12-13-emulador-de-cisco-ios-dynamips-y-dynagen.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#networking-ref">networking </a></li>
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/821">node/821</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<p>Esta receta es una introducción al uso de los programas libres dynamips y dynagen que nos permiten emular Cisco <span class="caps">IOS</span>. Las posibilidades son infinitas, aqui damos los pasos para poder empezar a trabajar de una forma básica.</p>
+</blockquote>
+<p>Si alguna vez has querido aprender a configurar redes seguramente te has encontrado con un problema para encontrar entornos reales que te permitan aprender los comandos y configuraciones que se necesitan para echar a andar una red real.</p>
+<p>Entre los equipos de mayor calidad nos podemos encontrar la gama de routers Cisco. Tener acceso a routers cisco para prácticar es díficil y caro. Afortunadamente existen dos programas que nos pueden simplificar la vida extraordinariamente. Dynamips y Dynagen son dos programas que te permiten configurar una red medianamente compleja y configurar cada uno de los routers presentes en dicha red mediante un emulador que carga una imagen real del sistema operativo de Cisco <span class="caps">IOS</span>, es decir, exactamente el mismo sistema operativo que se ejecuta en los equipos reales.</p>
+<p>Las ventajas se ven de forma clara, la imagen que carga el dynamips es exactamente la misma que se ejecuta en un router real por lo que el realismo va mucho mas allá del que puedes conseguir con programas como el PacketTracer. PacketTracer es un programa (la licencia no es libre) que te permite modelar redes y configurarlas.</p>
+<h2>Instalación</h2>
+<p>Bueno, al tema, los programas dynamips y dynagen son paquetitos debian, asi que, simplemente, apt-get install dynamips y apt-get install dynagen.</p>
+<p>En realidad el programa de emulación es dynamips  que puede emular los modelos de routers 7200/3600/3725/3745/2600/1700 mientras que dynagen es un front-end basado en texto que te permite crear redes virtuales y trabajar con ellas.</p>
+<p>Estos programas han sido creados para prácticar con la configuración de los routers pensando en las certificaciones <span class="caps">CCNA</span>/<span class="caps">CCNP</span>/<span class="caps">CCIE</span>.</p>
+<h2>Emulando redes virtuales</h2>
+<p>Una vez instalados, empezar a trabajar con ellos es sumamente sencillo, arrancas dynamips con las opciones que necesites, por ejemplo, en nuestro caso le indicamos que el puerto va a ser el 7200 :</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dynamips <span class="nt">-H</span> 7200
+<span class="go">Cisco Router Simulation Platform (version 0.2.8-RC2-x86)
+Copyright (c) 2005-2007 Christophe Fillot.
+Build date: Oct 17 2007 06:50:15
+ILT: loaded table "mips64j" from cache.
+ILT: loaded table "mips64e" from cache.
+ILT: loaded table "ppc32j" from cache.
+ILT: loaded table "ppc32e" from cache.
+Hypervisor TCP control server started (port 7200).</span></code></pre></figure></div>
+<p>A ese puerto se conectará dynagen para pasarle los parámetros de configuración de la simulación.</p>
+<p>A continuación arrancamos dynagen indicandole el escenario que queremos crear. El paquete debian tiene unos cuantos ejemplos, veamos uno sencillito creado por nosotros:</p>
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text"># Ejemplo
+
+autostart = False
+
+[localhost]
+
+    [[7200]]
+        image = /home/pepe/ciscoios/c7200-advsecurityk9-mz.124-15.T1.bin
+        npe = npe-400
+        ram = 160
+
+    [[ROUTER R1]]
+        s1/0 = R2 S1/0
+        model = 7200
+
+
+    [[ROUTER R2]]
+        model = 7200</code></pre></figure></div>
+<p>La primera sección [ [ 7200 ] ] nos indica la configuración general de los routers, hay muchos parámetros pero el mas importante y que no puede faltar es la imagen, este parámetro determina la imagen del sistema operativo <span class="caps">IOS</span> que debe cargar. Aqui hay un problema, el sistema operativo Cisco <span class="caps">IOS</span> es privativo por lo que debemos obtener una imagen de algún sitio autorizado. Y aviso a navegantes YO NO <span class="caps">PUEDO</span> <span class="caps">DISTRIBUIR</span> <span class="caps">CISCO</span> <span class="caps">IOS</span> por lo que tendrás que conseguirla por tus propios medios. (ACTUALIZACIÓN: Parece que hay gente que puede distribuirlas, mira al final de esta receta).</p>
+<p>A continuación se definen dos routers [[<span class="caps">ROUTER</span> R1]] y [[<span class="caps">ROUTER</span> R2]] ambos con<br />
+el modelo 7200 (que debe coincidir con la imagen de sistema operativo que cargamos), el atributo model proporciona el modelo de router (7200 en nuestro caso) mientras que tambien debemos especificar las conexiones:</p>
+<pre>
+        s1/0 = R2 S1/0
+</pre>
+<p>Esta sentencia nos indica que la linea serial del router R1 la conectamos a la linea serial S1/0 del router R2.</p>
+<p>Si arrancamos el dynagen pasándole como argumento este archivo, que llamaremos simple.net, obtenemos una consola de texto:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>dynagen simple.net
+<span class="go">Reading configuration file...
+Network successfully loaded
+Dynagen management console for Dynamips
+Copyright (c) 2005-2007 Greg Anuzelli
+</span><span class="gp">=&gt;</span></code></pre></figure></div>
+<p>La cantidad de opciones y configuraciones posibles son infinitas, lo mas básico para empezar a trabajar es observar los dispositivos que existen en la red con el comando list:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">=&gt;</span><span class="w"> </span>list
+<span class="go">Name       Type       State      Server          Console
+R1         7200       stopped    localhost:7200  2000
+R2         7200       stopped    localhost:7200  2001
+</span><span class="gp">=&gt;</span></code></pre></figure></div>
+<p>Arrancar los routers:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">=&gt;</span><span class="w"> </span>start /all
+<span class="go">Warining: Starting R1 with no idle-pc value
+100-VM 'R1' started
+Warining: Starting R2 with no idle-pc value
+100-VM 'R2' started</span></code></pre></figure></div>
+<p>y obtener una consola para trabajar con los distintos routers:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">=&gt;</span><span class="w"> </span>console /all
+<span class="gp">=&gt;</span></code></pre></figure></div>
+<p>Al ejecutar este comando deben aparecer dos consolas, cada una de ellas representa un router y puedes ver como carga la imagen del sistema operativo y podremos empezar a trabajar con comandos reales.</p>
+<p>Para terminar varios consejos, dynamips y dynagen consumen muchos recursos, si quieres optimizar y que no consuma tanto mira la opción idle-pc.</p>
+<p>Entre las características de dynagen te permite capturar paquetes en distintas interfaces de tu red virtual en el formato .cap que con posterioridad puedes visualizar con programas como wireshark.</p>
+<p>Si quieres echarle un vistazo a las posibilidades de estos programas:</p>
+<p><a href="http://www.dynagen.org/tutorial.htm">http://www.dynagen.org/tutorial.htm</a></p>
+<p>y David se ha encontrado una página con imágenes de Cisco <span class="caps">IOS</span> para bajárselas <a href=" http://aprendemas.educaleft.com/index.php?option=com_content&view=article&catid=40%3Acolaboraciones&id=83%3Apack-de-ios-cisco-utilizables-con-gns3&Itemid=1">aquí</a></p>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9018,202 +9196,6 @@ Pues cerré el navegador sin darme cuenta de anotar todas las páginas en las qu
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-11-29/100mbps-100mbps-200mbps-port-trunking-a-k-a-bonding-ports.html">100Mbps + 100Mbps = 200Mbps: port trunking (a.k.a. bonding ports)</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-11-29
-    
-      
-  <a href="/users.html#int-0">
-   int-0
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-11-29-100mbps-100mbps-200mbps-port-trunking-a-k-a-bonding-ports.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-11-29-100mbps-100mbps-200mbps-port-trunking-a-k-a-bonding-ports.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#networking-ref">networking </a></li>
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/811">node/811</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>Probablemente muchos de vosotros tengáis equipos con varias tarjetas de red, esto puede usarse para muchas cosas, una de ellas (a mi entender <em>muy</em> interesante) es el <em>port trunking</em> o también conocido como <em>port bonding</em>.
-</blockquote>
-
-
-<h2>¿Qué es el <em>port bonding</em>?</h2>
-Es una técnica que permite agregar varios interfaces de red físicos en uno único virtual. A cada interfaz físico se le denominará <em>slave</em> (esclavo). Con esto podemos realizar un balanceo de carga entre las dos interfaces y conseguir un ancho de banda final igual a la suma de los anchos de banda de cada <em>slave</em>. Además de una ventaja adicional inmediata: redundancia de la conexión. Tenemos varios enlaces físicos a la red, perder alguno de ellos implica una degradación de servicio pero no la pérdida completa de conexión.
-
-<h2>Ingredientes</h2>
-Es necesario un módulo que viene de serie incluído en los <em>linux</em> 2.4 y 2.6. Además también hace falta el programa que gestiona las interfaces: <em>ifenslave</em>, que viene empaquetado en <em>Debian</em> para disfrute de todos nosotros:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>aptitude <span class="nb">install </span>ifenslave-2.6</code></pre></figure>
-</div>
-
-<h2>El módulo <em>bonding</em></h2>
-Para crear la interfaz virtual debemos cargar un módulo que la gestione aplicando alguna política o algoritmo para ello. Este módulo tiene muchos parámetros, aunque creo que antes de listarlos todos explicaremos un poco el funcionamiento teórico para entender mejor los parámetros.
-
-<h3><em>Slaves</em> y colas</h3>
-Toda interfaz de red tiene asignada automáticamente una cola de envío y otra de recepción. Cada <em>slave</em> tiene también sus propias colas. El esquema es más o menos el siguiente (supondremos dos <em>slaves</em>):
-<pre>
-RED ----> ETH0(RX) --->\
-                        BOND0(RX) ----> S.O.
-RED ----> ETH1(RX) --->/
-
-                    /----> ETH0(TX) ----> RED
-S.O. ----> BOND0(TX)
-                    \----> ETH1(TX) ----> RED
-</pre>
-
-(Ole ese ASCII ART!)
-En cuanto a la recepción hay poco que decir, cuando llega un paquete
-a algún <em>slave</em> se pasa a la cola de recepción de la interfaz virtual. Si un enlace físico falla, hay poco que podamos hacer: símplemente se degradará el servicio. Pero para el envío hay un poco más de historia, puesto que si detectamos que un enlace se ha perdido, deberemos pasar todos los paquetes de la cola de esa interfaz a la esclava que sigue funcionando para después congelar esa cola de envío degradando así el rendimiento de la interfaz. Por tanto debemos poder detectar cuando un enlace se ha caído, a este respecto existen dos posibilidades: detección por <em>ARP</em> o mediante <em>MII</em> (<em>Media Indepent Interface</em>).
-<ul><li>Detección <em>ARP</em>: consiste en enviar periódicamente peticiones <em>ARP</em> por un <em>slave</em>, si estas peticiones fallan el enlace se considera caído.</li>
-<li>Detección <em>MII</em>: si el módulo de la <em>NIC</em> (<em>Network Interface Card</em>) implementa ciertas llamadas, se puede detectar cuando un enlace está físicamente caído, en cuyo caso, se deshabilita el <em>slave</em>.</li></ul>
-Evidentemente, los esclavos deshabilitados se seguirán probando hasta que vuelvan a estar operativos, momento en el cual se volverán a habilitar dentro de la interfaz virtual.
-
-<h3>Balanceos de carga</h3>
-Probablemente este sea el aspecto más importante del <em>bonding</em>: cómo balancear la carga entre todos los esclavos. En este sentido el módulo tiene un parámetro que permite indicar qué algoritmo se debe usar, los algoritmos implementados son:
-<ul><li><em>balance-rr</em> (modo 0): se emplea un algoritmo <em>round robin</em> entre la cola virtual y las de los esclavos. Es algo así como: un paquetillo para un esclavo, otro para otro esclavo, un paquetillo para un esclavo, otro para el otro... etc. Es el algoritmo que se usa por defecto.</li>
-<li><em>active-backup</em> (modo 1): realmente no balancea la carga, usa sólo un esclavo y en caso de fallar, usa el siguiente disponible.</li>
-<li><em>balance-xor</em> (modo 2): emplea una formulita para decidir por qué interfaz sale: (source-MAC xor dest-MAC) mod n-slaves.</li>
-<li><em>broadcast</em> (modo 3): se transmite todo por todas las interfaces. Este método no balancea tampoco, pero provee tolerancia a fallos.</li>
-<li><em>802.3ad</em> (modo 4): emplea algoritmos definidos en el estándar <em>IEEE 802.3ad</em>.</li>
-<li><em>balance-tlb</em> (modo 5): balancea la carga de transmisión entre los esclavos dependiendo de la velocidad de estos y de la carga total. El tráfico es recibido por un esclavo, en caso de fallar otro esclavo toma su <em>MAC</em> y continúa recibiendo tráfico.</li>
-<li><em>balance-alb</em> (modo 6): realiza el balanceo anterior además de un balanceo también en la recepción. Este método debe modificar las <em>MAC</em> de los esclavos estando las tarjetas activas, esto debe estar soportado por el driver para poder usar este método.</li></ul>
-
-Aunque todo esto parezca muy bonito, hay que tener en cuenta una cosa: algunos métodos necesitan ciertas configuraciones/capacidades en el <em>switch</em> al que estés conectados los esclavos. Ah! se me olvidaba: si el switch tiene un único <em>link</em> de salida a la red y va a la misma velocidad que nuestros esclavos, el balanceo se hace inútil ya que se produce un cuello de botella en el <em>link</em> de salida del <em>switch</em>.
-
-<h3>Ahora si: carga y configuración del módulo <em>bonding</em></h3>
-Cargaremos el módulo como de costumbre:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>modprobe bonding <span class="o">[</span>parámetros]</code></pre></figure>
-</div>
-
-Y los parámetros los tenemos a continuación:
-
-<ul><li><em>arp_interval</em>: si se especifica (por defecto es 0, desactivado) indica cada cuántos milisegundos se enviará un <em>ARP reply</em>. Este tipo de detección es compatible con las políticas 0 y 2.</li>
-<li><em>arp_ip_target</em>: indica cuál será la IP destino. Se pueden especificar varias separadas por comas (como máximo 16).</li>
-<li><em>downdelay</em>: especifica cuántos milisegundos se tardará en desactivar un esclavo cuando se detecte un error en el enlace. Por defecto es 0 (inmediatamente) y sólo se emplea en la detección mediante <em>MII</em>.</li>
-<li><em>lacp_rate</em>: en el modo <em>802.3ad</em> especifica cada cuánto se va a envíar un mensaje <em>LACDPU</em>. Estos paquetes se encargan de controlar el protocolo de agregación de enlaces. Este parámetro tiene dos posibles valores: <em>slow</em> o 0 (por defecto) y <em>fast</em> o 1.</li>
-<li><em>max_bonds</em>: indica cuántas interfaces virtuales creará como máximo esta instancia del módulo. Por defecto vale 1 (sólo <em>bond0</em>).</li>
-<li><em>miimon</em>: si especificamos un valor distinto de 0 (por defecto) activa la detección por <em>MII</em>, indica cada cuántos milisegundos se va a comprobar el estado del enlace. Un buen valor puede ser 100.</li>
-<li><em>mode</em>: indica que algoritmo de balanceo se va a usar, sus posibles valores se indicaron en el apartado anterior.</li>
-<li><em>primary</em>: este parámetro sólo se usa si se activa el modo 1, y se usa para indicar cuál esclavo es el primario.</li>
-<li><em>updelay</em>: especifica cuánto  tiempo en milisegundos se tardará en activar un esclavo cuando se detecta un enlace repuesto. Por defecto vale 0.</li>
-<li><em>use_carrier</em>: por defecto vale 1, lo cual indica que se usará una llamada a netif_carrier_ok() del módulo de la NIC para la detección por <em>MII</em>. Si vale 0 se usarán llamadas <em>ETHTOOL ioctl's</em>, lo cual está <em>deprecated</em>.</li>
-<li><em>xmit_hash_policy</em>: especifica la política de transmisión para los modos 2 y 4. Los posibles valores son:
-<ul><li><em>layer2</em>: se usa la fórmula que se indicó en el modo 2 (apartado anterior). Este algoritmo hace que el tráfico con un mismo destino "salga" siempre por la misma interfaz. Es la política usada por defecto.</li>
-<li><em>layer3+4</em>: con esta política se usará información de niveles superiores al de enlace (realiza XOR's también con las IP's) y no tiene el mismo comportamiento según la clase de tráfico transportado. Es un buen algoritmo pero no es 100% compatible con <em>IEEE 802.3ad</em>.</li></ul></li>
-
-Con tantos parámetros podremos probar muchas opciones, yo actualmente uso:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>modprobe bonding <span class="nv">miimon</span><span class="o">=</span>100 <span class="nv">mode</span><span class="o">=</span>balance-tlb</code></pre></figure>
-</div>
-
-Con esto ya tenemos el módulo cargado, sólo nos falta configurar la interfaz y añadir esclavos.
-
-<h2>Configurar interfaz <em>bond</em></h2>
-Si véis <em>how-to's</em> por internet veréis que montan un "pitoste" de parámetros en ficheros, etc. Pero es porque usan SuSE y cosas de esas raras, encima para tener IP estática. Pues en Debian abrimos <tt>/etc/networking/interfaces</tt> y añadimos:
-
-<pre>iface bond0 inet dhcp
-    slaves eth0 eth1</pre>
-
-Tened en cuenta que <em>eth0</em> y <em>eth1</em> no deben estar activos en ese momento (deben estar <em>down</em>). Y finalmente para activar la interfaz:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ifup bond0</code></pre></figure>
-</div>
-
-Y ale... a disfrutar... ;)
-
-<h2>Apéndice A: Configuración del <em>switch</em></h2>
-Los modos <em>active-backup</em>, <em>balance-tlb</em> y <em>balance-alb</em> no requiere ninguna configuración especial en el <em>switch</em>, ideales si no tenemos acceso a la configuración del equipamiento de red ;-).
-
-El modo <em>802.3ad</em> requiere que el <em>switch</em> tenga los puertos donde conectamos los esclavos en modo <em>802.3ad aggregation</em>. Esto depende de cada <em>switch</em>, por ejemplo, en los <em>switch's</em> de Cisco esta capacidad se llama <em>EtherChannel</em> y debe estar en modo <em>lacp</em>.
-
-Por último, los modos <em>balance-rr</em>, <em>balance-xor</em> y <em>broadcast</em> generalmente requiere poder agrupar puertos. Las nomenclaturas de estos grupos dependen del fabricante del <em>switch</em>, como hemos dicho antes, Cisco llama a estas agrupaciones <em>EtherChannel</em>, también se usa <em>trunk group</em>, etc.
-
-<h2>Enlaces de interés</h2>
-Pues hay mucho por internet, pero lo mejor es la documentación del propio módulo:
-
-<a href="http://www.cyberciti.biz/howto/question/static/linux-ethernet-bonding-driver-howto.php">Linux Ethernet Bondign Driver HOW-TO</a>.
-
-Si probáis la receta, podéis envíar vuestras configuraciones (tanto del <em>switch</em> si la conocéis y de vuestro <em>bond</em> para hacer comparativas de rendimientos y todo eso. :-)
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9254,7 +9236,7 @@ Si probáis la receta, podéis envíar vuestras configuraciones (tanto del <em>s
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

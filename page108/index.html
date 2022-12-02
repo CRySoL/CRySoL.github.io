@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,117 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-01-17/arranque-remoto-de-un-ordenador-con-debian-usando-wake-on-lan.html">Arranque remoto de un ordenador con Debian, usando Wake On LAN</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-01-17
+    
+      
+  <a href="/users.html#bati">
+   bati
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-17-arranque-remoto-de-un-ordenador-con-debian-usando-wake-on-lan.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-17-arranque-remoto-de-un-ordenador-con-debian-usando-wake-on-lan.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/192">node/192</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Aprovechando que los ordenadores de hoy en día no están realmente apagados mientras sigan teniendo alimentación, podemos arrancarlos por red.
+</blockquote>
+
+<h2> Requisitos </h2>
+
+  Necesitamos que el ordenador que va a ser arrancado via red tenga una tarjeta de red con Wake-On-Lan (WOL) o Boot-On-Lan (BOL), una placa que soporte este modo de arranque, y activar dicha opción en la BIOS.
+
+<h2> Despertando al durmiente </h2>
+
+  Necesitamos instalar el paquete debian <b> etherwake </b> tanto en el ordenador a despertar como en el ordenador "despertador". Este paquete incluye un comando para activar el WOL a la tarjeta del ordenador que vamos a arrancar.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>ethtool <span class="nt">-s</span> eth0 wol g</code></pre></figure>
+</div>
+
+  Con esto activamos el encendido en red de la tarjeta eth0 de nuestro ordenador mediante la técnica del <b> magic packet </b>.
+ Sólamente necesitamos saber la MAC de nuestra tarjeta, que la podemos obtener con el comando <b> ifconfig </b> y luego, desde el ordenador "despertador" ejecuta:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>etherwake 00:11:9B:20:21:F6</code></pre></figure>
+</div>
+
+Recordad que la MAC debe tener las letras en mayúsculas para funcionar.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8799,112 +8918,6 @@ Para más información mirar la lista de correo :)
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-01-11/instalacin-de-nino-en-debian-gnu-linux.html">Instalación de NINO en Debian GNU/Linux</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-01-11
-    
-      
-  <a href="/users.html#KO_mOd_O">
-   KO_mOd_O
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-01-11-instalacin-de-nino-en-debian-gnu-linux.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-01-11-instalacin-de-nino-en-debian-gnu-linux.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#security-ref">security </a></li>
-    
-    	<li><a href="/tags.html#networking-ref">networking </a></li>
-    
-    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/180">node/180</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote  class="head">
-
-Esta receta explica la instalación y configuración inicial de NINO (NINO is not Openview) en Debian GNU/Linux. Concretamente se ha realizado la instalación en Debian Sid con núcleo Linux 2.6.14.
-
-NINO es una solución para la gestión de red vía interfaz web que emplea SNMP, WMI, y SNMP para monitorizar equipos y dispositivos de red.
-
-Para más información visitar la página oficial de <a href="http://nino.sourceforge.net/nino/index.html">NINO</a>.
-
-</blockquote>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2006-01-11/instalacin-de-nino-en-debian-gnu-linux.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8945,7 +8958,7 @@ Para más información visitar la página oficial de <a href="http://nino.source
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

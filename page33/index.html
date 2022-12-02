@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,122 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2009-08-21/utilizar-htc-magic-g2-como-mdem-en-debian-gnu-linux.html">Utilizar HTC Magic (G2) como módem en Debian GNU/Linux</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2009-08-21
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2009-08-21-utilizar-htc-magic-g2-como-mdem-en-debian-gnu-linux.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2009-08-21-utilizar-htc-magic-g2-como-mdem-en-debian-gnu-linux.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#networking-ref">networking </a></li>
+    
+    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1215">node/1215</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Esta receta explica cómo configurar el móvil HTC Magic para utilizarlo como módem de acceso a internet en GNU/Linux. </blockquote>
+
+<h2>Requisitos</h2>
+Es necesario que tengas configurada <a href="/node/1138/">la conexión del teléfono al ordenador via USB</a> y el software necesario para probar dicha conexión.
+<h2>Ingredientes</h2>
+<ul>
+<li>openvpn (si tienes instalado Network Manager no es necesario).</li>
+<li><a href="http://lfx.org/azilink/azilink.apk">Azilink</a> (para el móvil). Para instalar la aplicación puedes hacerlo con la utilidad del SDK de Android 'adb' de la siguiente forma:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>adb <span class="nb">install </span>azilink.apk</code></pre></figure>
+</div> </li>
+<li><a href="http://azilink.googlecode.com/files/azilink.ovpn">Archivo de conexión de openvpn</a> (para el PC)</li>
+</ul>
+
+<h2>Procedimiento</h2>
+
+Ejecuta la aplicación Azilink en el móvil y activa el botón "Service active". En la parte donde se muestra el estado aparecerá el mensaje "Waiting for connection". A continuación, ejecuta lo siguiente en el PC:
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>adb forward tcp:41927 tcp:41927
+<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>openvpn azilink.ovpn</code></pre></figure>
+</div>
+
+Si todo ha ido bien, el mensaje de estado cambiará a "Connected to host". Ya tienes conexión a internet, pero no hay DNS configurado. Para ello, sólo tienes que editar el archivo /etc/resolv.conf y dejarlo con el siguiente contenido:
+<pre>nameserver 192.168.56.1</pre>
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://www.asgrim.com/2009/07/24/tethering-your-htc-magic-android-phone-in-ubuntu-9-04-jaunty-jackalope/">Tethering your HTC Magic Android Phone in Ubuntu 9.04 (Jaunty Jackalope)</a></li>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8778,144 +8902,6 @@ Si todo ha ido bien, tendrás una bonita shell dentro de tu móvil. Listemos los
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2009-07-11/cmo-instalar-opencv-en-ubuntu-9-04.html">¿Cómo instalar OpenCV en Ubuntu 9.04?</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2009-07-11
-    
-      
-  <a href="/users.html#manueldavid">
-   manueldavid
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2009-07-11-cmo-instalar-opencv-en-ubuntu-9-04.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2009-07-11-cmo-instalar-opencv-en-ubuntu-9-04.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1129">node/1129</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote class="head">
-Esta receta prentede mostrar al usuario cómo instalar OpenCV en Ubuntu 9.04.
-</blockquote>
-
-<h2>Posibles problemas</h2>
-Según he podido comprobar y además leer, <a href="http://ubuntuforums.org/archive/index.php/t-1076793.html">aquí</a>,  <a href="http://plagatux.es/2009/04/opencv-11pre-ffmpeg-en-linux/">y aquí</a>, entre otros; existen problemas entre la última versión de la librería de OpenCV 1.1 y la librería ffmpeg, problemas que provocarán fallos a la hora de compilar OpenCV.
-
-<h2>¿Cómo evitar estos problemas e instalar OpenCV correctamente?</h2>
-Hay que seguir los siguientes pasos:
-1) teclea:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-key adv <span class="nt">--recv-keys</span> <span class="nt">--keyserver</span> keyserver.ubuntu.com cafc44ee7f39098ce6ec229cca70e6a9087475a0</code></pre></figure>
-</div>
-
-2) Ve a tu archivo <em>sources.list</em> y añade la siguiente línea:
-<pre>
-deb http://ppa.launchpad.net/gijzelaar/opencv/ubuntu jaunty main
-</pre>
-
-
-3) teclea:
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get update</code></pre></figure>
-</div>
-
-4) ahora, escribe lo que sigue:
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> <span class="s2">"entra al directorio que desees"</span>
-<span class="gp">$</span><span class="w"> </span>svn co https://opencvlibrary.svn.sourceforge.net/svnroot/opencvlibrary/trunk</code></pre></figure>
-</div>
-
-5) Entra en el directorio trunk:
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">cd</span> /trunk/opencv</code></pre></figure>
-</div>
-
-6) Realiza:
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>./configure
-<span class="gp">$</span><span class="w"> </span>make
-<span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>make <span class="nb">install</span></code></pre></figure>
-</div>
-
-7) No te debería de dar errores y ya lo tienes instalado.
-
-<h2>Referencias</h2>
-
-<a href="http://gijs.pythonic.nl/blog/2009/may/3/getting-video-io-working-opencv-and-ubuntu-jaunty-/">Getting video i/o working with opencv and Ubuntu Jaunty (9.04)</a>
-<a href="http://cellprogramming.wordpress.com/2009/05/24/opencv-cvcapturefromavi-error-in-ubuntu-9-04/">OpenCV cvCaptureFromAVI error in Ubuntu 9.04</a>
-<a href="http://opencv.willowgarage.com/wiki/InstallGuide_Linux">Installing OpenCV on Linux</a>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8956,7 +8942,7 @@ deb http://ppa.launchpad.net/gijzelaar/opencv/ubuntu jaunty main
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

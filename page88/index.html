@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,200 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-11-07/cmo-ser-un-gnesis-maintainer.html">Cómo ser un "Gnesis Maintainer"</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-11-07
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-11-07-cmo-ser-un-gnesis-maintainer.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-11-07-cmo-ser-un-gnesis-maintainer.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#GNESIS-ref">GNESIS </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/434">node/434</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Como ya anunciamos, Gnesis 3.0 está en marcha. Una de las características principales de esta distribución es que se incluirán las transparecencias y herramientas necesarias para las distintas asignaturas de la carrera (tanto para las Ingenierías Técnicas como para la Superior).
+
+Si quieres colaborar manteniendo algún paquete específico de alguna asignatura concreta, esta receta te enseñará a crear y mantener tu propio paquete
+</blockquote>
+
+
+
+<h1>Introducción</h1>
+En el presente documento veremos cómo crear un paquete Debian para empaquetar la documentación y las herramientas propias de una asignatura en cuestión. El proceso que paso a describir es bastante... "pagano". Se trata, sin duda, de la forma menos ortodoxa pero más sencilla de generar un paquete Debian. Si conoces otro método mejor, más fácil de mantener y con idénticos resultados, no dudes en utilizarlo.
+
+<h1>Construyendo un paquete</h1>
+Como ejemplo, vamos a suponer que estamos interesados en mantener un paquete para las asignaturas de Redes. Primeramente, creamos un directorio donde trabajaremos:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">mkdir </span>mipaquete
+<span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>mipaquete</code></pre></figure>
+</div>
+
+Una vez situados dentro del directorio de trabajo creamos la siguiente estructura de directorios:
+<pre>
+ |- DEBIAN
+ |- usr
+    |-share
+       |-doc
+          |-gnesis-redes
+</pre>
+En <em>usr/share/doc/gnesis-"asignatura"</em> copiaremos las transparencias y la documentación. Es conveniente estructurar la información que vamos a incluir como documentación, de tal forma, que quede bien definida. Por ello, si es necesario, creamos la siguiente estructura de directorios dentro de <em>gnesis-"asignatura"</em>:
+<pre>
+|- gnesis-redes
+    |- sistemas
+    |- gestion
+    |- superior
+    |- extra
+</pre>
+En cada subdirectorio incluímos la documentación que corresponda y, en el directorio <em>extra</em>, añadimos documentos comunes como libros, vídeos y otro material no clasificado.
+
+Nótese que el directorio DEBIAN va con mayúsculas. En él vamos a incluir un archivo llamado <em>control</em> en que describiremos el paquete y las dependencias que éste tiene:
+<pre>
+Package: gnesis-redes
+Version: 6.7-1
+Section: network
+Priority: optional
+Architecture: all
+Depends: wireshark, dialog, python, scapy, net-tools, netcat, iptraf, tcpdump, ssh, nmap, traceroute
+Maintainer: Cleto Martín cleto.martin@alu.uclm.es
+Description: Paquete con las utilidades necesarias para las asignaturas de Redes de
+ la Escuela Superior de Informática de Ciudad Real (UCLM).
+</pre>
+Observemos los parámetros más relevantes:
+<ul>
+<li><b>Package</b>: el nombre de paquete.</li>
+<li><b>Version</b>: se trata de la versión del paquete. El criterio de versiones es sencillo: "año académico"-"revisión". En el ejemplo, el paquete gnesis-redes pertenece al año académico 2006-2007 y está en su primera revisión. El número de revisión no vamos a utilizar en el caso de que haya que actualizar un paquete (bien sea por cambios en las transparencias, nuevo material, etc...). Si incrementamos el número de revisión, haremos que la anterior versión del paquete quede obsoleta y APT instale la nueva. Así, por ejemplo, si el profesor cambia las transparencias, con tan sólo un "apt-get upgrade" tendrás la documentación actualizada.</li>
+<li><b>Architecture</b>: es posible que en la asignatura haya herramientas que sólo están disponibles para arquitecturas específicas. Si no es el caso, o el paquete sólo incluye documentación, debemos especificar que es para cualquier arquitectura (all).</li>
+<li><b>Depends</b>: lista de los paquetes que son dependencias. Aquí, podemos especificar las herramientas y aplicaciones software que se utilizan en la asignatura. Si no importa la versión, podemos listar únicamente los nombres separados por comas. Si necesitamos una versión mínima o igual a alguna otra podríamos especificarlo de la siguiente forma:
+<pre>
+Depends: dependencia1 (>= 1.5), dependencia2, dependencia3 (= 3.4)
+</pre></li>
+<li><b>Maintainer</b>: aquí tu nombre y tu dirección de correo.</li>
+<li><b>Description</b>: esta parte mostrará la descripción del paquete. Puedes tomar como plantilla la propia del ejemplo.</li>
+</ul>
+
+Una vez creado el archivo <em>control</em> vamos a crear otro archivo en el directorio DEBIAN llamado <em>postinst</em> para mostrar un pequeño aviso de fin de instalación:
+<pre>
+#!/bin/sh
+
+dialog --msgbox "La documentación y transparencias de redes está disponible en /usr/share/doc/gnesis-redes" 8 40
+</pre>
+Le asignamos permisos de ejecución con:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">chmod</span> +x DEBIAN/postinst</code></pre></figure>
+</div>
+
+Por último, debemos crear un archivo con todos los MD5 de los archivos que contendrá nuestro paquete Debian. Así:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">md5sum</span> <span class="k">*</span> <span class="o">&gt;</span> DEBIAN/md5sum</code></pre></figure>
+</div>
+
+Y ya sólo queda construir el paquete con <em>dpkg</em>. Pero antes, es posible que nuestro editor nos haya salvado copias de seguridad de los archivos creados  (aquellos con el nombre arhchivo~). Si tenemos este tipo de archivos en DEBIAN los borramos con:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">rm </span>DEBIAN/<span class="k">*</span>~</code></pre></figure>
+</div>
+
+Ahora construímos el paquete:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>dpkg <span class="nt">-b</span> <span class="nb">.</span> ../gnesis-redes-6.7-1.deb</code></pre></figure>
+</div>
+
+Esto nos creará en el directorio padre un paquete con el nombre indicado. Se deben respetar las versiones y revisiones que se hayan descrito en el fichero <em>control</em> a la hora de nombrar el .deb definitivo.
+
+<h1>Manteniendo el paquete</h1>
+Para mantener el paquete puedes desarrollarte un pequeño script a partir de lo anteriormente dicho. Si existe alguna modificación en el contenido de tu paquete basta con incorporar los nuevos archivos, actualizar el número de revisión, actualizar los MD5 y reempaquetar.
+
+<h1>¿Qué hago para que se publique?</h1>
+Sólo tienes que enviarme un correo a <a href="mailto:cleto.martin@alu.uclm.es">Cleto.Martin@alu.uclm.es</a> contándome un poco cuál ha sido tu elección y, si está dentro de los márgenes de tamaño lógicos, enviarme el paquete. Si el tamaño del paquete no permite su envío por correo electrónico podemos establecer otro método de entrega.
+
+<h3>NOTA</h3>
+El software y documentación que se distribuyan en los paquetes debe de ser <b>LIBRE</b>. <b>NO SE ADMITIRÁ NI SE DISTRIBUIRÁ</b> ningún material que infrinja las leyes de propiedad intelectual.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8836,93 +9038,6 @@ Aunque la receta la escriba yo, el verdadero artífice es Cleto. ¡Hurra por él
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/enquiry/2006-10-27/ayuda-con-mono.html">Ayuda con MONO</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-10-27
-    
-      
-  <a href="/users.html#matisnow">
-   matisnow
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-10-27-ayuda-con-mono.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-10-27-ayuda-con-mono.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#enquiry-ref">
-    		enquiry
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/416">node/416</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Muy buenas!!
-
-Me gustaria que he ayudaseis a encontrar informacion, en español si puede ser, de MONO y todo lo relacionado con .NET para Linux.
-
-Muchas gracias!!!!
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8963,7 +9078,7 @@ Muchas gracias!!!!
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

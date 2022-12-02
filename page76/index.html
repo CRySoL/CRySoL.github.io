@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,159 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-03-02/instalar-gnesis-en-un-usb-desde-gnu-linux.html">Instalar GNESIS en un USB, desde GNU/Linux</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-03-02
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-03-02-instalar-gnesis-en-un-usb-desde-gnu-linux.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-03-02-instalar-gnesis-en-un-usb-desde-gnu-linux.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#GNESIS-ref">GNESIS </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/598">node/598</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+Si por alguna extraña razón, que jamás el conocimiento humano podrá entender, utilizas Microsoft Windows XP (o sucedáneos) puede que necesites la receta <a href="/node/633">Instalar de GNESIS en un dispositivo USB, desde Windows</a>.
+</blockquote>
+
+
+<h2>Introducción</h2>
+
+Para instalar GNESIS en un dispositivo USB de almacenamiento necesitamos:
+<ul>
+<li> Un pendrive completamente vacío.
+<li> La herramienta <em>dd</em>, <em>fdisk</em> y <em>mkfs.ext3</em> (o algún otro programa similar a este último como Gparted).</li>
+</ul>
+
+Es <b>MUY IMPORTANTE</b> que el dispositivo USB esté disponible para ser formateado por completo. El procedimiento que vamos a explicar (utilizando dd y fdisk) eliminará cualquier información almacenada para albergar GNESIS.
+
+<h2>Instalando el sistema base</h2>
+Una vez tengamos nuestro archivo <em>imagen.img</em> procedemos a volcarla al disco USB. Con todas las particiones de dicho dispostivo desmontadas y suponiendo que se encuentra en <em>/dev/sda</em> hacemos lo siguiente:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span><span class="nb">dd </span><span class="k">if</span><span class="o">=</span>imagen.img <span class="nv">of</span><span class="o">=</span>/dev/sda</code></pre></figure>
+</div>
+
+Esto tardará un poco. Esperamos a que salga un mensaje de finalización, junto con la tasa de transferencia del proceso.
+
+<h2>Creando la partición persistente</h2>
+
+Una vez instalado el sistema base, podemos comprobrar que nuestro dispositivo USB tiene una partición de tipo FAT16 con el sistema live. El resto del espacio está sin particionar, por lo que debemos crear una partición de tipo ext3 para que se puedan almacenar los cambios que vayamos realizando en nuestra GNESIS. Para ello utilizamos fdisk (o Gparted):
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>fdisk /dev/sda</code></pre></figure>
+</div>
+
+En el prompt de fdisk debemos actuar en <b>este orden</b>:
+<ul>
+<li> 'n' - para crear una nueva partición.</li>
+<li> 'p' - indica que es de tipo primaria.</li>
+<li> '2' - indica en número de partición. Como ya tenemos una (FAT16) a esta le asignamos el número 2; así, más tarde podremos referirnos a ella como /dev/sda2.</li>
+<li> En los 2 pasos siguientes podemos utilizar los valores por defecto que ofrece fdisk pulsando <em>Enter</em>. Estos últimos pasos deciden a partir de qué parte del disco se pone la partición (por defecto, al principio del espacio no particionado) y de qué tamaño (por defecto, el espacio restante).
+<li> 'w' - para escribir los cambios en el dispositivo</li>
+</ul>
+El comando 'w' escribirá los cambios y saldrá de fdisk. Ahora debemos formatear dicha partición a ext3 y, de paso, la etiquetamos como "casper-rw" (gracias a Paco):
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>mkfs.ext3 <span class="nt">-L</span> casper-rw /dev/sda2</code></pre></figure>
+</div>
+
+El etiquetado es paso imprescidible para que el arranque de GNESIS pueda identificar la partición y permitir la persistencia de los datos. Como ya he dicho, podéis utilizar Gparted (con entorno gráfico) para hacer todo lo referente a la partición "casper-rw".
+
+<h2>Usando GNESIS 3.0</h2>
+<ul>
+<li> Para poder arrancar la distribución, obviamente, se debe configurar el ordenador para que se inicie desde un dispositivo externo USB. </li>
+<li> Si has terminado de utilizar GNESIS y quieres apagar/reiniciar el ordenador, el sistema no se apaga hasta que pulses "Enter". Es posible que te salga un mensaje anunciándote este suceso (en la versión minima siempre sale), pero si instalas un entorno gráfico puede que no te aparezca dicho mensaje. Este es un problema que viene desde Debian-Live y que se está solucionando. Por lo que, aunque no aparezca un mensaje informativo, <b>debes pulsar "Enter" para apagar/reiniciar el ordenador</b>.</li>
+</ul>
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="http://atc.lab.inf-cr.uclm.es/gnesis">Página web de GNESIS</a>.</li>
+<li><a href="http://atc.lab.inf-cr.uclm.es/gnesis/descargas.html">Descarga la última versión de GNESIS</a>.</li>
+</ul>
+
+
+
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8712,131 +8873,6 @@ Espero que os guste.
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-02-26/tes-eliminar-ficheros-basura-generados-por-emacs.html">TES: Eliminar ficheros basura generados por Emacs</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-02-26
-    
-      
-  <a href="/users.html#magmax">
-   magmax
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-26-tes-eliminar-ficheros-basura-generados-por-emacs.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-26-tes-eliminar-ficheros-basura-generados-por-emacs.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#emacs-ref">emacs </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/589">node/589</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>
-Estaba harto de encontrarme ficheros ~, ## y .semantic por todas partes, y puede llegar a ser muy aburrido borrarlos periódicamente. ¡Tiene que haber alguna manera de optimizar esto! Y, efectivamente...
-</blockquote>
-
-<h1>Ingredientes</h1>
-Pues el <b>Emacs</b>. No más.
-
-<h1>backups</h1>
-Hoy vamos a tocar a saco el .emacs (recordad que en Windón es _emacs).
-
-Para empezar, veamos los backups, es decir, los ficheros ~. Éstos se crean como medida de recuperación ante fallos. Hay gente a la que le gustaría que no existieran. Hay gente que quiere más backups.
-
-Existe una variable llamada <tt>version-control</tt> que nos permite crear ficheros <tt>loquesea~1~</tt> de tal manera que podamos tener más de 1 backup. Sus valores son <tt>t</tt> para que se hagan; <tt>nil</tt> para que no se hagan y <tt>t never</tt> que es lo mismo pero así, como con más énfasis: ¡que no pongas versiones!. Yo me quedo con una única versión, así que tengo:
-
-<pre>(setq version-control t never)
-</pre>
-
-Por si acaso, le digo también que me borre las versiones viejas:
-
-<pre>(setq delete-old-versions t)
-</pre>
-
-<h1>Situar ficheros</h1>
-
-Vale, ahora ya se hacen los backups que yo quiero... Pero sigo teniendo los *~, #*# y *.semantic por todas partes:
-
-<pre>(setq backup-directory-alist (quote ((".*" . "~/.emacs_backups/"))))
-(setq semanticdb-default-save-directory "~/.emacs_semantic/")
-</pre>
-
-La primera instrucción indica dónde quiero que me deje los ~ y la segunda, dónde los .semantic. Es <b>MUY IMPORTANTE</b> que estos directorios existan. Además, hago que comiencen por punto, para que así existan, pero yo no los veo ;)
-
-La segunda de las instrucciones indica dónde debe dejar los .semantic, como es evidente.
-
-Y con esto tengo los directorios limpitos de basura (vamos, con la justa ;D )
-
-<h1>Referencias</h1>
-Aunque aún no lo he puesto, la referencia es obvia: <a href="http://www.gnu.org/software/emacs/manual/emacs.html#Backup">El manual de Emacs</a>.
-
-<h1>Próxima semana:</h1>
-A veces es un poco aburrido encontrarse con 20 Emacs diferentes abiertos, sobre todo cuando activamos la opción tabbar. Bien, pues hay una manera de hacer que se reutilice siempre el mismo...
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8877,7 +8913,7 @@ A veces es un poco aburrido encontrarse con 20 Emacs diferentes abiertos, sobre 
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

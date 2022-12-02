@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,141 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-06-25/buscar-ficheros-en-el-repositorio-debian-apt-file.html">Buscar ficheros en el repositorio Debian: apt-file</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-06-25
+    
+      
+  <a href="/users.html#mjsantof">
+   mjsantof
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-06-25-buscar-ficheros-en-el-repositorio-debian-apt-file.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-06-25-buscar-ficheros-en-el-repositorio-debian-apt-file.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/727">node/727</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+A todos nos ha pasado alguna vez cuando intentamos compilar algo, encontrarnos con errores del tipo: No existe el fichero o el directorio. Algunas veces, encontrar el paquete que contiene ese .h puede ser toda una odisea, pero hoy me he encontrado con una maravillosa herramienta: <tt>apt-file</tt>.
+</blockquote>
+
+
+
+<h1>Instalación</h1>
+ Con sólo tres comandos, estos problemas pasarán a mejor vida, la instalación y configuración la hacemos en dos pasos. Instalación:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-get <span class="nb">install </span>apt-file</code></pre></figure>
+</div>
+
+Y ahora actualizamos la base de datos, para poder llevar a cabo las búsquedas correctamente.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-file update</code></pre></figure>
+</div>
+
+
+<h2>Uso</h2>
+Para devolver la lista con todos los paquetes que contienen este archivo:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-file search nombre_del_fichero</code></pre></figure>
+</div>
+
+Si queremos la lista de todos los archivos que contiene el paquete:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>apt-file list nombre_del_paquete</code></pre></figure>
+</div>
+
+Y finalmente, para vaciar la base de datos:
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">#</span><span class="w"> </span>apt-file purge</code></pre></figure>
+</div>
+
+Con esto nos ahorraremos la búsquedas en <a href="http://packages.debian.org">http://packages.debian.org</a>!
+
+<h2>Refetencias</h2>
+Página del manual de <em>apt-file</em>.
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9023,100 +9166,6 @@ A menudo, después de liar una buena o bien de instalar sistemas operativos no p
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-06-06/ejemplo-sencillo-de-glacier2-con-c.html">Ejemplo sencillo de Glacier2 con C++</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-06-06
-    
-      
-  <a href="/users.html#cleto">
-   cleto
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-06-06-ejemplo-sencillo-de-glacier2-con-c.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-06-06-ejemplo-sencillo-de-glacier2-con-c.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/712">node/712</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>En esta receta se explica cómo utilizar Glacier2 con un típico "Hola Mundo!" en C++</blockquote>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2007-06-06/ejemplo-sencillo-de-glacier2-con-c.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9157,7 +9206,7 @@ A menudo, después de liar una buena o bien de instalar sistemas operativos no p
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

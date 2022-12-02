@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,263 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2009-01-27/darwin-streaming-server-para-dispositivos-mviles.html">Darwin Streaming Server para Dispositivos Móviles</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2009-01-27
+    
+      
+  <a href="/users.html#toledanus">
+   toledanus
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2009-01-27-darwin-streaming-server-para-dispositivos-mviles.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2009-01-27-darwin-streaming-server-para-dispositivos-mviles.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#multimedia-ref">multimedia </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1085">node/1085</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+Esta receta ilustra cómo configurar el servidor RTSP Darwin Streaming Server en un sistema Debian GNU/Linux. Se ha configurado para que un dispositivo móvil pueda recibir flujo RTSP sin problemas.
+</blockquote>
+
+<h2>Ingredientes</h2>
+<ul>
+<li><a href="http://dss.macosforge.org/post/41/">Installer 5.5.5 del Darwin Streaming Server</a> (no es GNU aunque el código es accesible bajo licencia Apple Public Source License)</li>
+<li>De el repositorio de <b>debian-multimedia</b></li>
+<ul>
+<li><b>ffmpeg</b></li>
+<li><b>gpac</b></li>
+</ul>
+</ul>
+
+<h2>Instalación de Darwin Streaming Server (DSS)</h2>
+<ul>
+Una vez descargado y descomprimido el <a href="http://dss.macosforge.org/post/41/">installer del DSS</a> podemos empezar a instalarlo, pero previamente hay que crear un usuario y un grupo qtss que utilizará el servidor para manejar los archivos de configuración.
+
+
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sudo</span> <span class="n">addgroup</span> <span class="o">--</span><span class="n">system</span> <span class="n">qtss</span>
+<span class="n">sudo</span> <span class="n">adduser</span> <span class="o">--</span><span class="n">system</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">create</span><span class="o">-</span><span class="n">home</span> <span class="o">--</span><span class="n">group</span> <span class="n">qtss</span></code></pre></figure>
+</div>
+
+Tras crear este usuario y grupo podemos lanzar el instalador
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo ./Install</span></code></pre></figure>
+</div>
+
+Durante la instalación se pregunta sobre el usuario y la contraseña para la administración del servidor, ya que será accesible desde la
+red a través de una interfaz web a través de estos parámetros.
+
+Tras finalizar la ejecución del instalador se crean los siguientes archivos:
+<ul>
+<li>/usr/local/sbin/<b>DarwinStreamingServer</b> (Servidor)</li>
+<li>/usr/local/bin/<b>PlaylistBroadcaster</b> (Permite crear nuevas listas de reproducción)</li>
+<li>/usr/local/bin/<b>MP3Broadcaster</b> (Permite crear nuevas listas de reproducción)</li>
+<li>/usr/local/sbin/<b>streamingadminserver.pl</b> (Interfaz Web)</li>
+<li>/etc/streaming (Directorio de configuración)</li>
+<li>/etc/streaming/<b>streamingserver.xml</b> (Configuración por defecto)</li>
+<li>/var/streaming/logs (Directorio de logs)</li>
+<li>/usr/local/movies (Directorio de medios)</li>
+</ul>
+</ul>
+
+<h2>Configuración y Puesta en funcionamiento de DSS</h2>
+<ul>
+Tras la instalación hay que dar permisos de escritura a el archivo de configuración,  ya que puede variar durante la ejecución.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo chmod +r /etc/streaming/streamingserver.xml</span></code></pre></figure>
+</div>
+
+Ahora estamos en condiciones de lanzar el servidor (nótese que se ha instalado en /usr/local/sbin, así que debe lanzarse como superusuario)
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo DarwinStreamingServer -p 5554 -D -c /etc/streaming/streamingserver.xml</span></code></pre></figure>
+</div>
+
+-p puerto por defecto para RTSP
+-D mostrar información por la salida estándar
+-c para indicar el archivo de configuración del servidor
+-h help
+(sudo DarwinStreamingServer -h muestra una descripción de los parámetros)
+
+A continuación podemos lanzar la interfaz web por medio del script en Perl streamingadminserver.pl.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo streamingadminserver.pl</span></code></pre></figure>
+</div>
+
+Se pedirá login con el usuario y contraseña introducidas en la instalación, y posteriormente se configurarán otros parámetros básicos. Una vez introducidos ya estamos en disposición de crear listas de reproducción a partir de archivos.
+
+También es posible crear listas de reproducción via línea de comandos por medio del comando PlaylistBroadcaster.
+</ul>
+
+<h2>Crear listas de reproducción</h2>
+<ul>
+La interfaz web que ofrece es lo suficientemente simple como para no deternenos en ella, sin embargo no ocurre lo mismo con la codificación
+de los archivos multimedia.
+
+Los archivos multimedia deben contener información sobre cómo se debe realizar el streaming (hinting), y además deben tener una calidad
+adecuada al dispositivo que lo va a reproducir, por lo que debemos coficar y 'firmar' cada archivo que queremos servir.
+
+Cabe destacar que el DSS solo admite formatos 3gp, mov, mp4 y mp3, por lo que es posible que haya que recodificarlos (ffmpeg, mencoder).
+
+A continuación se muestra un ejemplo adaptado a dispositivos móviles de codificación y 'firma' de un .mp3 y de un .avi. Para ello se utiliza ffmpeg y MP4Box (de la suite gpac).
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">ffmpeg -i test.mp3 -ar 8000 -ac 1 -ab 12.2k testMono8000Hz.3gp
+MP4Box -hint testMono8000Hz.3gp
+
+ffmpeg -i test.avi -b 30 -r 12 -ar 8000 -ab 12.2k -ac 1 test52k.3gp
+MP4Box -hint test52k.3gp</span></code></pre></figure>
+</div>
+
+Una vez codificados los archivos solo hay que ubicarlos en el directorio donde se hayan dispuesto las 'movies' y listo, ya se pueden añadir a las listas de reproducción, que serán accesibles por medio de la url 'rtsp://ip_servidor/nombreListaReproducción'.
+</ul>
+
+<h2>PlaylistBroadcaster</h2>
+<ul>
+Si queremos crear una lista de reproducción sin utilizar la interfaz web deberemos crear una serie de archivos de configuración; éstos archivos deben pertenecer al grupo qtss, de lo contrario no aceptará la lista. A continuación se muestran los pasos a seguir para poner en marcha una lista de reproducción vía línea de comandos.
+<ul>
+<li>
+1.- Crear un directorio para la lista.
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo mkdir /var/streaming/playlists/plTest</span></code></pre></figure>
+</div>
+</li>
+
+<li>
+2.- Crear un archivo con extensión.playlist que contenga la ubicación absoluta de cada 'movie' a reproducir con un peso asociado.(no olvidar la línea *PLAYLIST*)
+
+<pre>
+*PLAY-LIST*
+#
+#Created By AVISMI.MediaServer
+#
+"/usr/local/movies/testMono8000Hz.3gp" 5
+</pre>
+</li>
+
+<li>
+3.- Crear un archivo .config. Este archivo establece los parámetros de la lista de reproducción. (PlaylistBroadcaster -h, muestra una descripción del archivo de configuración)
+
+<pre>
+playlist_file /var/streaming/playlists/plTest/plTest.playlist
+play_mode sequential_looped
+destination_ip_address 127.0.0.1
+#broadcast_name "plTest"
+sdp_file "/var/streaming/playlists/plTest/plTest.sdp"
+destination_sdp_file "plTest.sdp"
+broadcast_SDP_is_dynamic enabled
+pid_file "/var/streaming/playlists/plTest/plTest.pid"
+</pre>
+
+Nótese que no se han definido los archivos .sdp ni .pid; ésto se debe a que mediante la opción -f se le dice a DSS que genere de forma automática el archivo .sdp (.pid es generado automáticamente por DSS).
+</li>
+
+<li>
+4.- Lanzar el PlaylistBroadcaster
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">PlaylistBroadcaster -a -t -f /var/streaming/playlists/plTest/plTest.playlist</span></code></pre></figure>
+</div>
+
+-a asocia el broadcast al servidor
+-f generar el sdp automáticamente
+-t envia por TCP el broadcast al servidor
+</li>
+</ul>
+</ul>
+
+<h2>Referencias</h2>
+<ul>
+<a href="http://dss.macosforge.org/">Macosforge</a>
+<a href="http://www.opensource.apple.com/apsl/">Apple Public Source License</a>
+<a href="http://gpac.sourceforge.net/">GPAC</a>
+<a href="http://gpac.sourceforge.net/doc_mp4box.php#hinting">GPAC Hinting</a>
+<a href="http://docs.real.com/docs/mobile/encoding_recommendations.pdf">Encoding Recommendations for Mobile Devices</a>
+</ul>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8836,174 +9101,6 @@ Atentos al comentario sobre el backup de la tripulación, me ha dejado sin palab
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/script/2009-01-07/gimp-recortar-una-imagen-en-lnea-de-rdenes.html">Gimp: recortar una imagen en línea de órdenes</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2009-01-07
-    
-      
-  <a href="/users.html#magmax">
-   magmax
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2009-01-07-gimp-recortar-una-imagen-en-lnea-de-rdenes.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2009-01-07-gimp-recortar-una-imagen-en-lnea-de-rdenes.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#script-ref">
-    		script
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#graphics-ref">graphics </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1076">node/1076</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>A menudo he necesitado este script y por fin me he puesto a implementarlo. Consiste en un script-fu que se le puede pasar a gimp para recortar una imagen de forma automática. Contaré los pasos que he seguido y al final hay un resumen para 'ir más rápido'.</blockquote>
-
-<h2>Ingredientes</h2>
-No os lo vais a creer: gimp.
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>gimp</code></pre></figure>
-</div>
-
-Seguro que en Mindows es más fácil de instalar.
-
-<h2>Mi primer script</h2>
-Lo primero que necesitado ha sido una manera de ejecutar un script. Para ello, he abierto mi imagencilla con Gimp de la forma habitual:
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gimp tab1.png</code></pre></figure>
-</div>
-
-Después hay que irse a la ventana principal de Gimp, donde están las herramientas, y acceder a "Exts"->"Script-fu"->"Consola de Script-fu". Se nos abrirá una ventana bastante fea. Antes de avanzar, pulsamos el botón "examinar". Se nos abrirá la ventana de ayuda que podemos tener danzando por ahí mientras nos damos cabezazos contra la pared con nuestro script.
-
-Vamos con mi "hola mundo". En esta ocasión, consistió en seleccionar toda la imagen :-D
-
-<pre>
-(gimp-selection-all 1)
-</pre>
-
-Ahora lo explico: estoy llamando a la función "gimp-selection-all" con el parámetro "1", que es el identificador de la imagen (como la acabamos de abrir, debería ser el 1 :D). Para comprobar el resultado, vamos a la ventana de la imagen y debería estar seleccionado todo.
-
-<h2>El Script</h2>
-
-Ahora que sabemos usar perfectamente script-fu, vamos con el script que recorta una imagen:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">(let* \
-    ( \
-        ( img (gimp-file-load 0 "/ruta_hasta_la_imagen/tab1.png" "tab1.png") ) \
-        ( drw (gimp-image-get-active-drawable (car img)) ) \
-    )  \
-    (plug-in-autocrop 0 (car img)  (car drw)  )\
-    (plug-in-colortoalpha 1 (car img) (car drw) '(0 0 0) )  \
-    (gimp-file-save 1 (car img) (car drw )   "/ruta_hasta_la_imagen/ejemplo.png" "ejemplo.png") \
-)</code></pre></figure>
-</div>
-
-Lo he separado en líneas para que lo veáis bonito :D. La barra invertida: "\" sólo sirve para indicar que va todo en la misma línea.
-
-Ahora explico: "let*" me permite definir variables. Así defino dos: una es "img" y otra "drw". Casi todas las funciones requieren estos parámetros, así que me los guardo "para luego" y así es más fácil todo. Al declarar "img" le asigno el valor devuelto por la función "gimp-file-load", que me ha cargado la imagen, pasándole un "0" ("no interactivo"), la ruta hasta la imagen y "el nombre dado por el usuario", que creo que es el nombre de la imagen sin el path.
-
-Igualmente, a "drw" le asigno el resultado de "gimp-image-get-active-drawable", donde " (car img)" es una llamada a una función que me da el primer elemento del vector "img" (no sé explicarlo mejor. No he conseguido quitarme de encima el "car" ése).
-
-Con eso ya tengo las dos variables locales que, como locales que son, sólo existirán hasta que cierre el "let*" (por eso lo cierro al final).
-
-El primer argumento del resto de funciones siempre es el modo interactivo, el problema es que de homogeneidad nada: unas funciones toman el 0 como "interactivo" y otras como "no-interactivo". En el ejemplo todas están a "no-interactivo".
-
-Por orden, hago: Cargar la imagen (como hemos visto), recortar la imagen, transformar el color blanco a alpha (éste es un bonus track) y guardar la imagen.
-
-No me enrollo más.
-
-<h2>Batch mode </h2>
-Claro, nada de esto tiene gracia si tengo que estar abriendo el gimp para cada una de mis 159 imágenes que quiero procesar... Así que a currarme la línea de órdenes:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>gimp <span class="nt">-i</span> <span class="nt">-b</span> <span class="s1">'(let* ( ( img (gimp-file-load 0 "/ruta_hasta_la_imagen/tab1.png" "tab1.png") ) ( drw (gimp-image-get-active-drawable (car img)) ) )  (plug-in-autocrop 0 (car img)  (car drw)  ) (plug-in-colortoalpha 1 (car img) (car drw) '</span><span class="o">(</span>0 0 0<span class="o">)</span> <span class="o">)</span>   <span class="o">(</span>gimp-file-save 1 <span class="o">(</span>car img<span class="o">)</span> <span class="o">(</span>car drw <span class="o">)</span>   <span class="s2">"/ruta_hasta_la_imagen/ejemplo.png"</span> <span class="s2">"ejemplo.png"</span><span class="o">)</span> <span class="o">)</span>  <span class="o">(</span>gimp-quit 0<span class="o">)</span><span class="s1">'</span></code></pre></figure>
-</div>
-
-A gimp tengo que pasarle la orden "-i" (no interactivo) y "-b" (ejecútame este batch) con la ristra que hemos comentado antes. Tan sólo le he añadido un detallito, que es la orden "gimp-quit" para que no se quede en "modo gimp".
-
-Hay una forma de hacer que me procese todas las imágenes de golpe... Pero eso lo dejaré para otra receta, ya que yo voy a utilizar un precioso Makefile que me va a ir transformando todas las imágenes y me las va a actualizar cuando las modifique (mientras que con gimp tendría que volver a procesar todas), así que lo dejaré en el tintero.
-
-<h2>Y fin</h2>
-No sé si esto resultará útil para alguien, pero puedo asegurar que para mí sí, y como no sabía dónde ponerlo y el script-fu es infernal, lo he plantao aquí, que hacía mucho que no saba señales de vida.
-
-<h2>Referencias</h2>
-Pues un poco de aquí y otro de allá:
-<ul>
-<li><a href="http://www.javielinux.com/programacion_python.php">javielinux</a></li>
-<li><a href="http://www.linbox.com/ucome.rvt/any/doc_distrib/gimp-1.1.18/manual/manual/GUM/write_scriptfu3.html">Manual de gimp </a></li>
-<li><a href="http://www.gimp.org/tutorials/Basic_Batch/">Tutorial de gimp</a></li>
-<li><a href="http://www.gimp.org/docs/scheme_plugin/index.html">Documentación de gimp</a></li>
-<li><a href="http://gimp-plug-ins.sourceforge.net/doc/Writing/html/plug-in.html">Plugins de gimp</a></li>
-</ul>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9044,7 +9141,7 @@ Pues un poco de aquí y otro de allá:
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

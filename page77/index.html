@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
+
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
   <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
-
-  <li><a href="/recipe/2020-09-10/my-git-cheat-sheet.html">My git cheat-sheet</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="622 posts"
+     title="623 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5483,6 +5483,15 @@
   <a href="javascript:window.location.href='/tags.html#Postgres-ref'; hide_others()"
      title="1 posts"
      >Postgres</a>
+</td></tr>
+<tr class="row39"><td class="col1">
+  <a href="javascript:window.location.href='/tags.html#dig-ref'; hide_others()"
+     title="1 posts"
+     >dig</a>
+</td><td class="col2">
+  <a href="javascript:window.location.href='/tags.html#DNS-ref'; hide_others()"
+     title="1 posts"
+     >DNS</a>
 </td></tr>
 
 </table>
@@ -7925,7 +7934,134 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-02-26/tes-eliminar-ficheros-basura-generados-por-emacs.html">TES: Eliminar ficheros basura generados por Emacs</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-02-26
+    
+      
+  <a href="/users.html#magmax">
+   magmax
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-26-tes-eliminar-ficheros-basura-generados-por-emacs.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-26-tes-eliminar-ficheros-basura-generados-por-emacs.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#emacs-ref">emacs </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/589">node/589</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Estaba harto de encontrarme ficheros ~, ## y .semantic por todas partes, y puede llegar a ser muy aburrido borrarlos periódicamente. ¡Tiene que haber alguna manera de optimizar esto! Y, efectivamente...
+</blockquote>
+
+<h1>Ingredientes</h1>
+Pues el <b>Emacs</b>. No más.
+
+<h1>backups</h1>
+Hoy vamos a tocar a saco el .emacs (recordad que en Windón es _emacs).
+
+Para empezar, veamos los backups, es decir, los ficheros ~. Éstos se crean como medida de recuperación ante fallos. Hay gente a la que le gustaría que no existieran. Hay gente que quiere más backups.
+
+Existe una variable llamada <tt>version-control</tt> que nos permite crear ficheros <tt>loquesea~1~</tt> de tal manera que podamos tener más de 1 backup. Sus valores son <tt>t</tt> para que se hagan; <tt>nil</tt> para que no se hagan y <tt>t never</tt> que es lo mismo pero así, como con más énfasis: ¡que no pongas versiones!. Yo me quedo con una única versión, así que tengo:
+
+<pre>(setq version-control t never)
+</pre>
+
+Por si acaso, le digo también que me borre las versiones viejas:
+
+<pre>(setq delete-old-versions t)
+</pre>
+
+<h1>Situar ficheros</h1>
+
+Vale, ahora ya se hacen los backups que yo quiero... Pero sigo teniendo los *~, #*# y *.semantic por todas partes:
+
+<pre>(setq backup-directory-alist (quote ((".*" . "~/.emacs_backups/"))))
+(setq semanticdb-default-save-directory "~/.emacs_semantic/")
+</pre>
+
+La primera instrucción indica dónde quiero que me deje los ~ y la segunda, dónde los .semantic. Es <b>MUY IMPORTANTE</b> que estos directorios existan. Además, hago que comiencen por punto, para que así existan, pero yo no los veo ;)
+
+La segunda de las instrucciones indica dónde debe dejar los .semantic, como es evidente.
+
+Y con esto tengo los directorios limpitos de basura (vamos, con la justa ;D )
+
+<h1>Referencias</h1>
+Aunque aún no lo he puesto, la referencia es obvia: <a href="http://www.gnu.org/software/emacs/manual/emacs.html#Backup">El manual de Emacs</a>.
+
+<h1>Próxima semana:</h1>
+A veces es un poco aburrido encontrarse con 20 Emacs diferentes abiertos, sobre todo cuando activamos la opción tabbar. Bien, pues hay una manera de hacer que se reutilice siempre el mismo...
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8916,97 +9052,6 @@ Página del proyecto <a href="http://linuxwacom.sourceforge.net/">Linux Wacom</a
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-02-20/usar-la-librera-libxml2.html">Usar la librería libxml2</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-02-20
-    
-      
-  <a href="/users.html#magmax">
-   magmax
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-20-usar-la-librera-libxml2.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-20-usar-la-librera-libxml2.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/522">node/522</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>libxml2 es una librería que facilita el manejo de los XMLs. La librería permite el acceso tanto para lectura como para escritura. Si dispones de <span class="caps">DTD</span>, también trae funciones para su uso.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2007-02-20/usar-la-librera-libxml2.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9047,7 +9092,7 @@ Página del proyecto <a href="http://linuxwacom.sourceforge.net/">Linux Wacom</a
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2022-10-11 06:32:02 -0500
+          Generated at 2022-12-02 06:21:59 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
