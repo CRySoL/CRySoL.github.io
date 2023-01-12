@@ -25,32 +25,33 @@ h2. Operaciones con bases de datos
 
 <p/>
 
-h3. Listar todas
 
+h3. Listar bases de datos
 
 <div class="console">
 {% highlight console %}
+\list
 {% endhighlight %}
 </div>
+
 
 h3. Seleccionar
 
-
 <div class="console">
 {% highlight console %}
 {% endhighlight %}
 </div>
+
 
 h3. Crear
 
-
 <div class="console">
 {% highlight console %}
 {% endhighlight %}
 </div>
 
-h3. Borrar
 
+h3. Borrar
 
 <div class="console">
 {% highlight console %}
@@ -62,13 +63,14 @@ h2. Operaciones con tablas
 
 <p/>
 
+
 h3. Listar tablas
 
 Habiendo seleccionado previamente una base de datos.
 
-
 <div class="console">
 {% highlight console %}
+\dt
 {% endhighlight %}
 </div>
 
@@ -76,7 +78,6 @@ Habiendo seleccionado previamente una base de datos.
 h3. Borrar una tabla
 
 Se supone que sabes lo que haces...
-
 
 <div class="console">
 {% highlight console %}
