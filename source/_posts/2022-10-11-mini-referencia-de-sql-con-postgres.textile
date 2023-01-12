@@ -20,7 +20,6 @@ $ psql -h localhost -d <database> -U <user> -c "select * from table"
 {% endhighlight %}
 </div>
 
-<!--
 
 h2. Operaciones con bases de datos
 
@@ -178,4 +177,4 @@ Reemplazando texto en el valor del campo:
 
 h2. Referencias
 
--->
+
