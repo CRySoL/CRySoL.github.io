@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2023-04-13/instalar-debian-por-USB.html">Instalar Debian con un pendrive USB</a></li>
+
   <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
 
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
-
-  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="623 posts"
+     title="624 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5189,7 +5189,7 @@
 </td></tr>
 <tr class="row6"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#Debian-ref'; hide_others()"
-     title="71 posts"
+     title="72 posts"
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
@@ -7936,7 +7936,251 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-07-19/gstreamer-python-tu-propio-reproductor-multimedia-en-minutos.html">Gstreamer + Python = tu propio reproductor multimedia en minutos</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-07-19
+    
+      
+  <a href="/users.html#oscarah">
+   oscarah
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-07-19-gstreamer-python-tu-propio-reproductor-multimedia-en-minutos.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-07-19-gstreamer-python-tu-propio-reproductor-multimedia-en-minutos.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#gstreamer-ref">gstreamer </a></li>
+    
+    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
+    
+    	<li><a href="/tags.html#Python-ref">Python </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/349">node/349</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Es muy sencillo construirse un reproductor/codificador/decodificador multimedia usando Gstreamer y Python. Aquí, haremos un reproductor de Ogg Vorbis básico.</blockquote>
+<h1>Ingredientes</h1>
+<ul>
+	<li>python-gst0.10</li>
+</ul>
+<p>La instalación, como ya sabrás, es muy compleja y tediosa, pero no hay mas remedio que tragar :-P :</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>apt-get <span class="nb">install </span>python-gst0.10</code></pre></figure></div>
+<h1>Introducción</h1>
+<p>Antes de empezar a escribir código, unas breves líneas de como rula Gstreamer. Gstreamer es básicamente un framework para la manipulación multimedia. Con él se puede hacer casi de todo, desde un simple reproductor de Ogg Vorbis (como aqui veremos) hasta complejas aplicaciones distribuidas de streaming multimedia. Todo depende de los modulos y plugins de que dispongamos.</p>
+<p>Gstreamer funciona como un flujo de datos dentro de una tubería. Se selecciona una fuente de datos, un camino para estos (en el que se pueden modificar o no) y un destino. Podemos manipular los eventos que se produzcan en la tubería, controlar su estado e incluso inyectar más datos a nuestro antojo. Interiormente, en la tubería, los datos también pueden seguir diferentes caminos. Por ejemplo, el vídeo puede ir por un lado, mientras que el audio procesarse por otro.</p>
+<p>En Gstreamer, todas las partes que usamos para construir la tubería (la fuente, el destino, los codificadores, etc.) se llaman &#8220;Elementos&#8221;, que tienen &#8216;enchufes&#8217; (<em>Pads</em>). Entonces, cuando creamos la tubería conectamos unos enchufes con otros, para que el flujo siga su curso. Y estos Pads, tienen establecido un sentido para el flujo de datos: de salida (llamados Source) y de entrada (llamados Sink). Cada elemento de Gstreamer puede tener uno o varios pads, o ninguno (e incluso, es muy común que los pads se creen dinámicamente, segun sean necesarios).</p>
+<p>Por ejemplo, podemos crear una tubería con una fuente que lea de un fichero de audio en Ogg Vorbis, más un demultiplexor para el envoltorio del Vorbis (es decir, un elemento que extraiga del Ogg los datos<br />
+codificados con Vorbis), más un decodificador de Vorbis, por supuesto. Además necesitamos un conversor de audio y por último, un destino, que podría ser por ejemplo <span class="caps">ALSA</span>. Simplemente con esto, nos construimos un reproductor de Ogg/Vorbis, que es lo que vamos a hacer.</p>
+<h1>Manos a la obra</h1>
+<p>Pues bien, como todo lo vamos a hacer en Python, lo primero que necesitamos es importar los modulos que vamos a usar. Es decir:</p>
+<ul>
+	<li>gst: evidentemente, y además en su version 0.10, con lo que también importaremos pygst para cargarlo.</li>
+	<li>sys: es muy común.</li>
+	<li>gobject: porque lo usa Gstreamer.</li>
+</ul>
+<p>Con lo que tendríamos:</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygst</span>
+<span class="n">pygst</span><span class="p">.</span><span class="n">require</span><span class="p">(</span><span class="s">"0.10"</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">gst</span><span class="p">,</span> <span class="n">gobject</span>
+<span class="n">gobject</span><span class="p">.</span><span class="n">threads_init</span><span class="p">()</span></code></pre></figure></div>
+<p>Bien, ahora creamos una función que haga las veces de main, y comprobamos que tenemos los argumentos suficientes:</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"Uso: "</span> <span class="o">+</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">" &lt;archivo Ogg&gt;"</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></code></pre></figure></div>
+<p>Hasta ahí nada nuevo. Ahora tenemos que crear la tubería. Para esto hay diversas maneras. Podemos crear cada elemento por separado, enlazar los Pads correspondientes y después meterlos todos en un contenedor. De esta forma, tenemos un mejor control sobre lo que hacemos, pero existe una herramienta con la que es mucho más sencillo todo. Se llama &#8216;parse_launch&#8217;. Acepta una cadena con la estructura final de nuestra tubería, y nos devuelve la tubería hecha. Así, para nuestra tubería, la cadena que tendríamos que formar es:</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="n">pipestr</span> <span class="o">=</span> <span class="s">"filesrc location= %s ! oggdemux ! vorbisdec ! audioconvert ! alsasink"</span> <span class="o">%</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></code></pre></figure></div>
+<p>Esta cadena contiene cada elemento (con el nombre por el cual está definido) más algun atributo de ese elemento, separados con el símbolo de admiración (!). &#8216;filesrc&#8217; es el elemento que se encarga de leer de un fichero del disco, y con la propiedad &#8216;location&#8217; establecemos la ruta al fichero que se tiene que leer; &#8216;oggdemux&#8217; es el demultiplexor de Ogg, etc.</p>
+<p>Pues si le pasamos esta cadena a parse_launch, intentará crearnos la tubería correspondiente, y además completamente funcional.</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="k">try</span><span class="p">:</span>
+        <span class="n">pipeline</span> <span class="o">=</span> <span class="n">gst</span><span class="p">.</span><span class="n">parse_launch</span><span class="p">(</span><span class="n">pipestr</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">gobject</span><span class="p">.</span><span class="n">GError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"No es posible crear la tuberia, "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></code></pre></figure></div>
+<p>Ahora sería útil añadir un pequeño manipulador de eventos, ya que si se produce algún mensaje dentro de la tubería, debemos gestionarlo nosotros. En esta ocasión, solo haremos caso de dos mensajes: <span class="caps">EOF</span>, que<br />
+nos indica que debemos terminar (End Of Stream, o fin de flujo) y <span class="caps">ERROR</span>, que también nos obliga a terminar, pero advirtiendo de que se produjo un error interno. El resto lo ignoramos. Para ello crearemos una mini función interna que lo gestione todo.</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">eventos</span><span class="p">(</span><span class="n">bus</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="nb">type</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">gst</span><span class="p">.</span><span class="n">MESSAGE_EOS</span><span class="p">:</span>
+            <span class="n">loop</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="n">gst</span><span class="p">.</span><span class="n">MESSAGE_ERROR</span><span class="p">:</span>
+            <span class="n">e</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">parse_error</span><span class="p">()</span>
+            <span class="k">print</span> <span class="s">"ERROR:"</span><span class="p">,</span><span class="n">e</span>
+            <span class="n">loop</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">True</span></code></pre></figure></div>
+<p>Y la añadimos al bus de comunicaciones que tiene la tubería.</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="n">pipeline</span><span class="p">.</span><span class="n">get_bus</span><span class="p">().</span><span class="n">add_watch</span><span class="p">(</span><span class="n">eventos</span><span class="p">)</span></code></pre></figure></div>
+<p>Ya tenemos la tubería completamente creada. Ahora sólo nos queda establecer el estado de la misma. El estado de la tubería especifica que es lo que pasa con el flujo dentro de ella. Disponemos básicamente de <span class="caps">NULL</span>, <span class="caps">READY</span>, <span class="caps">PLAYING</span> y <span class="caps">PAUSED</span>. El estado inicial de la tubería es <span class="caps">NULL</span>, y si queremos que empieze a funcionar, tendremos que cambiarlo<br />
+a <span class="caps">PLAYING</span>. Una vez ahí, el flujo de datos puede fluir por todos los elementos.</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="n">pipeline</span><span class="p">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">gst</span><span class="p">.</span><span class="n">STATE_PLAYING</span><span class="p">)</span></code></pre></figure></div>
+<p>¿Qué pasa? ¿No debería sonar ya? Hombre, pues no exactamente. Todavía nos queda un pequeño detalle. Como antes dije, Gstreamer usa Gobject, y por tanto, todos sus elementos bailan al son de Gboject. Por ello, es necesario crear un MainLoop y ponerlo en marcha. También sería bueno poder salir de una manera adecuada cuando se pulsa Ctrl+C.</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="n">loop</span> <span class="o">=</span> <span class="n">gobject</span><span class="p">.</span><span class="n">MainLoop</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"Reproduciendo..."</span>
+        <span class="n">loop</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span> <span class="c1"># Por si se pulsa Ctrl+C
+</span>        <span class="k">pass</span>
+
+    <span class="k">print</span> <span class="s">"Parando... </span><span class="se">\n</span><span class="s">¡Adios!"</span></code></pre></figure></div>
+<p>Como nota, he de decir que la función &#8216;run&#8217; de gobject es un bucle de eventos, es decir, el programa se quedará en ese punto hasta que &#8216;run&#8217; retorne. En nuestro caso, eso sucede cuando se pulsa Ctrl+C o cuando se produce un evento <span class="caps">EOS</span> o <span class="caps">ERROR</span> (ya que entonces se llama a &#8216;quit&#8217; de Gobject).</p>
+<p>Ya esta sonando todo&#8230; bien. Ahora solo nos queda decidir que hacer cuando termine el flujo o se pulse Ctrl+C. Lo lógico es poner la tubería en estado <span class="caps">NULL</span> y salir. Eso haremos.</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python">    <span class="n">pipeline</span><span class="p">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">gst</span><span class="p">.</span><span class="n">STATE_NULL</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span></code></pre></figure></div>
+<p>Bien, pues ya tenemos nuestra función principal. Yo añado un par de lineas para que se llame a esa función principal cuando el script se ejecuta como tal, y no cuando se importa como módulo, pero esto es a gusto del consumidor ;-)</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">))</span></code></pre></figure></div>
+<p>¡Y ya está! Así de sencillo ;)</p>
+<h1>Comentarios</h1>
+<p>Como ves, es muy fácil. Casi todo el codigo necesario es para manipular eventos o parte del programa principal. La esencia de todo radica en la cadena de texto que se pasa a &#8216;parse_launch&#8217;. Si cambiamos los elementos, creamos tuberías diferentes. Por ejemplo, en vez de dirigir la salida a <span class="caps">ALSA</span>, la puedes dirigir a un fichero (con filesink). Esto lo dejo para tu imaginación ;-p . Gstreamer es muy potente, así que con poca cosa se pueden hacer cosas muy interesantes&#8230; ¡que te diviertas!</p>
+<h1>Todo junto</h1>
+<p>Para que no tengas que copiar y pegar muchas veces, aquí dejo todo el codigo del programa completo, todo juntito, ¡testeado, funcionando y todo!</p>
+<div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pygst</span>
+<span class="n">pygst</span><span class="p">.</span><span class="n">require</span><span class="p">(</span><span class="s">"0.10"</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="p">,</span> <span class="n">gst</span><span class="p">,</span> <span class="n">gobject</span>
+<span class="n">gobject</span><span class="p">.</span><span class="n">threads_init</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"Uso:"</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">" &lt;archivo Ogg&gt;"</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="n">pipestr</span> <span class="o">=</span> <span class="s">"filesrc location= %s  ! oggdemux ! vorbisdec ! audioconvert ! alsasink"</span> <span class="o">%</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">pipeline</span> <span class="o">=</span> <span class="n">gst</span><span class="p">.</span><span class="n">parse_launch</span><span class="p">(</span><span class="n">pipestr</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">gobject</span><span class="p">.</span><span class="n">GError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"No es posible crear la tubería,"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">eventos</span><span class="p">(</span><span class="n">bus</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="nb">type</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">gst</span><span class="p">.</span><span class="n">MESSAGE_EOS</span><span class="p">:</span>
+            <span class="n">loop</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">t</span> <span class="o">==</span> <span class="n">gst</span><span class="p">.</span><span class="n">MESSAGE_ERROR</span><span class="p">:</span>
+            <span class="n">e</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">parse_error</span><span class="p">()</span>
+            <span class="k">print</span> <span class="s">"ERROR:"</span><span class="p">,</span> <span class="n">e</span>
+            <span class="n">loop</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="n">pipeline</span><span class="p">.</span><span class="n">get_bus</span><span class="p">().</span><span class="n">add_watch</span><span class="p">(</span><span class="n">eventos</span><span class="p">)</span>
+
+    <span class="n">pipeline</span><span class="p">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">gst</span><span class="p">.</span><span class="n">STATE_PLAYING</span><span class="p">)</span>
+
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">gobject</span><span class="p">.</span><span class="n">MainLoop</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"Reproduciendo..."</span>
+        <span class="n">loop</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span> <span class="c1"># Por si se pulsa Ctrl+C
+</span>         <span class="k">pass</span>
+
+    <span class="k">print</span> <span class="s">"Parando... </span><span class="se">\n</span><span class="s">¡Adios!"</span>
+
+    <span class="n">pipeline</span><span class="p">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">gst</span><span class="p">.</span><span class="n">STATE_NULL</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">sys</span><span class="p">.</span><span class="nb">exit</span><span class="p">(</span><span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">))</span></code></pre></figure></div>
+<h1>Referencias</h1>
+<ul>
+	<li><a href="http://gstreamer.freedesktop.org">gstreamer.freedesktop.org</a></li>
+	<li><a href="http://www.python.org">http://www.python.org</a></li>
+</ul>
+<p>Más:</p>
+<ul>
+	<li><a href="http://pygstdocs.berlios.de/pygst-tutorial/index.html">http://pygstdocs.berlios.de/pygst-tutorial/index.html</a></li>
+	<li><a href="http://www.cin.ufpe.br/~cinlug/wiki/index.php/Introducing_GStreamer">http://www.cin.ufpe.br/~cinlug/wiki/index.php/Introducing_GStreamer</a></li>
+	<li><a href="http://pythonide.blogspot.com/2008/03/howto-write-wxpython-video-player-with.html">http://pythonide.blogspot.com/2008/03/howto-write-wxpython-video-player-with.html</a></li>
+	<li><a href="http://www.jejik.com/articles/2007/01/python-gstreamer_threading_and_the_main_loop/">http://www.jejik.com/articles/2007/01/python-gstreamer_threading_and_the_main_loop/</a></li>
+	<li><a href="http://www.jonobacon.org/?p=750">http://www.jonobacon.org/?p=750</a></li>
+	<li><a href="http://www.jonobacon.org/?p=851">http://www.jonobacon.org/?p=851</a></li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8775,104 +9019,6 @@ Desde hace bastante tiempo estoy tratando de iniciarme en el Proceso de Software
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/opinion/2006-06-14/radio-por-internet.html">Radio por internet</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-06-14
-    
-      
-  <a href="/users.html#javieralso">
-   javieralso
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-06-14-radio-por-internet.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-06-14-radio-por-internet.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#opinion-ref">
-    		opinion
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/332">node/332</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Muy buenas. Navegando por internet encontré una emisora de radio alemana bastante chula. Tiene para elegir entre varios tipos de música, chill out, lounge, dance, etc....
-
-Echadle un vistazo y ya me contareis que os parece.
-
-<a href="http://www.radio42.com">http://www.radio42.com</a>
-
-
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/opinion/2006-06-14/radio-por-internet.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8913,7 +9059,7 @@ Echadle un vistazo y ya me contareis que os parece.
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2023-01-12 06:59:15 -0600
+          Generated at 2023-04-13 14:35:47 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

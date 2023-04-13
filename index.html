@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2023-04-13/instalar-debian-por-USB.html">Instalar Debian con un pendrive USB</a></li>
+
   <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
 
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
-
-  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="623 posts"
+     title="624 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5189,7 +5189,7 @@
 </td></tr>
 <tr class="row6"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#Debian-ref'; hide_others()"
-     title="71 posts"
+     title="72 posts"
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
@@ -7909,7 +7909,114 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2023-04-13/instalar-debian-por-USB.html">Instalar Debian con un pendrive USB</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2023-04-13
+    
+      
+  <a href="/users.html#david_villa">
+   david.villa
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2023-04-13-instalar-debian-por-USB.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2023-04-13-instalar-debian-por-USB.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <h2>Imagen a grabar</h2>
+<p>Descarga la imagen <span class="caps">ISO</span> «net-install» desde https://www.debian.org/CD/netinst/ para tu arquitectura (normalmente <em>amd64</em>). Estas imágenes aparte de poderse grabar en un CD, también son «bootables» desde <span class="caps">USB</span>.</p>
+<h2>El pendrive</h2>
+<p>Ejecuta el siguiente comando:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>dmesg <span class="nt">-w</span></code></pre></figure></div>
+<p>Ahora busca un pendrive <span class="caps">USB</span> que puedas sobreescribir, conéctalo y podrás ver en la consola el nombre del dispositivo que se le ha asignado. Será algo como:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>dmesg <span class="nt">-w</span>
+<span class="go">[27518.031993] sd 10:0:0:0: Attached scsi generic sg2 type 0
+[27518.032186] sd 10:0:0:0: [sdc] 240353280 512-byte logical blocks: (123 GB/115 GiB)
+[27518.033808] sd 10:0:0:0: [sdc] Write Protect is off
+[27518.033811] sd 10:0:0:0: [sdc] Mode Sense: 43 00 00 00
+[27518.034799] sd 10:0:0:0: [sdc] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[27518.082973]  sdc: sdc1 sdc2</span></code></pre></figure></div>
+<p>En este caso el pendrive es el dispositivo <code>/dev/sdc</code>. Nos indica que tiene dos particiones sdc1 y sdc2, pero nos da igual porque lo vamos a machacar todo.</p>
+<h2>Grabar la imagen</h2>
+<p><strong>PRECAUCIÓN</strong>: Si en este comando te equivocas de dispositivo seguramente la vas a liar muy gorda.</p>
+<p>Ejecuta el siguiente comando:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>~/Descargas/debian-11.6.0-amd64-netinst.iso <span class="nv">of</span><span class="o">=</span>/dev/sdc <span class="nv">bs</span><span class="o">=</span>1M
+<span class="go">[sudo] password for david:
+388+0 registros leídos
+388+0 registros escritos
+406847488 bytes (407 MB, 388 MiB) copied, 8,03681 s, 50,6 MB/s</span></code></pre></figure></div>
+<p>El comando <code>dd</code> copia bloques entre 2 dispositivos. En este ejemplo el dispositivo desde el que lee (<code>if</code>) es el fichero <span class="caps">ISO</span> y el dispositivo en el que escribe (<code>of</code>) es <code>/dev/sdc</code>, que tendrás que cambiar por el que corresponda según lo que hemos visto en la salida de <code>dmesg</code>. El <code>bs=1M</code> indica que el tamaño de los bloques es 1 mebiqbyte.</p>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8723,101 +8830,6 @@ Cmnd_Alias APT = /usr/bin/apt, /usr/bin/apt-get, /usr/bin/dpkg
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2019-02-15/shrink-vbox-image.html">How to shrink VirtualBox image</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2019-02-15
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/2019-02-15-shrink-vbox-image.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/2019-02-15-shrink-vbox-image.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#virtualbox-ref">virtualbox </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Start VM and fill free space with zeros:</p>
-<pre class="console">
-$ sudo dd if=/dev/zero of /zeros bs=1M
-</pre>
-<p>Stop VM and from host, locate VM disk image:</p>
-<pre class="console">
-$ VBoxManage showvminfo VM_NAME | grep vdi
-</pre>
-<p>And finally:</p>
-<pre class="console">
-$ VBoxManage modifyhd --compact "PATH-TO-FILE.vdi"
-</pre>
-<h4>References</h4>
-<ul>
-	<li>http://www.netreliant.com/news/8/17/Compacting-VirtualBox-Disk-Images-Linux-Guests.html</li>
-</ul>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8854,7 +8866,7 @@ $ VBoxManage modifyhd --compact "PATH-TO-FILE.vdi"
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2023-01-12 06:59:15 -0600
+          Generated at 2023-04-13 14:35:47 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

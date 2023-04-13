@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2023-04-13/instalar-debian-por-USB.html">Instalar Debian con un pendrive USB</a></li>
+
   <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
 
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
-
-  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="623 posts"
+     title="624 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5189,7 +5189,7 @@
 </td></tr>
 <tr class="row6"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#Debian-ref'; hide_others()"
-     title="71 posts"
+     title="72 posts"
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
@@ -7936,7 +7936,109 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2007-01-26/yago-un-robotillo-libre-basado-en-avr.html">Yago, un robotillo libre basado en AVR</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-01-26
+    
+      
+  <a href="/users.html#javieralso">
+   javieralso
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-26-yago-un-robotillo-libre-basado-en-avr.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-26-yago-un-robotillo-libre-basado-en-avr.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#embedded-ref">embedded </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/538">node/538</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>Os presento un robotillo que estoy haciendo en mis ratos libres. Se trata de un bicho basado en un micro <span class="caps">AVR</span> (en concreto usa un AT90USB1287) y que dispone de varios sensores como infrarojos, sensor <span class="caps">PIR</span>, ultrasonidos, etc&#8230; Tanto el software como el hardware que desarrolle para este proyecto será libre, y además <strong>todo</strong> (incluidos los diseños de PCBs) está hecho con software 100% libre.</blockquote>
+<p>Mi intención es ir publicando todo lo que vaya haciendo referente a él por aquí, para que a quien le interese pueda meter mano y, ¿por qué no? dar ideas. En cuanto el repo público de <span class="caps">ARCO</span> haya sido migrado, haré disponible el código fuente y los esquemas electrónicos.</p>
+<center>
+<p><img src="/assets/files/yago1.png"></p>
+</center>
+<h1>Introducción</h1>
+<p>Pues eso. Yago, como he decidido que se llame la criatura (bueno, lo decidieron en consenso unos amigos durante una larga noche) utilizará un microcontrolador de la casa <a href="www.atmel.com"><span class="caps">ATMEL</span></a>. El micro elegido es un <b>AT90USB1287</b>. En principio iba a haber utilizado uno de sus hermanos mayores y mas antiguo, pero un amigo al que le estoy haciendo un proyecto basado en éste micro, me regaló una pequeña placa de desarrollo y decidí utilizarla (¡¡gracias Pandro!! ;-)). Bueno, pues toda la información que querais del micro, la podeis consultar del <a href="http://www.atmel.com/dyn/resources/prod_documents/doc7593.pdf">datasheet</a> del micro. La plaquita de desarrollo en la que me estoy basando se llama <a href="http://www.atmel.com/dyn/products/tools_card.asp?family_id=655&family_name=USB+Controllers&tool_id=3879"> <span class="caps">USBKEY</span></a> y se puede conseguir a través de <a href="www.digikey.com">digikey</a>.</p>
+<h1>¿Qué va a tener?</h1>
+<p>Bueno, pues en principio y como es de suponer, el cacharro en sí puede tener lo que nos dé la gana que tenga. Yo en mi caso he comprado un par de sensores de infrarrojos, un detector de sonido, un medidor de distancias ultrasónico, un sensor <span class="caps">PIR</span>, un par de bumpers delanteros, un servo para posicionar los ultrasonidos&#8230;. Vamos, que lo que queramos.</p>
+<p>La estructura es metálica, la he hecho con un juego de esos copias de mecano que me costó 9€ en una juguetería. Imaginación al poder (y lo digo yo que se me da fatal la mecánica ;-)). Para el tema de la tracción, después de haber probado con motorreductoras, he decido usar unos motores <b><span class="caps">FUTABA</span> S3003</b> trucados. Tranquilos que ya os diré donde compré cada cosa y las manipulaciones que hice.</p>
+<p>Con respecto a la electrónica, aparte del AT90USBKEY, en cuyo <a href="http://www.atmel.com/dyn/resources/prod_documents/doc7627.pdf">datasheet</a> se puede ver el esquema electrónico, utilizo otra tarjeta como extensión de periféricos que diseñé enteramente con software libre. Ésta tarjeta dispone de 16 entradas <span class="caps">TTL</span>, 12 salidas <span class="caps">TTL</span> y 4 de potencia, una memoria I2C y un reloj calendario en tiempo real. ¿Qué por qué poner estas dos cosas si pueden parecer tonterias para un microbot? muy fácil, porque quise, mas para trastear :-P</p>
+<p>Bueno, pues de momento, para ir abriendo boca, ya os he contado un poco cuales son mis intenciones. Espero que os gusten y que alguno se anime aunque sea a ir leyendo lo que hago. Por lo pronto, os dejo alguna que otra fotillo para que lo vayais viendo&#8230;.</p>
+<center>
+<p><img src="/assets/files/Yago3.png"></p>
+<p>Una vista del lateral trasero&#8230;</p>
+</center>
+<center>
+<p><img src="/assets/files/Yago4.png"></p>
+<p>Y un primer plano del sensor <span class="caps">PIR</span> trasero y los infrarrojos&#8230;</p>
+</center>
+<p/>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -9011,99 +9113,6 @@ Ale, a disfrutarla ;-)
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/tale/2007-01-21/wuming-la-guerrilla-cultural.html">WuMing, la guerrilla cultural</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-01-21
-    
-      
-  <a href="/users.html#fsancho">
-   fsancho
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-01-21-wuming-la-guerrilla-cultural.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-01-21-wuming-la-guerrilla-cultural.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#tale-ref">
-    		tale
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/528">node/528</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Que la creación colectiva no es algo exclusivo del software es algo que cualquiera que conozca Creative Commons se puede imaginar.</p>
-<p>El ejemplo que os presento es el de la <a href="http://www.wumingfoundation.com/">Fundación Wu Ming</a>.</p>
-<p>Originalmente Wu Ming se llamaban Luther Blissett, pero ¿Quién era Luther Blisset?</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/tale/2007-01-21/wuming-la-guerrilla-cultural.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9144,7 +9153,7 @@ Ale, a disfrutarla ;-)
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2023-01-12 06:59:15 -0600
+          Generated at 2023-04-13 14:35:47 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

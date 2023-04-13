@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2023-04-13/instalar-debian-por-USB.html">Instalar Debian con un pendrive USB</a></li>
+
   <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
 
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
-
-  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="623 posts"
+     title="624 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5189,7 +5189,7 @@
 </td></tr>
 <tr class="row6"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#Debian-ref'; hide_others()"
-     title="71 posts"
+     title="72 posts"
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
@@ -7936,7 +7936,122 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-03-30/instalar-gnesis-en-un-usb-desde-windows-con-perdn.html">Instalar GNESIS en un USB, desde Windows (con perdón)</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-03-30
+    
+      
+  <a href="/users.html#cleto">
+   cleto
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-03-30-instalar-gnesis-en-un-usb-desde-windows-con-perdn.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-03-30-instalar-gnesis-en-un-usb-desde-windows-con-perdn.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#GNESIS-ref">GNESIS </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/633">node/633</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+<p>Cómo crear una <span class="caps">GNESIS</span> <span class="caps">USB</span> si sólo dispones de un ordenador con Windows. Ya no tienes excusa, si sufres Windows es porque quieres.</p>
+</blockquote>
+<p>Si estás leyendo esta receta, a priori, pensaría que utilizas Microsoft Windows de forma habitual y eso no puede ser. Sin embargo, estoy seguro que no es así y que simplemente te has equivocado de sitio por un despiste. Por ello, es conveniente que consultes <a href="/node/598">Instalar <span class="caps">GNESIS</span> en un dispositivo <span class="caps">USB</span> desde <span class="caps">GNU</span>/Linux</a>, que es lo que realmente usas ;-).</p>
+<h2>Ingredientes</h2>
+<ul>
+	<li>Un pendrive <span class="caps">USB</span></li>
+	<li>Microsft Windows XP (o sistema repugnante similar)</li>
+	<li><a href="http://www.chrysocome.net/dd"><span class="caps">GNU</span> dd</a> para Windows</li>
+</ul>
+<p>Al igual que en <span class="caps">GNU</span>, el programa <tt>dd</tt> te permite volcar el contenido del archivo .img a tu dispositivo.</p>
+<h2>Copiando <span class="caps">GNESIS</span></h2>
+<p>Descomprime el ejecutable <tt>dd.exe</tt> por ejemplo, en C:\. Seguidamente, abre una cosa fea, rara y sin transparencias que se llama <b>símbolo de sistema</b>. Se encuentra en la ruta &#8220;Inicio&#8594;Todos los programas&#8594;Accesorios&#8594;Símbolo de Sistema&#8221; . Una vez abierto situate en el directorio en el que hayas descomprimido el ejecutable de <tt>dd</tt>:</p>
+<pre class="console">
+cd C:\
+</pre>
+<p>Suponiendo que tienes el archivo .img el mismo sitio, es decir, en C:\; y que ya tienes enchufado el dispositivo <span class="caps">USB</span>, debes ejecutar lo siguiente:</p>
+<pre class="console">
+dd if=c:\archivo.img of=\\?\Device\Harddisk1\Partition0 bs=1M --progress
+</pre>
+<p>Windows es muy intuitivo&#8230;</p>
+<h2>Creando la partición persistente para <span class="caps">GNESIS</span></h2>
+<p>Para tener la opción persistente de <span class="caps">GNESIS</span> es necesario utilizar un particionador (libre, por supuesto) con el que puedas crear una partición adicional (de tipo ext3). Puedes crear tantas particiones como quieras pero, al menos, una de ellas tiene que estar etiquetada como &#8220;casper-rw&#8221;. Se recomienda que si el dispositivo tiene poca memoria (1-2GB)  sólo se haga una partición para persistencia.</p>
+<p>Para crear la partición, como he dicho, puedes utilizar cualquier particionador, o bien arrancar tu <span class="caps">GNESIS</span> y seguir <a href="/node/598">la otra receta</a>.</p>
+<h2>Referencias</h2>
+<ul>
+<li>Para más información acerca del <a href="http://www.chrysocome.net/dd">dd para Windows</a> puedes ver su web oficial, llena de ejemplos.</li>
+<li><a href="http://atc.lab.inf-cr.uclm.es/gnesis">Página web de <span class="caps">GNESIS</span></a>.</li>
+<li><a href="http://atc.lab.inf-cr.uclm.es/gnesis/descargas.html">Descarga la última versión de <span class="caps">GNESIS</span></a>.</li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8938,184 +9053,6 @@ $ svn propget svn:externals
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-03-20/gnu-linux-y-nintendo-ds.html">GNU/Linux y Nintendo DS</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-03-20
-    
-      
-  <a href="/users.html#javieralso">
-   javieralso
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-03-20-gnu-linux-y-nintendo-ds.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-03-20-gnu-linux-y-nintendo-ds.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#NDS-ref">NDS </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/622">node/622</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>¿Qué? ¿Cómo? ¿Que tienes una <em>Nintendo DS</em> por casa? ¡¡Estás de suerte!!. Con unos minutos, la lectura de esta recetilla, un espíritu jóven y la ayuda del <em>Software Libre</em> tienes en tus manos un maquinón al que le podrás sacar todo el jugo. Veamos cómo....</blockquote>
-
-
-<h1>Introducción</h1>
-Pues lo dicho. La <em>Nintendo DS</em> (<em>NDS</em> a partir de ahora), es un "cacharrito" que tiene dentro un <em>ARM7</em> y un <em>ARM9</em> trabajando en paralelo. También dispone de <em>WIFI</em>, <em>pantalla táctil</em> y un buen audio (entre otras muchas cosas, aún no he podido profundizar mucho en la arquitectura <em>hardware</em> de la máquina).
-
-Si queremos introducirnos en el mundo del <a href="http://es.wikipedia.org/wiki/Homebrew"><em>homebrew</em></a> para ésta consola (o <em>scene</em>, con lo que encontrareis mas cosas googleando -thanks int0-) , gracias al <em>Software Libre</em> lo tenemos francamente fácil, ya que tenemos en nuestras manos herramientas tales como emuladores, librerías cruzadas, etc..... es decir, una <em>toolchain</em> completa.
-
-Aquí iré explicando paso a paso cómo la he instalado en mi máquina, ya que todo ésto ha sido la "recopilación" de varias búsquedas por la red y de varias consultas en algún que otro <a href="http://www.area-ds.com">foro</a> (gracias chicos, por la paciencia con los novatos ;))
-
-<h1>Primeros pasos: Descargando fuentes</h1>
-Todos los fuentes de las librerías que necesitamos se encuentran en <a href="http://sourceforge.net/project/showfiles.php?group_id=114505"><em>sourceforge</em></a>. Aquí se pueden encontrar tanto las librerías ya compiladas como los fuentes. Yo en mi caso he preferido bajarme los fuentes y compilarmelos (como está mandao 8)). Ésto es todo lo que hace falta para poder empezar a trabajar:
-<ul>
-<li>build scripts</li>
-<li>libfat</li>
-<li>dswifi</li>
-<li>y por supuesto nds-examples</li>
-</ul>
-Nos bajaremos las útlimas versiones de dichos paquetes para evitar problemas de compatibilidades. En <a href="http://arco.inf-cr.uclm.es/~javier.almansa/nds/"><em>arco</em></a> he dejado los paquetes que he utilizado yo. En el momento en el que escribo este documento (marzo de 2007), la versión de <em>build scripts</em> es la <em>20060724</em>. Ésta descarga unos paquetes un poco "anticuados", así que he modificado uno de los scripts que hay dentro del paquete y lo he dejado fuera. Éste <a href="http://arco.inf-cr.uclm.es/~javier.almansa/nds/build-devkit.sh">script</a> debereis descargarlo para poder compilar la toolchain correctamente.
-
-<h1>Instalación</h1>
-Bueno, pues suponiendo que tenemos el directorio <em>nds</em> que hay en <em>ARCo</em> dentro de nuestra máquina, procederemos a compilar la toolchain.
-
-Entramos en el directorio <em>scripts</em> y descomprimimos el paquete que contiene los scritps de instalación. Una vez que hayamos hecho eso, sobreescribimos el script <em>build-devkit.sh</em> con el script del mismo nombre que hay en el raiz. Es decir:
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@Gezel:~/nds/scripts$</span><span class="w"> </span>bunzip2 <span class="nt">-c</span> buildscripts-20060724.tar.bz2 | <span class="nb">tar </span>xf -
-<span class="gp">javieralso@Gezel:~/nds/scripts$</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-f</span> ../build-devkit.sh ./</code></pre></figure>
-</div>
-A continuación ejecutamos el script. Cuando hagamos ésto, nos preguntará para qué arquitectura queremos el kit. En nuestro caso la queremos para <em>arm</em> (ds, gp2 y gba), así que pulsamos la opción <b>1</b>. Después le decimos que queremos que descargue los paquetes y finalmente dónde queremos que nos compile la toolchain:
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@Gezel:~/nds/scripts$</span><span class="w"> </span>./build-devkit.sh
-<span class="go">This script will build and install your devkit. Please select the one you require
-1: build devkitARM (gba gp32 ds)
-2: build devkitPPC (gamecube)
-3: build devkitPSP (PSP)
-1
-The installation requires binutils-2.17, gcc4.1.1 and newlib-1.14.0.  Please select an option:
-1: I have already downloaded the source packages
-2: Download the packages for me (requires wget)
-2
-Please enter the directory where you would like 'devkitARM' to be installed:
-</span><span class="gp">for mingw/msys you must use &amp;lt;</span>drive&amp;gt<span class="p">;</span>:/&amp;lt<span class="p">;</span><span class="nb">install </span>path&amp;gt<span class="p">;</span> or you will have include path problems
-<span class="go">this is the top level directory for devkitpro, i.e. e:/devkitPro
-/usr/local/stow/dkp</span></code></pre></figure>
-</div>
-
-Yo en mi caso le he dicho que quiero que me instale la toolchain en el directorio <em>/usr/local/stow/dkp</em>, aunque ésto no es nada crítico.
-En éste momento, comenzará la descarga, descompresión, compilación e instalación de los paquetes. Deberemos ser pacientes, ya que puede tardar su tiempo. Cuando termina de descargar los paquetes nos pide confirmación para comenzar la instalación. Confirmamos y ya ta :D
-
-Después de finalizar ésta parte, deberemos exportar los <em>PATH</em>'s para que cuando compilemos los <em>makefiles</em> sepan cuales son las rutas. Para ello editamos nuestro archivo </em>~/.bashrc</em> y añadimos lo siguiente:
-<pre>export DEVKITPRO=/usr/local/stow/dkp
-export DEVKITARM=/usr/local/stow/dkp/devkitARM
-export LIBNDS=/usr/local/stow/dkp/libnds
-export LIBNDS_INCLUDE=/usr/local/stow/dkp/libnds/include
-export LIBNDS_LIB=/usr/local/stow/dkp/libnds/lib
-</pre>
-Vosotros debereís introducir vuestras rutas. Cuando hayais hecho ésto tendreis lo básico funcionando y ya podreís hacer programas bastante interesantes...
-
-<h1>Librerías extra</h1>
-
-Dentro del subdirectorio <em>libs</em> tenemos los fuentes de las librerías para la wifi (<em>dswifi</em>) y los fuentes para las librerías de sistema de archivos FAT (<em>libfat</em>). Éstas librerías no se instalan de forma automática, pero es muy fácil hacerlo manualmente.
-
-<h2>Instalación de <em>dswifi</em></h2>
-descomprimimos el archivo con las fuentes (en una shell nueva, para que los PATHs se hayan cargado) y ejecutamos <em>make</em> y después <em>make install</em>:
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">javieralso@Gezel:~/nds/libs$</span><span class="w"> </span>bunzip2 <span class="nt">-c</span> dswifi-src-0.3a.tar.bz2 | <span class="nb">tar </span>xf -
-<span class="gp">javieralso@Gezel:~/nds/libs$</span><span class="w"> </span>make
-<span class="gp">javieralso@Gezel:~/nds/libs$</span><span class="w"> </span>make <span class="nb">install</span></code></pre></figure>
-</div>
-
-Con ésto, la librería habrá quedado instalada en nuestro sistema :D
-
-<h2>Instalación de <em>libfat</em></h2>
-
-<b> PENDIENTE </b>
-
-<h1>A probarlo todo :P</h1>
-
-Bueno, pues ahora ya estamos listos para compilar algunos ejemplos y probarlos en nuestra <em>NDS</em>. Dentro del directorio <em>ejemplos</em> tenemos un paquetito con montones de ejemplos de manejo de la wifi, la pantalla táctil, gráficos en 2D y 3D y un largo etcétera. Para probarlos es tan fácil como descomprimir el paquete y ejecutar <em>make</em> desde el raiz. Si todo funciona bien (que debería ser así) se generará un directorio <em>bin</em> en el que estarán todos los archivos <em>*.nds</em> listos para ser cargados en nuestra <em>NDS</em>
-
-<h1>Y para la próxima....</h1>
-
-Bueno, pues por mucha consola que tengamos, no está de mas tener un emulador para hacer pruebas rápidas sin tener que cargarlas en la máquina (que puede ser un poco engorroso). Próximamente explicaré como instalar <em>dsmume</em>, un emulador bastante majo que corre también en <b>GNU/Linux</b> y que aunque tiene algunas limitaciones, nos permitirá, por ejemplo, probar varios de los ejemplos que hemos compilado anteriormente.
-
-<h1>Referencias</h1>
-<ul>
-<li><a href="www.area-ds.com">Foro del área DS en español</a> (Gracias chicos por la información :-P)</li>
-<li>Foro de la página de <a href="www.elotrolado.net"><em>elotrolado</em></a></li>
-<li>Cantidad de páginas web encontradas mientras <a href="www.google.es">&quot;googleaba&quot;</a> por ahí</li>
-</ul>
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9156,7 +9093,7 @@ Bueno, pues por mucha consola que tengamos, no está de mas tener un emulador pa
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2023-01-12 06:59:15 -0600
+          Generated at 2023-04-13 14:35:47 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

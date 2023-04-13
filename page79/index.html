@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2023-04-13/instalar-debian-por-USB.html">Instalar Debian con un pendrive USB</a></li>
+
   <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
 
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
-
-  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="623 posts"
+     title="624 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5189,7 +5189,7 @@
 </td></tr>
 <tr class="row6"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#Debian-ref'; hide_others()"
-     title="71 posts"
+     title="72 posts"
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
@@ -7936,7 +7936,105 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2007-02-16/crear-nuevos-elementos-para-gstreamer.html">Crear nuevos elementos para Gstreamer</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-02-16
+    
+      
+  <a href="/users.html#oscarah">
+   oscarah
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-16-crear-nuevos-elementos-para-gstreamer.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-16-crear-nuevos-elementos-para-gstreamer.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#gstreamer-ref">gstreamer </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/566">node/566</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Como crear un 'sink' y un 'source' de Gstreamer a partir de las clases gst.BaseSink y gst.BaseSrc para extender la funcionalidad.
+</blockquote>
+
+
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2007-02-16/crear-nuevos-elementos-para-gstreamer.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8769,564 +8867,6 @@ Gracias a Arturo: los comentarios del .emacs son con punto y coma (";"), no con 
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-02-08/configurando-backups-en-bacula.html">Configurando backups en Bacula</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-02-08
-    
-      
-  <a href="/users.html#int-0">
-   int-0
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-02-08-configurando-backups-en-bacula.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-02-08-configurando-backups-en-bacula.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-    	<li><a href="/tags.html#security-ref">security </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/549">node/549</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>Bien, ya vimos en una receta anterior como <a href="/node/400">instalar y configurar un sistema bacula</a> pero se nos quedó en el tintero lo más importante: ¿cómo indicar a bacula qué ficheros respaldar? ¿cuándo? ¿cómo?. En esta receta explicaremos cómo terminar de configurar un sistema bacula para su operación normal, recomendamos la lectura de la receta anterior sobre bacula... esta es como un "segundo capítulo".</blockquote>
-
-<h2>Trabajos de backup</h2>
-
-A la hora de configurar un servicio de backup, antes de modificar a diestro y siniestro archivos de backup, debemos pensar un poco de qué queremos hacer backup y, según su importancia, cuándo y cómo. En el <em>cómo</em> tenemos dos alternativas: completo y diferencial. Un backup completo respaldará toda la lista completa de ficheros a guardar, en cambio, un backup diferencial sólo guarda los ficheros modificados y nuevos respecto a la copia anterior (lo cual permite ahorrar espacio en cintas). Una base de datos tipo MySQL no tiene mucho sentido hacer respaldo diferencial puesto que se almacena toda ella en un único archivo binario y las más mínima modificación implicará el almacenado del fichero completo. En cambio, para una lista de ficheros de texto (un proyecto software, por ejemplo) los incrementales vienen muy bien puesto que pocas veces cambiarán todos los ficheros a la vez sino que se modifican poco a poco.
-
-Para responder al <em>cuándo</em> debemos pensar en la importancia de los datos y en cuánto trabajo se va al garete si se perdieran los ficheros de un día para otro. Un conjunto de ficheros que se modifiquen a diario deberían respaldarse a diario, sin embargo, para ficheros que rara vez se modifiquen puede ser aceptable respaldarlos semanalmente, incluso mensualmente.
-
-Tengamos por ejemplo un sistema Debian, en él tenemos un apache con su php y su drupal, a parte, tiene muchos usuarios que tienen sus proyectos en sus <em>homes</em>. ¿Cómo lo respaldaríamos? pues un ejemplo podría ser el siguiente: cada dos meses un backup del sistema completo (básicamente somos muy vagos y pasamos de reinstalarlo todo en caso de desastre, de esta forma podríamos restaurar el sistema completo sin mucho esfuerzo... aunque existen programas más adecuados para esto, ej: <em>mindi</em> y <em>mondo</em>); como la configuración del sistema es realmente más importante que el resto de archivos del sistema (puesto que un binario del sistema se encuentra a mano en el repositorio de paquetes, un archivo de configuración modificado por nosotros... pues no) realizaremos backups incrementales mansuales (tampoco se modifican taaanto) de los datos variables en la distribución, es decir <em>/etc</em> y parte de <em>/var</em>. También tenemos la base de datos MySQL, esto es más complicado puesto que no podemos hacer copia así como así de ella (¿que pasa si se modifica mientras se está haciendo backup?), la solución pasa por leerse la receta: <a href="/node/219">Salvar (y recuperar) una base de datos MySQL</a> y hacer backup de eso (esto podría ser motivo de una nueva receta). Por último tenemos los <em>homes</em> de los usuarios, como queremos que pierdan poco en caso de desastre realizaremos backups incrementales diarios y completos semanales (esto facilita la recuperación).
-
-Una vez decidido cómo va a funcionar nuestro servicio de backup sólo nos queda configurar bacula director para que lo haga... pues empecemos...
-
-<h2>Resource FileSet</h2>
-
-Este <em>resource</em> define la lista de ficheros a respaldar. También permite establecer opciones útiles, como por ejemplo calcular sumas <em>MD5</em> de verificación, o usar compresión <em>gz</em>, etc. Veamos un ejemplo:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">FileSet {
-  Name = "configuracion sistema"
-  Include {
-    File = /etc
-    File = /var
-    Options {
-      signature = MD5
-    }
-  }
-  Exclude {
-    File = /var/log
-    File = /var/cache
-    File = /var/tmp
-  }
-}</code></pre></figure>
-</div>
-
-Pues muy fácil, hemos creado un conjunto de ficheros, llamado <em>configuracion sistema</em> que incluye todos los ficheros y subdirectorios en <em>/etc</em>. De <em>/var</em> también metemos todo menos la "guarrería" :-P. Además, de los archivos que almacenemos se calculará la suma MD5 para comprobar que se salvaron correctamente. Se pueden usar comodines en plan <em>/usr/share/*/examples</em> y cosas así, tanto para <em>Include</em> como para <em>Exclude</em>. Se pueden especificar ficheros aislados, etc. Echad un vistazo al manual de bacula que vienen muchos ejemplos interesantes. El <em>FileSet</em> por defecto de bacula es el sistema de ficheros completo. Podemos crear los que queramos y posteriormente los identificaremos por su nombre.
-
-<h2>Resource Schedule</h2>
-
-Mediante estos <em>resources</em> se crean los intervalos de tiempo que emplearemos a la hora de crear los trabajos, al igual que los <em>FileSet</em> los identificaremos por un nombre, por ejemplo:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Schedule {
-  Name = "CicloSemanal"
-  Run = Incremental mon-sat at 01:05
-  Run = Full sun at 01:05
-}
-Schedule {
-  Name = "Diario"
-  Run = Full sun-sat at 23:10
-}</code></pre></figure>
-</div>
-
-Hemos creado dos: <em>CicloSemanal</em> y <em>Diario</em>, como véis, en el primero se realizan backups incrementales de lunes (<b>mon</b>day) a sábado (<b>sat</b>urday) a las 01:05h y el domingo (<b>sun</b>day) a la misma hora uno completo. En el otro <em>schedule</em> se realizan backups completos a diario. Por defecto éstos son los <em>schedule</em> de bacula (salvo por la hora). El diario se emplea para hacer backup del catálogo de bacula.
-
-<h2>Resource JobDefs</h2>
-
-Aquí es donde finalmente pegaremos todo lo anterior para definir un trabajo completo de backup, si hemos entendido todo hasta aquí no hay mucho que explicar:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">JobDefs {
-  Name = "estado del sistema"
-  Enabled = yes
-  Type = Backup
-  Level = Incremental
-  Client = nombre_resource_filedaemon
-  FileSet = "configuracion sistema"
-  Schedule = "CicloSemanal"
-  Storage = nombre_resource_storage
-  Messages = Standard
-  Pool = Default
-  Priority = 10
-}</code></pre></figure>
-</div>
-
-Los campos <em>Client</em> y <em>Storage</em> se explicaron suficientemente en la receta anterior. El <em>Level</em> también se puede especificar aquí, pero si  se especifica en el <em>Schedule</em> se usará el de éste último. En <em>Priority</em> indicaremos un número, cuanto menor sea, más prioritario es el trabajo (en caso de que se envíen varias peticiones a un storage daemon, por ejemplo, se atienden por orden de prioridad). En cuanto al <em>Pool</em>... lo explicaremos más adelante :-P. Por defecto en bacula existen dos trabajos: <em>DefaultJob</em> que hace backups incrementales diarios de todo el sistema y completo los domingos, después de cada backup hace uno completo del catálogo.
-
-<h2>Resource Job</h2>
-
-Todos los campos de un <em>JobDef</em> son válidos para este <em>resource</em> también, la diferencia es que el anterior era la definición de un trabajo y este es el trabajo propiamente dicho. Si tenemos una buena definición, el trabajo quedaría como sigue:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Job {
-  Name = "estado maquina"
-  JobDefs = "estado del sistema"
-  Write Bootstrap = "/var/lib/bacula/estado_maquina.bsr"
-}</code></pre></figure>
-</div>
-
-Con esto tendremos un trabajo en bacula llamado <em>estado maquina</em>, configurado como se indicó en <em>estado del sistema</em>. Además se creará una especie de <em>log</em> sobre el trabajo en el archivo indicado. Éste trabajo será el que podamos arrancar, parar, etc.
-
-Ahora sólo nos queda saber una cosa, la organización del sistema de almacenamiento: los <em>pools</em>.
-
-<h2>Resource Pool</h2>
-
-En bacula se denomina <em>volume</em> a una cinta física (o archivo de backup). Un conjunto de <em>volumes</em> es un <em>pool</em>. Podemos definir varios para distintos propósitos, por ejemplo: en un <em>pool</em> almacenamos copias incrementales y en otro copias completas. Al instalar bacula se define un <em>pool</em> llamado <em>Default</em> de la siguiente forma:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Pool {
-  Name = Default
-  Pool Type = Backup
-  Recycle = yes
-  AutoPrune = yes
-  Volume Retention = 365 days
-}</code></pre></figure>
-</div>
-
-El parámetro <em>Pool Type</em> indica el tipo (uy que listo soy!), el único implementado en bacula es <em>Backup</em>, tienen intención de soportar otros como <em>Migration</em>, <em>Cloned</em>, etc. Los últimos tres parámetros tienen que ver con el reciclaje de cintas. Si no quedan mas volúmenes y se permite su reciclado, cuando un volumen sea más antiguo que su periodo de retención (un año en el ejemplo) será sobreescrito por backups nuevos.
-
-Hay que decir que en un <em>Pool</em> podemos especificar parámetros como <em>Client</em> o <em>Storage</em>, que serían los que utilizaría bacula a menos se especificase lo contrario en otra <em>resource</em> "superior". Así pues podemos definir una especie de "valores por defecto" en una <em>pool</em>.
-
-Si nos fijamos bien, en ningún parámetro se especifica qué volúmenes forman parte de esta <em>pool</em>... ¿cómo se hace eso? esto ya debemos hacerlo desde la <em>bacula console</em>. En el caso de las cintas se deben identificar con una etiqueta software que ponemos a las cintas con el comando <em>label</em>/<em>relabel</em> y posteriormente el comando <em>add</em> para añadir un volumen a un <em>pool</em>:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">*label
-Automatically selected Catalog: MyCatalog
-Using Catalog "MyCatalog"
-The defined Storage resources are:
-     1: File
-     2: respaldadora-sd
-Select Storage resource (1-2): 2
-Enter new Volume name: cinta01
-*add
-You probably don't want to be using this command since it
-creates database records without labeling the Volumes.
-You probably want to use the "label" command.
-Automatically selected Catalog: MyCatalog
-Using Catalog "MyCatalog"
-Automatically selected Pool: Default
-The defined Storage resources are:
-     1: File
-     2: respaldadora-sd
-Select Storage resource (1-2): 2
-</span><span class="gp">Enter number of Volumes to create. 0=&gt;</span>fixed name. <span class="nv">Max</span><span class="o">=</span>1000: 0
-<span class="go">Enter Volume name: cinta01</span></code></pre></figure>
-</div>
-
-Podemos facilitarnos la vida un poco más si en el storage daemon, los <em>resource</em> tipo <em>device</em> que empleemos tienen la opción <em>LabelMedia = yes</em>, esto hará que bacula vaya etiquetando las cintas limpias o reciclables según vaya necesitándolas, es ese caso no necesitamos ejecutar <em>label</em> para nada.
-
-Pues bien, con nuestro <em>pool</em> bien creado y los <em>jobs</em> bien definidos ya tenemos nuestro servicio de backup funcionando... ahora a esperar que no tengamos que usarlo!
-
-<h2>Apéndice A: configuración completa de un bacula director</h2>
-
-Para hacer una receta de copia-pega vamos a incluír un archivo de configuración completo para el bacula-director, ya sabéis, el archivo <tt>/etc/bacula/bacula-dir.conf</tt>:
-
-
-<div>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Director {
-  Name = respaldadora-dir
-  DIRport = 9101
-  QueryFile = "/etc/bacula/scripts/query.sql"
-  WorkingDirectory = "/var/lib/bacula"
-  PidDirectory = "/var/run/bacula"
-  Maximum Concurrent Jobs = 1
-  Password = "password_para_respaldadora-dir"
-  Messages = Daemon
-  DirAddress = 127.0.0.1 # Esto obliga a que las consolas bacula solo se puedan ejecutar desde localhost
-}
-
-Client {
-  Name = importante-fd
-  Address = 192.168.0.1
-  FDPort = 9102
-  Catalog = MyCatalog
-  Password = "password_para_respaldadora-dir"
-  File Retention = 30 days
-  Job Retention = 6 months
-  AutoPrune = yes
-}
-
-Storage {
-  Name = File
-  Address = 192.168.0.2
-  SDPort = 9103
-  Password = "password_para_respaldadora-dir"
-  Device = FileStorage
-  Media Type = File
-}
-
-Storage {
-  Name = respaldadora-sd
-  Address = 192.168.0.2
-  SDPort = 9103
-  Password = "password_para_respaldadora-dir"
-  Device = Autochanger
-  Media Type = DDS-4
-  Autochanger = yes
-}
-
-Catalog {
-  Name = MyCatalog
-  dbname = bacula; DB Address = "" ; user = bacula; password = "password_de_bbdd"
-}
-
-Messages {
-  Name = Standard
-  mailcommand = "/usr/lib/bacula/bsmtp -h localhost -f \"\(Bacula\) %r\" -s \"Bacula: %t %e of %c %l\" %r"
-  operatorcommand = "/usr/lib/bacula/bsmtp -h localhost -f \"\(Bacula\) %r\" -s \"Bacula: Intervention needed for %j\" %r"
-  mail = root@localhost = all, !skipped
-  operator = root@localhost = mount
-  console = all, !skipped, !saved
-  append = "/var/lib/bacula/log" = all, !skipped
-}
-
-Messages {
-  Name = Daemon
-  mailcommand = "/usr/lib/bacula/bsmtp -h localhost -f \"\(Bacula\) %r\" -s \"Bacula daemon message\" %r"
-  mail = root@localhost = all, !skipped
-  console = all, !skipped, !saved
-  append = "/var/lib/bacula/log" = all, !skipped
-}
-
-Pool {
-  Name = Default
-  Pool Type = Backup
-  Recycle = yes
-  AutoPrune = yes
-  Volume Retention = 365 days
-}
-
-Console {
-  Name = respaldadora-mon
-  Password = "password_para_respaldadora-mon"
-  CommandACL = status, .status
-}
-
-JobDefs {
-  Name = "Usuarios"
-  Enabled = yes
-  Type = Backup
-  Level = Incremental
-  Client = importante-fd
-  FileSet = "homes"
-  Schedule = "Semanal"
-  Storage = respaldadora-sd
-  Messages = Standard
-  Pool = Default
-  Priority = 10
-}
-
-JobDefs {
-  Name = "Sistema"
-  Enabled = yes
-  Type = Backup
-  Client = importante-fd
-  FileSet = "sistema sin homes"
-  Schedule = "Mensual"
-  Storage = respaldadora-sd
-  Messages = Standard
-  Pool = Default
-  Priority = 10
-}
-
-Job {
-  Name = "Backup Usuarios"
-  JobDefs = "Usuarios"
-  Write Bootstrap = "/var/lib/bacula/importante_homes.bsr"
-}
-
-Job {
-  Name = "Backup Sistema"
-  JobDefs = "Sistema"
-  Write BootStrap = "/var/lib/bacula/importante_sistema.bsr"
-}
-
-FileSet {
-  Name = "homes"
-  Include {
-    File = /home
-    Options {
-      signature = MD5
-    }
-  }
-  Exclude {
-    File = *.avi
-    File = *.iso
-    File = *.mp3
-    File = ~*
-    File = /home/*/tmp
-  }
-}
-
-FileSet {
-  Name = "Sistema sin homes"
-  Include {
-    File = /
-    Options {
-      signature = MD5
-    }
-  }
-  Exclude {
-    File = /home
-    File = /var/tmp
-    File = /var/log
-    File = /var/cache
-    File = /var/run
-    File = /dev
-    File = /proc
-    File = /sys
-    File = /lost+found
-}
-
-Schedule {
-  Name = "Semanal"
-  Run = Incremental mon-sat at 01:05
-  Run = Full sun at 01:05
-}
-
-Schedule {
-  Name = "Mensual"
-  Run = Full on 1 at 01:05
-}</code></pre></figure>
-</div>
-
-Usar este archivo tal cual no es muy recomendable por varias razones, la más importante es que <b>no hace backup del catálogo de bacula</b>, el archivo por defecto de bacula <b>si</b> lo hace; por otro lado, tampoco tiene el trabajo de restauración de ficheros (lo cual puede ser peor...), por tanto coged las partes que os interesen. ;-)
-
-<h2>Apéndice B: Comandos útiles en la consola de bacula</h2>
-
-El más importante:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">*help</span></code></pre></figure>
-</div>
-
-;-) ...y después:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">*m</span></code></pre></figure>
-</div>
-
-Este último te muestra los mensajes que hubiese pendientes, tales como: <em>Job completed</em> o <em>error at XXXX</em>... lo que sea. También podemos ver que tal van las cosas en bácula:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">*status</span></code></pre></figure>
-</div>
-
-Nos preguntará de qué queremos el estado, le decimos que 4 (all) y listo.
-
-Para saber qué se va a respaldar exactamente podemos <em>estimar</em> el trabajo, fácil:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">*estimate
-*estimate listing</span></code></pre></figure>
-</div>
-
-Primero aparecerá una lista de los trabajos configurados, elegiremos el que queramos estimar, es el primer caso nos aparecerá el número de ficheros que respaldará y cuanto ocupara la copia. En el segundo, a parte de eso, nos saldrán todos los ficheros.
-
-Para mostrar un listado de los volúmenes que tenemos configurados:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">*list volumes</span></code></pre></figure>
-</div>
-
-Esto mostrará todos los volúmenes del <em>pool</em> actual, cuánto llevan ocupado, retenido, etc. Si queremos saber qué tal van los trabajos también usamos <em>list</em>, pero esta vez:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">*list jobs</span></code></pre></figure>
-</div>
-
-Nos aparecerá un resumen de lo más chulo: trabajos terminados, erróneos, etc.
-Si queremos forzar la ejecución de un trabajo:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">*run</span></code></pre></figure>
-</div>
-
-Nos aparecerá una lista de trabajos y seleccionaremos el que queramos, automáticamente pasará a la lista de trabajos y de ahí a ejecutarse.
-
-Como véis la consola no es nada difícil... es hasta intuitivo... ;-)
-
-<h2>Apéndice C: Recuperar archivos respaldados</h2>
-
-Resulta que tenéis vuestro servicio de backup funcionando y (Santa Tecla no lo quiera) resulta que perdéis vuestros ficheros. Pues nada... no preocuparse... arrancamos la <em>bacula console</em> y ejecutamos lo siguiente:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">* restore
-First you select one or more JobIds that contain files
-to be restored. You will be presented several methods
-of specifying the JobIds. Then you will be allowed to
-select which files from those JobIds are to be restored.
-To select the JobIds, you have the following choices:
-     1: List last 20 Jobs run
-     2: List Jobs where a given File is saved
-     3: Enter list of comma separated JobIds to select
-     4: Enter SQL list command
-     5: Select the most recent backup for a client
-     6: Select backup for a client before a specified time
-     7: Enter a list of files to restore
-     8: Enter a list of files to restore before a specified time
-     9: Find the JobIds of the most recent backup for a client
-    10: Find the JobIds for a backup for a client before a specified time
-    11: Enter a list of directories to restore for found JobIds
-    12: Cancel
-Select item:  (1-12):</span></code></pre></figure>
-</div>
-
-Pues nada... seleccionaremos lo que deseemos, una buena opción es la 5: <em>Select the most recent backup for a client</em>, es decir: seleccionar el backup más reciente de un cliente. Seleccionamos esto y nos apareceran los <em>FileSets</em> disponibles:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">Automatically selected Client: arco-fd
-The defined FileSet resources are:
-     1: homes
-     2: Sistema sin homes
-Select FileSet resource (1-2):</span></code></pre></figure>
-</div>
-
-Ahora seleccionaremos el primero (o el que necesitéis), después de eso bacula buscará en qué cintas está lo que buscamos y se hará sus cuentas (buscará todos aquellos ficheros que deba recuperar) y nos mostrará una <em>shell</em> al estilo <em>bash</em>:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">You are now entering file selection mode where you add (mark) and
-remove (unmark) files to be restored. No files are initially added, unless
-you used the "all" keyword on the command line.
-Enter "done" to leave this mode.
-cwd is: /
-</span><span class="gp">$</span></code></pre></figure>
-</div>
-
-Si introducimos <em>help</em> veremos una lista de comandos disponibles, tenemos <em>cd</em> y <em>ls</em> de toda la vida (navegaremos por todos los ficheros posibles para recuperar según lo que eligiésemos). Luego tenemos <em>mark</em> y <em>markdir</em> para marcar (recursivamente) archivos a recuperar, los archivos que con <em>ls</em> aparezca un asterisco delante, significa que está marcado (en caso contrario no está seleccionado para recuperar).
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span>mark <span class="k">*</span>
-<span class="go">94,668 files marked.</span></code></pre></figure>
-</div>
-
-Con <em>lsmark</em> mostramos sólo archivos marcados. Podemos desmarcarlos con <em>unmark</em> y <em>unmarkdir</em>. También podemos estimar la cantidad de volumen que llevamos marcado con <em>estimate</em>. Cuando lo tengamos todo a punto:
-
-
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="k">done</span>
-<span class="go">Bootstrap records written to /var/lib/bacula/stallman-dir.restore.3.bsr
-The job will require the following
-   Volume(s)                 Storage(s)                SD Device(s)
-===========================================================================
-   cinta0004                 stallman-sd               Autochanger
-94,668 files selected to be restored.
-Run Restore job
-JobName:    RestoreFiles
-Bootstrap:  /var/lib/bacula/respaldadora-dir.restore.3.bsr
-Where:      /tmp/bacula-restores
-Replace:    always
-FileSet:    Full Set
-Client:     importante-fd
-Storage:    respaldadora-sd
-When:       2007-03-19 21:02:49
-Catalog:    MyCatalog
-Priority:   10
-OK to run? (yes/mod/no):</span></code></pre></figure>
-</div>
-
-Si decimos que <em>yes</em> lanzará el trabajo que se ejecutará cuanto antes. Podemos cambiar el directorio destino donde guardará todos los archivos recuperados (en el ejemplo <tt>/tmp/bacula-restores</tt>) introduciendo <em>mod</em>, en cuyo caso mostrará una lista de parámetros modificables. Hay que decir que este directorio es local a la máquina que ejecuta el <em>client</em> (un <em>bacula file daemon</em>) que aparece en el resumen y que seleccionamos al principio del proceso de restauración.
-
-<h2>Enlaces</h2>
-
-La receta <a href="/node/400">Copias de seguridad con Bacula en sistemas GNU</a> y sus enlaces... :-P
-
-<a href="http://www.lucasmanual.com/mywiki/Bacula">Bacula: The Open Source Commercial Backup Solution </a>
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9367,7 +8907,7 @@ La receta <a href="/node/400">Copias de seguridad con Bacula en sistemas GNU</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2023-01-12 06:59:15 -0600
+          Generated at 2023-04-13 14:35:47 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

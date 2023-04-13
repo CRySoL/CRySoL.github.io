@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2023-04-13/instalar-debian-por-USB.html">Instalar Debian con un pendrive USB</a></li>
+
   <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
 
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
 
   <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
-
-  <li><a href="/recipe/2020-11-04/systemd-service-config-override.html">Systemd service config overwride</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="623 posts"
+     title="624 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5189,7 +5189,7 @@
 </td></tr>
 <tr class="row6"><td class="col1">
   <a href="javascript:window.location.href='/tags.html#Debian-ref'; hide_others()"
-     title="71 posts"
+     title="72 posts"
      >Debian</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#GNESIS-ref'; hide_others()"
@@ -7936,7 +7936,126 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-02-27/grabar-cd-y-dvd-ms-rpido.html">Grabar CD y DVD más rápido</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-02-27
+    
+      
+  <a href="/users.html#goyo">
+   goyo
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-02-27-grabar-cd-y-dvd-ms-rpido.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-02-27-grabar-cd-y-dvd-ms-rpido.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/237">node/237</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+<p>Esta receta describe cómo configurar una grabadora de CD/<span class="caps">DVD</span> para aprovechar todas sus posibilidades y velocidad.</p>
+</blockquote>
+<p>Es muy posible que aunque <a href="http://www.k3b.org/">k3b</a> detecte perfectamente tu grabadora, luego resulte que la velocidad de grabación no llegue a la que teóricamente tiene la unidad.</p>
+<p>Es normal que no se alcance la velocidad máxima que proporciona el fabricante y, además, la velocidad no es continua (es más lenta cuando graba en el interior del cd que en el exterior). Esto puede ser debido a que, por motivos de seguridad y, para que no se produzcan conflictos entre determinados tipos de placas base y dispositivos de almacenamiento, algunas distros (caso de mi Ubuntu Breezy) no activan el <span class="caps">DMA</span> por defecto.</p>
+<h1>Ver estado por defecto</h1>
+<p>Para ver la configuración de nuestro dispositivo usa <code>hdparm &lt;dispositivo&gt;</code>, por ejemplo:</p>
+<pre class="console">$ hdparm /dev/hdc/
+/dev/hdc:
+ IO_support   =  1 (32-bit)
+ unmaskirq    =  1 (on)
+ using_dma    =  0 (off)
+ keepsettings =  0 (off)
+ readonly     =  0 (off)
+ readahead    = 256 (on)
+ HDIO_GETGEO failed: Invalid argument
+</pre>
+<p>Como ves, el <span class="caps">DMA</span> está desactivado.</p>
+<h1>Cambiando la configuración</h1>
+<p>Ahora actiremos el <span class="caps">DMA</span>, el <code>io_support</code>  (E)<span class="caps">IDE</span> 32bit I/O support- y el <code>unmaskirq</code> (enmascarar o no otras interrupciones mientras se procesa una interrupción del disco). Siguiendo el ejemplo anterior:</p>
+<pre class="console">$ sudo hdparm -d1 -u1 -c1 /dev/hdc
+/dev/hdc:
+ setting 32-bit IO_support flag to 1
+ setting unmaskirq to 1 (on)
+ setting using_dma to 1 (on)
+ IO_support   =  1 (32-bit)
+ unmaskirq    =  1 (on)
+ using_dma    =  1 (on)
+</pre>
+<p>Como consejo, si realizas muchas copias &#8220;al vuelo&#8221; (del lector a grabadora) es mejor tenerlos en diferentes canales <span class="caps">IDE</span>.</p>
+<h1>Comentarios</h1>
+<p>Este era un problema que tenía, pregunté en la lista y lo que he explicado es lo que me contestaron listeros como Luis Mayoral y fSancho (las mieles son pa ellos :)).</p>
+<h1>Referencias</h1>
+<ul>
+	<li>man hdparm</li>
+</ul>
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8748,89 +8867,6 @@
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/opinion/2006-02-16/curiosidades.html">Curiosidades</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-02-16
-    
-      
-  <a href="/users.html#oscarah">
-   oscarah
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-02-16-curiosidades.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-02-16-curiosidades.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#opinion-ref">
-    		opinion
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/227">node/227</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-       Hola. He escrito poco por aquí, pero he leído mucho. Como a mí me encanta GNU/Linux y el SL en general, me gusta "urgar" dentro del mismo, y de linux en particular. Y me he dado cuenta de que existen algunas cosas que son, como poco, útiles y curiosas. Por ello, a lo que iba, me gustaría saber si hay algún hueco para estas cosillas curiosas del SL por aquí. No forman parte del recetario, pues no son recetas, son... eso, curiosidades. Por ejemplo, algo que yo no sabía era de la existencia de zenity. Muy útil y práctico. O del trap de bash, que sirve para muchas cosas. ;) Bueno, pues eso. Consideradlo, si teneis tiempo. Graicas.
-
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8871,7 +8907,7 @@
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2023-01-12 06:59:15 -0600
+          Generated at 2023-04-13 14:35:47 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
