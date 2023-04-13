@@ -1,0 +1,60 @@
+---
+layout: post
+title: Instalar Debian con un pendrive USB
+author: david_villa
+comments: true
+category: recipe
+tags:
+- Debian
+---
+
+
+h2. Imagen a grabar
+
+Descarga la imagen ISO «net-install» desde https://www.debian.org/CD/netinst/ para tu arquitectura (normalmente _amd64_). Estas imágenes aparte de poderse grabar en un CD, también son «bootables» desde USB.
+
+
+h2. El pendrive
+
+Ejecuta el siguiente comando:
+
+<div class="console">
+{% highlight console %}
+$ sudo dmesg -w
+{% endhighlight %}
+</div>
+
+Ahora busca un pendrive USB que puedas sobreescribir, conéctalo y podrás ver en la consola el nombre del dispositivo que se le ha asignado. Será algo como:
+
+<div class="console">
+{% highlight console %}
+$ sudo dmesg -w
+[27518.031993] sd 10:0:0:0: Attached scsi generic sg2 type 0
+[27518.032186] sd 10:0:0:0: [sdc] 240353280 512-byte logical blocks: (123 GB/115 GiB)
+[27518.033808] sd 10:0:0:0: [sdc] Write Protect is off
+[27518.033811] sd 10:0:0:0: [sdc] Mode Sense: 43 00 00 00
+[27518.034799] sd 10:0:0:0: [sdc] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[27518.082973]  sdc: sdc1 sdc2
+{% endhighlight %}
+</div>
+
+En este caso el pendrive es el dispositivo @/dev/sdc@. Nos indica que tiene dos particiones sdc1 y sdc2, pero nos da igual porque lo vamos a machacar todo.
+
+
+h2. Grabar la imagen
+
+*PRECAUCIÓN*: Si en este comando te equivocas de dispositivo seguramente la vas a liar muy gorda.
+
+Ejecuta el siguiente comando:
+
+<div class="console">
+{% highlight console %}
+$ sudo dd if=~/Descargas/debian-11.6.0-amd64-netinst.iso of=/dev/sdc bs=1M
+[sudo] password for david:
+388+0 registros leídos
+388+0 registros escritos
+406847488 bytes (407 MB, 388 MiB) copied, 8,03681 s, 50,6 MB/s
+{% endhighlight %}
+</div>
+
+El comando @dd@ copia bloques entre 2 dispositivos. En este ejemplo el dispositivo desde el que lee (@if@) es el fichero ISO y el dispositivo en el que escribe (@of@) es @/dev/sdc@, que tendrás que cambiar por el que corresponda según lo que hemos visto en la salida de @dmesg@. El @bs=1M@ indica que el tamaño de los bloques es 1 mebiqbyte.
