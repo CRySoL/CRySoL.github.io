@@ -23,7 +23,7 @@ $ psql -h localhost -d <database> -U <user> -c "select * from table"
 
 h2. Operaciones con bases de datos
 
-<p/>
+Algunas operaciones se puede ejecutar como argumento (-c) de psql, pero otras están disponibles directamente como comandos independientes.
 
 
 h3. Listar bases de datos
@@ -55,6 +55,7 @@ h3. Borrar
 
 <div class="console">
 {% highlight console %}
+$ dropdb -U <user> <database>
 {% endhighlight %}
 </div>
 
