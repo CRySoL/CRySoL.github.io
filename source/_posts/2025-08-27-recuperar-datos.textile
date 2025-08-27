@@ -1,0 +1,25 @@
+---
+layout: post
+title: Recuperar disco
+author: david_villa
+comments: true
+draft: true
+category: recipe
+tags:
+  - security
+
+---
+
+
+
+$ sudo ddrescue -f -n /dev/sde1 /media/bob/BACKUP/disco.img /media/bob/BACKUP/disco.log
+GNU ddrescue 1.29
+Press Ctrl-C to interrupt
+     ipos:  750153 MB, non-trimmed:        0 B,   current rate:  11430 kB/s
+     opos:  750153 MB, non-scraped:        0 B,   average rate:  50010 kB/s
+non-tried:        0 B,  bad-sector:        0 B,     error rate:       0 B/s
+  rescued:  750153 MB,   bad areas:          0,       run time:      4h 10m
+pct rescued:  100.00%, read errors:          0, remaining time:         n/a
+                               time since last successful read:          0s
+Copying non-tried blocks... Pass 1 (forwards)
+Finished
