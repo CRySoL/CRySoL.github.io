@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2025-08-27/recuperar-datos.html">Recuperar disco</a></li>
+
   <li><a href="/recipe/2023-04-13/instalar-debian-por-USB.html">Instalar Debian con un pendrive USB</a></li>
 
   <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
-
-  <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="624 posts"
+     title="625 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5184,7 +5184,7 @@
      >Debian-devel</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#security-ref'; hide_others()"
-     title="26 posts"
+     title="27 posts"
      >security</a>
 </td></tr>
 <tr class="row6"><td class="col1">
@@ -7934,7 +7934,98 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/2007-05-25/kerberos5-ldap-y-errores-frecuentes.html">Kerberos5, LDAP y errores frecuentes</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2007-05-25
+    
+      
+  <a href="/users.html#paco">
+   paco
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-05-25-kerberos5-ldap-y-errores-frecuentes.textile">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-05-25-kerberos5-ldap-y-errores-frecuentes.textile">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#Debian-ref">Debian </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/702">node/702</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <h2>Autenticación Kerberos o ActiveDirectory</h2>
+<p>
+    
+  </div>
+
+  <div class="footer">
+    
+    <div class="more">
+      <a href="/2007-05-25/kerberos5-ldap-y-errores-frecuentes.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8995,168 +9086,6 @@ Compression yes
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2007-05-17/traffic-shaping-y-qos-en-gnu-linux.html">Traffic shaping y QoS en GNU/Linux</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2007-05-17
-    
-      
-  <a href="/users.html#felix">
-   felix
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2007-05-17-traffic-shaping-y-qos-en-gnu-linux.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2007-05-17-traffic-shaping-y-qos-en-gnu-linux.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#networking-ref">networking </a></li>
-    
-    	<li><a href="/tags.html#Arco-ref">Arco </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/685">node/685</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <blockquote>Vamos a describir en esta receta algunos de los comandos útiles para lo que se ha venido a denominar traffic shaping, en cristiano, control de nuestro ancho de banda. Aviso a navegantes, este tema es un poco lioso y yo no soy ni mucho menos un experto por lo que, primero, espero comentarios, correcciones, mejoras, etc. y segundo, ojo con lo que haces!! </blockquote>
-<h2> Enviando paquetes a la red</h2>
-<p>Bueno vamos con algunos comandos y de paso vamos introduciendo algunos conceptos:</p>
-<pre class="console">
-# ip link show
-1: lo: &lt;LOOPBACK,UP,10000&gt; mtu 16436 qdisc noqueue
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-2: eth0: &lt;BROADCAST,MULTICAST,UP,10000&gt; mtu 1500 qdisc pfifo_fast qlen 1000
-    link/ether 00:e0:4c:00:84:bb brd ff:ff:ff:ff:ff:ff
-</pre>
-<p>Este comando muestra los &#8220;enlaces&#8221; presentes en un computador,  en esta información va incluida alguna información muy útil, dejando aparte la interfaz loopback, nos centramos en el enlace número dos, es decir la eth0  que es una interfaz ethernet. Despues de la información relativa a la mtu (Maximum transmission unit) que en una ethernet es 1500 tenemos la disciplina de colas (qdisc).  Para que nos entendamos, todos los paquetes que se envían son almacenados en un sistema de colas hasta la entrega a la red.</p>
-<p>Ahora bien, cómo se gestionan las colas y qué algoritmo se utiliza para decidir qué paquete desencolamos es un mundo  un poco complejo que trataremos de introducir en esta receta.</p>
-<p>Antes de continuar hay que indicar que, aparte de las colas, están las clases de tráfico y los filtros. Generalmente (esto depende mucho del tipo de colas que estamos usando) se definen clases de tráfico y los filtros clasifican el tráfico en esas clases atendiendo al protocolo, ip, etc..</p>
-<h2>Tipos de Colas</h2>
-<p>El algoritmo por defecto es &#8220;pfifo_fast&#8221;, que es el más sencillo, el primer paquete que llega es el primero que sale y lo más rápido posible, esto no tiene ningún misterio.  Con esta política todo el mundo es feliz y todos los paquetes son tratados exactamente igual buscando las máximas prestaciones. No obstante estaremos de acuerdo en que no todas las aplicaciones y ordenadores son de igual importancia por lo que asignar un recurso tan escaso como el ancho de banda, puede ser una buena idea y muy útil.</p>
-<p>Hay mas disciplinas de colas, entre las cuales podemos enumerar:</p>
-<ul>
-	<li><span class="caps">FIFO</span> &#8211; simple <span class="caps">FIFO</span> (packet (p-<span class="caps">FIFO</span>) or byte (b-<span class="caps">FIFO</span>) ): la que hemos visto, tambien hay ha nivel de byte.</li>
-	<li><span class="caps">PRIO</span> &#8211; n-band strict priority scheduler:  En esta disciplina tenemos un sistemas de encolado basado en clases de tráfico a las cuales se les asigna una prioridad, Las clases de tráfico son desencoladas en funcíon de la prioridad (el 0 es la mayor prioridad y cuanto mayor es el número menor prioridad).</li>
-	<li><span class="caps">TBF</span> &#8211; token bucket filter: Esta es una disciplina para establecer límites en el ratio de entrega de paquetes para    las distintas  colas. Si quieres limitar el ancho de banda de una interfaz, esto es lo que necesitas.</li>
-	<li><span class="caps">CBQ</span> &#8211; class based queue: Otro sistema basado en colas un poco mas complejo que el <span class="caps">PRIO</span>, aquí puedes establecer jerarquías de clases y prioridades. Hay que resaltar que dentro de cada una de las clases hay una qdisc que, por defecto es una pfifo pero que puede ser configurada por lo que la cantidad de combinaciones es enorme.</li>
-	<li><span class="caps">CSZ</span> &#8211; Clark-Scott-Zhang: Para que nos entendamos garantiza el ancho de banda de los servicios garantizados y el resto lo deja para los paquetes que no se clasifican (best-effort traffic), la teoría de esto es compleja.</li>
-	<li><span class="caps">SFQ</span> &#8211; stochastic fair queue: Tienes diferentes colas asociadas a flujos y vas sacando de cada cola un paquete a la vez (round robin) para que todas los flujos tengan el mismo ancho de banda, el tema es que si una aplicación establece muchos flujos obtiene mas ancho de banda.</li>
-	<li><span class="caps">RED</span> &#8211; random early detection:  Esto esta diseñado para backbones, el tema es que trata de aprovechar las características de control de flujo del  protocolo <span class="caps">TCP</span> para ajustar los parámetros de entrega de los paquetes y evitar la congestión antes de que se produzca. Lo que hace es eliminar aleatoriamente paquetes cuando las colas empiezan a llenarse, cuanto mas llena esta la cola, va aumentando la probabilidad de eliminar un paquete de forma aleatoria. <span class="caps">TCP</span> cuando pierde paquetes reduce su tasa de envío por lo que reduce la posibilidad de congestiones, hay que ajustar muy bien los valores para que no perdamos mas paquetes de los que perderíamos en congestión (vamos eliminando paquetes por que la red no da mas de si). Esto plantea un problema ya que <span class="caps">UDP</span> no implementa un mecanismo similar con lo que los flujos <span class="caps">UDP</span> no se ajustan.</li>
-	<li><span class="caps">GRED</span> &#8211; generalized random early detection: El tema es que <span class="caps">RED</span> descarta aleatoriamente paquetes cuando hay una posible congestión y de forma aleatoria tratando todos los flujos igual, como en el campo del señor no todos somos iguales, <span class="caps">GRED</span> crea una serie de colas virtuales y establece políticas <span class="caps">RED</span> distintas (como por ejemplo la probabilidad de eliminar un paquete cuando se empieza a llenar la cola) a cada una de ellas.</li>
-	<li><span class="caps">TEQL</span> &#8211; traffic equalizer: Esta se usa cuando entre dos redes distintas tenemos dos enlaces directos,  para balancear la  carga entre ellos. Aquí hay un ejemplo sencillo: <a href="http://www.roseindia.net/linux/tutorial/linux-howto/Adv-Routing-HOWTO/lartc.loadshare.html">http://www.roseindia.net/linux/tutorial/linux-howto/Adv-Routing-<span class="caps">HOWTO</span>/lartc.loadshare.html</a></li>
-	<li><span class="caps">ATM</span> &#8211; asynchronous transfer mode: Esto es para que emules el comportamiento de una red <span class="caps">ATM</span> transmitiendo unidades de información en celdas.</li>
-	<li><span class="caps">DSMARK</span> &#8211; <span class="caps">DSCP</span> (Diff-Serv Code Point)marker/remarker: Esto mas que una disciplina es una política de marcado de paquetes en función de reglas específicas.</li>
-	<li>Hierarchical Token Bucket (<span class="caps">HTB</span>): Podemos dividir el ancho de banda especificando el mínimo y el máximo, si   alguien no esta usando su ancho de banda, se asigna al resto de clases. Este se considera mas sencillo que el <span class="caps">CBQ</span> y bastante flexible por lo que lo usaremos para los ejemplitos.</li>
-</ul>
-<h2>La herramienta tc: comándos básicos</h2>
-<p>Vamos con algunos comandos, de aqui en adelante si queremos ver como van nuestras colas:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>tc <span class="nt">-s</span> qdisc <span class="nb">ls </span>dev eth0
-<span class="go">qdisc pfifo_fast 0: root bands 3 priomap  1 2 2 2 1 2 0 0 1 1 1 1 1 1 1 1
- Sent 287345331 bytes 846853 pkt (dropped 0, overlimits 0 requeues 0)
- rate 0bit 0pps backlog 0b 0p requeues 0</span></code></pre></figure></div>
-<p>Un comandito muy útil para eliminar todo y dejarlo con la configuración por defecto:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>tc qdisc del dev eth0 root</code></pre></figure></div>
-<p>Vamos con un ejemplo, si queremos limitar el tráfico ip de salida a 5 kbps debemos realizar los siguientes pasos:</p>
-<p>Primero añadimos la gestión de colas htb a la raíz de nuestro dispositivo (en este caso eth0):</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>tc qdisc add dev eth0 root handle 1: htb default 1</code></pre></figure></div>
-<p>Este primer comando define una cola que se añade a la raiz (root) con un manejador handle 1: y que<br />
-por defecto manda el tráfico a la clase de tráfico 1.</p>
-<p>Ahora creamos la clase de tráfico:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps ceil 5kbps</code></pre></figure></div>
-<p>Para esta clase de tráfico, el  padre es la qdisc que acabamos de crear (parent 1:) y cuyo identificador es 1 (classid 1:1). Por último, la parte de comando que delimita el ancho de banda que pueden consumir viene determinado por la parte del comando &#8220;rate 1kbps ceil 5 kbps&#8221; que le dice al kernel, que, asegure una tasa de 1kbps en caso de congestión y que como mucho esa clase puede llegar a 5 kbps. Si no ponemos la parte ceil, la clase consumirá todo el ancho de banda sobrante que quede (esto es así por que estamos usando <span class="caps">HTB</span>).</p>
-<p>En teoría ya esta todo, al indicarle al crear la cola que la clase por defecto es la 1, todo el tráfico es dirigido a esa clase que ya esta limitada. Ahora bien, si queremos indicarle explícitamente que mande todo el tráfico ip a esa clase debemos crear un filtro:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> $</span><span class="w"> </span>tc filter add dev eth0 protocol ip parent 1: handle 1 fw classid 1:1</code></pre></figure></div>
-<p>De nuevo le indicamos que el parent es la qdisc htb root (parent 1:), el manejador de este filtro es el 1 y la acción es forwardear todo el protocolo ip (protocol ip) a la clase 1:1 (fw classid 1:1).</p>
-<p>Varios temas, primero sólo podemos controlar el tráfico que sale por eth0, para controlar el tráfico de entrada hay que trabajar con la cola de entrada (ingress). A menos que estes probando cosas, es recomendable meter tu configuración (lista de comandos) en un script ya que es frecuente cometer errores, y aunque se pueden cambiar las especificaciones, muchas veces puede ser lioso.</p>
-<h3> Viendo como va nuestra configuración</h3>
-<p>Si queremos ver como va nuestra configuración de filtros:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>tc filter show dev eth0
-<span class="go">filter parent 1: protocol ip pref 49152 fw
-filter parent 1: protocol ip pref 49152 fw handle 0x1 classid 1:1</span></code></pre></figure></div>
-<p>Nuestras clases:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>tc class show dev eth0
-<span class="go">class htb 1:1 root prio 0 rate 8000bit ceil 40000bit burst 1603b cburst 1619b</span></code></pre></figure></div>
-<p>El rate es en bit, le pusimos 1kb es decir 1000*8 bits (lo coge en bytes).</p>
-<p>Y las colas:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp"> #</span><span class="w"> </span>tc qdisc show dev eth0
-<span class="go">qdisc htb 1: r2q 10 default 1 direct_packets_stat 294</span></code></pre></figure></div>
-<p>Cada sistema de colas diferentes tiene comandos y parámetros específicos , en algunos casos puedes añadirle a las clases de tráfico qdisc propias que tienen nuevas clases (en forma de árbol) por lo que las combinaciones son múltiples.</p>
-<h2>Algunas referencias:</h2>
-<ul>
-	<li><a href="http://www.roseindia.net/linux/tutorial/linux-howto/Adv-Routing-HOWTO/lartc.loadshare.html">http://www.roseindia.net/linux/tutorial/linux-howto/Adv-Routing-<span class="caps">HOWTO</span>/lartc.loadshare.html</a></li>
-	<li><a href="http://tldp.org/HOWTO/Traffic-Control-HOWTO/classless-qdiscs.html">http://tldp.org/<span class="caps">HOWTO</span>/Traffic-Control-<span class="caps">HOWTO</span>/classless-qdiscs.html</a></li>
-	<li><a href="http://www.rns-nis.co.yu/~mps/linux-tc.html">http://www.rns-nis.co.yu/~mps/linux-tc.html</a></li>
-</ul>
-    
-  </div>
-
-  <div class="footer">
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9192,12 +9121,12 @@ filter parent 1: protocol ip pref 49152 fw handle 0x1 classid 1:1</span></code><
       <hr/>
 
       <footer>
-        <p>&copy; 2024 CRySoL
+        <p>&copy; 2025 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2024-02-07 05:57:51 -0600
+          Generated at 2025-08-27 07:26:47 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2025-08-27/recuperar-datos.html">Recuperar disco</a></li>
+
   <li><a href="/recipe/2023-04-13/instalar-debian-por-USB.html">Instalar Debian con un pendrive USB</a></li>
 
   <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
-
-  <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="624 posts"
+     title="625 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5184,7 +5184,7 @@
      >Debian-devel</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#security-ref'; hide_others()"
-     title="26 posts"
+     title="27 posts"
      >security</a>
 </td></tr>
 <tr class="row6"><td class="col1">
@@ -7934,7 +7934,154 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2006-07-31/crear-un-instalador-auto-extraible-para-gnu-linux.html">Crear un instalador auto-extraible para GNU/Linux</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2006-07-31
+    
+      
+  <a href="/users.html#morcy">
+   morcy
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-07-31-crear-un-instalador-auto-extraible-para-gnu-linux.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-07-31-crear-un-instalador-auto-extraible-para-gnu-linux.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/364">node/364</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote>
+Hay que facilitar la vida al usuario; y nada mejor que hacer un instalador sencillito donde todo está empaquetado en un .sh... pero ¿cómo se hace?
+</blockquote>
+
+No he encontrado mucha información al respecto y, aunque no es complicado, puede que no se te ocurra directamente cómo hacerlo.
+
+Bien, pues simplemente hay que utilizar la estupenda herramienta cat y añadir el binario a descomprimir al final del fichero de shell... Como muestra un botón. ;)
+
+
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w">  </span><span class="nb">cat </span>cabeceraInstalador.sh todocomprimido.tgz <span class="o">&gt;</span> instalador.sh</code></pre></figure>
+</div>
+
+Bien, con la orden anterior concatenamos el fichero que tendrá las órdenes a realizar del shell (cabeceraInstalador.sh), con el binario comprimido (todocomprimido.tgz), y lo juntamos en el fichero final llamado instalador.sh. ¿Cómo decirle al script dónde empieza la parte binaria del archivo? Utilizando la bonita utilidad tail.
+<pre>
+#!/bin/sh
+echo ""
+echo "AutoInstalador del programa XX.XX v.1.0"
+echo ""
+
+# Cogemos la parte de este archivo a partir de la lí­nea 11 y
+# se la mandamos al tar para que la descomprima.
+tail -n +11 $0 | tar xvz
+
+exit 0
+</pre>
+
+En el caso anterior, le pasamos a tail el parámetro +11, porque el fichero del script tiene 10 lí­neas. Podemos automatizar la tarea de contar el número de lí­neas haciendo un script un poco más complejo que, además utiliza un directorio temporal y ejecuta un script de instalación (que estará dentro del .tgz). Veamos el script en versión "pro":
+
+<pre>
+#!/bin/sh
+echo ""
+echo "AutoInstalador del programa XX.XX v.1.0"
+echo ""
+
+# Creamos un directorio temporal donde lo extraeremos
+export WRKDIR=`mktemp -d /tmp/selfextract.XXXXXX`
+
+# Contamos las lineas de este fichero con awk. La cadena
+# "__AQUI_SIGUE_EL_BINARIO__" debe ser la ultima linea del
+# script. Le sumamos una a la ultima linea y la guardamos
+# en SKIP.
+SKIP=`awk '/^__AQUI_SIGUE_EL_BINARIO__/ { print NR + 1; exit 0; }' $0`
+
+# Cogemos la parte de este archivo a partir de la lí­nea 11 y
+# se la mandamos al tar para que la descomprima en el temporal.
+tail -n +$SKIP $0 | tar xvz -C $WRKDIR
+
+# Nos vamos al temporal y ejecutamos el script de instalacion
+PREV=`pwd`
+cd $WRKDIR
+./install.sh
+
+# Borramos los ficheros temporales
+cd $PREV
+rm -rf $WRKDIR
+
+exit 0
+
+__AQUI_SIGUE_EL_BINARIO__
+</pre>
+
+Pues nada más. Seguiré mirando la forma de crear buenos instaladores. Desde luego, el script anterior es muy pobre. Se puede mejorar añadiendo un bonito interfaz en modo texto con dialog o sus equivalentes en modo gráfico gdialog y kdialog aunque no se... me sigue gustando más la de modo texto; además es más estándar y como dirí­a Neal Stephenson, "En el principio fue la lí­nea de comandos".
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8780,99 +8927,6 @@ Sabéis lo que es un CBZ o un CBR?, si no lo sabéis os lo digo: Comic Book Zip 
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/recipe/2006-07-19/primeros-pasos-con-mysql.html">Primeros pasos con MySQL</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2006-07-19
-    
-      
-  <a href="/users.html#david_villa">
-   david.villa
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2006-07-19-primeros-pasos-con-mysql.textile">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2006-07-19-primeros-pasos-con-mysql.textile">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-    	<li><a href="/categories.html#recipe-ref">
-    		recipe
-    	</a></li>
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-    	<li><a href="/tags.html#MySQL-ref">MySQL </a></li>
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/350">node/350</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      <p>Esta receta explica cómo poner en marcha un servidor MySQL recién instalado.</p>
-<p>
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/recipe/2006-07-19/primeros-pasos-con-mysql.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -8908,12 +8962,12 @@ Sabéis lo que es un CBZ o un CBR?, si no lo sabéis os lo digo: Comic Book Zip 
       <hr/>
 
       <footer>
-        <p>&copy; 2024 CRySoL
+        <p>&copy; 2025 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2024-02-07 05:57:51 -0600
+          Generated at 2025-08-27 07:26:47 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

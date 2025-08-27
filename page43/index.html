@@ -5055,6 +5055,8 @@
 <h2>recent</h2>
 <ul>
 
+  <li><a href="/recipe/2025-08-27/recuperar-datos.html">Recuperar disco</a></li>
+
   <li><a href="/recipe/2023-04-13/instalar-debian-por-USB.html">Instalar Debian con un pendrive USB</a></li>
 
   <li><a href="/recipe/2022-12-02/tutorial-dig.html">Tutorial básico de dig</a></li>
@@ -5062,8 +5064,6 @@
   <li><a href="/recipe/2022-10-11/mini-referencia-de-sql-con-postgres.html">Mini referencia de SQL con Postgres</a></li>
 
   <li><a href="/recipe/2022-08-21/edicion-de-video-con-ffmpeg.html">Edición de vídeo desde consola con ffmpeg</a></li>
-
-  <li><a href="/recipe/2022-05-07/volcar-y-recuperar-una-base-de-datos-postgres.html">Volcar (y recuperar) una base de datos PostgreSQL</a></li>
 
 </ul>
 </div>
@@ -5075,7 +5075,7 @@
 <tr class="row1">
 <td class="col1">
   <a href="javascript:window.location.href='/categories.html#recipe-ref'; hide_others()"
-     title="624 posts"
+     title="625 posts"
      >recipe</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/categories.html#tale-ref'; hide_others()"
@@ -5184,7 +5184,7 @@
      >Debian-devel</a>
 </td><td class="col2">
   <a href="javascript:window.location.href='/tags.html#security-ref'; hide_others()"
-     title="26 posts"
+     title="27 posts"
      >security</a>
 </td></tr>
 <tr class="row6"><td class="col1">
@@ -7934,7 +7934,138 @@
   
     
   
+    
+  
 
+  
+    
+      <div class="node teaser ">
+  <h2><a href="/recipe/2008-10-20/gnu-emacs-usando-emacs-cscope.html">GNU Emacs: usando emacs + cscope</a></h2>
+
+  <div class="header">
+  <span class="submitted">
+    2008-10-20
+    
+      
+  <a href="/users.html#ricardo">
+   ricardo
+  </a>
+
+
+    
+  </span>
+
+   <span class="source">
+     —
+     [
+      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-10-20-gnu-emacs-usando-emacs-cscope.html">edit</a> |
+      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-10-20-gnu-emacs-usando-emacs-cscope.html">raw</a>
+      ]
+   </span>
+
+   <span class="meta">
+     <ul>
+       
+       
+
+
+  
+    
+    	<li><a href="/categories.html#recipe-ref">
+    		recipe
+    	</a></li>
+    
+  
+
+
+
+
+       
+       
+
+
+  
+    
+    	<li><a href="/tags.html#emacs-ref">emacs </a></li>
+    
+  
+
+
+
+     </ul>
+   </span>
+
+   
+   <span class="migrated">
+     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1028">node/1028</a>
+   </span>
+   
+
+</div>
+
+
+
+
+  <div class="content">
+    
+      <blockquote class="head">
+Esta receta explica brevemente como configurar <b>emacs</b> para utilizarlo junto con <b>cscope</b>, una herramienta para navegar a través de código fuente C/C++.
+</blockquote>
+
+<h2>Ingredientes</h2>
+<ul>
+<li>emacs</li>
+<li>cscope</li>
+</ul>
+
+<h2>Configuración</h2>
+Si te has instalado cscope en Debian/Ubuntu se te habrá instalado la interfaz de cscope para (X)Emacs que se encuentra en el archivo <code>/usr/share/emacs/site-lisp/xcscope.el</code>. Para el resto de distribuciones tendrás que asegurarte de que el archivo xcscope.el está en un directorio donde Emacs pueda encontrarlo.
+
+El siguiente paso es editar el archivo <code>~/.emacs</code> añadiendo lo siguiente:
+
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(require 'xcscope)</code></pre></figure>
+</div>
+
+Si deseas añadir atajos para hacer más comoda la introducción de algunas órdenes puedes añadir los siguiente también el el archivo <code>~/.emacs</code>:
+
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">(define-key global-map [(control f3)]  'cscope-set-initial-directory)
+(define-key global-map [(control f4)]  'cscope-unset-initial-directory)
+(define-key global-map [(control f5)]  'cscope-find-this-symbol)
+(define-key global-map [(control f6)]  'cscope-find-global-definition)
+(define-key global-map [(control f7)]
+  'cscope-find-global-definition-no-prompting)
+(define-key global-map [(control f8)]  'cscope-pop-mark)
+(define-key global-map [(control f9)]  'cscope-next-symbol)
+(define-key global-map [(control f10)] 'cscope-next-file)
+(define-key global-map [(control f11)] 'cscope-prev-symbol)
+(define-key global-map [(control f12)] 'cscope-prev-file)
+(define-key global-map [(meta f9)]  'cscope-display-buffer)
+(define-key global-map [(meta f10)] 'cscope-display-buffer-toggle)</code></pre></figure>
+</div>
+
+<h2>Funcionamiento</h2>
+Abres los ficheros de código fuente C/C++, utilizas los comandos del tipo <code>cscope-*</code> (<code>M-x cscope-*</code> o utilizas las teclas atajo) para buscar deficiones, símbolos, etc. El funcionamiento básico es así de sencillo.
+
+<h2>Referencias</h2>
+<ol>
+  <li> El propio archivo <code>xcscope.el</code> explica más profundamente, en los comentarios del principio del archivo, la configuración y el funcionamiento. </li>
+  <li> Página web de <a href="http://cscope.sourceforge.net/">cscope</a> </li>
+</ol>
+
+    
+  </div>
+
+  <div class="footer">
+    
+  </div>
+
+</div>
+
+
+
+    
   
     
       <div class="node teaser ">
@@ -8932,94 +9063,6 @@ Como puedes ver, para hacer el downcasting C++ ofrece el operador <tt>dynamic_ca
 
     
   
-    
-      <div class="node teaser ">
-  <h2><a href="/2008-09-29/probando-os.html">Probando OS</a></h2>
-
-  <div class="header">
-  <span class="submitted">
-    2008-09-29
-    
-      
-  <a href="/users.html#nacho">
-   nacho
-  </a>
-
-
-    
-  </span>
-
-   <span class="source">
-     —
-     [
-      <a href="https://github.com/CRySoL/web.source/edit/master/_posts/migrated/2008-09-29-probando-os.html">edit</a> |
-      <a href="https://github.com/CRySoL/web.source/raw/master/_posts/migrated/2008-09-29-probando-os.html">raw</a>
-      ]
-   </span>
-
-   <span class="meta">
-     <ul>
-       
-       
-
-
-  
-    
-  
-
-
-
-
-       
-       
-
-
-  
-    
-  
-
-
-
-     </ul>
-   </span>
-
-   
-   <span class="migrated">
-     migrated&nbsp;from&nbsp;<a href="http://crysol.org/node/1015">node/1015</a>
-   </span>
-   
-
-</div>
-
-
-
-
-  <div class="content">
-    
-      Aquí tenéis un artículo muy interesante sobre la oferta de sistemas operativos disponibles. Si queréis ser originales de verdad, dejarsen de <em>Güindor</em>, de <em>Linus</em> y de <em>macoesequis</em>, y probad alguno de estos:
-
-
-    
-  </div>
-
-  <div class="footer">
-    
-    <div class="more">
-      <a href="/2008-09-29/probando-os.html">
-	
-	  Leer más
-	
-      </a>
-    </div>
-    
-  </div>
-
-</div>
-
-
-
-    
-  
 
   <div class="pagination pagination-centered">
   <ul>
@@ -9055,12 +9098,12 @@ Como puedes ver, para hacer el downcasting C++ ofrece el operador <tt>dynamic_ca
       <hr/>
 
       <footer>
-        <p>&copy; 2024 CRySoL
+        <p>&copy; 2025 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2024-02-07 05:57:51 -0600
+          Generated at 2025-08-27 07:26:47 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
