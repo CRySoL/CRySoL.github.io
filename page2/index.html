@@ -8005,7 +8005,7 @@
   <div class="content">
     
       <p><code>sudo</code> may be configured to stop requesting passwords for specific commands to specific users or groups. This is very convenient for personal computers where there is only a user (and therefore she&#8217;s the administrator).</p>
-<p>With next file <code>/etc/sudoers</code>, the <code>sudo</code> group members will be allowed to run <code>apt</code>, <code>apt-get</code> and <code>dpkg</code> commands absolutelly with no password.</p>
+<p>With next file <code>/etc/sudoers.d/apt</code>, the <code>sudo</code> group members will be allowed to run <code>apt</code>, <code>apt-get</code> and <code>dpkg</code> commands absolutelly with no password.</p>
 <p>For other users, the <code>sudo</code> behaviour do not change.</p>
 <pre>
 Defaults        env_reset, insults
@@ -8013,7 +8013,7 @@ Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/
 Defaults        timestamp_timeout=15
 
 Cmnd_Alias APT = /usr/bin/apt, /usr/bin/apt-get, /usr/bin/dpkg
-%sudo   ALL = ALL, NOPASSWD: APT
+%sudo ALL = (ALL:ALL) NOPASSWD: APT
 </pre>
 <p>Option &#8216;timestamp_timeout&#8217; sets the time (in minutes) that the password will remain in cache, so it will not ask for it during that period. The value 0 disables the cache.</p>
     
@@ -8962,7 +8962,7 @@ err: error
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2025-08-27 07:26:47 -0500
+          Generated at 2025-11-21 05:25:01 -0600
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
