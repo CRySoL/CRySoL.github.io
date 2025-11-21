@@ -12,7 +12,7 @@ tags:
 
 @sudo@ may be configured to stop requesting passwords for specific commands to specific users or groups. This is very convenient for personal computers where there is only a user (and therefore she's the administrator).
 
-With next file @/etc/sudoers@, the @sudo@ group members will be allowed to run @apt@, @apt-get@ and @dpkg@ commands absolutelly with no password.
+With next file @/etc/sudoers.d/apt@, the @sudo@ group members will be allowed to run @apt@, @apt-get@ and @dpkg@ commands absolutelly with no password.
 
 For other users, the @sudo@ behaviour do not change.
 
@@ -22,7 +22,7 @@ Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/
 Defaults        timestamp_timeout=15
 
 Cmnd_Alias APT = /usr/bin/apt, /usr/bin/apt-get, /usr/bin/dpkg
-%sudo   ALL = ALL, NOPASSWD: APT
+%sudo ALL = (ALL:ALL) NOPASSWD: APT
 </pre>
 
 Option 'timestamp_timeout' sets the time (in minutes) that the password will remain in cache, so it will not ask for it during that period. The value 0 disables the cache.
