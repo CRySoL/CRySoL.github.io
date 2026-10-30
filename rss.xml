@@ -5,24 +5,56 @@
         <description>CRySoL - CRySoL</description>
         <link>http://crysol.org</link>
         <link>http://crysol.org</link>
-        <lastBuildDate>2025-11-21T05:25:01-06:00</lastBuildDate>
-        <pubDate>2025-11-21T05:25:01-06:00</pubDate>
+        <lastBuildDate>2026-10-30T06:40:41-05:00</lastBuildDate>
+        <pubDate>2026-10-30T06:40:41-05:00</pubDate>
         <ttl>1800</ttl>
 
 
         <item>
                 <title>Recuperar disco</title>
-                <description>&lt;p&gt;$ sudo ddrescue -f -n /dev/sde1 /media/bob/&lt;span class=&quot;caps&quot;&gt;BACKUP&lt;/span&gt;/disco.img /media/bob/&lt;span class=&quot;caps&quot;&gt;BACKUP&lt;/span&gt;/disco.log&lt;br /&gt;
-&lt;span class=&quot;caps&quot;&gt;GNU&lt;/span&gt; ddrescue 1.29&lt;br /&gt;
-Press Ctrl-C to interrupt&lt;br /&gt;
-     ipos:  750153 MB, non-trimmed:        0 B,   current rate:  11430 kB/s&lt;br /&gt;
-     opos:  750153 MB, non-scraped:        0 B,   average rate:  50010 kB/s&lt;br /&gt;
-non-tried:        0 B,  bad-sector:        0 B,     error rate:       0 B/s&lt;br /&gt;
-  rescued:  750153 MB,   bad areas:          0,       run time:      4h 10m&lt;br /&gt;
-pct rescued:  100.00%, read errors:          0, remaining time:         n/a&lt;br /&gt;
-                               time since last successful read:          0s&lt;br /&gt;
-Copying non-tried blocks&amp;#8230; Pass 1 (forwards)&lt;br /&gt;
-Finished&lt;/p&gt;</description>
+                <description>&lt;p&gt;Cuando un disco empieza a fallar lo primero es sacar una copia completa a otro medio antes de que empeore, y trabajar después sobre esa copia. Esta receta explica cómo hacerlo con &lt;code&gt;ddrescue&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;!--break--&gt;&lt;/p&gt;
+&lt;h2&gt;Instalación&lt;/h2&gt;
+&lt;p&gt;En Debian el paquete se llama &lt;code&gt;gddrescue&lt;/code&gt;, aunque el comando es &lt;code&gt;ddrescue&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;console&quot;&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;gddrescue&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;h2&gt;Volcar el disco a una imagen&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;PRECAUCIÓN&lt;/strong&gt;: Asegúrate de cuál es el dispositivo de origen (por ejemplo, con &lt;code&gt;lsblk&lt;/code&gt; o &lt;code&gt;dmesg&lt;/code&gt;) y de que el destino tiene espacio suficiente para la imagen completa.&lt;/p&gt;
+&lt;p&gt;En este ejemplo se rescata la partición &lt;code&gt;/dev/sde1&lt;/code&gt; a un fichero de imagen en otro disco:&lt;/p&gt;
+&lt;div class=&quot;console&quot;&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ddrescue &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; /dev/sde1 /media/bob/BACKUP/disco.img /media/bob/BACKUP/disco.log
+&lt;span class=&quot;go&quot;&gt;GNU ddrescue 1.29
+Press Ctrl-C to interrupt
+     ipos:  750153 MB, non-trimmed:        0 B,   current rate:  11430 kB/s
+     opos:  750153 MB, non-scraped:        0 B,   average rate:  50010 kB/s
+non-tried:        0 B,  bad-sector:        0 B,     error rate:       0 B/s
+  rescued:  750153 MB,   bad areas:          0,       run time:      4h 10m
+pct rescued:  100.00%, read errors:          0, remaining time:         n/a
+                               time since last successful read:          0s
+Copying non-tried blocks... Pass 1 (forwards)
+Finished&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;p&gt;Los argumentos son:&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;&lt;code&gt;-f&lt;/code&gt;: fuerza la sobreescritura del destino. Solo es imprescindible cuando el destino es un dispositivo en lugar de un fichero.&lt;/li&gt;
+	&lt;li&gt;&lt;code&gt;-n&lt;/code&gt;: omite la fase de «scraping», es decir, no insiste en las zonas más dañadas. Así se rescata primero todo lo que se puede leer sin problemas, que es lo más urgente si el disco se está muriendo.&lt;/li&gt;
+	&lt;li&gt;&lt;code&gt;/dev/sde1&lt;/code&gt;: el dispositivo de origen.&lt;/li&gt;
+	&lt;li&gt;&lt;code&gt;disco.img&lt;/code&gt;: la imagen de destino.&lt;/li&gt;
+	&lt;li&gt;&lt;code&gt;disco.log&lt;/code&gt;: el «mapfile», donde &lt;code&gt;ddrescue&lt;/code&gt; apunta qué zonas ha leído ya y cuáles han fallado. Permite interrumpir el proceso con &lt;code&gt;Ctrl-C&lt;/code&gt; y retomarlo después ejecutando el mismo comando.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;En este caso se rescataron los 750 GB al 100% y sin errores de lectura (&lt;code&gt;bad-sector: 0 B&lt;/code&gt;, &lt;code&gt;read errors: 0&lt;/code&gt;).&lt;/p&gt;
+&lt;h2&gt;Reintentar las zonas dañadas&lt;/h2&gt;
+&lt;p&gt;Si la primera pasada deja sectores sin leer, se puede lanzar una segunda pasada con el mismo «mapfile». &lt;code&gt;ddrescue&lt;/code&gt; solo intentará leer lo que falta:&lt;/p&gt;
+&lt;div class=&quot;console&quot;&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;ddrescue &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r3&lt;/span&gt; /dev/sde1 /media/bob/BACKUP/disco.img /media/bob/BACKUP/disco.log&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;-d&lt;/code&gt; lee directamente del dispositivo sin pasar por la caché del kernel y &lt;code&gt;-r3&lt;/code&gt; reintenta 3 veces cada sector defectuoso.&lt;/p&gt;
+&lt;h2&gt;Acceder a los datos&lt;/h2&gt;
+&lt;p&gt;Como la imagen es de una partición, se puede montar directamente, en modo solo lectura para no modificarla:&lt;/p&gt;
+&lt;div class=&quot;console&quot;&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mount &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; loop,ro /media/bob/BACKUP/disco.img /mnt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;h2&gt;Referencias&lt;/h2&gt;
+&lt;ul&gt;
+	&lt;li&gt;&lt;a href=&quot;https://www.gnu.org/software/ddrescue/manual/ddrescue_manual.html&quot;&gt;&lt;span class=&quot;caps&quot;&gt;GNU&lt;/span&gt; ddrescue Manual&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
                 <link>http://crysol.org/recipe/2025-08-27/recuperar-datos.html</link>
                 <guid>http://crysol.org/recipe/2025-08-27/recuperar-datos</guid>
                 <pubDate>2025-08-27T00:00:00-05:00</pubDate>
@@ -32,6 +64,7 @@ Finished&lt;/p&gt;</description>
                 <title>Instalar Debian con un pendrive USB</title>
                 <description>&lt;h2&gt;Imagen a grabar&lt;/h2&gt;
 &lt;p&gt;Descarga la imagen &lt;span class=&quot;caps&quot;&gt;ISO&lt;/span&gt; «net-install» desde https://www.debian.org/CD/netinst/ para tu arquitectura (normalmente &lt;em&gt;amd64&lt;/em&gt;). Estas imágenes aparte de poderse grabar en un CD, también son «bootables» desde &lt;span class=&quot;caps&quot;&gt;USB&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;!--break--&gt;&lt;/p&gt;
 &lt;h2&gt;El pendrive&lt;/h2&gt;
 &lt;p&gt;Ejecuta el siguiente comando:&lt;/p&gt;
 &lt;div class=&quot;console&quot;&gt;
@@ -1965,7 +1998,7 @@ Linux kiff 3.8-1-amd64 #1 SMP Debian 3.8.12-1 x86_64 GNU/Linux&lt;/code&gt;&lt;/
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-console&quot; data-lang=&quot;console&quot;&gt;&lt;span class=&quot;gp&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;uname&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt;
 &lt;span class=&quot;gp&quot;&gt;Linux kiff 3.8-1-amd64 #&lt;/span&gt;1 SMP Debian 3.8.12-1 x86_64 GNU/Linux&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;&lt;/div&gt;
 &lt;h2&gt;{% gist 5764837 %}&lt;/h2&gt;
-&lt;noscript&gt;&lt;pre&gt;400: Invalid request&lt;/pre&gt;&lt;/noscript&gt;&lt;script src=&quot;https://gist.github.com/5764837.js&quot;&gt; &lt;/script&gt;</description>
+&lt;noscript&gt;&lt;pre&gt;404: Not Found&lt;/pre&gt;&lt;/noscript&gt;&lt;script src=&quot;https://gist.github.com/5764837.js&quot;&gt; &lt;/script&gt;</description>
                 <link>http://crysol.org/recipe/2013-06-14/prueba-listados.html</link>
                 <guid>http://crysol.org/recipe/2013-06-14/prueba-listados</guid>
                 <pubDate>2013-06-14T00:00:00-05:00</pubDate>
@@ -1985,7 +2018,7 @@ Mock, the second time verify the same behaviour.&lt;/p&gt;
 
 &lt;p&gt;An example:&lt;/p&gt;
 
-&lt;noscript&gt;&lt;pre&gt;400: Invalid request&lt;/pre&gt;&lt;/noscript&gt;
+&lt;noscript&gt;&lt;pre&gt;404: Not Found&lt;/pre&gt;&lt;/noscript&gt;
 &lt;script src=&quot;https://gist.github.com/5728565.js&quot;&gt; &lt;/script&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
@@ -2014,7 +2047,7 @@ $ gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE 
                 <title>Getting node terms from the drupal database</title>
                 <description>&lt;p&gt;Migrating a drupal-6 site to jekyll I need to get &lt;strong&gt;term names&lt;/strong&gt; to add the &lt;code&gt;tags&lt;/code&gt; entry in the post &lt;span class=&quot;caps&quot;&gt;YAML&lt;/span&gt; from-matter.&lt;/p&gt;
 &lt;p&gt;I am using the jekyll-import ruby gem. The modification is easy and can be added directly to the &lt;a href=&quot;https://github.com/jekyll/jekyll-import/blob/master/lib/jekyll/jekyll-import/drupal6.rb&quot;&gt;drupal6&lt;/a&gt; plugin.&lt;/p&gt;
-&lt;noscript&gt;&lt;pre&gt;400: Invalid request&lt;/pre&gt;&lt;/noscript&gt;&lt;script src=&quot;https://gist.github.com/5764837.js&quot;&gt; &lt;/script&gt;&lt;p&gt;I apologize if this code smells. I am not a ruby programmer&amp;#8230; yet.&lt;/p&gt;</description>
+&lt;noscript&gt;&lt;pre&gt;404: Not Found&lt;/pre&gt;&lt;/noscript&gt;&lt;script src=&quot;https://gist.github.com/5764837.js&quot;&gt; &lt;/script&gt;&lt;p&gt;I apologize if this code smells. I am not a ruby programmer&amp;#8230; yet.&lt;/p&gt;</description>
                 <link>http://crysol.org/recipe/2013-06-01/drupal-node-terms.html</link>
                 <guid>http://crysol.org/recipe/2013-06-01/drupal-node-terms</guid>
                 <pubDate>2013-06-01T00:00:00-05:00</pubDate>

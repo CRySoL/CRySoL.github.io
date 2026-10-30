@@ -9051,21 +9051,20 @@ Muchas gracias.
 
   <div class="content">
     
-      <p>$ sudo ddrescue -f -n /dev/sde1 /media/bob/<span class="caps">BACKUP</span>/disco.img /media/bob/<span class="caps">BACKUP</span>/disco.log<br />
-<span class="caps">GNU</span> ddrescue 1.29<br />
-Press Ctrl-C to interrupt<br />
-     ipos:  750153 MB, non-trimmed:        0 B,   current rate:  11430 kB/s<br />
-     opos:  750153 MB, non-scraped:        0 B,   average rate:  50010 kB/s<br />
-non-tried:        0 B,  bad-sector:        0 B,     error rate:       0 B/s<br />
-  rescued:  750153 MB,   bad areas:          0,       run time:      4h 10m<br />
-pct rescued:  100.00%, read errors:          0, remaining time:         n/a<br />
-                               time since last successful read:          0s<br />
-Copying non-tried blocks&#8230; Pass 1 (forwards)<br />
-Finished</p>
+      <p>Cuando un disco empieza a fallar lo primero es sacar una copia completa a otro medio antes de que empeore, y trabajar después sobre esa copia. Esta receta explica cómo hacerlo con <code>ddrescue</code>.</p>
+<p>
     
   </div>
 
   <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2025-08-27/recuperar-datos.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
     
   </div>
 
@@ -9143,34 +9142,19 @@ Finished</p>
     
       <h2>Imagen a grabar</h2>
 <p>Descarga la imagen <span class="caps">ISO</span> «net-install» desde https://www.debian.org/CD/netinst/ para tu arquitectura (normalmente <em>amd64</em>). Estas imágenes aparte de poderse grabar en un CD, también son «bootables» desde <span class="caps">USB</span>.</p>
-<h2>El pendrive</h2>
-<p>Ejecuta el siguiente comando:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>dmesg <span class="nt">-w</span></code></pre></figure></div>
-<p>Ahora busca un pendrive <span class="caps">USB</span> que puedas sobreescribir, conéctalo y podrás ver en la consola el nombre del dispositivo que se le ha asignado. Será algo como:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>dmesg <span class="nt">-w</span>
-<span class="go">[27518.031993] sd 10:0:0:0: Attached scsi generic sg2 type 0
-[27518.032186] sd 10:0:0:0: [sdc] 240353280 512-byte logical blocks: (123 GB/115 GiB)
-[27518.033808] sd 10:0:0:0: [sdc] Write Protect is off
-[27518.033811] sd 10:0:0:0: [sdc] Mode Sense: 43 00 00 00
-[27518.034799] sd 10:0:0:0: [sdc] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
-[27518.082973]  sdc: sdc1 sdc2</span></code></pre></figure></div>
-<p>En este caso el pendrive es el dispositivo <code>/dev/sdc</code>. Nos indica que tiene dos particiones sdc1 y sdc2, pero nos da igual porque lo vamos a machacar todo.</p>
-<h2>Grabar la imagen</h2>
-<p><strong>PRECAUCIÓN</strong>: Si en este comando te equivocas de dispositivo seguramente la vas a liar muy gorda.</p>
-<p>Ejecuta el siguiente comando:</p>
-<div class="console">
-<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>~/Descargas/debian-11.6.0-amd64-netinst.iso <span class="nv">of</span><span class="o">=</span>/dev/sdc <span class="nv">bs</span><span class="o">=</span>1M
-<span class="go">[sudo] password for david:
-388+0 registros leídos
-388+0 registros escritos
-406847488 bytes (407 MB, 388 MiB) copied, 8,03681 s, 50,6 MB/s</span></code></pre></figure></div>
-<p>El comando <code>dd</code> copia bloques entre 2 dispositivos. En este ejemplo el dispositivo desde el que lee (<code>if</code>) es el fichero <span class="caps">ISO</span> y el dispositivo en el que escribe (<code>of</code>) es <code>/dev/sdc</code>, que tendrás que cambiar por el que corresponda según lo que hemos visto en la salida de <code>dmesg</code>. El <code>bs=1M</code> indica que el tamaño de los bloques es 1 mebiqbyte.</p>
+<p>
     
   </div>
 
   <div class="footer">
+    
+    <div class="more">
+      <a href="/recipe/2023-04-13/instalar-debian-por-USB.html">
+	
+	  Leer más
+	
+      </a>
+    </div>
     
   </div>
 
@@ -13685,7 +13669,7 @@ $ gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE 
     
       <p>Migrating a drupal-6 site to jekyll I need to get <strong>term names</strong> to add the <code>tags</code> entry in the post <span class="caps">YAML</span> from-matter.</p>
 <p>I am using the jekyll-import ruby gem. The modification is easy and can be added directly to the <a href="https://github.com/jekyll/jekyll-import/blob/master/lib/jekyll/jekyll-import/drupal6.rb">drupal6</a> plugin.</p>
-<noscript><pre>400: Invalid request</pre></noscript><script src="https://gist.github.com/5764837.js"> </script><p>I apologize if this code smells. I am not a ruby programmer&#8230; yet.</p>
+<noscript><pre>404: Not Found</pre></noscript><script src="https://gist.github.com/5764837.js"> </script><p>I apologize if this code smells. I am not a ruby programmer&#8230; yet.</p>
     
   </div>
 
@@ -381628,12 +381612,12 @@ Catalyst 3550-12T switch sends multicast packets to all ports regardless of clie
       <hr/>
 
       <footer>
-        <p>&copy; 2025 CRySoL
+        <p>&copy; 2026 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2025-11-21 05:25:01 -0600
+          Generated at 2026-10-30 06:40:41 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>

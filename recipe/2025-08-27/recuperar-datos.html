@@ -5068,12 +5068,6 @@
 
       </li>
       
-      <li>
-        <a href="https://twitter.com/david_vi11a" class="twitter-follow-button" data-show-count="false">Follow @david_vi11a</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-
-      </li>
-      
       
     
 
@@ -5236,17 +5230,49 @@
   <div class="row-fluid post-full">
     <div class="span12">
       <div class="content">
-	<p>$ sudo ddrescue -f -n /dev/sde1 /media/bob/<span class="caps">BACKUP</span>/disco.img /media/bob/<span class="caps">BACKUP</span>/disco.log<br />
-<span class="caps">GNU</span> ddrescue 1.29<br />
-Press Ctrl-C to interrupt<br />
-     ipos:  750153 MB, non-trimmed:        0 B,   current rate:  11430 kB/s<br />
-     opos:  750153 MB, non-scraped:        0 B,   average rate:  50010 kB/s<br />
-non-tried:        0 B,  bad-sector:        0 B,     error rate:       0 B/s<br />
-  rescued:  750153 MB,   bad areas:          0,       run time:      4h 10m<br />
-pct rescued:  100.00%, read errors:          0, remaining time:         n/a<br />
-                               time since last successful read:          0s<br />
-Copying non-tried blocks&#8230; Pass 1 (forwards)<br />
-Finished</p>
+	<p>Cuando un disco empieza a fallar lo primero es sacar una copia completa a otro medio antes de que empeore, y trabajar después sobre esa copia. Esta receta explica cómo hacerlo con <code>ddrescue</code>.</p>
+<p><!--break--></p>
+<h2>Instalación</h2>
+<p>En Debian el paquete se llama <code>gddrescue</code>, aunque el comando es <code>ddrescue</code>:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>gddrescue</code></pre></figure></div>
+<h2>Volcar el disco a una imagen</h2>
+<p><strong>PRECAUCIÓN</strong>: Asegúrate de cuál es el dispositivo de origen (por ejemplo, con <code>lsblk</code> o <code>dmesg</code>) y de que el destino tiene espacio suficiente para la imagen completa.</p>
+<p>En este ejemplo se rescata la partición <code>/dev/sde1</code> a un fichero de imagen en otro disco:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>ddrescue <span class="nt">-f</span> <span class="nt">-n</span> /dev/sde1 /media/bob/BACKUP/disco.img /media/bob/BACKUP/disco.log
+<span class="go">GNU ddrescue 1.29
+Press Ctrl-C to interrupt
+     ipos:  750153 MB, non-trimmed:        0 B,   current rate:  11430 kB/s
+     opos:  750153 MB, non-scraped:        0 B,   average rate:  50010 kB/s
+non-tried:        0 B,  bad-sector:        0 B,     error rate:       0 B/s
+  rescued:  750153 MB,   bad areas:          0,       run time:      4h 10m
+pct rescued:  100.00%, read errors:          0, remaining time:         n/a
+                               time since last successful read:          0s
+Copying non-tried blocks... Pass 1 (forwards)
+Finished</span></code></pre></figure></div>
+<p>Los argumentos son:</p>
+<ul>
+	<li><code>-f</code>: fuerza la sobreescritura del destino. Solo es imprescindible cuando el destino es un dispositivo en lugar de un fichero.</li>
+	<li><code>-n</code>: omite la fase de «scraping», es decir, no insiste en las zonas más dañadas. Así se rescata primero todo lo que se puede leer sin problemas, que es lo más urgente si el disco se está muriendo.</li>
+	<li><code>/dev/sde1</code>: el dispositivo de origen.</li>
+	<li><code>disco.img</code>: la imagen de destino.</li>
+	<li><code>disco.log</code>: el «mapfile», donde <code>ddrescue</code> apunta qué zonas ha leído ya y cuáles han fallado. Permite interrumpir el proceso con <code>Ctrl-C</code> y retomarlo después ejecutando el mismo comando.</li>
+</ul>
+<p>En este caso se rescataron los 750 GB al 100% y sin errores de lectura (<code>bad-sector: 0 B</code>, <code>read errors: 0</code>).</p>
+<h2>Reintentar las zonas dañadas</h2>
+<p>Si la primera pasada deja sectores sin leer, se puede lanzar una segunda pasada con el mismo «mapfile». <code>ddrescue</code> solo intentará leer lo que falta:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>ddrescue <span class="nt">-d</span> <span class="nt">-r3</span> /dev/sde1 /media/bob/BACKUP/disco.img /media/bob/BACKUP/disco.log</code></pre></figure></div>
+<p><code>-d</code> lee directamente del dispositivo sin pasar por la caché del kernel y <code>-r3</code> reintenta 3 veces cada sector defectuoso.</p>
+<h2>Acceder a los datos</h2>
+<p>Como la imagen es de una partición, se puede montar directamente, en modo solo lectura para no modificarla:</p>
+<div class="console">
+<figure class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>mount <span class="nt">-o</span> loop,ro /media/bob/BACKUP/disco.img /mnt</code></pre></figure></div>
+<h2>Referencias</h2>
+<ul>
+	<li><a href="https://www.gnu.org/software/ddrescue/manual/ddrescue_manual.html"><span class="caps">GNU</span> ddrescue Manual</a></li>
+</ul>
       </div>
 
       
@@ -5306,12 +5332,12 @@ Finished</p>
       <hr/>
 
       <footer>
-        <p>&copy; 2025 CRySoL
+        <p>&copy; 2026 CRySoL
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>.
             See <a href="https://github.com/CRySoL/CRySoL.github.io/tree/master/source" target="_blank">site sources</a>.
           <br/>
-          Generated at 2025-11-21 05:25:01 -0600
+          Generated at 2026-10-30 06:40:41 -0500
           <br/>
           <a href="https://github.com/CRySoL/CRySoL.github.io/actions">
             <img src="https://github.com/CRySoL/CRySoL.github.io/workflows/Jekyll%20build/badge.svg" alt="_built"/>
